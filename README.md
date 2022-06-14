@@ -1,4 +1,4 @@
-# canopy_wind
+# canopy_wind_fire
 Stand-alone/column canopy wind and wildland fire wind adjustment factor model based on Massman et al. (2017).
 
 Author:
