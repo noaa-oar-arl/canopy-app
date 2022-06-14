@@ -29,13 +29,21 @@
 !       ***Need to mke this dynamic, e.g., canopy parameter look-up table for regional model application**
 !       ***Question:  Can we use GEDI information for canopy heights??***
 !       Example:  Hardwood Forest Type (Massman et al. and Katul et al.)
-        integer, parameter        ::    canlays=50         !Number of total canopy layers 
-        real(rk),    parameter    ::    hccm=2250.0        !Canopy Height (m)
-        real(rk),    parameter    ::    cdrag=0.15         !Drag coefficient (nondimensional)
-        real(rk),    parameter    ::    pai=4.93           !Plant/foliage area index (nondimensional)
-        real(rk),    parameter    ::    zcanmax=0.84       !Height of maximum foliage area density (z/h) (nondimensional)
-        real(rk),    parameter    ::    sigmau=0.13        !Standard deviation of shape function above zcanmax (z/h)
-        real(rk),    parameter    ::    sigma1=0.30        !Standard deviation of shape function below zcanmax (z/h)
+!        integer, parameter        ::    canlays=50         !Number of total canopy layers 
+!        real(rk),    parameter    ::    hccm=2250.0        !Canopy Height (m)
+!        real(rk),    parameter    ::    cdrag=0.15         !Drag coefficient (nondimensional)
+!        real(rk),    parameter    ::    pai=4.93           !Plant/foliage area index (nondimensional)
+!        real(rk),    parameter    ::    zcanmax=0.84       !Height of maximum foliage area density (z/h) (nondimensional)
+!        real(rk),    parameter    ::    sigmau=0.13        !Standard deviation of shape function above zcanmax (z/h)
+!        real(rk),    parameter    ::    sigma1=0.30        !Standard deviation of shape function below zcanmax (z/h)
+!       Example:  Aspen Forest Type (Massman et al. and Katul et al.)
+        integer, parameter        ::    canlays=50         !Number of total canopy layers
+        real(rk),    parameter    ::    hccm=1000.0        !Canopy Height (m)
+        real(rk),    parameter    ::    cdrag=0.20         !Drag coefficient (nondimensional)
+        real(rk),    parameter    ::    pai=3.28           !Plant/foliage area index (nondimensional)
+        real(rk),    parameter    ::    zcanmax=0.36       !Height of maximum foliage area density (z/h) (nondimensional)
+        real(rk),    parameter    ::    sigmau=0.60        !Standard deviation of shape function above zcanmax (z/h)
+        real(rk),    parameter    ::    sigma1=0.20        !Standard deviation of shape function below zcanmax (z/h)
 
         integer i,i0
         real(rk) :: zkcm       ( canlays )  ! in-canopy heights (cm)
@@ -84,6 +92,7 @@
                   z0ghccm, cdrag, pai, canWIND(i))
       end do
 
-      write(*,*)  'Canopy Wind Speed (cm/s):' , canWIND
+      write(*,*)  'Below and Above Canopy Wind Speed (cm/s):' , canWIND
+      write(*,*)  'Average Wind Speed (cm/s)', SUM(canWIND)/canlays
 
     end program canopy_driver
