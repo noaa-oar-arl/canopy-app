@@ -5,7 +5,7 @@ module canopy_wind_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-      SUBROUTINE CANOPY_WIND( HCCM, ZK, FAFRACK, UBZREF, Z0GHCCM, &
+      SUBROUTINE CANOPY_WIND( HCM, ZK, FAFRACK, UBZREF, Z0GHCM, &
                               CDRAG, PAI, CANWIND )
 
 !-----------------------------------------------------------------------
@@ -26,19 +26,19 @@ contains
 ! Arguments:
       INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 !     IN/OUT
-      REAL(RK),    INTENT( IN )  :: HCCM            ! Height of canopy top (cm)
-      REAL(RK),    INTENT( IN )  :: ZK              ! Below canopy height, z (cm)
+      REAL(RK),    INTENT( IN )  :: HCM             ! Height of canopy top (m)
+      REAL(RK),    INTENT( IN )  :: ZK              ! Below canopy height, z (m)
       REAL(RK),    INTENT( IN )  :: FAFRACK         ! Fractional (z) shapes of the 
-                                                ! plant surface distribution (nondimensional)
-      REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (cm/s)
-      REAL(RK),    INTENT( IN )  :: Z0GHCCM         ! Ratio of ground roughness length to canopy top height (nondimensional)
+                                                    ! plant surface distribution (nondimensional)
+      REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (m/s)
+      REAL(RK),    INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
       REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
       REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
-      REAL(RK),    INTENT( OUT ) :: CANWIND         ! Mean canopy wind speed at current z (cm/s)
+      REAL(RK),    INTENT( OUT ) :: CANWIND         ! Mean canopy wind speed at current z (m/s)
 !     Local variables
-      real(rk)                   :: ustrmod         ! Friction Velocity parameterization (cm/s)
-      real(rk)                   :: z0g             ! Ground roughness length based on z0g/HCCM ratio (cm)
-      real(rk)                   :: zkhccm          ! Current zk/hccm ratio (nondimensional)
+      real(rk)                   :: ustrmod         ! Friction Velocity parameterization (m/s)
+      real(rk)                   :: z0g             ! Ground roughness length based on z0g/HCCM ratio (m)
+      real(rk)                   :: zkhcm           ! Current zk/hcm ratio (nondimensional)
       real(rk)                   :: cstress         ! Suface stress at/above canopy height (nondimensional)
       real(rk)                   :: drag            ! Drag area index (i.e., wind speed attentuation) (nondimensional)
       real(rk)                   :: nrat            ! Ratio of drag/cstress (nondimensional)
@@ -48,12 +48,12 @@ contains
 !Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
 !(2017)  W.J. Massman, J.M. Forthofer, M.A. Finney.  https://doi.org/10.1139/cjfr-2016-0354
-    zkhccm=ZK/HCCM
-    z0g = Z0GHCCM*HCCM
+    zkhcm=ZK/HCM
+    z0g = Z0GHCM*HCM
 
    !Nondimensional canopy wind speed term that dominates near the ground:
-    if (ZK >= z0g .and. ZK <= HCCM) then
-    canbot = log(zkhccm/Z0GHCCM)/log(1.0/Z0GHCCM)
+    if (ZK >= z0g .and. ZK <= HCM) then
+    canbot = log(zkhcm/Z0GHCM)/log(1.0/Z0GHCM)
     else if (ZK >= 0.0 .and. ZK <= z0g) then
     canbot = 0.0  !No-slip condition at surface (u=0 at z=0)
     end if
@@ -62,11 +62,11 @@ contains
    !Assume the drag area distribution over depth of canopy can be approx. p1=0 (no shelter factor) and d1=0
    !(no drag coefficient relation to wind speed) -- thus no intergration then required in Eq. (4) of Massman et al.
    drag    = CDRAG*PAI
-   ustrmod = UBZREF*(0.38 - (0.38 + (0.40/log(Z0GHCCM)))*exp(-1.0*(15.0*drag)))
+   ustrmod = UBZREF*(0.38 - (0.38 + (0.40/log(Z0GHCM)))*exp(-1.0*(15.0*drag)))
    cstress = (2.0*(ustrmod**2.0))/(UBZREF**2.0)
    nrat   =  drag/cstress
    cantop = cosh(nrat*FAFRACK)/cosh(nrat)
-   if (ZK <= HCCM) then
+   if (ZK <= HCM) then
       CANWIND=UBZREF*canbot*cantop
     else
       CANWIND=UBZREF
