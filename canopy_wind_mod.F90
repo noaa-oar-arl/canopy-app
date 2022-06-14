@@ -27,27 +27,27 @@ contains
 !     IN/OUT
       REAL,    INTENT( IN )  :: HCCM            ! Height of canopy top (cm)
       REAL,    INTENT( IN )  :: ZK              ! Below canopy height, z (cm)
-      REAL,    INTENT( IN )  :: FAFRACK         ! Fractional (z) shape of the 
+      REAL,    INTENT( IN )  :: FAFRACK         ! Fractional (z) shapes of the 
                                                 ! plant surface distribution (nondimensional)
       REAL,    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (cm/s)
       REAL,    INTENT( IN )  :: Z0GHCCM         ! Ratio of ground roughness length to canopy top height (nondimensional)
       REAL,    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
       REAL,    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
       REAL,    INTENT( OUT ) :: CANWIND         ! Mean canopy wind speed at current z (cm/s)
-!     Local calculations
-      real(kind=dp)          :: ustrmod         ! Friction Velocity parameterization (cm/s)
-      real(kind=dp)          :: z0g             ! Ground roughness length based on z0g/HCCM ratio (cm)
-      real(kind=dp)          :: zkhccm          ! Current zk/hccm ratio (nondimensional)
-      real(kind=dp)          :: cstress         ! Suface stress at/above canopy height (nondimensional)
-      real(kind=dp)          :: drag            ! Drag area index (i.e., wind speed attentuation) (nondimensional)
-      real(kind=dp)          :: nrat            ! Ratio of drag/cstress (nondimensional)
-      real(kind=dp)          :: canbot          ! Logarithmic wind speed that is dominant near the ground (nondimensional)
-      real(kind=dp)          :: cantop          ! Hyperbolic cosine wind speed that is dominant near the top of canopy (nondimensional)
+!     Local variables
+      real                   :: ustrmod         ! Friction Velocity parameterization (cm/s)
+      real                   :: z0g             ! Ground roughness length based on z0g/HCCM ratio (cm)
+      real                   :: zkhccm          ! Current zk/hccm ratio (nondimensional)
+      real                   :: cstress         ! Suface stress at/above canopy height (nondimensional)
+      real                   :: drag            ! Drag area index (i.e., wind speed attentuation) (nondimensional)
+      real                   :: nrat            ! Ratio of drag/cstress (nondimensional)
+      real                   :: canbot          ! Logarithmic wind speed that is dominant near the ground (nondimensional)
+      real                   :: cantop          ! Hyperbolic cosine wind speed that is dominant near the top of canopy (nondimensional)
 
 !Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
 !(2017)  W.J. Massman, J.M. Forthofer, M.A. Finney.  https://doi.org/10.1139/cjfr-2016-0354
-    zkhccm=KZ/HCCM
+    zkhccm=ZK/HCCM
     z0g = Z0GHCCM*HCCM
 
    !Nondimensional canopy wind speed term that dominates near the ground:
@@ -71,5 +71,7 @@ contains
     else
       CANWIND=UBZREF
     end if
+    
+    END SUBROUTINE CANOPY_WIND
 
 end module canopy_wind_mod

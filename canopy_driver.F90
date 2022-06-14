@@ -29,8 +29,8 @@
 !       ***Need to mke this dynamic, e.g., canopy parameter look-up table for regional model application**
 !       ***Question:  Can we use GEDI information for canopy heights??***
 !       Example:  Hardwood Forest Type (Massman et al. and Katul et al.)
-        integer, parameter    ::    canlays=35         !Number of total canopy layers 
-        real,    parameter    ::    hccm=250.0         !Canopy Height (cm)
+        integer, parameter    ::    canlays=50         !Number of total canopy layers 
+        real,    parameter    ::    hccm=2250.0        !Canopy Height (m)
         real,    parameter    ::    cdrag=0.15         !Drag coefficient (nondimensional)
         real,    parameter    ::    pai=4.93           !Plant/foliage area index (nondimensional)
         real,    parameter    ::    zcanmax=0.84       !Height of maximum foliage area density (z/h) (nondimensional)
@@ -38,11 +38,19 @@
         real,    parameter    ::    sigma1=0.30        !Standard deviation of shape function below zcanmax (z/h)
 
         integer i,i0
-        real :: canWIND  ( canlays )  ! final mean canopy wind speeds (cm/s)
+        real :: zkcm       ( canlays )  ! in-canopy heights (cm)
+        real :: ztothc     ( canlays )  ! z/h
+        real :: fainc      ( canlays )  ! incremental foliage shape function
+        real :: fafracz    ( canlays )  ! incremental fractional foliage shape function
+        real :: fafraczInt ( canlays )  ! integral of incremental fractional foliage shape function
+        real :: canWIND    ( canlays )  ! final mean canopy wind speeds (cm/s)
+        real :: fatot                   ! integral of total fractional foliage shape function
 
 !     met 3D input profile data that should be passed to canopy calculations
       TYPE :: profile_type
-        real    :: zk           !below canopy heights for model (cm)
+           integer :: canlay       !profile layer for model
+           real    :: zk           !profile heights for model (m)
+           real    :: dzk          !profile height increments (m)
       end TYPE profile_type
 
       type(profile_type) :: profile( canlays )
@@ -54,16 +62,16 @@
       do i=1, canlays
         read(9, *) profile(i)
       end do
-
 ! ... initialize canopy model and integrate to get fractional plant area distribution functions
-
+      zkcm   = profile%zk*100.0 !convert to cm
+      ztothc = zkcm/hccm 
+      
  ! calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
       do i=1, canlays
-        ztothc(i) = z(i)/hccm
-        if (ztothc(i) >= zmaxrho .and. ztothc(i) <= 1.0) then
-           fainc(i) = exp((-1.0*((ztothc(i)-zmaxrho)**2.0))/sigmau**2.0)
-        else if (ztothc(i) >= 0.0 .and. ztothc(i) <= zmaxrho) then
-           fainc(i) = exp((-1.0*((zmaxrho-ztothc(i))**2.0))/sigma1**2.0)
+        if (ztothc(i) >= zcanmax .and. ztothc(i) <= 1.0) then
+           fainc(i) = exp((-1.0*((ztothc(i)-zcanmax)**2.0))/sigmau**2.0)
+        else if (ztothc(i) >= 0.0 .and. ztothc(i) <= zcanmax) then
+           fainc(i) = exp((-1.0*((zcanmax-ztothc(i))**2.0))/sigma1**2.0)
         end if
       end do
       fatot      = IntegrateTrapezoid(ztothc,fainc)
@@ -72,8 +80,7 @@
       do i=1, canlays
         fafracz(i) = fainc(i)/fatot
         fafraczInt(i) = IntegrateTrapezoid(ztothc(1:i),fafracz(1:i))
-        
-        call canopy_wind(hccm, profile%zk(i), fafraczInt(i), ubzref, &
+        call canopy_wind(hccm, zkcm(i), fafraczInt(i), ubzref, &
                   z0ghccm, cdrag, pai, canWIND(i))
       end do
 

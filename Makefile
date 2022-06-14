@@ -7,7 +7,7 @@ FCFLAGS = -g -c -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-er
 FLFLAGS =
 
 # source files and objects
-SRCS = canopy_wind_mod.F90 canopy_driver.F90
+SRCS = canopy_wind_mod.F90 canopy_utils_mod.F90 canopy_driver.F90
 
 # program name
 PROGRAM = canopy
