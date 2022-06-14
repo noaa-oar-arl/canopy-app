@@ -30,7 +30,7 @@
 !       ***Need to mke this dynamic, e.g., canopy parameter look-up table for regional model application**
 !       ***Question:  Can we use GEDI information for canopy heights??***
 !       Example:  Hardwood Forest Type (Massman et al. and Katul et al.)
-        integer, parameter        ::    canlays=50         !Number of total canopy layers 
+        integer, parameter        ::    canlays=50         !Number of total above and below canopy layers
         integer, parameter        ::    firetype=0         !1 = Above Canopy Fire; 0 = Below Canopy Fire
         real(rk),    parameter    ::    flameh=0.0         !Flame Height (m) -- Only for Above Canopy Fire
         real(rk),    parameter    ::    hcm=22.5           !Canopy Height (m)
@@ -50,7 +50,7 @@
 !        real(rk),    parameter    ::    sigmau=0.60        !Standard deviation of shape function above zcanmax (z/h)
 !        real(rk),    parameter    ::    sigma1=0.20        !Standard deviation of shape function below zcanmax (z/h)
 !       Example:  Corn Crop Type (Massman et al. and Katul et al.)
-!        integer, parameter        ::    canlays=50         !Number of total canopy layers
+!        integer, parameter        ::    canlays=50         !Number of total above and below canopy layers
 !        integer, parameter        ::    firetype=1         !1 = Above Canopy Fire; 0 = Below Canopy Fire
 !        real(rk),    parameter    ::    flameh=10.0        !Flame Height (m) -- Only for Above Canopy Fire (firetype=1)
 !        real(rk),    parameter    ::    hcm=2.2           !Canopy Height (m)
@@ -112,7 +112,7 @@
         call canopy_wind(hcm, zkcm(i), fafraczInt(i), ubzref, &
                   z0ghcm, cdrag, pai, canWIND(i))
       end do
-      print*, canmidpoint
+
       write(*,*)  'Below and Above (10-m) Canopy Wind Speeds (m/s):' , canWIND
       write(*,*)  'General Midpoint Sub-Canopy Average Wind Speed (m/s)', canWIND(canmidpoint)
 !      write(*,*)  'Sub(or Above)-Canopy Dependent WAF', SUM(canWIND)/canlays
