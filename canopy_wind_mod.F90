@@ -66,7 +66,6 @@ contains
    cstress = (2.0*(ustrmod**2.0))/(UBZREF**2.0)
    nrat   =  drag/cstress
    cantop = cosh(nrat*FAFRACK)/cosh(nrat)
-   print*,cantop
    if (ZK <= HCCM) then
       CANWIND=UBZREF*canbot*cantop
     else
