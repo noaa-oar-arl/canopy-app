@@ -2,7 +2,8 @@
 FC := gfortran
 
 # compile flags
-FCFLAGS = -g -c -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5
+#FCFLAGS = -g -c -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5
+FCFLAGS = -O3
 # link flags
 FLFLAGS =
 

@@ -16,12 +16,12 @@
 !      use canopy_waf_mod   !main canopy wind adjustment factor (WAF) model
 
       implicit none
-
+        INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 ! !....this block gives constant above canopy met conditions that should be passed
-        real,    parameter    ::    ubzref=100.0       !Above canopy/reference wind speed (cm/s)
+        real(rk),    parameter    ::    ubzref=100.0       !Above canopy/reference wind speed (cm/s)
 
 ! !....this block gives assumed constant parameters for in-canopy conditions 
-        real,    parameter    ::    z0ghccm=0.0025     !! ratio of ground roughness length to canopy top height
+        real(rk),    parameter    ::    z0ghccm=0.0025     !! ratio of ground roughness length to canopy top height
                                                        !  (default case: Approx. currently does not account for understory
                                                        !   variability)
 
@@ -29,28 +29,28 @@
 !       ***Need to mke this dynamic, e.g., canopy parameter look-up table for regional model application**
 !       ***Question:  Can we use GEDI information for canopy heights??***
 !       Example:  Hardwood Forest Type (Massman et al. and Katul et al.)
-        integer, parameter    ::    canlays=50         !Number of total canopy layers 
-        real,    parameter    ::    hccm=2250.0        !Canopy Height (m)
-        real,    parameter    ::    cdrag=0.15         !Drag coefficient (nondimensional)
-        real,    parameter    ::    pai=4.93           !Plant/foliage area index (nondimensional)
-        real,    parameter    ::    zcanmax=0.84       !Height of maximum foliage area density (z/h) (nondimensional)
-        real,    parameter    ::    sigmau=0.13        !Standard deviation of shape function above zcanmax (z/h)
-        real,    parameter    ::    sigma1=0.30        !Standard deviation of shape function below zcanmax (z/h)
+        integer, parameter        ::    canlays=50         !Number of total canopy layers 
+        real(rk),    parameter    ::    hccm=2250.0        !Canopy Height (m)
+        real(rk),    parameter    ::    cdrag=0.15         !Drag coefficient (nondimensional)
+        real(rk),    parameter    ::    pai=4.93           !Plant/foliage area index (nondimensional)
+        real(rk),    parameter    ::    zcanmax=0.84       !Height of maximum foliage area density (z/h) (nondimensional)
+        real(rk),    parameter    ::    sigmau=0.13        !Standard deviation of shape function above zcanmax (z/h)
+        real(rk),    parameter    ::    sigma1=0.30        !Standard deviation of shape function below zcanmax (z/h)
 
         integer i,i0
-        real :: zkcm       ( canlays )  ! in-canopy heights (cm)
-        real :: ztothc     ( canlays )  ! z/h
-        real :: fainc      ( canlays )  ! incremental foliage shape function
-        real :: fafracz    ( canlays )  ! incremental fractional foliage shape function
-        real :: fafraczInt ( canlays )  ! integral of incremental fractional foliage shape function
-        real :: canWIND    ( canlays )  ! final mean canopy wind speeds (cm/s)
-        real :: fatot                   ! integral of total fractional foliage shape function
+        real(rk) :: zkcm       ( canlays )  ! in-canopy heights (cm)
+        real(rk) :: ztothc     ( canlays )  ! z/h
+        real(rk) :: fainc      ( canlays )  ! incremental foliage shape function
+        real(rk) :: fafracz    ( canlays )  ! incremental fractional foliage shape function
+        real(rk) :: fafraczInt ( canlays )  ! integral of incremental fractional foliage shape function
+        real(rk) :: canWIND    ( canlays )  ! final mean canopy wind speeds (cm/s)
+        real(rk) :: fatot                   ! integral of total fractional foliage shape function
 
 !     met 3D input profile data that should be passed to canopy calculations
       TYPE :: profile_type
-           integer :: canlay       !profile layer for model
-           real    :: zk           !profile heights for model (m)
-           real    :: dzk          !profile height increments (m)
+           integer     :: canlay       !profile layer for model
+           real(rk)    :: zk           !profile heights for model (m)
+           real(rk)    :: dzk          !profile height increments (m)
       end TYPE profile_type
 
       type(profile_type) :: profile( canlays )

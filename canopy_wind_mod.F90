@@ -24,25 +24,26 @@ contains
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
 ! Arguments:
+      INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 !     IN/OUT
-      REAL,    INTENT( IN )  :: HCCM            ! Height of canopy top (cm)
-      REAL,    INTENT( IN )  :: ZK              ! Below canopy height, z (cm)
-      REAL,    INTENT( IN )  :: FAFRACK         ! Fractional (z) shapes of the 
+      REAL(RK),    INTENT( IN )  :: HCCM            ! Height of canopy top (cm)
+      REAL(RK),    INTENT( IN )  :: ZK              ! Below canopy height, z (cm)
+      REAL(RK),    INTENT( IN )  :: FAFRACK         ! Fractional (z) shapes of the 
                                                 ! plant surface distribution (nondimensional)
-      REAL,    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (cm/s)
-      REAL,    INTENT( IN )  :: Z0GHCCM         ! Ratio of ground roughness length to canopy top height (nondimensional)
-      REAL,    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
-      REAL,    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
-      REAL,    INTENT( OUT ) :: CANWIND         ! Mean canopy wind speed at current z (cm/s)
+      REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (cm/s)
+      REAL(RK),    INTENT( IN )  :: Z0GHCCM         ! Ratio of ground roughness length to canopy top height (nondimensional)
+      REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
+      REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
+      REAL(RK),    INTENT( OUT ) :: CANWIND         ! Mean canopy wind speed at current z (cm/s)
 !     Local variables
-      real                   :: ustrmod         ! Friction Velocity parameterization (cm/s)
-      real                   :: z0g             ! Ground roughness length based on z0g/HCCM ratio (cm)
-      real                   :: zkhccm          ! Current zk/hccm ratio (nondimensional)
-      real                   :: cstress         ! Suface stress at/above canopy height (nondimensional)
-      real                   :: drag            ! Drag area index (i.e., wind speed attentuation) (nondimensional)
-      real                   :: nrat            ! Ratio of drag/cstress (nondimensional)
-      real                   :: canbot          ! Logarithmic wind speed that is dominant near the ground (nondimensional)
-      real                   :: cantop          ! Hyperbolic cosine wind speed that is dominant near the top of canopy (nondimensional)
+      real(rk)                   :: ustrmod         ! Friction Velocity parameterization (cm/s)
+      real(rk)                   :: z0g             ! Ground roughness length based on z0g/HCCM ratio (cm)
+      real(rk)                   :: zkhccm          ! Current zk/hccm ratio (nondimensional)
+      real(rk)                   :: cstress         ! Suface stress at/above canopy height (nondimensional)
+      real(rk)                   :: drag            ! Drag area index (i.e., wind speed attentuation) (nondimensional)
+      real(rk)                   :: nrat            ! Ratio of drag/cstress (nondimensional)
+      real(rk)                   :: canbot          ! Logarithmic wind speed that is dominant near the ground (nondimensional)
+      real(rk)                   :: cantop          ! Hyperbolic cosine wind speed that is dominant near the top of canopy (nondimensional)
 
 !Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
@@ -65,7 +66,7 @@ contains
    cstress = (2.0*(ustrmod**2.0))/(UBZREF**2.0)
    nrat   =  drag/cstress
    cantop = cosh(nrat*FAFRACK)/cosh(nrat)
-
+   print*,cantop
    if (ZK <= HCCM) then
       CANWIND=UBZREF*canbot*cantop
     else
