@@ -17,7 +17,7 @@
 
       implicit none
         INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
-! !....this block gives constant above canopy reference conditions that should be passed
+! !....this block gives constant above canopy reference conditions that should be passed (assume 10-m winds)
         real(rk),    parameter    ::    ubzref=10.0     !Above canopy/reference 10-m model wind speed (m/s)
         real(rk),    parameter    ::    href=10.0       !Reference Height above canopy @ 10 m wind ref  (m)
 
