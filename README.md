@@ -1,5 +1,7 @@
 # canopy_wind
-Stand-alone/column canopy wind for wildland fire spread model applications.  Model based on Massman et al. (2017).
+Stand-alone/column canopy winds and Wind Adjustment Factor (WAF) for wildland fire spread model applications.  
+
+Model based on Massman et al. (2017).
 
 Author:
 
