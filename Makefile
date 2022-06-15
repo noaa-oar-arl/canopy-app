@@ -8,7 +8,7 @@ FCFLAGS = -O3
 FLFLAGS =
 
 # source files and objects
-SRCS = canopy_wind_mod.F90 canopy_utils_mod.F90 canopy_driver.F90
+SRCS = canopy_utils_mod.F90 canopy_wind_mod.F90 canopy_waf_mod.F90 canopy_driver.F90
 
 # program name
 PROGRAM = canopy

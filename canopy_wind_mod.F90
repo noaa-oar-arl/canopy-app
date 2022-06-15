@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
       SUBROUTINE CANOPY_WIND( HCM, ZK, FAFRACK, UBZREF, Z0GHCM, &
-                              CDRAG, PAI, CANWIND )
+                              CDRAG, PAI, CANBOT_OUT, CANTOP_OUT, CANWIND )
 
 !-----------------------------------------------------------------------
  
@@ -34,6 +34,8 @@ contains
       REAL(RK),    INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
       REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
       REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
+      REAL(RK),    INTENT( OUT ) :: CANBOT_OUT      ! Canopy bottom wind reduction factor = canbot (nondimensional)
+      REAL(RK),    INTENT( OUT ) :: CANTOP_OUT      ! Canopy top wind reduction factor = cantop    (nondimensional)
       REAL(RK),    INTENT( OUT ) :: CANWIND         ! Mean canopy wind speed at current z (m/s)
 !     Local variables
       real(rk)                   :: ustrmod         ! Friction Velocity parameterization (m/s)
@@ -58,6 +60,7 @@ contains
     canbot = 0.0  !No-slip condition at surface (u=0 at z=0)
     end if
 
+    CANBOT_OUT=canbot
    !Nondimensional canopy wind speed term that dominates near the top of the canopy:
    !Assume the drag area distribution over depth of canopy can be approx. p1=0 (no shelter factor) and d1=0
    !(no drag coefficient relation to wind speed) -- thus no intergration then required in Eq. (4) of Massman et al.
@@ -66,6 +69,8 @@ contains
    cstress = (2.0*(ustrmod**2.0))/(UBZREF**2.0)
    nrat   =  drag/cstress
    cantop = cosh(nrat*FAFRACK)/cosh(nrat)
+   CANTOP_out = cantop
+
    if (ZK <= HCM) then
       CANWIND=UBZREF*canbot*cantop
     else

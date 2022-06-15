@@ -13,36 +13,37 @@
 !-------------------------------------------------------------
        use canopy_utils     !utilities for canopy models
        use canopy_wind_mod  !main canopy wind model
-!       use canopy_waf_mod   !main Wind Adjustment Factor (WAF) model
+       use canopy_waf_mod   !main Wind Adjustment Factor (WAF) model
 
       implicit none
         INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
-! !....this block gives constant above canopy met conditions that should be passed
+! !....this block gives constant above canopy reference conditions that should be passed
         real(rk),    parameter    ::    ubzref=10.0     !Above canopy/reference 10-m model wind speed (m/s)
-        real(rk),    parameter    ::    href=10.0       !Reference Height above canopy  (m)
+        real(rk),    parameter    ::    href=10.0       !Reference Height above canopy @ 10 m wind ref  (m)
 
-! !....this block gives assumed constant parameters for in-canopy conditions 
-        real(rk),    parameter    ::    z0ghcm=0.0025     !! ratio of ground roughness length to canopy top height
-                                                       !  (default case: Approx. currently does not account for understory
-                                                       !   variability)
+! !....this block gives assumed constant parameters for in-canopy conditions (Unavoidable Uncertainties!!!)
+        real(rk),    parameter    ::    z0ghcm=0.0025   ! ratio of ground roughness length to canopy top height
+                                                        !  (default case: Approx. currently does not account for understory
+                                                        !   variability)
+        real(rk),    parameter    ::   lamdars=1.25    ! Influence function associated with roughness sublayer (nondimensional)
 
 ! !....this block gives vegetion-type canopy dependent  parameters based on Katul et al. (2004).
 !       ***Need to mke this dynamic, e.g., canopy parameter look-up table for regional model application**
 !       ***Question:  Can we use GEDI information for canopy heights??***
 !       Example:  Hardwood Forest Type (Massman et al. and Katul et al.)
-        integer, parameter        ::    canlays=50         !Number of total above and below canopy layers
-        integer, parameter        ::    firetype=0         !1 = Above Canopy Fire; 0 = Below Canopy Fire
-        real(rk),    parameter    ::    flameh=0.0         !Flame Height (m) -- Only for Above Canopy Fire
-        real(rk),    parameter    ::    hcm=22.5           !Canopy Height (m)
-        real(rk),    parameter    ::    cdrag=0.15         !Drag coefficient (nondimensional)
-        real(rk),    parameter    ::    pai=4.93           !Plant/foliage area index (nondimensional)
-        real(rk),    parameter    ::    zcanmax=0.84       !Height of maximum foliage area density (z/h) (nondimensional)
-        real(rk),    parameter    ::    sigmau=0.13        !Standard deviation of shape function above zcanmax (z/h)
-        real(rk),    parameter    ::    sigma1=0.30        !Standard deviation of shape function below zcanmax (z/h)
+!        integer, parameter        ::    canlays=50         !Number of total above and below canopy layers (input_profile.txt)
+!        integer, parameter        ::    firetype=0         !1 = Above Canopy Fire; 0 = Below Canopy Fire
+!        real(rk),    parameter    ::    flameh=2.0         !Flame Height (m) 
+!        real(rk),    parameter    ::    hcm=22.5           !Canopy Height (m)
+!        real(rk),    parameter    ::    cdrag=0.15         !Drag coefficient (nondimensional)
+!        real(rk),    parameter    ::    pai=4.93           !Plant/foliage area index (nondimensional)
+!        real(rk),    parameter    ::    zcanmax=0.84       !Height of maximum foliage area density (z/h) (nondimensional)
+!        real(rk),    parameter    ::    sigmau=0.13        !Standard deviation of shape function above zcanmax (z/h)
+!        real(rk),    parameter    ::    sigma1=0.30        !Standard deviation of shape function below zcanmax (z/h)
 !       Example:  Aspen Forest Type (Massman et al. and Katul et al.)
 !        integer, parameter        ::    canlays=50         !Number of total above and below canopy layers
 !        integer, parameter        ::    firetype=0         !1 = Above Canopy Fire; 0 = Below Canopy Fire
-!        real(rk),    parameter    ::    flameh=0.0         !Flame Height (m) -- Only for Above Canopy Fire
+!        real(rk),    parameter    ::    flameh=2.0         !Flame Height (m) 
 !        real(rk),    parameter    ::    hcm=10.0           !Canopy Height (m)
 !        real(rk),    parameter    ::    cdrag=0.20         !Drag coefficient (nondimensional)
 !        real(rk),    parameter    ::    pai=3.28           !Plant/foliage area index (nondimensional)
@@ -50,15 +51,15 @@
 !        real(rk),    parameter    ::    sigmau=0.60        !Standard deviation of shape function above zcanmax (z/h)
 !        real(rk),    parameter    ::    sigma1=0.20        !Standard deviation of shape function below zcanmax (z/h)
 !       Example:  Corn Crop Type (Massman et al. and Katul et al.)
-!        integer, parameter        ::    canlays=50         !Number of total above and below canopy layers
-!        integer, parameter        ::    firetype=1         !1 = Above Canopy Fire; 0 = Below Canopy Fire
-!        real(rk),    parameter    ::    flameh=10.0        !Flame Height (m) -- Only for Above Canopy Fire (firetype=1)
-!        real(rk),    parameter    ::    hcm=2.2           !Canopy Height (m)
-!        real(rk),    parameter    ::    cdrag=0.30         !Drag coefficient (nondimensional)
-!        real(rk),    parameter    ::    pai=2.94           !Plant/foliage area index (nondimensional)
-!        real(rk),    parameter    ::    zcanmax=0.94       !Height of maximum foliage area density (z/h) (nondimensional)
-!        real(rk),    parameter    ::    sigmau=0.03        !Standard deviation of shape function above zcanmax (z/h)
-!        real(rk),    parameter    ::    sigma1=0.60        !Standard deviation of shape function below zcanmax (z/h)
+        integer, parameter        ::    canlays=50         !Number of total above and below canopy layers
+        integer, parameter        ::    firetype=1         !1 = Above Canopy Fire; 0 = Below Canopy Fire
+        real(rk),    parameter    ::    flameh=2.0         !Flame Height (m) 
+        real(rk),    parameter    ::    hcm=2.2            !Canopy Height (m)
+        real(rk),    parameter    ::    cdrag=0.30         !Drag coefficient (nondimensional)
+        real(rk),    parameter    ::    pai=2.94           !Plant/foliage area index (nondimensional)
+        real(rk),    parameter    ::    zcanmax=0.94       !Height of maximum foliage area density (z/h) (nondimensional)
+        real(rk),    parameter    ::    sigmau=0.03        !Standard deviation of shape function above zcanmax (z/h)
+        real(rk),    parameter    ::    sigma1=0.60        !Standard deviation of shape function below zcanmax (z/h)
 
         integer i,i0
         real(rk) :: zkcm       ( canlays )  ! in-canopy heights (m)
@@ -67,11 +68,17 @@
         real(rk) :: fainc      ( canlays )  ! incremental foliage shape function
         real(rk) :: fafracz    ( canlays )  ! incremental fractional foliage shape function
         real(rk) :: fafraczInt ( canlays )  ! integral of incremental fractional foliage shape function
+        real(rk) :: canBOT     ( canlays )  ! Canopy bottom wind reduction factors (nondimensional)
+        real(rk) :: canTOP     ( canlays )  ! Canopy top wind reduction factors (nondimensional)
         real(rk) :: canWIND    ( canlays )  ! final mean canopy wind speeds (m/s)
         real(rk) :: fatot                   ! integral of total fractional foliage shape function
 
+        integer  ::    cansublays           ! number of sub-canopy layers
         integer  ::    canmidpoint          ! indice of the sub-canopy midpoint
-        
+        integer  ::    flamelays            ! number of flame layers
+        integer  ::    midflamepoint        ! indice of the mid-flame point
+        real(rk) ::    waf                  ! Calculated Wind Adjustment Factor
+
 !     met 3D input profile data that should be passed to canopy calculations
       TYPE :: profile_type
            integer     :: canlay       !profile layer for model
@@ -93,8 +100,10 @@
       zkcm   = profile%zk 
       ztothc = zkcm/hcm 
       resz   = profile%dzk
-      canmidpoint = (hcm/resz(canlays))/2
-
+      cansublays  = hcm/resz(canlays) 
+      canmidpoint = cansublays/2
+      flamelays    = flameh/resz(canlays)
+      midflamepoint   = flamelays/2
  ! calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
       do i=1, canlays
         if (ztothc(i) >= zcanmax .and. ztothc(i) <= 1.0) then
@@ -110,11 +119,16 @@
         fafracz(i) = fainc(i)/fatot
         fafraczInt(i) = IntegrateTrapezoid(ztothc(1:i),fafracz(1:i))
         call canopy_wind(hcm, zkcm(i), fafraczInt(i), ubzref, &
-                  z0ghcm, cdrag, pai, canWIND(i))
+                  z0ghcm, cdrag, pai, canBOT(i), canTOP(i), canWIND(i))
       end do
 
       write(*,*)  'Below and Above (10-m) Canopy Wind Speeds (m/s):' , canWIND
-      write(*,*)  'General Midpoint Sub-Canopy Average Wind Speed (m/s)', canWIND(canmidpoint)
-!      write(*,*)  'Sub(or Above)-Canopy Dependent WAF', SUM(canWIND)/canlays
+      write(*,*)  '"Midpoint" Sub-Canopy Average Wind Speed (m/s)', canWIND(canmidpoint)
+      
+      call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), & 
+                      ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, & 
+                      canBOT(midflamepoint), canTOP(midflamepoint), waf)
+      
+            write(*,*)  'Wind Adjustment Factor:', waf
 
     end program canopy_driver
