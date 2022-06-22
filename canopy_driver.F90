@@ -123,7 +123,6 @@
       end do
 
       write(*,*)  'Below and Above (10-m) Canopy Wind Speeds (m/s):' , canWIND
-      write(*,*)  '"Midpoint" Sub-Canopy Average Wind Speed (m/s)', canWIND(canmidpoint)
       
       call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), & 
                       ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, & 
