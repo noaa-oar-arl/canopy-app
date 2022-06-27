@@ -3,18 +3,14 @@
 #
 
 # Compiler
-ifndef FC
-  FC := gfortran
-endif
+FC ?= gfortran
 ifeq ($(FC), f77)  # override possible Make default
   FC := gfortran
 endif
 $(info FC setting: '$(FC)')
 
-ifndef DEBUG
-  # Default to non-debug build
-  DEBUG := 0
-endif
+# Default to non-debug build
+DEBUG ?= 0
 
 # Compile flags
 ifeq ($(DEBUG), 1)
