@@ -124,8 +124,9 @@
       end do
 
       write(*,*)  'Below and Above (10-m) Canopy Wind Speeds (m/s):'
+      write(*,'(a6, a6, a15)') 'z (m)', 'z/hc', 'U (m/s)'
       do i = 1 , canLays
-        write(*,'(f6.2, es15.7)') ztothc(i), canWIND(i)
+        write(*,'(f6.2, f6.2, es15.7)') zkcm(i), ztothc(i), canWIND(i)
       end do
       
       call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), & 
