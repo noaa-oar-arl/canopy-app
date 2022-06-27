@@ -3,7 +3,13 @@
 #
 
 # Compiler
-FC := gfortran
+ifndef FC
+  FC := gfortran
+endif
+ifeq ($(FC), f77)  # override possible Make default
+  FC := gfortran
+endif
+$(info FC setting: '$(FC)')
 
 ifndef DEBUG
   # Default to non-debug build

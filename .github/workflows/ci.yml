@@ -14,11 +14,17 @@ jobs:
       - name: Debug compile and run
         run: |
           make clean
-          DEBUG=1 make
+          make
           ./canopy
+        env:
+          DEBUG: 1
+          FC: ${{ matrix.compiler }}
 
       - name: Non-debug compile and run
         run: |
           make clean
-          DEBUG=0 make
+          make
           ./canopy
+        env:
+          DEBUG: 0
+          FC: ${{ matrix.compiler }}
