@@ -102,7 +102,7 @@
       resz   = profile%dzk
       cansublays  = floor(hcm/resz(canlays))
       canmidpoint = cansublays/2
-      flamelays    = nint(flameh/resz(canlays))
+      flamelays    = floor(flameh/resz(canlays))
       midflamepoint   = flamelays/2
  ! calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
       fainc = 0  ! initialize
