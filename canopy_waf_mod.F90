@@ -48,7 +48,7 @@ contains
       REAL(RK),    INTENT( IN )  :: CANTOPMID       ! Mid-flame canopy top wind reduction factor (nondimensional)
       REAL(RK),    INTENT( OUT ) :: WAF             ! Wind Adjustment Factor (nondimensional)
 !     Local variables
-      real(rk)                   :: zkhcm           ! Current zk/hcm ratio (nondimensional)
+      ! real(rk)                   :: zkhcm           ! Current zk/hcm ratio (nondimensional)
       real(rk)                   :: ustrmod         ! Friction Velocity parameterization (m/s)
       real(rk)                   :: dha             ! First term A in zero plane displacement height (d/h) (nondimensional)
       real(rk)                   :: dhb             ! Second term B in zero plane displacement height (d/h) (nondimensional)
