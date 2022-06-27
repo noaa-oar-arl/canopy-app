@@ -109,7 +109,7 @@
       do i=1, canlays
         if (ztothc(i) >= zcanmax .and. ztothc(i) <= 1.0) then
            fainc(i) = exp((-1.0*((ztothc(i)-zcanmax)**2.0))/sigmau**2.0)
-        else if (ztothc(i) >= 0.0 .and. ztothc(i) < zcanmax) then
+        else if (ztothc(i) >= 0.0 .and. ztothc(i) <= zcanmax) then
            fainc(i) = exp((-1.0*((zcanmax-ztothc(i))**2.0))/sigma1**2.0)
         end if
       end do

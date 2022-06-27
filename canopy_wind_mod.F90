@@ -56,7 +56,7 @@ contains
     !Nondimensional canopy wind speed term that dominates near the ground:
     if (ZK >= z0g .and. ZK <= HCM) then
       canbot = log(zkhcm/Z0GHCM)/log(1.0_rk/Z0GHCM)
-    else if (ZK >= 0 .and. ZK < z0g) then
+    else if (ZK >= 0 .and. ZK <= z0g) then
       canbot = 0.0  !No-slip condition at surface (u=0 at z=0)
     else
       canbot = 1  ! should be zk > hcm
