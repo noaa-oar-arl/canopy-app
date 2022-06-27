@@ -1,28 +1,43 @@
-# compiler
+#
+# Use `DEBUG=1 make` for a debug build
+#
+
+# Compiler
 FC := gfortran
 
-# compile flags
-#FCFLAGS = -g -c -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5
-FCFLAGS = -O3
-# link flags
-FLFLAGS =
+ifndef DEBUG
+  # Default to non-debug build
+  DEBUG := 0
+endif
 
-# source files and objects
-SRCS = canopy_utils_mod.F90 canopy_wind_mod.F90 canopy_waf_mod.F90 canopy_driver.F90
+# Compile flags
+ifeq ($(DEBUG), 1)
+  FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5
+else ifeq ($(DEBUG), 0)
+  FCFLAGS := -O3
+else
+  $(error invalid setting for DEBUG, should be 0 or 1 but is '$(DEBUG)')
+endif
+$(info DEBUG setting: '$(DEBUG)')
 
-# program name
-PROGRAM = canopy
+# Link flags
+FLFLAGS :=
 
+# Source objects
+OBJS := canopy_utils_mod.o canopy_wind_mod.o canopy_waf_mod.o canopy_driver.o
+
+# Program name
+PROGRAM := canopy
+
+# Targets
+.PHONY: all clean
 all: $(PROGRAM)
 
-$(PROGRAM): $(SRCS)
-	$(FC) $(FLFLAGS) -o $@ $^
-
-%.mod: %.F90
-	$(FC) $(FCFLAGS) -o $@ $<
+$(PROGRAM): $(OBJS)
+	$(FC) $(FCFLAGS) $^ -o $@ $(FLFLAGS)
 
 %.o: %.F90
-	$(FC) $(FCFLAGS) -o $@ $<
+	$(FC) $(FCFLAGS) -c $<
 
 clean:
 	rm -f *.o *.mod $(PROGRAM)
