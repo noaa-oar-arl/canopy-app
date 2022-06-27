@@ -61,7 +61,7 @@
         real(rk),    parameter    ::    sigmau=0.03        !Standard deviation of shape function above zcanmax (z/h)
         real(rk),    parameter    ::    sigma1=0.60        !Standard deviation of shape function below zcanmax (z/h)
 
-        integer i,i0
+        integer i,i0,j
         real(rk) :: zkcm       ( canlays )  ! in-canopy heights (m)
         real(rk) :: resz       ( canlays )  ! canopy height resolution (m)
         real(rk) :: ztothc     ( canlays )  ! z/h
@@ -129,5 +129,13 @@
                       canBOT(midflamepoint), canTOP(midflamepoint), waf)
       
             write(*,*)  'Wind Adjustment Factor:', waf
+
+! save as text file (added by W. Hung)
+      open(10, file='canopy_wind_output.txt')
+      write(10, '(A5,3X,A8)') 'Layer', 'WS (m/s)'
+      do j=1, 50
+        write(10, *)  j, canWIND(j)
+      end do
+      write(10, *)  'WAF', waf
 
     end program canopy_driver
