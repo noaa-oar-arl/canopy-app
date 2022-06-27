@@ -100,9 +100,9 @@
       zkcm   = profile%zk 
       ztothc = zkcm/hcm 
       resz   = profile%dzk
-      cansublays  = ceiling(hcm/resz(canlays))
+      cansublays  = floor(hcm/resz(canlays))
       canmidpoint = cansublays/2
-      flamelays    = ceiling(flameh/resz(canlays))
+      flamelays    = nint(flameh/resz(canlays))
       midflamepoint   = flamelays/2
  ! calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
       fainc = 0  ! initialize
