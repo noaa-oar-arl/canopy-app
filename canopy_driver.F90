@@ -17,8 +17,13 @@
 
       implicit none
         INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
+! !....this block defines geographic domain of inputs (CONUS, 25-65N, 50-150W, 0.1 degree resolution)
+        integer, parameter        ::    nlat=401        !length of x coordinate
+        integer, parameter        ::    nlon=1001       !length of y coordinate
+        
 ! !....this block gives constant above canopy reference conditions that should be passed (assume 10-m winds)
-        real(rk),    parameter    ::    ubzref=10.0     !Above canopy/reference 10-m model wind speed (m/s)
+!        real(rk),    parameter    ::    ubzref=10.0     !Above canopy/reference 10-m model wind speed (m/s)
+        real(rk)                  ::    ubzref          !Above canopy/reference 10-m model wind speed (m/s)
         real(rk),    parameter    ::    href=10.0       !Reference Height above canopy @ 10 m wind ref  (m)
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (Unavoidable Uncertainties!!!)
@@ -54,7 +59,8 @@
         integer, parameter        ::    canlays=50         !Number of total above and below canopy layers
         integer, parameter        ::    firetype=1         !1 = Above Canopy Fire; 0 = Below Canopy Fire
         real(rk),    parameter    ::    flameh=2.0         !Flame Height (m) 
-        real(rk),    parameter    ::    hcm=2.2            !Canopy Height (m)
+!        real(rk),    parameter    ::    hcm=2.2            !Canopy Height (m)
+        real(rk)                  ::    hcm                !Canopy Height (m)
         real(rk),    parameter    ::    cdrag=0.30         !Drag coefficient (nondimensional)
         real(rk),    parameter    ::    pai=2.94           !Plant/foliage area index (nondimensional)
         real(rk),    parameter    ::    zcanmax=0.94       !Height of maximum foliage area density (z/h) (nondimensional)
@@ -70,14 +76,14 @@
         real(rk) :: fafraczInt ( canlays )  ! integral of incremental fractional foliage shape function
         real(rk) :: canBOT     ( canlays )  ! Canopy bottom wind reduction factors (nondimensional)
         real(rk) :: canTOP     ( canlays )  ! Canopy top wind reduction factors (nondimensional)
-        real(rk) :: canWIND    ( canlays )  ! final mean canopy wind speeds (m/s)
         real(rk) :: fatot                   ! integral of total fractional foliage shape function
+        real(rk) :: canWIND    ( canlays, nlat*nlon )  ! final mean canopy wind speeds (m/s)        
 
         integer  ::    cansublays           ! number of sub-canopy layers
         integer  ::    canmidpoint          ! indice of the sub-canopy midpoint
         integer  ::    flamelays            ! number of flame layers
         integer  ::    midflamepoint        ! indice of the mid-flame point
-        real(rk) ::    waf                  ! Calculated Wind Adjustment Factor
+        real(rk) ::    waf     (nlat*nlon)  ! Calculated Wind Adjustment Factor
 
 !     met 3D input profile data that should be passed to canopy calculations
       TYPE :: profile_type
@@ -87,6 +93,16 @@
       end TYPE profile_type
 
       type(profile_type) :: profile( canlays )
+      
+!     2D input variables that should be passed to canopy calculations
+      TYPE :: variable_type
+           real(rk)    :: lat
+           real(rk)    :: lon
+           real(rk)    :: fh
+           real(rk)    :: ws
+      end TYPE variable_type
+
+      type(variable_type) :: variables(nlat*nlon)      
 
 
 ! ... read canopy profile data that should be passed
@@ -96,51 +112,77 @@
       do i=1, canlays
         read(9, *) profile(i)
       end do
+! ... read canopy height and reference 10-m wind data
+      open(8,  file='input_variables.txt',  status='old')
+      i0 = 0
+      read(8,*,iostat=i0)  ! skip headline
+      do loc=1, nlat*nlon
+        read(8, *) variables(loc)
+      end do
+
+
+      do loc=1, nlat*nlon
+        hcm    = variables(loc)%fh
+        ubzref = variables(loc)%ws
+
 ! ... initialize canopy model and integrate to get fractional plant area distribution functions
-      zkcm   = profile%zk 
-      ztothc = zkcm/hcm 
-      resz   = profile%dzk
-      cansublays  = floor(hcm/resz(canlays))
-      canmidpoint = cansublays/2
-      flamelays    = floor(flameh/resz(canlays))
-      midflamepoint   = flamelays/2
- ! calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
-      fainc = 0  ! initialize
-      do i=1, canlays
-        if (ztothc(i) >= zcanmax .and. ztothc(i) <= 1.0) then
-           fainc(i) = exp((-1.0*((ztothc(i)-zcanmax)**2.0))/sigmau**2.0)
-        else if (ztothc(i) >= 0.0 .and. ztothc(i) <= zcanmax) then
-           fainc(i) = exp((-1.0*((zcanmax-ztothc(i))**2.0))/sigma1**2.0)
-        end if
-      end do
-      fatot = IntegrateTrapezoid(ztothc,fainc)
+        zkcm   = profile%zk 
+        ztothc = zkcm/hcm 
+        resz   = profile%dzk
+        cansublays  = floor(hcm/resz(canlays))
+        canmidpoint = cansublays/2
+        flamelays    = floor(flameh/resz(canlays))
+        midflamepoint   = flamelays/2
+! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
+        fainc = 0  ! initialize
+        do i=1, canlays
+          if (ztothc(i) >= zcanmax .and. ztothc(i) <= 1.0) then
+             fainc(i) = exp((-1.0*((ztothc(i)-zcanmax)**2.0))/sigmau**2.0)
+          else if (ztothc(i) >= 0.0 .and. ztothc(i) <= zcanmax) then
+             fainc(i) = exp((-1.0*((zcanmax-ztothc(i))**2.0))/sigma1**2.0)
+          end if
+        end do
+        fatot = IntegrateTrapezoid(ztothc,fainc)
 
-! calculate plant distribution function and in-canopy wind speeds at z
-      do i=1, canlays
-        fafracz(i) = fainc(i)/fatot
-        fafraczInt(i) = IntegrateTrapezoid(ztothc(1:i),fafracz(1:i))
-        call canopy_wind(hcm, zkcm(i), fafraczInt(i), ubzref, &
-                  z0ghcm, cdrag, pai, canBOT(i), canTOP(i), canWIND(i))
-      end do
+! ... calculate plant distribution function and in-canopy wind speeds at z
+        do i=1, canlays
+          fafracz(i) = fainc(i)/fatot
+          fafraczInt(i) = IntegrateTrapezoid(ztothc(1:i),fafracz(1:i))
+          call canopy_wind(hcm, zkcm(i), fafraczInt(i), ubzref, &
+                    z0ghcm, cdrag, pai, canBOT(i), canTOP(i), canWIND(i, loc))
+        end do
 
-      write(*,*)  'Below and Above (10-m) Canopy Wind Speeds (m/s):'
-      write(*,'(a6, a6, a15)') 'z (m)', 'z/hc', 'WS (m/s)'
-      do i = 1 , canLays
-        write(*,'(f6.2, f6.2, es15.7)') zkcm(i), ztothc(i), canWIND(i)
-      end do
+!        write(*, '(a10, f7.1, X, a10, f7.1)')  'Latitude:', variables(loc)%lat, 'Longitude:', variables(loc)%lon
+!        write(*,*)  'Below and Above (10-m) Canopy Wind Speeds (m/s):'
+!        write(*,'(a6, a6, a15)') 'z (m)', 'z/hc', 'WS (m/s)'
+!        do i = 1 , canLays
+!          write(*,'(f6.2, f6.2, es15.7)') zkcm(i), ztothc(i), canWIND(i, loc)
+!        end do
       
-      call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), & 
-                      ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, & 
-                      canBOT(midflamepoint), canTOP(midflamepoint), waf)
+        call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), & 
+                        ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, & 
+                        canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
       
-            write(*,*)  'Wind Adjustment Factor:', waf
-
-! save as text file
-      open(10, file='canopy_wind_output.txt')
-      write(10, '(a6, a6, a15)') 'z (m)', 'z/hc', 'WS (m/s)'
-      do i=1, canLays
-        write(10, '(f6.2, f6.2, es15.7)')  zkcm(i), ztothc(i), canWIND(i)
+!            write(*,*)  'Wind Adjustment Factor:', waf(loc)
       end do
-      write(10, *)  'WAF', waf
+
+
+! ... save as text file
+      open(10, file='output_canopy_wind.txt')
+      write(10, '(a30, X, f6.1, a2)') 'Reference height, h:', href, 'm'
+      write(10, '(a30, X, i6)') 'Number of in-canopy layers:', canlays
+      write(10, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'WS (m/s)'
+      do loc=1, nlat*nlon
+        do i=1, canlays
+          write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, profile(i)%zk, canWIND(i, loc)
+        end do
+      end do
+
+      open(11, file='output_waf.txt')
+      write(11, '(a30, X, f6.1)') 'Reference height, h (m):', href
+      write(11, '(a8, a9, a19, a11)') 'Lat', 'Lon', 'Canopy height (m)', 'WAF'
+      do loc=1, nlat*nlon
+        write(11, '(f8.2, f9.2, f19.2, f11.7)')  variables(loc)%lat, variables(loc)%lon, variables(loc)%fh, waf(loc)
+      end do
 
     end program canopy_driver
