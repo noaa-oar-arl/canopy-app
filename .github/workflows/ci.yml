@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        compiler: [gfortran-9, gfortran-10, gfortran-11]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Debug compile and run
+        run: |
+          make clean
+          make
+          ./canopy
+        env:
+          DEBUG: 1
+          FC: ${{ matrix.compiler }}
+
+      - name: Non-debug compile and run
+        run: |
+          make clean
+          make
+          ./canopy
+        env:
+          DEBUG: 0
+          FC: ${{ matrix.compiler }}

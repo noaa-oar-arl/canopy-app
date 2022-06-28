@@ -92,7 +92,7 @@
 ! ... read canopy profile data that should be passed
       open(9,  file='input_profile.txt',  status='old')
       i0 = 0
-      read(9,*,iostat=i0)  	! skip headline
+      read(9,*,iostat=i0)  ! skip headline
       do i=1, canlays
         read(9, *) profile(i)
       end do
@@ -100,11 +100,12 @@
       zkcm   = profile%zk 
       ztothc = zkcm/hcm 
       resz   = profile%dzk
-      cansublays  = hcm/resz(canlays) 
+      cansublays  = floor(hcm/resz(canlays))
       canmidpoint = cansublays/2
-      flamelays    = flameh/resz(canlays)
+      flamelays    = floor(flameh/resz(canlays))
       midflamepoint   = flamelays/2
  ! calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
+      fainc = 0  ! initialize
       do i=1, canlays
         if (ztothc(i) >= zcanmax .and. ztothc(i) <= 1.0) then
            fainc(i) = exp((-1.0*((ztothc(i)-zcanmax)**2.0))/sigmau**2.0)
@@ -112,7 +113,7 @@
            fainc(i) = exp((-1.0*((zcanmax-ztothc(i))**2.0))/sigma1**2.0)
         end if
       end do
-      fatot      = IntegrateTrapezoid(ztothc,fainc)
+      fatot = IntegrateTrapezoid(ztothc,fainc)
 
 ! calculate plant distribution function and in-canopy wind speeds at z
       do i=1, canlays
@@ -122,7 +123,11 @@
                   z0ghcm, cdrag, pai, canBOT(i), canTOP(i), canWIND(i))
       end do
 
-      write(*,*)  'Below and Above (10-m) Canopy Wind Speeds (m/s):' , canWIND
+      write(*,*)  'Below and Above (10-m) Canopy Wind Speeds (m/s):'
+      write(*,'(a6, a6, a15)') 'z (m)', 'z/hc', 'U (m/s)'
+      do i = 1 , canLays
+        write(*,'(f6.2, f6.2, es15.7)') zkcm(i), ztothc(i), canWIND(i)
+      end do
       
       call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), & 
                       ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, & 
