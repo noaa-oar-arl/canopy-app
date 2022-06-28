@@ -124,7 +124,7 @@
       end do
 
       write(*,*)  'Below and Above (10-m) Canopy Wind Speeds (m/s):'
-      write(*,'(a6, a6, a15)') 'z (m)', 'z/hc', 'U (m/s)'
+      write(*,'(a6, a6, a15)') 'z (m)', 'z/hc', 'WS (m/s)'
       do i = 1 , canLays
         write(*,'(f6.2, f6.2, es15.7)') zkcm(i), ztothc(i), canWIND(i)
       end do
@@ -134,5 +134,13 @@
                       canBOT(midflamepoint), canTOP(midflamepoint), waf)
       
             write(*,*)  'Wind Adjustment Factor:', waf
+
+! save as text file
+      open(10, file='canopy_wind_output.txt')
+      write(10, '(a6, a6, a15)') 'z (m)', 'z/hc', 'WS (m/s)'
+      do i=1, canLays
+        write(10, '(f6.2, f6.2, es15.7)')  zkcm(i), ztothc(i), canWIND(i)
+      end do
+      write(10, *)  'WAF', waf
 
     end program canopy_driver
