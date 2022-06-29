@@ -67,7 +67,7 @@
         real(rk),    parameter    ::    sigmau=0.03        !Standard deviation of shape function above zcanmax (z/h)
         real(rk),    parameter    ::    sigma1=0.60        !Standard deviation of shape function below zcanmax (z/h)
 
-        integer i,i0
+        integer i,i0,loc
         real(rk) :: zkcm       ( canlays )  ! in-canopy heights (m)
         real(rk) :: resz       ( canlays )  ! canopy height resolution (m)
         real(rk) :: ztothc     ( canlays )  ! z/h
@@ -169,8 +169,8 @@
 
 ! ... save as text file
       open(10, file='output_canopy_wind.txt')
-      write(10, '(a30, X, f6.1, a2)') 'Reference height, h:', href, 'm'
-      write(10, '(a30, X, i6)') 'Number of in-canopy layers:', canlays
+      write(10, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
+      write(10, '(a30, i6)') 'Number of in-canopy layers: ', canlays
       write(10, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'WS (m/s)'
       do loc=1, nlat*nlon
         do i=1, canlays
@@ -179,7 +179,7 @@
       end do
 
       open(11, file='output_waf.txt')
-      write(11, '(a30, X, f6.1)') 'Reference height, h (m):', href
+      write(11, '(a30, f6.1)') 'Reference height, h: ', href, 'm'
       write(11, '(a8, a9, a19, a11)') 'Lat', 'Lon', 'Canopy height (m)', 'WAF'
       do loc=1, nlat*nlon
         write(11, '(f8.2, f9.2, f19.2, f11.7)')  variables(loc)%lat, variables(loc)%lon, variables(loc)%fh, waf(loc)
