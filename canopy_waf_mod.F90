@@ -25,7 +25,7 @@ contains
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
 
-      use canopy_utils     !utilities for canopy models
+      use canopy_utils_mod     !utilities for canopy models
 
 ! Arguments:
       INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
