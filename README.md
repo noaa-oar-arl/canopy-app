@@ -12,9 +12,12 @@ Compile and run canopy model:
 Current Canopy-App components:
 
 1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildland fire spread model applications (Massman et al., 2017).
+
 2 . In-Canopy radiative transfer (i.e., photolysis rate adjusment) calculations (in progress...)  (Makar et al., 2017)
+
 3.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment) calculations (in progress...) (Makar et al., 2017)
-4.  
+
+
 
 
 Citations:
