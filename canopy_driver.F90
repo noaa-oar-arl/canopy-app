@@ -56,7 +56,7 @@
 !        real(rk),    parameter    ::    sigmau=0.60        !Standard deviation of shape function above zcanmax (z/h)
 !        real(rk),    parameter    ::    sigma1=0.20        !Standard deviation of shape function below zcanmax (z/h)
 !       Example:  Corn Crop Type (Massman et al. and Katul et al.)
-        integer, parameter        ::    canlays=50         !Number of total above and below canopy layers
+        integer, parameter        ::    canlays=100        !Number of total above and below canopy layers
         integer, parameter        ::    firetype=1         !1 = Above Canopy Fire; 0 = Below Canopy Fire
         real(rk),    parameter    ::    flameh=2.0         !Flame Height (m) 
 !        real(rk),    parameter    ::    hcm=2.2            !Canopy Height (m)
