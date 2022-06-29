@@ -1,7 +1,10 @@
       program canopy_driver
 
-!  the driver to run the canopy winds and WAF algorithms
+!  the driver to run the canopy applications
 !
+!  Current Applications:
+!  1. Canopy winds and Wind Adjustment Factor
+!  Citation(s)
 !  W.J. Massman, J.M. Forthofer, and M.A. Finney. An improved 
 !  canopy wind model for predicting wind adjustment factors 
 !  and wildland fire behavior. Canadian Journal of Forest Research. 
@@ -11,7 +14,7 @@
 !    Prototype: Patrick C. Campbell, 06/2022
 !
 !-------------------------------------------------------------
-       use canopy_utils     !utilities for canopy models
+       use canopy_utils_mod !utilities for canopy models
        use canopy_wind_mod  !main canopy wind model
        use canopy_waf_mod   !main Wind Adjustment Factor (WAF) model
 
