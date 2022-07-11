@@ -1,4 +1,5 @@
 /canopy
+output*.txt
 
 # Prerequisites
 *.d
