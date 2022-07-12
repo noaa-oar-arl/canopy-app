@@ -117,6 +117,7 @@
       do i=1, canlays
         read(9, *) profile(i)
       end do
+      close(9)
 ! ... read met/sfc input variables
       open(8,  file='input_variables.txt',  status='old')
       i0 = 0
@@ -124,6 +125,7 @@
       do loc=1, nlat*nlon
         read(8, *) variables(loc)
       end do
+      close(8)
 
 
       do loc=1, nlat*nlon
