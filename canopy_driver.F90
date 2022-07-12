@@ -21,8 +21,8 @@
       implicit none
         INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 ! !....this block defines geographic domain of inputs (CONUS, 25-65N, 50-150W, 0.1 degree resolution)
-        integer, parameter        ::    nlat=151        !length of x coordinate
-        integer, parameter        ::    nlon=151        !length of y coordinate
+        integer, parameter        ::    nlat=101        !length of x coordinate
+        integer, parameter        ::    nlon=201        !length of y coordinate
         integer, parameter        ::    canlays=100     !Number of total above and below canopy layers
         real(rk),    parameter    ::    href=10.0       !Reference Height above canopy @ 10 m  (m)
 
