@@ -94,7 +94,7 @@ contains
    !Calculate WAF dependent on fire type (sub- or above-canopy) (Eqs. 17 and 18 of Massman et al. 2017)
    if (FIRETYPE == 0) then  !sub-canopy
     ! write(*,*)  '------Sub-Canopy Fire Type------'
-     term1 = log( LAMDARS * ( (1.0 - d_h)/zo_h ) )  !numerator  
+     term1 = log( LAMDARS * ( (1.0 - d_h)/zo_h ) )  !numerator 
      term2 = log( LAMDARS * ( ( (HREF/HCM) + 1.0 - d_h ) / zo_h ) )  !denominatory
      waf   = CANBOTMID * CANTOPMID * (term1 / term2)
    else                     !above-canopy

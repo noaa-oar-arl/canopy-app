@@ -15,20 +15,33 @@
 !
 !-------------------------------------------------------------
        use canopy_utils_mod !utilities for canopy models
+       use canopy_parm_mod  !main canopy parameters
        use canopy_wind_mod  !main canopy wind model
        use canopy_waf_mod   !main Wind Adjustment Factor (WAF) model
 
       implicit none
         INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
-! !....this block defines geographic domain of inputs (CONUS, 25-65N, 50-150W, 0.1 degree resolution)
+! !....this block defines geographic domain of inputs (SE CONUS, 0.1 degree resolution)
         integer, parameter        ::    nlat=101        !length of x coordinate
         integer, parameter        ::    nlon=201        !length of y coordinate
+!        integer, parameter        ::    nlat=1           !length of x coordinate --set for 1D check
+!        integer, parameter        ::    nlon=1           !length of y coordinate --set for 1D check
         integer, parameter        ::    canlays=100     !Number of total above and below canopy layers
         real(rk),    parameter    ::    href=10.0       !Reference Height above canopy @ 10 m  (m)
 
 ! !....this block gives input canopy height and above reference conditions that should be passed (assume winds at href)
+        real(rk)                  ::    lat             !latitude  (degrees)
+        real(rk)                  ::    lon             !longitude (degrees)
         real(rk)                  ::    hcm             !Input Canopy Height (m)
         real(rk)                  ::    ubzref          !Input above canopy/reference 10-m model wind speed (m/s)
+        real(rk)                  ::    cluref          !Input canopy clumping index 
+        real(rk)                  ::    lairef          !Input leaf area index
+        real(rk)                  ::    vtyperef        !Input vegetation type (VIIRS)
+        real(rk)                  ::    ffracref        !Input forest fraction of grid cell
+        real(rk)                  ::    ustref          !Input friction velocity
+        real(rk)                  ::    cszref          !Input cosine of zenith angle
+        real(rk)                  ::    z0ref           !Input total/surface roughness length
+        real(rk)                  ::    molref          !Input Monin-Obukhov Length
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (Unavoidable Uncertainties!!!)
 !      Need to move to module canopy_parm_mod for all canopy/vegetation types
@@ -36,32 +49,15 @@
                                                         !  (default case: Approx. currently does not account for understory
                                                         !   variability)
         real(rk),    parameter    ::   lamdars=1.25     ! Influence function associated with roughness sublayer (nondimensional)
+
 ! !....this block gives vegetion-type canopy dependent  parameters based on Katul et al. (2004)
-!      Need to move to module canopy_parm_mod dependent on canopy/vegetation type inputs
-!       Example:  Hardwood Forest Type (Massman et al. and Katul et al.)
-!        integer, parameter        ::    firetype=0         !1 = Above Canopy Fire; 0 = Below Canopy Fire
-!        real(rk),    parameter    ::    flameh=2.0         !Flame Height (m) 
-!        real(rk),    parameter    ::    cdrag=0.15         !Drag coefficient (nondimensional)
-!        real(rk),    parameter    ::    pai=4.93           !Plant/foliage area index (nondimensional)
-!        real(rk),    parameter    ::    zcanmax=0.84       !Height of maximum foliage area density (z/h) (nondimensional)
-!        real(rk),    parameter    ::    sigmau=0.13        !Standard deviation of shape function above zcanmax (z/h)
-!        real(rk),    parameter    ::    sigma1=0.30        !Standard deviation of shape function below zcanmax (z/h)
-!       Example:  Aspen Forest Type (Massman et al. and Katul et al.)
-!        integer, parameter        ::    firetype=0         !1 = Above Canopy Fire; 0 = Below Canopy Fire
-!        real(rk),    parameter    ::    flameh=2.0         !Flame Height (m) 
-!        real(rk),    parameter    ::    cdrag=0.20         !Drag coefficient (nondimensional)
-!        real(rk),    parameter    ::    pai=3.28           !Plant/foliage area index (nondimensional)
-!        real(rk),    parameter    ::    zcanmax=0.36       !Height of maximum foliage area density (z/h) (nondimensional)
-!        real(rk),    parameter    ::    sigmau=0.60        !Standard deviation of shape function above zcanmax (z/h)
-!        real(rk),    parameter    ::    sigma1=0.20        !Standard deviation of shape function below zcanmax (z/h)
-!       Example:  Corn Crop Type (Massman et al. and Katul et al.)
-        integer, parameter        ::    firetype=1         !1 = Above Canopy Fire; 0 = Below Canopy Fire
-        real(rk),    parameter    ::    flameh=2.0         !Flame Height (m) 
-        real(rk),    parameter    ::    cdrag=0.30         !Drag coefficient (nondimensional)
-        real(rk),    parameter    ::    pai=2.94           !Plant/foliage area index (nondimensional)
-        real(rk),    parameter    ::    zcanmax=0.94       !Height of maximum foliage area density (z/h) (nondimensional)
-        real(rk),    parameter    ::    sigmau=0.03        !Standard deviation of shape function above zcanmax (z/h)
-        real(rk),    parameter    ::    sigma1=0.60        !Standard deviation of shape function below zcanmax (z/h)
+        integer     ::    firetype         !1 = Above Canopy Fire; 0 = Below Canopy Fire
+        real(rk)    ::    flameh         !Flame Height (m) 
+        real(rk)    ::    cdrag         !Drag coefficient (nondimensional)
+        real(rk)    ::    pai           !Plant/foliage area index (nondimensional)
+        real(rk)    ::    zcanmax       !Height of maximum foliage area density (z/h) (nondimensional)
+        real(rk)    ::    sigmau        !Standard deviation of shape function above zcanmax (z/h)
+        real(rk)    ::    sigma1        !Standard deviation of shape function below zcanmax (z/h)
 
 !Local variables        
         integer i,i0,loc
@@ -82,7 +78,7 @@
         integer  ::    midflamepoint        ! indice of the mid-flame point
         real(rk) ::    waf     (nlat*nlon)  ! Calculated Wind Adjustment Factor
 
-!     Test Generic 1D canopy data that should be passed to canopy calculations
+!     Test Generic 1D canopy data that should represent virtualized canopy
       TYPE :: profile_type
            integer     :: canlay       !profile layer for model
            real(rk)    :: zk           !profile heights for model (m)
@@ -120,6 +116,7 @@
       close(9)
 ! ... read met/sfc input variables
       open(8,  file='input_variables.txt',  status='old')
+!      open(8,  file='input_variables_1D.txt',  status='old') ! --set for 1D check
       i0 = 0
       read(8,*,iostat=i0)  ! skip headline
       do loc=1, nlat*nlon
@@ -129,19 +126,38 @@
 
 
       do loc=1, nlat*nlon
-        hcm    = variables(loc)%fh
-        ubzref = variables(loc)%ws
+        lat      = variables(loc)%lat
+        lon      = variables(loc)%lon
+        hcm      = variables(loc)%fh
+        ubzref   = variables(loc)%ws
+        cluref   = variables(loc)%clu
+        lairef   = variables(loc)%lai
+        vtyperef = variables(loc)%vtype
+        ffracref = variables(loc)%ffrac
+        ustref   = variables(loc)%ust
+        cszref   = variables(loc)%csz
+        z0ref    = variables(loc)%z0
+        molref   = variables(loc)%mol
+
+! ... call canopy parameters to get canopy and shape distribution parameters         
+
+        call canopy_parm(lat, lon, vtyperef, hcm, ffracref, lairef, &
+                         firetype, flameh, cdrag, &
+                         pai, zcanmax, sigmau, sigma1)
 
 ! ... initialize canopy model and integrate to get fractional plant area distribution functions
-        zkcm   = profile%zk 
-        ztothc = zkcm/hcm 
+        zkcm   = profile%zk
+        ztothc = zkcm/hcm
         resz   = profile%dzk
         cansublays  = floor(hcm/resz(canlays))
         canmidpoint = cansublays/2
         flamelays    = floor(flameh/resz(canlays))
         midflamepoint   = flamelays/2
+                 
+
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
-        fainc = 0  ! initialize
+        fainc = 0.0_rk  ! initialize
+        fatot = 0.0_rk  ! initialize
         do i=1, canlays
           if (ztothc(i) >= zcanmax .and. ztothc(i) <= 1.0) then
              fainc(i) = exp((-1.0*((ztothc(i)-zcanmax)**2.0))/sigmau**2.0)
@@ -152,6 +168,8 @@
         fatot = IntegrateTrapezoid(ztothc,fainc)
 
 ! ... calculate plant distribution function and in-canopy wind speeds at z
+        fafracz    = 0.0_rk  ! initialize
+        fafraczInt = 0.0_rk  ! initialize
         do i=1, canlays
           fafracz(i) = fainc(i)/fatot
           fafraczInt(i) = IntegrateTrapezoid(ztothc(1:i),fafracz(1:i))
@@ -159,13 +177,8 @@
                     z0ghcm, cdrag, pai, canBOT(i), canTOP(i), canWIND(i, loc))
         end do
 
-!        write(*, '(a10, f7.1, X, a10, f7.1)')  'Latitude:', variables(loc)%lat, 'Longitude:', variables(loc)%lon
-!        write(*,*)  'Below and Above (10-m) Canopy Wind Speeds (m/s):'
-!        write(*,'(a6, a6, a15)') 'z (m)', 'z/hc', 'WS (m/s)'
-!        do i = 1 , canLays
-!          write(*,'(f6.2, f6.2, es15.7)') zkcm(i), ztothc(i), canWIND(i, loc)
-!        end do
-      
+! ... calculate wind adjustment factor dependent on canopy winds and fire type
+
         call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), & 
                         ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, & 
                         canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
@@ -173,8 +186,7 @@
 !            write(*,*)  'Wind Adjustment Factor:', waf(loc)
       end do
 
-
-! ... save as text file
+! ... save as text files for testing
       open(10, file='output_canopy_wind.txt')
       write(10, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
       write(10, '(a30, i6)') 'Number of in-canopy layers: ', canlays
