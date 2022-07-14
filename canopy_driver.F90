@@ -21,8 +21,8 @@
       implicit none
         INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 ! !....this block defines geographic domain of inputs (CONUS, 25-65N, 50-150W, 0.1 degree resolution)
-        integer, parameter        ::    nlat=401        !length of x coordinate
-        integer, parameter        ::    nlon=1001       !length of y coordinate
+        integer, parameter        ::    nlat=101        !length of x coordinate
+        integer, parameter        ::    nlon=201        !length of y coordinate
         integer, parameter        ::    canlays=100     !Number of total above and below canopy layers
         real(rk),    parameter    ::    href=10.0       !Reference Height above canopy @ 10 m  (m)
 
@@ -97,6 +97,14 @@
            real(rk)    :: lon          !longitude of cell/point
            real(rk)    :: fh           !forest/canopy height
            real(rk)    :: ws           !wind speed at reference height above canopy (10 m)
+           real(rk)    :: clu          !clumping index
+           real(rk)    :: lai          !leaf area index
+           real(rk)    :: vtype        !vegetation type
+           real(rk)    :: ffrac        !forest fraction
+           real(rk)    :: ust          !friction velocity (u*)
+           real(rk)    :: csz          !cosine of solar zenith angle
+           real(rk)    :: z0           !surface roughness length
+           real(rk)    :: mol          !Monin-Obukhov length
       end TYPE variable_type
 
       type(variable_type) :: variables(nlat*nlon)      
@@ -109,13 +117,15 @@
       do i=1, canlays
         read(9, *) profile(i)
       end do
-! ... read canopy height and reference 10-m wind data
+      close(9)
+! ... read met/sfc input variables
       open(8,  file='input_variables.txt',  status='old')
       i0 = 0
       read(8,*,iostat=i0)  ! skip headline
       do loc=1, nlat*nlon
         read(8, *) variables(loc)
       end do
+      close(8)
 
 
       do loc=1, nlat*nlon
