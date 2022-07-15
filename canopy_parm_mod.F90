@@ -24,6 +24,10 @@ contains
 !     Jun 2022 P.C. Campbell: Initial canopy parameter model
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
+
+      use canopy_const_mod, ONLY: pi    !constants for canopy models
+
+
 ! Arguments:
       INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 !     IN/OUT
@@ -43,8 +47,6 @@ contains
       REAL(RK),    INTENT( OUT ) :: SIGMA1          ! Standard deviation of shape function below zcanmax (z/h)
 
       !Local variables
-      !Parameters
-         real(rk),    parameter    ::    pi=3.14159    !Value for PI
 
 !need vegtype to Massman forest mapping
 
@@ -83,7 +85,7 @@ if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy para
          SIGMA1=0.30_rk
         end if
 
-        if (VTYPE .ge. 6 .and. VTYPE .le. 10 .or. VTYPE .le. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses 
+        if (VTYPE .ge. 6 .and. VTYPE .le. 10 .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses 
                                                      !--> Average of Massman Corn + Rice ) 
          FIRETYPE=1
          FLAMEH=2.0_rk

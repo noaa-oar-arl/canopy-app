@@ -23,6 +23,8 @@ contains
 !     Jun 2022 P.C. Campbell: Initial standalone canopy wind model 
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
+      use canopy_const_mod, ONLY: vonk    !constants for canopy models
+
 ! Arguments:
       INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 !     IN/OUT
@@ -67,7 +69,7 @@ contains
     !Assume the drag area distribution over depth of canopy can be approx. p1=0 (no shelter factor) and d1=0
     !(no drag coefficient relation to wind speed) -- thus no intergration then required in Eq. (4) of Massman et al.
     drag    = CDRAG*PAI
-    ustrmod = UBZREF*(0.38_rk - (0.38_rk + (0.40_rk/log(Z0GHCM)))*exp(-1.0_rk*(15.0_rk*drag)))
+    ustrmod = UBZREF*(0.38_rk - (0.38_rk + (vonk/log(Z0GHCM)))*exp(-1.0_rk*(15.0_rk*drag)))
     cstress = (2.0_rk*(ustrmod**2.0_rk))/(UBZREF**2.0_rk)
     nrat   =  drag/cstress
     cantop = cosh(nrat*FAFRACK)/cosh(nrat)

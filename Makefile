@@ -26,7 +26,7 @@ $(info DEBUG setting: '$(DEBUG)')
 FLFLAGS :=
 
 # Source objects
-OBJS := canopy_parm_mod.o canopy_utils_mod.o canopy_waf_mod.o canopy_wind_mod.o canopy_driver.o
+OBJS := canopy_const_mod.o canopy_parm_mod.o canopy_utils_mod.o canopy_waf_mod.o canopy_wind_mod.o canopy_driver.o
 
 # Program name
 PROGRAM := canopy

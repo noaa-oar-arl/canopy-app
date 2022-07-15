@@ -24,7 +24,7 @@ contains
 !     Jun 2022 P.C. Campbell: Initial standalone canopy wind model 
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
-
+      use canopy_const_mod, ONLY: vonk    !constants for canopy models
       use canopy_utils_mod     !utilities for canopy models
 
 ! Arguments:
@@ -73,7 +73,7 @@ contains
 
    !Calculate zero plane displacement height, d/h (Eq. 15 in Massman et al. 2017):
    drag    = CDRAG*PAI
-   ustrmod = UBZREF*(0.38 - (0.38 + (0.40/log(Z0GHCM)))*exp(-1.0*(15.0*drag)))
+   ustrmod = UBZREF*(0.38 - (0.38 + (vonk/log(Z0GHCM)))*exp(-1.0*(15.0*drag)))
    cstress = (2.0*(ustrmod**2.0))/(UBZREF**2.0)
    nrat   =  drag/cstress
    qc = 0.60
@@ -89,7 +89,7 @@ contains
    ! zero plane displacement height
    d_h = dha * dhb
    !Calculate surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):  
-   zo_h  = LAMDARS * (1.0 - d_h) * exp (-0.4*sqrt(2.0/cstress))
+   zo_h  = LAMDARS * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
 
    !Calculate WAF dependent on fire type (sub- or above-canopy) (Eqs. 17 and 18 of Massman et al. 2017)
    if (FIRETYPE == 0) then  !sub-canopy
