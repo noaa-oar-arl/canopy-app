@@ -134,7 +134,7 @@
       if(.not.allocated(fafracz)) allocate(fafracz(canlays))
       if(.not.allocated(fafraczInt)) allocate(fafraczInt(canlays))
       if(.not.allocated(canBOT)) allocate(canBOT(canlays))
-      if(.not.allocated(canBOT)) allocate(canTOP(canlays))
+      if(.not.allocated(canTOP)) allocate(canTOP(canlays))
       if(.not.allocated(canWIND)) allocate(canWIND(canlays,nlat*nlon))
       if(.not.allocated(waf)) allocate(waf(nlat*nlon))
       if(.not.allocated(profile)) allocate(profile(canlays))
