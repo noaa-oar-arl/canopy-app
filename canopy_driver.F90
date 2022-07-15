@@ -24,19 +24,6 @@
         INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 
 ! !....this block defines geographic domain of inputs (read from user namelist)
-!        integer, parameter        ::    nlat=101        !length of x coordinate
-!        integer, parameter        ::    nlon=201        !length of y coordinate
-!        integer, parameter        ::    canlays=100     !Number of total above and below canopy layers
-!        real(rk), parameter       ::    canres=0.5      !Real value of canopy vertical resolution (m)
-!        real(rk),    parameter    ::    href=10.0       !Reference Height above canopy @ 10 m  (m)
-
-! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
-!        real(rk),    parameter    ::    z0ghcm=0.0025   ! ratio of ground roughness length to canopy top height
-                                                        !  (default case: Approx. currently does not account for understory
-                                                        !   variability)
-!        real(rk),    parameter    ::   lamdars=1.25     ! Influence function associated with roughness sublayer (nondimensional)
-
-! !....this block defines geographic domain of inputs (read from user namelist)
         integer        ::    nlat        !length of x coordinate
         integer        ::    nlon        !length of y coordinate
         integer        ::    canlays     !Number of total above and below canopy layers
@@ -48,8 +35,6 @@
                                                         !  (default case: Approx. currently does not account for understory
                                                         !   variability)
         real           ::   lamdars     ! Influence function associated with roughness sublayer (nondimensional)
-
-
 
 ! !....this block gives input canopy height and above reference conditions that should be passed (assume winds at href)
         real(rk)                  ::    lat             !latitude  (degrees)
@@ -124,6 +109,8 @@
 
       call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars)
 
+
+      print*, z0ghcm 
 !-------------------------------------------------------------------------------
 ! Allocate necessary variables.
 !-------------------------------------------------------------------------------
