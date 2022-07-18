@@ -40,11 +40,11 @@ MODULE canopy_const_mod
   REAL(RK)                         :: rearth
 
   ! length of a sidereal day [ sec ]  (Source:  CRC76, pp. 14-6) 
-  REAL(RK),          PARAMETER     :: siday = 86164.09
+  REAL(RK),          PARAMETER     :: siday = 86164.09_rk
 
   ! mean gravitational acceleration [ m/sec**2 ]
   ! --  mean of polar and equatorial values  (Source:  CRC76, pp. 14-6)
-  REAL(RK),          PARAMETER     :: grav = 9.80622
+  REAL(RK),          PARAMETER     :: grav = 9.80622_rk
 
   ! latitude degrees to meters
 !!!  REAL,          PARAMETER     :: dg2m = rearth * pi180
@@ -57,25 +57,25 @@ MODULE canopy_const_mod
 ! Fundamental Constants: (Source: CRC76, pp. 1-1 to 1-6)
 
   ! Avogadro's Constant [ number/mol ]
-  REAL(RK),          PARAMETER     :: avo = 6.0221367e23
+  REAL(RK),          PARAMETER     :: avo = 6.02214076d23
 
   ! universal gas constant [ J/mol-K ]
-  REAL(RK),          PARAMETER     :: rgasuniv = 8.314510
+  REAL(RK),          PARAMETER     :: rgasuniv = 8.31446261815324_rk
 
   ! standard atmosphere [ Pa ]
   REAL(RK),          PARAMETER     :: stdatmpa = 101325.0
 
   ! standard temperature [ K ]
-  REAL(RK),          PARAMETER     :: stdtemp = 273.15
+  REAL(RK),          PARAMETER     :: stdtemp = 273.15_rk
 
   ! Stefan-Boltzmann [ W/(m**2 K**4) ]
-  REAL(RK),          PARAMETER     :: stfblz = 5.67051e-8
+  REAL(RK),          PARAMETER     :: stfblz = 5.67037442d-8
 
 
 ! Non-MKS:
 
-  ! Molar volume at STP [ L/mol ] Non MKS units
-  REAL(RK),          PARAMETER     :: molvol = 22.41410
+  ! Molar volume of ideal gas at STP [ L/mol ] Non MKS units
+  REAL(RK),          PARAMETER     :: molvol = 22.4139695_rk
 
 
 ! Atmospheric Constants: 
@@ -83,13 +83,13 @@ MODULE canopy_const_mod
   ! mean molecular weight for dry air [ g/mol ]
   ! -- 78.06% N2, 21% O2, and 0.943% A on a mole fraction basis
   !    (Source: Hobbs, 1995, pp. 69-70)
-  REAL(RK),          PARAMETER     :: mwair = 28.9628
+  REAL(RK),          PARAMETER     :: mwair = 28.9628_rk
 
   ! dry-air gas constant [ 287.07548994 J/kg-K ]
   REAL(RK),          PARAMETER     :: rdgas = 1.0e3 * rgasuniv / mwair
 
   ! mean molecular weight for water vapor [ g/mol ]
-  REAL(RK),          PARAMETER     :: mwwat = 18.0153
+  REAL(RK),          PARAMETER     :: mwwat = 18.01528_rk
 
   ! gas constant for water vapor [ 461.52492604 J/kg-K ]
   REAL(RK),          PARAMETER     :: rwvap = 1.0e3 * rgasuniv / mwwat
@@ -111,7 +111,7 @@ MODULE canopy_const_mod
   REAL(RK),          PARAMETER     :: cvwvap = 3.0 * rwvap
 
   ! vapor press of water at 0 C [ Pa ]  (Source: CRC76 pp. 6-15)
-  REAL(RK),          PARAMETER     :: vp0 = 611.29
+  REAL(RK),          PARAMETER     :: vp0 = 611.29_rk
 
   ! The following values are taken from p. 641 of Stull (1988):
 
@@ -125,7 +125,7 @@ MODULE canopy_const_mod
   REAL(RK),          PARAMETER     :: lf0 = 3.34e5
 
   ! von Karman constant [ ]
-  REAL(RK),          PARAMETER     :: vonk = 0.4
+  REAL(RK),          PARAMETER     :: vonk = 0.4_rk
 
 
 END MODULE canopy_const_mod

@@ -1,7 +1,7 @@
 &FILENAMES
   file_prof    = 'input_profile.txt'
   file_vars    = 'input_variables.txt'
- &END
+/
 
  &USERDEFS
   nlat       =  101     !integer number of latitude cells (must match input_vars)
@@ -13,4 +13,4 @@
   lamdars    =  1.25    !Influence function associated with roughness sublayer
   flameh     =  2.0     !real value of flame height (m)
   ifcanwind  = .TRUE.   !logical canopy wind/WAF option (default = .FALSE.)
- &END
+/
