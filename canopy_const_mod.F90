@@ -57,7 +57,7 @@ MODULE canopy_const_mod
 ! Fundamental Constants: (Source: CRC76, pp. 1-1 to 1-6)
 
   ! Avogadro's Constant [ number/mol ]
-  REAL(RK),          PARAMETER     :: avo = 6.0221367e23
+  REAL(RK),          PARAMETER     :: avo = 6.02214076d23
 
   ! universal gas constant [ J/mol-K ]
   REAL(RK),          PARAMETER     :: rgasuniv = 8.314510
