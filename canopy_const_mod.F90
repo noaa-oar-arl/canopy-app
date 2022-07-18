@@ -75,7 +75,7 @@ MODULE canopy_const_mod
 ! Non-MKS:
 
   ! Molar volume of ideal gas at STP [ L/mol ] Non MKS units
-  REAL(RK),          PARAMETER     :: molvol = 22.41410
+  REAL(RK),          PARAMETER     :: molvol = 22.4139695_rk
 
 
 ! Atmospheric Constants: 
