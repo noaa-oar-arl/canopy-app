@@ -25,7 +25,7 @@ MODULE canopy_const_mod
 ! Geometric Constants:
 
   ! pi  (single precision: 3.141593)
-  REAL(RK),       PARAMETER     :: pi = 3.14159265358979324
+  REAL(RK),       PARAMETER     :: pi = 3.14159265358979324_rk
 
   ! pi/180 [ rad/deg ]
   REAL(RK),          PARAMETER     :: pi180 = pi / 180.0_rk
