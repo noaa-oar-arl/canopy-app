@@ -125,7 +125,7 @@ MODULE canopy_const_mod
   REAL(RK),          PARAMETER     :: lf0 = 3.34e5
 
   ! von Karman constant [ ]
-  REAL(RK),          PARAMETER     :: vonk = 0.4
+  REAL(RK),          PARAMETER     :: vonk = 0.4_rk
 
 
 END MODULE canopy_const_mod
