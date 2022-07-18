@@ -81,7 +81,7 @@ if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy para
          SIGMA1=0.30_rk
         end if
 
-        if (VTYPE .ge. 6 .and. VTYPE .le. 10 .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses 
+        if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses 
                                                      !--> Average of Massman Corn + Rice ) 
          FIRETYPE=1
          CDRAG=(0.30_rk + 0.30_rk)/2.0
