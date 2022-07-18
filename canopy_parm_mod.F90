@@ -36,7 +36,7 @@ contains
       REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
       REAL(RK),    INTENT( IN )  :: FFRAC           ! Grid cell forest fraction
       REAL(RK),    INTENT( IN )  :: LAI             ! Grid cell leaf area index
-      LOGICAL,     INTENT( IN )  :: FIXPAI          ! Logical to used fixed PAI on vegtypes (default = .FALSE.)
+      LOGICAL,     INTENT( IN )  :: FIXPAI          ! Logical to used fixed PAI on vegtypes (default = .TRUE.)
 
 
       INTEGER,     INTENT( OUT ) :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy

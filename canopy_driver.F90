@@ -31,7 +31,7 @@
         real           ::    href        !Reference Height above canopy @ 10 m  (m)
         real           ::    flameh      !Flame Height (m)
         logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
-        logical        ::    fixpai      !logical to used fixed PAI on vegtypes (default = .FALSE.)
+        logical        ::    fixpai      !logical to used fixed PAI on vegtypes (default = .TRUE.)
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
         real           ::    z0ghcm   ! ratio of ground roughness length to canopy top height
