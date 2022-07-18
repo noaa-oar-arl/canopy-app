@@ -89,7 +89,7 @@ MODULE canopy_const_mod
   REAL(RK),          PARAMETER     :: rdgas = 1.0e3 * rgasuniv / mwair
 
   ! mean molecular weight for water vapor [ g/mol ]
-  REAL(RK),          PARAMETER     :: mwwat = 18.0153
+  REAL(RK),          PARAMETER     :: mwwat = 18.01528_rk
 
   ! gas constant for water vapor [ 461.52492604 J/kg-K ]
   REAL(RK),          PARAMETER     :: rwvap = 1.0e3 * rgasuniv / mwwat
