@@ -1,6 +1,6 @@
 
 SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-                           flameh,ifcanwind)
+                           flameh,ifcanwind,fixpai)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -15,7 +15,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
   INTEGER,               INTENT(OUT) :: nlat,nlon,canlays
   REAL,                  INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh
-  LOGICAL,               INTENT(OUT) :: ifcanwind
+  LOGICAL,               INTENT(OUT) :: ifcanwind,fixpai
   INTEGER                            :: istat
   INTEGER                            :: n
   CHARACTER(LEN=16),     PARAMETER   :: pname      = 'CANOPY_READNML'
@@ -23,7 +23,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
   NAMELIST /filenames/   file_prof, file_vars
 
   NAMELIST /userdefs/    nlat, nlon, canlays, canres, href, z0ghcm, lamdars, &
-                         flameh, ifcanwind
+                         flameh, ifcanwind, fixpai
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -101,8 +101,13 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
-! Set default logical for canopy wind/WAF option
+! Set default logical for canopy wind/WAF option (default = .FALSE.)
   ifcanwind  = .FALSE.
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default logical for using fixed PAI values on vegtypes (default = .TRUE.)
+  fixpai  = .TRUE.
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

@@ -1,10 +1,11 @@
 module canopy_utils_mod
 
+use canopy_const_mod, ONLY: pi, rk    !constants for canopy models
+        
 implicit none
 
 private
-public IntegrateTrapezoid,interp_linear1_internal
-INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
+public IntegrateTrapezoid,interp_linear1_internal,CalcPAI
 
 contains 
 
@@ -45,6 +46,29 @@ contains
         return
 
       end function interp_linear1_internal
+!--------------------------------------------------------------------------------------
 
+      function CalcPAI(fch, ffrac)
+        !! Calculates the Plant Area Index as a function of canopy height and canopy/
+        !! forest fraction (Based on Eq. 19 of Massman et al., 2017). 
+
+        !!  W.J. Massman, J.M. Forthofer, and M.A. Finney. An improved
+        !!  canopy wind model for predicting wind adjustment factors
+        !!  and wildland fire behavior. Canadian Journal of Forest Research.
+        !!  47(5): 594-603. https://doi.org/10.1139/cjfr-2016-0354
+
+        !! Assume Canopy Cover Fraction, C,  = FFRAC
+        !! Assume Canopy Crown Ratio, F, = CC/3.0 = FFRAC/3.0 (Eq. 9 in  Andrews, 2012).
+        !! Andrews, P.L. 2012. Modeling wind adjustment factor and midflame wind speed
+        !!  for Rothermel’s surface fire spread model. USDA For. Serv. Gen. Tech. Rep. RMRS-GTR-266.
+
+
+        real(rk), intent(in)  :: fch                 !! Input Grid cell canopy height (m
+        real(rk), intent(in)  :: ffrac               !! Input Grid cell forest fraction
+        real(rk)              :: CalcPAI             !! Calculated Plant area index (PAI)
+
+        CalcPAI=( (fch*(ffrac/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * ffrac !Massman PAI calculation (Eq. 19)
+        
+      end function 
 
 end module canopy_utils_mod
