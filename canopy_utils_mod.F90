@@ -1,15 +1,15 @@
 module canopy_utils_mod
 
-use canopy_const_mod, ONLY: pi, rk    !constants for canopy models
+    use canopy_const_mod, ONLY: pi, rk    !constants for canopy models
 
-implicit none
+    implicit none
 
-private
-public IntegrateTrapezoid,interp_linear1_internal,CalcPAI
+    private
+    public IntegrateTrapezoid,interp_linear1_internal,CalcPAI
 
 contains
 
-      function IntegrateTrapezoid(x, y)
+    function IntegrateTrapezoid(x, y)
         !! Calculates the integral of an array y with respect to x using the trapezoid
         !! approximation. Note that the mesh spacing of x does not have to be uniform.
         real(rk), intent(in)  :: x(:)                !! Variable x
@@ -17,12 +17,12 @@ contains
         real(rk)              :: IntegrateTrapezoid  !! Integral ∫y(x)·dx
         ! Integrate using the trapezoidal rule
         associate(n => size(x))
-        IntegrateTrapezoid = sum((y(1+1:n-0) + y(1+0:n-1))*(x(1+1:n-0) - x(1+0:n-1)))/2
+            IntegrateTrapezoid = sum((y(1+1:n-0) + y(1+0:n-1))*(x(1+1:n-0) - x(1+0:n-1)))/2
         end associate
-      end function
+    end function
 !-------------------------------------------------------------------------------------
 
-      function interp_linear1_internal(x,y,xout) result(yout)
+    function interp_linear1_internal(x,y,xout) result(yout)
         !! Interpolates for the y value at the desired x value,
         !! given x and y values around the desired point.
 
@@ -45,10 +45,10 @@ contains
 
         return
 
-      end function interp_linear1_internal
+    end function interp_linear1_internal
 !--------------------------------------------------------------------------------------
 
-      function CalcPAI(fch, ffrac)
+    function CalcPAI(fch, ffrac)
         !! Calculates the Plant Area Index as a function of canopy height and canopy/
         !! forest fraction (Based on Eq. 19 of Massman et al., 2017).
 
@@ -63,12 +63,12 @@ contains
         !!  for Rothermel’s surface fire spread model. USDA For. Serv. Gen. Tech. Rep. RMRS-GTR-266.
 
 
-        real(rk), intent(in)  :: fch                 !! Input Grid cell canopy height (m
-        real(rk), intent(in)  :: ffrac               !! Input Grid cell forest fraction
-        real(rk)              :: CalcPAI             !! Calculated Plant area index (PAI)
+        real(rk), intent(in)  :: fch          !! Input Grid cell canopy height (m
+        real(rk), intent(in)  :: ffrac        !! Input Grid cell forest fraction
+        real(rk)              :: CalcPAI      !! Calculated Plant area index (PAI)
 
         CalcPAI=( (fch*(ffrac/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * ffrac !Massman PAI calculation (Eq. 19)
 
-      end function
+    end function
 
 end module canopy_utils_mod

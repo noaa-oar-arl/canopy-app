@@ -6,3 +6,10 @@ repos:
         args: ['--markdown-linebreak-ext=md,markdown']
       - id: end-of-file-fixer
       - id: check-yaml
+
+  - repo: https://github.com/zmoon/findent-pre-commit
+    rev: "65627b82c4103aa12dd0fb6b3267bfb1abd858c7"
+    hooks:
+      # NOTE: doesn't work on Windows currently
+      - id: wfindent-pypi
+        args: ['-i4']
