@@ -52,7 +52,7 @@ contains
 
 !initializing
 FIRETYPE=-1
-FLAMEH=0.0_rk
+FLAMEH=2.0_rk
 CDRAG=0.0_rk
 PAI=0.0_rk
 ZCANMAX=0.0_rk
@@ -66,7 +66,6 @@ if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy para
         if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS Cat 1-2/Evergreen Needleleaf & Broadleaf 
                                                   !--> Use average Massman Aspen+Spruce+Pine Forest
          FIRETYPE=0
-         FLAMEH=2.0_rk
          CDRAG=(0.20_rk + 0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk)/5.0_rk
          PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/5.0_rk  !will use Massman calculation (Eq. 19) of PAI later...
          ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk)/5.0_rk
@@ -77,7 +76,6 @@ if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy para
         if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests 
                                                   !--> Use Massman Hardwood Forest
          FIRETYPE=0
-         FLAMEH=2.0_rk
          CDRAG=0.15_rk
          PAI=4.93_rk !will use Massman calculation (Eq. 19) of PAI later...
          ZCANMAX=0.84_rk
@@ -88,7 +86,6 @@ if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy para
         if (VTYPE .ge. 6 .and. VTYPE .le. 10 .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses 
                                                      !--> Average of Massman Corn + Rice ) 
          FIRETYPE=1
-         FLAMEH=2.0_rk
          CDRAG=(0.30_rk + 0.30_rk)/2.0
          PAI=(2.94_rk + 3.10_rk)/2.0 !will use Massman calculation (Eq. 19) of PAI later...
          ZCANMAX=(0.94_rk + 0.62_rk)/2.0

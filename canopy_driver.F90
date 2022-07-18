@@ -178,7 +178,7 @@
         canmidpoint = cansublays/2
         flamelays    = floor(flameh/canres)
         midflamepoint   = flamelays/2
-                 
+
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
         fainc = 0.0_rk  ! initialize
         fatot = 0.0_rk  ! initialize
