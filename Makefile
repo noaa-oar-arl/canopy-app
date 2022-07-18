@@ -28,9 +28,9 @@ FLFLAGS :=
 # Source objects
 OBJS :=\
  canopy_const_mod.o \
+ canopy_utils_mod.o \
  canopy_files_mod.o \
  canopy_parm_mod.o \
- canopy_utils_mod.o \
  canopy_waf_mod.o \
  canopy_wind_mod.o \
  canopy_readnml.o \

@@ -25,8 +25,8 @@ contains
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
 
-      use canopy_const_mod, ONLY: pi, rk    !constants for canopy models
-
+      use canopy_const_mod, ONLY: rk      !constants for canopy models
+      use canopy_utils_mod, ONLY: CalcPAI !canopy utilities/functions
 
 ! Arguments:
 !     IN/OUT
@@ -70,11 +70,7 @@ if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy para
          if (FIXPAI) then
             PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/5.0_rk
          else
-            PAI=( (FCH*(FFRAC/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * FFRAC !Massman PAI calculation (Eq. 19)
-            !Assume Canopy Cover Fraction, C,  = FFRAC
-            !Assume Canopy Crown Ratio, F, = CC/3.0 = FFRAC/3.0 (Eq. 9 in  Andrews, 2012).
-            !Andrews, P.L. 2012. Modeling wind adjustment factor and midflame wind speed
-            !for Rothermel’s surface fire spread model. USDA For. Serv. Gen. Tech. Rep. RMRS-GTR-266.
+            PAI=CalcPAI(FCH,FFRAC)  !Massman PAI calculation (Eq. 19)
          end if
          ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk)/5.0_rk
          SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk)/5.0_rk
@@ -88,7 +84,7 @@ if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy para
          if (FIXPAI) then
             PAI=4.93_rk
          else
-            PAI=( (FCH*(FFRAC/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * FFRAC !Massman PAI calculation (Eq. 19) 
+            PAI=CalcPAI(FCH,FFRAC)  !Massman PAI calculation (Eq. 19)
          end if
          ZCANMAX=0.84_rk
          SIGMAU=0.13_rk
@@ -102,7 +98,7 @@ if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy para
          if (FIXPAI) then
             PAI=(2.94_rk + 3.10_rk)/2.0_rk 
          else
-            PAI=( (FCH*(FFRAC/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * FFRAC !Massman PAI calculation (Eq. 19)
+            PAI=CalcPAI(FCH,FFRAC)  !Massman PAI calculation (Eq. 19)
          end if
          ZCANMAX=(0.94_rk + 0.62_rk)/2.0_rk
          SIGMAU=(0.03_rk + 0.50_rk)/2.0_rk
