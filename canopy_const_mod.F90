@@ -40,7 +40,7 @@ MODULE canopy_const_mod
   REAL(RK)                         :: rearth
 
   ! length of a sidereal day [ sec ]  (Source:  CRC76, pp. 14-6) 
-  REAL(RK),          PARAMETER     :: siday = 86164.09
+  REAL(RK),          PARAMETER     :: siday = 86164.09_rk
 
   ! mean gravitational acceleration [ m/sec**2 ]
   ! --  mean of polar and equatorial values  (Source:  CRC76, pp. 14-6)
