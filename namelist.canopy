@@ -13,4 +13,4 @@
   lamdars    =  1.25    !Influence function associated with roughness sublayer
   flameh     =  2.0     !real value of flame height (m)
   ifcanwind  = .TRUE.   !logical canopy wind/WAF option (default = .FALSE.)
- &END
+/
