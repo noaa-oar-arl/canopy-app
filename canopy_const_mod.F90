@@ -111,7 +111,7 @@ MODULE canopy_const_mod
   REAL(RK),          PARAMETER     :: cvwvap = 3.0 * rwvap
 
   ! vapor press of water at 0 C [ Pa ]  (Source: CRC76 pp. 6-15)
-  REAL(RK),          PARAMETER     :: vp0 = 611.29
+  REAL(RK),          PARAMETER     :: vp0 = 611.29_rk
 
   ! The following values are taken from p. 641 of Stull (1988):
 
