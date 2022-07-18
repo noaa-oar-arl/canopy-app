@@ -83,7 +83,7 @@ MODULE canopy_const_mod
   ! mean molecular weight for dry air [ g/mol ]
   ! -- 78.06% N2, 21% O2, and 0.943% A on a mole fraction basis
   !    (Source: Hobbs, 1995, pp. 69-70)
-  REAL(RK),          PARAMETER     :: mwair = 28.9628
+  REAL(RK),          PARAMETER     :: mwair = 28.9628_rk
 
   ! dry-air gas constant [ 287.07548994 J/kg-K ]
   REAL(RK),          PARAMETER     :: rdgas = 1.0e3 * rgasuniv / mwair
