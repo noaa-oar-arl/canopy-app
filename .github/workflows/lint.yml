@@ -1,0 +1,19 @@
+name: Lint
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: pre-commit
+    runs-on: ubuntu-latest
+    if: github.repository == 'noaa-oar-arl/canopy-app'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - uses: pre-commit/action@v3.0.0
