@@ -1,7 +1,7 @@
 &FILENAMES
   file_prof    = 'input_profile.txt'
   file_vars    = 'input_variables.txt'
- &END
+/
 
  &USERDEFS
   nlat       =  101     !integer number of latitude cells (must match input_vars)
