@@ -69,7 +69,7 @@ MODULE canopy_const_mod
   REAL(RK),          PARAMETER     :: stdtemp = 273.15_rk
 
   ! Stefan-Boltzmann [ W/(m**2 K**4) ]
-  REAL(RK),          PARAMETER     :: stfblz = 5.67051e-8
+  REAL(RK),          PARAMETER     :: stfblz = 5.67037442d-8
 
 
 ! Non-MKS:
