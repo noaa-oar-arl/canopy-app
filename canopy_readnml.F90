@@ -106,8 +106,8 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
-! Set default logical for using fixed PAI values on vegtypes (default = .FALSE.)
-  fixpai  = .FALSE.
+! Set default logical for using fixed PAI values on vegtypes (default = .TRUE.)
+  fixpai  = .TRUE.
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
