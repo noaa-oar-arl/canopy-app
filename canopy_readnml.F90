@@ -6,7 +6,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 ! Name:     Read Canopy Namelist
 ! Purpose:  Reads input namelist to get user control variables.
 !           15 Jul 2022  Original Version (P.C. Campbell)
-!                        
+!
 !-------------------------------------------------------------------------------
 
   USE canopy_files_mod

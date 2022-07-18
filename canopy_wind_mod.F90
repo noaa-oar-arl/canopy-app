@@ -9,18 +9,18 @@ contains
                               CDRAG, PAI, CANBOT_OUT, CANTOP_OUT, CANWIND )
 
 !-----------------------------------------------------------------------
- 
-! Description:  
+
+! Description:
 !     computes mean wind speed for given height (z) below the canopy top.
- 
+
 ! Preconditions:
 !     in-canopy height, above-canopy/reference wind speed plant distribution functions
- 
+
 ! Subroutines and Functions Called:
- 
+
 ! Revision History:
 !     Prototype 06/22 by PCC, based on Massman et al. (2017) algorithms
-!     Jun 2022 P.C. Campbell: Initial standalone canopy wind model 
+!     Jun 2022 P.C. Campbell: Initial standalone canopy wind model
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
       use canopy_const_mod, ONLY: rk, vonk    !constants for canopy models
@@ -29,7 +29,7 @@ contains
 !     IN/OUT
       REAL(RK),    INTENT( IN )  :: HCM             ! Height of canopy top (m)
       REAL(RK),    INTENT( IN )  :: ZK              ! Below canopy height, z (m)
-      REAL(RK),    INTENT( IN )  :: FAFRACK         ! Fractional (z) shapes of the 
+      REAL(RK),    INTENT( IN )  :: FAFRACK         ! Fractional (z) shapes of the
                                                     ! plant surface distribution (nondimensional)
       REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (m/s)
       REAL,        INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
@@ -79,7 +79,7 @@ contains
     else
       CANWIND = UBZREF
     end if
-    
+
     END SUBROUTINE CANOPY_WIND
 
 end module canopy_wind_mod

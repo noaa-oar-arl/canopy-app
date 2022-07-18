@@ -10,12 +10,12 @@ MODULE canopy_const_mod
 ! References:
 !
 !      CRC76,        "CRC Handbook of Chemistry and Physics (76th Ed)",
-!                     CRC Press, 1995 
+!                     CRC Press, 1995
 !      Hobbs, P.V.   "Basic Physical Chemistry for the Atmospheric Sciences",
-!                     Cambridge Univ. Press, 206 pp, 1995.  
+!                     Cambridge Univ. Press, 206 pp, 1995.
 !      Snyder, J.P., "Map Projections-A Working Manual, U.S. Geological Survey
 !                     Paper 1395 U.S.GPO, Washington, DC, 1987.
-!      Stull, R. B., "An Introduction to Bounday Layer Meteorology", Kluwer, 
+!      Stull, R. B., "An Introduction to Bounday Layer Meteorology", Kluwer,
 !                     Dordrecht, 1988
 !-------------------------------------------------------------------------------
 
@@ -32,14 +32,14 @@ MODULE canopy_const_mod
 
 
 ! Geodetic Constants:
- 
+
   ! radius of earth [ m ]
   ! -- radius of sphere having same surface area as Clarke ellipsoid of 1866
   !    (Source: Snyder, 1987)
 !!!  REAL,          PARAMETER     :: rearth = 6370997.0
   REAL(RK)                         :: rearth
 
-  ! length of a sidereal day [ sec ]  (Source:  CRC76, pp. 14-6) 
+  ! length of a sidereal day [ sec ]  (Source:  CRC76, pp. 14-6)
   REAL(RK),          PARAMETER     :: siday = 86164.09_rk
 
   ! mean gravitational acceleration [ m/sec**2 ]
@@ -78,7 +78,7 @@ MODULE canopy_const_mod
   REAL(RK),          PARAMETER     :: molvol = 22.4139695_rk
 
 
-! Atmospheric Constants: 
+! Atmospheric Constants:
 
   ! mean molecular weight for dry air [ g/mol ]
   ! -- 78.06% N2, 21% O2, and 0.943% A on a mole fraction basis

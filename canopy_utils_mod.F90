@@ -1,13 +1,13 @@
 module canopy_utils_mod
 
 use canopy_const_mod, ONLY: pi, rk    !constants for canopy models
-        
+
 implicit none
 
 private
 public IntegrateTrapezoid,interp_linear1_internal,CalcPAI
 
-contains 
+contains
 
       function IntegrateTrapezoid(x, y)
         !! Calculates the integral of an array y with respect to x using the trapezoid
@@ -50,7 +50,7 @@ contains
 
       function CalcPAI(fch, ffrac)
         !! Calculates the Plant Area Index as a function of canopy height and canopy/
-        !! forest fraction (Based on Eq. 19 of Massman et al., 2017). 
+        !! forest fraction (Based on Eq. 19 of Massman et al., 2017).
 
         !!  W.J. Massman, J.M. Forthofer, and M.A. Finney. An improved
         !!  canopy wind model for predicting wind adjustment factors
@@ -68,7 +68,7 @@ contains
         real(rk)              :: CalcPAI             !! Calculated Plant area index (PAI)
 
         CalcPAI=( (fch*(ffrac/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * ffrac !Massman PAI calculation (Eq. 19)
-        
-      end function 
+
+      end function
 
 end module canopy_utils_mod

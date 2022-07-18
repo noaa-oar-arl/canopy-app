@@ -10,18 +10,18 @@ contains
                              CANBOTMID, CANTOPMID, WAF )
 
 !-----------------------------------------------------------------------
- 
-! Description:  
+
+! Description:
 !     computes Wind Adjustment Factor for fire spread for either sub- or above-canopy fires.
- 
+
 ! Preconditions:
 !     in-canopy height, firetype and height, mean mid-canopy wind speed, and plant distribution functions
- 
+
 ! Subroutines and Functions Called:
- 
+
 ! Revision History:
 !     Prototype 06/22 by PCC, based on Massman et al. (2017) algorithms
-!     Jun 2022 P.C. Campbell: Initial standalone canopy wind model 
+!     Jun 2022 P.C. Campbell: Initial standalone canopy wind model
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
       use canopy_const_mod, ONLY: rk, vonk    !constants for canopy models
@@ -33,7 +33,7 @@ contains
       REAL(RK),    INTENT( IN )  :: ZTOTHC  ( : )   ! SUB-CANOPY Total z/h layers (nondimensional)
       REAL(RK),    INTENT( IN )  :: FAFRACK ( : )   ! SUB-CANOPY Fractional (z) shapes of the
                                                     ! plant surface distribution at z=0 (nondimensional)
-      REAL(RK),    INTENT( IN )  :: FAFRACK0        ! Fractional (z) shapes of the 
+      REAL(RK),    INTENT( IN )  :: FAFRACK0        ! Fractional (z) shapes of the
                                                     ! plant surface distribution at z=0 (nondimensional)
       REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (m/s)
       REAL,        INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
@@ -83,17 +83,17 @@ contains
 
    fafraczInt_tota = IntegrateTrapezoid( ZTOTHC,(cosh(qstar*nrat*FAFRACK)*ZTOTHC) )
    fafraczInt_totb = IntegrateTrapezoid( ZTOTHC, cosh(qstar*nrat*FAFRACK) )
-   dhb = fafraczInt_tota/fafraczInt_totb 
+   dhb = fafraczInt_tota/fafraczInt_totb
 
    ! zero plane displacement height
    d_h = dha * dhb
-   !Calculate surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):  
+   !Calculate surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):
    zo_h  = LAMDARS * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
 
    !Calculate WAF dependent on fire type (sub- or above-canopy) (Eqs. 17 and 18 of Massman et al. 2017)
    if (FIRETYPE == 0) then  !sub-canopy
     ! write(*,*)  '------Sub-Canopy Fire Type------'
-     term1 = log( LAMDARS * ( (1.0 - d_h)/zo_h ) )  !numerator 
+     term1 = log( LAMDARS * ( (1.0 - d_h)/zo_h ) )  !numerator
      term2 = log( LAMDARS * ( ( (HREF/HCM) + 1.0 - d_h ) / zo_h ) )  !denominatory
      waf   = CANBOTMID * CANTOPMID * (term1 / term2)
    else                     !above-canopy

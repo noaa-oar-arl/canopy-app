@@ -5,9 +5,9 @@
 !  Current Applications:
 !  1. Canopy winds and Wind Adjustment Factor
 !  Citation(s)
-!  W.J. Massman, J.M. Forthofer, and M.A. Finney. An improved 
-!  canopy wind model for predicting wind adjustment factors 
-!  and wildland fire behavior. Canadian Journal of Forest Research. 
+!  W.J. Massman, J.M. Forthofer, and M.A. Finney. An improved
+!  canopy wind model for predicting wind adjustment factors
+!  and wildland fire behavior. Canadian Journal of Forest Research.
 !  47(5): 594-603. https://doi.org/10.1139/cjfr-2016-0354
 !
 !  History:
@@ -44,7 +44,7 @@
         real(rk)                  ::    lon             !longitude (degrees)
         real(rk)                  ::    hcm             !Input Canopy Height (m)
         real(rk)                  ::    ubzref          !Input above canopy/reference 10-m model wind speed (m/s)
-        real(rk)                  ::    cluref          !Input canopy clumping index 
+        real(rk)                  ::    cluref          !Input canopy clumping index
         real(rk)                  ::    lairef          !Input leaf area index
         integer                   ::    vtyperef        !Input vegetation type (VIIRS)
         real(rk)                  ::    ffracref        !Input forest fraction of grid cell
@@ -61,7 +61,7 @@
         real(rk)    ::    sigmau        !Standard deviation of shape function above zcanmax (z/h)
         real(rk)    ::    sigma1        !Standard deviation of shape function below zcanmax (z/h)
 
-!Local variables        
+!Local variables
         integer i,i0,loc
         real(rk), allocatable :: zkcm       ( : )  ! in-canopy heights (m)
         real(rk), allocatable :: ztothc     ( : )  ! z/h
@@ -71,7 +71,7 @@
         real(rk), allocatable :: canBOT     ( : )  ! Canopy bottom wind reduction factors (nondimensional)
         real(rk), allocatable :: canTOP     ( : )  ! Canopy top wind reduction factors (nondimensional)
         real(rk) :: fatot                   ! integral of total fractional foliage shape function
-        real(rk), allocatable :: canWIND    ( :, : )  ! final mean canopy wind speeds (m/s)        
+        real(rk), allocatable :: canWIND    ( :, : )  ! final mean canopy wind speeds (m/s)
 
         integer  ::    cansublays           ! number of sub-canopy layers
         integer  ::    canmidpoint          ! indice of the sub-canopy midpoint
@@ -86,7 +86,7 @@
       end TYPE profile_type
 
       type(profile_type), allocatable :: profile( : )
-      
+
 !     Test Generic 2D met/sfc input variables that should be passed to canopy calculations
       TYPE :: variable_type
            real(rk)    :: lat          !latitude of cell/point
@@ -103,7 +103,7 @@
            real(rk)    :: mol          !Monin-Obukhov length
       end TYPE variable_type
 
-      type(variable_type), allocatable :: variables( : )      
+      type(variable_type), allocatable :: variables( : )
 
 !-------------------------------------------------------------------------------
 ! Read user options from namelist.
@@ -165,7 +165,7 @@
         z0ref    = variables(loc)%z0
         molref   = variables(loc)%mol
 
-! ... call canopy parameters to get canopy, fire info, and shape distribution parameters         
+! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
 
         call canopy_parm(vtyperef, hcm, ffracref, lairef, &
                          fixpai, firetype, cdrag, &
@@ -190,7 +190,7 @@
           end if
         end do
         fatot = IntegrateTrapezoid(ztothc,fainc)
-        
+
 ! ... calculate plant distribution function
         fafracz    = 0.0_rk  ! initialize
         fafraczInt = 0.0_rk  ! initialize
@@ -208,13 +208,13 @@
 
 ! ... calculate wind adjustment factor dependent on canopy winds and fire type
 
-           call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), & 
-                        ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, & 
+           call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), &
+                        ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, &
                         canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
         end if
 
       end do
-     
+
       if (ifcanwind) then
        write(*,*)  'Writing canopy wind/WAF output'
 ! ... save as text files for testing
