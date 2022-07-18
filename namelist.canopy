@@ -1,0 +1,16 @@
+&FILENAMES
+  file_prof    = 'input_profile.txt'
+  file_vars    = 'input_variables.txt'
+/
+
+ &USERDEFS
+  nlat       =  101     !integer number of latitude cells (must match input_vars)
+  nlon       =  201     !integer number of longitude cells (must match input_vars)
+  canlays    =  100     !integer number of canopy layers  (must match input_profile)
+  canres     =  0.5     !real value of canopy vertical resolution (m) (must match input_profile)
+  href       =  10.0    !real value of reference height above canopy (m) 
+  z0ghcm     =  0.0025  !ratio of ground roughness length to canopy top height
+  lamdars    =  1.25    !Influence function associated with roughness sublayer
+  flameh     =  2.0     !real value of flame height (m)
+  ifcanwind  = .TRUE.   !logical canopy wind/WAF option (default = .FALSE.)
+/

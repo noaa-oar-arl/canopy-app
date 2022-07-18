@@ -24,11 +24,10 @@ contains
 !     Jun 2022 P.C. Campbell: Initial standalone canopy wind model 
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
-
+      use canopy_const_mod, ONLY: rk, vonk    !constants for canopy models
       use canopy_utils_mod     !utilities for canopy models
 
 ! Arguments:
-      INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 !     IN/OUT
       REAL(RK),    INTENT( IN )  :: HCM             ! Height of canopy top (m)
       REAL(RK),    INTENT( IN )  :: ZTOTHC  ( : )   ! SUB-CANOPY Total z/h layers (nondimensional)
@@ -37,10 +36,10 @@ contains
       REAL(RK),    INTENT( IN )  :: FAFRACK0        ! Fractional (z) shapes of the 
                                                     ! plant surface distribution at z=0 (nondimensional)
       REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (m/s)
-      REAL(RK),    INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
-      REAL(RK),    INTENT( IN )  :: LAMDARS         ! Influence function associated with roughness sublayer (nondimensional)
-      REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
-      REAL(RK),    INTENT( IN )  :: FLAMEH          ! Flame Height (m) -- Only for Above Canopy Fire
+      REAL,        INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
+      REAL,        INTENT( IN )  :: LAMDARS         ! Influence function associated with roughness sublayer (nondimensional)
+      REAL,        INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
+      REAL,        INTENT( IN )  :: FLAMEH          ! Flame Height (m) -- Only for Above Canopy Fire
       INTEGER ,    INTENT( IN )  :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire
       REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
       REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
@@ -73,7 +72,7 @@ contains
 
    !Calculate zero plane displacement height, d/h (Eq. 15 in Massman et al. 2017):
    drag    = CDRAG*PAI
-   ustrmod = UBZREF*(0.38 - (0.38 + (0.40/log(Z0GHCM)))*exp(-1.0*(15.0*drag)))
+   ustrmod = UBZREF*(0.38 - (0.38 + (vonk/log(Z0GHCM)))*exp(-1.0*(15.0*drag)))
    cstress = (2.0*(ustrmod**2.0))/(UBZREF**2.0)
    nrat   =  drag/cstress
    qc = 0.60
@@ -89,12 +88,12 @@ contains
    ! zero plane displacement height
    d_h = dha * dhb
    !Calculate surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):  
-   zo_h  = LAMDARS * (1.0 - d_h) * exp (-0.4*sqrt(2.0/cstress))
+   zo_h  = LAMDARS * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
 
    !Calculate WAF dependent on fire type (sub- or above-canopy) (Eqs. 17 and 18 of Massman et al. 2017)
    if (FIRETYPE == 0) then  !sub-canopy
     ! write(*,*)  '------Sub-Canopy Fire Type------'
-     term1 = log( LAMDARS * ( (1.0 - d_h)/zo_h ) )  !numerator  
+     term1 = log( LAMDARS * ( (1.0 - d_h)/zo_h ) )  !numerator 
      term2 = log( LAMDARS * ( ( (HREF/HCM) + 1.0 - d_h ) / zo_h ) )  !denominatory
      waf   = CANBOTMID * CANTOPMID * (term1 / term2)
    else                     !above-canopy
