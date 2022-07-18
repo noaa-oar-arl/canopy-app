@@ -44,7 +44,7 @@ MODULE canopy_const_mod
 
   ! mean gravitational acceleration [ m/sec**2 ]
   ! --  mean of polar and equatorial values  (Source:  CRC76, pp. 14-6)
-  REAL(RK),          PARAMETER     :: grav = 9.80622
+  REAL(RK),          PARAMETER     :: grav = 9.80622_rk
 
   ! latitude degrees to meters
 !!!  REAL,          PARAMETER     :: dg2m = rearth * pi180
