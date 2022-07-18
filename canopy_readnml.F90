@@ -1,5 +1,5 @@
 
-SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars)
+SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars,ifcanwind)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -14,13 +14,15 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars)
 
   INTEGER,               INTENT(OUT) :: nlat,nlon,canlays
   REAL,                  INTENT(OUT) :: canres,href,z0ghcm,lamdars
+  LOGICAL,               INTENT(OUT) :: ifcanwind
   INTEGER                            :: istat
   INTEGER                            :: n
   CHARACTER(LEN=16),     PARAMETER   :: pname      = 'CANOPY_READNML'
 
   NAMELIST /filenames/   file_prof, file_vars
 
-  NAMELIST /userdefs/    nlat, nlon, canlays, canres, href, z0ghcm, lamdars
+  NAMELIST /userdefs/    nlat, nlon, canlays, canres, href, z0ghcm, lamdars, &
+                         ifcanwind
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -90,6 +92,11 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars)
 !-------------------------------------------------------------------------------
 ! Set default real value for Influence function associated with roughness sublayer
   lamdars  = 1.25
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default logical for canopy wind/WAF option
+  ifcanwind  = .FALSE.
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

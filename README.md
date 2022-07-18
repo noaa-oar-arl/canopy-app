@@ -5,8 +5,9 @@ Author(s):
 
 Patrick Campbell, Zachary Moon, and Wei-Ting Hung
 
-Compile and run canopy model:
+Compile, edit namelist, and run canopy model:
 - `make`
+- `namelist.canopy`
 - `./canopy`
 
 Canopy is parameterized by foliage distribution shape functions and parameters for different vegetation types (Katul et al., 2004; Massman et al., 2017)
@@ -22,13 +23,11 @@ Current Canopy-App components:
 
 2.  In-Canopy radiative transfer (i.e., photolysis rate adjusment) for air quality applications (in progress...)  (Makar et al., 2017)
 
-- `canopy_rad_mod.F90`
+- `canopy_prad_mod.F90`
 
 3.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment) for air quality applications (in progress...) (Makar et al., 2017)
 
 - `canopy_vdiff_mod.F90`
-
-
 
 
 Citations:

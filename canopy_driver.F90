@@ -28,7 +28,8 @@
         integer        ::    nlon        !length of y coordinate
         integer        ::    canlays     !Number of total above and below canopy layers
         real           ::    canres      !Real value of canopy vertical resolution (m)
-        real           ::    href       !Reference Height above canopy @ 10 m  (m)
+        real           ::    href        !Reference Height above canopy @ 10 m  (m)
+        logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
         real           ::    z0ghcm   ! ratio of ground roughness length to canopy top height
@@ -107,10 +108,14 @@
 ! Read user options from namelist.
 !-------------------------------------------------------------------------------
 
-      call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars)
+      call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
+                           ifcanwind)
+      if (ifcanwind) then
+         write(*,*)  'Canopy wind/WAF option selected'
+      else
+         write(*,*)  'No option(s) selected'
+      end if
 
-
-      print*, z0ghcm 
 !-------------------------------------------------------------------------------
 ! Allocate necessary variables.
 !-------------------------------------------------------------------------------
@@ -146,7 +151,6 @@
       end do
       close(8)
 
-
       do loc=1, nlat*nlon
         lat      = variables(loc)%lat
         lon      = variables(loc)%lon
@@ -161,7 +165,7 @@
         z0ref    = variables(loc)%z0
         molref   = variables(loc)%mol
 
-! ... call canopy parameters to get canopy and shape distribution parameters         
+! ... call canopy parameters to get canopy, fire info, and shape distribution parameters         
 
         call canopy_parm(lat, lon, vtyperef, hcm, ffracref, lairef, &
                          firetype, flameh, cdrag, &
@@ -175,7 +179,6 @@
         flamelays    = floor(flameh/canres)
         midflamepoint   = flamelays/2
                  
-
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
         fainc = 0.0_rk  ! initialize
         fatot = 0.0_rk  ! initialize
@@ -187,42 +190,50 @@
           end if
         end do
         fatot = IntegrateTrapezoid(ztothc,fainc)
-
-! ... calculate plant distribution function and in-canopy wind speeds at z
+        
+! ... calculate plant distribution function
         fafracz    = 0.0_rk  ! initialize
         fafraczInt = 0.0_rk  ! initialize
         do i=1, canlays
           fafracz(i) = fainc(i)/fatot
           fafraczInt(i) = IntegrateTrapezoid(ztothc(1:i),fafracz(1:i))
-          call canopy_wind(hcm, zkcm(i), fafraczInt(i), ubzref, &
-                    z0ghcm, cdrag, pai, canBOT(i), canTOP(i), canWIND(i, loc))
         end do
+
+        if (ifcanwind) then
+! ... calculate in-canopy wind speeds at z
+           do i=1, canlays
+             call canopy_wind(hcm, zkcm(i), fafraczInt(i), ubzref, &
+                    z0ghcm, cdrag, pai, canBOT(i), canTOP(i), canWIND(i, loc))
+           end do
 
 ! ... calculate wind adjustment factor dependent on canopy winds and fire type
 
-        call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), & 
+           call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), & 
                         ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, & 
                         canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
-      
-!            write(*,*)  'Wind Adjustment Factor:', waf(loc)
-      end do
+        end if
 
+      end do
+     
+      if (ifcanwind) then
+       write(*,*)  'Writing canopy wind/WAF output'
 ! ... save as text files for testing
-      open(10, file='output_canopy_wind.txt')
-      write(10, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
-      write(10, '(a30, i6)') 'Number of in-canopy layers: ', canlays
-      write(10, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'WS (m/s)'
-      do loc=1, nlat*nlon
-        do i=1, canlays
-          write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, profile(i)%zk, canWIND(i, loc)
-        end do
-      end do
+       open(10, file='output_canopy_wind.txt')
+       write(10, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
+       write(10, '(a30, i6)') 'Number of in-canopy layers: ', canlays
+       write(10, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'WS (m/s)'
+       do loc=1, nlat*nlon
+         do i=1, canlays
+           write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, profile(i)%zk, canWIND(i, loc)
+         end do
+       end do
 
-      open(11, file='output_waf.txt')
-      write(11, '(a30, f6.1)') 'Reference height, h: ', href, 'm'
-      write(11, '(a8, a9, a19, a11)') 'Lat', 'Lon', 'Canopy height (m)', 'WAF'
-      do loc=1, nlat*nlon
-        write(11, '(f8.2, f9.2, f19.2, f11.7)')  variables(loc)%lat, variables(loc)%lon, variables(loc)%fh, waf(loc)
-      end do
+       open(11, file='output_waf.txt')
+       write(11, '(a30, f6.1)') 'Reference height, h: ', href, 'm'
+       write(11, '(a8, a9, a19, a11)') 'Lat', 'Lon', 'Canopy height (m)', 'WAF'
+       do loc=1, nlat*nlon
+         write(11, '(f8.2, f9.2, f19.2, f11.7)')  variables(loc)%lat, variables(loc)%lon, variables(loc)%fh, waf(loc)
+       end do
+      end if
 
     end program canopy_driver
