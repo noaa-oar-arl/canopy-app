@@ -60,7 +60,7 @@ MODULE canopy_const_mod
   REAL(RK),          PARAMETER     :: avo = 6.02214076d23
 
   ! universal gas constant [ J/mol-K ]
-  REAL(RK),          PARAMETER     :: rgasuniv = 8.314510
+  REAL(RK),          PARAMETER     :: rgasuniv = 8.31446261815324_rk
 
   ! standard atmosphere [ Pa ]
   REAL(RK),          PARAMETER     :: stdatmpa = 101325.0
