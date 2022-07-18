@@ -29,6 +29,7 @@
         integer        ::    canlays     !Number of total above and below canopy layers
         real           ::    canres      !Real value of canopy vertical resolution (m)
         real           ::    href        !Reference Height above canopy @ 10 m  (m)
+        real           ::    flameh         !Flame Height (m)
         logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
@@ -44,7 +45,7 @@
         real(rk)                  ::    ubzref          !Input above canopy/reference 10-m model wind speed (m/s)
         real(rk)                  ::    cluref          !Input canopy clumping index 
         real(rk)                  ::    lairef          !Input leaf area index
-        real(rk)                  ::    vtyperef        !Input vegetation type (VIIRS)
+        integer                   ::    vtyperef        !Input vegetation type (VIIRS)
         real(rk)                  ::    ffracref        !Input forest fraction of grid cell
         real(rk)                  ::    ustref          !Input friction velocity
         real(rk)                  ::    cszref          !Input cosine of zenith angle
@@ -53,7 +54,6 @@
 
 ! !....this block gives vegetion-type canopy dependent  parameters based on Katul et al. (2004)
         integer     ::    firetype         !1 = Above Canopy Fire; 0 = Below Canopy Fire
-        real(rk)    ::    flameh         !Flame Height (m) 
         real(rk)    ::    cdrag         !Drag coefficient (nondimensional)
         real(rk)    ::    pai           !Plant/foliage area index (nondimensional)
         real(rk)    ::    zcanmax       !Height of maximum foliage area density (z/h) (nondimensional)
@@ -94,7 +94,7 @@
            real(rk)    :: ws           !wind speed at reference height above canopy (10 m)
            real(rk)    :: clu          !clumping index
            real(rk)    :: lai          !leaf area index
-           real(rk)    :: vtype        !vegetation type
+           integer     :: vtype        !vegetation type
            real(rk)    :: ffrac        !forest fraction
            real(rk)    :: ust          !friction velocity (u*)
            real(rk)    :: csz          !cosine of solar zenith angle
@@ -109,13 +109,12 @@
 !-------------------------------------------------------------------------------
 
       call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-                           ifcanwind)
+                           flameh, ifcanwind)
       if (ifcanwind) then
          write(*,*)  'Canopy wind/WAF option selected'
       else
          write(*,*)  'No option(s) selected'
       end if
-
 !-------------------------------------------------------------------------------
 ! Allocate necessary variables.
 !-------------------------------------------------------------------------------
@@ -167,8 +166,8 @@
 
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters         
 
-        call canopy_parm(lat, lon, vtyperef, hcm, ffracref, lairef, &
-                         firetype, flameh, cdrag, &
+        call canopy_parm(vtyperef, hcm, ffracref, lairef, &
+                         firetype, cdrag, &
                          pai, zcanmax, sigmau, sigma1)
 
 ! ... initialize canopy model and integrate to get fractional plant area distribution functions

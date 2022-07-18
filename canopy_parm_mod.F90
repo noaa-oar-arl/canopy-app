@@ -5,8 +5,8 @@ module canopy_parm_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-      SUBROUTINE CANOPY_PARM( LAT, LON, VTYPE, FCH, FFRAC, LAI, &
-                              FIRETYPE, FLAMEH, CDRAG, &
+      SUBROUTINE CANOPY_PARM( VTYPE, FCH, FFRAC, LAI, &
+                              FIRETYPE, CDRAG, &
                               PAI, ZCANMAX, SIGMAU, SIGMA1 )
 
 !-----------------------------------------------------------------------
@@ -31,15 +31,14 @@ contains
 ! Arguments:
       INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 !     IN/OUT
-      REAL(RK),    INTENT( IN )  :: LAT             ! Grid cell latitude (degrees)
-      REAL(RK),    INTENT( IN )  :: LON             ! Grid cell longitude (degrees)
+!      REAL(RK),    INTENT( IN )  :: LAT             ! Grid cell latitude (degrees) !not needed yet
+!      REAL(RK),    INTENT( IN )  :: LON             ! Grid cell longitude (degrees)!not needed yet
+      INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
       REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
-      REAL(RK),    INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
       REAL(RK),    INTENT( IN )  :: FFRAC           ! Grid cell forest fraction
       REAL(RK),    INTENT( IN )  :: LAI             ! Grid cell leaf area index
 
       INTEGER,     INTENT( OUT ) :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy
-      REAL(RK),    INTENT( OUT ) :: FLAMEH          ! Flame Height (m)
       REAL(RK),    INTENT( OUT ) :: CDRAG           ! Drag coefficient (nondimensional)
       REAL(RK),    INTENT( OUT ) :: PAI             ! Plant/foliage area index (nondimensional)
       REAL(RK),    INTENT( OUT ) :: ZCANMAX         ! Height of maximum foliage area density (z/h) (nondimensional)
@@ -52,7 +51,6 @@ contains
 
 !initializing
 FIRETYPE=-1
-FLAMEH=2.0_rk
 CDRAG=0.0_rk
 PAI=0.0_rk
 ZCANMAX=0.0_rk

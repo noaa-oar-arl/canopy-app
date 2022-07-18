@@ -11,5 +11,6 @@
   href       =  10.0    !real value of reference height above canopy (m) 
   z0ghcm     =  0.0025  !ratio of ground roughness length to canopy top height
   lamdars    =  1.25    !Influence function associated with roughness sublayer
+  flameh     =  2.0     !real value of flame height (m)
   ifcanwind  = .TRUE.   !logical canopy wind/WAF option (default = .FALSE.)
  &END

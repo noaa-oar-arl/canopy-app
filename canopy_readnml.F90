@@ -1,5 +1,6 @@
 
-SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars,ifcanwind)
+SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
+                           flameh,ifcanwind)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -13,7 +14,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars,ifcanwin
   IMPLICIT NONE
 
   INTEGER,               INTENT(OUT) :: nlat,nlon,canlays
-  REAL,                  INTENT(OUT) :: canres,href,z0ghcm,lamdars
+  REAL,                  INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh
   LOGICAL,               INTENT(OUT) :: ifcanwind
   INTEGER                            :: istat
   INTEGER                            :: n
@@ -22,7 +23,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars,ifcanwin
   NAMELIST /filenames/   file_prof, file_vars
 
   NAMELIST /userdefs/    nlat, nlon, canlays, canres, href, z0ghcm, lamdars, &
-                         ifcanwind
+                         flameh, ifcanwind
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -92,6 +93,11 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars,ifcanwin
 !-------------------------------------------------------------------------------
 ! Set default real value for Influence function associated with roughness sublayer
   lamdars  = 1.25
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for flame height (m) (Default = 2.0 m)
+  flameh  = 2.0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

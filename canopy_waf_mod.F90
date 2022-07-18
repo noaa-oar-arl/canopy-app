@@ -40,7 +40,7 @@ contains
       REAL,        INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
       REAL,        INTENT( IN )  :: LAMDARS         ! Influence function associated with roughness sublayer (nondimensional)
       REAL,        INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
-      REAL(RK),    INTENT( IN )  :: FLAMEH          ! Flame Height (m) -- Only for Above Canopy Fire
+      REAL,        INTENT( IN )  :: FLAMEH          ! Flame Height (m) -- Only for Above Canopy Fire
       INTEGER ,    INTENT( IN )  :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire
       REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
       REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
