@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
       SUBROUTINE CANOPY_PARM( VTYPE, FCH, FFRAC, LAI, &
-                              FIRETYPE, CDRAG, &
+                              FIXPAI, FIRETYPE, CDRAG, &
                               PAI, ZCANMAX, SIGMAU, SIGMA1 )
 
 !-----------------------------------------------------------------------
@@ -25,7 +25,7 @@ contains
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
 
-      use canopy_const_mod, ONLY: rk    !constants for canopy models
+      use canopy_const_mod, ONLY: pi, rk    !constants for canopy models
 
 
 ! Arguments:
@@ -36,6 +36,8 @@ contains
       REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
       REAL(RK),    INTENT( IN )  :: FFRAC           ! Grid cell forest fraction
       REAL(RK),    INTENT( IN )  :: LAI             ! Grid cell leaf area index
+      LOGICAL,     INTENT( IN )  :: FIXPAI          ! Logical to used fixed PAI on vegtypes (default = .FALSE.)
+
 
       INTEGER,     INTENT( OUT ) :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy
       REAL(RK),    INTENT( OUT ) :: CDRAG           ! Drag coefficient (nondimensional)
@@ -56,15 +58,24 @@ ZCANMAX=0.0_rk
 SIGMAU=0.0_rk
 SIGMA1=0.0_rk
 
+
 !only populate parameers if contiguous canopy conditions are satistified in each grid cell
 if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy parameters
 
-        !need better vegtype and lat/lon regional mapping to Massman et al. forest types 
+        !approx/average vegtype mapping to Massman et al. forest types 
         if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS Cat 1-2/Evergreen Needleleaf & Broadleaf 
                                                   !--> Use average Massman Aspen+Spruce+Pine Forest
          FIRETYPE=0
          CDRAG=(0.20_rk + 0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk)/5.0_rk
-         PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/5.0_rk  !will use Massman calculation (Eq. 19) of PAI later...
+         if (FIXPAI) then
+            PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/5.0_rk
+         else
+            PAI=( (FCH*(FFRAC/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * FFRAC !Massman PAI calculation (Eq. 19)
+            !Assume Canopy Cover Fraction, C,  = FFRAC
+            !Assume Canopy Crown Ratio, F, = CC/3.0 = FFRAC/3.0 (Eq. 9 in  Andrews, 2012).
+            !Andrews, P.L. 2012. Modeling wind adjustment factor and midflame wind speed
+            !for Rothermel’s surface fire spread model. USDA For. Serv. Gen. Tech. Rep. RMRS-GTR-266.
+         end if
          ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk)/5.0_rk
          SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk)/5.0_rk
          SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk)/5.0_rk
@@ -74,7 +85,11 @@ if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy para
                                                   !--> Use Massman Hardwood Forest
          FIRETYPE=0
          CDRAG=0.15_rk
-         PAI=4.93_rk !will use Massman calculation (Eq. 19) of PAI later...
+         if (FIXPAI) then
+            PAI=4.93_rk
+         else
+            PAI=( (FCH*(FFRAC/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * FFRAC !Massman PAI calculation (Eq. 19) 
+         end if
          ZCANMAX=0.84_rk
          SIGMAU=0.13_rk
          SIGMA1=0.30_rk
@@ -83,13 +98,16 @@ if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy para
         if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses 
                                                      !--> Average of Massman Corn + Rice ) 
          FIRETYPE=1
-         CDRAG=(0.30_rk + 0.30_rk)/2.0
-         PAI=(2.94_rk + 3.10_rk)/2.0 !will use Massman calculation (Eq. 19) of PAI later...
-         ZCANMAX=(0.94_rk + 0.62_rk)/2.0
-         SIGMAU=(0.03_rk + 0.50_rk)/2.0
-         SIGMA1=(0.60_rk + 0.45_rk)/2.0
+         CDRAG=(0.30_rk + 0.30_rk)/2.0_rk
+         if (FIXPAI) then
+            PAI=(2.94_rk + 3.10_rk)/2.0_rk 
+         else
+            PAI=( (FCH*(FFRAC/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * FFRAC !Massman PAI calculation (Eq. 19)
+         end if
+         ZCANMAX=(0.94_rk + 0.62_rk)/2.0_rk
+         SIGMAU=(0.03_rk + 0.50_rk)/2.0_rk
+         SIGMA1=(0.60_rk + 0.45_rk)/2.0_rk
         end if
-
 
 end if
     

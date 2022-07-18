@@ -29,8 +29,9 @@
         integer        ::    canlays     !Number of total above and below canopy layers
         real           ::    canres      !Real value of canopy vertical resolution (m)
         real           ::    href        !Reference Height above canopy @ 10 m  (m)
-        real           ::    flameh         !Flame Height (m)
+        real           ::    flameh      !Flame Height (m)
         logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
+        logical        ::    fixpai      !logical to used fixed PAI on vegtypes (default = .FALSE.)
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
         real           ::    z0ghcm   ! ratio of ground roughness length to canopy top height
@@ -109,7 +110,7 @@
 !-------------------------------------------------------------------------------
 
       call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-                           flameh, ifcanwind)
+                           flameh, ifcanwind, fixpai)
       if (ifcanwind) then
          write(*,*)  'Canopy wind/WAF option selected'
       else
@@ -167,7 +168,7 @@
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters         
 
         call canopy_parm(vtyperef, hcm, ffracref, lairef, &
-                         firetype, cdrag, &
+                         fixpai, firetype, cdrag, &
                          pai, zcanmax, sigmau, sigma1)
 
 ! ... initialize canopy model and integrate to get fractional plant area distribution functions
