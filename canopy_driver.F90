@@ -14,6 +14,7 @@
 !    Prototype: Patrick C. Campbell, 06/2022
 !
 !-------------------------------------------------------------
+       use canopy_const_mod, ONLY: rk    !canopy constants
        use canopy_utils_mod !utilities for canopy models
        use canopy_parm_mod  !main canopy parameters
        use canopy_files_mod !main canopy input files
@@ -21,7 +22,6 @@
        use canopy_waf_mod   !main Wind Adjustment Factor (WAF) model
 
       implicit none
-        INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 
 ! !....this block defines geographic domain of inputs (read from user namelist)
         integer        ::    nlat        !length of x coordinate

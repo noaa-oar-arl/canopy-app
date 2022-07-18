@@ -24,11 +24,10 @@ contains
 !     Jun 2022 P.C. Campbell: Initial standalone canopy wind model 
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
-      use canopy_const_mod, ONLY: vonk    !constants for canopy models
+      use canopy_const_mod, ONLY: rk, vonk    !constants for canopy models
       use canopy_utils_mod     !utilities for canopy models
 
 ! Arguments:
-      INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 !     IN/OUT
       REAL(RK),    INTENT( IN )  :: HCM             ! Height of canopy top (m)
       REAL(RK),    INTENT( IN )  :: ZTOTHC  ( : )   ! SUB-CANOPY Total z/h layers (nondimensional)

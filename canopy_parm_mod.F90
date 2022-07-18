@@ -25,11 +25,10 @@ contains
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
 
-      use canopy_const_mod, ONLY: pi    !constants for canopy models
+      use canopy_const_mod, ONLY: rk    !constants for canopy models
 
 
 ! Arguments:
-      INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 !     IN/OUT
 !      REAL(RK),    INTENT( IN )  :: LAT             ! Grid cell latitude (degrees) !not needed yet
 !      REAL(RK),    INTENT( IN )  :: LON             ! Grid cell longitude (degrees)!not needed yet
