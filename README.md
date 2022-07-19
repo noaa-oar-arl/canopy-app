@@ -18,16 +18,16 @@ Current Canopy-App components:
 
 1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildland fire spread model applications (Massman et al., 2017).
 
-- `canopy_wind_mod.F90`
-- `canopy_waf_mod.F90`
+    - `canopy_wind_mod.F90`
+    - `canopy_waf_mod.F90`
 
 2.  In-Canopy radiative transfer (i.e., photolysis rate adjusment) for air quality applications (in progress...)  (Makar et al., 2017)
 
-- `canopy_prad_mod.F90`
+    - `canopy_prad_mod.F90`
 
 3.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment) for air quality applications (in progress...) (Makar et al., 2017)
 
-- `canopy_vdiff_mod.F90`
+    - `canopy_vdiff_mod.F90`
 
 
 Citations:
