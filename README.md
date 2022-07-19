@@ -41,8 +41,14 @@ Makar, P., Staebler, R., Akingunola, A. et al. The effects of forest canopy shad
 
 ## Development
 
-To set up the pre-commit hooks, invoke
+After cloning the repository,
+set up the pre-commit hooks by invoking
 ```
 pre-commit install --install-hooks
 ```
-after [installing `pre-commit`](https://pre-commit.com/#installation).
+within the repository (after [installing `pre-commit`](https://pre-commit.com/#installation)).
+This only has to be done once.
+The [current configuration](./.pre-commit-config.yaml) applies
+[`findent -i4`](https://www.ratrabbit.nl/ratrabbit/findent/) to fix indentation
+and strips trailing whitespace.
+Using pre-commit saves you time/energy and reduces diffs.
