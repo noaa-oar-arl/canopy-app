@@ -37,3 +37,12 @@ Katul, G.G., Mahrt, L., Poggi, D., and Sanz, C. (2004). One- and two-equation mo
 Massman, W. J., J.M. Forthofer, and M.A. Finney. (2017). An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior. Canadian Journal of Forest Research. 47(5): 594-603. https://doi.org/10.1139/cjfr-2016-0354
 
 Makar, P., Staebler, R., Akingunola, A. et al. The effects of forest canopy shading and turbulence on boundary layer ozone. Nat Commun 8, 15243 (2017). https://doi.org/10.1038/ncomms15243
+
+
+## Development
+
+To set up the pre-commit hooks, invoke
+```
+pre-commit install --install-hooks
+```
+after [installing `pre-commit`](https://pre-commit.com/#installation).
