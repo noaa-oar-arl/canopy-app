@@ -133,10 +133,6 @@ program canopy_driver
     if(.not.allocated(profile)) allocate(profile(canlays))
     if(.not.allocated(variables)) allocate(variables(nlat*nlon))
 
-!test findent non-indentation block
-
-    print*, "hello findent!"
-
 ! ... read canopy profile data that should be passed
     open(9,  file=file_prof(1),  status='old')
     i0 = 0
