@@ -1,35 +1,35 @@
 
 SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-                           flameh,ifcanwind,fixpai)
+    flameh,ifcanwind,fixpai)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
 ! Purpose:  Reads input namelist to get user control variables.
 !           15 Jul 2022  Original Version (P.C. Campbell)
-!                        
+!
 !-------------------------------------------------------------------------------
 
-  USE canopy_files_mod
+    USE canopy_files_mod
 
-  IMPLICIT NONE
+    IMPLICIT NONE
 
-  INTEGER,               INTENT(OUT) :: nlat,nlon,canlays
-  REAL,                  INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh
-  LOGICAL,               INTENT(OUT) :: ifcanwind,fixpai
-  INTEGER                            :: istat
-  INTEGER                            :: n
-  CHARACTER(LEN=16),     PARAMETER   :: pname      = 'CANOPY_READNML'
+    INTEGER,               INTENT(OUT) :: nlat,nlon,canlays
+    REAL,                  INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh
+    LOGICAL,               INTENT(OUT) :: ifcanwind,fixpai
+    INTEGER                            :: istat
+    INTEGER                            :: n
+    CHARACTER(LEN=*),      PARAMETER   :: pname = 'CANOPY_READNML'
 
-  NAMELIST /filenames/   file_prof, file_vars
+    NAMELIST /filenames/ file_prof, file_vars
 
-  NAMELIST /userdefs/    nlat, nlon, canlays, canres, href, z0ghcm, lamdars, &
-                         flameh, ifcanwind, fixpai
+    NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghcm, lamdars, &
+        flameh, ifcanwind, fixpai
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
 !-------------------------------------------------------------------------------
 
-  CHARACTER(LEN=256), PARAMETER :: f9000 = "(/, 1x, 70('*'), &
+    CHARACTER(LEN=256), PARAMETER :: f9000 = "(/, 1x, 70('*'), &
     & /, 1x, '*** SUBROUTINE: ', a, &
     & /, 1x, '***   ERROR OPENING CANOPY NAMELIST FILE ON UNIT ', i3, &
     & /, 1x, '***   NAMELIST FILE NAME = ', a, &
@@ -37,7 +37,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     & /, 1x, 70('*'))"
 
 
-  CHARACTER(LEN=256), PARAMETER :: f9050 = "(/, 1x, 70('*'), &
+    CHARACTER(LEN=256), PARAMETER :: f9050 = "(/, 1x, 70('*'), &
     & /, 1x, '*** SUBROUTINE: ', a, &
     & /, 1x, '***   ERROR READING NAMELIST FILE ON UNIT ', i3, &
     & /, 1x, '***   NAMELIST FILE NAME = ', a, &
@@ -49,65 +49,65 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 ! Open canopy namelist file.
 !-------------------------------------------------------------------------------
 
-  OPEN (iutnml, FILE=file_nml, STATUS='OLD', IOSTAT=istat)
+    OPEN (iutnml, FILE=file_nml, STATUS='OLD', IOSTAT=istat)
 
-  IF ( istat > 0 ) THEN
-    WRITE (*,f9000) TRIM(pname), iutnml, TRIM(file_nml), istat
-    CALL EXIT(istat)
-  ENDIF
+    IF ( istat > 0 ) THEN
+        WRITE (*,f9000) TRIM(pname), iutnml, TRIM(file_nml), istat
+        CALL EXIT(istat)
+    ENDIF
 
 !-------------------------------------------------------------------------------
 ! Initialize canopy input file names.
 !-------------------------------------------------------------------------------
 
-  file_prof(:)    = " "
-  file_vars(:)    = " "
+    file_prof(:) = " "
+    file_vars(:) = " "
 
 !-------------------------------------------------------------------------------
 
 ! Set default value for number of latitude/longitude cells (default = 1D point)
-  nlat = 1
-  nlon = 1
+    nlat = 1
+    nlon = 1
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default integer value for number of canopy layers (default = 100 layers)
-  canlays = 100
+    canlays = 100
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for canopy vertical resolution (m) (Default = 0.5 m)
-  canres = 0.5
+    canres = 0.5
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default value for reference height above canopy (m) (Default = 10 m)
-  href  = 10.0
+    href = 10.0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for ratio of ground roughness length to canopy top height
-  z0ghcm  = 0.0025
+    z0ghcm = 0.0025
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for Influence function associated with roughness sublayer
-  lamdars  = 1.25
+    lamdars = 1.25
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for flame height (m) (Default = 2.0 m)
-  flameh  = 2.0
+    flameh = 2.0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default logical for canopy wind/WAF option (default = .FALSE.)
-  ifcanwind  = .FALSE.
+    ifcanwind = .FALSE.
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default logical for using fixed PAI values on vegtypes (default = .TRUE.)
-  fixpai  = .TRUE.
+    fixpai = .TRUE.
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -115,28 +115,28 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 ! read in case namelists are not in the correct order in the namelist.
 !-------------------------------------------------------------------------------
 
-  READ (iutnml, filenames, IOSTAT=istat)
-  IF ( istat > 0 ) THEN
-    WRITE (*,f9050) TRIM(pname), iutnml, TRIM(file_nml), "filenames", istat
-    CALL EXIT(istat)
-  ENDIF
-  REWIND (iutnml)
+    READ (iutnml, filenames, IOSTAT=istat)
+    IF ( istat > 0 ) THEN
+        WRITE (*,f9050) TRIM(pname), iutnml, TRIM(file_nml), "filenames", istat
+        CALL EXIT(istat)
+    ENDIF
+    REWIND (iutnml)
 
-  READ (iutnml, userdefs, IOSTAT=istat)
-  IF ( istat > 0 ) THEN
-    WRITE (*,f9050) TRIM(pname), iutnml, TRIM(file_nml), "userdefs", istat
-    CALL EXIT(istat)
-  ENDIF
-  REWIND (iutnml)
+    READ (iutnml, userdefs, IOSTAT=istat)
+    IF ( istat > 0 ) THEN
+        WRITE (*,f9050) TRIM(pname), iutnml, TRIM(file_nml), "userdefs", istat
+        CALL EXIT(istat)
+    ENDIF
+    REWIND (iutnml)
 
 !-------------------------------------------------------------------------------
 ! Crop blank spaces off ends of file names.
 !-------------------------------------------------------------------------------
 
-  DO n = 1, SIZE(file_prof)
-    file_prof(n) = TRIM( ADJUSTL( file_prof(n) ) )
-    file_vars(n)= TRIM( ADJUSTL( file_vars(n) ) )
-  ENDDO
+    DO n = 1, SIZE(file_prof)
+        file_prof(n) = TRIM( ADJUSTL( file_prof(n) ) )
+        file_vars(n)= TRIM( ADJUSTL( file_vars(n) ) )
+    ENDDO
 
 !-------------------------------------------------------------------------------
 ! Verify values of user-defined options (need conditions added...)
@@ -146,6 +146,6 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 ! Close namelist file.
 !-------------------------------------------------------------------------------
 !  write(*,*)'namelist intvl=',intvl
-  CLOSE (iutnml)
+    CLOSE (iutnml)
 
 END SUBROUTINE canopy_readnml
