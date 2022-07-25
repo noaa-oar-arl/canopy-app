@@ -75,7 +75,7 @@ contains
                     PAI=LAI
                 else
                     write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
-                    call exit(123)
+                    call exit(2)
                 end if
                 ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk)/5.0_rk
                 SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk)/5.0_rk
@@ -94,7 +94,7 @@ contains
                     PAI=LAI
                 else
                     write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
-                    call exit(123)
+                    call exit(2)
                 end if
                 ZCANMAX=0.84_rk
                 SIGMAU=0.13_rk
@@ -113,7 +113,7 @@ contains
                     PAI=LAI
                 else
                     write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
-                    call exit(123)
+                    call exit(2)
                 end if
                 ZCANMAX=(0.94_rk + 0.62_rk)/2.0_rk
                 SIGMAU=(0.03_rk + 0.50_rk)/2.0_rk
