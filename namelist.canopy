@@ -13,5 +13,5 @@
   lamdars    =  1.25    !Influence function associated with roughness sublayer (Massman et al., 2017)
   flameh     =  2.0     !real value of flame height (m)
   ifcanwind  = .TRUE.   !logical canopy wind/WAF option (default = .FALSE.)
-  pai_opt    = 2        !integer (0=PAI fixed from Katul et al. 2004 veg types-->default; 1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI)
+  pai_opt    = 0        !integer (0=PAI fixed from Katul et al. 2004 veg types-->default; 1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI)
 /
