@@ -9,9 +9,9 @@
   canlays    =  100     !integer number of canopy layers  (must match input_profile)
   canres     =  0.5     !real value of canopy vertical resolution (m) (must match input_profile)
   href       =  10.0    !real value of reference height above canopy (m)
-  z0ghcm     =  0.0025  !ratio of ground roughness length to canopy top height
-  lamdars    =  1.25    !Influence function associated with roughness sublayer
+  z0ghcm     =  0.0025  !ratio of ground roughness length to canopy top height (Massman et al., 2017)
+  lamdars    =  1.25    !Influence function associated with roughness sublayer (Massman et al., 2017)
   flameh     =  2.0     !real value of flame height (m)
   ifcanwind  = .TRUE.   !logical canopy wind/WAF option (default = .FALSE.)
-  fixpai     = .TRUE.   !logical to select fixed PAI for vegtypes (default = .TRUE.)
+  pai_opt    = 0        !integer (0=PAI fixed from Katul et al. 2004 veg types-->default; 1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI)
 /

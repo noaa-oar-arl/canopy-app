@@ -31,7 +31,7 @@ program canopy_driver
     real           ::    href        !Reference Height above canopy @ 10 m  (m)
     real           ::    flameh      !Flame Height (m)
     logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
-    logical        ::    fixpai      !logical to used fixed PAI on vegtypes (default = .TRUE.)
+    integer        ::    pai_opt     !integer for PAI values used or calculated (default = 0)
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
     real           ::    z0ghcm   ! ratio of ground roughness length to canopy top height
@@ -110,7 +110,7 @@ program canopy_driver
 !-------------------------------------------------------------------------------
 
     call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-        flameh, ifcanwind, fixpai)
+        flameh, ifcanwind, pai_opt)
     if (ifcanwind) then
         write(*,*)  'Canopy wind/WAF option selected'
     else
@@ -168,7 +168,7 @@ program canopy_driver
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
 
         call canopy_parm(vtyperef, hcm, ffracref, lairef, &
-            fixpai, firetype, cdrag, &
+            pai_opt, firetype, cdrag, &
             pai, zcanmax, sigmau, sigma1)
 
 ! ... initialize canopy model and integrate to get fractional plant area distribution functions
