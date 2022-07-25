@@ -1,6 +1,6 @@
 
 SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-    flameh,ifcanwind,fixpai)
+    flameh,ifcanwind,pai_opt)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -13,9 +13,9 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
     IMPLICIT NONE
 
-    INTEGER,               INTENT(OUT) :: nlat,nlon,canlays
+    INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt
     REAL,                  INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh
-    LOGICAL,               INTENT(OUT) :: ifcanwind,fixpai
+    LOGICAL,               INTENT(OUT) :: ifcanwind
     INTEGER                            :: istat
     INTEGER                            :: n
     CHARACTER(LEN=*),      PARAMETER   :: pname = 'CANOPY_READNML'
@@ -23,7 +23,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     NAMELIST /filenames/ file_prof, file_vars
 
     NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghcm, lamdars, &
-        flameh, ifcanwind, fixpai
+        flameh, ifcanwind, pai_opt
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -106,8 +106,8 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
-! Set default logical for using fixed PAI values on vegtypes (default = .TRUE.)
-    fixpai = .TRUE.
+! Set default integer for PAI set values or calculation (default = 0)
+    pai_opt = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

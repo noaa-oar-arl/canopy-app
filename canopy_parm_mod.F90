@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_PARM( VTYPE, FCH, FFRAC, LAI, &
-        FIXPAI, FIRETYPE, CDRAG, &
+        PAI_OPT, FIRETYPE, CDRAG, &
         PAI, ZCANMAX, SIGMAU, SIGMA1 )
 
 !-----------------------------------------------------------------------
@@ -36,7 +36,7 @@ contains
         REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
         REAL(RK),    INTENT( IN )  :: FFRAC           ! Grid cell forest fraction
         REAL(RK),    INTENT( IN )  :: LAI             ! Grid cell leaf area index
-        LOGICAL,     INTENT( IN )  :: FIXPAI          ! Logical to used fixed PAI on vegtypes (default = .TRUE.)
+        INTEGER,     INTENT( IN )  :: PAI_OPT         ! integer for PAI values used or calculated (default = 0)
 
 
         INTEGER,     INTENT( OUT ) :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy
@@ -67,10 +67,14 @@ contains
                 !--> Use average Massman Aspen+Spruce+Pine Forest
                 FIRETYPE=0
                 CDRAG=(0.20_rk + 0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk)/5.0_rk
-                if (FIXPAI) then
+                if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
                     PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/5.0_rk
+                else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
+                    PAI=CalcPAI(FCH,FFRAC)
+                else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
+                    PAI=LAI
                 else
-                    PAI=CalcPAI(FCH,FFRAC)  !Massman PAI calculation (Eq. 19)
+                    write(*,*)  'No PAI_OPT Selected...Defaulting to option 0'
                 end if
                 ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk)/5.0_rk
                 SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk)/5.0_rk
@@ -81,10 +85,14 @@ contains
                 !--> Use Massman Hardwood Forest
                 FIRETYPE=0
                 CDRAG=0.15_rk
-                if (FIXPAI) then
+                if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
                     PAI=4.93_rk
+                else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
+                    PAI=CalcPAI(FCH,FFRAC)
+                else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
+                    PAI=LAI
                 else
-                    PAI=CalcPAI(FCH,FFRAC)  !Massman PAI calculation (Eq. 19)
+                    write(*,*)  'No PAI_OPT Selected...Defaulting to option 0'
                 end if
                 ZCANMAX=0.84_rk
                 SIGMAU=0.13_rk
@@ -95,10 +103,14 @@ contains
                 !--> Average of Massman Corn + Rice )
                 FIRETYPE=1
                 CDRAG=(0.30_rk + 0.30_rk)/2.0_rk
-                if (FIXPAI) then
+                if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
                     PAI=(2.94_rk + 3.10_rk)/2.0_rk
+                else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
+                    PAI=CalcPAI(FCH,FFRAC)
+                else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
+                    PAI=LAI
                 else
-                    PAI=CalcPAI(FCH,FFRAC)  !Massman PAI calculation (Eq. 19)
+                    write(*,*)  'No PAI_OPT Selected...Defaulting to option 0'
                 end if
                 ZCANMAX=(0.94_rk + 0.62_rk)/2.0_rk
                 SIGMAU=(0.03_rk + 0.50_rk)/2.0_rk
