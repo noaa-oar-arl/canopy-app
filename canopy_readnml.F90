@@ -1,6 +1,6 @@
 
 SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-    flameh,ifcanwind,pai_opt)
+    flameh,ifcanwind,pai_opt,pai_set)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -14,7 +14,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     IMPLICIT NONE
 
     INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt
-    REAL,                  INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh
+    REAL,                  INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh,pai_set
     LOGICAL,               INTENT(OUT) :: ifcanwind
     INTEGER                            :: istat
     INTEGER                            :: n
@@ -23,7 +23,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     NAMELIST /filenames/ file_prof, file_vars
 
     NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghcm, lamdars, &
-        flameh, ifcanwind, pai_opt
+        flameh, ifcanwind, pai_opt, pai_set
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -108,6 +108,11 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !-------------------------------------------------------------------------------
 ! Set default integer for PAI set values or calculation (default = 0)
     pai_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for PAI set value (default = 4.0)
+    pai_set = 4
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
