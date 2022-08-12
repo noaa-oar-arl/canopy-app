@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_PARM( VTYPE, FCH, FFRAC, LAI, &
-        PAI_OPT, FIRETYPE, CDRAG, &
+        PAI_OPT, PAI_SET, FIRETYPE, CDRAG, &
         PAI, ZCANMAX, SIGMAU, SIGMA1 )
 
 !-----------------------------------------------------------------------
@@ -37,7 +37,7 @@ contains
         REAL(RK),    INTENT( IN )  :: FFRAC           ! Grid cell forest fraction
         REAL(RK),    INTENT( IN )  :: LAI             ! Grid cell leaf area index
         INTEGER,     INTENT( IN )  :: PAI_OPT         ! integer for PAI values used or calculated (default = 0)
-
+        REAL(RK),    INTENT( IN )  :: PAI_SET         ! real value for PAI set values used (default = 4.0)
 
         INTEGER,     INTENT( OUT ) :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy
         REAL(RK),    INTENT( OUT ) :: CDRAG           ! Drag coefficient (nondimensional)
@@ -73,6 +73,8 @@ contains
                     PAI=CalcPAI(FCH,FFRAC)
                 else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
                     PAI=LAI
+                else if (PAI_OPT .eq. 3) then !use set PAI value from user
+                    PAI=PAI_SET
                 else
                     write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
                     call exit(2)
@@ -92,6 +94,8 @@ contains
                     PAI=CalcPAI(FCH,FFRAC)
                 else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
                     PAI=LAI
+                else if (PAI_OPT .eq. 3) then !use set PAI value from user
+                    PAI=PAI_SET
                 else
                     write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
                     call exit(2)
@@ -111,6 +115,8 @@ contains
                     PAI=CalcPAI(FCH,FFRAC)
                 else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
                     PAI=LAI
+                else if (PAI_OPT .eq. 3) then !use set PAI value from user
+                    PAI=PAI_SET
                 else
                     write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
                     call exit(2)

@@ -27,17 +27,18 @@ program canopy_driver
     integer        ::    nlat        !length of x coordinate
     integer        ::    nlon        !length of y coordinate
     integer        ::    canlays     !Number of total above and below canopy layers
-    real           ::    canres      !Real value of canopy vertical resolution (m)
-    real           ::    href        !Reference Height above canopy @ 10 m  (m)
-    real           ::    flameh      !Flame Height (m)
+    real(rk)       ::    canres      !Real value of canopy vertical resolution (m)
+    real(rk)       ::    href        !Reference Height above canopy @ 10 m  (m)
+    real(rk)       ::    flameh      !Flame Height (m)
     logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
     integer        ::    pai_opt     !integer for PAI values used or calculated (default = 0)
+    real(rk)       ::    pai_set     !real value for PAI set values used (default = 4.0)
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
-    real           ::    z0ghcm   ! ratio of ground roughness length to canopy top height
+    real(rk)       ::   z0ghcm   ! ratio of ground roughness length to canopy top height
     !  (default case: Approx. currently does not account for understory
     !   variability)
-    real           ::   lamdars     ! Influence function associated with roughness sublayer (nondimensional)
+    real(rk)       ::   lamdars     ! Influence function associated with roughness sublayer (nondimensional)
 
 ! !....this block gives input canopy height and above reference conditions that should be passed (assume winds at href)
     real(rk)       ::    lat             !latitude  (degrees)
@@ -110,7 +111,7 @@ program canopy_driver
 !-------------------------------------------------------------------------------
 
     call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-        flameh, ifcanwind, pai_opt)
+        flameh, ifcanwind, pai_opt, pai_set)
     if (ifcanwind) then
         write(*,*)  'Canopy wind/WAF option selected'
     else
@@ -168,7 +169,7 @@ program canopy_driver
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
 
         call canopy_parm(vtyperef, hcm, ffracref, lairef, &
-            pai_opt, firetype, cdrag, &
+            pai_opt, pai_set, firetype, cdrag, &
             pai, zcanmax, sigmau, sigma1)
 
 ! ... initialize canopy model and integrate to get fractional plant area distribution functions
