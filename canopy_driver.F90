@@ -32,7 +32,7 @@ program canopy_driver
     real           ::    flameh      !Flame Height (m)
     logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
     integer        ::    pai_opt     !integer for PAI values used or calculated (default = 0)
-    real(rk)       ::    pai_set     !real value for PAI set values used (default = 4.0)
+    real           ::    pai_set     !real value for PAI set values used (default = 4.0)
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
     real           ::    z0ghcm   ! ratio of ground roughness length to canopy top height
