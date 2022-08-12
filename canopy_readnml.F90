@@ -8,13 +8,13 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !           15 Jul 2022  Original Version (P.C. Campbell)
 !
 !-------------------------------------------------------------------------------
-
+    USE canopy_const_mod, ONLY: rk                 !canopy constants
     USE canopy_files_mod
 
     IMPLICIT NONE
 
     INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt
-    REAL,                  INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh,pai_set
+    REAL(rk),              INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh,pai_set
     LOGICAL,               INTENT(OUT) :: ifcanwind
     INTEGER                            :: istat
     INTEGER                            :: n

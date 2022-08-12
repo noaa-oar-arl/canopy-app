@@ -37,7 +37,7 @@ contains
         REAL(RK),    INTENT( IN )  :: FFRAC           ! Grid cell forest fraction
         REAL(RK),    INTENT( IN )  :: LAI             ! Grid cell leaf area index
         INTEGER,     INTENT( IN )  :: PAI_OPT         ! integer for PAI values used or calculated (default = 0)
-        REAL,        INTENT( IN )  :: PAI_SET         ! real value for PAI set values used (default = 4.0)
+        REAL(RK),    INTENT( IN )  :: PAI_SET         ! real value for PAI set values used (default = 4.0)
 
         INTEGER,     INTENT( OUT ) :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy
         REAL(RK),    INTENT( OUT ) :: CDRAG           ! Drag coefficient (nondimensional)
