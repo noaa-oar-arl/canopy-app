@@ -5,7 +5,7 @@
 
 &USERDEFS
   nlat       =  101     !integer number of latitude cells (must match input_vars)
-  nlon       =  201     !integer number of longitude cells (must match input_vars)
+  nlon       =  101     !integer number of longitude cells (must match input_vars)
   canlays    =  100     !integer number of canopy layers  (must match input_profile)
   canres     =  0.5     !real value of canopy vertical resolution (m) (must match input_profile)
   href       =  10.0    !real value of reference height above canopy (m)
