@@ -53,6 +53,7 @@ program canopy_driver
     real(rk)       ::    cszref          !Input cosine of zenith angle
     real(rk)       ::    z0ref           !Input total/surface roughness length
     real(rk)       ::    molref          !Input Monin-Obukhov Length
+    real(rf)       ::    frpref          !Input fire radiative power
 
 ! !....this block gives vegetion-type canopy dependent  parameters based on Katul et al. (2004)
     integer        ::    firetype         !1 = Above Canopy Fire; 0 = Below Canopy Fire
@@ -102,6 +103,7 @@ program canopy_driver
         real(rk)   :: csz          !cosine of solar zenith angle
         real(rk)   :: z0           !surface roughness length
         real(rk)   :: mol          !Monin-Obukhov length
+        real(rk)   :: frp          !fire radiative power
     end TYPE variable_type
 
     type(variable_type), allocatable :: variables( : )
@@ -165,6 +167,7 @@ program canopy_driver
         cszref   = variables(loc)%csz
         z0ref    = variables(loc)%z0
         molref   = variables(loc)%mol
+        frpref   = variables(loc)%frp
 
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
 
