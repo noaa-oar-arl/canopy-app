@@ -1,6 +1,6 @@
 
 SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-    flameh,ifcanwind,pai_opt,pai_set)
+    flameh_opt,flameh_set,ifcanwind,pai_opt,pai_set)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -13,8 +13,8 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
     IMPLICIT NONE
 
-    INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt
-    REAL(rk),              INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh,pai_set
+    INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt,flameh_opt
+    REAL(rk),              INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh_set,pai_set
     LOGICAL,               INTENT(OUT) :: ifcanwind
     INTEGER                            :: istat
     INTEGER                            :: n
@@ -23,7 +23,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     NAMELIST /filenames/ file_prof, file_vars
 
     NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghcm, lamdars, &
-        flameh, ifcanwind, pai_opt, pai_set
+        flameh_opt, flameh_set, ifcanwind, pai_opt, pai_set
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -96,8 +96,13 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
+! Set default integer for flame height set values or calculation (default = 0)
+    flameh_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
 ! Set default real value for flame height (m) (Default = 2.0 m)
-    flameh = 2.0
+    flameh_set = 2.0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

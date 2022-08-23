@@ -15,7 +15,7 @@ program canopy_driver
 !
 !-------------------------------------------------------------
     use canopy_const_mod, ONLY: rk                 !canopy constants
-    use canopy_utils_mod, ONLY: IntegrateTrapezoid !utilities for canopy models
+    use canopy_utils_mod, ONLY: IntegrateTrapezoid,CalcFlameH !utilities for canopy models
     use canopy_parm_mod  !main canopy parameters
     use canopy_files_mod !main canopy input files
     use canopy_wind_mod  !main canopy wind model
@@ -29,10 +29,11 @@ program canopy_driver
     integer        ::    canlays     !Number of total above and below canopy layers
     real(rk)       ::    canres      !Real value of canopy vertical resolution (m)
     real(rk)       ::    href        !Reference Height above canopy @ 10 m  (m)
-    real(rk)       ::    flameh      !Flame Height (m)
     logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
     integer        ::    pai_opt     !integer for PAI values used or calculated (default = 0)
     real(rk)       ::    pai_set     !real value for PAI set values used (default = 4.0)
+    integer        ::    flameh_opt  !Integer for flameh values used or calculated (default = 0)
+    real(rk)       ::    flameh_set  !User Set Flame Height (m)
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
     real(rk)       ::   z0ghcm   ! ratio of ground roughness length to canopy top height
@@ -43,7 +44,9 @@ program canopy_driver
 ! !....this block gives input canopy height and above reference conditions that should be passed (assume winds at href)
     real(rk)       ::    lat             !latitude  (degrees)
     real(rk)       ::    lon             !longitude (degrees)
+    real(rk)       ::    dlon            !longitude increment (degrees)
     real(rk)       ::    hcm             !Input Canopy Height (m)
+    real(rk)       ::    dx              !Model grid cell resolution (east-west) (m)
     real(rk)       ::    ubzref          !Input above canopy/reference 10-m model wind speed (m/s)
     real(rk)       ::    cluref          !Input canopy clumping index
     real(rk)       ::    lairef          !Input leaf area index
@@ -56,7 +59,7 @@ program canopy_driver
     real(rk)       ::    frpref          !Input fire radiative power
 
 ! !....this block gives vegetion-type canopy dependent  parameters based on Katul et al. (2004)
-    integer        ::    firetype         !1 = Above Canopy Fire; 0 = Below Canopy Fire
+    integer        ::    firetype      !1 = Above Canopy Fire; 0 = Below Canopy Fire
     real(rk)       ::    cdrag         !Drag coefficient (nondimensional)
     real(rk)       ::    pai           !Plant/foliage area index (nondimensional)
     real(rk)       ::    zcanmax       !Height of maximum foliage area density (z/h) (nondimensional)
@@ -75,8 +78,8 @@ program canopy_driver
     real(rk)              :: fatot             ! integral of total fractional foliage shape function
     real(rk), allocatable :: canWIND    ( :, : )  ! final mean canopy wind speeds (m/s)
 
+    real(rk) ::    flameh               ! flame Height (m)
     integer  ::    cansublays           ! number of sub-canopy layers
-    integer  ::    canmidpoint          ! indice of the sub-canopy midpoint
     integer  ::    flamelays            ! number of flame layers
     integer  ::    midflamepoint        ! indice of the mid-flame point
     real(rk), allocatable :: waf        (:)  ! Calculated Wind Adjustment Factor
@@ -103,7 +106,7 @@ program canopy_driver
         real(rk)   :: csz          !cosine of solar zenith angle
         real(rk)   :: z0           !surface roughness length
         real(rk)   :: mol          !Monin-Obukhov length
-        real(rk)   :: frp          !fire radiative power
+        real(rk)   :: frp          !fire radiative power (MW per grid cell)
     end TYPE variable_type
 
     type(variable_type), allocatable :: variables( : )
@@ -113,7 +116,7 @@ program canopy_driver
 !-------------------------------------------------------------------------------
 
     call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-        flameh, ifcanwind, pai_opt, pai_set)
+        flameh_opt, flameh_set, ifcanwind, pai_opt, pai_set)
     if (ifcanwind) then
         write(*,*)  'Canopy wind/WAF option selected'
     else
@@ -154,6 +157,7 @@ program canopy_driver
     end do
     close(8)
 
+    dlon = variables(nlat*nlon)%lon - variables((nlat*nlon)-1)%lon
     do loc=1, nlat*nlon
         lat      = variables(loc)%lat
         lon      = variables(loc)%lon
@@ -179,9 +183,6 @@ program canopy_driver
         zkcm   = profile%zk
         ztothc = zkcm/hcm
         cansublays  = floor(hcm/canres)
-        canmidpoint = cansublays/2
-        flamelays    = floor(flameh/canres)
-        midflamepoint   = flamelays/2
 
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
         fainc = 0.0_rk  ! initialize
@@ -210,13 +211,29 @@ program canopy_driver
                     z0ghcm, cdrag, pai, canBOT(i), canTOP(i), canWIND(i, loc))
             end do
 
-! ... calculate wind adjustment factor dependent on canopy winds and fire type
-
+! ... calculate wind adjustment factor dependent on fires (FRP), canopy winds,
+!                                                        flameh, and fire type
+            if (flameh_opt .eq. 0) then
+                if (nlon .eq. 1) then      !single lon point -- reset to user value
+                    flameh = flameh_set
+                else                       !calculate flameh
+                    dx     = dlon*111000.0  !convert lon grid to distance (m)
+                    flameh = CalcFlameH(frpref,dx)
+                end if
+            else
+                flameh = flameh_set
+            end if
+            if (flameh .lt. canres) then !flameh under first layer
+                flamelays     = ceiling(flameh/canres)
+                midflamepoint = 1
+            else
+                flamelays     = floor(flameh/canres)
+                midflamepoint = max((flamelays/2),1)
+            end if
             call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), &
                 ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, &
                 canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
         end if
-
     end do
 
     if (ifcanwind) then
@@ -236,7 +253,7 @@ program canopy_driver
         write(11, '(a30, f6.1)') 'Reference height, h: ', href, 'm'
         write(11, '(a8, a9, a19, a11)') 'Lat', 'Lon', 'Canopy height (m)', 'WAF'
         do loc=1, nlat*nlon
-            write(11, '(f8.2, f9.2, f19.2, f11.7)')  variables(loc)%lat, variables(loc)%lon, variables(loc)%fh, waf(loc)
+            write(11, '(f8.2, f9.2, f19.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, variables(loc)%fh, waf(loc)
         end do
     end if
 

@@ -102,7 +102,7 @@ contains
             term1 = log( LAMDARS * ( ( (FLAMEH/HCM) +  1.0 - d_h ) / zo_h ) ) - &   !numerator
                 ( 1.0 + (delta*log((1.0/delta) + 1.0)) )
             term2 = log( LAMDARS * ( ( ( (HREF/HCM) + 1.0 - d_h) )/ zo_h ) )  !denominator
-            waf   = term1 / term2
+            waf   = abs (term1 / term2) !need absolute for flameh < 1 m conditions
         end if
 
     END SUBROUTINE CANOPY_WAF
