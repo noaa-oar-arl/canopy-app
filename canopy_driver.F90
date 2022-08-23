@@ -220,12 +220,15 @@ program canopy_driver
                     dx     = dlon*111000.0  !convert lon grid to distance (m)
                     flameh = CalcFlameH(frpref,dx)
                 end if
-            else
+            else if (flameh_opt .eq. 1) then  !user set value
                 flameh = flameh_set
+            else
+                write(*,*)  'Wrong FLAMEH_OPT choice in namelist...exiting'
+                call exit(2)
             end if
             if (flameh .lt. canres) then !flameh under first layer
                 flamelays     = ceiling(flameh/canres)
-                midflamepoint = 1
+                midflamepoint = 1 !put in first layer
             else
                 flamelays     = floor(flameh/canres)
                 midflamepoint = max((flamelays/2),1)
