@@ -157,8 +157,16 @@ program canopy_driver
     end do
     close(8)
 
+! ... calculate grid cell distance
     dlon = abs(variables(nlat*nlon)%lon - variables((nlat*nlon)-1)%lon)
     dx   = dlon*111000.0  !convert lon grid to distance (m)
+
+! ... get canopy model profile heights
+    zkcm   = profile%zk
+
+! ... initialize grid cell dependent variables
+    waf = 1.0_rk
+
     do loc=1, nlat*nlon
         lat      = variables(loc)%lat
         lon      = variables(loc)%lon
@@ -174,68 +182,83 @@ program canopy_driver
         molref   = variables(loc)%mol
         frpref   = variables(loc)%frp
 
-! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
-
-        call canopy_parm(vtyperef, hcm, ffracref, lairef, &
-            pai_opt, pai_set, firetype, cdrag, &
-            pai, zcanmax, sigmau, sigma1)
-
-! ... initialize canopy model and integrate to get fractional plant area distribution functions
-        zkcm   = profile%zk
+! ... get scaled canopy model profile and layers
         ztothc = zkcm/hcm
         cansublays  = floor(hcm/canres)
 
+! ... initialize canopy profile dependent variables
+        fainc             = 0.0_rk
+        fatot             = 0.0_rk
+        fafracz           = 0.0_rk
+        fafraczInt        = 0.0_rk
+        canTOP            = 1.0_rk
+        canBOT            = 1.0_rk
+
+! ... initialize grid cell and canopy profile dependent variables
+        canWIND(:,loc)    = ubzref !initialize to above canopy wind
+
+! ... check for model vegetation types
+        if (vtyperef .le. 10 .or. vtyperef .eq. 12) then
+
+! ... check for contiguous canopy conditions at each model grid cell
+            if (hcm .gt. 0.5 .and. ffracref .gt. 0.5 .and. lairef .ge. 0.1) then
+
+! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
+
+                call canopy_parm(vtyperef, hcm, ffracref, lairef, &
+                    pai_opt, pai_set, firetype, cdrag, &
+                    pai, zcanmax, sigmau, sigma1)
+
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
-        fainc = 0.0_rk  ! initialize
-        fatot = 0.0_rk  ! initialize
-        do i=1, canlays
-            if (ztothc(i) >= zcanmax .and. ztothc(i) <= 1.0) then
-                fainc(i) = exp((-1.0*((ztothc(i)-zcanmax)**2.0))/sigmau**2.0)
-            else if (ztothc(i) >= 0.0 .and. ztothc(i) <= zcanmax) then
-                fainc(i) = exp((-1.0*((zcanmax-ztothc(i))**2.0))/sigma1**2.0)
-            end if
-        end do
-        fatot = IntegrateTrapezoid(ztothc,fainc)
+                do i=1, canlays
+                    if (ztothc(i) >= zcanmax .and. ztothc(i) <= 1.0) then
+                        fainc(i) = exp((-1.0*((ztothc(i)-zcanmax)**2.0))/sigmau**2.0)
+                    else if (ztothc(i) >= 0.0 .and. ztothc(i) <= zcanmax) then
+                        fainc(i) = exp((-1.0*((zcanmax-ztothc(i))**2.0))/sigma1**2.0)
+                    end if
+                end do
+                fatot = IntegrateTrapezoid(ztothc,fainc)
 
 ! ... calculate plant distribution function
-        fafracz    = 0.0_rk  ! initialize
-        fafraczInt = 0.0_rk  ! initialize
-        do i=1, canlays
-            fafracz(i) = fainc(i)/fatot
-            fafraczInt(i) = IntegrateTrapezoid(ztothc(1:i),fafracz(1:i))
-        end do
+                do i=1, canlays
+                    fafracz(i) = fainc(i)/fatot
+                    fafraczInt(i) = IntegrateTrapezoid(ztothc(1:i),fafracz(1:i))
+                end do
 
-        if (ifcanwind) then
-! ... calculate in-canopy wind speeds at z
-            do i=1, canlays
-                call canopy_wind(hcm, zkcm(i), fafraczInt(i), ubzref, &
-                    z0ghcm, cdrag, pai, canBOT(i), canTOP(i), canWIND(i, loc))
-            end do
+                if (ifcanwind) then  !user option to calculate in-canopy wind speeds at z
+                    do i=1, canlays
+                        call canopy_wind(hcm, zkcm(i), fafraczInt(i), ubzref, &
+                            z0ghcm, cdrag, pai, canBOT(i), canTOP(i), canWIND(i, loc))
+                    end do
 
 ! ... calculate wind adjustment factor dependent on fires (FRP), canopy winds,
 !                                                        flameh, and fire type
-            if (flameh_opt .eq. 0) then
-                if (nlon .eq. 1 .or. dx .eq. 0) then      !single lon point -- reset to user value
-                    flameh = flameh_set
-                else                       !calculate flameh
-                    flameh = CalcFlameH(frpref,dx)
+                    if (flameh_opt .eq. 0) then
+                        if (nlon .eq. 1 .or. dx .eq. 0) then      !single lon point -- reset to user value
+                            flameh = flameh_set
+                        else                       !calculate flameh
+                            flameh = CalcFlameH(frpref,dx)
+                        end if
+                    else if (flameh_opt .eq. 1) then  !user set value
+                        flameh = flameh_set
+                    else
+                        write(*,*)  'Wrong FLAMEH_OPT choice of ', flameh_opt, ' in namelist...exiting'
+                        call exit(2)
+                    end if
+                    if (flameh .lt. canres) then !flameh under first layer
+                        flamelays     = ceiling(flameh/canres)
+                        midflamepoint = 1 !put in first layer
+                    else
+                        flamelays     = floor(flameh/canres)
+                        midflamepoint = max((flamelays/2),1)
+                    end if
+                    if (flameh .gt. 0.0) then !only calculate when flameh > 0
+                        call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), &
+                            ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, &
+                            canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
+                    end if
                 end if
-            else if (flameh_opt .eq. 1) then  !user set value
-                flameh = flameh_set
-            else
-                write(*,*)  'Wrong FLAMEH_OPT choice of ', flameh_opt, ' in namelist...exiting'
-                call exit(2)
             end if
-            if (flameh .lt. canres) then !flameh under first layer
-                flamelays     = ceiling(flameh/canres)
-                midflamepoint = 1 !put in first layer
-            else
-                flamelays     = floor(flameh/canres)
-                midflamepoint = max((flamelays/2),1)
-            end if
-            call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), &
-                ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, &
-                canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
         end if
     end do
 
