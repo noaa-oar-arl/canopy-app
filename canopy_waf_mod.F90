@@ -90,7 +90,6 @@ contains
         ! Calculate surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):
         zo_h  = LAMDARS * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
 
-        ! Calculate WAF dependent on fire type (sub- or above-canopy) (Eqs. 17 and 18 of Massman et al. 2017)
         if (FIRETYPE == 0) then  !sub-canopy
             ! write(*,*)  '------Sub-Canopy Fire Type------'
             term1 = log( LAMDARS * ( (1.0 - d_h)/zo_h ) )  !numerator
@@ -100,9 +99,9 @@ contains
             ! write(*,*)  '-----Above-Canopy Fire Type-----'
             delta = (1.0 - d_h) / (FLAMEH/HCM)
             term1 = log( LAMDARS * ( ( (FLAMEH/HCM) +  1.0 - d_h ) / zo_h ) ) - &   !numerator
-                ( 1.0 + (delta*log((1.0/delta) + 1.0)) )
+                1.0 + (delta*log((1.0/delta) + 1.0))
             term2 = log( LAMDARS * ( ( ( (HREF/HCM) + 1.0 - d_h) )/ zo_h ) )  !denominator
-            waf   = abs (term1 / term2) !need absolute for flameh < 1 m conditions
+            waf   = term1 / term2
         end if
 
     END SUBROUTINE CANOPY_WAF

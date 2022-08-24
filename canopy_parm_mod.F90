@@ -76,7 +76,7 @@ contains
                 else if (PAI_OPT .eq. 3) then !use set PAI value from user
                     PAI=PAI_SET
                 else
-                    write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
+                    write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
                 ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk)/5.0_rk
@@ -97,7 +97,7 @@ contains
                 else if (PAI_OPT .eq. 3) then !use set PAI value from user
                     PAI=PAI_SET
                 else
-                    write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
+                    write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
                 ZCANMAX=0.84_rk
@@ -118,7 +118,7 @@ contains
                 else if (PAI_OPT .eq. 3) then !use set PAI value from user
                     PAI=PAI_SET
                 else
-                    write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
+                    write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
                 ZCANMAX=(0.94_rk + 0.62_rk)/2.0_rk

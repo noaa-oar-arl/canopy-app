@@ -46,7 +46,7 @@ program canopy_driver
     real(rk)       ::    lon             !longitude (degrees)
     real(rk)       ::    dlon            !longitude increment (degrees)
     real(rk)       ::    hcm             !Input Canopy Height (m)
-    real(rk)       ::    dx              !Model grid cell resolution (east-west) (m)
+    real(rk)       ::    dx              !Model grid cell resolution (west-east) (m)
     real(rk)       ::    ubzref          !Input above canopy/reference 10-m model wind speed (m/s)
     real(rk)       ::    cluref          !Input canopy clumping index
     real(rk)       ::    lairef          !Input leaf area index
@@ -157,7 +157,8 @@ program canopy_driver
     end do
     close(8)
 
-    dlon = variables(nlat*nlon)%lon - variables((nlat*nlon)-1)%lon
+    dlon = abs(variables(nlat*nlon)%lon - variables((nlat*nlon)-1)%lon)
+    dx   = dlon*111000.0  !convert lon grid to distance (m)
     do loc=1, nlat*nlon
         lat      = variables(loc)%lat
         lon      = variables(loc)%lon
@@ -214,16 +215,15 @@ program canopy_driver
 ! ... calculate wind adjustment factor dependent on fires (FRP), canopy winds,
 !                                                        flameh, and fire type
             if (flameh_opt .eq. 0) then
-                if (nlon .eq. 1) then      !single lon point -- reset to user value
+                if (nlon .eq. 1 .or. dx .eq. 0) then      !single lon point -- reset to user value
                     flameh = flameh_set
                 else                       !calculate flameh
-                    dx     = dlon*111000.0  !convert lon grid to distance (m)
                     flameh = CalcFlameH(frpref,dx)
                 end if
             else if (flameh_opt .eq. 1) then  !user set value
                 flameh = flameh_set
             else
-                write(*,*)  'Wrong FLAMEH_OPT choice in namelist...exiting'
+                write(*,*)  'Wrong FLAMEH_OPT choice of ', flameh_opt, ' in namelist...exiting'
                 call exit(2)
             end if
             if (flameh .lt. canres) then !flameh under first layer
