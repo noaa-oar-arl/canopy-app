@@ -28,7 +28,7 @@ contains
 ! Arguments:
 !       IN/OUT
         REAL(RK),    INTENT( IN )  :: HCM             ! Height of canopy top (m)
-        REAL(RK),    INTENT( IN )  :: ZK              ! Below canopy height, z (m)
+        REAL(RK),    INTENT( IN )  :: ZK              ! Above/Below canopy height, z (m)
         REAL(RK),    INTENT( IN )  :: FAFRACK         ! Fractional (z) shapes of the
         ! plant surface distribution (nondimensional)
         REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at reference height (m/s)

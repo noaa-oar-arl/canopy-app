@@ -16,11 +16,12 @@ program canopy_driver
 !-------------------------------------------------------------
     use canopy_const_mod, ONLY: rk                 !canopy constants
     use canopy_utils_mod, ONLY: IntegrateTrapezoid,CalcFlameH !utilities for canopy models
-    use canopy_parm_mod  !main canopy parameters
-    use canopy_files_mod !main canopy input files
-    use canopy_zpd_mod   !main displacement height model
-    use canopy_wind_mod  !main canopy wind model
-    use canopy_waf_mod   !main Wind Adjustment Factor (WAF) model
+    use canopy_parm_mod    !main canopy parameters
+    use canopy_files_mod   !main canopy input files
+    use canopy_zpd_mod     !main displacement height model
+    use canopy_wind_mod    !main canopy wind model
+    use canopy_waf_mod     !main Wind Adjustment Factor (WAF) model
+    use canopy_eddyx_mod   !main canopy eddy diffusivities
 
     implicit none
 
@@ -31,6 +32,7 @@ program canopy_driver
     real(rk)       ::    canres      !Real value of canopy vertical resolution (m)
     real(rk)       ::    href        !Reference Height above canopy @ 10 m  (m)
     logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
+    logical        ::    ifcaneddy   !logical canopy eddy Kz option (default = .FALSE.
     integer        ::    pai_opt     !integer for PAI values used or calculated (default = 0)
     real(rk)       ::    pai_set     !real value for PAI set values used (default = 4.0)
     integer        ::    flameh_opt  !Integer for flameh values used or calculated (default = 0)
@@ -70,15 +72,16 @@ program canopy_driver
     real(rk)       ::    zo_h          !Surface (soil+veg) roughness lengths (z/h)
 !Local variables
     integer i,i0,loc
-    real(rk), allocatable :: zkcm       ( : )  ! in-canopy heights (m)
-    real(rk), allocatable :: ztothc     ( : )  ! z/h
-    real(rk), allocatable :: fainc      ( : )  ! incremental foliage shape function
-    real(rk), allocatable :: fafracz    ( : )  ! incremental fractional foliage shape function
-    real(rk), allocatable :: fafraczInt ( : )  ! integral of incremental fractional foliage shape function
-    real(rk), allocatable :: canBOT     ( : )  ! Canopy bottom wind reduction factors
-    real(rk), allocatable :: canTOP     ( : )  ! Canopy top wind reduction factors
-    real(rk)              :: fatot             ! integral of total fractional foliage shape function
-    real(rk), allocatable :: canWIND    ( :, : )  ! final mean canopy wind speeds (m/s)
+    real(rk), allocatable :: zkcm       ( : )     ! in-canopy heights (m)
+    real(rk), allocatable :: ztothc     ( : )     ! z/h
+    real(rk), allocatable :: fainc      ( : )     ! incremental foliage shape function
+    real(rk), allocatable :: fafracz    ( : )     ! incremental fractional foliage shape function
+    real(rk), allocatable :: fafraczInt ( : )     ! integral of incremental fractional foliage shape function
+    real(rk), allocatable :: canBOT     ( : )     ! Canopy bottom wind reduction factors
+    real(rk), allocatable :: canTOP     ( : )     ! Canopy top wind reduction factors
+    real(rk)              :: fatot                ! integral of total fractional foliage shape function
+    real(rk), allocatable :: canWIND    ( :, : )  ! canopy wind speeds (m/s)
+    real(rk), allocatable :: Kz         ( :, : )  ! Eddy Diffusivities
 
     real(rk) ::    flameh               ! flame Height (m)
     integer  ::    cansublays           ! number of sub-canopy layers
@@ -118,11 +121,16 @@ program canopy_driver
 !-------------------------------------------------------------------------------
 
     call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-        flameh_opt, flameh_set, ifcanwind, pai_opt, pai_set)
+        flameh_opt, flameh_set, ifcanwind, ifcaneddy, pai_opt, pai_set)
     if (ifcanwind) then
         write(*,*)  'Canopy wind/WAF option selected'
-    else
-        write(*,*)  'No option(s) selected'
+    end if
+    if (ifcaneddy) then
+        write(*,*)  'Canopy eddy Kz option selected'
+    end if
+    if (.not. ifcanwind .and. .not. ifcaneddy) then
+        write(*,*)  'No option(s) selected...see namelist'
+        call exit(2)
     end if
 
 !-------------------------------------------------------------------------------
@@ -138,6 +146,7 @@ program canopy_driver
     if(.not.allocated(canTOP)) allocate(canTOP(canlays))
     if(.not.allocated(canWIND)) allocate(canWIND(canlays,nlat*nlon))
     if(.not.allocated(waf)) allocate(waf(nlat*nlon))
+    if(.not.allocated(Kz)) allocate(Kz(canlays,nlat*nlon))
     if(.not.allocated(profile)) allocate(profile(canlays))
     if(.not.allocated(variables)) allocate(variables(nlat*nlon))
 
@@ -185,7 +194,7 @@ program canopy_driver
         frpref   = variables(loc)%frp
 
 ! ... get scaled canopy model profile and layers
-        ztothc = zkcm/hcm
+        ztothc      = zkcm/hcm
         cansublays  = floor(hcm/canres)
 
 ! ... initialize canopy profile dependent variables
@@ -198,6 +207,7 @@ program canopy_driver
 
 ! ... initialize grid cell and canopy profile dependent variables
         canWIND(:,loc)    = ubzref !initialize to above canopy wind
+        Kz(:,loc)         = -999.0_rk
 
 ! ... check for model vegetation types
         if (vtyperef .le. 10 .or. vtyperef .eq. 12) then
@@ -268,6 +278,14 @@ program canopy_driver
                             canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
                     end if
                 end if
+
+! ... user option to calculate in-canopy eddy diffusivities at height z
+                if (ifcaneddy) then
+                    do i=1, canlays
+                        call canopy_eddyx(hcm, zkcm(i), ustref, molref, Kz(i, loc))
+                    end do
+                end if
+
             end if
         end if
     end do
@@ -281,7 +299,8 @@ program canopy_driver
         write(10, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'WS (m/s)'
         do loc=1, nlat*nlon
             do i=1, canlays
-                write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, profile(i)%zk, canWIND(i, loc)
+                write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
+                    profile(i)%zk, canWIND(i, loc)
             end do
         end do
 
@@ -290,6 +309,21 @@ program canopy_driver
         write(11, '(a8, a9, a19, a11)') 'Lat', 'Lon', 'Canopy height (m)', 'WAF'
         do loc=1, nlat*nlon
             write(11, '(f8.2, f9.2, f19.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, variables(loc)%fh, waf(loc)
+        end do
+    end if
+
+    if (ifcaneddy) then
+        write(*,*)  'Writing canopy eddy diffusivity output'
+! ... save as text files for testing
+        open(12, file='output_eddy_Kz.txt')
+        write(12, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
+        write(12, '(a30, i6)') 'Number of in-canopy layers: ', canlays
+        write(12, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'Kz'
+        do loc=1, nlat*nlon
+            do i=1, canlays
+                write(12, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
+                    profile(i)%zk, Kz(i, loc)
+            end do
         end do
     end if
 

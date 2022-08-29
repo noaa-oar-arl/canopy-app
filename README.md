@@ -16,21 +16,17 @@ Canopy is parameterized by foliage distribution shape functions and parameters f
 
 Current Canopy-App components:
 
-1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildland fire spread model applications (Massman et al., 2017).
+1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildland fire spread and air quality applications (Massman et al., 2017).
 
     - `canopy_wind_mod.F90`
     - `canopy_waf_mod.F90`
 
-2.  In-Canopy radiative transfer (i.e., photolysis rate adjusment) for air quality applications (in progress...)  (Makar et al., 2017)
+2.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment) for air quality applications (Makar et al., 2017).
 
-    - `canopy_prad_mod.F90`
-
-3.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment) for air quality applications (in progress...) (Makar et al., 2017)
-
-    - `canopy_vdiff_mod.F90`
+    - `canopy_eddyx_mod.F90`
 
 
-Citations:
+Main Citations (further references contained within):
 
 Katul, G.G., Mahrt, L., Poggi, D., and Sanz, C. (2004). One- and two-equation models for canopy turbulence. Boundary-Layer Meteorol. 113: 81–109. https://doi.org/10.1023/B:BOUN.0000037333.48760.e5
 

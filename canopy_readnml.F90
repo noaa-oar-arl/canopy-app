@@ -1,6 +1,6 @@
 
 SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-    flameh_opt,flameh_set,ifcanwind,pai_opt,pai_set)
+    flameh_opt,flameh_set,ifcanwind,ifcaneddy,pai_opt,pai_set)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -15,7 +15,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
     INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt,flameh_opt
     REAL(rk),              INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh_set,pai_set
-    LOGICAL,               INTENT(OUT) :: ifcanwind
+    LOGICAL,               INTENT(OUT) :: ifcanwind,ifcaneddy
     INTEGER                            :: istat
     INTEGER                            :: n
     CHARACTER(LEN=*),      PARAMETER   :: pname = 'CANOPY_READNML'
@@ -23,7 +23,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     NAMELIST /filenames/ file_prof, file_vars
 
     NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghcm, lamdars, &
-        flameh_opt, flameh_set, ifcanwind, pai_opt, pai_set
+        flameh_opt, flameh_set, ifcanwind, ifcaneddy, pai_opt, pai_set
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -108,6 +108,11 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !-------------------------------------------------------------------------------
 ! Set default logical for canopy wind/WAF option (default = .FALSE.)
     ifcanwind = .FALSE.
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default logical for canopy eddy diffusivity (default = .FALSE.)
+    ifcaneddy = .FALSE.
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
