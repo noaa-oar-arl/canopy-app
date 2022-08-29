@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_WIND( HCM, ZK, FAFRACK, UBZREF, Z0GHCM, &
-        CDRAG, PAI, CANBOT_OUT, CANTOP_OUT, CANWIND )
+        CDRAG, PAI, HREF, D_H, ZO_H, CANBOT_OUT, CANTOP_OUT, CANWIND )
 
 !-----------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ contains
 !     computes mean wind speed for given height (z) below the canopy top.
 
 ! Preconditions:
-!     in-canopy height, above-canopy/reference wind speed plant distribution functions
+!     in-canopy height, at canopy wind speed, plant distribution functions
 
 ! Subroutines and Functions Called:
 
@@ -23,7 +23,7 @@ contains
 !     Jun 2022 P.C. Campbell: Initial standalone canopy wind model
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
-        use canopy_const_mod, ONLY: rk, vonk    !constants for canopy models
+        use canopy_const_mod, ONLY: rk, vonk  !constants for canopy models
 
 ! Arguments:
 !       IN/OUT
@@ -31,15 +31,18 @@ contains
         REAL(RK),    INTENT( IN )  :: ZK              ! Below canopy height, z (m)
         REAL(RK),    INTENT( IN )  :: FAFRACK         ! Fractional (z) shapes of the
         ! plant surface distribution (nondimensional)
-        REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (m/s)
+        REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at reference height (m/s)
         REAL(RK),    INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
         REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
+        REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height above canopy @ 10 m  (m)
+        REAL(RK),    INTENT( IN )  :: D_H             ! Zero plane displacement heights (nondimensional)
+        REAL(RK),    INTENT( IN )  :: ZO_H            ! Surface (soil+veg) roughness lengths (nondimensional)
         REAL(RK),    INTENT( OUT ) :: CANBOT_OUT      ! Canopy bottom wind reduction factor = canbot (nondimensional)
         REAL(RK),    INTENT( OUT ) :: CANTOP_OUT      ! Canopy top wind reduction factor = cantop    (nondimensional)
         REAL(RK),    INTENT( OUT ) :: CANWIND         ! Mean canopy wind speed at current z (m/s)
 !       Local variables
-        real(rk)                   :: ustrmod         ! Friction Velocity parameterization (m/s)
+        real(rk)                   :: ustrmod         ! Friction Velocity parameterization based on Massman 2017 (m/s)
         real(rk)                   :: z0g             ! Ground roughness length based on z0g/HCCM ratio (m)
         real(rk)                   :: zkhcm           ! Current zk/hcm ratio (nondimensional)
         real(rk)                   :: cstress         ! Suface stress at/above canopy height (nondimensional)
@@ -47,6 +50,9 @@ contains
         real(rk)                   :: nrat            ! Ratio of drag/cstress (nondimensional)
         real(rk)                   :: canbot          ! Logarithmic wind speed that is dominant near the ground (nondimensional)
         real(rk)                   :: cantop          ! Hyperbolic cosine wind speed that is dominant near the top of canopy (nondimensional)
+        real(rk)                   :: zpd             ! Zero plane displacement heights (m)
+        real(rk)                   :: z0m             ! Surface (soil+veg) roughness lengths (m)
+        real(rk)                   :: uc              ! Wind directly at canopy top (m/s)
 
 ! Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
@@ -74,10 +80,20 @@ contains
         cantop = cosh(nrat*FAFRACK)/cosh(nrat)
         CANTOP_out = cantop
 
-        if (ZK <= HCM) then
-            CANWIND = UBZREF*canbot*cantop
+        !adjust reference wind down to canopy top wind using MOST (no RSL effects)
+        zpd = D_H*HCM
+        z0m = ZO_H*HCM
+        uc = UBZREF*log((HCM-zpd+z0m)/z0m)/log(HREF/z0m) ! From NoahMP (M. Barlarge)
+
+        if (uc .le. 0.0) then
+            write(*,*)  'Uc cannot be <= 0 at  ',uc , ' in canopy_wind calc...exiting'
+            call exit(2)
+        end if
+
+        if (ZK <= HCM) then       !at or below canopy top --> modify uc winds
+            CANWIND = uc*canbot*cantop
         else
-            CANWIND = UBZREF
+            CANWIND = UBZREF       !above canopy top constant and equal to reference winds
         end if
 
     END SUBROUTINE CANOPY_WIND

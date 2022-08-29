@@ -18,6 +18,7 @@ program canopy_driver
     use canopy_utils_mod, ONLY: IntegrateTrapezoid,CalcFlameH !utilities for canopy models
     use canopy_parm_mod  !main canopy parameters
     use canopy_files_mod !main canopy input files
+    use canopy_zpd_mod   !main displacement height model
     use canopy_wind_mod  !main canopy wind model
     use canopy_waf_mod   !main Wind Adjustment Factor (WAF) model
 
@@ -65,7 +66,8 @@ program canopy_driver
     real(rk)       ::    zcanmax       !Height of maximum foliage area density (z/h) (nondimensional)
     real(rk)       ::    sigmau        !Standard deviation of shape function above zcanmax (z/h)
     real(rk)       ::    sigma1        !Standard deviation of shape function below zcanmax (z/h)
-
+    real(rk)       ::    d_h           !Zero plane displacement heights (z/h)
+    real(rk)       ::    zo_h          !Surface (soil+veg) roughness lengths (z/h)
 !Local variables
     integer i,i0,loc
     real(rk), allocatable :: zkcm       ( : )  ! in-canopy heights (m)
@@ -73,8 +75,8 @@ program canopy_driver
     real(rk), allocatable :: fainc      ( : )  ! incremental foliage shape function
     real(rk), allocatable :: fafracz    ( : )  ! incremental fractional foliage shape function
     real(rk), allocatable :: fafraczInt ( : )  ! integral of incremental fractional foliage shape function
-    real(rk), allocatable :: canBOT     ( : )  ! Canopy bottom wind reduction factors (nondimensional)
-    real(rk), allocatable :: canTOP     ( : )  ! Canopy top wind reduction factors (nondimensional)
+    real(rk), allocatable :: canBOT     ( : )  ! Canopy bottom wind reduction factors
+    real(rk), allocatable :: canTOP     ( : )  ! Canopy top wind reduction factors
     real(rk)              :: fatot             ! integral of total fractional foliage shape function
     real(rk), allocatable :: canWIND    ( :, : )  ! final mean canopy wind speeds (m/s)
 
@@ -159,13 +161,13 @@ program canopy_driver
 
 ! ... calculate grid cell distance
     dlon = abs(variables(nlat*nlon)%lon - variables((nlat*nlon)-1)%lon)
-    dx   = dlon*111000.0  !convert lon grid to distance (m)
+    dx   = dlon*111000.0_rk  !convert lon grid to distance (m)
 
 ! ... get canopy model profile heights
     zkcm   = profile%zk
 
 ! ... initialize grid cell dependent variables
-    waf = 1.0_rk
+    waf  = 1.0_rk
 
     do loc=1, nlat*nlon
         lat      = variables(loc)%lat
@@ -225,18 +227,27 @@ program canopy_driver
                     fafraczInt(i) = IntegrateTrapezoid(ztothc(1:i),fafracz(1:i))
                 end do
 
-                if (ifcanwind) then  !user option to calculate in-canopy wind speeds at z
+! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
+
+                call canopy_zpd(ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), &
+                    ubzref, z0ghcm, lamdars, cdrag, pai, d_h, zo_h)
+
+! ... user option to calculate in-canopy wind speeds at height z
+
+                if (ifcanwind) then
+
                     do i=1, canlays
                         call canopy_wind(hcm, zkcm(i), fafraczInt(i), ubzref, &
-                            z0ghcm, cdrag, pai, canBOT(i), canTOP(i), canWIND(i, loc))
+                            z0ghcm, cdrag, pai, href, d_h, zo_h, canBOT(i),   &
+                            canTOP(i), canWIND(i, loc))
                     end do
 
 ! ... calculate wind adjustment factor dependent on fires (FRP), canopy winds,
 !                                                        flameh, and fire type
                     if (flameh_opt .eq. 0) then
-                        if (nlon .eq. 1 .or. dx .eq. 0) then      !single lon point -- reset to user value
+                        if (nlon .eq. 1 .or. dx .le. 0.0) then !single lon point -- reset to user value
                             flameh = flameh_set
-                        else                       !calculate flameh
+                        else                                    !calculate flameh
                             flameh = CalcFlameH(frpref,dx)
                         end if
                     else if (flameh_opt .eq. 1) then  !user set value
@@ -253,8 +264,7 @@ program canopy_driver
                         midflamepoint = max((flamelays/2),1)
                     end if
                     if (flameh .gt. 0.0) then !only calculate when flameh > 0
-                        call canopy_waf(hcm, ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), &
-                            ubzref, z0ghcm, lamdars, cdrag, pai, href, flameh, firetype, &
+                        call canopy_waf(hcm, lamdars, href, flameh, firetype, d_h, zo_h, &
                             canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
                     end if
                 end if

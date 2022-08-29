@@ -128,5 +128,10 @@ MODULE canopy_const_mod
     ! von Karman constant [ ]
     REAL(RK),          PARAMETER     :: vonk = 0.4_rk
 
+    ! stability parameter beta for neutral conditions [ ]
+    ! source:  Bonan et al. (2018)
+    ! https://doi.org/10.5194/gmd-11-1467-2018
+    REAL(RK),          PARAMETER     :: beta_n = 0.35_rk
+
 
 END MODULE canopy_const_mod
