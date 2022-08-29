@@ -11,10 +11,10 @@ contains
 !-----------------------------------------------------------------------
 
 ! Description:
-!     computes Wind Adjustment Factor for fire spread for either sub- or above-canopy fires.
+!     computes zero plane displacement height and total surface roughness length basd on Massman et al. (2017).
 
 ! Preconditions:
-!     in-canopy height, firetype and height, mean mid-canopy wind speed, and plant distribution functions
+!     foliage characteristics, drag, and in-canopy plant distribution functions
 
 ! Subroutines and Functions Called:
 
