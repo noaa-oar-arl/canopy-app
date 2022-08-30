@@ -36,6 +36,7 @@ OBJS :=\
  canopy_wind_mod.o \
  canopy_waf_mod.o \
  canopy_eddyx_mod.o \
+ canopy_phot_mod.o \
  canopy_driver.o
 
 # Program name

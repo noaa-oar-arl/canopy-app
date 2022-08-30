@@ -22,6 +22,7 @@ program canopy_driver
     use canopy_wind_mod    !main canopy wind model
     use canopy_waf_mod     !main Wind Adjustment Factor (WAF) model
     use canopy_eddyx_mod   !main canopy eddy diffusivities
+    use canopy_phot_mod   !main canopy photolysis attenuation
 
     implicit none
 
@@ -32,7 +33,8 @@ program canopy_driver
     real(rk)       ::    canres      !Real value of canopy vertical resolution (m)
     real(rk)       ::    href        !Reference Height above canopy @ 10 m  (m)
     logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
-    logical        ::    ifcaneddy   !logical canopy eddy Kz option (default = .FALSE.
+    logical        ::    ifcaneddy   !logical canopy eddy Kz option (default = .FALSE.)
+    logical        ::    ifcanphot   !logical canopy photolsyis atten option (default = .FALSE.)
     integer        ::    pai_opt     !integer for PAI values used or calculated (default = 0)
     real(rk)       ::    pai_set     !real value for PAI set values used (default = 4.0)
     integer        ::    flameh_opt  !Integer for flameh values used or calculated (default = 0)
@@ -82,6 +84,7 @@ program canopy_driver
     real(rk)              :: fatot                ! integral of total fractional foliage shape function
     real(rk), allocatable :: canWIND    ( :, : )  ! canopy wind speeds (m/s)
     real(rk), allocatable :: Kz         ( :, : )  ! Eddy Diffusivities
+    real(rk), allocatable :: RJCorr     ( :, : )  ! Photolysis Attenuation Coefficients
 
     real(rk) ::    flameh               ! flame Height (m)
     integer  ::    cansublays           ! number of sub-canopy layers
@@ -121,14 +124,19 @@ program canopy_driver
 !-------------------------------------------------------------------------------
 
     call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-        flameh_opt, flameh_set, ifcanwind, ifcaneddy, pai_opt, pai_set)
+        flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot,   &
+        pai_opt, pai_set)
+
     if (ifcanwind) then
         write(*,*)  'Canopy wind/WAF option selected'
     end if
     if (ifcaneddy) then
         write(*,*)  'Canopy eddy Kz option selected'
     end if
-    if (.not. ifcanwind .and. .not. ifcaneddy) then
+    if (ifcanphot) then
+        write(*,*)  'Canopy photolysis attenuation option selected'
+    end if
+    if (.not. ifcanwind .and. .not. ifcaneddy .and. .not. ifcanphot) then
         write(*,*)  'No option(s) selected...see namelist'
         call exit(2)
     end if
@@ -147,6 +155,7 @@ program canopy_driver
     if(.not.allocated(canWIND)) allocate(canWIND(canlays,nlat*nlon))
     if(.not.allocated(waf)) allocate(waf(nlat*nlon))
     if(.not.allocated(Kz)) allocate(Kz(canlays,nlat*nlon))
+    if(.not.allocated(RJCorr)) allocate(RJCorr(canlays,nlat*nlon))
     if(.not.allocated(profile)) allocate(profile(canlays))
     if(.not.allocated(variables)) allocate(variables(nlat*nlon))
 
@@ -206,8 +215,9 @@ program canopy_driver
         canBOT            = 1.0_rk
 
 ! ... initialize grid cell and canopy profile dependent variables
-        canWIND(:,loc)    = ubzref !initialize to above canopy wind
-        Kz(:,loc)         = -999.0_rk
+        canWIND(:,loc)    = ubzref    !initialize to above canopy wind
+        Kz(:,loc)         = -999.0_rk !initialize to missing
+        RJCorr(:,loc)     = 1.0_rk    !initialize to above canopy RJCorr=1
 
 ! ... check for model vegetation types
         if (vtyperef .le. 10 .or. vtyperef .eq. 12) then
@@ -286,6 +296,14 @@ program canopy_driver
                     end do
                 end if
 
+! ... user option to calculate in-canopy eddy photolysis attenuation at height z
+                if (ifcanphot) then
+                    do i=1, canlays
+                        call canopy_phot(hcm, zkcm(i), fafraczInt(i), &
+                            lairef, cluref, cszref, RJCorr(i, loc))
+                    end do
+                end if
+
             end if
         end if
     end do
@@ -326,5 +344,21 @@ program canopy_driver
             end do
         end do
     end if
+
+    if (ifcanphot) then
+        write(*,*)  'Writing canopy photolysis attenuation output'
+! ... save as text files for testing
+        open(13, file='output_phot.txt')
+        write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
+        write(13, '(a30, i6)') 'Number of in-canopy layers: ', canlays
+        write(13, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'RJCorr'
+        do loc=1, nlat*nlon
+            do i=1, canlays
+                write(13, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
+                    profile(i)%zk, RJCorr(i, loc)
+            end do
+        end do
+    end if
+
 
 end program canopy_driver

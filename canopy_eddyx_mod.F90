@@ -101,6 +101,11 @@ contains
 
         KZ = (sigma*sigma)*tlc
 
+!       print*, 'ZK/HCM = ', ZK/HCM, 'KZ = ', KZ
+
+
+
+
     END SUBROUTINE CANOPY_EDDYX
 
 end module canopy_eddyx_mod

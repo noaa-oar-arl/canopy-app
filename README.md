@@ -10,21 +10,24 @@ Compile, edit namelist, and run canopy model:
 - `namelist.canopy`
 - `./canopy`
 
-Canopy is parameterized by foliage distribution shape functions and parameters for different vegetation types (Katul et al., 2004; Massman et al., 2017)
+Canopy is parameterized by foliage distribution shape functions and parameters for different vegetation types.
 
 - `canopy_parm_mod.F90`
 
 Current Canopy-App components:
 
-1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildland fire spread and air quality applications (Massman et al., 2017).
+1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildland fire spread and air quality applications.
 
     - `canopy_wind_mod.F90`
     - `canopy_waf_mod.F90`
 
-2.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment) for air quality applications (Makar et al., 2017).
+2.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment) for air quality applications.
 
     - `canopy_eddyx_mod.F90`
 
+3.  In-Canopy vertical photolysis attenuation for air quality applications.
+
+    - `canopy_phot_mod.F90`
 
 Main Citations (further references contained within):
 
