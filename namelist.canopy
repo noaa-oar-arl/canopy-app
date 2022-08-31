@@ -11,7 +11,7 @@
   ifcanwind  = .TRUE.   !logical canopy wind/WAF option (default = .FALSE.)
   ifcaneddy  = .TRUE.   !logical canopy eddy Kz option (default = .FALSE.)
   ifcanphot  = .TRUE.   !logical canopy photolysis option (default = .FALSE.)
-  href       =  10.0    !real value of reference height above canopy (m)
+  href       =  10.0    !real value of reference height above canopy associated with input wind speed (m)
   z0ghcm     =  0.0025  !ratio of ground roughness length to canopy top height (Massman et al., 2017)
   lamdars    =  1.25    !Influence function associated with roughness sublayer (Massman et al., 2017)
   flameh_opt =  0       !0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh

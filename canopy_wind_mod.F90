@@ -35,7 +35,7 @@ contains
         REAL(RK),    INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
         REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
-        REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height above canopy @ 10 m  (m)
+        REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height above canopy asssociated with ref wind speed  (m)
         REAL(RK),    INTENT( IN )  :: D_H             ! Zero plane displacement heights (nondimensional)
         REAL(RK),    INTENT( IN )  :: ZO_H            ! Surface (soil+veg) roughness lengths (nondimensional)
         REAL(RK),    INTENT( OUT ) :: CANBOT_OUT      ! Canopy bottom wind reduction factor = canbot (nondimensional)
@@ -83,9 +83,22 @@ contains
         !adjust reference wind down to canopy top wind using MOST (no RSL effects)
         zpd = D_H*HCM
         z0m = ZO_H*HCM
-        uc = UBZREF*log((HCM-zpd+z0m)/z0m)/log(HREF/z0m) ! From NoahMP (M. Barlarge)
+        if((HCM-zpd) <= 0.) then
+            write(*,*) "critical problem: hcan <= zpd"
+            call exit(2)
+        end if
 
-        if (uc .le. 0.0) then
+        if (HREF <= z0m) then  ! input wind speed reference height is less than roughness length
+            uc = UBZREF
+        else
+            uc = UBZREF*log((HCM-zpd+z0m)/z0m)/log(HREF/z0m) ! From NoahMP (M. Barlarge)
+        end if
+
+        if (uc > UBZREF) then !reference height still small and close to roughness length
+            uc = UBZREF
+        end if
+
+        if (uc <= 0.0) then
             write(*,*)  'Uc cannot be <= 0 at  ',uc , ' in canopy_wind calc...exiting'
             call exit(2)
         end if
