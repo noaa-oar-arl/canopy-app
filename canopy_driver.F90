@@ -178,7 +178,11 @@ program canopy_driver
     close(8)
 
 ! ... calculate grid cell distance
-    dlon = abs(variables(nlat*nlon)%lon - variables((nlat*nlon)-1)%lon)
+    if (nlon .gt. 1) then
+        dlon = abs(variables(nlat*nlon)%lon - variables((nlat*nlon)-1)%lon)
+    else
+        dlon = 0.0_rk
+    end if
     dx   = dlon*111000.0_rk  !convert lon grid to distance (m)
 
 ! ... get canopy model profile heights
