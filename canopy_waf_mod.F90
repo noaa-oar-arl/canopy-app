@@ -47,18 +47,21 @@ contains
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
 ! (2017)  W.J. Massman, J.M. Forthofer, M.A. Finney.  https://doi.org/10.1139/cjfr-2016-0354
 
-        if (FIRETYPE == 0) then  !sub-canopy
-            ! write(*,*)  '------Sub-Canopy Fire Type------'
-            term1 = log( LAMDARS * ( (1.0 - D_H)/ZO_H ) )  !numerator
-            term2 = log( LAMDARS * ( ( (HREF/HCM) + 1.0 - D_H ) / ZO_H ) )  !denominatory
-            waf   = CANBOTMID * CANTOPMID * (term1 / term2)
-        else                     !above-canopy
-            ! write(*,*)  '-----Above-Canopy Fire Type-----'
-            delta = (1.0 - D_H) / (FLAMEH/HCM)
-            term1 = log( LAMDARS * ( ( (FLAMEH/HCM) +  1.0 - D_H ) / ZO_H ) ) - &   !numerator
-                1.0 + (delta*log((1.0/delta) + 1.0))
-            term2 = log( LAMDARS * ( ( ( (HREF/HCM) + 1.0 - D_H) )/ ZO_H ) )  !denominator
-            waf   = term1 / term2
+        if (HREF <= 0.0) then
+            write(*,*) "critical problem: HREF <= 0, WAF calculation not accurate and thus is reset to 1"
+            waf = 1.0
+        else
+            if (FIRETYPE == 0) then  !sub-canopy
+                term1 = log( LAMDARS * ( (1.0 - D_H)/ZO_H ) )  !numerator
+                term2 = log( LAMDARS * ( ( (HREF/HCM) + 1.0 - D_H ) / ZO_H ) )  !denominatory
+                waf   = CANBOTMID * CANTOPMID * (term1 / term2)
+            else                     !above-canopy
+                delta = (1.0 - D_H) / (FLAMEH/HCM)
+                term1 = log( LAMDARS * ( ( (FLAMEH/HCM) +  1.0 - D_H ) / ZO_H ) ) - &   !numerator
+                    1.0 + (delta*log((1.0/delta) + 1.0))
+                term2 = log( LAMDARS * ( ( ( (HREF/HCM) + 1.0 - D_H) )/ ZO_H ) )  !denominator
+                waf   = term1 / term2
+            end if
         end if
 
     END SUBROUTINE CANOPY_WAF
