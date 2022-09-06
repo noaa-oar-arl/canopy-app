@@ -39,6 +39,8 @@ Current Canopy-App inputs:
 
 1.  Typical 2D gridded atmospheric model input variables in 1st layer above canopy (e.g., `input_variables.txt`).
 
+    Namelist Option : `file_vars`
+
     - `LAT`   : Latitude  (degrees)
     - `LON`   : Longitude (degrees)
     - `FH`    : Forest canopy height (m)
@@ -55,8 +57,31 @@ Current Canopy-App inputs:
 
 2.  Generic 1D canopy profile specifications (e.g., `input_profile.txt`).
 
+    Namelist Option : `file_prof`
+
     - `CANLAY` : Canopy layer number (integer)
     - `ZK`     : Canopy layer resolution (m)
+
+
+Description of User Namelist Options:
+
+    - `nlat`        : integer number of latitude cells (must match `file_vars`)
+    - `nlon`        : integer number of longitude cells (must match `file_vars`)
+    - `canlays`     : integer number of canopy layers  (must match `file_prof`)
+    - `canres`      : real value of canopy vertical resolution (m) (must match `file_prof`)
+    - `ifcanwind`   : logical canopy wind/WAF option (default = .FALSE.)
+    - `ifcaneddy`   : logical canopy eddy Kz option (default = .FALSE.)
+    - `ifcanphot`   : logical canopy photolysis option (default = .FALSE.)
+    - `href`        : real value of reference height above canopy associated with input wind speed (m)
+    - `z0ghcm`      : ratio of ground roughness length to canopy top height (Massman et al., 2017)
+    - `lamdars`     : Influence function associated with roughness sublayer (Massman et al., 2017)
+    - `flameh_opt`  : 0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh
+    - `flameh_set`  : user set real value of flame height (m) only if flame_opt=1 or nlon=1
+    - `pai_opt`     : integer (0=PAI fixed from Katul et al. 2004 veg types-->default;
+                      1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI;
+                      3=user set PAI value
+    - `pai_set`     : user set real value of PAI (default=4.0; only used if pai_opt=3)
+    - `lu_opt`      : integer (0=VIIRS LU type input mapped to Massman et al., default)
 
 Main Citations (further references contained within):
 
@@ -65,7 +90,6 @@ Katul, G.G., Mahrt, L., Poggi, D., and Sanz, C. (2004). One- and two-equation mo
 Massman, W. J., J.M. Forthofer, and M.A. Finney. (2017). An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior. Canadian Journal of Forest Research. 47(5): 594-603. https://doi.org/10.1139/cjfr-2016-0354
 
 Makar, P., Staebler, R., Akingunola, A. et al. The effects of forest canopy shading and turbulence on boundary layer ozone. Nat Commun 8, 15243 (2017). https://doi.org/10.1038/ncomms15243
-
 
 ## Development
 

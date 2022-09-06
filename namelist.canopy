@@ -4,8 +4,8 @@
 /
 
 &USERDEFS
-  nlat       =  101       !integer number of latitude cells (must match input_vars)
-  nlon       =  101       !integer number of longitude cells (must match input_vars)
+  nlat       =  101     !integer number of latitude cells (must match input_vars)
+  nlon       =  101     !integer number of longitude cells (must match input_vars)
   canlays    =  100     !integer number of canopy layers  (must match input_profile)
   canres     =  0.5     !real value of canopy vertical resolution (m) (must match input_profile)
   ifcanwind  = .TRUE.   !logical canopy wind/WAF option (default = .FALSE.)
@@ -20,5 +20,5 @@
                         !1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI;
                         !3=user set PAI value)
   pai_set    = 4.0      !user set real value of PAI (default=4.0; only used if pai_opt=3)
-  lu_opt     = 1        !integer (0=VIIRS LU type input mapped to Massman et al., default)
+  lu_opt     = 0        !integer (0=VIIRS LU type input mapped to Massman et al., default)
 /
