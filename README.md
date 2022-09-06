@@ -63,7 +63,7 @@ Current Canopy-App inputs:
     - `ZK`     : Canopy layer resolution (m)
 
 
-Description of User Namelist Options:
+    Other User Namelist Options:
 
     - `nlat`        : integer number of latitude cells (must match `file_vars`)
     - `nlon`        : integer number of longitude cells (must match `file_vars`)

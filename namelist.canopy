@@ -4,21 +4,19 @@
 /
 
 &USERDEFS
-  nlat       =  101     !integer number of latitude cells (must match input_vars)
-  nlon       =  101     !integer number of longitude cells (must match input_vars)
-  canlays    =  100     !integer number of canopy layers  (must match input_profile)
-  canres     =  0.5     !real value of canopy vertical resolution (m) (must match input_profile)
-  ifcanwind  = .TRUE.   !logical canopy wind/WAF option (default = .FALSE.)
-  ifcaneddy  = .TRUE.   !logical canopy eddy Kz option (default = .FALSE.)
-  ifcanphot  = .TRUE.   !logical canopy photolysis option (default = .FALSE.)
-  href       =  10.0    !real value of reference height above canopy associated with input wind speed (m)
-  z0ghcm     =  0.0025  !ratio of ground roughness length to canopy top height (Massman et al., 2017)
-  lamdars    =  1.25    !Influence function associated with roughness sublayer (Massman et al., 2017)
-  flameh_opt =  0       !0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh
-  flameh_set =  1.0     !user set real value of flame height (m) only if flame_opt=1 or nlon=1
-  pai_opt    = 0        !integer (0=PAI fixed from Katul et al. 2004 veg types-->default;
-                        !1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI;
-                        !3=user set PAI value)
-  pai_set    = 4.0      !user set real value of PAI (default=4.0; only used if pai_opt=3)
-  lu_opt     = 0        !integer (0=VIIRS LU type input mapped to Massman et al., default)
+  nlat       =  101
+  nlon       =  101
+  canlays    =  100
+  canres     =  0.5
+  ifcanwind  = .TRUE.
+  ifcaneddy  = .TRUE.
+  ifcanphot  = .TRUE.
+  href       =  10.0
+  z0ghcm     =  0.0025
+  lamdars    =  1.25
+  flameh_opt =  0
+  flameh_set =  1.0
+  pai_opt    =  0
+  pai_set    =  4.0
+  lu_opt     =  0
 /
