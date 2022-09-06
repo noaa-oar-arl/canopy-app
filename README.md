@@ -18,20 +18,20 @@ Current Canopy-App components:
 
 1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildland fire spread and air quality applications.
 
-    Namelist Option = `ifcanwind`
+    Namelist Option : `ifcanwind`
 
     - `canopy_wind_mod.F90`
     - `canopy_waf_mod.F90`
 
 2.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment) for air quality applications.
 
-    Namelist Option = `ifcaneddy`
+    Namelist Option : `ifcaneddy`
 
     - `canopy_eddyx_mod.F90`
 
 3.  In-Canopy vertical photolysis attenuation for air quality applications.
 
-    Namelist Option = `ifcanphot`
+    Namelist Option : `ifcanphot`
 
     - `canopy_phot_mod.F90`
 
