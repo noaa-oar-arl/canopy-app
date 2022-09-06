@@ -37,6 +37,7 @@ program canopy_driver
     logical        ::    ifcanphot   !logical canopy photolsyis atten option (default = .FALSE.)
     integer        ::    pai_opt     !integer for PAI values used or calculated (default = 0)
     real(rk)       ::    pai_set     !real value for PAI set values used (default = 4.0)
+    integer        ::    lu_opt      !integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
     integer        ::    flameh_opt  !Integer for flameh values used or calculated (default = 0)
     real(rk)       ::    flameh_set  !User Set Flame Height (m)
 
@@ -125,7 +126,7 @@ program canopy_driver
 
     call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot,   &
-        pai_opt, pai_set)
+        pai_opt, pai_set, lu_opt)
 
     if (ifcanwind) then
         write(*,*)  'Canopy wind/WAF option selected'
@@ -232,7 +233,7 @@ program canopy_driver
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
 
                 call canopy_parm(vtyperef, hcm, ffracref, lairef, &
-                    pai_opt, pai_set, firetype, cdrag, &
+                    pai_opt, pai_set, lu_opt, firetype, cdrag, &
                     pai, zcanmax, sigmau, sigma1)
 
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z

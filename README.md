@@ -18,16 +18,45 @@ Current Canopy-App components:
 
 1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildland fire spread and air quality applications.
 
+    Namelist Option = `ifcanwind`
+
     - `canopy_wind_mod.F90`
     - `canopy_waf_mod.F90`
 
 2.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment) for air quality applications.
 
+    Namelist Option = `ifcaneddy`
+
     - `canopy_eddyx_mod.F90`
 
 3.  In-Canopy vertical photolysis attenuation for air quality applications.
 
+    Namelist Option = `ifcanphot`
+
     - `canopy_phot_mod.F90`
+
+Current Canopy-App inputs:
+
+1.  Typical 2D gridded atmospheric model input variables in 1st layer above canopy (e.g., `input_variables.txt`).
+
+    - `LAT`   : Latitude  (degrees)
+    - `LON`   : Longitude (degrees)
+    - `FH`    : Forest canopy height (m)
+    - `WS`    : Wind speed at reference height (m/s), e.g., 10 m
+    - `CLU`   : Forest clumping index (dimensionless)
+    - `LAI`   : Leaf area index (m2/m2)
+    - `VTYPE` : Vegetation type (dimensionless), e.g., VIIRS
+    - `FFRAC` : Forest fraction (dimensionless)
+    - `UST`   : Friction velocity (m/s)
+    - `CSZ`   : Cosine of the solar zenith angle (dimensionless)
+    - `Z0`    : Total surface roughness length (m)
+    - `MOL`   : Monin-Obukhov Length (m)
+    - `FRP`   : Total Fire Radiative Power (MW/grid cell)
+
+2.  Generic 1D canopy profile specifications (e.g., `input_profile.txt`).
+
+    - `CANLAY` : Canopy layer number (integer)
+    - `ZK`     : Canopy layer resolution (m)
 
 Main Citations (further references contained within):
 

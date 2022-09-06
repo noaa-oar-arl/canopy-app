@@ -1,7 +1,7 @@
 
 SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     flameh_opt,flameh_set,ifcanwind,ifcaneddy,ifcanphot,     &
-    pai_opt,pai_set)
+    pai_opt,pai_set,lu_opt)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -14,7 +14,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
     IMPLICIT NONE
 
-    INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt,flameh_opt
+    INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt,flameh_opt,lu_opt
     REAL(rk),              INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh_set,pai_set
     LOGICAL,               INTENT(OUT) :: ifcanwind,ifcaneddy,ifcanphot
     INTEGER                            :: istat
@@ -25,7 +25,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
     NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghcm, lamdars,  &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot, pai_opt, &
-        pai_set
+        pai_set, lu_opt
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -130,6 +130,11 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !-------------------------------------------------------------------------------
 ! Set default real value for PAI set value (default = 4.0)
     pai_set = 4.0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set integer for LU type used from model mapped to Massman et al. (default = 0)
+    lu_opt = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
