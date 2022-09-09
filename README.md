@@ -41,8 +41,10 @@ Current Canopy-App inputs:
 
     Namelist Option : `file_vars`
 
-    - `LAT`   : Latitude  (degrees)
-    - `LON`   : Longitude (degrees)
+    | Variable Name    | Variable Descrip. (Units)                |
+    | ---------------  | ---------------------------------------- |  
+    | LAT              | Latitude  (degrees)                      |
+    | LON`             | Longitude (degrees)                      |
     - `FH`    : Forest canopy height (m)
     - `WS`    : Wind speed at reference height (m/s), e.g., 10 m
     - `CLU`   : Forest clumping index (dimensionless)
