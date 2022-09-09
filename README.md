@@ -67,7 +67,7 @@ Current Canopy-App inputs:
     | ZK               | Canopy layer resolution (m)                       |
 
 
-    Other User Namelist Options:
+    Current User Namelist Options:
 
     | Variable Name    | Variable Descrip. (Units)                                                          |
     | ---------------  | ---------------------------------------------------------------------------------- |
@@ -85,7 +85,7 @@ Current Canopy-App inputs:
     | flameh_set       | user set real value of flame height (m) only if flame_opt=1 or nlon=1              |
     | pai_opt          | integer (0=PAI fixed from Katul et al. 2004 veg types-->default; 1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI; 3=user set PAI value) |
     | pai_set          | user set real value of PAI (default=4.0; only used if pai_opt=3)                   |
-    | lu_opt           | integer (0=VIIRS LU type input mapped to Massman et al., default)                  |
+    | lu_opt           | integer (0=VIIRS LU type input mapped to Massman et al., currently only option )   |
 
 Main Citations (further references contained within):
 
