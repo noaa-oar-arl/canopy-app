@@ -41,49 +41,53 @@ Current Canopy-App inputs:
 
     Namelist Option : `file_vars`
 
-    | Variable Name    | Variable Descrip. (Units)                |
-    | ---------------  | ---------------------------------------- |  
-    | LAT              | Latitude  (degrees)                      |
-    | LON`             | Longitude (degrees)                      |
-    - `FH`    : Forest canopy height (m)
-    - `WS`    : Wind speed at reference height (m/s), e.g., 10 m
-    - `CLU`   : Forest clumping index (dimensionless)
-    - `LAI`   : Leaf area index (m2/m2)
-    - `VTYPE` : Vegetation type (dimensionless), e.g., VIIRS
-    - `FFRAC` : Forest fraction (dimensionless)
-    - `UST`   : Friction velocity (m/s)
-    - `CSZ`   : Cosine of the solar zenith angle (dimensionless)
-    - `Z0`    : Total surface roughness length (m)
-    - `MOL`   : Monin-Obukhov Length (m)
-    - `FRP`   : Total Fire Radiative Power (MW/grid cell)
+    | Variable Name    | Variable Descrip. (Units)                         |
+    | ---------------  | ------------------------------------------------- |  
+    | LAT              | Latitude  (degrees)                               |
+    | LON              | Longitude (degrees)                               |
+    | FH               | Forest canopy height (m)                          |
+    | WS               | Wind speed at reference height (m/s), e.g., 10 m  |
+    | CLU              | Forest clumping index (dimensionless)             |
+    | LAI              | Leaf area index (m2/m2)                           |
+    | VTYPE            | Vegetation type (dimensionless), e.g., VIIRS      |
+    | FFRAC            | Forest fraction (dimensionless)                   |
+    | UST              | Friction velocity (m/s)                           |
+    | CSZ              | Cosine of the solar zenith angle (dimensionless)  |
+    | Z0               | Total surface roughness length (m)                |
+    | MOL              | Monin-Obukhov Length (m)                          |
+    | FRP              | Total Fire Radiative Power (MW/grid cell)         |
 
 2.  Generic 1D canopy profile specifications (e.g., `input_profile.txt`).
 
     Namelist Option : `file_prof`
 
-    - `CANLAY` : Canopy layer number (integer)
-    - `ZK`     : Canopy layer resolution (m)
+    | Variable Name    | Variable Descrip. (Units)                         |
+    | ---------------  | ------------------------------------------------- |
+    | CANLAY           | Canopy layer number (integer)                     |
+    | ZK               | Canopy layer resolution (m)                       |
 
 
     Other User Namelist Options:
 
-    - `nlat`        : integer number of latitude cells (must match `file_vars`)
-    - `nlon`        : integer number of longitude cells (must match `file_vars`)
-    - `canlays`     : integer number of canopy layers  (must match `file_prof`)
-    - `canres`      : real value of canopy vertical resolution (m) (must match `file_prof`)
-    - `ifcanwind`   : logical canopy wind/WAF option (default = .FALSE.)
-    - `ifcaneddy`   : logical canopy eddy Kz option (default = .FALSE.)
-    - `ifcanphot`   : logical canopy photolysis option (default = .FALSE.)
-    - `href`        : real value of reference height above canopy associated with input wind speed (m)
-    - `z0ghcm`      : ratio of ground roughness length to canopy top height (Massman et al., 2017)
-    - `lamdars`     : Influence function associated with roughness sublayer (Massman et al., 2017)
-    - `flameh_opt`  : 0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh
-    - `flameh_set`  : user set real value of flame height (m) only if flame_opt=1 or nlon=1
-    - `pai_opt`     : integer (0=PAI fixed from Katul et al. 2004 veg types-->default;
-                      1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI;
-                      3=user set PAI value
-    - `pai_set`     : user set real value of PAI (default=4.0; only used if pai_opt=3)
-    - `lu_opt`      : integer (0=VIIRS LU type input mapped to Massman et al., default)
+    | Variable Name    | Variable Descrip. (Units)                                                          |
+    | ---------------  | ---------------------------------------------------------------------------------- |
+    | nlat             | integer number of latitude cells (must match `file_vars`)                          |
+    | nlon             | integer number of longitude cells (must match `file_vars`)                         |
+    | canlays          | integer number of canopy layers  (must match `file_prof`)                          |
+    | canres           | real value of canopy vertical resolution (m) (must match `file_prof`)              |
+    | ifcanwind        | logical canopy wind/WAF option (default = .FALSE.)                                 |
+    | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
+    | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |
+    | href             | real value of reference height above canopy associated with input wind speed (m)   |
+    | z0ghcm           | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
+    | lamdars          | Influence function associated with roughness sublayer (Massman et al., 2017)       |
+    | flameh_opt       | 0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh            |
+    | flameh_set       | user set real value of flame height (m) only if flame_opt=1 or nlon=1              |
+    | pai_opt          | integer (0=PAI fixed from Katul et al. 2004 veg types-->default;                   |
+                         1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI;
+                         3=user set PAI value
+    | pai_set          | user set real value of PAI (default=4.0; only used if pai_opt=3)                   |
+    | lu_opt           | integer (0=VIIRS LU type input mapped to Massman et al., default)                  |
 
 Main Citations (further references contained within):
 
