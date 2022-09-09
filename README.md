@@ -71,10 +71,10 @@ Current Canopy-App inputs:
 
     | Variable Name    | Variable Descrip. (Units)                                                          |
     | ---------------  | ---------------------------------------------------------------------------------- |
-    | nlat             | integer number of latitude cells (must match `file_vars`)                          |
-    | nlon             | integer number of longitude cells (must match `file_vars`)                         |
-    | canlays          | integer number of canopy layers  (must match `file_prof`)                          |
-    | canres           | real value of canopy vertical resolution (m) (must match `file_prof`)              |
+    | nlat             | integer number of latitude cells (must match # of LAT in `file_vars` above )       |
+    | nlon             | integer number of longitude cells (must match # of LON in `file_vars`above )       |
+    | canlays          | integer number of canopy layers  (must match # of CANLAY in `file_prof` above )    |
+    | canres           | real value of canopy vertical resolution (m) (must match ZK in `file_prof` above ) |
     | ifcanwind        | logical canopy wind/WAF option (default = .FALSE.)                                 |
     | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
     | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |
@@ -83,7 +83,7 @@ Current Canopy-App inputs:
     | lamdars          | Influence function associated with roughness sublayer (Massman et al., 2017)       |
     | flameh_opt       | 0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh            |
     | flameh_set       | user set real value of flame height (m) only if flame_opt=1 or nlon=1              |
-    | pai_opt          | integer (0=PAI fixed from Katul et al. 2004 veg types-->default; 1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI; 3=user set PAI value |
+    | pai_opt          | integer (0=PAI fixed from Katul et al. 2004 veg types-->default; 1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI; 3=user set PAI value) |
     | pai_set          | user set real value of PAI (default=4.0; only used if pai_opt=3)                   |
     | lu_opt           | integer (0=VIIRS LU type input mapped to Massman et al., default)                  |
 
