@@ -81,7 +81,7 @@ Current Canopy-App inputs:
     | href             | real value of reference height above canopy associated with input wind speed (m)   |
     | z0ghcm           | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
     | lamdars          | Influence function associated with roughness sublayer (Massman et al., 2017)       |
-    | dx_opt           | 0=Calculation of dx res./disance latitude; 1=user set dx grid resolution           |
+    | dx_opt           | 0=Calculation of dx resolution/distance from lon; 1=user set dx grid resolution           |
     | dx_set           | user set real value of grid resolution (m) only if dx_opt=1                        |
     | flameh_opt       | 0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh            |
     | flameh_set       | user set real value of flame height (m) only if flame_opt=1                        |
