@@ -40,6 +40,9 @@ program canopy_driver
     integer        ::    lu_opt      !integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
     integer        ::    flameh_opt  !Integer for flameh values used or calculated (default = 0)
     real(rk)       ::    flameh_set  !User Set Flame Height (m)
+    integer        ::    dx_opt      !Integer for dx resolution values used or calculated (default = 0)
+    real(rk)       ::    dx_set      !User Set Grid Cell Resolution (m)
+
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
     real(rk)       ::   z0ghcm   ! ratio of ground roughness length to canopy top height
@@ -126,7 +129,7 @@ program canopy_driver
 
     call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot,   &
-        pai_opt, pai_set, lu_opt)
+        pai_opt, pai_set, lu_opt, dx_opt, dx_set)
 
     if (ifcanwind) then
         write(*,*)  'Canopy wind/WAF option selected'
@@ -178,13 +181,20 @@ program canopy_driver
     end do
     close(8)
 
-! ... calculate grid cell distance
-    if (nlon .gt. 1) then
-        dlon = abs(variables(nlat*nlon)%lon - variables((nlat*nlon)-1)%lon)
-    else
-        dlon = 0.0_rk
+! ... if multiple grid points, calculate grid cell east-west distance
+    if (dx_opt .eq. 0) then !user set to calculate dx grid cell distance from grid lons
+        if (nlon .gt. 1) then !convert lon grid points to distance (m)
+            dlon = abs(variables(nlat*nlon)%lon - variables((nlat*nlon)-1)%lon)
+            dx   = dlon*111000.0_rk
+        else                  !single grid cell/point, use namelist defined dx resolution (m) for cell
+            write(*,*)  'DX_OPT set to calc, but nlon <= 1...setting dx = ', &
+                dx_set, ' from namelist'
+            dlon = 0.0_rk
+            dx = dx_set
+        end if
+    else ! user set dx_set from namelist
+        dx = dx_set
     end if
-    dx   = dlon*111000.0_rk  !convert lon grid to distance (m)
 
 ! ... get canopy model profile heights
     zkcm   = profile%zk
@@ -270,7 +280,9 @@ program canopy_driver
 ! ... calculate wind adjustment factor dependent on fires (FRP), canopy winds,
 !                                                        flameh, and fire type
                     if (flameh_opt .eq. 0) then
-                        if (nlon .eq. 1 .or. dx .le. 0.0) then !single lon point -- reset to user value
+                        if (dx .le. 0.0) then !single lon point -- reset to user value
+                            write(*,*)  'FLAMEH_OPT set to FRP calc, but dx <= 0...setting flameh = ', &
+                                flameh_set, ' from namelist'
                             flameh = flameh_set
                         else                                    !calculate flameh
                             flameh = CalcFlameH(frpref,dx)
@@ -281,12 +293,11 @@ program canopy_driver
                         write(*,*)  'Wrong FLAMEH_OPT choice of ', flameh_opt, ' in namelist...exiting'
                         call exit(2)
                     end if
-                    if (flameh .lt. canres) then !flameh under first layer
-                        flamelays     = ceiling(flameh/canres)
-                        midflamepoint = 1 !put in first layer
+                    if (flameh .lt. canres) then !flameh under first layer height
+                        midflamepoint = 2 !put in layer above
                     else
                         flamelays     = floor(flameh/canres)
-                        midflamepoint = max((flamelays/2),1)
+                        midflamepoint = max((flamelays/2),2)
                     end if
                     if (flameh .gt. 0.0) then !only calculate when flameh > 0
                         call canopy_waf(hcm, lamdars, href, flameh, firetype, d_h, zo_h, &

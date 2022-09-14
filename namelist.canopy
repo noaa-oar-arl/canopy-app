@@ -14,9 +14,11 @@
   href       =  10.0
   z0ghcm     =  0.0025
   lamdars    =  1.25
+  dx_opt     =  0
+  dx_set     =  12000.0
   flameh_opt =  0
   flameh_set =  1.0
-  pai_opt    =  0
+  pai_opt    =  2
   pai_set    =  4.0
   lu_opt     =  0
 /

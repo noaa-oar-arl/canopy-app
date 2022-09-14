@@ -1,7 +1,7 @@
 
 SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     flameh_opt,flameh_set,ifcanwind,ifcaneddy,ifcanphot,     &
-    pai_opt,pai_set,lu_opt)
+    pai_opt,pai_set,lu_opt,dx_opt,dx_set)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -14,8 +14,8 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
     IMPLICIT NONE
 
-    INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt,flameh_opt,lu_opt
-    REAL(rk),              INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh_set,pai_set
+    INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt,flameh_opt,lu_opt,dx_opt
+    REAL(rk),              INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh_set,pai_set,dx_set
     LOGICAL,               INTENT(OUT) :: ifcanwind,ifcaneddy,ifcanphot
     INTEGER                            :: istat
     INTEGER                            :: n
@@ -25,7 +25,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
     NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghcm, lamdars,  &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot, pai_opt, &
-        pai_set, lu_opt
+        pai_set, lu_opt, dx_opt, dx_set
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -135,6 +135,16 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !-------------------------------------------------------------------------------
 ! Set integer for LU type used from model mapped to Massman et al. (default = 0)
     lu_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for DX set values or calculation (default = 0)
+    dx_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for DX Cell resolution set value (default = 1.0 m)
+    dx_set = 1.0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
