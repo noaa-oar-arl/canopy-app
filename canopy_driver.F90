@@ -244,7 +244,7 @@ program canopy_driver
 ! ... check for contiguous canopy conditions at each model grid cell
             if (hcm .gt. fch_thresh .and. ffracref .gt. frt_thresh &
                 .and. lairef .ge. lai_thresh) then
-                print*, fch_thresh, frt_thresh, lai_thresh
+
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
 
                 call canopy_parm(vtyperef, hcm, ffracref, lairef, &
