@@ -21,4 +21,7 @@
   pai_opt    =  2
   pai_set    =  4.0
   lu_opt     =  0
+  lai_thresh =  0.1
+  frt_thresh =  0.5
+  fch_thresh =  0.5
 /

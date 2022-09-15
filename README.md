@@ -88,6 +88,9 @@ Current Canopy-App inputs:
     | pai_opt          | integer (0=PAI fixed from Katul et al. 2004 veg types-->default; 1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI; 3=user set PAI value) |
     | pai_set          | user set real value of PAI (default=4.0; only used if pai_opt=3)                   |
     | lu_opt           | integer (0=VIIRS LU type input mapped to Massman et al., currently only option )   |
+    | lai_thresh       | user set real value of LAI threshold for contiguous canopy (m2/m2)                 |
+    | frt_thresh       | user set real value of forest fraction threshold for contiguous canopy             |
+    | fch_thresh       | user set real value of canopy height  threshold for contiguous canopy (m)          |
 
 Main Citations (further references contained within):
 

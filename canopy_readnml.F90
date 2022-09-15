@@ -1,7 +1,8 @@
 
 SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     flameh_opt,flameh_set,ifcanwind,ifcaneddy,ifcanphot,     &
-    pai_opt,pai_set,lu_opt,dx_opt,dx_set)
+    pai_opt,pai_set,lu_opt,dx_opt,dx_set, lai_thresh, &
+    frt_thresh, fch_thresh)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -16,6 +17,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
     INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt,flameh_opt,lu_opt,dx_opt
     REAL(rk),              INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh_set,pai_set,dx_set
+    REAL(rk),              INTENT(OUT) :: lai_thresh, frt_thresh, fch_thresh
     LOGICAL,               INTENT(OUT) :: ifcanwind,ifcaneddy,ifcanphot
     INTEGER                            :: istat
     INTEGER                            :: n
@@ -25,7 +27,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
     NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghcm, lamdars,  &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot, pai_opt, &
-        pai_set, lu_opt, dx_opt, dx_set
+        pai_set, lu_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -145,6 +147,21 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !-------------------------------------------------------------------------------
 ! Set default real value for DX Cell resolution set value (default = 1.0 m)
     dx_set = 1.0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for user LAI threshold value for canopy (default = 0.1)
+    lai_thresh = 0.1
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for user FRT threshold value for canopy (default = 0.5)
+    frt_thresh = 0.5
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for user FCH threshold value for canopy (default = 0.5 m)
+    fch_thresh = 0.1
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

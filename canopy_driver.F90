@@ -42,6 +42,9 @@ program canopy_driver
     real(rk)       ::    flameh_set  !User Set Flame Height (m)
     integer        ::    dx_opt      !Integer for dx resolution values used or calculated (default = 0)
     real(rk)       ::    dx_set      !User Set Grid Cell Resolution (m)
+    real(rk)       ::    lai_thresh  !User set grid cell LAI threshold to apply canopy conditions (m2/m2)
+    real(rk)       ::    frt_thresh  !User set grid cell forest fraction threshold to apply canopy conditions ()
+    real(rk)       ::    fch_thresh  !User set grid cell canopy height threshold to apply canopy conditions (m)
 
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
@@ -129,7 +132,8 @@ program canopy_driver
 
     call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot,   &
-        pai_opt, pai_set, lu_opt, dx_opt, dx_set)
+        pai_opt, pai_set, lu_opt, dx_opt, dx_set, lai_thresh, &
+        frt_thresh, fch_thresh)
 
     if (ifcanwind) then
         write(*,*)  'Canopy wind/WAF option selected'
@@ -238,8 +242,9 @@ program canopy_driver
         if (vtyperef .le. 10 .or. vtyperef .eq. 12) then
 
 ! ... check for contiguous canopy conditions at each model grid cell
-            if (hcm .gt. 0.5 .and. ffracref .gt. 0.5 .and. lairef .ge. 0.1) then
-
+            if (hcm .gt. fch_thresh .and. ffracref .gt. frt_thresh &
+                .and. lairef .ge. lai_thresh) then
+                print*, fch_thresh, frt_thresh, lai_thresh
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
 
                 call canopy_parm(vtyperef, hcm, ffracref, lairef, &
