@@ -68,11 +68,11 @@ contains
                 CDRAG=(0.20_rk + 0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk)/5.0_rk
                 if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
                     PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/5.0_rk
-                else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
+                else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
-                    PAI=LAI
-                else if (PAI_OPT .eq. 3) then !use set PAI value from user
+                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
+                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):  https://doi.org/10.1016/j.agrformet.2017.09.004
+                else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
                     write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
@@ -92,8 +92,8 @@ contains
                 else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
                 else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
-                    PAI=LAI
-                else if (PAI_OPT .eq. 3) then !use set PAI value from user
+                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):  https://doi.org/10.1016/j.agrformet.2017.09.004
+                else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
                     write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
@@ -110,11 +110,11 @@ contains
                 CDRAG=(0.30_rk + 0.30_rk)/2.0_rk
                 if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
                     PAI=(2.94_rk + 3.10_rk)/2.0_rk
-                else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
+                else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
-                    PAI=LAI
-                else if (PAI_OPT .eq. 3) then !use set PAI value from user
+                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
+                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):  https://doi.org/10.1016/j.agrformet.2017.09.004
+                else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
                     write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
