@@ -45,6 +45,7 @@ program canopy_driver
     real(rk)       ::    lai_thresh  !User set grid cell LAI threshold to apply canopy conditions (m2/m2)
     real(rk)       ::    frt_thresh  !User set grid cell forest fraction threshold to apply canopy conditions ()
     real(rk)       ::    fch_thresh  !User set grid cell canopy height threshold to apply canopy conditions (m)
+    integer        ::    rsl_opt     !RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
 
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
@@ -133,7 +134,7 @@ program canopy_driver
     call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot,   &
         pai_opt, pai_set, lu_opt, dx_opt, dx_set, lai_thresh, &
-        frt_thresh, fch_thresh)
+        frt_thresh, fch_thresh, rsl_opt)
 
     if (ifcanwind) then
         write(*,*)  'Canopy wind/WAF option selected'
@@ -278,8 +279,8 @@ program canopy_driver
 
                     do i=1, canlays
                         call canopy_wind(hcm, zkcm(i), fafraczInt(i), ubzref, &
-                            z0ghcm, cdrag, pai, href, d_h, zo_h, canBOT(i),   &
-                            canTOP(i), canWIND(i, loc))
+                            z0ghcm, cdrag, pai, href, d_h, zo_h, molref, &
+                            rsl_opt, canBOT(i), canTOP(i), canWIND(i, loc))
                     end do
 
 ! ... calculate wind adjustment factor dependent on fires (FRP), canopy winds,

@@ -91,6 +91,7 @@ Current Canopy-App inputs:
     | lai_thresh       | user set real value of LAI threshold for contiguous canopy (m2/m2)                 |
     | frt_thresh       | user set real value of forest fraction threshold for contiguous canopy             |
     | fch_thresh       | user set real value of canopy height  threshold for contiguous canopy (m)          |
+    | rsl_opt          | user set option to include stability and Roughness SubLayer (RSL) effects  0 = off; 1 = on |
 
 Main Citations (further references contained within):
 

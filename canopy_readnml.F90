@@ -2,7 +2,7 @@
 SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     flameh_opt,flameh_set,ifcanwind,ifcaneddy,ifcanphot,     &
     pai_opt,pai_set,lu_opt,dx_opt,dx_set, lai_thresh, &
-    frt_thresh, fch_thresh)
+    frt_thresh, fch_thresh, rsl_opt)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -16,6 +16,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     IMPLICIT NONE
 
     INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt,flameh_opt,lu_opt,dx_opt
+    INTEGER,               INTENT(OUT) :: rsl_opt
     REAL(rk),              INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh_set,pai_set,dx_set
     REAL(rk),              INTENT(OUT) :: lai_thresh, frt_thresh, fch_thresh
     LOGICAL,               INTENT(OUT) :: ifcanwind,ifcaneddy,ifcanphot
@@ -27,7 +28,8 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
     NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghcm, lamdars,  &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot, pai_opt, &
-        pai_set, lu_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh
+        pai_set, lu_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, &
+        rsl_opt
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -162,6 +164,11 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !-------------------------------------------------------------------------------
 ! Set default real value for user FCH threshold value for canopy (default = 0.5 m)
     fch_thresh = 0.1
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set integer for unified RSL option used in model (default = 0, off)
+    rsl_opt = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

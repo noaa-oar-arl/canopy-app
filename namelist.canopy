@@ -24,4 +24,5 @@
   lai_thresh =  0.1
   frt_thresh =  0.5
   fch_thresh =  0.5
+  rsl_opt    =  1
 /
