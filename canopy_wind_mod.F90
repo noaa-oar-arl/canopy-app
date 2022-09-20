@@ -86,24 +86,21 @@ contains
         !first adjust reference wind down to canopy top wind using MOST (with no RSL effects)
         zpd = D_H*HCM  !zero-plane displacement height (not scaled to HCM)
         z0m = ZO_H*HCM !aerodynamic roughness lengh (not scaled to HCM)
-
         if((HCM-zpd) <= 0.) then
             write(*,*) "critical problem: hcan <= zpd"
             call exit(2)
         end if
 
-        uc = UBZREF*log((HCM-zpd+z0m)/z0m)/log(HREF/z0m)
+        if (HREF > z0m) then ! input wind speed reference height is > roughness length
+            uc = UBZREF*log((HCM-zpd+z0m)/z0m)/log(HREF/z0m)  !MOST
+        else                 ! reference height is <= roughness length--at canopy top
+            uc = UBZREF
+        end if
+
         !calculate U* from Massman 1997 (https://doi.org/10.1023/A:1000234813011)
         ustrmod = uc*(0.38_rk - (0.38_rk + (vonk/log(Z0GHCM)))*exp(-1.0_rk*(15.0_rk*drag)))
-        cstress = (2.0_rk*(ustrmod**2.0_rk))/(uc**2.0_rk)
-        nrat   =  drag/cstress
-        cantop = cosh(nrat*FAFRACK)/cosh(nrat)
-        CANTOP_out = cantop
 
-        !check for adding stability and RSL effects
-        if (HREF <= z0m) then  ! input wind speed reference height is less than roughness length
-            uc = UBZREF
-        else
+        if (HREF > z0m) then ! input wind speed reference height is > roughness length
             if (RSL_OPT .eq. 0) then !MOST From NoahMP (M. Barlarge)
                 uc = uc  !no RSL effects--Just MOST
             else if (RSL_OPT .eq. 1) then !Unified RSL (Rosenzweig et al., 2021)  https://doi.org/10.1029/2021MS002665
@@ -136,12 +133,12 @@ contains
                 end if
 
                 uc = ustrmod/beta
-
             else
                 write(*,*) 'wrong namelist option', RSL_OPT, 'only 0 (MOST) or 1 (RSL) available'
                 call exit(2)
             end if
-
+        else
+            uc = UBZREF
         end if
 
         if (uc > UBZREF) then !reference height still small and close to roughness length
@@ -152,6 +149,12 @@ contains
             write(*,*)  'Uc cannot be <= 0 at  ',uc , ' in canopy_wind calc...exiting'
             call exit(2)
         end if
+
+        !Calculate remaining in-canopy parameters (Massman et al., 2017)
+        cstress = (2.0_rk*(ustrmod**2.0_rk))/(uc**2.0_rk)
+        nrat   =  drag/cstress
+        cantop = cosh(nrat*FAFRACK)/cosh(nrat)
+        CANTOP_out = cantop
 
         if (ZK <= HCM) then       !at or below canopy top --> modify uc winds
             CANWIND = uc*canbot*cantop
