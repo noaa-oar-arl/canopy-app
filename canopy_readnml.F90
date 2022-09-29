@@ -24,7 +24,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
     INTEGER                            :: n
     CHARACTER(LEN=*),      PARAMETER   :: pname = 'CANOPY_READNML'
 
-    NAMELIST /filenames/ file_prof, file_vars
+    NAMELIST /filenames/ file_vars
 
     NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghcm, lamdars,  &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot, pai_opt, &
@@ -66,7 +66,6 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 ! Initialize canopy input file names.
 !-------------------------------------------------------------------------------
 
-    file_prof(:) = " "
     file_vars(:) = " "
 
 !-------------------------------------------------------------------------------
@@ -194,8 +193,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 ! Crop blank spaces off ends of file names.
 !-------------------------------------------------------------------------------
 
-    DO n = 1, SIZE(file_prof)
-        file_prof(n) = TRIM( ADJUSTL( file_prof(n) ) )
+    DO n = 1, SIZE(file_vars)
         file_vars(n)= TRIM( ADJUSTL( file_vars(n) ) )
     ENDDO
 

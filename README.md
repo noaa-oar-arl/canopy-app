@@ -37,7 +37,7 @@ Current Canopy-App components:
 
 Current Canopy-App inputs:
 
-1.  Typical 2D gridded atmospheric model input variables in 1st layer above canopy (e.g., `input_variables.txt`).
+    Typical 2D gridded atmospheric model input variables in 1st layer above canopy (e.g., `input_variables.txt`).
 
     Namelist Option : `file_vars`
 
@@ -57,31 +57,21 @@ Current Canopy-App inputs:
     | MOL              | Monin-Obukhov Length (m)                          |
     | FRP              | Total Fire Radiative Power (MW/grid cell)         |
 
-2.  Generic 1D canopy profile specifications (e.g., `input_profile.txt`).
-
-    Namelist Option : `file_prof`
-
-    | Variable Name    | Variable Descrip. (Units)                         |
-    | ---------------  | ------------------------------------------------- |
-    | CANLAY           | Canopy layer number (integer)                     |
-    | ZK               | Canopy layer resolution (m)                       |
-
-
     Current User Namelist Options:
 
     | Variable Name    | Variable Descrip. (Units)                                                          |
     | ---------------  | ---------------------------------------------------------------------------------- |
-    | nlat             | integer number of latitude cells (must match # of LAT in `file_vars` above )       |
-    | nlon             | integer number of longitude cells (must match # of LON in `file_vars`above )       |
-    | canlays          | integer number of canopy layers  (must match # of CANLAY in `file_prof` above )    |
-    | canres           | real value of canopy vertical resolution (m) (must match ZK in `file_prof` above ) |
+    | nlat             | number of latitude cells (must match # of LAT in `file_vars` above )               |
+    | nlon             | number of longitude cells (must match # of LON in `file_vars`above )               |
+    | canlays          | number of canopy layers                                                            |
+    | canres           | canopy vertical resolution (m)                                                     |
     | ifcanwind        | logical canopy wind/WAF option (default = .FALSE.)                                 |
     | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
     | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |
     | href             | real value of reference height above canopy associated with input wind speed (m)   |
     | z0ghcm           | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
     | lamdars          | Influence function associated with roughness sublayer (Massman et al., 2017)       |
-    | dx_opt           | 0=Calculation of dx resolution/distance from lon; 1=user set dx grid resolution           |
+    | dx_opt           | 0=Calculation of dx resolution/distance from lon; 1=user set dx grid resolution    |
     | dx_set           | user set real value of grid resolution (m) only if dx_opt=1                        |
     | flameh_opt       | 0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh            |
     | flameh_set       | user set real value of flame height (m) only if flame_opt=1                        |

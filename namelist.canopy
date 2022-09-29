@@ -1,5 +1,4 @@
 &FILENAMES
-  file_prof    = 'input_profile.txt'
   file_vars    = 'input_variables.txt'
 /
 

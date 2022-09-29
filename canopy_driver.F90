@@ -82,7 +82,7 @@ program canopy_driver
     real(rk)       ::    zo_h          !Surface (soil+veg) roughness lengths (z/h)
 !Local variables
     integer i,i0,loc
-    real(rk), allocatable :: zkcm       ( : )     ! in-canopy heights (m)
+    real(rk), allocatable :: zk         ( : )     ! in-canopy heights (m)
     real(rk), allocatable :: ztothc     ( : )     ! z/h
     real(rk), allocatable :: fainc      ( : )     ! incremental foliage shape function
     real(rk), allocatable :: fafracz    ( : )     ! incremental fractional foliage shape function
@@ -100,15 +100,7 @@ program canopy_driver
     integer  ::    midflamepoint        ! indice of the mid-flame point
     real(rk), allocatable :: waf        (:)  ! Calculated Wind Adjustment Factor
 
-!     Test Generic 1D canopy data that should represent virtualized canopy
-    TYPE :: profile_type
-        integer     :: canlay       !profile layer for model
-        real(rk)    :: zk           !profile heights for model (m)
-    end TYPE profile_type
-
-    type(profile_type), allocatable :: profile( : )
-
-!     Test Generic 2D met/sfc input variables that should be passed to canopy calculations
+! Generic 2D met/sfc input variables that should be passed to canopy calculations
     TYPE :: variable_type
         real(rk)   :: lat          !latitude of cell/point
         real(rk)   :: lon          !longitude of cell/point
@@ -154,7 +146,7 @@ program canopy_driver
 ! Allocate necessary variables.
 !-------------------------------------------------------------------------------
 
-    if(.not.allocated(zkcm)) allocate(zkcm(canlays))
+    if(.not.allocated(zk)) allocate(zk(canlays))
     if(.not.allocated(ztothc)) allocate(ztothc(canlays))
     if(.not.allocated(fainc)) allocate(fainc(canlays))
     if(.not.allocated(fafracz)) allocate(fafracz(canlays))
@@ -165,17 +157,7 @@ program canopy_driver
     if(.not.allocated(waf)) allocate(waf(nlat*nlon))
     if(.not.allocated(Kz)) allocate(Kz(canlays,nlat*nlon))
     if(.not.allocated(RJCorr)) allocate(RJCorr(canlays,nlat*nlon))
-    if(.not.allocated(profile)) allocate(profile(canlays))
     if(.not.allocated(variables)) allocate(variables(nlat*nlon))
-
-! ... read canopy profile data that should be passed
-    open(9,  file=file_prof(1),  status='old')
-    i0 = 0
-    read(9,*,iostat=i0)  ! skip headline
-    do i=1, canlays
-        read(9, *) profile(i)
-    end do
-    close(9)
 
 ! ... read met/sfc input variables
     open(8,  file=file_vars(1),  status='old')
@@ -201,8 +183,11 @@ program canopy_driver
         dx = dx_set
     end if
 
-! ... get canopy model profile heights
-    zkcm   = profile%zk
+! ... derive canopy model profile heights
+    zk(1) = 0.0_rk
+    do i=2, canlays
+        zk(i)   = zk(i-1) + canres
+    end do
 
 ! ... initialize grid cell dependent variables
     waf  = 1.0_rk
@@ -223,7 +208,7 @@ program canopy_driver
         frpref   = variables(loc)%frp
 
 ! ... get scaled canopy model profile and layers
-        ztothc      = zkcm/hcm
+        ztothc      = zk/hcm
         cansublays  = floor(hcm/canres)
 
 ! ... initialize canopy profile dependent variables
@@ -278,7 +263,7 @@ program canopy_driver
                 if (ifcanwind) then
 
                     do i=1, canlays
-                        call canopy_wind(hcm, zkcm(i), fafraczInt(i), ubzref, &
+                        call canopy_wind(hcm, zk(i), fafraczInt(i), ubzref, &
                             z0ghcm, cdrag, pai, href, d_h, zo_h, molref, &
                             rsl_opt, canBOT(i), canTOP(i), canWIND(i, loc))
                     end do
@@ -314,14 +299,14 @@ program canopy_driver
 ! ... user option to calculate in-canopy eddy diffusivities at height z
                 if (ifcaneddy) then
                     do i=1, canlays
-                        call canopy_eddyx(hcm, zkcm(i), ustref, molref, Kz(i, loc))
+                        call canopy_eddyx(hcm, zk(i), ustref, molref, Kz(i, loc))
                     end do
                 end if
 
 ! ... user option to calculate in-canopy eddy photolysis attenuation at height z
                 if (ifcanphot) then
                     do i=1, canlays
-                        call canopy_phot(hcm, zkcm(i), fafraczInt(i), &
+                        call canopy_phot(hcm, zk(i), fafraczInt(i), &
                             lairef, cluref, cszref, RJCorr(i, loc))
                     end do
                 end if
@@ -340,7 +325,7 @@ program canopy_driver
         do loc=1, nlat*nlon
             do i=1, canlays
                 write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                    profile(i)%zk, canWIND(i, loc)
+                    zk(i), canWIND(i, loc)
             end do
         end do
 
@@ -362,7 +347,7 @@ program canopy_driver
         do loc=1, nlat*nlon
             do i=1, canlays
                 write(12, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                    profile(i)%zk, Kz(i, loc)
+                    zk(i), Kz(i, loc)
             end do
         end do
     end if
@@ -377,7 +362,7 @@ program canopy_driver
         do loc=1, nlat*nlon
             do i=1, canlays
                 write(13, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                    profile(i)%zk, RJCorr(i, loc)
+                    zk(i), RJCorr(i, loc)
             end do
         end do
     end if
