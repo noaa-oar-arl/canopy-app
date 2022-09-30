@@ -82,7 +82,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default real value for canopy vertical resolution (m) (Default = 0.5 m)
-    canres = 0.5
+    canres = 0.5_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -92,12 +92,12 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default real value for ratio of ground roughness length to canopy top height
-    z0ghcm = 0.0025
+    z0ghcm = 0.0025_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for Influence function associated with roughness sublayer
-    lamdars = 1.25
+    lamdars = 1.25_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -152,17 +152,17 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default real value for user LAI threshold value for canopy (default = 0.1)
-    lai_thresh = 0.1
+    lai_thresh = 0.1_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for user FRT threshold value for canopy (default = 0.5)
-    frt_thresh = 0.5
+    frt_thresh = 0.5_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for user FCH threshold value for canopy (default = 0.5 m)
-    fch_thresh = 0.1
+    fch_thresh = 0.1_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
