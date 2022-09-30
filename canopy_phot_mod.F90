@@ -5,7 +5,7 @@ module canopy_phot_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_PHOT( HCM, ZK, FAFRACK, LAI, CLU, COSZEN, RJCORR )
+    SUBROUTINE CANOPY_PHOT( HCM, ZK, FCLAI, LAI, CLU, COSZEN, RJCORR )
 
 !-----------------------------------------------------------------------
 
@@ -29,8 +29,8 @@ contains
 !     IN/OUT
         REAL(RK),    INTENT( IN )  :: HCM             ! Height of canopy top (m)
         REAL(RK),    INTENT( IN )  :: ZK              ! Above/Below canopy height, z (m)
-        REAL(RK),    INTENT( IN )  :: FAFRACK         ! Model input Fractional (z) shapes of the
-        ! plant surface distribution (nondimensional)
+        REAL(RK),    INTENT( IN )  :: FCLAI           ! Model input Fractional (z) shapes of the
+        ! plant surface distribution (nondimensional), i.e., a Fractional Culmulative LAI
         REAL(RK),    INTENT( IN )  :: LAI             ! Model input total Leaf Area Index
         REAL(RK),    INTENT( IN )  :: CLU             ! Model input Clumping Index
         REAL(RK),    INTENT( IN )  :: COSZEN          ! Model input Cosine Solar Zenith Angle
@@ -43,7 +43,7 @@ contains
 !Nat Commun 8, 15243 (2017). https://doi.org/10.1038/ncomms15243
 
         if (ZK <= HCM) then       !at or below canopy top --> calculate photolysis attenuation
-            RJCORR = MAX(1.0E-10_rk, EXP(-1.0_rk*(0.5_rk*(LAI*(1.0_rk-FAFRACK))*CLU)/MAX(0.05_rk, COSZEN)))
+            RJCORR = MAX(1.0E-10_rk, EXP(-1.0_rk*(0.5_rk*(LAI*(1.0_rk-FCLAI))*CLU)/MAX(0.05_rk, COSZEN)))
         else
             RJCORR = 1.0_rk       !above canopy top RJCORR = 1
         end if
