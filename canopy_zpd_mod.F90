@@ -5,7 +5,7 @@ module canopy_zpd_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_ZPD( ZTOTHC, FAFRACK, FAFRACK0, UBZREF, Z0GHCM, &
+    SUBROUTINE CANOPY_ZPD( ZTOTHC, FCLAI, UBZREF, Z0GHCM, &
         LAMDARS, CDRAG, PAI, d_h, zo_h )
 
 !-----------------------------------------------------------------------
@@ -29,10 +29,8 @@ contains
 ! Arguments:
 !     IN/OUT
         REAL(RK),    INTENT( IN )  :: ZTOTHC  ( : )   ! SUB-CANOPY Total z/h layers (nondimensional)
-        REAL(RK),    INTENT( IN )  :: FAFRACK ( : )   ! SUB-CANOPY Fractional (z) shapes of the
-        ! plant surface distribution at z=0 (nondimensional)
-        REAL(RK),    INTENT( IN )  :: FAFRACK0        ! Fractional (z) shapes of the
-        ! plant surface distribution at z=0 (nondimensional)
+        REAL(RK),    INTENT( IN )  :: FCLAI   ( : )   ! SUB-CANOPY Fractional (z) shapes of the
+        ! plant surface distribution, i.e., a Fractional Culmulative LAI
         REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (m/s)
         REAL(RK),    INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
         REAL(RK),    INTENT( IN )  :: LAMDARS         ! Influence function associated with roughness sublayer (nondimensional)
@@ -58,6 +56,7 @@ contains
 ! Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
 ! (2017)  W.J. Massman, J.M. Forthofer, M.A. Finney.  https://doi.org/10.1139/cjfr-2016-0354
+! Specifically, see Eq. 15 (pg 599) and Eq. 12 (pg 597 of Massman et al.)
 
         ! Calculate zero-plane displacement height, d/h (Eq. 15 in Massman et al. 2017):
         drag    = CDRAG*PAI
@@ -68,10 +67,9 @@ contains
         qb = 2.0/(1.0 - exp(-1.0))
         qa = 4.04*(-1.0*qb)
         qstar = qa + qb*exp(-1.0*qc*nrat)
-        dha =  1.0 - (cosh(qstar*nrat*FAFRACK0)/cosh(qstar*nrat))
-
-        fafraczInt_tota = IntegrateTrapezoid( ZTOTHC,(cosh(qstar*nrat*FAFRACK)*ZTOTHC) )
-        fafraczInt_totb = IntegrateTrapezoid( ZTOTHC, cosh(qstar*nrat*FAFRACK) )
+        dha =  1.0 - (cosh(qstar*nrat*FCLAI(1))/cosh(qstar*nrat))
+        fafraczInt_tota = IntegrateTrapezoid( ZTOTHC,(cosh(qstar*nrat*FCLAI)*ZTOTHC) )
+        fafraczInt_totb = IntegrateTrapezoid( ZTOTHC, cosh(qstar*nrat*FCLAI) )
         dhb = fafraczInt_tota/fafraczInt_totb
 
         ! zero-plane displacement height

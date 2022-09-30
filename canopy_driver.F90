@@ -255,7 +255,7 @@ program canopy_driver
 
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 
-                call canopy_zpd(ztothc(1:cansublays), fafraczInt(1:cansublays), fafraczInt(1), &
+                call canopy_zpd(ztothc(1:cansublays), fafraczInt(1:cansublays), &
                     ubzref, z0ghcm, lamdars, cdrag, pai, d_h, zo_h)
 
 ! ... user option to calculate in-canopy wind speeds at height z
