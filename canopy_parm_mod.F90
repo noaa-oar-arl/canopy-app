@@ -30,8 +30,6 @@ contains
 
 ! Arguments:
 !     IN/OUT
-!      REAL(RK),    INTENT( IN )  :: LAT             ! Grid cell latitude (degrees) !not needed yet
-!      REAL(RK),    INTENT( IN )  :: LON             ! Grid cell longitude (degrees)!not needed yet
         INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
         REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
         REAL(RK),    INTENT( IN )  :: FFRAC           ! Grid cell forest fraction
@@ -71,7 +69,9 @@ contains
                 else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
                 else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
-                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):  https://doi.org/10.1016/j.agrformet.2017.09.004
+                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
+                    ! https://doi.org/10.1016/j.agrformet.2017.09.004
+                    ! Section 3.3
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
@@ -92,7 +92,9 @@ contains
                 else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
                 else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
-                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):  https://doi.org/10.1016/j.agrformet.2017.09.004
+                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
+                    !https://doi.org/10.1016/j.agrformet.2017.09.004
+                    ! Section 3.3
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
@@ -113,7 +115,9 @@ contains
                 else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
                 else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
-                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):  https://doi.org/10.1016/j.agrformet.2017.09.004
+                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
+                    !https://doi.org/10.1016/j.agrformet.2017.09.004
+                    ! Section 3.3
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
