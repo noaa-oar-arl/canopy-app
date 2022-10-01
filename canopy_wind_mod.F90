@@ -5,7 +5,7 @@ module canopy_wind_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_WIND( HCM, ZK, FAFRACK, UBZREF, Z0GHCM, &
+    SUBROUTINE CANOPY_WIND( HCM, ZK, FAFRACK, UBZREF, Z0GHC, &
         CDRAG, PAI, HREF, D_H, ZO_H, MOL, RSL_OPT, &
         CANBOT_OUT, CANTOP_OUT, CANWIND )
 
@@ -33,7 +33,7 @@ contains
         REAL(RK),    INTENT( IN )  :: FAFRACK         ! Fractional (z) shapes of the
         ! plant surface distribution (nondimensional)
         REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at reference height (m/s)
-        REAL(RK),    INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
+        REAL(RK),    INTENT( IN )  :: Z0GHC          ! Ratio of ground roughness length to canopy top height (nondimensional)
         REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
         REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height above canopy asssociated with ref wind speed  (m)
@@ -65,12 +65,12 @@ contains
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
 ! (2017)  W.J. Massman, J.M. Forthofer, M.A. Finney.  https://doi.org/10.1139/cjfr-2016-0354
         zkhcm = ZK/HCM
-        z0g = Z0GHCM*HCM
+        z0g = Z0GHC*HCM
         hol = HCM/MOL
 
         ! Nondimensional canopy wind speed term that dominates near the ground:
         if (ZK >= z0g .and. ZK <= HCM) then
-            canbot = log(zkhcm/Z0GHCM)/log(1.0_rk/Z0GHCM)
+            canbot = log(zkhcm/Z0GHC)/log(1.0_rk/Z0GHC)
         else if (ZK >= 0 .and. ZK <= z0g) then
             canbot = 0.0  !No-slip condition at surface (u=0 at z=0)
         else
@@ -98,7 +98,7 @@ contains
         end if
 
         !calculate U* from Massman 1997 (https://doi.org/10.1023/A:1000234813011)
-        ustrmod = uc*(0.38_rk - (0.38_rk + (vonk/log(Z0GHCM)))*exp(-1.0_rk*(15.0_rk*drag)))
+        ustrmod = uc*(0.38_rk - (0.38_rk + (vonk/log(Z0GHC)))*exp(-1.0_rk*(15.0_rk*drag)))
 
         if (HREF > z0m) then ! input wind speed reference height is > roughness length
             if (RSL_OPT .eq. 0) then !MOST From NoahMP (M. Barlarge)

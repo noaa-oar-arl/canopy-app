@@ -69,7 +69,7 @@ Current Canopy-App inputs:
     | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
     | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |
     | href             | real value of reference height above canopy associated with input wind speed (m)   |
-    | z0ghcm           | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
+    | z0ghc           | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
     | lamdars          | Influence function associated with roughness sublayer (Massman et al., 2017)       |
     | dx_opt           | 0=Calculation of dx resolution/distance from lon; 1=user set dx grid resolution    |
     | dx_set           | user set real value of grid resolution (m) only if dx_opt=1                        |

@@ -49,7 +49,7 @@ program canopy_driver
 
 
 ! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
-    real(rk)       ::   z0ghcm   ! ratio of ground roughness length to canopy top height
+    real(rk)       ::   z0ghc   ! ratio of ground roughness length to canopy top height
     !  (default case: Approx. currently does not account for understory
     !   variability)
     real(rk)       ::   lamdars     ! Influence function associated with roughness sublayer (nondimensional)
@@ -123,7 +123,7 @@ program canopy_driver
 ! Read user options from namelist.
 !-------------------------------------------------------------------------------
 
-    call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
+    call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghc,lamdars, &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot,   &
         pai_opt, pai_set, lu_opt, dx_opt, dx_set, lai_thresh, &
         frt_thresh, fch_thresh, rsl_opt)
@@ -256,7 +256,7 @@ program canopy_driver
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 
                 call canopy_zpd(ztothc(1:cansublays), fafraczInt(1:cansublays), &
-                    ubzref, z0ghcm, lamdars, cdrag, pai, d_h, zo_h)
+                    ubzref, z0ghc, lamdars, cdrag, pai, d_h, zo_h)
 
 ! ... user option to calculate in-canopy wind speeds at height z
 
@@ -264,7 +264,7 @@ program canopy_driver
 
                     do i=1, canlays
                         call canopy_wind(hcm, zk(i), fafraczInt(i), ubzref, &
-                            z0ghcm, cdrag, pai, href, d_h, zo_h, molref, &
+                            z0ghc, cdrag, pai, href, d_h, zo_h, molref, &
                             rsl_opt, canBOT(i), canTOP(i), canWIND(i, loc))
                     end do
 

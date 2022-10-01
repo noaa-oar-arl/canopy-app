@@ -5,7 +5,7 @@ module canopy_zpd_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_ZPD( ZTOTHC, FCLAI, UBZREF, Z0GHCM, &
+    SUBROUTINE CANOPY_ZPD( ZTOTHC, FCLAI, UBZREF, Z0GHC, &
         LAMDARS, CDRAG, PAI, d_h, zo_h )
 
 !-----------------------------------------------------------------------
@@ -32,7 +32,7 @@ contains
         REAL(RK),    INTENT( IN )  :: FCLAI   ( : )   ! SUB-CANOPY Fractional (z) shapes of the
         ! plant surface distribution, i.e., a Fractional Culmulative LAI
         REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (m/s)
-        REAL(RK),    INTENT( IN )  :: Z0GHCM          ! Ratio of ground roughness length to canopy top height (nondimensional)
+        REAL(RK),    INTENT( IN )  :: Z0GHC          ! Ratio of ground roughness length to canopy top height (nondimensional)
         REAL(RK),    INTENT( IN )  :: LAMDARS         ! Influence function associated with roughness sublayer (nondimensional)
         REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
@@ -60,7 +60,7 @@ contains
 
         ! Calculate zero-plane displacement height, d/h (Eq. 15 in Massman et al. 2017):
         drag    = CDRAG*PAI
-        ustrmod = UBZREF*(0.38 - (0.38 + (vonk/log(Z0GHCM)))*exp(-1.0*(15.0*drag)))
+        ustrmod = UBZREF*(0.38 - (0.38 + (vonk/log(Z0GHC)))*exp(-1.0*(15.0*drag)))
         cstress = (2.0*(ustrmod**2.0))/(UBZREF**2.0)
         nrat   =  drag/cstress
         qc = 0.60

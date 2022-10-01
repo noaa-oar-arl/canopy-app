@@ -11,7 +11,7 @@
   ifcaneddy  = .TRUE.
   ifcanphot  = .TRUE.
   href       =  10.0
-  z0ghcm     =  0.0025
+  z0ghc     =  0.0025
   lamdars    =  1.25
   dx_opt     =  0
   dx_set     =  12000.0
