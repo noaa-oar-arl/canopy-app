@@ -5,7 +5,7 @@ module canopy_zpd_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_ZPD( ZTOTHC, FCLAI, UBZREF, Z0GHC, &
+    SUBROUTINE CANOPY_ZPD( ZHC, FCLAI, UBZREF, Z0GHC, &
         LAMDARS, CDRAG, PAI, d_h, zo_h )
 
 !-----------------------------------------------------------------------
@@ -28,11 +28,11 @@ contains
 
 ! Arguments:
 !     IN/OUT
-        REAL(RK),    INTENT( IN )  :: ZTOTHC  ( : )   ! SUB-CANOPY Total z/h layers (nondimensional)
+        REAL(RK),    INTENT( IN )  :: ZHC     ( : )   ! SUB-CANOPY Total z/h layers (nondimensional)
         REAL(RK),    INTENT( IN )  :: FCLAI   ( : )   ! SUB-CANOPY Fractional (z) shapes of the
         ! plant surface distribution, i.e., a Fractional Culmulative LAI
         REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (m/s)
-        REAL(RK),    INTENT( IN )  :: Z0GHC          ! Ratio of ground roughness length to canopy top height (nondimensional)
+        REAL(RK),    INTENT( IN )  :: Z0GHC           ! Ratio of ground roughness length to canopy top height (nondimensional)
         REAL(RK),    INTENT( IN )  :: LAMDARS         ! Influence function associated with roughness sublayer (nondimensional)
         REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
@@ -68,8 +68,8 @@ contains
         qa = 4.04*(-1.0*qb)
         qstar = qa + qb*exp(-1.0*qc*nrat)
         dha =  1.0 - (cosh(qstar*nrat*FCLAI(1))/cosh(qstar*nrat))
-        fafraczInt_tota = IntegrateTrapezoid( ZTOTHC,(cosh(qstar*nrat*FCLAI)*ZTOTHC) )
-        fafraczInt_totb = IntegrateTrapezoid( ZTOTHC, cosh(qstar*nrat*FCLAI) )
+        fafraczInt_tota = IntegrateTrapezoid( ZHC,(cosh(qstar*nrat*FCLAI)*ZHC) )
+        fafraczInt_totb = IntegrateTrapezoid( ZHC, cosh(qstar*nrat*FCLAI) )
         dhb = fafraczInt_tota/fafraczInt_totb
 
         ! zero-plane displacement height

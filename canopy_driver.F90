@@ -83,7 +83,7 @@ program canopy_driver
 !Local variables
     integer i,i0,loc
     real(rk), allocatable :: zk         ( : )     ! in-canopy heights (m)
-    real(rk), allocatable :: ztothc     ( : )     ! z/h
+    real(rk), allocatable :: zhc     ( : )     ! z/h
     real(rk), allocatable :: fainc      ( : )     ! incremental foliage shape function
     real(rk), allocatable :: fafracz    ( : )     ! incremental fractional foliage shape function
     real(rk), allocatable :: fafraczInt ( : )     ! integral of incremental fractional foliage shape function
@@ -147,7 +147,7 @@ program canopy_driver
 !-------------------------------------------------------------------------------
 
     if(.not.allocated(zk)) allocate(zk(canlays))
-    if(.not.allocated(ztothc)) allocate(ztothc(canlays))
+    if(.not.allocated(zhc)) allocate(zhc(canlays))
     if(.not.allocated(fainc)) allocate(fainc(canlays))
     if(.not.allocated(fafracz)) allocate(fafracz(canlays))
     if(.not.allocated(fafraczInt)) allocate(fafraczInt(canlays))
@@ -208,7 +208,7 @@ program canopy_driver
         frpref   = variables(loc)%frp
 
 ! ... get scaled canopy model profile and layers
-        ztothc      = zk/hcm
+        zhc      = zk/hcm
         cansublays  = floor(hcm/canres)
 
 ! ... initialize canopy profile dependent variables
@@ -239,23 +239,23 @@ program canopy_driver
 
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
                 do i=1, canlays
-                    if (ztothc(i) >= zcanmax .and. ztothc(i) <= 1.0) then
-                        fainc(i) = exp((-1.0*((ztothc(i)-zcanmax)**2.0))/sigmau**2.0)
-                    else if (ztothc(i) >= 0.0 .and. ztothc(i) <= zcanmax) then
-                        fainc(i) = exp((-1.0*((zcanmax-ztothc(i))**2.0))/sigma1**2.0)
+                    if (zhc(i) >= zcanmax .and. zhc(i) <= 1.0) then
+                        fainc(i) = exp((-1.0*((zhc(i)-zcanmax)**2.0))/sigmau**2.0)
+                    else if (zhc(i) >= 0.0 .and. zhc(i) <= zcanmax) then
+                        fainc(i) = exp((-1.0*((zcanmax-zhc(i))**2.0))/sigma1**2.0)
                     end if
                 end do
-                fatot = IntegrateTrapezoid(ztothc,fainc)
+                fatot = IntegrateTrapezoid(zhc,fainc)
 
 ! ... calculate plant distribution function
                 do i=1, canlays
                     fafracz(i) = fainc(i)/fatot
-                    fafraczInt(i) = IntegrateTrapezoid(ztothc(1:i),fafracz(1:i))
+                    fafraczInt(i) = IntegrateTrapezoid(zhc(1:i),fafracz(1:i))
                 end do
 
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 
-                call canopy_zpd(ztothc(1:cansublays), fafraczInt(1:cansublays), &
+                call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
                     ubzref, z0ghc, lamdars, cdrag, pai, d_h, zo_h)
 
 ! ... user option to calculate in-canopy wind speeds at height z
