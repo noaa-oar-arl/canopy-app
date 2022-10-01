@@ -137,9 +137,9 @@ program canopy_driver
     if (ifcanphot) then
         write(*,*)  'Canopy photolysis attenuation option selected'
     end if
-    if (.not. ifcanwind .and. .not. ifcaneddy .and. .not. ifcanphot) then
+    if (.not. any([ifcanwind, ifcaneddy, ifcanphot])) then
         write(*,*)  'No option(s) selected...see namelist'
-        call exit(2)
+        call exit(0)
     end if
 
 !-------------------------------------------------------------------------------
