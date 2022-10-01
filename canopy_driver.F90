@@ -284,8 +284,8 @@ program canopy_driver
                         write(*,*)  'Wrong FLAMEH_OPT choice of ', flameh_opt, ' in namelist...exiting'
                         call exit(2)
                     end if
-                    if (flameh .lt. canres) then !flameh under first layer height
-                        midflamepoint = 2 !put in layer above
+                    if (flameh .lt. canres) then !flameh beween first (z=0) and second layer height
+                        midflamepoint = 2    !do not put at z = 0, but rather in second layer
                     else
                         flamelays     = floor(flameh/canres)
                         midflamepoint = max((flamelays/2),2)
