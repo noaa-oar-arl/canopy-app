@@ -55,7 +55,7 @@ Current Canopy-App inputs:
     | CSZ              | Cosine of the solar zenith angle (dimensionless)  |
     | Z0               | Total surface roughness length (m)                |
     | MOL              | Monin-Obukhov Length (m)                          |
-    | FRP              | Total Fire Radiative Power (MW/grid cell)         |
+    | FRP              | Total Fire Radiative Power (MW/grid cell area)    |
 
     Current User Namelist Options:
 
