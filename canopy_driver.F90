@@ -92,7 +92,7 @@ program canopy_driver
     real(rk)              :: fatot                ! integral of total fractional foliage shape function
     real(rk), allocatable :: canWIND    ( :, : )  ! canopy wind speeds (m/s)
     real(rk), allocatable :: Kz         ( :, : )  ! Eddy Diffusivities
-    real(rk), allocatable :: RJCF       ( :, : )  ! Photolysis Attenuation Coefficients
+    real(rk), allocatable :: rjcf       ( :, : )  ! Photolysis Attenuation Coefficients
 
     real(rk) ::    flameh               ! flame Height (m)
     integer  ::    cansublays           ! number of sub-canopy layers
@@ -156,7 +156,7 @@ program canopy_driver
     if(.not.allocated(canWIND)) allocate(canWIND(canlays,nlat*nlon))
     if(.not.allocated(waf)) allocate(waf(nlat*nlon))
     if(.not.allocated(Kz)) allocate(Kz(canlays,nlat*nlon))
-    if(.not.allocated(RJCF)) allocate(RJCF(canlays,nlat*nlon))
+    if(.not.allocated(rjcf)) allocate(rjcf(canlays,nlat*nlon))
     if(.not.allocated(variables)) allocate(variables(nlat*nlon))
 
 ! ... read met/sfc input variables
@@ -222,7 +222,7 @@ program canopy_driver
 ! ... initialize grid cell and canopy profile dependent variables
         canWIND(:,loc)    = ubzref    !initialize to above canopy wind
         Kz(:,loc)         = -999.0_rk !initialize to missing
-        RJCF(:,loc)     = 1.0_rk    !initialize to above canopy RJCF=1
+        rjcf(:,loc)     = 1.0_rk      !initialize to above canopy rjcf=1
 
 ! ... check for model vegetation types
         if (vtyperef .le. 10 .or. vtyperef .eq. 12) then
@@ -306,7 +306,7 @@ program canopy_driver
 ! ... user option to calculate in-canopy eddy photolysis attenuation at height z
                 if (ifcanphot) then
                     call canopy_phot(fafraczInt, &
-                        lairef, cluref, cszref, RJCF(:, loc))
+                        lairef, cluref, cszref, rjcf(:, loc))
                 end if
 
             end if
@@ -356,11 +356,11 @@ program canopy_driver
         open(13, file='output_phot.txt')
         write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
         write(13, '(a30, i6)') 'Number of in-canopy layers: ', canlays
-        write(13, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'RJCF'
+        write(13, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'rjcf'
         do loc=1, nlat*nlon
             do i=1, canlays
                 write(13, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                    zk(i), RJCF(i, loc)
+                    zk(i), rjcf(i, loc)
             end do
         end do
     end if
