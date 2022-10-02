@@ -86,7 +86,7 @@ contains
         z0m = ZO_H*HCM !aerodynamic roughness lengh (not scaled to HCM)
         if((HCM-zpd) <= 0.) then
             write(*,*) "critical problem: hcan <= zpd"
-            call exit(2)
+            call exit(1)
         end if
 
         if (HREF > z0m) then ! input wind speed reference height is > roughness length
