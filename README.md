@@ -35,13 +35,13 @@ Current Canopy-App components:
 
     - `canopy_phot_mod.F90`
 
-Current Canopy-App inputs:
-
-    Typical 2D gridded atmospheric model input variables in 1st layer above canopy (e.g., `input_variables.txt`).
+    Current Canopy-App inputs: Typical 2D gridded atmospheric model input variables in 1st layer above canopy (e.g., `input_variables.txt`).
 
     Namelist Option : `file_vars`
 
-    | Variable Name    | Variable Descrip. (Units)                         |
+    **Table 1. Canopy-App input variables**
+
+    | Variable Name    | Variable Descrip. and Units                       |
     | ---------------  | ------------------------------------------------- |  
     | LAT              | Latitude  (degrees)                               |
     | LON              | Longitude (degrees)                               |
@@ -57,11 +57,9 @@ Current Canopy-App inputs:
     | MOL              | Monin-Obukhov Length (m)                          |
     | FRP              | Total Fire Radiative Power (MW/grid cell area)    |
 
+    **Table 2. Current User Namelist Options**
 
-Current User Namelist Options:
-
-
-    | Variable Name    | Variable Descrip. (Units)                                                          |
+    | Namelist Opt.    | Namelist Descript. and Units                                                       |
     | ---------------  | ---------------------------------------------------------------------------------- |
     | nlat             | number of latitude cells (must match # of LAT in `file_vars` above )               |
     | nlon             | number of longitude cells (must match # of LON in `file_vars`above )               |
