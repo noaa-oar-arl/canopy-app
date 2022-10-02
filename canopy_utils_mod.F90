@@ -85,7 +85,7 @@ contains
         real(rk), intent(in)  :: dx           !! Input Grid cell length (m)
         real(rk)              :: CalcFlameH   !! Calculated Plant area index (PAI)
 
-        CalcFlameH=0.0775*((frp*1000.0)/dx)**0.46  !Byram flameh calculation as function of FRP
+        CalcFlameH=0.0775_rk*((frp*1000.0_rk)/dx)**0.46_rk  !Byram flameh calculation as function of FRP
 
     end function
 
