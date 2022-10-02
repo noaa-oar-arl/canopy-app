@@ -45,6 +45,7 @@ contains
 !Nat Commun 8, 15243 (2017). https://doi.org/10.1038/ncomms15243
 !Raupauch M. R. A Practical Lagrangian method for relating scalar concentrations to
 ! source distributions in vegetation canopies. Q. J. R. Meteor. Soc. (1989), 115, pp 609-632
+! Eqs. 2-9 on pgs 10-11.
 
         hol = HCM/MOL
         tlc = (HCM/USTAR) * (                        &
