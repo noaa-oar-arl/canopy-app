@@ -23,7 +23,7 @@ contains
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
         use canopy_const_mod, ONLY: rk, pi !constants for canopy models
-        use canopy_utils_mod               !utilities for canopy models
+!        use canopy_utils_mod               !utilities for canopy models
 
 ! Arguments:
 !     IN/OUT
@@ -100,11 +100,6 @@ contains
         END IF
 
         KZ = (sigma*sigma)*tlc
-
-!       print*, 'ZK/HCM = ', ZK/HCM, 'KZ = ', KZ
-
-
-
 
     END SUBROUTINE CANOPY_EDDYX
 
