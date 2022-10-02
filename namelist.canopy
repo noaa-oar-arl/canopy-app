@@ -6,7 +6,7 @@
   nlat       =  101
   nlon       =  101
   modlays    =  100
-  canres     =  0.5
+  modres     =  0.5
   ifcanwind  = .TRUE.
   ifcaneddy  = .TRUE.
   ifcanphot  = .TRUE.

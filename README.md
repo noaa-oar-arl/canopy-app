@@ -57,14 +57,16 @@ Current Canopy-App inputs:
     | MOL              | Monin-Obukhov Length (m)                          |
     | FRP              | Total Fire Radiative Power (MW/grid cell area)    |
 
-    Current User Namelist Options:
+
+Current User Namelist Options:
+
 
     | Variable Name    | Variable Descrip. (Units)                                                          |
     | ---------------  | ---------------------------------------------------------------------------------- |
     | nlat             | number of latitude cells (must match # of LAT in `file_vars` above )               |
     | nlon             | number of longitude cells (must match # of LON in `file_vars`above )               |
     | modlays          | number of model (below and above canopy) layers                                    |
-    | canres           | canopy vertical resolution (m)                                                     |
+    | modres           | above and below canopy model vertical resolution (m)                               |
     | ifcanwind        | logical canopy wind/WAF option (default = .FALSE.)                                 |
     | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
     | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |

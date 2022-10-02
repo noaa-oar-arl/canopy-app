@@ -30,7 +30,7 @@ program canopy_driver
     integer        ::    nlat        !length of x coordinate
     integer        ::    nlon        !length of y coordinate
     integer        ::    modlays     !Number of total above and below canopy model layers
-    real(rk)       ::    canres      !Real value of canopy vertical resolution (m)
+    real(rk)       ::    modres      !Real value of model above and below canopy vertical resolution (m)
     real(rk)       ::    href        !Reference Height above canopy @ 10 m  (m)
     logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
     logical        ::    ifcaneddy   !logical canopy eddy Kz option (default = .FALSE.)
@@ -123,7 +123,7 @@ program canopy_driver
 ! Read user options from namelist.
 !-------------------------------------------------------------------------------
 
-    call  canopy_readnml(nlat,nlon,modlays,canres,href,z0ghc,lamdars, &
+    call  canopy_readnml(nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot,   &
         pai_opt, pai_set, lu_opt, dx_opt, dx_set, lai_thresh, &
         frt_thresh, fch_thresh, rsl_opt)
@@ -186,7 +186,7 @@ program canopy_driver
 ! ... derive canopy model profile heights
     zk(1) = 0.0_rk
     do i=2, modlays
-        zk(i)   = zk(i-1) + canres
+        zk(i)   = zk(i-1) + modres
     end do
 
 ! ... initialize grid cell dependent variables
@@ -209,7 +209,7 @@ program canopy_driver
 
 ! ... get scaled canopy model profile and layers
         zhc      = zk/hcm
-        cansublays  = floor(hcm/canres)
+        cansublays  = floor(hcm/modres)
 
 ! ... initialize canopy profile dependent variables
         fainc             = 0.0_rk
@@ -284,10 +284,10 @@ program canopy_driver
                         write(*,*)  'Wrong FLAMEH_OPT choice of ', flameh_opt, ' in namelist...exiting'
                         call exit(2)
                     end if
-                    if (flameh .lt. canres) then !flameh beween first (z=0) and second layer height
+                    if (flameh .lt. modres) then !flameh beween first (z=0) and second layer height
                         midflamepoint = 2    !do not put at z = 0, but rather in second layer
                     else
-                        flamelays     = floor(flameh/canres)
+                        flamelays     = floor(flameh/modres)
                         midflamepoint = max((flamelays/2),2)
                     end if
                     if (flameh .gt. 0.0) then !only calculate when flameh > 0

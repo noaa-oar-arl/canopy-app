@@ -1,5 +1,5 @@
 
-SUBROUTINE canopy_readnml (nlat,nlon,modlays,canres,href,z0ghc,lamdars, &
+SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
     flameh_opt,flameh_set,ifcanwind,ifcaneddy,ifcanphot,     &
     pai_opt,pai_set,lu_opt,dx_opt,dx_set, lai_thresh, &
     frt_thresh, fch_thresh, rsl_opt)
@@ -17,7 +17,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,canres,href,z0ghc,lamdars, &
 
     INTEGER,               INTENT(OUT) :: nlat,nlon,modlays,pai_opt,flameh_opt,lu_opt,dx_opt
     INTEGER,               INTENT(OUT) :: rsl_opt
-    REAL(rk),              INTENT(OUT) :: canres,href,z0ghc,lamdars,flameh_set,pai_set,dx_set
+    REAL(rk),              INTENT(OUT) :: modres,href,z0ghc,lamdars,flameh_set,pai_set,dx_set
     REAL(rk),              INTENT(OUT) :: lai_thresh, frt_thresh, fch_thresh
     LOGICAL,               INTENT(OUT) :: ifcanwind,ifcaneddy,ifcanphot
     INTEGER                            :: istat
@@ -26,7 +26,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,canres,href,z0ghc,lamdars, &
 
     NAMELIST /filenames/ file_vars
 
-    NAMELIST /userdefs/  nlat, nlon, modlays, canres, href, z0ghc, lamdars,  &
+    NAMELIST /userdefs/  nlat, nlon, modlays, modres, href, z0ghc, lamdars,  &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot, pai_opt, &
         pai_set, lu_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, &
         rsl_opt
@@ -82,7 +82,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,canres,href,z0ghc,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default real value for canopy vertical resolution (m) (Default = 0.5 m)
-    canres = 0.5_rk
+    modres = 0.5_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
