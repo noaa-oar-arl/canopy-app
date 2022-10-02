@@ -5,7 +5,7 @@
 &USERDEFS
   nlat       =  101
   nlon       =  101
-  canlays    =  100
+  modlays    =  100
   canres     =  0.5
   ifcanwind  = .TRUE.
   ifcaneddy  = .TRUE.

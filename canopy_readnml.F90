@@ -1,5 +1,5 @@
 
-SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghc,lamdars, &
+SUBROUTINE canopy_readnml (nlat,nlon,modlays,canres,href,z0ghc,lamdars, &
     flameh_opt,flameh_set,ifcanwind,ifcaneddy,ifcanphot,     &
     pai_opt,pai_set,lu_opt,dx_opt,dx_set, lai_thresh, &
     frt_thresh, fch_thresh, rsl_opt)
@@ -15,7 +15,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghc,lamdars, &
 
     IMPLICIT NONE
 
-    INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt,flameh_opt,lu_opt,dx_opt
+    INTEGER,               INTENT(OUT) :: nlat,nlon,modlays,pai_opt,flameh_opt,lu_opt,dx_opt
     INTEGER,               INTENT(OUT) :: rsl_opt
     REAL(rk),              INTENT(OUT) :: canres,href,z0ghc,lamdars,flameh_set,pai_set,dx_set
     REAL(rk),              INTENT(OUT) :: lai_thresh, frt_thresh, fch_thresh
@@ -26,7 +26,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghc,lamdars, &
 
     NAMELIST /filenames/ file_vars
 
-    NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghc, lamdars,  &
+    NAMELIST /userdefs/  nlat, nlon, modlays, canres, href, z0ghc, lamdars,  &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot, pai_opt, &
         pai_set, lu_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, &
         rsl_opt
@@ -77,7 +77,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghc,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default integer value for number of canopy layers (default = 100 layers)
-    canlays = 100
+    modlays = 100
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

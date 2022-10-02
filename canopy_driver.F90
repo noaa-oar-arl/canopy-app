@@ -29,7 +29,7 @@ program canopy_driver
 ! !....this block defines geographic domain of inputs (read from user namelist)
     integer        ::    nlat        !length of x coordinate
     integer        ::    nlon        !length of y coordinate
-    integer        ::    canlays     !Number of total above and below canopy layers
+    integer        ::    modlays     !Number of total above and below canopy model layers
     real(rk)       ::    canres      !Real value of canopy vertical resolution (m)
     real(rk)       ::    href        !Reference Height above canopy @ 10 m  (m)
     logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
@@ -123,7 +123,7 @@ program canopy_driver
 ! Read user options from namelist.
 !-------------------------------------------------------------------------------
 
-    call  canopy_readnml(nlat,nlon,canlays,canres,href,z0ghc,lamdars, &
+    call  canopy_readnml(nlat,nlon,modlays,canres,href,z0ghc,lamdars, &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot,   &
         pai_opt, pai_set, lu_opt, dx_opt, dx_set, lai_thresh, &
         frt_thresh, fch_thresh, rsl_opt)
@@ -146,17 +146,17 @@ program canopy_driver
 ! Allocate necessary variables.
 !-------------------------------------------------------------------------------
 
-    if(.not.allocated(zk)) allocate(zk(canlays))
-    if(.not.allocated(zhc)) allocate(zhc(canlays))
-    if(.not.allocated(fainc)) allocate(fainc(canlays))
-    if(.not.allocated(fafracz)) allocate(fafracz(canlays))
-    if(.not.allocated(fafraczInt)) allocate(fafraczInt(canlays))
-    if(.not.allocated(canBOT)) allocate(canBOT(canlays))
-    if(.not.allocated(canTOP)) allocate(canTOP(canlays))
-    if(.not.allocated(canWIND)) allocate(canWIND(canlays,nlat*nlon))
+    if(.not.allocated(zk)) allocate(zk(modlays))
+    if(.not.allocated(zhc)) allocate(zhc(modlays))
+    if(.not.allocated(fainc)) allocate(fainc(modlays))
+    if(.not.allocated(fafracz)) allocate(fafracz(modlays))
+    if(.not.allocated(fafraczInt)) allocate(fafraczInt(modlays))
+    if(.not.allocated(canBOT)) allocate(canBOT(modlays))
+    if(.not.allocated(canTOP)) allocate(canTOP(modlays))
+    if(.not.allocated(canWIND)) allocate(canWIND(modlays,nlat*nlon))
     if(.not.allocated(waf)) allocate(waf(nlat*nlon))
-    if(.not.allocated(Kz)) allocate(Kz(canlays,nlat*nlon))
-    if(.not.allocated(rjcf)) allocate(rjcf(canlays,nlat*nlon))
+    if(.not.allocated(Kz)) allocate(Kz(modlays,nlat*nlon))
+    if(.not.allocated(rjcf)) allocate(rjcf(modlays,nlat*nlon))
     if(.not.allocated(variables)) allocate(variables(nlat*nlon))
 
 ! ... read met/sfc input variables
@@ -185,7 +185,7 @@ program canopy_driver
 
 ! ... derive canopy model profile heights
     zk(1) = 0.0_rk
-    do i=2, canlays
+    do i=2, modlays
         zk(i)   = zk(i-1) + canres
     end do
 
@@ -238,7 +238,7 @@ program canopy_driver
                     pai, zcanmax, sigmau, sigma1)
 
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
-                do i=1, canlays
+                do i=1, modlays
                     if (zhc(i) >= zcanmax .and. zhc(i) <= 1.0) then
                         fainc(i) = exp((-1.0*((zhc(i)-zcanmax)**2.0))/sigmau**2.0)
                     else if (zhc(i) >= 0.0 .and. zhc(i) <= zcanmax) then
@@ -248,7 +248,7 @@ program canopy_driver
                 fatot = IntegrateTrapezoid(zhc,fainc)
 
 ! ... calculate plant distribution function
-                do i=1, canlays
+                do i=1, modlays
                     fafracz(i) = fainc(i)/fatot
                     fafraczInt(i) = IntegrateTrapezoid(zhc(1:i),fafracz(1:i))
                 end do
@@ -262,7 +262,7 @@ program canopy_driver
 
                 if (ifcanwind) then
 
-                    do i=1, canlays
+                    do i=1, modlays
                         call canopy_wind(hcm, zk(i), fafraczInt(i), ubzref, &
                             z0ghc, cdrag, pai, href, d_h, zo_h, molref, &
                             rsl_opt, canBOT(i), canTOP(i), canWIND(i, loc))
@@ -298,7 +298,7 @@ program canopy_driver
 
 ! ... user option to calculate in-canopy eddy diffusivities at height z
                 if (ifcaneddy) then
-                    do i=1, canlays
+                    do i=1, modlays
                         call canopy_eddyx(hcm, zk(i), ustref, molref, Kz(i, loc))
                     end do
                 end if
@@ -318,10 +318,10 @@ program canopy_driver
 ! ... save as text files for testing
         open(10, file='output_canopy_wind.txt')
         write(10, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
-        write(10, '(a30, i6)') 'Number of in-canopy layers: ', canlays
+        write(10, '(a30, i6)') 'Number of model layers: ', modlays
         write(10, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'WS (m/s)'
         do loc=1, nlat*nlon
-            do i=1, canlays
+            do i=1, modlays
                 write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
                     zk(i), canWIND(i, loc)
             end do
@@ -340,10 +340,10 @@ program canopy_driver
 ! ... save as text files for testing
         open(12, file='output_eddy_Kz.txt')
         write(12, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
-        write(12, '(a30, i6)') 'Number of in-canopy layers: ', canlays
+        write(12, '(a30, i6)') 'Number of model layers: ', modlays
         write(12, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'Kz'
         do loc=1, nlat*nlon
-            do i=1, canlays
+            do i=1, modlays
                 write(12, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
                     zk(i), Kz(i, loc)
             end do
@@ -355,10 +355,10 @@ program canopy_driver
 ! ... save as text files for testing
         open(13, file='output_phot.txt')
         write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
-        write(13, '(a30, i6)') 'Number of in-canopy layers: ', canlays
+        write(13, '(a30, i6)') 'Number of model layers: ', modlays
         write(13, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'rjcf'
         do loc=1, nlat*nlon
-            do i=1, canlays
+            do i=1, modlays
                 write(13, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
                     zk(i), rjcf(i, loc)
             end do

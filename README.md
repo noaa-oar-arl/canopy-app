@@ -63,7 +63,7 @@ Current Canopy-App inputs:
     | ---------------  | ---------------------------------------------------------------------------------- |
     | nlat             | number of latitude cells (must match # of LAT in `file_vars` above )               |
     | nlon             | number of longitude cells (must match # of LON in `file_vars`above )               |
-    | canlays          | number of canopy layers                                                            |
+    | modlays          | number of model (below and above canopy) layers                                    |
     | canres           | canopy vertical resolution (m)                                                     |
     | ifcanwind        | logical canopy wind/WAF option (default = .FALSE.)                                 |
     | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
