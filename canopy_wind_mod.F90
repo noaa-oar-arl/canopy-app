@@ -56,7 +56,6 @@ contains
         real(rk)                   :: zpd             ! Zero plane displacement heights (m)
         real(rk)                   :: z0m             ! Surface (soil+veg) roughness lengths (m)
         real(rk)                   :: uc              ! Wind directly at canopy top (m/s)
-        real(rk)                   :: hol             ! Local canopy stability parameter (hc/MOL)
         real(rk)                   :: beta, beta_n    ! Ratio of u* to wind speed at canopy height
         real(rk)                   :: beta1, beta2    ! Terms used in calculating beta above
         real(rk)                   :: can_length      ! Canopy length scale (= HCM/CDRAG*PAI)
@@ -66,7 +65,6 @@ contains
 ! (2017)  W.J. Massman, J.M. Forthofer, M.A. Finney.  https://doi.org/10.1139/cjfr-2016-0354
         zkhcm = ZK/HCM
         z0g = Z0GHC*HCM
-        hol = HCM/MOL
 
         ! Nondimensional canopy wind speed term that dominates near the ground:
         if (ZK >= z0g .and. ZK <= HCM) then
