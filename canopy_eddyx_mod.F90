@@ -23,7 +23,6 @@ contains
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
         use canopy_const_mod, ONLY: rk, pi !constants for canopy models
-!        use canopy_utils_mod               !utilities for canopy models
 
 ! Arguments:
 !     IN/OUT
@@ -49,54 +48,54 @@ contains
 
         hol = HCM/MOL
         tlc = (HCM/USTAR) * (                        &
-            (0.256 * (ZK-(0.75*HCM))/HCM ) +      &
-            (0.492*EXP((-0.256*ZK/HCM)/0.492)) )
+            (0.256_rk * (ZK-(0.75_rk*HCM))/HCM ) +      &
+            (0.492_rk*EXP((-0.256_rk*ZK/HCM)/0.492_rk)) )
         sigma = 0.0_rk
 
         IF ( hol .LT. -0.1 )  THEN  !UNSTABLE
-            IF ( ZK/HCM .GT. 1.25 ) THEN !SIGMACAN = Eulerian vertical velocity variance
-                sigma = 1.25*USTAR
+            IF ( ZK/HCM .GT. 1.25_rk ) THEN !SIGMACAN = Eulerian vertical velocity variance
+                sigma = 1.25_rk*USTAR
             END IF
             IF ( ZK/HCM .GE. 0.175  .AND.  ZK/HCM .LE. 1.25 ) THEN
-                sigma = USTAR * ( 0.75 + (0.5 * COS((pi/1.06818) *     &
-                    (1.25 - (ZK/HCM)))) )
+                sigma = USTAR * ( 0.75_rk + (0.5_rk * COS((pi/1.06818_rk) *     &
+                    (1.25_rk - (ZK/HCM)))) )
             END IF
             IF ( ZK/HCM .LT. 0.175 )  THEN
-                sigma = 0.25*USTAR
+                sigma = 0.25_rk*USTAR
             END IF
         END IF
 
         IF ( hol .GE. -0.1  .AND. hol .LT. 0.1 )   THEN  !NEUTRAL
             IF ( ZK/HCM .GT. 1.25 ) THEN
-                sigma = 1.0*USTAR
+                sigma = 1.0_rk*USTAR
             END IF
             IF ( ZK/HCM .GE. 0.175  .AND.  ZK/HCM .LE. 1.25 ) THEN
-                sigma = USTAR * ( 0.625 + (0.375 * COS((pi/1.06818) *  &
-                    (1.25 - (ZK/HCM)))) )
+                sigma = USTAR * ( 0.625_rk + (0.375_rk * COS((pi/1.06818_rk) *  &
+                    (1.25_rk - (ZK/HCM)))) )
             END IF
             IF ( ZK/HCM .LT. 0.175 )  THEN
-                sigma = 0.25*USTAR
+                sigma = 0.25_rk*USTAR
             END IF
         END IF
 
         IF ( hol .GE.  0.1  .AND.  hol .LT. 0.9 )   THEN  !STABLE
             IF ( ZK/HCM .GT. 1.25 ) THEN
-                sigma = 0.25*(4.375 - (3.75*hol))*USTAR
+                sigma = 0.25_rk*(4.375_rk - (3.75_rk*hol))*USTAR
             END IF
             IF ( ZK/HCM .GE. 0.175  .AND.  ZK/HCM .LE. 1.25 ) THEN
-                rr=4.375-(3.75*hol)
-                aa=(0.125*rr) + 0.125
-                bb=(0.125*rr) - 0.125
-                sigma = USTAR * ( aa + (bb * COS((pi/1.06818) *   &
-                    (1.25 - (ZK/HCM)))) )
+                rr=4.375_rk-(3.75_rk*hol)
+                aa=(0.125_rk*rr) + 0.125_rk
+                bb=(0.125_rk*rr) - 0.125_rk
+                sigma = USTAR * ( aa + (bb * COS((pi/1.06818_rk) *   &
+                    (1.25_rk - (ZK/HCM)))) )
             END IF
             IF ( ZK/HCM .LT. 0.175 )  THEN
-                sigma = 0.25*USTAR
+                sigma = 0.25_rk*USTAR
             END IF
         END IF
 
         IF ( hol .GE.  0.9 ) THEN  !VERY STABLE
-            sigma = 0.25*USTAR
+            sigma = 0.25_rk*USTAR
         END IF
 
         KZ = (sigma*sigma)*tlc
