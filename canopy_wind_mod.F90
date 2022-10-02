@@ -145,7 +145,7 @@ contains
 
         if (uc <= 0.0) then
             write(*,*)  'Uc cannot be <= 0 at  ',uc , ' in canopy_wind calc...exiting'
-            call exit(2)
+            call exit(1)
         end if
 
         !Calculate remaining in-canopy parameters (Massman et al., 2017)
