@@ -29,7 +29,7 @@ contains
 ! Arguments:
 !     IN/OUT
         REAL(RK),    INTENT( IN )  :: HCM             ! Height of canopy top (m)
-        REAL(RK),    INTENT( IN )  :: LAMDARS         ! Influence function associated with roughness sublayer (nondimensional)
+        REAL(RK),    INTENT( IN )  :: LAMDARS         ! Value representing influence of roughness sublayer (nondimensional)
         REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
         REAL(RK),    INTENT( IN )  :: FLAMEH          ! Flame Height (m) -- Only for Above Canopy Fire
         INTEGER ,    INTENT( IN )  :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire

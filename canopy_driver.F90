@@ -52,7 +52,7 @@ program canopy_driver
     real(rk)       ::   z0ghc   ! ratio of ground roughness length to canopy top height
     !  (default case: Approx. currently does not account for understory
     !   variability)
-    real(rk)       ::   lamdars     ! Influence function associated with roughness sublayer (nondimensional)
+    real(rk)       ::   lamdars      !Value representing influence of roughness sublayer (nondimensional)
 
 ! !....this block gives input canopy height and above reference conditions that should be passed (assume winds at href)
     real(rk)       ::    lat             !latitude  (degrees)
