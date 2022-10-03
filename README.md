@@ -41,7 +41,7 @@ Current Canopy-App components:
 
     **Table 1. Canopy-App input variables**
 
-    | Variable Name    | Variable Descrip. and Units                       |
+    | Variable Name    | Variable Description and Units                    |
     | ---------------  | ------------------------------------------------- |  
     | LAT              | Latitude  (degrees)                               |
     | LON              | Longitude (degrees)                               |
@@ -59,7 +59,7 @@ Current Canopy-App components:
 
     **Table 2. Current User Namelist Options**
 
-    | Namelist Opt.    | Namelist Descript. and Units                                                       |
+    | Namelist Opt.    | Namelist Description and Units                                                       |
     | ---------------  | ---------------------------------------------------------------------------------- |
     | nlat             | number of latitude cells (must match # of LAT in `file_vars` above )               |
     | nlon             | number of longitude cells (must match # of LON in `file_vars`above )               |
