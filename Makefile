@@ -29,11 +29,14 @@ FLFLAGS :=
 OBJS :=\
  canopy_const_mod.o \
  canopy_utils_mod.o \
+ canopy_calcdx_mod.o \
  canopy_files_mod.o \
  canopy_readnml.o \
  canopy_parm_mod.o \
+ canopy_foliage_mod.o \
  canopy_zpd_mod.o \
  canopy_wind_mod.o \
+ canopy_flameh_mod.o \
  canopy_waf_mod.o \
  canopy_eddyx_mod.o \
  canopy_phot_mod.o \

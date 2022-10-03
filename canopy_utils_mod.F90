@@ -5,7 +5,8 @@ module canopy_utils_mod
     implicit none
 
     private
-    public IntegrateTrapezoid,interp_linear1_internal,CalcPAI,CalcFlameH
+    public IntegrateTrapezoid,interp_linear1_internal,CalcPAI, &
+        CalcDX,CalcFlameH
 
 contains
 
@@ -72,8 +73,27 @@ contains
     end function
     !--------------------------------------------------------------------------------------
 
+    function CalcDX(lat1, lat2, lon1, lon2)
+        !! computes distance,dx, between two points based on Haversine formula
+
+        real(rk), intent(in)  :: lat1,lat2                              !! Two model latitudes
+        real(rk), intent(in)  :: lon1,lon2                              !! Two model longitudes
+        real(rk)              :: lat_rad1, lat_rad2, lon_rad1, lon_rad2 !! latitude and longitude in radians
+        real(rk)              :: CalcDX                                 !! Haversine distance between the two (m)
+
+        lat_rad1 = lat1/(180.0_rk/pi)
+        lon_rad1 = lon1/(180.0_rk/pi)
+        lat_rad2 = lat2/(180.0_rk/pi)
+        lon_rad2 = lon2/(180.0_rk/pi)
+
+        CalcDX = 6377830.0_rk*acos( (sin(lat_rad1)*sin(lat_rad2)) + cos(lat_rad1)*cos(lat_rad2) * &
+            cos(lon_rad2-lon_rad1) )
+
+    end function
+    !--------------------------------------------------------------------------------------
+
     function CalcFlameH(frp, dx)
-        !! Approximates the Flame Height as a function of FRP intensity and grid cell length (dx)
+        !! Approximates the Flame Height as a function of FRP intensity and grid cell distance (dx)
         !! forest fraction (Based on Byram 1959).
 
         !!  Byram, GM (1959). Combustion of Forest Fuels. In Forest Fire: Control and Use.
