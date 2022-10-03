@@ -1,6 +1,8 @@
 
-SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
-    flameh,ifcanwind,pai_opt,pai_set)
+SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
+    flameh_opt,flameh_set,ifcanwind,ifcaneddy,ifcanphot,     &
+    pai_opt,pai_set,lu_opt,dx_opt,dx_set, lai_thresh, &
+    frt_thresh, fch_thresh, rsl_opt)
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -13,17 +15,21 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
     IMPLICIT NONE
 
-    INTEGER,               INTENT(OUT) :: nlat,nlon,canlays,pai_opt
-    REAL(rk),              INTENT(OUT) :: canres,href,z0ghcm,lamdars,flameh,pai_set
-    LOGICAL,               INTENT(OUT) :: ifcanwind
+    INTEGER,               INTENT(OUT) :: nlat,nlon,modlays,pai_opt,flameh_opt,lu_opt,dx_opt
+    INTEGER,               INTENT(OUT) :: rsl_opt
+    REAL(rk),              INTENT(OUT) :: modres,href,z0ghc,lamdars,flameh_set,pai_set,dx_set
+    REAL(rk),              INTENT(OUT) :: lai_thresh, frt_thresh, fch_thresh
+    LOGICAL,               INTENT(OUT) :: ifcanwind,ifcaneddy,ifcanphot
     INTEGER                            :: istat
     INTEGER                            :: n
     CHARACTER(LEN=*),      PARAMETER   :: pname = 'CANOPY_READNML'
 
-    NAMELIST /filenames/ file_prof, file_vars
+    NAMELIST /filenames/ file_vars
 
-    NAMELIST /userdefs/  nlat, nlon, canlays, canres, href, z0ghcm, lamdars, &
-        flameh, ifcanwind, pai_opt, pai_set
+    NAMELIST /userdefs/  nlat, nlon, modlays, modres, href, z0ghc, lamdars,  &
+        flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot, pai_opt, &
+        pai_set, lu_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, &
+        rsl_opt
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -60,7 +66,6 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 ! Initialize canopy input file names.
 !-------------------------------------------------------------------------------
 
-    file_prof(:) = " "
     file_vars(:) = " "
 
 !-------------------------------------------------------------------------------
@@ -72,12 +77,12 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default integer value for number of canopy layers (default = 100 layers)
-    canlays = 100
+    modlays = 100
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for canopy vertical resolution (m) (Default = 0.5 m)
-    canres = 0.5
+    modres = 0.5_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -87,22 +92,37 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default real value for ratio of ground roughness length to canopy top height
-    z0ghcm = 0.0025
+    z0ghc = 0.0025_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for Influence function associated with roughness sublayer
-    lamdars = 1.25
+    lamdars = 1.25_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for flame height set values or calculation (default = 0)
+    flameh_opt = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for flame height (m) (Default = 2.0 m)
-    flameh = 2.0
+    flameh_set = 2.0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default logical for canopy wind/WAF option (default = .FALSE.)
     ifcanwind = .FALSE.
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default logical for canopy eddy diffusivity (default = .FALSE.)
+    ifcaneddy = .FALSE.
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default logical for canopy photolysis attenuation (default = .FALSE.)
+    ifcanphot = .FALSE.
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -113,6 +133,41 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 !-------------------------------------------------------------------------------
 ! Set default real value for PAI set value (default = 4.0)
     pai_set = 4.0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set integer for LU type used from model mapped to Massman et al. (default = 0)
+    lu_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for DX set values or calculation (default = 0)
+    dx_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for DX Cell resolution set value (default = 1.0 m)
+    dx_set = 1.0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for user LAI threshold value for canopy (default = 0.1)
+    lai_thresh = 0.1_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for user FRT threshold value for canopy (default = 0.5)
+    frt_thresh = 0.5_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for user FCH threshold value for canopy (default = 0.5 m)
+    fch_thresh = 0.1_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set integer for unified RSL option used in model (default = 0, off)
+    rsl_opt = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -138,8 +193,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,canlays,canres,href,z0ghcm,lamdars, &
 ! Crop blank spaces off ends of file names.
 !-------------------------------------------------------------------------------
 
-    DO n = 1, SIZE(file_prof)
-        file_prof(n) = TRIM( ADJUSTL( file_prof(n) ) )
+    DO n = 1, SIZE(file_vars)
         file_vars(n)= TRIM( ADJUSTL( file_vars(n) ) )
     ENDDO
 

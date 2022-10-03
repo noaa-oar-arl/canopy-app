@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_PARM( VTYPE, FCH, FFRAC, LAI, &
-        PAI_OPT, PAI_SET, FIRETYPE, CDRAG, &
+        PAI_OPT, PAI_SET, LU_OPT, FIRETYPE, CDRAG, &
         PAI, ZCANMAX, SIGMAU, SIGMA1 )
 
 !-----------------------------------------------------------------------
@@ -30,14 +30,13 @@ contains
 
 ! Arguments:
 !     IN/OUT
-!      REAL(RK),    INTENT( IN )  :: LAT             ! Grid cell latitude (degrees) !not needed yet
-!      REAL(RK),    INTENT( IN )  :: LON             ! Grid cell longitude (degrees)!not needed yet
         INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
         REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
         REAL(RK),    INTENT( IN )  :: FFRAC           ! Grid cell forest fraction
         REAL(RK),    INTENT( IN )  :: LAI             ! Grid cell leaf area index
         INTEGER,     INTENT( IN )  :: PAI_OPT         ! integer for PAI values used or calculated (default = 0)
         REAL(RK),    INTENT( IN )  :: PAI_SET         ! real value for PAI set values used (default = 4.0)
+        INTEGER,     INTENT( IN )  :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
 
         INTEGER,     INTENT( OUT ) :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy
         REAL(RK),    INTENT( OUT ) :: CDRAG           ! Drag coefficient (nondimensional)
@@ -58,9 +57,7 @@ contains
         SIGMAU=0.0_rk
         SIGMA1=0.0_rk
 
-
-!only populate parameers if contiguous canopy conditions are satistified in each grid cell
-        if (FCH .gt. 0.5 .and. FFRAC .gt. 0.5 .and. LAI .ge. 0.1) then ! set canopy parameters
+        if (LU_OPT .eq. 0) then !VIIRS LU types
 
             !approx/average vegtype mapping to Massman et al. forest types
             if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS Cat 1-2/Evergreen Needleleaf & Broadleaf
@@ -69,14 +66,16 @@ contains
                 CDRAG=(0.20_rk + 0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk)/5.0_rk
                 if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
                     PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/5.0_rk
-                else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
+                else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
-                    PAI=LAI
-                else if (PAI_OPT .eq. 3) then !use set PAI value from user
+                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
+                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
+                    ! https://doi.org/10.1016/j.agrformet.2017.09.004
+                    ! Section 3.3
+                else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
-                    write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
+                    write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
                 ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk)/5.0_rk
@@ -93,11 +92,13 @@ contains
                 else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
                 else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
-                    PAI=LAI
-                else if (PAI_OPT .eq. 3) then !use set PAI value from user
+                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
+                    !https://doi.org/10.1016/j.agrformet.2017.09.004
+                    ! Section 3.3
+                else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
-                    write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
+                    write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
                 ZCANMAX=0.84_rk
@@ -111,22 +112,27 @@ contains
                 CDRAG=(0.30_rk + 0.30_rk)/2.0_rk
                 if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
                     PAI=(2.94_rk + 3.10_rk)/2.0_rk
-                else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
+                else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
-                    PAI=LAI
-                else if (PAI_OPT .eq. 3) then !use set PAI value from user
+                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
+                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
+                    !https://doi.org/10.1016/j.agrformet.2017.09.004
+                    ! Section 3.3
+                else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
-                    write(*,*)  'Wrong PAI_OPT choice in namelist...exiting'
+                    write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
                 ZCANMAX=(0.94_rk + 0.62_rk)/2.0_rk
                 SIGMAU=(0.03_rk + 0.50_rk)/2.0_rk
                 SIGMA1=(0.60_rk + 0.45_rk)/2.0_rk
             end if
-
+        else
+            write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS available right now...exiting'
+            call exit(2)
         end if
+
 
     END SUBROUTINE CANOPY_PARM
 

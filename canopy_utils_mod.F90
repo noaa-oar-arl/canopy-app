@@ -5,7 +5,7 @@ module canopy_utils_mod
     implicit none
 
     private
-    public IntegrateTrapezoid,interp_linear1_internal,CalcPAI
+    public IntegrateTrapezoid,interp_linear1_internal,CalcPAI,CalcFlameH
 
 contains
 
@@ -68,6 +68,24 @@ contains
         real(rk)              :: CalcPAI      !! Calculated Plant area index (PAI)
 
         CalcPAI=( (fch*(ffrac/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * ffrac !Massman PAI calculation (Eq. 19)
+
+    end function
+    !--------------------------------------------------------------------------------------
+
+    function CalcFlameH(frp, dx)
+        !! Approximates the Flame Height as a function of FRP intensity and grid cell length (dx)
+        !! forest fraction (Based on Byram 1959).
+
+        !!  Byram, GM (1959). Combustion of Forest Fuels. In Forest Fire: Control and Use.
+        !!  (Ed. KP David) pp. 61-89.  McGraw Hill, New York, NY
+
+        !! Assume Flame Length = Flame Height under calm winds
+
+        real(rk), intent(in)  :: frp          !! Input Grid cell Fire Radiative Power (MW/cell)
+        real(rk), intent(in)  :: dx           !! Input Grid cell length (m)
+        real(rk)              :: CalcFlameH   !! Calculated Plant area index (PAI)
+
+        CalcFlameH=0.0775_rk*((frp*1000.0_rk)/dx)**0.46_rk  !Byram flameh calculation as function of FRP
 
     end function
 
