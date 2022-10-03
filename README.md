@@ -59,7 +59,7 @@ Current Canopy-App components:
 
     **Table 2. Current User Namelist Options**
 
-    | Namelist Opt.    | Namelist Description and Units                                                       |
+    | Namelist Option  | Namelist Description and Units                                                       |
     | ---------------  | ---------------------------------------------------------------------------------- |
     | nlat             | number of latitude cells (must match # of LAT in `file_vars` above )               |
     | nlon             | number of longitude cells (must match # of LON in `file_vars`above )               |
