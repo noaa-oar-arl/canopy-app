@@ -28,10 +28,17 @@ FLFLAGS :=
 # Source objects
 OBJS :=\
  canopy_const_mod.o \
+ canopy_coord_mod.o \
+ canopy_canopts_mod.o \
+ canopy_canmet_mod.o \
+ canopy_canvars_mod.o \
  canopy_utils_mod.o \
  canopy_calcdx_mod.o \
  canopy_files_mod.o \
  canopy_readnml.o \
+ canopy_alloc.o \
+ canopy_txt_io_mod.o \
+ canopy_read_txt.o \
  canopy_parm_mod.o \
  canopy_foliage_mod.o \
  canopy_zpd_mod.o \
@@ -40,6 +47,7 @@ OBJS :=\
  canopy_waf_mod.o \
  canopy_eddyx_mod.o \
  canopy_phot_mod.o \
+ canopy_dealloc.o \
  canopy_driver.o
 
 # Program name

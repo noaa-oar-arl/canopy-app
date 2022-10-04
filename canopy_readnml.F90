@@ -1,8 +1,4 @@
-
-SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
-    flameh_opt,flameh_set,ifcanwind,ifcaneddy,ifcanphot,     &
-    pai_opt,pai_set,lu_opt,dx_opt,dx_set, lai_thresh, &
-    frt_thresh, fch_thresh, rsl_opt)
+SUBROUTINE canopy_readnml
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -10,18 +6,16 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
 !           15 Jul 2022  Original Version (P.C. Campbell)
 !
 !-------------------------------------------------------------------------------
-    USE canopy_const_mod, ONLY: rk                 !canopy constants
     USE canopy_files_mod
+    USE canopy_canopts_mod
+    USE canopy_coord_mod
+    use canopy_canvars_mod, ONLY: zk
 
     IMPLICIT NONE
 
-    INTEGER,               INTENT(OUT) :: nlat,nlon,modlays,pai_opt,flameh_opt,lu_opt,dx_opt
-    INTEGER,               INTENT(OUT) :: rsl_opt
-    REAL(rk),              INTENT(OUT) :: modres,href,z0ghc,lamdars,flameh_set,pai_set,dx_set
-    REAL(rk),              INTENT(OUT) :: lai_thresh, frt_thresh, fch_thresh
-    LOGICAL,               INTENT(OUT) :: ifcanwind,ifcaneddy,ifcanphot
+    !local variables
     INTEGER                            :: istat
-    INTEGER                            :: n
+    INTEGER                            :: n,i
     CHARACTER(LEN=*),      PARAMETER   :: pname = 'CANOPY_READNML'
 
     NAMELIST /filenames/ file_vars
@@ -82,7 +76,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default real value for canopy vertical resolution (m) (Default = 0.5 m)
-    modres = 0.5_rk
+    modres = 0.5
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -92,12 +86,12 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default real value for ratio of ground roughness length to canopy top height
-    z0ghc = 0.0025_rk
+    z0ghc = 0.0025
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for Influence function associated with roughness sublayer
-    lamdars = 1.25_rk
+    lamdars = 1.25
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -152,17 +146,17 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default real value for user LAI threshold value for canopy (default = 0.1)
-    lai_thresh = 0.1_rk
+    lai_thresh = 0.1
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for user FRT threshold value for canopy (default = 0.5)
-    frt_thresh = 0.5_rk
+    frt_thresh = 0.5
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for user FCH threshold value for canopy (default = 0.5 m)
-    fch_thresh = 0.1_rk
+    fch_thresh = 0.1
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -200,6 +194,16 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
 !-------------------------------------------------------------------------------
 ! Verify values of user-defined options (need conditions added...)
 !-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Derive canopy model profile heights from user NL input
+!-------------------------------------------------------------------------------
+
+    if(.not.allocated(zk))         allocate(zk(modlays))
+    zk(1) = 0.0
+    do i=2, modlays
+        zk(i)   = zk(i-1) + modres
+    end do
 
 !-------------------------------------------------------------------------------
 ! Close namelist file.

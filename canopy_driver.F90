@@ -6,11 +6,15 @@ program canopy_driver
 !    Prototype: Patrick C. Campbell, 06/2022
 !
 !-------------------------------------------------------------
-    use canopy_const_mod, ONLY: rk  !canopy constants
+    use canopy_coord_mod   !main canopy coordinate descriptions
+    use canopy_canopts_mod !main canopy option descriptions
+    use canopy_canmet_mod  !main canopy met/sfc input descriptions
+    use canopy_canvars_mod !main canopy variables descriptions
+    use canopy_files_mod   !main canopy input files
+
     use canopy_calcdx_mod  !main grid dx calculation
     use canopy_parm_mod    !main canopy parameters
     use canopy_foliage_mod !main canopy foliage distribution
-    use canopy_files_mod   !main canopy input files
     use canopy_zpd_mod     !main displacement height model
     use canopy_wind_mod    !main canopy wind model
     use canopy_flameh_mod  !main flame height model
@@ -20,158 +24,45 @@ program canopy_driver
 
     implicit none
 
-! !....this block defines geographic domain of inputs (read from user namelist)
-    integer        ::    nlat        !length of x coordinate
-    integer        ::    nlon        !length of y coordinate
-    integer        ::    modlays     !Number of total above and below canopy model layers
-    real(rk)       ::    modres      !Real value of model above and below canopy vertical resolution (m)
-    real(rk)       ::    href        !Reference Height above canopy @ 10 m  (m)
-    logical        ::    ifcanwind   !logical canopy wind/WAF option (default = .FALSE.)
-    logical        ::    ifcaneddy   !logical canopy eddy Kz option (default = .FALSE.)
-    logical        ::    ifcanphot   !logical canopy photolsyis atten option (default = .FALSE.)
-    integer        ::    pai_opt     !integer for PAI values used or calculated (default = 0)
-    real(rk)       ::    pai_set     !real value for PAI set values used (default = 4.0)
-    integer        ::    lu_opt      !integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
-    integer        ::    flameh_opt  !Integer for flameh values used or calculated (default = 0)
-    real(rk)       ::    flameh_set  !User Set Flame Height (m)
-    integer        ::    dx_opt      !Integer for dx resolution values used or calculated (default = 0)
-    real(rk)       ::    dx_set      !User Set Grid Cell Resolution (m)
-    real(rk)       ::    lai_thresh  !User set grid cell LAI threshold to apply canopy conditions (m2/m2)
-    real(rk)       ::    frt_thresh  !User set grid cell forest fraction threshold to apply canopy conditions ()
-    real(rk)       ::    fch_thresh  !User set grid cell canopy height threshold to apply canopy conditions (m)
-    integer        ::    rsl_opt     !RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
-
-
-! !....this block gives assumed constant parameters for in-canopy conditions (read from user namelist)
-    real(rk)       ::   z0ghc   ! ratio of ground roughness length to canopy top height
-    !  (default case: Approx. currently does not account for understory variability)
-    real(rk)       ::   lamdars      !Value representing influence of roughness sublayer (nondimensional)
-
-! !....this block gives input canopy height and above reference conditions that should be passed (assume winds at href)
-    real(rk)       ::    hcmref           !Input Canopy Height (m)
-    real(rk)       ::    ubzref          !Input above canopy/reference 10-m model wind speed (m/s)
-    real(rk)       ::    cluref          !Input canopy clumping index
-    real(rk)       ::    lairef          !Input leaf area index
-    integer        ::    vtyperef        !Input vegetation type (VIIRS)
-    real(rk)       ::    ffracref        !Input forest fraction of grid cell
-    real(rk)       ::    ustref          !Input friction velocity
-    real(rk)       ::    cszref          !Input cosine of zenith angle
-    real(rk)       ::    z0ref           !Input total/surface roughness length
-    real(rk)       ::    molref          !Input Monin-Obukhov Length
-    real(rk)       ::    frpref          !Input fire radiative power
-
-! !....this block gives vegetion-type canopy dependent  parameters based on Katul et al. (2004)
-    integer        ::    firetype      !1 = Above Canopy Fire; 0 = Below Canopy Fire
-    real(rk)       ::    cdrag         !Drag coefficient (nondimensional)
-    real(rk)       ::    pai           !Plant/foliage area index (nondimensional)
-    real(rk)       ::    zcanmax       !Height of maximum foliage area density (z/h) (nondimensional)
-    real(rk)       ::    sigmau        !Standard deviation of shape function above zcanmax (z/h)
-    real(rk)       ::    sigma1        !Standard deviation of shape function below zcanmax (z/h)
-    real(rk)       ::    d_h           !Zero plane displacement heights (z/h)
-    real(rk)       ::    zo_h          !Surface (soil+veg) roughness lengths (z/h)
-
 !Local variables
-    integer i,i0,loc
-    real(rk) ::    flameh                         ! flame Height (m)
-    integer  ::    cansublays                     ! number of sub-canopy layers
-    integer  ::    midflamepoint                  ! indice of the mid-flame point
-!allocatable
-    real(rk), allocatable :: zk         ( : )     ! in-canopy heights (m)
-    real(rk), allocatable :: zhc        ( : )     ! z/h
-    real(rk), allocatable :: fafraczInt ( : )     ! integral of incremental fractional foliage shape function
-    real(rk), allocatable :: canBOT     ( : )     ! Canopy bottom wind reduction factors
-    real(rk), allocatable :: canTOP     ( : )     ! Canopy top wind reduction factors
-    real(rk), allocatable :: canWIND    ( :, : )  ! canopy wind speeds (m/s)
-    real(rk), allocatable :: dx         ( : )     ! Model grid cell distance/resolution (m)
-    real(rk), allocatable :: waf        ( : )     ! Calculated Wind Adjustment Factor
-    real(rk), allocatable :: Kz         ( :, : )  ! Eddy Diffusivities (m2/s)
-    real(rk), allocatable :: rjcf       ( :, : )  ! Photolysis Attenuation Correction Factors
-
-! Generic 2D met/sfc input variables that should be passed to canopy calculations
-    TYPE :: variable_type
-        real(rk)   :: lat          !latitude of cell/point
-        real(rk)   :: lon          !longitude of cell/point
-        real(rk)   :: fh           !forest/canopy height
-        real(rk)   :: ws           !wind speed at reference height above canopy (10 m)
-        real(rk)   :: clu          !clumping index
-        real(rk)   :: lai          !leaf area index
-        integer    :: vtype        !vegetation type
-        real(rk)   :: ffrac        !forest fraction
-        real(rk)   :: ust          !friction velocity (u*)
-        real(rk)   :: csz          !cosine of solar zenith angle
-        real(rk)   :: z0           !surface roughness length
-        real(rk)   :: mol          !Monin-Obukhov length
-        real(rk)   :: frp          !fire radiative power (MW per grid cell)
-    end TYPE variable_type
-
-    type(variable_type), allocatable :: variables( : )
+    integer i,loc
 
 !-------------------------------------------------------------------------------
 ! Read user options from namelist.
 !-------------------------------------------------------------------------------
 
-    call  canopy_readnml(nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
-        flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot,   &
-        pai_opt, pai_set, lu_opt, dx_opt, dx_set, lai_thresh, &
-        frt_thresh, fch_thresh, rsl_opt)
-
-
-! ... TODO:  Move these input related things and specific allocations to own subroutine
-
-    if (ifcanwind) then
-        write(*,*)  'Canopy wind/WAF option selected'
-    end if
-    if (ifcaneddy) then
-        write(*,*)  'Canopy eddy Kz option selected'
-    end if
-    if (ifcanphot) then
-        write(*,*)  'Canopy photolysis attenuation option selected'
-    end if
-    if (.not. any([ifcanwind, ifcaneddy, ifcanphot])) then
-        write(*,*)  'No option(s) selected...see namelist'
-        call exit(0)
-    end if
+    call canopy_readnml
 
 !-------------------------------------------------------------------------------
 ! Allocate necessary variables.
 !-------------------------------------------------------------------------------
 
-    if(.not.allocated(zk))         allocate(zk(modlays))
-    if(.not.allocated(zhc))        allocate(zhc(modlays))
-    if(.not.allocated(fafraczInt)) allocate(fafraczInt(modlays))
-    if(.not.allocated(canBOT))     allocate(canBOT(modlays))
-    if(.not.allocated(canTOP))     allocate(canTOP(modlays))
-    if(.not.allocated(canWIND))    allocate(canWIND(modlays,nlat*nlon))
-    if(.not.allocated(dx))         allocate(dx(nlat*nlon))
-    if(.not.allocated(waf))        allocate(waf(nlat*nlon))
-    if(.not.allocated(Kz))         allocate(Kz(modlays,nlat*nlon))
-    if(.not.allocated(rjcf))       allocate(rjcf(modlays,nlat*nlon))
-    if(.not.allocated(variables))  allocate(variables(nlat*nlon))
+    call canopy_alloc
 
-! ... TODO:  NL condition for input file/data type read from txt or netcdf 1D or 2D
+!-------------------------------------------------------------------------------
+! Read met/sfc gridded model input file.
+!-------------------------------------------------------------------------------
 
-! ... read met/sfc input variables from text file
-    open(8,  file=file_vars(1),  status='old')
-    i0 = 0
-    read(8,*,iostat=i0)  ! skip headline
-    do loc=1, nlat*nlon
-        read(8, *) variables(loc)
-    end do
-    close(8)
+! ... TODO:  NL condition for data read from txt or netcdf 1D or 2D
+
+    call canopy_read_txt(file_vars(1))
 
 ! ... TODO:  add option to read met/sfc input variables from 1D ncf file
 
-! ... TODO:  add option to read met/sfc input variables from 2D ncf file
+    !call canopy_read_ncf_1D(file_vars(1))
 
-! ... derive canopy model profile heights from user NL input
-    zk(1) = 0.0_rk
-    do i=2, modlays
-        zk(i)   = zk(i-1) + modres
-    end do
+! ... TODO:  add option to read met/sfc input variables from 2D ncf file
+    !call canopy_read_ncf_2D(file_vars(1))
+
+!-------------------------------------------------------------------------------
+! Initialize canopy grid cell dependent variables
+!-------------------------------------------------------------------------------
+
+! ... TODO:  add canopy_grid initialize subroutine
 
 ! ... initialize ***grid cell_only*** dependent variables
-    dx   = 0.0_rk
-    waf  = 1.0_rk
+    dx   = 0.0
+    waf  = 1.0
 
 ! ... get dx cell distances using haversine formula
 
@@ -200,14 +91,14 @@ program canopy_driver
         cansublays  = floor(hcmref/modres)
 
 ! ... initialize ***canopy profile*** dependent variables
-        fafraczInt        = 0.0_rk
-        canTOP            = 1.0_rk
-        canBOT            = 1.0_rk
+        fafraczInt        = 0.0
+        canTOP            = 1.0
+        canBOT            = 1.0
 
 ! ... initialize ***grid cell_and_canopy*** profile dependent variables
         canWIND(:,loc)    = ubzref    !initialize to above canopy wind
-        Kz(:,loc)         = -999.0_rk !initialize to missing
-        rjcf(:,loc)       = 1.0_rk      !initialize to above canopy rjcf=1
+        Kz(:,loc)         = -999.0    !initialize to missing
+        rjcf(:,loc)       = 1.0       !initialize to above canopy rjcf=1
 
 ! ... check for model vegetation types
         if (lu_opt .eq. 0 ) then !VIIRS
@@ -248,8 +139,8 @@ program canopy_driver
                         if (flameh .gt. 0.0) then !only calculate WAF when flameh > 0
                             call canopy_waf(hcmref, lamdars, href, flameh, firetype, d_h, zo_h, &
                                 canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
-                        end if !flameh_opt
-                    end if !canwind
+                        end if
+                    end if
 
 ! ... user option to calculate in-canopy eddy diffusivities at height z
                     if (ifcaneddy) then
@@ -327,18 +218,6 @@ program canopy_driver
         end do
     end if
 
-! ... TODO:  Add deallocating subroutine/submodule for specific variables allocated
-
-    if(allocated(zk))         deallocate(zk)
-    if(allocated(zhc))        deallocate(zhc)
-    if(allocated(fafraczInt)) deallocate(fafraczInt)
-    if(allocated(canBOT))     deallocate(canBOT)
-    if(allocated(canTOP))     deallocate(canTOP)
-    if(allocated(canWIND))    deallocate(canWIND)
-    if(allocated(dx))         deallocate(dx)
-    if(allocated(waf))        deallocate(waf)
-    if(allocated(Kz))         deallocate(Kz)
-    if(allocated(rjcf))       deallocate(rjcf)
-    if(allocated(variables))  deallocate(variables)
+    call canopy_dealloc
 
 end program canopy_driver

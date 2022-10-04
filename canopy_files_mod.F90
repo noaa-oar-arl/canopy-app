@@ -1,4 +1,3 @@
-
 MODULE canopy_files_mod
 
 !-------------------------------------------------------------------------------
@@ -11,7 +10,7 @@ MODULE canopy_files_mod
 
     INTEGER,            PARAMETER :: max_mm     = 1
     INTEGER,            PARAMETER :: iutnml     =  8
-    CHARACTER(LEN=256)            :: file_prof ( max_mm ), file_vars ( max_mm )
+    CHARACTER(LEN=256)            :: file_vars ( max_mm )
     CHARACTER(LEN=*), PARAMETER   :: file_nml   = 'namelist.canopy'
 
 END MODULE canopy_files_mod
