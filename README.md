@@ -35,9 +35,16 @@ Current Canopy-App components:
 
     - `canopy_phot_mod.F90`
 
-    Current Canopy-App inputs: Typical 2D gridded atmospheric model input variables in 1st layer above canopy (e.g., `input_variables.txt`).
+    **Current Canopy-App Input:** Typical 1D/2D gridded atmospheric model input variables in 1st layer above canopy
+    (e.g., `input_variables.txt`).
 
     Namelist Option : `file_vars`
+
+    **Current Canopy-App Output:** Outputs canopy winds/WAF, canopy vertical/eddy diffusivity values, and
+    canopy photolysis attenuation correction factors (currently only in txt format).
+
+    Namelist Option : `file_out`
+
 
     **Table 1. Canopy-App input variables**
 
