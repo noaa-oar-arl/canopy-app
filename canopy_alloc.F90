@@ -15,16 +15,17 @@ SUBROUTINE canopy_alloc
     IMPLICIT NONE
 
 !-------------------------------------------------------------------------------
-! Allocate input variables
+! Allocate canopy input variables
 !-------------------------------------------------------------------------------
-
+!   TODO:  If txt or 1D ncf...
     if(.not.allocated(variables))  allocate(variables(nlat*nlon))
+!   TODO:  If 2D ncf...
+!   if(.not.allocated(variables))  allocate(variables(nlat,nlon))
 
 !-------------------------------------------------------------------------------
 ! Allocate arrays for Canopy Distribution
 !-------------------------------------------------------------------------------
 
-!    if(.not.allocated(zk))         allocate(zk(modlays))
     if(.not.allocated(zhc))        allocate(zhc(modlays))
     if(.not.allocated(fafraczInt)) allocate(fafraczInt(modlays))
 
@@ -34,6 +35,7 @@ SUBROUTINE canopy_alloc
 
     if (ifcanwind) then
         write(*,*)  'Canopy wind/WAF option selected'
+        write(*,*)  '-------------------------------'
         if(.not.allocated(canBOT))     allocate(canBOT(modlays))
         if(.not.allocated(canTOP))     allocate(canTOP(modlays))
         if(.not.allocated(canWIND))    allocate(canWIND(modlays,nlat*nlon))
@@ -47,6 +49,7 @@ SUBROUTINE canopy_alloc
 
     if (ifcaneddy) then
         write(*,*)  'Canopy eddy Kz option selected'
+        write(*,*)  '-------------------------------'
         if(.not.allocated(Kz))         allocate(Kz(modlays,nlat*nlon))
     end if
 
@@ -57,6 +60,7 @@ SUBROUTINE canopy_alloc
 
     if (ifcanphot) then
         write(*,*)  'Canopy photolysis option selected'
+        write(*,*)  '-------------------------------'
         if(.not.allocated(rjcf))         allocate(rjcf(modlays,nlat*nlon))
     end if
 

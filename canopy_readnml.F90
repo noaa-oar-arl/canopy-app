@@ -18,7 +18,7 @@ SUBROUTINE canopy_readnml
     INTEGER                            :: n,i
     CHARACTER(LEN=*),      PARAMETER   :: pname = 'CANOPY_READNML'
 
-    NAMELIST /filenames/ file_vars
+    NAMELIST /filenames/ file_vars, file_out
 
     NAMELIST /userdefs/  nlat, nlon, modlays, modres, href, z0ghc, lamdars,  &
         flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot, pai_opt, &
@@ -57,10 +57,11 @@ SUBROUTINE canopy_readnml
     ENDIF
 
 !-------------------------------------------------------------------------------
-! Initialize canopy input file names.
+! Initialize canopy file names.
 !-------------------------------------------------------------------------------
 
     file_vars(:) = " "
+    file_out(:)  = " "
 
 !-------------------------------------------------------------------------------
 
@@ -189,6 +190,10 @@ SUBROUTINE canopy_readnml
 
     DO n = 1, SIZE(file_vars)
         file_vars(n)= TRIM( ADJUSTL( file_vars(n) ) )
+    ENDDO
+
+    DO n = 1, SIZE(file_out)
+        file_out(n)= TRIM( ADJUSTL( file_out(n) ) )
     ENDDO
 
 !-------------------------------------------------------------------------------

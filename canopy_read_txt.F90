@@ -7,14 +7,14 @@ SUBROUTINE canopy_read_txt(INFILE)
 ! Revised:  03 Oct 2022  Original version.  (P.C. Campbell)
 !-------------------------------------------------------------------------------
 
-    USE canopy_txt_io_mod  !main input met/sfc text reader
+    USE canopy_txt_io_mod  !main IO text reader/writer
 
     IMPLICIT NONE
 
     CHARACTER(LEN=*), INTENT( IN )  :: INFILE
 
 
-    call read_met_txt(INFILE)
+    call read_txt(INFILE)
 
 
 END SUBROUTINE canopy_read_txt

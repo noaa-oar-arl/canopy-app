@@ -1,5 +1,6 @@
 &FILENAMES
   file_vars    = 'input_variables.txt'
+  file_out     = 'test'
 /
 
 &USERDEFS
@@ -7,8 +8,8 @@
   nlon       =  101
   modlays    =  100
   modres     =  0.5
-  ifcanwind  = .TRUE.
-  ifcaneddy  = .TRUE.
+  ifcanwind  = .FALSE.
+  ifcaneddy  = .FALSE.
   ifcanphot  = .TRUE.
   href       =  10.0
   z0ghc     =  0.0025

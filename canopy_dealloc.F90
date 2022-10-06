@@ -15,21 +15,21 @@ SUBROUTINE canopy_dealloc
     IMPLICIT NONE
 
 !-------------------------------------------------------------------------------
-! Allocate input variables
+! Deallocate input variables
 !-------------------------------------------------------------------------------
-
     if(allocated(variables))  deallocate(variables)
 
+
 !-------------------------------------------------------------------------------
-! Allocate arrays for Canopy Distribution
+! Dellocate arrays for Canopy Distribution
 !-------------------------------------------------------------------------------
 
-    if(allocated(zk))         deallocate(zk)
+    if(allocated(zk))         deallocate(zk) !allocated in canopy_readnml
     if(allocated(zhc))        deallocate(zhc)
     if(allocated(fafraczInt)) deallocate(fafraczInt)
 
 !-------------------------------------------------------------------------------
-! Allocate arrays for Canopy Wind
+! Deallocate arrays for Canopy Wind
 !-------------------------------------------------------------------------------
 
     if (ifcanwind) then
@@ -41,7 +41,7 @@ SUBROUTINE canopy_dealloc
     end if
 
 !-------------------------------------------------------------------------------
-! Allocate arrays for Canopy Diffusivity Profile
+! Deallocate arrays for Canopy Diffusivity Profile
 !-------------------------------------------------------------------------------
 
     if (ifcaneddy) then
@@ -50,7 +50,7 @@ SUBROUTINE canopy_dealloc
 
 
 !-------------------------------------------------------------------------------
-! Allocate arrays for Canopy Photolysis Correction Factor
+! Deallocate arrays for Canopy Photolysis Correction Factor
 !-------------------------------------------------------------------------------
 
     if (ifcanphot) then

@@ -37,6 +37,7 @@ OBJS :=\
  canopy_files_mod.o \
  canopy_readnml.o \
  canopy_alloc.o \
+ canopy_init.o \
  canopy_txt_io_mod.o \
  canopy_read_txt.o \
  canopy_parm_mod.o \
@@ -47,6 +48,8 @@ OBJS :=\
  canopy_waf_mod.o \
  canopy_eddyx_mod.o \
  canopy_phot_mod.o \
+ canopy_calcs.o \
+ canopy_write_txt.o \
  canopy_dealloc.o \
  canopy_driver.o
 
