@@ -102,18 +102,6 @@ contains
         REAL(RK),    INTENT( OUT ) :: SIGMAU          ! Standard deviation of shape function above zcanmax (z/h)
         REAL(RK),    INTENT( OUT ) :: SIGMA1          ! Standard deviation of shape function below zcanmax (z/h)
 
-        !Local variables
-
-!need vegtype to Massman forest mapping
-
-!initializing
-        FIRETYPE=-1
-        CDRAG=0.0_rk
-        PAI=0.0_rk
-        ZCANMAX=0.0_rk
-        SIGMAU=0.0_rk
-        SIGMA1=0.0_rk
-
         if (LU_OPT .eq. 0) then !VIIRS LU types
 
             !approx/average vegtype mapping to Massman et al. forest types
@@ -242,7 +230,6 @@ contains
 
 ! ... initialize canopy profile dependent variables
         fainc             = 0.0_rk
-        fatot             = 0.0_rk
         fafracz           = 0.0_rk
 
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
@@ -260,9 +247,6 @@ contains
             fafracz(i) = fainc(i)/fatot
             FAFRACZINT(i) = IntegrateTrapezoid(ZHC(1:i),fafracz(1:i))
         end do
-
-        if(allocated(fainc))      deallocate(fainc)
-        if(allocated(fafracz))    deallocate(fafracz)
 
     END SUBROUTINE CANOPY_FOLIAGE
 
@@ -647,8 +631,6 @@ contains
         REAL(RK),    INTENT( IN )  :: CLU             ! Model input Clumping Index
         REAL(RK),    INTENT( IN )  :: COSZEN          ! Model input Cosine Solar Zenith Angle
         REAL(RK),    INTENT( OUT ) :: RJCF(:)          ! Photolysis correction factor
-
-!     Local variables
 
 ! Citation:
 !Makar, P., Staebler, R., Akingunola, A. et al. The effects of forest canopy shading and turbulence on boundary layer ozone.

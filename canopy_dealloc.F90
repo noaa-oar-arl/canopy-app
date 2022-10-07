@@ -26,6 +26,8 @@ SUBROUTINE canopy_dealloc
 
     if(allocated(zk))         deallocate(zk) !allocated in canopy_readnml
     if(allocated(zhc))        deallocate(zhc)
+    if(allocated(fainc))      deallocate(fainc) !allocated in canopy_driver
+    if(allocated(fafracz))    deallocate(fafracz) !allocated in canopy_driver
     if(allocated(fafraczInt)) deallocate(fafraczInt)
 
 !-------------------------------------------------------------------------------

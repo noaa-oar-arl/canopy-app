@@ -25,6 +25,8 @@ MODULE canopy_canvars_mod
 !allocatable canopy variables
     real(rk), allocatable :: zk         ( : )     ! in-canopy heights (m)
     real(rk), allocatable :: zhc        ( : )     ! z/h
+    real(rk), allocatable :: fainc      ( : )     ! incremental foliage shape function
+    real(rk), allocatable :: fafracz    ( : )     ! incremental fractional foliage shape function
     real(rk), allocatable :: fafraczInt ( : )     ! integral of incremental fractional foliage shape function
     real(rk), allocatable :: canBOT     ( : )     ! Canopy bottom wind reduction factors
     real(rk), allocatable :: canTOP     ( : )     ! Canopy top wind reduction factors

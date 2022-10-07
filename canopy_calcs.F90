@@ -14,15 +14,6 @@ SUBROUTINE canopy_calcs
     use canopy_canvars_mod !main canopy variables descriptions
 
     use canopy_driver_mod  !main canopy components/submodules
-!    use canopy_calcdx_mod  !main grid dx calculation
-!    use canopy_parm_mod    !main canopy parameters
-!    use canopy_foliage_mod !main canopy foliage distribution
-!    use canopy_zpd_mod     !main displacement height model
-!    use canopy_wind_mod    !main canopy wind model
-!    use canopy_flameh_mod  !main flame height model
-!    use canopy_waf_mod     !main Wind Adjustment Factor (WAF) model
-!    use canopy_eddyx_mod   !main canopy eddy diffusivities
-!    use canopy_phot_mod    !main canopy photolysis attenuation
 
     IMPLICIT NONE
 
