@@ -40,6 +40,10 @@ OBJS :=\
  canopy_txt_io_mod.o \
  canopy_read_txt.o \
  canopy_driver_mod.o \
+ canopy_wind_mod.o \
+ canopy_waf_mod.o \
+ canopy_phot_mod.o \
+ canopy_eddy_mod.o \
  canopy_calcs.o \
  canopy_write_txt.o \
  canopy_dealloc.o \

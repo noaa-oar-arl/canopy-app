@@ -13,7 +13,13 @@ SUBROUTINE canopy_calcs
     use canopy_canmet_mod  !main canopy met/sfc input descriptions
     use canopy_canvars_mod !main canopy variables descriptions
 
-    use canopy_driver_mod  !main canopy components/submodules
+    use canopy_driver_mod  !main canopy grid/parms/foliage
+
+    use canopy_wind_mod    !main canopy components/submodules
+    use canopy_waf_mod
+    use canopy_phot_mod
+
+    use canopy_eddy_mod
 
     IMPLICIT NONE
 
