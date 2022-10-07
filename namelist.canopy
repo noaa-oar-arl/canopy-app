@@ -8,8 +8,8 @@
   nlon       =  101
   modlays    =  100
   modres     =  0.5
-  ifcanwind  = .FALSE.
-  ifcaneddy  = .FALSE.
+  ifcanwind  = .TRUE.
+  ifcaneddy  = .TRUE.
   ifcanphot  = .TRUE.
   href       =  10.0
   z0ghc     =  0.0025

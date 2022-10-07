@@ -2,8 +2,8 @@
 SUBROUTINE canopy_calcs
 
 !-------------------------------------------------------------------------------
-! Name:     Contains main canopy calculations
-! Purpose:  Contains main canopy calculations
+! Name:     Contains main canopy calculations dependent on canopy conditions
+! Purpose:  Contains main canopy calculations dependent on canopy conditions
 ! Revised:  06 Oct 2022  Original version.  (P.C. Campbell)
 !-------------------------------------------------------------------------------
 
@@ -12,17 +12,17 @@ SUBROUTINE canopy_calcs
     use canopy_canopts_mod !main canopy option descriptions
     use canopy_canmet_mod  !main canopy met/sfc input descriptions
     use canopy_canvars_mod !main canopy variables descriptions
-!    use canopy_files_mod   !main canopy input files
 
-    use canopy_calcdx_mod  !main grid dx calculation
-    use canopy_parm_mod    !main canopy parameters
-    use canopy_foliage_mod !main canopy foliage distribution
-    use canopy_zpd_mod     !main displacement height model
-    use canopy_wind_mod    !main canopy wind model
-    use canopy_flameh_mod  !main flame height model
-    use canopy_waf_mod     !main Wind Adjustment Factor (WAF) model
-    use canopy_eddyx_mod   !main canopy eddy diffusivities
-    use canopy_phot_mod    !main canopy photolysis attenuation
+    use canopy_driver_mod  !main canopy components/submodules
+!    use canopy_calcdx_mod  !main grid dx calculation
+!    use canopy_parm_mod    !main canopy parameters
+!    use canopy_foliage_mod !main canopy foliage distribution
+!    use canopy_zpd_mod     !main displacement height model
+!    use canopy_wind_mod    !main canopy wind model
+!    use canopy_flameh_mod  !main flame height model
+!    use canopy_waf_mod     !main Wind Adjustment Factor (WAF) model
+!    use canopy_eddyx_mod   !main canopy eddy diffusivities
+!    use canopy_phot_mod    !main canopy photolysis attenuation
 
     IMPLICIT NONE
 

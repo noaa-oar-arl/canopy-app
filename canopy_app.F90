@@ -1,6 +1,6 @@
-program canopy_driver
+program canopy_app
 !
-!  The main driver to run the canopy applications
+!  The main application
 !
 !  History:
 !    Prototype: Patrick C. Campbell, 06/2022
@@ -68,4 +68,4 @@ program canopy_driver
 
     call canopy_dealloc
 
-end program canopy_driver
+end program canopy_app

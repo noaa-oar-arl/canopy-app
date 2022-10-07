@@ -33,25 +33,17 @@ OBJS :=\
  canopy_canmet_mod.o \
  canopy_canvars_mod.o \
  canopy_utils_mod.o \
- canopy_calcdx_mod.o \
  canopy_files_mod.o \
  canopy_readnml.o \
  canopy_alloc.o \
  canopy_init.o \
  canopy_txt_io_mod.o \
  canopy_read_txt.o \
- canopy_parm_mod.o \
- canopy_foliage_mod.o \
- canopy_zpd_mod.o \
- canopy_wind_mod.o \
- canopy_flameh_mod.o \
- canopy_waf_mod.o \
- canopy_eddyx_mod.o \
- canopy_phot_mod.o \
+ canopy_driver_mod.o \
  canopy_calcs.o \
  canopy_write_txt.o \
  canopy_dealloc.o \
- canopy_driver.o
+ canopy_app.o
 
 # Program name
 PROGRAM := canopy
