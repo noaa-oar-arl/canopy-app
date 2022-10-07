@@ -53,9 +53,9 @@ CONTAINS
         integer i, loc
 
         if (ifcanwind) then
-            write(*,*)  'Writing canopy wind/WAF output'
+            write(*,*)  'Writing canopy wind output'
             write(*,*)  '-------------------------------'
-! ... save as text files for testing
+! ... save as text file
             open(10, file=TRIM(TXTPREFX)//'_output_canopy_wind.txt')
             write(10, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
             write(10, '(a30, i6)') 'Number of model layers: ', modlays
@@ -66,7 +66,12 @@ CONTAINS
                         zk(i), canWIND(i, loc)
                 end do
             end do
+        end if
 
+! ... save as text file
+        if (ifcanwaf) then
+            write(*,*)  'Writing canopy WAF output'
+            write(*,*)  '-------------------------------'
             open(11, file=TRIM(TXTPREFX)//'_output_waf.txt')
             write(11, '(a30, f6.1)') 'Reference height, h: ', href, 'm'
             write(11, '(a8, a9, a19, a11)') 'Lat', 'Lon', 'Canopy height (m)', 'WAF'
@@ -78,7 +83,7 @@ CONTAINS
         if (ifcaneddy) then
             write(*,*)  'Writing canopy eddy diffusivity scaling values'
             write(*,*)  '-------------------------------'
-! ... save as text files for testing
+! ... save as text file
             open(12, file=TRIM(TXTPREFX)//'_output_eddy_Kz.txt')
             write(12, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
             write(12, '(a30, i6)') 'Number of model layers: ', modlays
@@ -94,7 +99,7 @@ CONTAINS
         if (ifcanphot) then
             write(*,*)  'Writing canopy photolysis correction factors'
             write(*,*)  '-------------------------------'
-! ... save as text files for testing
+! ... save as text file
             open(13, file=TRIM(TXTPREFX)//'_output_phot.txt')
             write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
             write(13, '(a30, i6)') 'Number of model layers: ', modlays

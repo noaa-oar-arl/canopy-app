@@ -73,7 +73,7 @@ SUBROUTINE canopy_calcs
 
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 
-                    if (ifcanwind) then
+                    if (ifcanwind .or. ifcanwaf) then
                         do i=1, modlays
                             call canopy_wind(hcmref, zk(i), fafraczInt(i), ubzref, &
                                 z0ghc, cdrag, pai, href, d_h, zo_h, molref, &

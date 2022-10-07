@@ -21,7 +21,7 @@ SUBROUTINE canopy_readnml
     NAMELIST /filenames/ file_vars, file_out
 
     NAMELIST /userdefs/  nlat, nlon, modlays, modres, href, z0ghc, lamdars,  &
-        flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot, pai_opt, &
+        flameh_opt, flameh_set, ifcanwind, ifcanwaf, ifcaneddy, ifcanphot, pai_opt, &
         pai_set, lu_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, &
         rsl_opt
 
@@ -106,8 +106,13 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
-! Set default logical for canopy wind/WAF option (default = .FALSE.)
+! Set default logical for canopy wind option (default = .FALSE.)
     ifcanwind = .FALSE.
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default logical for canopy WAF option (default = .FALSE.)
+    ifcanwaf = .FALSE.
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

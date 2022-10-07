@@ -34,7 +34,7 @@ SUBROUTINE canopy_dealloc
 ! Deallocate arrays for Canopy Wind
 !-------------------------------------------------------------------------------
 
-    if (ifcanwind) then
+    if (ifcanwind .or. ifcanwaf) then
         if(allocated(canBOT))     deallocate(canBOT)
         if(allocated(canTOP))     deallocate(canTOP)
         if(allocated(canWIND))    deallocate(canWIND)

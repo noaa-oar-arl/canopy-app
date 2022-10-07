@@ -25,7 +25,7 @@ SUBROUTINE canopy_init
 ! Initialize arrays for Canopy Wind
 !-------------------------------------------------------------------------------
 
-    if (ifcanwind) then
+    if (ifcanwind .or. ifcanwaf) then
         if(allocated(canBOT))     canBOT(:)            = 0.0
         if(allocated(canTOP))     canTOP(:)            = 0.0
         if(allocated(canWIND))    canWIND(:,:)         = 0.0

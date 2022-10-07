@@ -33,8 +33,8 @@ SUBROUTINE canopy_alloc
 ! Allocate arrays for Canopy Wind
 !-------------------------------------------------------------------------------
 
-    if (ifcanwind) then
-        write(*,*)  'Canopy wind/WAF option selected'
+    if (ifcanwind .or. ifcanwaf) then
+        write(*,*)  'Canopy wind and/or WAF option selected'
         write(*,*)  '-------------------------------'
         if(.not.allocated(canBOT))     allocate(canBOT(modlays))
         if(.not.allocated(canTOP))     allocate(canTOP(modlays))
