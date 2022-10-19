@@ -5,11 +5,10 @@ MODULE canopy_coord_mod
 ! Purpose:  Contains canopy coordinate and domain descriptions.
 !           03 Oct 2022  Initial Version. (P. C. Campbell)
 !-------------------------------------------------------------------------------
-
+    use canopy_const_mod, ONLY: rk
     IMPLICIT NONE
 
 !! .... defines geographic domain of inputs (read from file and/or user namelist)
-    INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
     integer            :: nlat        !length of x coordinate
     integer            :: nlon        !length of y coordinate
     integer            :: modlays     !Number of total above and below canopy model layers

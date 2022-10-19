@@ -5,11 +5,10 @@ MODULE canopy_canopts_mod
 ! Purpose:  Contains canopy option variable descriptions.
 !           03 Oct 2022  Initial Version. (P. C. Campbell)
 !-------------------------------------------------------------------------------
-
+    use canopy_const_mod, ONLY: rk
     IMPLICIT NONE
 
 !! .... defines canopy optionss (read from user namelist)
-    INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
     real(rk)       ::    href        !Reference Height above canopy @ 10 m  (m)
     logical        ::    ifcanwind   !logical canopy wind option (default = .FALSE.)
     logical        ::    ifcanwaf    !logical canopy WAF option (default = .FALSE.)

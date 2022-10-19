@@ -5,11 +5,11 @@ MODULE canopy_canmet_mod
 ! Purpose:  Contains canopy met and sfc input  variable descriptions.
 !           03 Oct 2022  Initial Version. (P. C. Campbell)
 !-------------------------------------------------------------------------------
+    use canopy_const_mod, ONLY: rk
 
     IMPLICIT NONE
+!! .... defines canopy options (read from user namelist)
 
-!! .... defines canopy optionss (read from user namelist)
-    INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
 ! Generic 2D met/sfc input variables that should be passed to canopy calculations
     TYPE :: variable_type
         real(rk)   :: lat          !latitude of cell/point

@@ -5,11 +5,10 @@ MODULE canopy_canvars_mod
 ! Purpose:  Contains canopy variables descriptions.
 !           03 Oct 2022  Initial Version. (P. C. Campbell)
 !-------------------------------------------------------------------------------
-
+    use canopy_const_mod, ONLY: rk
     IMPLICIT NONE
 
 !! .... defines canopy variables calculated in the model
-    INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
     integer        ::    firetype      !1 = Above Canopy Fire; 0 = Below Canopy Fire
     integer        ::    cansublays    !Number of sub-canopy layers
     integer        ::    midflamepoint !Indice of the mid-flame point
