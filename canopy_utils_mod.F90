@@ -6,7 +6,7 @@ module canopy_utils_mod
 
     private
     public IntegrateTrapezoid,interp_linear1_internal,CalcPAI, &
-        CalcDX,CalcFlameH
+        CalcDX,CalcDX_old,CalcFlameH
 
 contains
 
@@ -73,22 +73,34 @@ contains
     end function
     !--------------------------------------------------------------------------------------
 
-    function CalcDX(lat1, lat2, lon1, lon2)
+    real(rk) function CalcDX(lat, dlon) result(dx)
+        !! Compute the zonal distance, dx, corresponding to longitude increment `dlon`.
+
+        real(rk), intent(in) :: lat   !! Latitude (degrees)
+        real(rk), intent(in) :: dlon  !! Longitude increment (degrees)
+        real(rk) :: lat_rad, dlon_rad
+
+        lat_rad = lat * pi / 180._rk
+        dlon_rad = dlon * pi / 180._rk
+
+        dx = rearth * cos(lat_rad) * dlon_rad
+
+    end function
+
+    function CalcDX_old(lat1, lat2, lon1, lon2)
         !! computes distance,dx, between two points based on great circle formulas
 
         real(rk), intent(in)  :: lat1,lat2                              !! Two model latitudes
         real(rk), intent(in)  :: lon1,lon2                              !! Two model longitudes
         real(rk)              :: lat_rad1, lat_rad2, lon_rad1, lon_rad2 !! latitude and longitude in radians
-        real(rk)              :: CalcDX                                 !! distance between the two (m)
+        real(rk)              :: CalcDX_old                             !! distance between the two (m)
 
         lat_rad1 = lat1/(180.0_rk/pi)
         lon_rad1 = lon1/(180.0_rk/pi)
         lat_rad2 = lat2/(180.0_rk/pi)
         lon_rad2 = lon2/(180.0_rk/pi)
 
-!        CalcDX = 6377830.0_rk*acos( (sin(lat_rad1)*sin(lat_rad2)) + cos(lat_rad1)*cos(lat_rad2) * &
-!            cos(lon_rad2-lon_rad1) )
-        CalcDX = rearth*acos( (sin(lat_rad1)*sin(lat_rad2)) + cos(lat_rad1)*cos(lat_rad2) * &
+        CalcDX_old = rearth*acos( (sin(lat_rad1)*sin(lat_rad2)) + cos(lat_rad1)*cos(lat_rad2) * &
             cos(lon_rad2-lon_rad1) )
 
     end function
