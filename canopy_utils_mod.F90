@@ -6,7 +6,7 @@ module canopy_utils_mod
 
     private
     public IntegrateTrapezoid,interp_linear1_internal,CalcPAI, &
-        CalcDX,CalcDX_old,CalcFlameH
+        CalcDX,CalcFlameH
 
 contains
 
@@ -86,25 +86,27 @@ contains
         dx = rearth * cos(lat_rad) * dlon_rad
 
     end function
-
-    function CalcDX_old(lat1, lat2, lon1, lon2)
-        !! computes distance,dx, between two points based on great circle formulas
-
-        real(rk), intent(in)  :: lat1,lat2                              !! Two model latitudes
-        real(rk), intent(in)  :: lon1,lon2                              !! Two model longitudes
-        real(rk)              :: lat_rad1, lat_rad2, lon_rad1, lon_rad2 !! latitude and longitude in radians
-        real(rk)              :: CalcDX_old                             !! distance between the two (m)
-
-        lat_rad1 = lat1/(180.0_rk/pi)
-        lon_rad1 = lon1/(180.0_rk/pi)
-        lat_rad2 = lat2/(180.0_rk/pi)
-        lon_rad2 = lon2/(180.0_rk/pi)
-
-        CalcDX_old = rearth*acos( (sin(lat_rad1)*sin(lat_rad2)) + cos(lat_rad1)*cos(lat_rad2) * &
-            cos(lon_rad2-lon_rad1) )
-
-    end function
     !--------------------------------------------------------------------------------------
+
+    ! real(rk) function CalcGCDist(lat1, lat2, lon1, lon2) result(d)
+    !     !! Compute great-circle distance between two points using the spherical law of cosines formula.
+
+    !     real(rk), intent(in)  :: lat1,lat2                  !! Two model latitudes
+    !     real(rk), intent(in)  :: lon1,lon2                  !! Two model longitudes
+    !     real(rk) :: lat_rad1, lat_rad2, lon_rad1, lon_rad2  !! radians
+
+    !     lat_rad1 = lat1/(180.0_rk/pi)
+    !     lon_rad1 = lon1/(180.0_rk/pi)
+    !     lat_rad2 = lat2/(180.0_rk/pi)
+    !     lon_rad2 = lon2/(180.0_rk/pi)
+
+    !     d = rearth*acos( &
+    !         sin(lat_rad1)*sin(lat_rad2) &
+    !         + cos(lat_rad1)*cos(lat_rad2)*cos(lon_rad2-lon_rad1) &
+    !     )
+
+    ! end function
+    ! !--------------------------------------------------------------------------------------
 
     function CalcFlameH(frp, dx)
         !! Approximates the Flame Height as a function of FRP intensity and grid cell distance (dx)

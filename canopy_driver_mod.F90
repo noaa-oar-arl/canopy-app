@@ -24,7 +24,7 @@ contains
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
         use canopy_const_mod, ONLY: rk       !constants for canopy models
-        use canopy_utils_mod, ONLY: CalcDX, CalcDX_old   !utilities for canopy models
+        use canopy_utils_mod, ONLY: CalcDX   !utilities for canopy models
 
 ! Arguments:
 !     IN/OUT
@@ -44,9 +44,7 @@ contains
             if (DXOPT .eq. 0) then !user set to calculate dx grid cell distance from grid lons
                 if (NLON .gt. 1 .and. NLON .gt. 1) then !convert grid points to distances using Haversine formula (m)
                     if (loc .lt. NLAT*NLON) then !inside domain
-                        print *, "old DX calc", CalcDX_old(LAT(loc),LAT(loc+1),LON(loc),LON(loc+1)) !Haversine Calc
                         DX(loc) = CalcDX(LAT(loc), abs(LON(loc+1) - LON(loc)))
-                        print *, "new DX calc", DX(loc)
                     else !at the domain edge --set to loc-1
                         DX(loc) = DX(NLAT*NLON-1)
                     end if
@@ -60,11 +58,6 @@ contains
             end if
 
         end do
-
-        if (any(DX <= 0)) then
-            print *, "some DX values <= 0", pack(DX, DX <= 0)
-            call exit(1)
-        end if
 
     END SUBROUTINE CANOPY_CALCDX
 
