@@ -37,7 +37,7 @@ MODULE canopy_const_mod
     ! radius of earth [ m ]
     ! -- radius of sphere having same surface area as Clarke ellipsoid of 1866
     !    (Source: Snyder, 1987)
-    REAL(RK),          PARAMETER     :: rearth = 6371000.0_rk
+    REAL(RK),          PARAMETER     :: rearth = 6371008.8_rk  ! WGS84 arithmetic mean radius
 !    REAL(RK)                         :: rearth
 
     ! length of a sidereal day [ sec ]  (Source:  CRC76, pp. 14-6)
