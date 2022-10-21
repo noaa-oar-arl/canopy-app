@@ -33,8 +33,6 @@ contains
         REAL(RK),    INTENT( IN )  :: COSZEN          ! Model input Cosine Solar Zenith Angle
         REAL(RK),    INTENT( OUT ) :: RJCF(:)          ! Photolysis correction factor
 
-!     Local variables
-
 ! Citation:
 !Makar, P., Staebler, R., Akingunola, A. et al. The effects of forest canopy shading and turbulence on boundary layer ozone.
 !Nat Commun 8, 15243 (2017). https://doi.org/10.1038/ncomms15243

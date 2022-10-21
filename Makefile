@@ -28,16 +28,26 @@ FLFLAGS :=
 # Source objects
 OBJS :=\
  canopy_const_mod.o \
+ canopy_coord_mod.o \
+ canopy_canopts_mod.o \
+ canopy_canmet_mod.o \
+ canopy_canvars_mod.o \
  canopy_utils_mod.o \
  canopy_files_mod.o \
  canopy_readnml.o \
- canopy_parm_mod.o \
- canopy_zpd_mod.o \
+ canopy_alloc.o \
+ canopy_init.o \
+ canopy_txt_io_mod.o \
+ canopy_read_txt.o \
+ canopy_driver_mod.o \
  canopy_wind_mod.o \
  canopy_waf_mod.o \
- canopy_eddyx_mod.o \
  canopy_phot_mod.o \
- canopy_driver.o
+ canopy_eddy_mod.o \
+ canopy_calcs.o \
+ canopy_write_txt.o \
+ canopy_dealloc.o \
+ canopy_app.o
 
 # Program name
 PROGRAM := canopy

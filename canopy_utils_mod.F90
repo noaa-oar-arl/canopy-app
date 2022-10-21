@@ -1,11 +1,12 @@
 module canopy_utils_mod
 
-    use canopy_const_mod, ONLY: pi, rk    !constants for canopy models
+    use canopy_const_mod, ONLY: pi, rk, rearth    !constants for canopy models
 
     implicit none
 
     private
-    public IntegrateTrapezoid,interp_linear1_internal,CalcPAI,CalcFlameH
+    public IntegrateTrapezoid,interp_linear1_internal,CalcPAI, &
+        CalcDX,CalcFlameH
 
 contains
 
@@ -72,8 +73,43 @@ contains
     end function
     !--------------------------------------------------------------------------------------
 
+    real(rk) function CalcDX(lat, dlon) result(dx)
+        !! Compute the zonal distance, dx, corresponding to longitude increment `dlon`.
+
+        real(rk), intent(in) :: lat   !! Latitude (degrees)
+        real(rk), intent(in) :: dlon  !! Longitude increment (degrees)
+        real(rk) :: lat_rad, dlon_rad
+
+        lat_rad = lat * pi / 180._rk
+        dlon_rad = dlon * pi / 180._rk
+
+        dx = rearth * cos(lat_rad) * dlon_rad
+
+    end function
+    !--------------------------------------------------------------------------------------
+
+    ! real(rk) function CalcGCDist(lat1, lat2, lon1, lon2) result(d)
+    !     !! Compute great-circle distance between two points using the spherical law of cosines formula.
+
+    !     real(rk), intent(in)  :: lat1,lat2                  !! Two model latitudes
+    !     real(rk), intent(in)  :: lon1,lon2                  !! Two model longitudes
+    !     real(rk) :: lat_rad1, lat_rad2, lon_rad1, lon_rad2  !! radians
+
+    !     lat_rad1 = lat1/(180.0_rk/pi)
+    !     lon_rad1 = lon1/(180.0_rk/pi)
+    !     lat_rad2 = lat2/(180.0_rk/pi)
+    !     lon_rad2 = lon2/(180.0_rk/pi)
+
+    !     d = rearth*acos( &
+    !         sin(lat_rad1)*sin(lat_rad2) &
+    !         + cos(lat_rad1)*cos(lat_rad2)*cos(lon_rad2-lon_rad1) &
+    !     )
+
+    ! end function
+    ! !--------------------------------------------------------------------------------------
+
     function CalcFlameH(frp, dx)
-        !! Approximates the Flame Height as a function of FRP intensity and grid cell length (dx)
+        !! Approximates the Flame Height as a function of FRP intensity and grid cell distance (dx)
         !! forest fraction (Based on Byram 1959).
 
         !!  Byram, GM (1959). Combustion of Forest Fuels. In Forest Fire: Control and Use.

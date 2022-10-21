@@ -1,8 +1,4 @@
-
-SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
-    flameh_opt,flameh_set,ifcanwind,ifcaneddy,ifcanphot,     &
-    pai_opt,pai_set,lu_opt,dx_opt,dx_set, lai_thresh, &
-    frt_thresh, fch_thresh, rsl_opt)
+SUBROUTINE canopy_readnml
 
 !-------------------------------------------------------------------------------
 ! Name:     Read Canopy Namelist
@@ -10,24 +6,22 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
 !           15 Jul 2022  Original Version (P.C. Campbell)
 !
 !-------------------------------------------------------------------------------
-    USE canopy_const_mod, ONLY: rk                 !canopy constants
     USE canopy_files_mod
+    USE canopy_canopts_mod
+    USE canopy_coord_mod
+    use canopy_canvars_mod, ONLY: zk
 
     IMPLICIT NONE
 
-    INTEGER,               INTENT(OUT) :: nlat,nlon,modlays,pai_opt,flameh_opt,lu_opt,dx_opt
-    INTEGER,               INTENT(OUT) :: rsl_opt
-    REAL(rk),              INTENT(OUT) :: modres,href,z0ghc,lamdars,flameh_set,pai_set,dx_set
-    REAL(rk),              INTENT(OUT) :: lai_thresh, frt_thresh, fch_thresh
-    LOGICAL,               INTENT(OUT) :: ifcanwind,ifcaneddy,ifcanphot
+    !local variables
     INTEGER                            :: istat
-    INTEGER                            :: n
+    INTEGER                            :: n,i
     CHARACTER(LEN=*),      PARAMETER   :: pname = 'CANOPY_READNML'
 
-    NAMELIST /filenames/ file_vars
+    NAMELIST /filenames/ file_vars, file_out
 
     NAMELIST /userdefs/  nlat, nlon, modlays, modres, href, z0ghc, lamdars,  &
-        flameh_opt, flameh_set, ifcanwind, ifcaneddy, ifcanphot, pai_opt, &
+        flameh_opt, flameh_set, ifcanwind, ifcanwaf, ifcaneddy, ifcanphot, pai_opt, &
         pai_set, lu_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, &
         rsl_opt
 
@@ -63,10 +57,11 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
     ENDIF
 
 !-------------------------------------------------------------------------------
-! Initialize canopy input file names.
+! Initialize canopy file names.
 !-------------------------------------------------------------------------------
 
     file_vars(:) = " "
+    file_out(:)  = " "
 
 !-------------------------------------------------------------------------------
 
@@ -87,7 +82,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default value for reference height above canopy (m) (Default = 10 m)
-    href = 10.0
+    href = 10.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -107,12 +102,17 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default real value for flame height (m) (Default = 2.0 m)
-    flameh_set = 2.0
+    flameh_set = 2.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
-! Set default logical for canopy wind/WAF option (default = .FALSE.)
+! Set default logical for canopy wind option (default = .FALSE.)
     ifcanwind = .FALSE.
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default logical for canopy WAF option (default = .FALSE.)
+    ifcanwaf = .FALSE.
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -132,7 +132,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default real value for PAI set value (default = 4.0)
-    pai_set = 4.0
+    pai_set = 4.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -147,7 +147,7 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
 
 !-------------------------------------------------------------------------------
 ! Set default real value for DX Cell resolution set value (default = 1.0 m)
-    dx_set = 1.0
+    dx_set = 1.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -197,9 +197,23 @@ SUBROUTINE canopy_readnml (nlat,nlon,modlays,modres,href,z0ghc,lamdars, &
         file_vars(n)= TRIM( ADJUSTL( file_vars(n) ) )
     ENDDO
 
+    DO n = 1, SIZE(file_out)
+        file_out(n)= TRIM( ADJUSTL( file_out(n) ) )
+    ENDDO
+
 !-------------------------------------------------------------------------------
 ! Verify values of user-defined options (need conditions added...)
 !-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Derive canopy model profile heights from user NL input
+!-------------------------------------------------------------------------------
+
+    if(.not.allocated(zk))         allocate(zk(modlays))
+    zk(1) = 0.0
+    do i=2, modlays
+        zk(i)   = zk(i-1) + modres
+    end do
 
 !-------------------------------------------------------------------------------
 ! Close namelist file.

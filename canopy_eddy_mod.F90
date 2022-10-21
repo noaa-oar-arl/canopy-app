@@ -1,4 +1,4 @@
-module canopy_eddyx_mod
+module canopy_eddy_mod
 
     implicit none
 
@@ -103,4 +103,4 @@ contains
 
     END SUBROUTINE CANOPY_EDDYX
 
-end module canopy_eddyx_mod
+end module canopy_eddy_mod

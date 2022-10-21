@@ -1,5 +1,6 @@
 /canopy
 output*.txt
+test_*.txt
 
 # Prerequisites
 *.d

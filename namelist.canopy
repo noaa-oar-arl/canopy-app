@@ -1,5 +1,6 @@
 &FILENAMES
   file_vars    = 'input_variables.txt'
+  file_out     = 'test'
 /
 
 &USERDEFS
@@ -8,6 +9,7 @@
   modlays    =  100
   modres     =  0.5
   ifcanwind  = .TRUE.
+  ifcanwaf   = .TRUE.
   ifcaneddy  = .TRUE.
   ifcanphot  = .TRUE.
   href       =  10.0
