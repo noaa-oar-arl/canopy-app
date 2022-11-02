@@ -57,7 +57,7 @@ contains
             MIDFLAMEPOINT = 2    !do not put at z = 0, but rather in second layer
         else
             flamelays     = floor(FLAMEH/MODRES)
-            MIDFLAMEPOINT = max((flamelays/2),2)
+            MIDFLAMEPOINT = max((flamelays/2),2) + 1 !Add 1st level at ground (z=0)
         end if
 
     END SUBROUTINE CANOPY_FLAMEH
