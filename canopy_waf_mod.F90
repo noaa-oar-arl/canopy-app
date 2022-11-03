@@ -56,8 +56,8 @@ contains
         if (FLAMEH .lt. MODRES) then !flameh beween first (z=0) and second layer height
             MIDFLAMEPOINT = 2    !do not put at z = 0, but rather in second layer
         else
-            flamelays     = floor(FLAMEH/MODRES)
-            MIDFLAMEPOINT = max((flamelays/2),2) + 1 !Add 1st level at ground (z=0)
+            flamelays     = floor(FLAMEH/MODRES) + 1
+            MIDFLAMEPOINT = max(ceiling(flamelays/2.0),2)
         end if
 
     END SUBROUTINE CANOPY_FLAMEH
