@@ -173,6 +173,12 @@ contains
                 SIGMAU=(0.03_rk + 0.50_rk)/2.0_rk
                 SIGMA1=(0.60_rk + 0.45_rk)/2.0_rk
             end if
+
+            if (VTYPE .eq. 11 .or. VTYPE .gt. 12)  then !VTYPE not applicable
+                write(*,*)  'VTYPE not applicable  ', VTYPE, ' from VIIRS...exiting'
+                call exit(2)
+            end if
+
         else
             write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS available right now...exiting'
             call exit(2)
@@ -252,7 +258,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_ZPD( ZHC, FCLAI, UBZREF, Z0GHC, &
-        LAMDARS, CDRAG, PAI, d_h, zo_h )
+        LAMDARS, CDRAG, PAI, FCH, HREF, VTYPE, LU_OPT, d_h, zo_h )
 
 !-----------------------------------------------------------------------
 
@@ -282,6 +288,10 @@ contains
         REAL(RK),    INTENT( IN )  :: LAMDARS         ! Value representing influence of roughness sublayer (nondimensional)
         REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
+        REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
+        REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
+        INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
+        INTEGER,     INTENT( IN )  :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         REAL(RK),    INTENT( OUT ) :: d_h             ! zero plane displacement height d/h (i.e., Product of dha*dhb)
         REAL(RK),    INTENT( OUT ) :: zo_h            ! Surface (soil+veg) roughness length, zo/h
 
@@ -298,6 +308,8 @@ contains
         real(rk)                   :: cstress         ! Suface stress at/above canopy height (nondimensional)
         real(rk)                   :: drag            ! Drag area index (i.e., wind speed attentuation) (nondimensional)
         real(rk)                   :: nrat            ! Ratio of drag/cstress (nondimensional)
+        real(rk)                   :: z0_set          ! set roughness length (m)
+        real(rk)                   :: uc              ! initial guess of wind speed at canopy height (m/s) from log-profile
 
 ! Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
@@ -306,12 +318,41 @@ contains
 
         ! Calculate zero-plane displacement height, d/h (Eq. 15 in Massman et al. 2017):
         drag    = CDRAG*PAI
-        ustrmod = UBZREF*(0.38 - (0.38 + (vonk/log(Z0GHC)))*exp(-1.0*(15.0*drag)))
-        cstress = (2.0*(ustrmod**2.0))/(UBZREF**2.0)
+        ! Get first estimate of zpd and z0 to perform initial log wind profile and ustar calculation
+        ! Holmes JD. Wind Loading of Structures. 3rd ed. Boca Raton, Florida: CRC Press; 2015.
+        ! First assign general z0 dependent on vegetation type and then estimate zpd = 0.75*FCH from Holmes
+        if (LU_OPT .eq. 0) then !VIIRS LU types
+            !approx/average vegtype mapping to Massman et al. forest types
+            if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS Cat 1-2/Evergreen Needleleaf & Broadleaf
+                z0_set  = 1.0_rk
+            end if
+            if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
+                z0_set = 1.0_rk
+            end if
+            if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
+                z0_set = 0.1_rk
+            end if
+            if (VTYPE .eq. 11 .or. VTYPE .gt. 12)  then !VTYPE not applicable
+                write(*,*)  'VTYPE not applicable  ', VTYPE, ' from VIIRS...exiting'
+                call exit(2)
+            end if
+        else
+            write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS available right now...exiting'
+            call exit(2)
+        end if
+
+        if (HREF > z0_set) then ! input wind speed reference height is > roughness length
+            uc = UBZREF*log((FCH-(0.75_rk*FCH)+z0_set)/z0_set)/log(HREF/z0_set)  !MOST
+        else                 ! reference height is <= roughness length--at canopy top
+            uc = UBZREF
+        end if
+
+        ustrmod = uc*(0.38 - (0.38 + (vonk/log(Z0GHC)))*exp(-1.0*(15.0*drag)))
+        cstress = (2.0*(ustrmod**2.0))/(uc**2.0)
         nrat   =  drag/cstress
         qc = 0.60
         qb = 2.0/(1.0 - exp(-1.0))
-        qa = 4.04*(-1.0*qb)
+        qa = 4.04_rk*(-1.0*qb)
         qstar = qa + qb*exp(-1.0*qc*nrat)
         dha =  1.0 - (cosh(qstar*nrat*FCLAI(1))/cosh(qstar*nrat))
         fafraczInt_tota = IntegrateTrapezoid( ZHC,(cosh(qstar*nrat*FCLAI)*ZHC) )

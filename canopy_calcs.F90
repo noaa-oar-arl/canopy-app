@@ -75,7 +75,8 @@ SUBROUTINE canopy_calcs
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 
                     call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
-                        ubzref, z0ghc, lamdars, cdrag, pai, d_h, zo_h)
+                        ubzref, z0ghc, lamdars, cdrag, pai, hcmref, href, &
+                        vtyperef, lu_opt, d_h, zo_h)
 
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 
