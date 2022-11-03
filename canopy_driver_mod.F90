@@ -174,11 +174,6 @@ contains
                 SIGMA1=(0.60_rk + 0.45_rk)/2.0_rk
             end if
 
-            if (VTYPE .eq. 11 .or. VTYPE .gt. 12)  then !VTYPE not applicable
-                write(*,*)  'VTYPE not applicable  ', VTYPE, ' from VIIRS...exiting'
-                call exit(2)
-            end if
-
         else
             write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS available right now...exiting'
             call exit(2)
@@ -331,10 +326,6 @@ contains
             end if
             if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
                 z0_set = 0.1_rk
-            end if
-            if (VTYPE .eq. 11 .or. VTYPE .gt. 12)  then !VTYPE not applicable
-                write(*,*)  'VTYPE not applicable  ', VTYPE, ' from VIIRS...exiting'
-                call exit(2)
             end if
         else
             write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS available right now...exiting'
