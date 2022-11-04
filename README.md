@@ -71,7 +71,8 @@ Current Canopy-App components:
     | nlon             | number of longitude cells (must match # of LON in `file_vars`above )               |
     | modlays          | number of model (below and above canopy) layers                                    |
     | modres           | above and below canopy model vertical resolution (m)                               |
-    | ifcanwind        | logical canopy wind/WAF option (default = .FALSE.)                                 |
+    | ifcanwind        | logical canopy wind option (default = .FALSE.)                                     |
+    | ifcanwaf         | logical canopy WAF option (default = .FALSE.)                                      |
     | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
     | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |
     | href             | real value of reference height above canopy associated with input wind speed (m)   |
