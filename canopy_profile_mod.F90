@@ -196,7 +196,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_ZPD( ZHC, FCLAI, UBZREF, Z0GHC, &
-        LAMDARS, CDRAG, PAI, FCH, HREF, VTYPE, LU_OPT, d_h, zo_h )
+        LAMDARS, RSL_OPT, CDRAG, PAI, FCH, HREF, VTYPE, LU_OPT, d_h, zo_h )
 
 !-----------------------------------------------------------------------
 
@@ -228,6 +228,7 @@ contains
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
         REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
         REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
+        INTEGER,     INTENT( IN )  :: RSL_OPT         ! RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
         INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
         INTEGER,     INTENT( IN )  :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         REAL(RK),    INTENT( OUT ) :: d_h             ! zero plane displacement height d/h (i.e., Product of dha*dhb)
@@ -248,6 +249,7 @@ contains
         real(rk)                   :: nrat            ! Ratio of drag/cstress (nondimensional)
         real(rk)                   :: z0_set          ! set roughness length (m)
         real(rk)                   :: uc              ! initial guess of wind speed at canopy height (m/s) from log-profile
+        real(rk)                   :: lamda_rs        ! local values for influence of roughness sublayer (nondimensional)
 
 ! Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
@@ -295,8 +297,15 @@ contains
 
         ! zero-plane displacement height
         d_h = dha * dhb
+
+        if (RSL_OPT .eq. 1) then  !set lamda_rs = 1 to avoid double counting RSL effects
+            lamda_rs =  1.0
+        else                      !set to lamda_rs to namelist input LAMDARS
+            lamda_rs = LAMDARS
+        end if
+
         ! Calculate surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):
-        zo_h  = LAMDARS * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
+        zo_h  = lamda_rs * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
 
     END SUBROUTINE CANOPY_ZPD
 

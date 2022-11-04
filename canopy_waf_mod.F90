@@ -63,7 +63,7 @@ contains
     END SUBROUTINE CANOPY_FLAMEH
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_WAF( HCM, LAMDARS, HREF, FLAMEH, FIRETYPE, &
+    SUBROUTINE CANOPY_WAF( HCM, LAMDARS, RSL_OPT, HREF, FLAMEH, FIRETYPE, &
         D_H, ZO_H, CANBOTMID, CANTOPMID, WAF )
 
 !-----------------------------------------------------------------------
@@ -95,11 +95,13 @@ contains
         REAL(RK),    INTENT( IN )  :: CANTOPMID       ! Mid-flame canopy top wind reduction factor (nondimensional)
         REAL(RK),    INTENT( IN )  :: D_H             ! Zero-plane displacement height, d/h
         REAL(RK),    INTENT( IN )  :: ZO_H            ! Surface (soil+veg) roughness length, zo/h
+        INTEGER,     INTENT( IN )  :: RSL_OPT         ! RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
         REAL(RK),    INTENT( OUT ) :: WAF             ! Wind Adjustment Factor (nondimensional)
 !     Local variables
         real(rk)                   :: term1           ! Major Term1 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017)
         real(rk)                   :: term2           ! Major Term2 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017)
         real(rk)                   :: delta           ! Ratio parmeter used in WAF for above-canopy (Eq. 18 Massman et al.)
+        real(rk)                   :: lamda_rs        ! local values for influence of roughness sublayer (nondimensional)
 
 ! Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
@@ -109,15 +111,22 @@ contains
             write(*,*) "critical problem: HREF <= 0, WAF calculation not accurate and thus is reset to 1"
             waf = 1.0
         else
+
+            if (RSL_OPT .eq. 1) then  !set lamda_rs = 1 to avoid double counting RSL effects
+                lamda_rs =  1.0
+            else                      !set to lamda_rs to namelist input LAMDARS
+                lamda_rs = LAMDARS
+            end if
+
             if (FIRETYPE == 0) then  !sub-canopy
-                term1 = log( LAMDARS * ( (1.0 - D_H)/ZO_H ) )  !numerator
-                term2 = log( LAMDARS * ( ( (HREF/HCM) + 1.0 - D_H ) / ZO_H ) )  !denominatory
+                term1 = log( lamda_rs * ( (1.0 - D_H)/ZO_H ) )  !numerator
+                term2 = log( lamda_rs * ( ( (HREF/HCM) + 1.0 - D_H ) / ZO_H ) )  !denominatory
                 waf   = CANBOTMID * CANTOPMID * (term1 / term2)
             else                     !above-canopy
                 delta = (1.0 - D_H) / (FLAMEH/HCM)
-                term1 = log( LAMDARS * ( ( (FLAMEH/HCM) +  1.0 - D_H ) / ZO_H ) ) - &   !numerator
+                term1 = log( lamda_rs * ( ( (FLAMEH/HCM) +  1.0 - D_H ) / ZO_H ) ) - &   !numerator
                     1.0 + (delta*log((1.0/delta) + 1.0))
-                term2 = log( LAMDARS * ( ( ( (HREF/HCM) + 1.0 - D_H) )/ ZO_H ) )  !denominator
+                term2 = log( lamda_rs * ( ( ( (HREF/HCM) + 1.0 - D_H) )/ ZO_H ) )  !denominator
                 waf   = term1 / term2
             end if
         end if

@@ -74,7 +74,7 @@ SUBROUTINE canopy_calcs
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 
                     call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
-                        ubzref, z0ghc, lamdars, cdrag, pai, hcmref, href, &
+                        ubzref, z0ghc, lamdars, rsl_opt, cdrag, pai, hcmref, href, &
                         vtyperef, lu_opt, d_h, zo_h)
 
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
@@ -90,8 +90,9 @@ SUBROUTINE canopy_calcs
                             frpref, midflamepoint, flameh)
 
                         if (flameh .gt. 0.0) then !only calculate WAF when flameh > 0
-                            call canopy_waf(hcmref, lamdars, href, flameh, firetype, d_h, zo_h, &
-                                canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
+                            call canopy_waf(hcmref, lamdars, rsl_opt, href, flameh, &
+                                firetype, d_h, zo_h, canBOT(midflamepoint), &
+                                canTOP(midflamepoint), waf(loc))
                         end if
                     end if
 
