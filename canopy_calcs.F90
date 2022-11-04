@@ -12,13 +12,12 @@ SUBROUTINE canopy_calcs
     use canopy_canopts_mod !main canopy option descriptions
     use canopy_canmet_mod  !main canopy met/sfc input descriptions
     use canopy_canvars_mod !main canopy variables descriptions
-
-    use canopy_driver_mod  !main canopy grid/parms/foliage
-
+    use canopy_utils_mod   !main canopy utilities
+    use canopy_dxcalc_mod  !main canopy dx calculation
+    use canopy_profile_mod !main canopy foliage profile routines
     use canopy_wind_mod    !main canopy components/submodules
     use canopy_waf_mod
     use canopy_phot_mod
-
     use canopy_eddy_mod
 
     IMPLICIT NONE
@@ -30,7 +29,7 @@ SUBROUTINE canopy_calcs
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
 
-    if (ifcanwind) then !only calculate if canopy wind option
+    if (ifcanwind .or. ifcanwaf) then !only calculate if canopy wind or WAF option
         call canopy_calcdx(dx_opt, dx_set, nlat, nlon, variables%lat, &
             variables%lon, dx)
     end if
