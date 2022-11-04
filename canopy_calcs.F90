@@ -110,6 +110,9 @@ SUBROUTINE canopy_calcs
                     end if
 
                 end if !Contiguous Canopy
+
+            else
+                write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
             end if   !Vegetation types
         else
             write(*,*)  'Wrong LU_OPT choice of ', lu_opt, ' in namelist...exiting'
