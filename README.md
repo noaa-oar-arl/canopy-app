@@ -90,7 +90,7 @@ Current Canopy-App components:
     | fch_thresh       | user set real value of canopy height  threshold for contiguous canopy (m)          |
     | rsl_opt          | user set option to include stability and Roughness SubLayer (RSL) effects  0 = off; 1 = on |
 
-    **Note:  If modres >> flameh then some error in WAF calculation will be incurred.  Suggestion is to use relative fine modres (at least <= 0.5 m) if WAF is required.
+**Note:  If modres >> flameh then some error in WAF calculation will be incurred.  Suggestion is to use relative fine modres compared to average flame heights (at least <= 0.5 m) if WAF is required.
 
 
 Main Citations (further references contained within):
