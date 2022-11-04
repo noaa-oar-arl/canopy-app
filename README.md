@@ -71,7 +71,8 @@ Current Canopy-App components:
     | nlon             | number of longitude cells (must match # of LON in `file_vars`above )               |
     | modlays          | number of model (below and above canopy) layers                                    |
     | modres           | above and below canopy model vertical resolution (m)                               |
-    | ifcanwind        | logical canopy wind/WAF option (default = .FALSE.)                                 |
+    | ifcanwind        | logical canopy wind option (default = .FALSE.)                                     |
+    | ifcanwaf         | logical canopy WAF option (default = .FALSE.)**                                    |
     | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
     | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |
     | href             | real value of reference height above canopy associated with input wind speed (m)   |
@@ -88,6 +89,9 @@ Current Canopy-App components:
     | frt_thresh       | user set real value of forest fraction threshold for contiguous canopy             |
     | fch_thresh       | user set real value of canopy height  threshold for contiguous canopy (m)          |
     | rsl_opt          | user set option to include stability and Roughness SubLayer (RSL) effects  0 = off; 1 = on |
+
+**Note:  If modres >> flameh then some error in WAF calculation will be incurred.  Suggestion is to use relative fine modres compared to average flame heights (at least <= 0.5 m) if WAF is required.
+
 
 Main Citations (further references contained within):
 

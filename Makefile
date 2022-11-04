@@ -39,7 +39,8 @@ OBJS :=\
  canopy_init.o \
  canopy_txt_io_mod.o \
  canopy_read_txt.o \
- canopy_driver_mod.o \
+ canopy_dxcalc_mod.o \
+ canopy_profile_mod.o \
  canopy_wind_mod.o \
  canopy_waf_mod.o \
  canopy_phot_mod.o \

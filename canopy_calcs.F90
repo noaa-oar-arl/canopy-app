@@ -12,13 +12,12 @@ SUBROUTINE canopy_calcs
     use canopy_canopts_mod !main canopy option descriptions
     use canopy_canmet_mod  !main canopy met/sfc input descriptions
     use canopy_canvars_mod !main canopy variables descriptions
-
-    use canopy_driver_mod  !main canopy grid/parms/foliage
-
+    use canopy_utils_mod   !main canopy utilities
+    use canopy_dxcalc_mod  !main canopy dx calculation
+    use canopy_profile_mod !main canopy foliage profile routines
     use canopy_wind_mod    !main canopy components/submodules
     use canopy_waf_mod
     use canopy_phot_mod
-
     use canopy_eddy_mod
 
     IMPLICIT NONE
@@ -30,7 +29,7 @@ SUBROUTINE canopy_calcs
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
 
-    if (ifcanwind) then !only calculate if canopy wind option
+    if (ifcanwind .or. ifcanwaf) then !only calculate if canopy wind or WAF option
         call canopy_calcdx(dx_opt, dx_set, nlat, nlon, variables%lat, &
             variables%lon, dx)
     end if
@@ -75,7 +74,8 @@ SUBROUTINE canopy_calcs
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 
                     call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
-                        ubzref, z0ghc, lamdars, cdrag, pai, d_h, zo_h)
+                        ubzref, z0ghc, lamdars, rsl_opt, cdrag, pai, hcmref, href, &
+                        vtyperef, lu_opt, d_h, zo_h)
 
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 
@@ -90,8 +90,9 @@ SUBROUTINE canopy_calcs
                             frpref, midflamepoint, flameh)
 
                         if (flameh .gt. 0.0) then !only calculate WAF when flameh > 0
-                            call canopy_waf(hcmref, lamdars, href, flameh, firetype, d_h, zo_h, &
-                                canBOT(midflamepoint), canTOP(midflamepoint), waf(loc))
+                            call canopy_waf(hcmref, lamdars, rsl_opt, href, flameh, &
+                                firetype, d_h, zo_h, canBOT(midflamepoint), &
+                                canTOP(midflamepoint), waf(loc))
                         end if
                     end if
 
@@ -109,6 +110,9 @@ SUBROUTINE canopy_calcs
                     end if
 
                 end if !Contiguous Canopy
+
+            else
+                write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
             end if   !Vegetation types
         else
             write(*,*)  'Wrong LU_OPT choice of ', lu_opt, ' in namelist...exiting'
