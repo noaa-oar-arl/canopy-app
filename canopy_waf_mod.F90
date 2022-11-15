@@ -53,11 +53,11 @@ contains
             write(*,*)  'Wrong FLAMEH_OPT choice of ', FLAMEH_OPT, ' in namelist...exiting'
             call exit(2)
         end if
-        if (FLAMEH .lt. MODRES) then !flameh beween first (z=0) and second layer height
+        if (FLAMEH .le. MODRES) then !flameh beween first (z=0) and second layer height
             MIDFLAMEPOINT = 2    !do not put at z = 0, but rather in second layer
         else
-            flamelays     = floor(FLAMEH/MODRES) + 1
-            MIDFLAMEPOINT = max(floor(flamelays/2.0),2)
+            flamelays     = floor(FLAMEH/MODRES) + 1      !force full flame layers
+            MIDFLAMEPOINT = max(ceiling(flamelays/2.0),2) !conservative midflamepoint
         end if
 
     END SUBROUTINE CANOPY_FLAMEH
