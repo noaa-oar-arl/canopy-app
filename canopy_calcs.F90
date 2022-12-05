@@ -75,7 +75,7 @@ SUBROUTINE canopy_calcs
 
                     call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
                         ubzref, z0ghc, lamdars, rsl_opt, cdrag, pai, hcmref, href, &
-                        vtyperef, lu_opt, d_h, zo_h)
+                        z0ref, vtyperef, lu_opt, z0_opt, d_h, zo_h)
 
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 

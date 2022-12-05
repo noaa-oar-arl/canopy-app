@@ -22,7 +22,7 @@ SUBROUTINE canopy_readnml
 
     NAMELIST /userdefs/  nlat, nlon, modlays, modres, href, z0ghc, lamdars,  &
         flameh_opt, flameh_set, ifcanwind, ifcanwaf, ifcaneddy, ifcanphot, pai_opt, &
-        pai_set, lu_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, &
+        pai_set, lu_opt, z0_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, &
         rsl_opt
 
 !-------------------------------------------------------------------------------
@@ -138,6 +138,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set integer for LU type used from model mapped to Massman et al. (default = 0)
     lu_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set integer for z0 estimate either from model or vegtype dependent (default = 0)
+    z0_opt = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

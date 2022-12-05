@@ -1,27 +1,28 @@
 &FILENAMES
-  file_vars    = 'input_variables.txt'
+  file_vars    = 'input_variables_1D.txt'
   file_out     = 'test'
 /
 
 &USERDEFS
-  nlat       =  101
-  nlon       =  101
+  nlat       =  1
+  nlon       =  1
   modlays    =  100
   modres     =  0.5
   ifcanwind  = .TRUE.
   ifcanwaf   = .TRUE.
   ifcaneddy  = .TRUE.
   ifcanphot  = .TRUE.
-  href       =  10.0
-  z0ghc     =  0.0025
+  href       =  6.096
+  z0ghc      =  0.0025
   lamdars    =  1.25
-  dx_opt     =  0
+  dx_opt     =  1
   dx_set     =  12000.0
-  flameh_opt =  0
-  flameh_set =  1.0
-  pai_opt    =  2
-  pai_set    =  4.0
+  flameh_opt =  1
+  flameh_set =  2.0
+  pai_opt    =  3
+  pai_set    =  0.0001
   lu_opt     =  0
+  z0_opt     =  1
   lai_thresh =  0.1
   frt_thresh =  0.5
   fch_thresh =  0.5

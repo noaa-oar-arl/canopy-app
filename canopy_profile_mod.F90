@@ -196,7 +196,8 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_ZPD( ZHC, FCLAI, UBZREF, Z0GHC, &
-        LAMDARS, RSL_OPT, CDRAG, PAI, FCH, HREF, VTYPE, LU_OPT, d_h, zo_h )
+        LAMDARS, RSL_OPT, CDRAG, PAI, FCH, HREF, Z0_MOD, &
+        VTYPE, LU_OPT, Z0_OPT, d_h, zo_h )
 
 !-----------------------------------------------------------------------
 
@@ -228,9 +229,11 @@ contains
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
         REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
         REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
+        REAL(RK),    INTENT( IN )  :: Z0_MOD          ! Input model value of surface roughness length, z0 (m)
         INTEGER,     INTENT( IN )  :: RSL_OPT         ! RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
         INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
         INTEGER,     INTENT( IN )  :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
+        INTEGER,     INTENT( IN )  :: Z0_OPT          ! integer for setting first estimate of z0 (default = 0 for Z0_MOD)
         REAL(RK),    INTENT( OUT ) :: d_h             ! zero plane displacement height d/h (i.e., Product of dha*dhb)
         REAL(RK),    INTENT( OUT ) :: zo_h            ! Surface (soil+veg) roughness length, zo/h
 
@@ -261,28 +264,37 @@ contains
         ! Get first estimate of zpd and z0 to perform initial log wind profile and ustar calculation
         ! Holmes JD. Wind Loading of Structures. 3rd ed. Boca Raton, Florida: CRC Press; 2015.
         ! First assign general z0 dependent on vegetation type and then estimate zpd = 0.75*FCH from Holmes
-        if (LU_OPT .eq. 0) then !VIIRS LU types
-            !approx/average vegtype mapping to Massman et al. forest types
-            if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS Cat 1-2/Evergreen Needleleaf & Broadleaf
-                z0_set  = 1.0_rk
-            end if
-            if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
-                z0_set = 1.0_rk
-            end if
-            if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
-                z0_set = 0.1_rk
+        if (Z0_OPT .eq. 0) then !Use input model set z0 for first estimate
+            z0_set = Z0_MOD
+        else if (Z0_OPT .eq. 1) then !Use veg-type dependent z0 first estimate
+            if (LU_OPT .eq. 0) then !VIIRS LU types
+                !approx/average vegtype mapping to Massman et al. forest types
+                if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS Cat 1-2/Evergreen Needleleaf & Broadleaf
+                    z0_set  = 1.0_rk
+                end if
+                if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
+                    z0_set = 1.0_rk
+                end if
+                if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
+                    z0_set = 0.1_rk
+                end if
+            else
+                write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS available right now...exiting'
+                call exit(2)
             end if
         else
-            write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS available right now...exiting'
+            write(*,*)  'Wrong Z0_OPT choice of ', Z0_OPT, 'in namelist, only 0 or 1 now...exiting'
             call exit(2)
         end if
-
+        print*, z0_set
+        !Get wind speed at canopy top with first z0 and zpd=3/4*hc estimates:
         if (HREF > z0_set) then ! input wind speed reference height is > roughness length
             uc = UBZREF*log((FCH-(0.75_rk*FCH)+z0_set)/z0_set)/log(HREF/z0_set)  !MOST
         else                 ! reference height is <= roughness length--at canopy top
             uc = UBZREF
         end if
 
+        !Solve for final z0 and zpd esimates:
         ustrmod = uc*(0.38 - (0.38 + (vonk/log(Z0GHC)))*exp(-1.0*(15.0*drag)))
         cstress = (2.0*(ustrmod**2.0))/(uc**2.0)
         nrat   =  drag/cstress
@@ -295,7 +307,7 @@ contains
         fafraczInt_totb = IntegrateTrapezoid( ZHC, cosh(qstar*nrat*FCLAI) )
         dhb = fafraczInt_tota/fafraczInt_totb
 
-        ! zero-plane displacement height
+        ! Final zero-plane displacement (zpd) height
         d_h = dha * dhb
 
         if (RSL_OPT .eq. 1) then  !set lamda_rs = 1 to avoid double counting RSL effects
@@ -304,7 +316,7 @@ contains
             lamda_rs = LAMDARS
         end if
 
-        ! Calculate surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):
+        ! Final surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):
         zo_h  = lamda_rs * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
 
     END SUBROUTINE CANOPY_ZPD
