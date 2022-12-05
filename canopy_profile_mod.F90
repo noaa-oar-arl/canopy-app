@@ -286,7 +286,7 @@ contains
             write(*,*)  'Wrong Z0_OPT choice of ', Z0_OPT, 'in namelist, only 0 or 1 now...exiting'
             call exit(2)
         end if
-        print*, z0_set
+
         !Get wind speed at canopy top with first z0 and zpd=3/4*hc estimates:
         if (HREF > z0_set) then ! input wind speed reference height is > roughness length
             uc = UBZREF*log((FCH-(0.75_rk*FCH)+z0_set)/z0_set)/log(HREF/z0_set)  !MOST
