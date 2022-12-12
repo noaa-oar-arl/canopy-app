@@ -17,6 +17,7 @@ MODULE canopy_canopts_mod
     integer        ::    pai_opt     !integer for PAI values used or calculated (default = 0)
     real(rk)       ::    pai_set     !real value for PAI set values used (default = 4.0)
     integer        ::    lu_opt      !integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
+    integer        ::    z0_opt      !integer for setting first estimate of z0 (default = 0 for Z0_MOD)
     integer        ::    flameh_opt  !Integer for flameh values used or calculated (default = 0)
     real(rk)       ::    flameh_set  !User Set Flame Height (m)
     integer        ::    dx_opt      !Integer for dx resolution values used or calculated (default = 0)
