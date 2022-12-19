@@ -10,6 +10,9 @@ program canopy_app
 
     implicit none
 
+    !Local variables
+    integer ppos
+
 !-------------------------------------------------------------------------------
 ! Read user options from namelist.
 !-------------------------------------------------------------------------------
@@ -34,16 +37,21 @@ program canopy_app
 !-------------------------------------------------------------------------------
 ! Read met/sfc gridded model input file (currently text or 1D or 2D ncf).
 !-------------------------------------------------------------------------------
-
-! ... TODO:  NL condition for data read from txt or netcdf 1D or 2D
-
-    call canopy_read_txt(file_vars(1))
-
-! ... TODO:  add option to read met/sfc input variables from 1D ncf file
-    !e.g., call canopy_read_ncf_1D(file_vars(1))
-
-! ... TODO:  add option to read met/sfc input variables from 2D ncf file
-    !e.g., call canopy_read_ncf_2D(file_vars(1))
+! ... TODO: Read from txt or 1D/2D netcdf file
+    ppos = scan(trim(file_vars(1)),".", BACK= .true.)
+    if (trim(file_vars(1)(ppos:)).eq.".txt") then !TXT File
+        call canopy_read_txt(file_vars(1))
+    else if (trim(file_vars(1)(ppos:)).eq.".nc") then !NetCDF File
+        call canopy_read_ncf(file_vars(1))
+    else if (trim(file_vars(1)(ppos:)).eq.".ncf") then
+        call canopy_read_ncf(file_vars(1))
+    else if (trim(file_vars(1)(ppos:)).eq.".nc4") then
+        call canopy_read_ncf(file_vars(1))
+    else
+        write(*,*)  'Error the file input type ',trim(file_vars(1)(ppos:)), &
+            ' is not supported...exiting'
+        call exit(2)
+    end if   !File Input types
 
 ! ... TODO:  Set nlat = nlat_user (if txt) or nlat = nlat_file (if ncf)
 ! ... TODO:  Set nlon = nlat_user (if txt) or nlon = nlon_file (if ncf)

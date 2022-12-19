@@ -27,4 +27,5 @@
   frt_thresh =  0.5
   fch_thresh =  0.5
   rsl_opt    =  0
+!  outfmt_opt =  0
 /

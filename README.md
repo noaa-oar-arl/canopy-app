@@ -16,7 +16,7 @@ Canopy is parameterized by foliage distribution shape functions and parameters f
 
 Current Canopy-App components:
 
-1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildland fire spread and air quality applications.
+1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildfire spread and air quality applications.
 
     Namelist Option : `ifcanwind`
 
@@ -37,10 +37,13 @@ Current Canopy-App components:
 
     **Current Canopy-App Input:** Typical 1D/2D gridded atmospheric model input variables in 1st layer above canopy
 
-    Namelist Option : `file_vars`  Name of input file (Currently only in txt format, e.g., `input_variables.txt`)
+    Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats:
+                                                            `.txt`, `.nc`, `.ncf`, or `.nc4`)
+
+    See example file inputs for variables and format (input_variables.txt, input_variables_1D.nc, and input_variables_2D.nc)
 
     **Current Canopy-App Output:** Outputs canopy winds/WAF, canopy vertical/eddy diffusivity values, and
-    canopy photolysis attenuation correction factors (currently only in txt format).
+    canopy photolysis attenuation correction factors.
 
     Namelist Option : `file_out`  Prefix of output file name (Currently only in txt format, e.g., `TESTRUN`)
 
@@ -51,6 +54,7 @@ Current Canopy-App components:
     | ---------------  | ------------------------------------------------- |  
     | LAT              | Latitude  (degrees)                               |
     | LON              | Longitude (degrees)                               |
+    | TIME             | Timestamp (days since YYYY-N-D 0:0:0)             |
     | FH               | Forest canopy height (m)                          |
     | WS               | Wind speed at reference height (m/s), e.g., 10 m  |
     | CLU              | Forest clumping index (dimensionless)             |
@@ -67,8 +71,8 @@ Current Canopy-App components:
 
     | Namelist Option  | Namelist Description and Units                                                       |
     | ---------------  | ---------------------------------------------------------------------------------- |
-    | nlat             | number of latitude cells (must match # of LAT in `file_vars` above )               |
-    | nlon             | number of longitude cells (must match # of LON in `file_vars`above )               |
+    | nlat             | number of latitude cells (must match # of LAT in `file_vars` above if TXT input, otherwise read from NetCDF file )  |
+    | nlon             | number of longitude cells (must match # of LON in `file_vars`above if TXT input, otherwise read from NetCDF file )  |
     | modlays          | number of model (below and above canopy) layers                                    |
     | modres           | above and below canopy model vertical resolution (m)                               |
     | ifcanwind        | logical canopy wind option (default = .FALSE.)                                     |
