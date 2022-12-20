@@ -28,7 +28,7 @@ MODULE canopy_canmet_mod
         real(rk)   :: href         !reference height above the canopy (m)
     end TYPE variable_type
 
-    type(variable_type), allocatable :: variables( : )
+    type(variable_type), allocatable :: variables( : ), variables_2d( : , :)
 
     ! Met/Sfc variable reassignment names  above reference conditions from the model
     real(rk)       ::    latref          !latitude of cell/point

@@ -6,6 +6,7 @@ SUBROUTINE canopy_read_ncf(infile)
 ! Purpose:  Read Canopy Met/Sfc Inputs from NetCDF
 ! Revised:  19 Dec 2022  Original version.  (P.C. Campbell)
 !-------------------------------------------------------------------------------
+    USE canopy_canopts_mod !main canopy option descriptions
     USE canopy_coord_mod
     USE canopy_canmet_mod
     USE canopy_ncf_io_mod  !main IO NetCDF reader
@@ -104,107 +105,216 @@ SUBROUTINE canopy_read_ncf(infile)
         CALL exit(2)
     ENDIF
 
-    !grid lat/lon variables
+    !grid 1D or 2D  lat/lon variables
     it = int(rdtime) + 1
 
-    CALL get_var_1d_real_cdf (cdfid, 'LAT', variables%lat, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'LAT',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
+    if (infmt_opt .eq. 0) then !Input format is 2D
 
-    CALL get_var_1d_real_cdf (cdfid, 'LON', variables%lon, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'LON',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
+        CALL get_var_2d_real_cdf (cdfid, 'LAT', variables_2d%lat, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'LAT',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
 
-    !Canopy input met/sfc variables
-    !Clumping index
-    CALL get_var_1d_real_cdf (cdfid, 'CLU', variables%clu, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'CLU',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
-    !Cosine of solar zenith angle
-    CALL get_var_1d_real_cdf (cdfid, 'CSZ', variables%csz, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'CSZ',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
-    !Forest Fraction
-    CALL get_var_1d_real_cdf (cdfid, 'FFRAC', variables%ffrac, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'FFRAC',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
-    !Forest canopy height
-    CALL get_var_1d_real_cdf (cdfid, 'FH', variables%fh, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'FH',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
-    !Fire Radiative Power
-    CALL get_var_1d_real_cdf (cdfid, 'FRP', variables%frp, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'FRP',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
-    !Reference height above canopy
-    CALL get_var_1d_real_cdf (cdfid, 'HREF', variables%href, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'HREF',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
-    !Leaf Area Index
-    CALL get_var_1d_real_cdf (cdfid, 'LAI', variables%lai, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'LAI',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
-    !Monin-Obukhov Length
-    CALL get_var_1d_real_cdf (cdfid, 'MOL', variables%mol, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'MOL',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
-    !Friction velocity
-    CALL get_var_1d_real_cdf (cdfid, 'UST', variables%ust, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'UST',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
-    !Reference Wind Speed (at HREF)
-    CALL get_var_1d_real_cdf (cdfid, 'WS', variables%ws, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'WS',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
-    !Surface (veg+soil) Roughness Length
-    CALL get_var_1d_real_cdf (cdfid, 'Z0', variables%z0, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'Z0',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
-    !Vegetation Type
-    CALL get_var_1d_int_cdf (cdfid, 'VTYPE', variables%vtype, it, rcode)
-    IF ( rcode /= nf90_noerr ) THEN
-        WRITE (*,f9410) TRIM(pname), 'VTYPE',  &
-            TRIM(nf90_strerror(rcode))
-        CALL exit(2)
-    ENDIF
+        CALL get_var_2d_real_cdf (cdfid, 'LON', variables_2d%lon, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'LON',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+
+        !Canopy input met/sfc variables
+        !Clumping index
+        CALL get_var_2d_real_cdf (cdfid, 'CLU', variables_2d%clu, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'CLU',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Cosine of solar zenith angle
+        CALL get_var_2d_real_cdf (cdfid, 'CSZ', variables_2d%csz, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'CSZ',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Forest Fraction
+        CALL get_var_2d_real_cdf (cdfid, 'FFRAC', variables_2d%ffrac, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'FFRAC',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Forest canopy height
+        CALL get_var_2d_real_cdf (cdfid, 'FH', variables_2d%fh, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'FH',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Fire Radiative Power
+        CALL get_var_2d_real_cdf (cdfid, 'FRP', variables_2d%frp, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'FRP',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Reference height above canopy
+        CALL get_var_2d_real_cdf (cdfid, 'HREF', variables_2d%href, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'HREF',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Leaf Area Index
+        CALL get_var_2d_real_cdf (cdfid, 'LAI', variables_2d%lai, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'LAI',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Monin-Obukhov Length
+        CALL get_var_2d_real_cdf (cdfid, 'MOL', variables_2d%mol, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'MOL',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Friction velocity
+        CALL get_var_2d_real_cdf (cdfid, 'UST', variables_2d%ust, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'UST',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Reference Wind Speed (at HREF)
+        CALL get_var_2d_real_cdf (cdfid, 'WS', variables_2d%ws, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'WS',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Surface (veg+soil) Roughness Length
+        CALL get_var_2d_real_cdf (cdfid, 'Z0', variables_2d%z0, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'Z0',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Vegetation Type
+        CALL get_var_2d_int_cdf (cdfid, 'VTYPE', variables_2d%vtype, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'VTYPE',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+
+    else if (infmt_opt .eq. 1) then !Input format is 1D
+
+        CALL get_var_1d_real_cdf (cdfid, 'LAT', variables%lat, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'LAT',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+
+        CALL get_var_1d_real_cdf (cdfid, 'LON', variables%lon, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'LON',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+
+        !Canopy input met/sfc variables
+        !Clumping index
+        CALL get_var_1d_real_cdf (cdfid, 'CLU', variables%clu, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'CLU',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Cosine of solar zenith angle
+        CALL get_var_1d_real_cdf (cdfid, 'CSZ', variables%csz, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'CSZ',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Forest Fraction
+        CALL get_var_1d_real_cdf (cdfid, 'FFRAC', variables%ffrac, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'FFRAC',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Forest canopy height
+        CALL get_var_1d_real_cdf (cdfid, 'FH', variables%fh, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'FH',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Fire Radiative Power
+        CALL get_var_1d_real_cdf (cdfid, 'FRP', variables%frp, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'FRP',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Reference height above canopy
+        CALL get_var_1d_real_cdf (cdfid, 'HREF', variables%href, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'HREF',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Leaf Area Index
+        CALL get_var_1d_real_cdf (cdfid, 'LAI', variables%lai, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'LAI',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Monin-Obukhov Length
+        CALL get_var_1d_real_cdf (cdfid, 'MOL', variables%mol, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'MOL',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Friction velocity
+        CALL get_var_1d_real_cdf (cdfid, 'UST', variables%ust, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'UST',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Reference Wind Speed (at HREF)
+        CALL get_var_1d_real_cdf (cdfid, 'WS', variables%ws, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'WS',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Surface (veg+soil) Roughness Length
+        CALL get_var_1d_real_cdf (cdfid, 'Z0', variables%z0, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'Z0',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+        !Vegetation Type
+        CALL get_var_1d_int_cdf (cdfid, 'VTYPE', variables%vtype, it, rcode)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (*,f9410) TRIM(pname), 'VTYPE',  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit(2)
+        ENDIF
+
+    else
+        write(*,*)  'Wrong INFMT_OPT choice of ', infmt_opt, ' in namelist...exiting'
+        call exit(2)
+    end if !Input Format (1D or 2D)
 
 END SUBROUTINE canopy_read_ncf

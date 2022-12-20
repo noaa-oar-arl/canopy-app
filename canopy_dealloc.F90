@@ -17,8 +17,9 @@ SUBROUTINE canopy_dealloc
 !-------------------------------------------------------------------------------
 ! Deallocate input variables
 !-------------------------------------------------------------------------------
-    if(allocated(variables))  deallocate(variables)
 
+    if(allocated(variables))     deallocate(variables)
+    if(allocated(variables_2d))  deallocate(variables_2d)
 
 !-------------------------------------------------------------------------------
 ! Dellocate arrays for Canopy Distribution
@@ -35,11 +36,14 @@ SUBROUTINE canopy_dealloc
 !-------------------------------------------------------------------------------
 
     if (ifcanwind .or. ifcanwaf) then
-        if(allocated(canBOT))     deallocate(canBOT)
-        if(allocated(canTOP))     deallocate(canTOP)
-        if(allocated(canWIND))    deallocate(canWIND)
-        if(allocated(dx))         deallocate(dx)
-        if(allocated(waf))        deallocate(waf)
+        if(allocated(canBOT))        deallocate(canBOT)
+        if(allocated(canTOP))        deallocate(canTOP)
+        if(allocated(canWIND))       deallocate(canWIND)
+        if(allocated(canWIND_3d))    deallocate(canWIND_3d)
+        if(allocated(dx))            deallocate(dx)
+        if(allocated(dx_2d))         deallocate(dx_2d)
+        if(allocated(waf))           deallocate(waf)
+        if(allocated(waf_2d))        deallocate(waf_2d)
     end if
 
 !-------------------------------------------------------------------------------
@@ -48,6 +52,7 @@ SUBROUTINE canopy_dealloc
 
     if (ifcaneddy) then
         if(allocated(Kz))         deallocate(Kz)
+        if(allocated(Kz_3d))      deallocate(Kz_3d)
     end if
 
 
@@ -57,6 +62,7 @@ SUBROUTINE canopy_dealloc
 
     if (ifcanphot) then
         if(allocated(rjcf))         deallocate(rjcf)
+        if(allocated(rjcf_3d))      deallocate(rjcf_3d)
     end if
 
 END SUBROUTINE canopy_dealloc

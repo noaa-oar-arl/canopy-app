@@ -50,7 +50,7 @@ CONTAINS
         CHARACTER(LEN=*), INTENT( IN )  :: TXTPREFX
 
         !Local variables
-        integer i, loc
+        integer k, loc
 
         if (ifcanwind) then
             write(*,*)  'Writing canopy wind output'
@@ -61,9 +61,9 @@ CONTAINS
             write(10, '(a30, i6)') 'Number of model layers: ', modlays
             write(10, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'WS (m/s)'
             do loc=1, nlat*nlon
-                do i=1, modlays
+                do k=1, modlays
                     write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                        zk(i), canWIND(i, loc)
+                        zk(k), canWIND(loc, k)
                 end do
             end do
         end if
@@ -89,9 +89,9 @@ CONTAINS
             write(12, '(a30, i6)') 'Number of model layers: ', modlays
             write(12, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'Kz'
             do loc=1, nlat*nlon
-                do i=1, modlays
+                do k=1, modlays
                     write(12, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                        zk(i), Kz(i, loc)
+                        zk(k), Kz(loc,k)
                 end do
             end do
         end if
@@ -105,9 +105,9 @@ CONTAINS
             write(13, '(a30, i6)') 'Number of model layers: ', modlays
             write(13, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'rjcf'
             do loc=1, nlat*nlon
-                do i=1, modlays
+                do k=1, modlays
                     write(13, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                        zk(i), rjcf(i, loc)
+                        zk(k), rjcf(loc,k)
                 end do
             end do
         end if

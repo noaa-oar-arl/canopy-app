@@ -22,18 +22,23 @@ MODULE canopy_canvars_mod
     real(rk)       ::    flameh        !Flame Height (m)
 
 !allocatable canopy variables
-    real(rk), allocatable :: zk         ( : )     ! in-canopy heights (m)
-    real(rk), allocatable :: zhc        ( : )     ! z/h
-    real(rk), allocatable :: fainc      ( : )     ! incremental foliage shape function
-    real(rk), allocatable :: fafracz    ( : )     ! incremental fractional foliage shape function
-    real(rk), allocatable :: fafraczInt ( : )     ! integral of incremental fractional foliage shape function
-    real(rk), allocatable :: canBOT     ( : )     ! Canopy bottom wind reduction factors
-    real(rk), allocatable :: canTOP     ( : )     ! Canopy top wind reduction factors
-    real(rk), allocatable :: canWIND    ( :, : )  ! canopy wind speeds (m/s)
-    real(rk), allocatable :: dx         ( : )     ! Model grid cell distance/resolution (m)
-    real(rk), allocatable :: waf        ( : )     ! Calculated Wind Adjustment Factor
-    real(rk), allocatable :: Kz         ( :, : )  ! Eddy Diffusivities (m2/s)
-    real(rk), allocatable :: rjcf       ( :, : )  ! Photolysis Attenuation Correction Factors
+    real(rk), allocatable :: zk            ( : )          ! in-canopy heights (m)
+    real(rk), allocatable :: zhc           ( : )          ! z/h
+    real(rk), allocatable :: fainc         ( : )          ! incremental foliage shape function
+    real(rk), allocatable :: fafracz       ( : )          ! incremental fractional foliage shape function
+    real(rk), allocatable :: fafraczInt    ( : )          ! integral of incremental fractional foliage shape function
+    real(rk), allocatable :: canBOT        ( : )          ! Canopy bottom wind reduction factors
+    real(rk), allocatable :: canTOP        ( : )          ! Canopy top wind reduction factors
+    real(rk), allocatable :: canWIND       ( : , : )      ! canopy wind speeds (m/s)
+    real(rk), allocatable :: canWIND_3d    ( : , : , : )  ! canopy wind speeds -- 3D (m/s)
+    real(rk), allocatable :: dx            ( : )          ! Model grid cell distance/resolution (m)
+    real(rk), allocatable :: dx_2d         ( : , : )      ! Model grid cell distance/resolution -- 2D (m)
+    real(rk), allocatable :: waf           ( : )          ! Calculated Wind Adjustment Factor
+    real(rk), allocatable :: waf_2d        ( : , : )      ! Calculated Wind Adjustment Factor -- 2D
+    real(rk), allocatable :: Kz            ( :, : )       ! Eddy Diffusivities (m2/s)
+    real(rk), allocatable :: Kz_3d         ( : , : , : )  ! Eddy Diffusivities -- 3D (m2/s)
+    real(rk), allocatable :: rjcf          ( :, : )       ! Photolysis Attenuation Correction Factors
+    real(rk), allocatable :: rjcf_3d       ( : , : , : )  ! Photolysis Attenuation Correction Factors -- 3D
 
 
 END MODULE canopy_canvars_mod

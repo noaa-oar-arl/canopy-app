@@ -20,10 +20,10 @@ SUBROUTINE canopy_readnml
 
     NAMELIST /filenames/ file_vars, file_out
 
-    NAMELIST /userdefs/  nlat, nlon, modlays, modres, href_opt, href_set, z0ghc, lamdars,  &
-        flameh_opt, flameh_set, ifcanwind, ifcanwaf, ifcaneddy, ifcanphot, pai_opt, &
-        pai_set, lu_opt, z0_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, &
-        rsl_opt
+    NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
+        z0ghc, lamdars, flameh_opt, flameh_set, ifcanwind, ifcanwaf, ifcaneddy, &
+        ifcanphot, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, dx_set, lai_thresh, &
+        frt_thresh, fch_thresh, rsl_opt
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -63,6 +63,12 @@ SUBROUTINE canopy_readnml
     file_vars(:) = " "
     file_out(:)  = " "
 
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for 1D (txt or ncf) or 2D (ncf only) input file format
+! (default = 0, i.e., 2D)
+    infmt_opt = 0
 !-------------------------------------------------------------------------------
 
 ! Set default value for number of latitude/longitude cells (default = 1D point)

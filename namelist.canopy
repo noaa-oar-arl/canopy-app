@@ -1,13 +1,12 @@
 &FILENAMES
 ! file_vars    = 'input_variables_point.txt'
-  file_vars    = 'input_variables.txt'
-!  file_vars    = 'input_variables_1D.nc'
+!  file_vars    = 'input_variables.txt'
+  file_vars    = 'input_variables_1D.nc'
   file_out     = 'test'
 /
 
 &USERDEFS
-!  in1d2d_opt =  0
-!  outfmt_opt =  0
+  infmt_opt  =  1
   nlat       =  101
   nlon       =  101
   modlays    =  100

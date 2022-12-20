@@ -74,6 +74,7 @@ Current Canopy-App components:
 
     | Namelist Option  | Namelist Description and Units                                                       |
     | ---------------  | ---------------------------------------------------------------------------------- |
+    | infmt_opt        | integer for choosing 1D or 2D input file format (default = 0, 2D)                  |
     | nlat             | number of latitude cells (must match # of LAT in `file_vars` above)                |
     | nlon             | number of longitude cells (must match # of LON in `file_vars`above)                |
     | modlays          | number of model (below and above canopy) layers                                    |
