@@ -35,19 +35,19 @@ Current Canopy-App components:
 
     - `canopy_phot_mod.F90`
 
-    **Current Canopy-App Input:** Typical 1D (lat*lon) gridded atmospheric model input variables in 1st layer above canopy
+    **Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy
 
     Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats:
                                                             `.txt`, `.nc`, `.ncf`, or `.nc4`)
 
-- See example file inputs for variables and format (input_variables.txt or input_variables_1D.nc).
+- See example file inputs for variables and format (input_variables.txt, input_variables_1D.nc, or input_variables_2D.nc).
 - Canopy-App assumes the NetCDF input files are in CF-Convention; recommend using double or float for real variables.
-- Canopy-App can also be run with a single point of input data in a text file (e.g. input_variables_point.txt).
+- Canopy-App can also be run with a single point of 1D input data in a text file (e.g. input_variables_point.txt).
 
     **Current Canopy-App Output:** Outputs canopy winds/WAF, canopy vertical/eddy diffusivity values, and
     canopy photolysis attenuation correction factors.
 
-    Namelist Option : `file_out`  Prefix of output file name (Currently only in txt format, e.g., `TESTRUN`)
+    Namelist Option : `file_out`  Prefix of output file name (Currently only in 1D txt format, e.g., `TESTRUN`)
 
 
     **Table 1. Canopy-App Required Input Variables**
