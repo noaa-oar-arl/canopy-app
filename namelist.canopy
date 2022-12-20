@@ -1,6 +1,7 @@
 &FILENAMES
-!  file_vars    = 'input_variables.txt'
-  file_vars    = 'input_variables_1D.nc'
+! file_vars    = 'input_variables_point.txt'
+  file_vars    = 'input_variables.txt'
+!  file_vars    = 'input_variables_1D.nc'
   file_out     = 'test'
 /
 
