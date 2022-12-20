@@ -9,7 +9,8 @@ MODULE canopy_canopts_mod
     IMPLICIT NONE
 
 !! .... defines canopy optionss (read from user namelist)
-    real(rk)       ::    href        !Reference Height above canopy @ 10 m  (m)
+    integer        ::    href_opt    !Integer for using set href in namelist or array from file (default = 0, NL set)
+    real(rk)       ::    href_set    !Set reference Height above canopy @ 10 m  (m)
     logical        ::    ifcanwind   !logical canopy wind option (default = .FALSE.)
     logical        ::    ifcanwaf    !logical canopy WAF option (default = .FALSE.)
     logical        ::    ifcaneddy   !logical canopy eddy Kz option (default = .FALSE.)

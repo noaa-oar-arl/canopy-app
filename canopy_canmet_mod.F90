@@ -14,24 +14,27 @@ MODULE canopy_canmet_mod
     TYPE :: variable_type
         real(rk)   :: lat          !latitude of cell/point
         real(rk)   :: lon          !longitude of cell/point
-        real(rk)   :: fh           !forest/canopy height
-        real(rk)   :: ws           !wind speed at reference height above canopy (10 m)
+        real(rk)   :: fh           !forest/canopy height (m)
+        real(rk)   :: ws           !wind speed at reference height above canopy (m/s)
         real(rk)   :: clu          !clumping index
         real(rk)   :: lai          !leaf area index
         integer    :: vtype        !vegetation type
         real(rk)   :: ffrac        !forest fraction
-        real(rk)   :: ust          !friction velocity (u*)
+        real(rk)   :: ust          !friction velocity (u*) (m/s)
         real(rk)   :: csz          !cosine of solar zenith angle
-        real(rk)   :: z0           !surface roughness length
-        real(rk)   :: mol          !Monin-Obukhov length
-        real(rk)   :: frp          !fire radiative power (MW per grid cell)
+        real(rk)   :: z0           !surface roughness length (m)
+        real(rk)   :: mol          !Monin-Obukhov length (m)
+        real(rk)   :: frp          !fire radiative power (MW)
+        real(rk)   :: href         !reference height above the canopy (m)
     end TYPE variable_type
 
     type(variable_type), allocatable :: variables( : )
 
     ! Met/Sfc variable reassignment names  above reference conditions from the model
-    real(rk)       ::    hcmref          !Input Canopy Height (m)
-    real(rk)       ::    ubzref          !Input above canopy/reference 10-m model wind speed (m/s)
+    real(rk)       ::    latref          !latitude of cell/point
+    real(rk)       ::    lonref          !longitude of cell/point
+    real(rk)       ::    hcmref          !Input Canopy Height
+    real(rk)       ::    ubzref          !Input above canopy/reference 10-m model wind speed
     real(rk)       ::    cluref          !Input canopy clumping index
     real(rk)       ::    lairef          !Input leaf area index
     integer        ::    vtyperef        !Input vegetation type (VIIRS)

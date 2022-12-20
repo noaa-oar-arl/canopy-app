@@ -20,7 +20,7 @@ SUBROUTINE canopy_readnml
 
     NAMELIST /filenames/ file_vars, file_out
 
-    NAMELIST /userdefs/  nlat, nlon, modlays, modres, href, z0ghc, lamdars,  &
+    NAMELIST /userdefs/  nlat, nlon, modlays, modres, href_opt, href_set, z0ghc, lamdars,  &
         flameh_opt, flameh_set, ifcanwind, ifcanwaf, ifcaneddy, ifcanphot, pai_opt, &
         pai_set, lu_opt, z0_opt, dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, &
         rsl_opt
@@ -81,8 +81,13 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
+! Set default integer for reference height set values or array from file (default = 0)
+    href_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
 ! Set default value for reference height above canopy (m) (Default = 10 m)
-    href = 10.0_rk
+    href_set = 10.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

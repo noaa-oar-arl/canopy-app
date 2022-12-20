@@ -45,12 +45,13 @@ CONTAINS
 
     SUBROUTINE get_var_3d_real_cdf (cdfid, var, dum3d, it, rcode)
 
+        USE canopy_const_mod, ONLY: rk
         USE netcdf
 
         IMPLICIT NONE
 
         INTEGER,           INTENT(IN)    :: cdfid
-        REAL,              INTENT(OUT)   :: dum3d    ( : , : , : )
+        REAL(rk),          INTENT(OUT)   :: dum3d    ( : , : , : )
         INTEGER                          :: id_data
         INTEGER,           INTENT(IN)    :: it
         INTEGER                          :: nx
@@ -112,12 +113,13 @@ CONTAINS
 
     SUBROUTINE get_var_2d_real_cdf (cdfid, var, dum2d, it, rcode)
 
+        USE canopy_const_mod, ONLY: rk
         USE netcdf
 
         IMPLICIT NONE
 
         INTEGER,           INTENT(IN)    :: cdfid
-        REAL,              INTENT(OUT)   :: dum2d    ( : , : )
+        REAL(rk),          INTENT(OUT)   :: dum2d    ( : , : )
         INTEGER                          :: id_data
         INTEGER,           INTENT(IN)    :: it
         INTEGER                          :: nx
@@ -174,12 +176,13 @@ CONTAINS
 
     SUBROUTINE get_var_1d_real_cdf (cdfid, var, dum1d, it, rcode)
 
+        USE canopy_const_mod, ONLY: rk
         USE netcdf
 
         IMPLICIT NONE
 
         INTEGER,           INTENT(IN)    :: cdfid
-        REAL,              INTENT(OUT)   :: dum1d    ( : )
+        REAL(rk),          INTENT(OUT)   :: dum1d    ( : )
         INTEGER                          :: id_data
         INTEGER,           INTENT(IN)    :: it
         INTEGER                          :: nx
@@ -195,6 +198,33 @@ CONTAINS
             count=(/nx,1/))
 
     END SUBROUTINE get_var_1d_real_cdf
+
+!-------------------------------------------------------------------------------
+!-------------------------------------------------------------------------------
+
+    SUBROUTINE get_var_1d_int_cdf (cdfid, var, idum1d, it, rcode)
+
+        USE netcdf
+
+        IMPLICIT NONE
+
+        INTEGER,           INTENT(IN)    :: cdfid
+        INTEGER                          :: id_data
+        INTEGER,           INTENT(OUT)   :: idum1d   ( : )
+        INTEGER,           INTENT(IN)    :: it
+        INTEGER                          :: nx
+        INTEGER,           INTENT(OUT)   :: rcode
+        CHARACTER(LEN=*),  INTENT(IN)    :: var
+
+        nx = SIZE(idum1d)
+
+        rcode = nf90_inq_varid (cdfid, var, id_data)
+        IF ( rcode /= nf90_noerr ) RETURN
+
+        rcode = nf90_get_var (cdfid, id_data, idum1d, start=(/1,it/),  &
+            count=(/nx,1/))
+
+    END SUBROUTINE get_var_1d_int_cdf
 
 !-------
     SUBROUTINE get_var_1d_double_cdf (cdfid, var, dum1d, it, rcode)
@@ -228,6 +258,7 @@ CONTAINS
 
     SUBROUTINE get_var_real_cdf (cdfid, var, scalar, rcode)
 
+        USE canopy_const_mod, ONLY: rk
         USE netcdf
 
         IMPLICIT NONE
@@ -235,7 +266,7 @@ CONTAINS
         INTEGER,           INTENT(IN)    :: cdfid
         INTEGER                          :: id_data
         INTEGER,           INTENT(OUT)   :: rcode
-        REAL,              INTENT(OUT)   :: scalar
+        REAL(rk),          INTENT(OUT)   :: scalar
         CHARACTER(LEN=*),  INTENT(IN)    :: var
 
         rcode = nf90_inq_varid (cdfid, var, id_data)

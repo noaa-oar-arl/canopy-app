@@ -35,9 +35,9 @@ program canopy_app
 !            to fit ncf file, e.g.,, call canout_ncf_init
 
 !-------------------------------------------------------------------------------
-! Read met/sfc gridded model input file (currently text or 1D or 2D ncf).
+! Read met/sfc gridded model input file (currently text or 1D ncf).
 !-------------------------------------------------------------------------------
-! ... TODO: Read from txt or 1D/2D netcdf file
+! ... TODO: Read from txt or 1D netcdf file
     ppos = scan(trim(file_vars(1)),".", BACK= .true.)
     if (trim(file_vars(1)(ppos:)).eq.".txt") then !TXT File
         call canopy_read_txt(file_vars(1))

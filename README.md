@@ -35,12 +35,13 @@ Current Canopy-App components:
 
     - `canopy_phot_mod.F90`
 
-    **Current Canopy-App Input:** Typical 1D/2D gridded atmospheric model input variables in 1st layer above canopy
+    **Current Canopy-App Input:** Typical 1D (lat*lon) gridded atmospheric model input variables in 1st layer above canopy
 
     Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats:
                                                             `.txt`, `.nc`, `.ncf`, or `.nc4`)
 
-    See example file inputs for variables and format (input_variables.txt, input_variables_1D.nc, and input_variables_2D.nc)
+    See example file inputs for variables and format (input_variables.txt or input_variables_1D.nc)
+    Canopy-App assumes the NetCDF input files are in CF-Convention; recommend using double or float for real variables.
 
     **Current Canopy-App Output:** Outputs canopy winds/WAF, canopy vertical/eddy diffusivity values, and
     canopy photolysis attenuation correction factors.
@@ -48,15 +49,16 @@ Current Canopy-App components:
     Namelist Option : `file_out`  Prefix of output file name (Currently only in txt format, e.g., `TESTRUN`)
 
 
-    **Table 1. Canopy-App input variables**
+    **Table 1. Canopy-App Required Input Variables**
 
     | Variable Name    | Variable Description and Units                    |
     | ---------------  | ------------------------------------------------- |  
     | LAT              | Latitude  (degrees)                               |
-    | LON              | Longitude (degrees)                               |
-    | TIME             | Timestamp (days since YYYY-N-D 0:0:0)             |
+    | LON              | Longitude (degrees; from 0-360)                   |
+    | TIME             | Timestamp (days since YYYY-N-D 0:0:0) (NetCDF Only) |
     | FH               | Forest canopy height (m)                          |
-    | WS               | Wind speed at reference height (m/s), e.g., 10 m  |
+    | HREF             | Reference height above canopy (m)                 |
+    | WS               | Wind speed at HREF (m/s), e.g., 10 m              |
     | CLU              | Forest clumping index (dimensionless)             |
     | LAI              | Leaf area index (m2/m2)                           |
     | VTYPE            | Vegetation type (dimensionless), e.g., VIIRS      |
@@ -71,15 +73,16 @@ Current Canopy-App components:
 
     | Namelist Option  | Namelist Description and Units                                                       |
     | ---------------  | ---------------------------------------------------------------------------------- |
-    | nlat             | number of latitude cells (must match # of LAT in `file_vars` above if TXT input, otherwise read from NetCDF file )  |
-    | nlon             | number of longitude cells (must match # of LON in `file_vars`above if TXT input, otherwise read from NetCDF file )  |
+    | nlat             | number of latitude cells (must match # of LAT in `file_vars` above)                |
+    | nlon             | number of longitude cells (must match # of LON in `file_vars`above)                |
     | modlays          | number of model (below and above canopy) layers                                    |
     | modres           | above and below canopy model vertical resolution (m)                               |
     | ifcanwind        | logical canopy wind option (default = .FALSE.)                                     |
     | ifcanwaf         | logical canopy WAF option (default = .FALSE.)**                                    |
     | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
     | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |
-    | href             | real value of reference height above canopy associated with input wind speed (m)   |
+    | href_opt         | integer for using href_set in namelist or array from file (default = 0, NL set)    |
+    | href_set         | user set real value of reference height above canopy associated with input wind speed (m) (only used if href_opt = 0)  |
     | z0ghc            | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
     | lamdars          | Value representing influence of roughness sublayer (Massman et al., 2017)          |
     | dx_opt           | 0=Calculation of dx resolution/distance from lon; 1=user set dx grid resolution    |
