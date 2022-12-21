@@ -11,7 +11,7 @@ program canopy_app
     implicit none
 
     !Local variables
-    integer ppos
+!    integer ppos
 
 !-------------------------------------------------------------------------------
 ! Read user options from namelist.
@@ -31,30 +31,21 @@ program canopy_app
 
     call canopy_init
 
+!    TODO
+!    if (infmt_opt .eq. 0) then !Input format is 2D, then add and 2D NetCDF init
+!
+!        call canout_ncf_init
+!
+!    end if
+
 !    TODO :: Add a separate intialize routine for gridded ncdf canopy variables
 !            to fit ncf file, e.g.,, call canout_ncf_init
 
 !-------------------------------------------------------------------------------
-! Read met/sfc gridded model input file (currently text or 1D ncf).
+! Read met/sfc gridded model input file (currently 1D TXT or 1D/2D NETCDF).
 !-------------------------------------------------------------------------------
-! ... TODO: Read from txt or 1D netcdf file
-    ppos = scan(trim(file_vars(1)),".", BACK= .true.)
-    if (trim(file_vars(1)(ppos:)).eq.".txt") then !TXT File
-        call canopy_read_txt(file_vars(1))
-    else if (trim(file_vars(1)(ppos:)).eq.".nc") then !NetCDF File
-        call canopy_read_ncf(file_vars(1))
-    else if (trim(file_vars(1)(ppos:)).eq.".ncf") then
-        call canopy_read_ncf(file_vars(1))
-    else if (trim(file_vars(1)(ppos:)).eq.".nc4") then
-        call canopy_read_ncf(file_vars(1))
-    else
-        write(*,*)  'Error the file input type ',trim(file_vars(1)(ppos:)), &
-            ' is not supported...exiting'
-        call exit(2)
-    end if   !File Input types
 
-! ... TODO:  Set nlat = nlat_user (if txt) or nlat = nlat_file (if ncf)
-! ... TODO:  Set nlon = nlat_user (if txt) or nlon = nlon_file (if ncf)
+    call canopy_check_input(file_vars(1))
 
 !-------------------------------------------------------------------------------
 ! Main canopy model calculations.
@@ -66,9 +57,14 @@ program canopy_app
 ! Write model output of canopy model calculations.
 !-------------------------------------------------------------------------------
 
-! ... TODO:  NL condition for data write to txt or netcdf 1D or 2D
-
     call canopy_write_txt(file_out(1))
+
+    !TODO--->
+!    if (infmt_opt .eq. 0) then !Input format is 2D, then add and 2D NetCDF output
+!
+!        call canout_write_ncf(file_out(1))
+!
+!    end if
 
 !-------------------------------------------------------------------------------
 ! Dellocate necessary variables.

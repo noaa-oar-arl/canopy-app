@@ -52,6 +52,7 @@ OBJS :=\
  canopy_readnml.o \
  canopy_alloc.o \
  canopy_init.o \
+ canopy_check_input.o \
  canopy_txt_io_mod.o \
  canopy_ncf_io_mod.o \
  canopy_read_txt.o \
