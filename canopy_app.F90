@@ -29,13 +29,6 @@ program canopy_app
     call canopy_init
 
 !-------------------------------------------------------------------------------
-! Allocated and initialize 2D NetCDF output data structures (if 2D input)
-!-------------------------------------------------------------------------------
-!TODO--->
-!    call canopy_outncf_alloc
-!    call canopy_outncf_init
-
-!-------------------------------------------------------------------------------
 ! Read met/sfc gridded model input file (currently 1D TXT or 1D/2D NETCDF).
 !-------------------------------------------------------------------------------
 
@@ -46,6 +39,13 @@ program canopy_app
 !-------------------------------------------------------------------------------
 
     call canopy_calcs
+
+!-------------------------------------------------------------------------------
+! Allocate and initialize 2D/3D NetCDF output data structures
+!-------------------------------------------------------------------------------
+!TODO--->
+!    call canopy_outncf_alloc
+!    call canopy_outncf_init
 
 !-------------------------------------------------------------------------------
 ! Write model output of canopy model calculations.
