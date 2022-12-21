@@ -6,9 +6,13 @@ MODULE canopy_canvars_mod
 !           03 Oct 2022  Initial Version. (P. C. Campbell)
 !-------------------------------------------------------------------------------
     use canopy_const_mod, ONLY: rk
+
     IMPLICIT NONE
 
-!! .... defines canopy variables calculated in the model
+!-------------------------------------------------------------------------------
+! Canopy scalars in the model
+!-------------------------------------------------------------------------------
+
     integer        ::    firetype      !1 = Above Canopy Fire; 0 = Below Canopy Fire
     integer        ::    cansublays    !Number of sub-canopy layers
     integer        ::    midflamepoint !Indice of the mid-flame point
@@ -21,7 +25,10 @@ MODULE canopy_canvars_mod
     real(rk)       ::    zo_h          !Surface (soil+veg) roughness lengths (z/h)
     real(rk)       ::    flameh        !Flame Height (m)
 
-!allocatable canopy variables
+!-------------------------------------------------------------------------------
+! Allocatable canopy variable arrays
+!-------------------------------------------------------------------------------
+
     real(rk), allocatable :: zk            ( : )          ! in-canopy heights (m)
     real(rk), allocatable :: zhc           ( : )          ! z/h
     real(rk), allocatable :: fainc         ( : )          ! incremental foliage shape function
@@ -40,5 +47,62 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: rjcf          ( :, : )       ! Photolysis Attenuation Correction Factors
     real(rk), allocatable :: rjcf_3d       ( : , : , : )  ! Photolysis Attenuation Correction Factors -- 3D
 
+!-------------------------------------------------------------------------------
+! Define output NETCDF data structures.
+!-------------------------------------------------------------------------------
+
+    TYPE fld2ddata
+        REAL(rk),        POINTER   :: fld        ( : , : )
+!    REAL(rk),        POINTER   :: bdy        ( : )
+        CHARACTER(LEN=16)          :: fldname
+        CHARACTER(LEN=80)          :: long_name
+        CHARACTER(LEN=16)          :: units
+        CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        INTEGER                    :: istart     ( 4 )
+        INTEGER                    :: iend       ( 4 )
+!    CHARACTER(LEN=16)          :: dimnames_b ( 4 )
+!    INTEGER                    :: istart_b   ( 4 )
+!    INTEGER                    :: iend_b     ( 4 )
+    END TYPE fld2ddata
+
+    TYPE fld3ddata
+        REAL(rk),        POINTER   :: fld        ( : , : , : )
+!    REAL(rk),        POINTER   :: bdy        ( : , : )
+        CHARACTER(LEN=16)          :: fldname
+        CHARACTER(LEN=80)          :: long_name
+        CHARACTER(LEN=16)          :: units
+        CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        INTEGER                    :: istart     ( 4 )
+        INTEGER                    :: iend       ( 4 )
+!    CHARACTER(LEN=16)          :: dimnames_b ( 4 )
+!    INTEGER                    :: istart_b   ( 4 )
+!    INTEGER                    :: iend_b     ( 4 )
+    END TYPE fld3ddata
+
+!-------------------------------------------------------------------------------
+! Time-independent 2d fields at cell centers.
+!-------------------------------------------------------------------------------
+
+    TYPE(fld2ddata), ALLOCATABLE, TARGET :: fld2dxy ( : )
+    TYPE(fld2ddata), POINTER     :: g_lat
+    TYPE(fld2ddata), POINTER     :: g_lon
+    TYPE(fld2ddata), POINTER     :: g_zk
+    TYPE(fld2ddata), POINTER     :: g_zhc
+
+!-------------------------------------------------------------------------------
+! Time-varying 2d fields at cell centers for output NETCDF
+!-------------------------------------------------------------------------------
+
+    TYPE(fld2ddata), ALLOCATABLE, TARGET :: fld2dxyt ( : )
+    TYPE(fld2ddata), POINTER     :: c_waf
+
+!-------------------------------------------------------------------------------
+! Time-varying 3d fields at cell centers for output NETCDF
+!-------------------------------------------------------------------------------
+
+    TYPE(fld3ddata), ALLOCATABLE, TARGET :: fld3dxyzt ( : )
+    TYPE(fld3ddata), POINTER     :: c_canwind
+    TYPE(fld3ddata), POINTER     :: c_Kz
+    TYPE(fld3ddata), POINTER     :: c_rjcf
 
 END MODULE canopy_canvars_mod

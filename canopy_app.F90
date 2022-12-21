@@ -10,9 +10,6 @@ program canopy_app
 
     implicit none
 
-    !Local variables
-!    integer ppos
-
 !-------------------------------------------------------------------------------
 ! Read user options from namelist.
 !-------------------------------------------------------------------------------
@@ -31,15 +28,12 @@ program canopy_app
 
     call canopy_init
 
-!    TODO
-!    if (infmt_opt .eq. 0) then !Input format is 2D, then add and 2D NetCDF init
-!
-!        call canout_ncf_init
-!
-!    end if
-
-!    TODO :: Add a separate intialize routine for gridded ncdf canopy variables
-!            to fit ncf file, e.g.,, call canout_ncf_init
+!-------------------------------------------------------------------------------
+! Allocated and initialize 2D NetCDF output data structures (if 2D input)
+!-------------------------------------------------------------------------------
+!TODO--->
+!    call canopy_outncf_alloc
+!    call canopy_outncf_init
 
 !-------------------------------------------------------------------------------
 ! Read met/sfc gridded model input file (currently 1D TXT or 1D/2D NETCDF).
