@@ -116,14 +116,16 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
-
+        !Also reshape to 1D array for 1D calculation and output
+        variables%lat=reshape(variables_2d%lat,[size(variables_2d%lat)])
         CALL get_var_2d_real_cdf (cdfid, 'LON', variables_2d%lon, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
             WRITE (*,f9410) TRIM(pname), 'LON',  &
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
-
+        !Also reshape to 1D array for 1D calculation and output
+        variables%lon=reshape(variables_2d%lon,[size(variables_2d%lon)])
         !Canopy input met/sfc variables
         !Clumping index
         CALL get_var_2d_real_cdf (cdfid, 'CLU', variables_2d%clu, it, rcode)
@@ -132,6 +134,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%clu=reshape(variables_2d%clu,[size(variables_2d%clu)])
         !Cosine of solar zenith angle
         CALL get_var_2d_real_cdf (cdfid, 'CSZ', variables_2d%csz, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
@@ -139,6 +143,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%csz=reshape(variables_2d%csz,[size(variables_2d%csz)])
         !Forest Fraction
         CALL get_var_2d_real_cdf (cdfid, 'FFRAC', variables_2d%ffrac, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
@@ -146,6 +152,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%ffrac=reshape(variables_2d%ffrac,[size(variables_2d%ffrac)])
         !Forest canopy height
         CALL get_var_2d_real_cdf (cdfid, 'FH', variables_2d%fh, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
@@ -153,6 +161,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%fh=reshape(variables_2d%fh,[size(variables_2d%fh)])
         !Fire Radiative Power
         CALL get_var_2d_real_cdf (cdfid, 'FRP', variables_2d%frp, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
@@ -160,6 +170,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%frp=reshape(variables_2d%frp,[size(variables_2d%frp)])
         !Reference height above canopy
         CALL get_var_2d_real_cdf (cdfid, 'HREF', variables_2d%href, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
@@ -167,6 +179,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%href=reshape(variables_2d%href,[size(variables_2d%href)])
         !Leaf Area Index
         CALL get_var_2d_real_cdf (cdfid, 'LAI', variables_2d%lai, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
@@ -174,6 +188,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%lai=reshape(variables_2d%lai,[size(variables_2d%lai)])
         !Monin-Obukhov Length
         CALL get_var_2d_real_cdf (cdfid, 'MOL', variables_2d%mol, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
@@ -181,6 +197,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%mol=reshape(variables_2d%mol,[size(variables_2d%mol)])
         !Friction velocity
         CALL get_var_2d_real_cdf (cdfid, 'UST', variables_2d%ust, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
@@ -188,6 +206,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%ust=reshape(variables_2d%ust,[size(variables_2d%ust)])
         !Reference Wind Speed (at HREF)
         CALL get_var_2d_real_cdf (cdfid, 'WS', variables_2d%ws, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
@@ -195,6 +215,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%ws=reshape(variables_2d%ws,[size(variables_2d%ws)])
         !Surface (veg+soil) Roughness Length
         CALL get_var_2d_real_cdf (cdfid, 'Z0', variables_2d%z0, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
@@ -202,6 +224,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%z0=reshape(variables_2d%z0,[size(variables_2d%z0)])
         !Vegetation Type
         CALL get_var_2d_int_cdf (cdfid, 'VTYPE', variables_2d%vtype, it, rcode)
         IF ( rcode /= nf90_noerr ) THEN
@@ -209,6 +233,8 @@ SUBROUTINE canopy_read_ncf(infile)
                 TRIM(nf90_strerror(rcode))
             CALL exit(2)
         ENDIF
+        !Also reshape to 1D array for 1D calculation and output
+        variables%vtype=reshape(variables_2d%vtype,[size(variables_2d%vtype)])
 
     else if (infmt_opt .eq. 1) then !Input format is 1D
 

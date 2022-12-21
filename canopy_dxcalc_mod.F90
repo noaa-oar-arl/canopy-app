@@ -56,7 +56,6 @@ contains
             else ! user set dx_set from namelist
                 DX(loc) = DXSET
             end if
-
         end do
 
     END SUBROUTINE CANOPY_CALCDX
@@ -102,13 +101,15 @@ contains
 
                 if (DXOPT .eq. 0) then !user set to calculate dx grid cell distance from grid lons
                     if (NLON .gt. 1) then !convert grid points to distances using Haversine formula (m)
-                        if (j .lt. NLON) then !inside domain
-                            DX(i,j) = CalcDX(LAT(i,j), abs(LON(i,j+1) - LON(i,j)))
-                        else !at the domain edge --set to NLON-1
+                        if (i .lt. NLAT ) then !inside LON inside domain
+                            DX(i,j) = CalcDX(LAT(i,j), abs(LON(i+1,j) - LON(i,j)))
+                        else if (i .eq. NLAT ) then !at the domain edge --set to NLAT-1
+                            DX(i,j) = DX(NLAT-1,j)
+                        else if (j .eq. NLON ) then !at the domain edge --set to NLON-1
                             DX(i,j) = DX(i,NLON-1)
                         end if
                     else                  !single grid cell/point, use namelist defined dx resolution (m) for cell
-                        write(*,*)  'DX_OPT set to calc, but nlon or nlat  <= 1...setting dx = ', &
+                        write(*,*)  'DX_OPT_2D set to calc, but nlon or nlat  <= 1...setting dx = ', &
                             DXSET, ' from namelist'
                         DX(i,j) = DXSET
                     end if

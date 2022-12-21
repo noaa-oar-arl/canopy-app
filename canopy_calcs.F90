@@ -100,6 +100,7 @@ SUBROUTINE canopy_calcs
                                         z0ghc, cdrag, pai, hgtref, d_h, zo_h, molref, &
                                         rsl_opt, canBOT(k), canTOP(k), canWIND_3d(i,j,k))
                                 end do
+
 ! ... determine midflamepoint and flame height from user or FRP calculation
                                 call canopy_flameh(flameh_opt, flameh_set, dx_2d(i,j), modres, &
                                     frpref, midflamepoint, flameh)
