@@ -48,36 +48,45 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: rjcf_3d       ( : , : , : )  ! Photolysis Attenuation Correction Factors -- 3D
 
 !-------------------------------------------------------------------------------
+! Canopy-App Program and version descriptors.
+!-------------------------------------------------------------------------------
+
+    CHARACTER(LEN=16),  PARAMETER     :: progname   = 'Canopy-App'
+    CHARACTER(LEN=10),  PARAMETER     :: vdate      = '12/22/2022'
+    CHARACTER(LEN=8),   PARAMETER     :: ver        = 'V1.0.0'
+
+!-------------------------------------------------------------------------------
 ! Define output NETCDF data structures.
 !-------------------------------------------------------------------------------
 
     TYPE fld2ddata
         REAL(rk),        POINTER   :: fld        ( : , : )
-!    REAL(rk),        POINTER   :: bdy        ( : )
         CHARACTER(LEN=16)          :: fldname
         CHARACTER(LEN=80)          :: long_name
         CHARACTER(LEN=16)          :: units
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
         INTEGER                    :: istart     ( 4 )
         INTEGER                    :: iend       ( 4 )
-!    CHARACTER(LEN=16)          :: dimnames_b ( 4 )
-!    INTEGER                    :: istart_b   ( 4 )
-!    INTEGER                    :: iend_b     ( 4 )
     END TYPE fld2ddata
 
     TYPE fld3ddata
         REAL(rk),        POINTER   :: fld        ( : , : , : )
-!    REAL(rk),        POINTER   :: bdy        ( : , : )
         CHARACTER(LEN=16)          :: fldname
         CHARACTER(LEN=80)          :: long_name
         CHARACTER(LEN=16)          :: units
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
         INTEGER                    :: istart     ( 4 )
         INTEGER                    :: iend       ( 4 )
-!    CHARACTER(LEN=16)          :: dimnames_b ( 4 )
-!    INTEGER                    :: istart_b   ( 4 )
-!    INTEGER                    :: iend_b     ( 4 )
     END TYPE fld3ddata
+
+
+!-------------------------------------------------------------------------------
+! Assign number of time independent and varying 2D/3D fields at cell centers.
+!-------------------------------------------------------------------------------
+
+    INTEGER           :: nfld2dxy       ! time-independent 2d cell centers
+    INTEGER           :: nfld2dxyt      ! time-varying 2d cell centers
+    INTEGER           :: nfld3dxyzt     ! time-varying 3d cell centers
 
 !-------------------------------------------------------------------------------
 ! Time-independent 2d fields at cell centers.
@@ -86,8 +95,6 @@ MODULE canopy_canvars_mod
     TYPE(fld2ddata), ALLOCATABLE, TARGET :: fld2dxy ( : )
     TYPE(fld2ddata), POINTER     :: g_lat
     TYPE(fld2ddata), POINTER     :: g_lon
-    TYPE(fld2ddata), POINTER     :: g_zk
-    TYPE(fld2ddata), POINTER     :: g_zhc
 
 !-------------------------------------------------------------------------------
 ! Time-varying 2d fields at cell centers for output NETCDF

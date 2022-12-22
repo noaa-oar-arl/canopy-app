@@ -65,4 +65,12 @@ SUBROUTINE canopy_dealloc
         if(allocated(rjcf_3d))      deallocate(rjcf_3d)
     end if
 
+!-------------------------------------------------------------------------------
+!  Deallocate NetCDF data structures if used
+!-------------------------------------------------------------------------------
+
+    if(allocated(fld2dxy))        deallocate(fld2dxy)
+    if(allocated(fld2dxyt))       deallocate(fld2dxyt)
+    if(allocated(fld3dxyzt))      deallocate(fld3dxyzt)
+
 END SUBROUTINE canopy_dealloc

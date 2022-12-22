@@ -39,28 +39,6 @@ SUBROUTINE canopy_outncf_init
     g_lon%iend(1) = nlon
     g_lon%iend(2) = nlat
 
-    g_zk%fld = fillreal
-    g_zk%fldname = 'ZK'
-    g_zk%long_name = 'model layer height'
-    g_zk%units = 'm'
-    g_zk%dimnames(1) = 'nlon'
-    g_zk%dimnames(2) = 'nlat'
-    g_zk%istart(1) = 1
-    g_zk%istart(2) = 1
-    g_zk%iend(1) = nlon
-    g_zk%iend(2) = nlat
-
-    g_zhc%fld = fillreal
-    g_zhc%fldname = 'ZHC'
-    g_zhc%long_name = 'model layer height/canopy height'
-    g_zhc%units = '1'
-    g_zhc%dimnames(1) = 'nlon'
-    g_zhc%dimnames(2) = 'nlat'
-    g_zhc%istart(1) = 1
-    g_zhc%istart(2) = 1
-    g_zhc%iend(1) = nlon
-    g_zhc%iend(2) = nlat
-
 !-------------------------------------------------------------------------------
 ! Time-varying 2d fields at cell centers.
 !-------------------------------------------------------------------------------

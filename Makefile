@@ -64,7 +64,11 @@ OBJS :=\
  canopy_phot_mod.o \
  canopy_eddy_mod.o \
  canopy_calcs.o \
+ canopy_outncf_alloc.o \
+ canopy_outncf_init.o \
+ canopy_outncfglobal.o \
  canopy_write_txt.o \
+ canopy_write_ncf.o \
  canopy_dealloc.o \
  canopy_app.o
 

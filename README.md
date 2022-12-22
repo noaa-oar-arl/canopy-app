@@ -44,10 +44,10 @@ Current Canopy-App components:
 - Canopy-App assumes the NetCDF input files are in CF-Convention; recommend using double or float for real variables.
 - Canopy-App can also be run with a single point of 1D input data in a text file (e.g. `input_variables_point.txt`).
 
-    **Current Canopy-App Output:** Outputs canopy winds/WAF, canopy vertical/eddy diffusivity values, and
-    canopy photolysis attenuation correction factors.
+    **Current Canopy-App Output:** Outputs 3D canopy winds, canopy vertical/eddy diffusivity values, and
+    canopy photolysis attenuation correction factors, and 2D Wind Adjustment Factor (WAF).
 
-    Namelist Option : `file_out`  Prefix of output file name (Currently only in 1D txt format, e.g., `TESTRUN`)
+    Namelist Option : `file_out`  Prefix string (e.g., 'test') used for output file name (Currently in both 1D txt or 2D NetCDF format (only when 2D NCF input is used, i.e., infmt_opt=0).
 
 
     **Table 1. Canopy-App Required Input Variables**

@@ -43,9 +43,10 @@ program canopy_app
 !-------------------------------------------------------------------------------
 ! Allocate and initialize 2D/3D NetCDF output data structures
 !-------------------------------------------------------------------------------
-!TODO--->
-!    call canopy_outncf_alloc
-!    call canopy_outncf_init
+
+    call canopy_outncf_alloc
+
+    call canopy_outncf_init
 
 !-------------------------------------------------------------------------------
 ! Write model output of canopy model calculations.
@@ -53,12 +54,7 @@ program canopy_app
 
     call canopy_write_txt(file_out(1))
 
-    !TODO--->
-!    if (infmt_opt .eq. 0) then !Input format is 2D, then add and 2D NetCDF output
-!
-!        call canout_write_ncf(file_out(1))
-!
-!    end if
+    call canopy_write_ncf(file_out(1)) !only output if 2D input NCF is used
 
 !-------------------------------------------------------------------------------
 ! Dellocate necessary variables.
