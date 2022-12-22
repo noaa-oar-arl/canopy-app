@@ -5,6 +5,10 @@ Author(s):
 
 Patrick Campbell, Zachary Moon, and Wei-Ting Hung
 
+Build canopy model:
+
+Canopy-App requires NetCDF-Fortran Libraries (i.e., -lnetcdf -lnetcdff) for NetCDF I/O Option. See included Makefile for example.
+
 Compile, edit namelist, and run canopy model:
 - `make`
 - `namelist.canopy`
