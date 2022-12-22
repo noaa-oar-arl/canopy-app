@@ -1,5 +1,6 @@
 #
 # Use `DEBUG=1 make` for a debug build
+# Use `NETCDF=1` to build with NetCDF using `nf-config`
 
 # Compiler
 FC ?= gfortran
@@ -11,10 +12,11 @@ $(info FC setting: '$(FC)')
 # Default to non-debug build
 DEBUG ?= 0
 
-#Default to non-NetCDF build (required for now)
-#NETCDF ?= 0
+# Default to NetCDF build (required for now)
+NETCDF ?= 1
 
 # Compile flags
+$(info DEBUG setting: '$(DEBUG)')
 ifeq ($(DEBUG), 1)
   FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5
 else ifeq ($(DEBUG), 0)
@@ -22,23 +24,24 @@ else ifeq ($(DEBUG), 0)
 else
   $(error invalid setting for DEBUG, should be 0 or 1 but is '$(DEBUG)')
 endif
-$(info DEBUG setting: '$(DEBUG)')
 
-#ifeq ($(NETCDF), 1) to use NetCDF as option (required for building now, and set below)
-  #Put NETCDF Settings here
-  NETCDFF :=  /opt/sw/spack/apps/linux-centos8-cascadelake/gcc-9.3.0-openmpi-4.0.4/netcdf-c-4.7.4-vh
-  LIBS   := -L$(NETCDFF)/lib -lnetcdf -lnetcdff -fopenmp
-  FFLAGS := -I$(NETCDFF)/include
-#  OBJS_APP := \
-#	  canopy_ncf_io_mod.o \
-#	  canopy_read_ncf.o
-#else ifeq ($(NETCDF), 0)
-#  FFLAGS :=
-#  OBJS_APP :=
-#else
-#  $(error invalid setting for NETCDF, should be 0 or 1 but is '$(NETCDF)')
-#endif
-#$(info NETCDF setting: '$(NETCDF)')
+# NETCDF Settings here
+LIBS :=
+INC :=
+$(info NETCDF setting: '$(NETCDF)')
+ifeq ($(NETCDF), 1)
+  NETCDF_FLIBS := $(shell nf-config --flibs)
+  NETCDF_INC := -I$(shell nf-config --includedir)
+  #
+  LIBS += $(NETCDF_FLIBS)
+  INC += $(NETCDF_INC)
+else ifeq ($(NETCDF), 0)
+  #
+else
+  $(error invalid setting for NETCDF, should be 0 or 1 but is '$(NETCDF)')
+endif
+$(info LIBS: '$(LIBS)')
+$(info INC:  '$(INC)')
 
 # Source objects
 OBJS :=\
@@ -80,10 +83,10 @@ PROGRAM := canopy
 all: $(PROGRAM)
 
 $(PROGRAM): $(OBJS_APP) $(OBJS)
-	$(FC) $(FCFLAGS) $^ -o $@ $(FFLAGS) $(LIBS)
+	$(FC) $(FCFLAGS) $^ -o $@ $(LIBS) $(INC)
 
 %.o: %.F90
-	$(FC) $(FCFLAGS) $(FFLAGS) -c $<
+	$(FC) $(FCFLAGS) $(INC) -c $<
 
 clean:
 	rm -f *.o *.mod $(PROGRAM)
