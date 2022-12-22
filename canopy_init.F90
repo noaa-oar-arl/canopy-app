@@ -7,6 +7,7 @@ SUBROUTINE canopy_init
 ! Revised:  03 Oct 2022  Original version.  (P.C. Campbell)
 !-------------------------------------------------------------------------------
 
+    USE canopy_const_mod, ONLY: fillreal
     USE canopy_canopts_mod
     USE canopy_coord_mod
     USE canopy_canmet_mod
@@ -18,22 +19,22 @@ SUBROUTINE canopy_init
 ! Initialize arrays for Canopy Distribution
 !-------------------------------------------------------------------------------
 
-    if(allocated(zhc))        zhc(:)        = 0.0
-    if(allocated(fafraczInt)) fafraczInt(:) = 0.0
+    if(allocated(zhc))        zhc(:)        = fillreal
+    if(allocated(fafraczInt)) fafraczInt(:) = fillreal
 
 !-------------------------------------------------------------------------------
 ! Initialize arrays for Canopy Wind
 !-------------------------------------------------------------------------------
 
     if (ifcanwind .or. ifcanwaf) then
-        if(allocated(canBOT))        canBOT(:)            = 0.0
-        if(allocated(canTOP))        canTOP(:)            = 0.0
-        if(allocated(canWIND))       canWIND(:,:)         = 0.0
-        if(allocated(canWIND_3d))    canWIND_3d(:,:,:)    = 0.0
-        if(allocated(dx))            dx(:)                = 0.0
-        if(allocated(dx_2d))         dx_2d(:,:)           = 0.0
-        if(allocated(waf))           waf(:)               = 0.0
-        if(allocated(waf_2d))        waf_2d(:,:)          = 0.0
+        if(allocated(canBOT))        canBOT(:)            = fillreal
+        if(allocated(canTOP))        canTOP(:)            = fillreal
+        if(allocated(canWIND))       canWIND(:,:)         = fillreal
+        if(allocated(canWIND_3d))    canWIND_3d(:,:,:)    = fillreal
+        if(allocated(dx))            dx(:)                = fillreal
+        if(allocated(dx_2d))         dx_2d(:,:)           = fillreal
+        if(allocated(waf))           waf(:)               = fillreal
+        if(allocated(waf_2d))        waf_2d(:,:)          = fillreal
     end if
 
 !-------------------------------------------------------------------------------
@@ -41,8 +42,8 @@ SUBROUTINE canopy_init
 !-------------------------------------------------------------------------------
 
     if (ifcaneddy) then
-        if(allocated(Kz))            Kz(:,:)      = 0.0
-        if(allocated(Kz_3d))         Kz_3d(:,:,:) = 0.0
+        if(allocated(Kz))            Kz(:,:)      = fillreal
+        if(allocated(Kz_3d))         Kz_3d(:,:,:) = fillreal
     end if
 
 
@@ -51,8 +52,8 @@ SUBROUTINE canopy_init
 !-------------------------------------------------------------------------------
 
     if (ifcanphot) then
-        if(allocated(rjcf))            rjcf(:,:)      = 0.0
-        if(allocated(rjcf_3d))         rjcf_3d(:,:,:) = 0.0
+        if(allocated(rjcf))            rjcf(:,:)      = fillreal
+        if(allocated(rjcf_3d))         rjcf_3d(:,:,:) = fillreal
     end if
 
 

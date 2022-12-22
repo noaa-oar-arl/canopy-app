@@ -260,6 +260,13 @@ SUBROUTINE canopy_write_ncf (OUTPREFX)
                     TRIM(nf90_strerror(rcode))
                 CALL exit (2)
             ENDIF
+            rcode = nf90_put_att (cdfid_m, id_fld(nn), '_FillValue',  &
+                fld2dxyt(n)%fillvalue)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit (2)
+            ENDIF
         ENDDO
         ntot = ntot + nfld2dxyt
 
@@ -279,6 +286,13 @@ SUBROUTINE canopy_write_ncf (OUTPREFX)
             ENDIF
             rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units',  &
                 TRIM(fld3dxyzt(n)%units))
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit (2)
+            ENDIF
+            rcode = nf90_put_att (cdfid_m, id_fld(nn), '_FillValue',  &
+                fld3dxyzt(n)%fillvalue)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
                     TRIM(nf90_strerror(rcode))

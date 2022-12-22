@@ -47,6 +47,7 @@ SUBROUTINE canopy_outncf_init
     c_waf%fldname = 'WAF'
     c_waf%long_name = 'wind adjustment factor'
     c_waf%units = '1'
+    c_waf%fillvalue = fillreal
     c_waf%dimnames(1) = 'nlon'
     c_waf%dimnames(2) = 'nlat'
     c_waf%istart(1) = 1
@@ -62,6 +63,7 @@ SUBROUTINE canopy_outncf_init
     c_canwind%fldname = 'CANWIND'
     c_canwind%long_name = 'Above/below canopy wind speeds'
     c_canwind%units = 'm s-1'
+    c_canwind%fillvalue = fillreal
     c_canwind%dimnames(1) = 'nlon'
     c_canwind%dimnames(2) = 'nlat'
     c_canwind%dimnames(3) = 'nlays'
@@ -76,6 +78,7 @@ SUBROUTINE canopy_outncf_init
     c_Kz%fldname = 'KZ'
     c_Kz%long_name = 'eddy diffusivities'
     c_Kz%units = 'm2 s-1'
+    c_Kz%fillvalue = fillreal
     c_Kz%dimnames(1) = 'nlon'
     c_Kz%dimnames(2) = 'nlat'
     c_Kz%dimnames(3) = 'nlays'
@@ -90,6 +93,7 @@ SUBROUTINE canopy_outncf_init
     c_rjcf%fldname = 'RJCF'
     c_rjcf%long_name = 'photolysis attenuation correction factors'
     c_rjcf%units = '1'
+    c_rjcf%fillvalue = fillreal
     c_rjcf%dimnames(1) = 'nlon'
     c_rjcf%dimnames(2) = 'nlat'
     c_rjcf%dimnames(3) = 'nlays'

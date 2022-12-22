@@ -64,6 +64,7 @@ MODULE canopy_canvars_mod
         CHARACTER(LEN=16)          :: fldname
         CHARACTER(LEN=80)          :: long_name
         CHARACTER(LEN=16)          :: units
+        REAL                       :: fillvalue
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
         INTEGER                    :: istart     ( 4 )
         INTEGER                    :: iend       ( 4 )
@@ -74,6 +75,7 @@ MODULE canopy_canvars_mod
         CHARACTER(LEN=16)          :: fldname
         CHARACTER(LEN=80)          :: long_name
         CHARACTER(LEN=16)          :: units
+        REAL                       :: fillvalue
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
         INTEGER                    :: istart     ( 4 )
         INTEGER                    :: iend       ( 4 )
