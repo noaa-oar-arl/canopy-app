@@ -21,6 +21,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install dependencies
+        run: |
+          sudo apt install libnetcdff-dev
+
       - name: Debug compile and run
         run: |
           make clean
