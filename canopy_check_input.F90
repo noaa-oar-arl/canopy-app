@@ -7,7 +7,10 @@ SUBROUTINE canopy_check_input(INFILE)
 ! Revised:  21 Dec 2022  Original version.  (P.C. Campbell)
 !-------------------------------------------------------------------------------
 
+    use canopy_ncf_io_mod, only: canopy_read_ncf
+
     implicit none
+
 
     !Local variables
     integer ppos

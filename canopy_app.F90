@@ -6,7 +6,8 @@ program canopy_app
 !    Prototype: Patrick C. Campbell, 06/2022
 !    Revised  : PCC (10/2022)
 !-------------------------------------------------------------
-    use canopy_files_mod   !main canopy input files
+    use canopy_files_mod  ! main canopy input files
+    use canopy_ncf_io_mod
 
     implicit none
 

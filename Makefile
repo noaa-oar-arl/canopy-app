@@ -55,11 +55,10 @@ OBJS :=\
  canopy_readnml.o \
  canopy_alloc.o \
  canopy_init.o \
- canopy_check_input.o \
  canopy_txt_io_mod.o \
  canopy_ncf_io_mod.o \
+ canopy_check_input.o \
  canopy_read_txt.o \
- canopy_read_ncf.o \
  canopy_dxcalc_mod.o \
  canopy_profile_mod.o \
  canopy_wind_mod.o \
@@ -67,11 +66,7 @@ OBJS :=\
  canopy_phot_mod.o \
  canopy_eddy_mod.o \
  canopy_calcs.o \
- canopy_outncf_alloc.o \
- canopy_outncf_init.o \
- canopy_outncfglobal.o \
  canopy_write_txt.o \
- canopy_write_ncf.o \
  canopy_dealloc.o \
  canopy_app.o
 
