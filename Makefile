@@ -13,7 +13,7 @@ $(info FC setting: '$(FC)')
 # Default to non-debug build
 DEBUG ?= 0
 
-# Default to NetCDF build (required for now)
+# Default to NetCDF build
 NETCDF ?= 1
 
 # Compile flags

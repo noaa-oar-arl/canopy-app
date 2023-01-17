@@ -42,3 +42,14 @@ jobs:
         env:
           DEBUG: 0
           FC: ${{ matrix.compiler }}
+
+      - name: Non-NetCDF comile and run
+        run: |
+          make clean
+          make
+          sed -e s/input_variables_2D.nc/input_variables.txt/g namelist.canopy > tmp && mv tmp namelist.canopy
+          ./canopy
+        env:
+          DEBUG: 0
+          FC: ${{ matrix.compiler }}
+          NETCDF: 0
