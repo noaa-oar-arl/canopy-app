@@ -1,6 +1,7 @@
 #
-# Use `DEBUG=1 make` for a debug build
-# Use `NETCDF=1` to build with NetCDF using `nf-config`
+# Use `FC=<compiler> ... make` to select compiler
+# Use `DEBUG=1 ... make` for a debug build
+# Use `NETCDF=1 ... make` to build with NetCDF using `nf-config`
 
 # Compiler
 FC ?= gfortran
@@ -35,6 +36,7 @@ ifeq ($(NETCDF), 1)
   #
   LIBS += $(NETCDF_FLIBS)
   INC += $(NETCDF_INC)
+  FCFLAGS += -DNETCDF
 else ifeq ($(NETCDF), 0)
   #
 else
@@ -69,6 +71,11 @@ OBJS :=\
  canopy_write_txt.o \
  canopy_dealloc.o \
  canopy_app.o
+
+ifeq ($(NETCDF), 0)
+  _ncf_objs := canopy_check_input.o canopy_ncf_io_mod.o
+  OBJS := $(filter-out $(_ncf_objs),$(OBJS))
+endif
 
 # Program name
 PROGRAM := canopy
