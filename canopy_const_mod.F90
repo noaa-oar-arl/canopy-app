@@ -22,6 +22,7 @@ MODULE canopy_const_mod
     IMPLICIT NONE
 
     INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15, 307)
+    REAL(rk),    PARAMETER :: fillreal  = -9.0e20  ! netCDF _FillValue
 
 ! Geometric Constants:
 

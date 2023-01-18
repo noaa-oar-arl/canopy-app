@@ -50,20 +50,20 @@ CONTAINS
         CHARACTER(LEN=*), INTENT( IN )  :: TXTPREFX
 
         !Local variables
-        integer i, loc
+        integer k, loc
 
         if (ifcanwind) then
             write(*,*)  'Writing canopy wind output'
             write(*,*)  '-------------------------------'
 ! ... save as text file
             open(10, file=TRIM(TXTPREFX)//'_output_canopy_wind.txt')
-            write(10, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
+            write(10, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
             write(10, '(a30, i6)') 'Number of model layers: ', modlays
             write(10, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'WS (m/s)'
             do loc=1, nlat*nlon
-                do i=1, modlays
+                do k=1, modlays
                     write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                        zk(i), canWIND(i, loc)
+                        zk(k), canWIND(loc, k)
                 end do
             end do
         end if
@@ -73,7 +73,7 @@ CONTAINS
             write(*,*)  'Writing canopy WAF output'
             write(*,*)  '-------------------------------'
             open(11, file=TRIM(TXTPREFX)//'_output_waf.txt')
-            write(11, '(a30, f6.1)') 'Reference height, h: ', href, 'm'
+            write(11, '(a30, f6.1)') 'Reference height, h: ', href_set, 'm'
             write(11, '(a8, a9, a19, a11)') 'Lat', 'Lon', 'Canopy height (m)', 'WAF'
             do loc=1, nlat*nlon
                 write(11, '(f8.2, f9.2, f19.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, hcmref, waf(loc)
@@ -85,13 +85,13 @@ CONTAINS
             write(*,*)  '-------------------------------'
 ! ... save as text file
             open(12, file=TRIM(TXTPREFX)//'_output_eddy_Kz.txt')
-            write(12, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
+            write(12, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
             write(12, '(a30, i6)') 'Number of model layers: ', modlays
             write(12, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'Kz'
             do loc=1, nlat*nlon
-                do i=1, modlays
+                do k=1, modlays
                     write(12, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                        zk(i), Kz(i, loc)
+                        zk(k), Kz(loc,k)
                 end do
             end do
         end if
@@ -101,13 +101,13 @@ CONTAINS
             write(*,*)  '-------------------------------'
 ! ... save as text file
             open(13, file=TRIM(TXTPREFX)//'_output_phot.txt')
-            write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href, 'm'
+            write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
             write(13, '(a30, i6)') 'Number of model layers: ', modlays
             write(13, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'rjcf'
             do loc=1, nlat*nlon
-                do i=1, modlays
+                do k=1, modlays
                     write(13, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                        zk(i), rjcf(i, loc)
+                        zk(k), rjcf(loc,k)
                 end do
             end do
         end if
