@@ -5,6 +5,10 @@ Author(s):
 
 Patrick Campbell, Zachary Moon, and Wei-Ting Hung
 
+Build canopy model:
+
+Canopy-App requires NetCDF-Fortran Libraries (i.e., -lnetcdf -lnetcdff) for NetCDF I/O Option. See included Makefile for example.
+
 Compile, edit namelist, and run canopy model:
 - `make`
 - `namelist.canopy`
@@ -16,7 +20,7 @@ Canopy is parameterized by foliage distribution shape functions and parameters f
 
 Current Canopy-App components:
 
-1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildland fire spread and air quality applications.
+1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildfire spread and air quality applications.
 
     Namelist Option : `ifcanwind`
 
@@ -35,27 +39,34 @@ Current Canopy-App components:
 
     - `canopy_phot_mod.F90`
 
-    **Current Canopy-App Input:** Typical 1D/2D gridded atmospheric model input variables in 1st layer above canopy
+    **Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy
 
-    Namelist Option : `file_vars`  Name of input file (Currently only in txt format, e.g., `input_variables.txt`)
+    Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats:
+                                                            `.txt`, `.nc`, `.ncf`, or `.nc4`)
 
-    **Current Canopy-App Output:** Outputs canopy winds/WAF, canopy vertical/eddy diffusivity values, and
-    canopy photolysis attenuation correction factors (currently only in txt format).
+- See example file inputs for variables and format (`input_variables.txt`, `input_variables_1D.nc`, or `input_variables_2D.nc`).
+- Canopy-App assumes the NetCDF input files are in CF-Convention; recommend using double or float for real variables.
+- Canopy-App can also be run with a single point of 1D input data in a text file (e.g. `input_variables_point.txt`).
 
-    Namelist Option : `file_out`  Prefix of output file name (Currently only in txt format, e.g., `TESTRUN`)
+    **Current Canopy-App Output:** Outputs 3D canopy winds, canopy vertical/eddy diffusivity values, and
+    canopy photolysis attenuation correction factors, and 2D Wind Adjustment Factor (WAF).
+
+    Namelist Option : `file_out`  Prefix string (e.g., 'test') used for output file name (Currently in both 1D txt or 2D NetCDF format (only when 2D NCF input is used, i.e., infmt_opt=0).
 
 
-    **Table 1. Canopy-App input variables**
+    **Table 1. Canopy-App Required Input Variables**
 
     | Variable Name    | Variable Description and Units                    |
     | ---------------  | ------------------------------------------------- |  
     | LAT              | Latitude  (degrees)                               |
-    | LON              | Longitude (degrees)                               |
+    | LON              | Longitude (degrees; from 0-360)                   |
+    | TIME             | Timestamp (days since YYYY-N-D 0:0:0) (NetCDF Only) |
     | FH               | Forest canopy height (m)                          |
-    | WS               | Wind speed at reference height (m/s), e.g., 10 m  |
+    | HREF             | Reference height above canopy (m)                 |
+    | WS               | Wind speed at HREF (m/s), e.g., 10 m              |
     | CLU              | Forest clumping index (dimensionless)             |
     | LAI              | Leaf area index (m2/m2)                           |
-    | VTYPE            | Vegetation type (dimensionless), e.g., VIIRS      |
+    | VTYPE            | Vegetation type (dimensionless), VIIRS Only       |
     | FFRAC            | Forest fraction (dimensionless)                   |
     | UST              | Friction velocity (m/s)                           |
     | CSZ              | Cosine of the solar zenith angle (dimensionless)  |
@@ -67,15 +78,17 @@ Current Canopy-App components:
 
     | Namelist Option  | Namelist Description and Units                                                       |
     | ---------------  | ---------------------------------------------------------------------------------- |
-    | nlat             | number of latitude cells (must match # of LAT in `file_vars` above )               |
-    | nlon             | number of longitude cells (must match # of LON in `file_vars`above )               |
+    | infmt_opt        | integer for choosing 1D or 2D input file format (default = 0, 2D)                  |
+    | nlat             | number of latitude cells (must match # of LAT in `file_vars` above)                |
+    | nlon             | number of longitude cells (must match # of LON in `file_vars`above)                |
     | modlays          | number of model (below and above canopy) layers                                    |
     | modres           | above and below canopy model vertical resolution (m)                               |
     | ifcanwind        | logical canopy wind option (default = .FALSE.)                                     |
     | ifcanwaf         | logical canopy WAF option (default = .FALSE.)**                                    |
     | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
     | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |
-    | href             | real value of reference height above canopy associated with input wind speed (m)   |
+    | href_opt         | integer for using href_set in namelist (= 0) or array from file (= 1); default = 0 |
+    | href_set         | user set real value of reference height above canopy associated with input wind speed (m) (only used if href_opt = 0)  |
     | z0ghc            | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
     | lamdars          | Value representing influence of roughness sublayer (Massman et al., 2017)          |
     | dx_opt           | 0=Calculation of dx resolution/distance from lon; 1=user set dx grid resolution    |

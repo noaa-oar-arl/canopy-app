@@ -17,51 +17,56 @@ SUBROUTINE canopy_alloc
 !-------------------------------------------------------------------------------
 ! Allocate canopy input variables
 !-------------------------------------------------------------------------------
-!   TODO:  If txt or 1D ncf...
-    if(.not.allocated(variables))  allocate(variables(nlat*nlon))
-!   TODO:  If 2D ncf...
-!   if(.not.allocated(variables))  allocate(variables(nlat,nlon))
+
+    if(.not.allocated(variables))     allocate(variables(nlat*nlon))
+    if(.not.allocated(variables_2d))  allocate(variables_2d(nlat,nlon))
 
 !-------------------------------------------------------------------------------
-! Allocate arrays for Canopy Distribution
+! Allocate arrays for Internal Canopy Distribution Variables
 !-------------------------------------------------------------------------------
 
     if(.not.allocated(zhc))        allocate(zhc(modlays))
     if(.not.allocated(fafraczInt)) allocate(fafraczInt(modlays))
 
 !-------------------------------------------------------------------------------
-! Allocate arrays for Canopy Wind
+! Allocate arrays for Canopy Wind Outputs
 !-------------------------------------------------------------------------------
 
     if (ifcanwind .or. ifcanwaf) then
         write(*,*)  'Canopy wind and/or WAF option selected'
         write(*,*)  '-------------------------------'
-        if(.not.allocated(canBOT))     allocate(canBOT(modlays))
-        if(.not.allocated(canTOP))     allocate(canTOP(modlays))
-        if(.not.allocated(canWIND))    allocate(canWIND(modlays,nlat*nlon))
-        if(.not.allocated(dx))         allocate(dx(nlat*nlon))
-        if(.not.allocated(waf))        allocate(waf(nlat*nlon))
+        if(.not.allocated(canBOT))        allocate(canBOT(modlays))
+        if(.not.allocated(canTOP))        allocate(canTOP(modlays))
+        if(.not.allocated(canWIND))       allocate(canWIND(nlat*nlon,modlays))
+        if(.not.allocated(canWIND_3d))    allocate(canWIND_3d(nlat,nlon,modlays))
+        if(.not.allocated(dx))            allocate(dx(nlat*nlon))
+        if(.not.allocated(dx_2d))         allocate(dx_2d(nlat,nlon))
+        if(.not.allocated(waf))           allocate(waf(nlat*nlon))
+        if(.not.allocated(waf_2d))        allocate(waf_2d(nlat,nlon))
+
     end if
 
 !-------------------------------------------------------------------------------
-! Allocate arrays for Canopy Diffusivity Profile
+! Allocate arrays for Canopy Diffusivity Profile Outputs
 !-------------------------------------------------------------------------------
 
     if (ifcaneddy) then
         write(*,*)  'Canopy eddy Kz option selected'
         write(*,*)  '-------------------------------'
-        if(.not.allocated(Kz))         allocate(Kz(modlays,nlat*nlon))
+        if(.not.allocated(Kz))            allocate(Kz(nlat*nlon,modlays))
+        if(.not.allocated(Kz_3d))         allocate(Kz_3d(nlat,nlon,modlays))
     end if
 
 
 !-------------------------------------------------------------------------------
-! Allocate arrays for Canopy Photolysis Correction Factor
+! Allocate arrays for Canopy Photolysis Correction Factor Outputs
 !-------------------------------------------------------------------------------
 
     if (ifcanphot) then
         write(*,*)  'Canopy photolysis option selected'
         write(*,*)  '-------------------------------'
-        if(.not.allocated(rjcf))         allocate(rjcf(modlays,nlat*nlon))
+        if(.not.allocated(rjcf))            allocate(rjcf(nlat*nlon,modlays))
+        if(.not.allocated(rjcf_3d))         allocate(rjcf_3d(nlat,nlon,modlays))
     end if
 
 

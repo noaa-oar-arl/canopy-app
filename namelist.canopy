@@ -1,9 +1,13 @@
 &FILENAMES
-  file_vars    = 'input_variables.txt'
+! file_vars    = 'input_variables_point.txt'
+!  file_vars    = 'input_variables.txt'
+!  file_vars    = 'input_variables_1D.nc'
+  file_vars    = 'input_variables_2D.nc'
   file_out     = 'test'
 /
 
 &USERDEFS
+  infmt_opt  =  0
   nlat       =  101
   nlon       =  101
   modlays    =  100
@@ -12,7 +16,8 @@
   ifcanwaf   = .TRUE.
   ifcaneddy  = .TRUE.
   ifcanphot  = .TRUE.
-  href       =  10.0
+  href_opt   =  0
+  href_set   =  10.0
   z0ghc      =  0.0025
   lamdars    =  1.25
   dx_opt     =  0
