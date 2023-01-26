@@ -44,6 +44,9 @@ SUBROUTINE canopy_dealloc
         if(allocated(dx_2d))         deallocate(dx_2d)
         if(allocated(waf))           deallocate(waf)
         if(allocated(waf_2d))        deallocate(waf_2d)
+        if(allocated(flameh))        deallocate(flameh)
+        if(allocated(flameh_2d))     deallocate(flameh_2d)
+
     end if
 
 !-------------------------------------------------------------------------------
