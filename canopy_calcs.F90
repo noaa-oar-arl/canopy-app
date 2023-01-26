@@ -103,10 +103,10 @@ SUBROUTINE canopy_calcs
 
 ! ... determine midflamepoint and flame height from user or FRP calculation
                                 call canopy_flameh(flameh_opt, flameh_set, dx_2d(i,j), modres, &
-                                    frpref, midflamepoint, flameh)
+                                    frpref, midflamepoint, flameh_2d(i,j))
 
-                                if (flameh .gt. 0.0) then !only calculate WAF when flameh > 0
-                                    call canopy_waf(hcmref, lamdars, rsl_opt, hgtref, flameh, &
+                                if (flameh_2d(i,j) .gt. 0.0) then !only calculate WAF when flameh > 0
+                                    call canopy_waf(hcmref, lamdars, rsl_opt, hgtref, flameh_2d(i,j), &
                                         firetype, d_h, zo_h, canBOT(midflamepoint), &
                                         canTOP(midflamepoint), waf_2d(i,j))
                                 end if
@@ -208,10 +208,10 @@ SUBROUTINE canopy_calcs
                             end do
 ! ... determine midflamepoint and flame height from user or FRP calculation
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
-                                frpref, midflamepoint, flameh)
+                                frpref, midflamepoint, flameh(loc))
 
-                            if (flameh .gt. 0.0) then !only calculate WAF when flameh > 0
-                                call canopy_waf(hcmref, lamdars, rsl_opt, hgtref, flameh, &
+                            if (flameh(loc) .gt. 0.0) then !only calculate WAF when flameh > 0
+                                call canopy_waf(hcmref, lamdars, rsl_opt, hgtref, flameh(loc), &
                                     firetype, d_h, zo_h, canBOT(midflamepoint), &
                                     canTOP(midflamepoint), waf(loc))
                             end if
@@ -314,10 +314,10 @@ SUBROUTINE canopy_calcs
                             end do
 ! ... determine midflamepoint and flame height from user or FRP calculation
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
-                                frpref, midflamepoint, flameh)
+                                frpref, midflamepoint, flameh(loc))
 
-                            if (flameh .gt. 0.0) then !only calculate WAF when flameh > 0
-                                call canopy_waf(hcmref, lamdars, rsl_opt, hgtref, flameh, &
+                            if (flameh(loc) .gt. 0.0) then !only calculate WAF when flameh > 0
+                                call canopy_waf(hcmref, lamdars, rsl_opt, hgtref, flameh(loc), &
                                     firetype, d_h, zo_h, canBOT(midflamepoint), &
                                     canTOP(midflamepoint), waf(loc))
                             end if
