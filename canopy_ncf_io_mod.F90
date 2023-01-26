@@ -443,7 +443,7 @@ CONTAINS
 
         nfld2dxyt = 0
 
-        nfld2dxyt = nfld2dxyt + 1  !WAF 
+        nfld2dxyt = nfld2dxyt + 1  !WAF
 
         nfld2dxyt = nfld2dxyt + 1  !FLAMEH
 
