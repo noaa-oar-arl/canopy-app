@@ -65,8 +65,8 @@ CONTAINS
 !        CHARACTER(LEN=*),  INTENT(IN)    :: var
 !
 !
-!        nx = SIZE(dum3d,1)
-!        ny = SIZE(dum3d,2)
+!        nx = SIZE(dum3d,2)
+!        ny = SIZE(dum3d,1)
 !        nz = SIZE(dum3d,3)
 !
 !        rcode = nf90_inq_varid (cdfid, var, id_data)
@@ -100,8 +100,8 @@ CONTAINS
 !        INTEGER,           INTENT(OUT)   :: rcode
 !        CHARACTER(LEN=*),  INTENT(IN)    :: var
 !
-!        nx = SIZE(idum3d,1)
-!        ny = SIZE(idum3d,2)
+!        nx = SIZE(idum3d,2)
+!        ny = SIZE(idum3d,1)
 !        nz = SIZE(idum3d,3)
 !
 !        rcode = nf90_inq_varid (cdfid, var, id_data)
@@ -131,8 +131,8 @@ CONTAINS
         INTEGER,           INTENT(OUT)   :: rcode
         CHARACTER(LEN=*),  INTENT(IN)    :: var
 
-        nx = SIZE(dum2d,1)
-        ny = SIZE(dum2d,2)
+        nx = SIZE(dum2d,2)
+        ny = SIZE(dum2d,1)
 
         rcode = nf90_inq_varid (cdfid, var, id_data)
         IF ( rcode /= nf90_noerr ) then
@@ -164,8 +164,8 @@ CONTAINS
         INTEGER,           INTENT(OUT)   :: rcode
         CHARACTER(LEN=*),  INTENT(IN)    :: var
 
-        nx = SIZE(idum2d,1)
-        ny = SIZE(idum2d,2)
+        nx = SIZE(idum2d,2)
+        ny = SIZE(idum2d,1)
 
         rcode = nf90_inq_varid (cdfid, var, id_data)
         IF ( rcode /= nf90_noerr ) RETURN
