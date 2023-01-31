@@ -43,7 +43,7 @@ jobs:
           DEBUG: 0
           FC: ${{ matrix.compiler }}
 
-      - name: Non-NetCDF comile and run
+      - name: Non-NetCDF compile and run
         run: |
           make clean
           make

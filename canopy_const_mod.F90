@@ -15,7 +15,7 @@ MODULE canopy_const_mod
 !                     Cambridge Univ. Press, 206 pp, 1995.
 !      Snyder, J.P., "Map Projections-A Working Manual, U.S. Geological Survey
 !                     Paper 1395 U.S.GPO, Washington, DC, 1987.
-!      Stull, R. B., "An Introduction to Bounday Layer Meteorology", Kluwer,
+!      Stull, R. B., "An Introduction to Boundary Layer Meteorology", Kluwer,
 !                     Dordrecht, 1988
 !-------------------------------------------------------------------------------
 
