@@ -36,7 +36,7 @@ contains
         REAL(RK),    INTENT( IN )  :: Z0GHC          ! Ratio of ground roughness length to canopy top height (nondimensional)
         REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
-        REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height above canopy asssociated with ref wind speed  (m)
+        REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height above canopy associated with ref wind speed  (m)
         REAL(RK),    INTENT( IN )  :: D_H             ! Zero plane displacement heights (nondimensional)
         REAL(RK),    INTENT( IN )  :: ZO_H            ! Surface (soil+veg) roughness lengths (nondimensional)
         REAL(RK),    INTENT( IN )  :: MOL             ! Model input Monin-Obukhov Length
@@ -48,8 +48,8 @@ contains
         real(rk)                   :: ustrmod         ! Friction Velocity parameterization based on Massman 2017 (m/s)
         real(rk)                   :: z0g             ! Ground roughness length based on z0g/HCCM ratio (m)
         real(rk)                   :: zkhcm           ! Current zk/hcm ratio (nondimensional)
-        real(rk)                   :: cstress         ! Suface stress at/above canopy height (nondimensional)
-        real(rk)                   :: drag            ! Drag area index (i.e., wind speed attentuation) (nondimensional)
+        real(rk)                   :: cstress         ! Surface stress at/above canopy height (nondimensional)
+        real(rk)                   :: drag            ! Drag area index (i.e., wind speed attenuation) (nondimensional)
         real(rk)                   :: nrat            ! Ratio of drag/cstress (nondimensional)
         real(rk)                   :: canbot          ! Logarithmic wind speed that is dominant near the ground (nondimensional)
         real(rk)                   :: cantop          ! Hyperbolic cosine wind speed that is dominant near the top of canopy (nondimensional)
@@ -78,12 +78,12 @@ contains
         CANBOT_OUT = canbot
         ! Nondimensional canopy wind speed term that dominates near the top of the canopy:
         ! Assume the drag area distribution over depth of canopy can be approx. p1=0 (no shelter factor) and d1=0
-        ! (no drag coefficient relation to wind speed) -- thus no intergration then required in Eq. (4) of Massman et al.
+        ! (no drag coefficient relation to wind speed) -- thus no integration then required in Eq. (4) of Massman et al.
         drag    = CDRAG*PAI
 
         !first adjust reference wind down to canopy top wind using MOST (with no RSL effects)
         zpd = D_H*HCM  !zero-plane displacement height (not scaled to HCM)
-        z0m = ZO_H*HCM !aerodynamic roughness lengh (not scaled to HCM)
+        z0m = ZO_H*HCM !aerodynamic roughness length (not scaled to HCM)
         if((HCM-zpd) <= 0.) then
             write(*,*) "critical problem: hcan <= zpd"
             call exit(1)

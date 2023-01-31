@@ -52,21 +52,26 @@ CONTAINS
         !Local variables
         integer k, loc
 
-        if (ifcanwind) then
-            write(*,*)  'Writing canopy wind output'
+        if (infmt_opt .eq. 1) then !only output text with 1D input
+
+            write(*,*)  'Writing Text Output'
             write(*,*)  '-------------------------------'
+
+            if (ifcanwind) then
+                write(*,*)  'Writing canopy wind output'
+                write(*,*)  '-------------------------------'
 ! ... save as text file
-            open(10, file=TRIM(TXTPREFX)//'_output_canopy_wind.txt')
-            write(10, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
-            write(10, '(a30, i6)') 'Number of model layers: ', modlays
-            write(10, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'WS (m/s)'
-            do loc=1, nlat*nlon
-                do k=1, modlays
-                    write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                        zk(k), canWIND(loc, k)
+                open(10, file=TRIM(TXTPREFX)//'_output_canopy_wind.txt')
+                write(10, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
+                write(10, '(a30, i6)') 'Number of model layers: ', modlays
+                write(10, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'WS (m/s)'
+                do loc=1, nlat*nlon
+                    do k=1, modlays
+                        write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
+                            zk(k), canWIND(loc, k)
+                    end do
                 end do
-            end do
-        end if
+            end if
 
 ! ... save as text file
         if (ifcanwaf) then
@@ -81,38 +86,39 @@ CONTAINS
             end do
         end if
 
-        if (ifcaneddy) then
-            write(*,*)  'Writing canopy eddy diffusivity scaling values'
-            write(*,*)  '-------------------------------'
+            if (ifcaneddy) then
+                write(*,*)  'Writing canopy eddy diffusivity scaling values'
+                write(*,*)  '-------------------------------'
 ! ... save as text file
-            open(12, file=TRIM(TXTPREFX)//'_output_eddy_Kz.txt')
-            write(12, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
-            write(12, '(a30, i6)') 'Number of model layers: ', modlays
-            write(12, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'Kz'
-            do loc=1, nlat*nlon
-                do k=1, modlays
-                    write(12, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                        zk(k), Kz(loc,k)
+                open(12, file=TRIM(TXTPREFX)//'_output_eddy_Kz.txt')
+                write(12, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
+                write(12, '(a30, i6)') 'Number of model layers: ', modlays
+                write(12, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'Kz'
+                do loc=1, nlat*nlon
+                    do k=1, modlays
+                        write(12, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
+                            zk(k), Kz(loc,k)
+                    end do
                 end do
-            end do
-        end if
+            end if
 
-        if (ifcanphot) then
-            write(*,*)  'Writing canopy photolysis correction factors'
-            write(*,*)  '-------------------------------'
+            if (ifcanphot) then
+                write(*,*)  'Writing canopy photolysis correction factors'
+                write(*,*)  '-------------------------------'
 ! ... save as text file
-            open(13, file=TRIM(TXTPREFX)//'_output_phot.txt')
-            write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
-            write(13, '(a30, i6)') 'Number of model layers: ', modlays
-            write(13, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'rjcf'
-            do loc=1, nlat*nlon
-                do k=1, modlays
-                    write(13, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                        zk(k), rjcf(loc,k)
+                open(13, file=TRIM(TXTPREFX)//'_output_phot.txt')
+                write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
+                write(13, '(a30, i6)') 'Number of model layers: ', modlays
+                write(13, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'rjcf'
+                do loc=1, nlat*nlon
+                    do k=1, modlays
+                        write(13, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
+                            zk(k), rjcf(loc,k)
+                    end do
                 end do
-            end do
-        end if
+            end if
 
+        end if
     END SUBROUTINE write_txt
 
 !-------------------------------------------------------------------------------

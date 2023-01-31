@@ -47,8 +47,8 @@ SUBROUTINE canopy_calcs
 
 ! ... Main loop through model grid cells for 2D input/output
 
-        do j=1, nlon
-            do i=1, nlat
+        do i=1, nlon
+            do j=1, nlat
 
                 hcmref   = variables_2d(i,j)%fh
                 ubzref   = variables_2d(i,j)%ws
@@ -128,7 +128,7 @@ SUBROUTINE canopy_calcs
                         end if !Contiguous Canopy
 
                     else
-                        write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
+!                        write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
                     end if   !Vegetation types
                 else
                     write(*,*)  'Wrong LU_OPT choice of ', lu_opt, ' in namelist...exiting'
@@ -233,7 +233,7 @@ SUBROUTINE canopy_calcs
                     end if !Contiguous Canopy
 
                 else
-                    write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
+!                    write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
                 end if   !Vegetation types
             else
                 write(*,*)  'Wrong LU_OPT choice of ', lu_opt, ' in namelist...exiting'
@@ -339,7 +339,7 @@ SUBROUTINE canopy_calcs
                     end if !Contiguous Canopy
 
                 else
-                    write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
+!                    write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
                 end if   !Vegetation types
             else
                 write(*,*)  'Wrong LU_OPT choice of ', lu_opt, ' in namelist...exiting'

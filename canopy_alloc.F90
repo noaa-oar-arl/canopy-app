@@ -19,7 +19,7 @@ SUBROUTINE canopy_alloc
 !-------------------------------------------------------------------------------
 
     if(.not.allocated(variables))     allocate(variables(nlat*nlon))
-    if(.not.allocated(variables_2d))  allocate(variables_2d(nlat,nlon))
+    if(.not.allocated(variables_2d))  allocate(variables_2d(nlon,nlat))
 
 !-------------------------------------------------------------------------------
 ! Allocate arrays for Internal Canopy Distribution Variables
@@ -38,14 +38,13 @@ SUBROUTINE canopy_alloc
         if(.not.allocated(canBOT))        allocate(canBOT(modlays))
         if(.not.allocated(canTOP))        allocate(canTOP(modlays))
         if(.not.allocated(canWIND))       allocate(canWIND(nlat*nlon,modlays))
-        if(.not.allocated(canWIND_3d))    allocate(canWIND_3d(nlat,nlon,modlays))
+        if(.not.allocated(canWIND_3d))    allocate(canWIND_3d(nlon,nlat,modlays))
         if(.not.allocated(dx))            allocate(dx(nlat*nlon))
-        if(.not.allocated(dx_2d))         allocate(dx_2d(nlat,nlon))
+        if(.not.allocated(dx_2d))         allocate(dx_2d(nlon,nlat))
         if(.not.allocated(waf))           allocate(waf(nlat*nlon))
-        if(.not.allocated(waf_2d))        allocate(waf_2d(nlat,nlon))
+        if(.not.allocated(waf_2d))        allocate(waf_2d(nlon,nlon))
         if(.not.allocated(flameh))        allocate(flameh(nlat*nlon))
-        if(.not.allocated(flameh_2d))     allocate(flameh_2d(nlat,nlon))
-
+        if(.not.allocated(flameh_2d))     allocate(flameh_2d(nlon,nlon))
     end if
 
 !-------------------------------------------------------------------------------
@@ -56,7 +55,7 @@ SUBROUTINE canopy_alloc
         write(*,*)  'Canopy eddy Kz option selected'
         write(*,*)  '-------------------------------'
         if(.not.allocated(Kz))            allocate(Kz(nlat*nlon,modlays))
-        if(.not.allocated(Kz_3d))         allocate(Kz_3d(nlat,nlon,modlays))
+        if(.not.allocated(Kz_3d))         allocate(Kz_3d(nlon,nlat,modlays))
     end if
 
 
@@ -68,7 +67,7 @@ SUBROUTINE canopy_alloc
         write(*,*)  'Canopy photolysis option selected'
         write(*,*)  '-------------------------------'
         if(.not.allocated(rjcf))            allocate(rjcf(nlat*nlon,modlays))
-        if(.not.allocated(rjcf_3d))         allocate(rjcf_3d(nlat,nlon,modlays))
+        if(.not.allocated(rjcf_3d))         allocate(rjcf_3d(nlon,nlat,modlays))
     end if
 
 

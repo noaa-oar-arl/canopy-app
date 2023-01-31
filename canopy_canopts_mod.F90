@@ -8,7 +8,7 @@ MODULE canopy_canopts_mod
     use canopy_const_mod, ONLY: rk
     IMPLICIT NONE
 
-!! .... defines canopy optionss (read from user namelist)
+!! .... defines canopy options (read from user namelist)
     integer        ::    infmt_opt   !Integer for choosing 1D or 2D input file format (default = 0, 2D)
     integer        ::    href_opt    !Integer for using set href in namelist (=0) or array from file(=1) (default = 0)
     real(rk)       ::    href_set    !Set reference Height above canopy @ 10 m  (m)

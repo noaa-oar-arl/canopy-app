@@ -59,7 +59,7 @@ contains
             write(*,*)  'Wrong FLAMEH_OPT choice of ', FLAMEH_OPT, ' in namelist...exiting'
             call exit(2)
         end if
-        if (FLAMEH .le. MODRES) then !flameh beween first (z=0) and second layer height
+        if (FLAMEH .le. MODRES) then !flameh between first (z=0) and second layer height
             MIDFLAMEPOINT = 2    !do not put at z = 0, but rather in second layer
         else
             flamelays     = floor(FLAMEH/MODRES) + 1      !force full flame layers
@@ -106,7 +106,7 @@ contains
 !     Local variables
         real(rk)                   :: term1           ! Major Term1 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017)
         real(rk)                   :: term2           ! Major Term2 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017)
-        real(rk)                   :: delta           ! Ratio parmeter used in WAF for above-canopy (Eq. 18 Massman et al.)
+        real(rk)                   :: delta           ! Ratio parameter used in WAF for above-canopy (Eq. 18 Massman et al.)
         real(rk)                   :: lamda_rs        ! local values for influence of roughness sublayer (nondimensional)
 
 ! Citation:
