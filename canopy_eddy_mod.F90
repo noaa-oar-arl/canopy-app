@@ -38,7 +38,7 @@ contains
         real(rk)                   :: rr              ! sigma parameter R (Makar et al., 2017)
         real(rk)                   :: aa              ! sigma parameter A (Makar et al., 2017)
         real(rk)                   :: bb              ! sigma parameter B (Makar et al., 2017)
-        real(rk)                   :: sigma           ! eulerian vertial velocity (m/s)
+        real(rk)                   :: sigma           ! eulerian vertical velocity (m/s)
 
 ! Citation:
 !Makar, P., Staebler, R., Akingunola, A. et al. The effects of forest canopy shading and turbulence on boundary layer ozone.

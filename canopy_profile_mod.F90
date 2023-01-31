@@ -247,8 +247,8 @@ contains
         real(rk)                   :: qstar           ! Total Reynolds stress term
         real(rk)                   :: fafraczInt_tota ! Numerator term of term B for d/h (Eq. 15 Massman et al.)
         real(rk)                   :: fafraczInt_totb ! Denominator term of term B for d/h (Eq. 15 Massman et al.)
-        real(rk)                   :: cstress         ! Suface stress at/above canopy height (nondimensional)
-        real(rk)                   :: drag            ! Drag area index (i.e., wind speed attentuation) (nondimensional)
+        real(rk)                   :: cstress         ! Surface stress at/above canopy height (nondimensional)
+        real(rk)                   :: drag            ! Drag area index (i.e., wind speed attenuation) (nondimensional)
         real(rk)                   :: nrat            ! Ratio of drag/cstress (nondimensional)
         real(rk)                   :: z0_set          ! set roughness length (m)
         real(rk)                   :: uc              ! initial guess of wind speed at canopy height (m/s) from log-profile
@@ -294,7 +294,7 @@ contains
             uc = UBZREF
         end if
 
-        !Solve for final z0 and zpd esimates:
+        !Solve for final z0 and zpd estimates:
         ustrmod = uc*(0.38 - (0.38 + (vonk/log(Z0GHC)))*exp(-1.0*(15.0*drag)))
         cstress = (2.0*(ustrmod**2.0))/(uc**2.0)
         nrat   =  drag/cstress
