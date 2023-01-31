@@ -51,7 +51,7 @@ Current Canopy-App components:
     **Current Canopy-App Output:** Outputs 3D canopy winds, canopy vertical/eddy diffusivity values, and
     canopy photolysis attenuation correction factors, and 2D Wind Adjustment Factor (WAF).
 
-    Namelist Option : `file_out`  Prefix string (e.g., 'test') used for output file name (Currently in both 1D txt or 2D NetCDF format (only when 2D NCF input is used, i.e., infmt_opt=0).
+    Namelist Option : `file_out`  Prefix string (e.g., 'test') used for output file name (Currently 1D txt output with input 1D data, or 2D NetCDF output when 2D NCF input is used, i.e., infmt_opt=0).
 
 
     **Table 1. Canopy-App Required Input Variables**

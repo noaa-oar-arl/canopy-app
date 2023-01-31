@@ -131,8 +131,8 @@ CONTAINS
         INTEGER,           INTENT(OUT)   :: rcode
         CHARACTER(LEN=*),  INTENT(IN)    :: var
 
-        nx = SIZE(dum2d,2)
-        ny = SIZE(dum2d,1)
+        nx = SIZE(dum2d,1)
+        ny = SIZE(dum2d,2)
 
         rcode = nf90_inq_varid (cdfid, var, id_data)
         IF ( rcode /= nf90_noerr ) then
@@ -164,8 +164,8 @@ CONTAINS
         INTEGER,           INTENT(OUT)   :: rcode
         CHARACTER(LEN=*),  INTENT(IN)    :: var
 
-        nx = SIZE(idum2d,2)
-        ny = SIZE(idum2d,1)
+        nx = SIZE(idum2d,1)
+        ny = SIZE(idum2d,2)
 
         rcode = nf90_inq_varid (cdfid, var, id_data)
         IF ( rcode /= nf90_noerr ) RETURN
@@ -322,7 +322,7 @@ CONTAINS
         g_lon%istart(1) = 1
         g_lon%istart(2) = 1
         g_lon%iend(1) = nlon
-        g_lon%iend(2) = nlat
+        g_lon%iend(2) = nlat 
 
         !-------------------------------------------------------------------------------
         ! Time-varying 2d fields at cell centers.
@@ -1321,9 +1321,14 @@ CONTAINS
             ! Write variables.
             !-------------------------------------------------------------------------------
 
+            write(*,*)  'Writing NetCDF Output'
+            write(*,*)  '-------------------------------'
+
             !-------------------------------------------------------------------------------
             ! Time-independent 2d fields at cell centers.
             !-------------------------------------------------------------------------------
+            write(*,*)  'Writing Time-independent 2d fields'
+            write(*,*)  '-------------------------------'
 
             DO n = 1, nfld2dxy
                 var = TRIM(fld2dxy(n)%fldname)
@@ -1340,6 +1345,8 @@ CONTAINS
             !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.
             !-------------------------------------------------------------------------------
+            write(*,*)  'Writing Time-varying 2d fields'
+            write(*,*)  '-------------------------------'
 
             DO n = 1, nfld2dxyt
                 nn = ntot + n
@@ -1357,8 +1364,10 @@ CONTAINS
             ntot = ntot + nfld2dxyt
 
             !-------------------------------------------------------------------------------
-            ! Time-independent 3d fields at cell centers.
+            ! Time-varying 3d fields at cell centers.
             !-------------------------------------------------------------------------------
+            write(*,*)  'Writing Time-varying 3d fields'
+            write(*,*)  '-------------------------------'
 
             DO n = 1, nfld3dxyzt
                 nn = ntot + n

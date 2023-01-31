@@ -52,6 +52,11 @@ CONTAINS
         !Local variables
         integer k, loc
 
+        if (infmt_opt .eq. 1) then !only output text with 1D input
+
+        write(*,*)  'Writing Text Output'
+        write(*,*)  '-------------------------------'
+
         if (ifcanwind) then
             write(*,*)  'Writing canopy wind output'
             write(*,*)  '-------------------------------'
@@ -112,6 +117,7 @@ CONTAINS
             end do
         end if
 
+        end if
     END SUBROUTINE write_txt
 
 !-------------------------------------------------------------------------------
