@@ -83,7 +83,7 @@ contains
         drag    = CDRAG*PAI
 
         !first adjust reference wind down to canopy top wind using MOST (with no RSL effects)
-        zpd = D_H*HCM  !zero-plane displacement height (not scaled to HCM) 
+        zpd = D_H*HCM  !zero-plane displacement height (not scaled to HCM)
         z0m = ZO_H*HCM !aerodynamic roughness length (not scaled to HCM)
         if((HCM-zpd) <= 0.) then
             write(*,*) "critical problem: hcan <= zpd"
@@ -101,7 +101,7 @@ contains
 
         if (HREF > z0m) then ! input wind speed reference height is > roughness length
             if (RSL_OPT .eq. 0) then       !MOST From NoahMP (M. Barlarge) with user RSL influence term (LAMBDARS)
-                uc = UBZREF*log(LAMBDARS*(HCM-zpd+z0m)/z0m)/log(HREF/z0m) !Recalculate Uc with LAMBDARS 
+                uc = UBZREF*log(LAMBDARS*(HCM-zpd+z0m)/z0m)/log(HREF/z0m) !Recalculate Uc with LAMBDARS
             else if (RSL_OPT .eq. 1) then  !Unified RSL (Rosenzweig et al., 2021)  https://doi.org/10.1029/2021MS002665
                 beta_n = 0.35_rk               !beta for neutral conditions
                 can_length = HCM/drag          !canopy length scale

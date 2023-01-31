@@ -121,7 +121,7 @@ contains
 !            if (RSL_OPT .eq. 1) then  !set lambda_rs = 1 to avoid double counting RSL effects
 !                lambda_rs =  1.0
 !            else                      !set to lambda_rs to namelist input LAMBDARS
-                lambda_rs = LAMBDARS
+            lambda_rs = LAMBDARS
 !            end if
 
             if (FIRETYPE == 0) then  !sub-canopy

@@ -313,7 +313,7 @@ contains
 !        if (RSL_OPT .eq. 1) then  !set lambda_rs = 1 to avoid double counting RSL effects
 !            lambda_rs =  1.0
 !        else                      !set to lambda_rs to namelist input LAMBDARS
-            lambda_rs = LAMBDARS   !set to lambda_rs to user RSL influence term (namelist input LAMBDARS)
+        lambda_rs = LAMBDARS   !set to lambda_rs to user RSL influence term (namelist input LAMBDARS)
 !        end if
 
         ! Final surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):
