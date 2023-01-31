@@ -49,6 +49,12 @@ contains
             end if
         else if (FLAMEH_OPT .eq. 1) then  !user set value
             FLAMEH = FLAMEH_SET
+        else if (FLAMEH_OPT .eq. 2) then  !both FRP calc and user set
+            if (FRP .gt. 0.0) then
+                FLAMEH = CalcFlameH(FRP,DX)
+            else
+                FLAMEH = FLAMEH_SET
+            end if
         else
             write(*,*)  'Wrong FLAMEH_OPT choice of ', FLAMEH_OPT, ' in namelist...exiting'
             call exit(2)

@@ -93,7 +93,7 @@ Current Canopy-App components:
     | lamdars          | Value representing influence of roughness sublayer (Massman et al., 2017)          |
     | dx_opt           | 0=Calculation of dx resolution/distance from lon; 1=user set dx grid resolution    |
     | dx_set           | user set real value of grid resolution (m) only if dx_opt=1                        |
-    | flameh_opt       | 0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh            |
+    | flameh_opt       | 0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh; 2=FRP calculation where available (active fires), otherwise user set flameh    |
     | flameh_set       | user set real value of flame height (m) only if flame_opt=1                        |
     | pai_opt          | integer (0=PAI fixed from Katul et al. 2004 veg types-->default; 1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI+WAI; 3=user set PAI value) |
     | pai_set          | user set real value of PAI (default=4.0; only used if pai_opt=3)                   |

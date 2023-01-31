@@ -23,7 +23,7 @@ MODULE canopy_canvars_mod
     real(rk)       ::    sigma1        !Standard deviation of shape function below zcanmax (z/h)
     real(rk)       ::    d_h           !Zero plane displacement heights (z/h)
     real(rk)       ::    zo_h          !Surface (soil+veg) roughness lengths (z/h)
-    real(rk)       ::    flameh        !Flame Height (m)
+    !real(rk)       ::    flameh        !Flame Height (m)
 
 !-------------------------------------------------------------------------------
 ! Allocatable canopy variable arrays
@@ -46,6 +46,8 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: Kz_3d         ( : , : , : )  ! Eddy Diffusivities -- 3D (m2/s)
     real(rk), allocatable :: rjcf          ( :, : )       ! Photolysis Attenuation Correction Factors
     real(rk), allocatable :: rjcf_3d       ( : , : , : )  ! Photolysis Attenuation Correction Factors -- 3D
+    real(rk), allocatable :: flameh        ( : )          ! Flame Height (m)
+    real(rk), allocatable :: flameh_2d     ( : , : )      ! Flame Height -- 2D (m)
 
 !-------------------------------------------------------------------------------
 ! Canopy-App Program and version descriptors.
@@ -104,6 +106,7 @@ MODULE canopy_canvars_mod
 
     TYPE(fld2ddata), ALLOCATABLE, TARGET :: fld2dxyt ( : )
     TYPE(fld2ddata), POINTER     :: c_waf
+    TYPE(fld2ddata), POINTER     :: c_flameh
 
 !-------------------------------------------------------------------------------
 ! Time-varying 3d fields at cell centers for output NETCDF

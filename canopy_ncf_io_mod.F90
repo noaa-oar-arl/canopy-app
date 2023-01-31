@@ -340,6 +340,19 @@ CONTAINS
         c_waf%iend(1) = nlon
         c_waf%iend(2) = nlat
 
+        c_flameh%fld = fillreal
+        c_flameh%fldname = 'FLAMEH'
+        c_flameh%long_name = 'flame height'
+        c_flameh%units = 'm'
+        c_flameh%fillvalue = fillreal
+        c_flameh%dimnames(1) = 'nlon'
+        c_flameh%dimnames(2) = 'nlat'
+        c_flameh%istart(1) = 1
+        c_flameh%istart(2) = 1
+        c_flameh%iend(1) = nlon
+        c_flameh%iend(2) = nlat
+
+
         !-------------------------------------------------------------------------------
         ! Time-varying 3d fields at cell centers.
         !-------------------------------------------------------------------------------
@@ -432,13 +445,16 @@ CONTAINS
 
         nfld2dxyt = nfld2dxyt + 1  !WAF
 
+        nfld2dxyt = nfld2dxyt + 1  !FLAMEH
+
         ALLOCATE ( fld2dxyt ( nfld2dxyt ) )
 
         DO nn = 1, nfld2dxyt
             ALLOCATE ( fld2dxyt(nn)%fld(nlon,nlat) )
         ENDDO
 
-        c_waf    => fld2dxyt( 1 )
+        c_waf       => fld2dxyt( 1 )
+        c_flameh    => fld2dxyt( 2 )
 
         !-------------------------------------------------------------------------------
         ! Time-varying 3d fields at cell centers.
@@ -1309,6 +1325,7 @@ CONTAINS
             !-------------------------------------------------------------------------------
 
             c_waf%fld = waf_2d
+            c_flameh%fld = flameh_2d
 
             !-------------------------------------------------------------------------------
             ! Time-varying 3d fields at cell centers.
