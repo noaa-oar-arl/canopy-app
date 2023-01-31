@@ -196,7 +196,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_ZPD( ZHC, FCLAI, UBZREF, Z0GHC, &
-        LAMDARS, RSL_OPT, CDRAG, PAI, FCH, HREF, Z0_MOD, &
+        LAMBDARS, CDRAG, PAI, FCH, HREF, Z0_MOD, &
         VTYPE, LU_OPT, Z0_OPT, d_h, zo_h )
 
 !-----------------------------------------------------------------------
@@ -224,13 +224,13 @@ contains
         ! plant surface distribution, i.e., a Fractional Culmulative LAI
         REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (m/s)
         REAL(RK),    INTENT( IN )  :: Z0GHC           ! Ratio of ground roughness length to canopy top height (nondimensional)
-        REAL(RK),    INTENT( IN )  :: LAMDARS         ! Value representing influence of roughness sublayer (nondimensional)
+        REAL(RK),    INTENT( IN )  :: LAMBDARS         ! Value representing influence of roughness sublayer (nondimensional)
         REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
         REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
         REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
         REAL(RK),    INTENT( IN )  :: Z0_MOD          ! Input model value of surface roughness length, z0 (m)
-        INTEGER,     INTENT( IN )  :: RSL_OPT         ! RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
+!        INTEGER,     INTENT( IN )  :: RSL_OPT         ! RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
         INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
         INTEGER,     INTENT( IN )  :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )  :: Z0_OPT          ! integer for setting first estimate of z0 (default = 0 for Z0_MOD)
@@ -252,7 +252,7 @@ contains
         real(rk)                   :: nrat            ! Ratio of drag/cstress (nondimensional)
         real(rk)                   :: z0_set          ! set roughness length (m)
         real(rk)                   :: uc              ! initial guess of wind speed at canopy height (m/s) from log-profile
-        real(rk)                   :: lamda_rs        ! local values for influence of roughness sublayer (nondimensional)
+        real(rk)                   :: lambda_rs        ! local values for influence of roughness sublayer (nondimensional)
 
 ! Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
@@ -310,14 +310,14 @@ contains
         ! Final zero-plane displacement (zpd) height
         d_h = dha * dhb
 
-        if (RSL_OPT .eq. 1) then  !set lamda_rs = 1 to avoid double counting RSL effects
-            lamda_rs =  1.0
-        else                      !set to lamda_rs to namelist input LAMDARS
-            lamda_rs = LAMDARS
-        end if
+!        if (RSL_OPT .eq. 1) then  !set lambda_rs = 1 to avoid double counting RSL effects
+!            lambda_rs =  1.0
+!        else                      !set to lambda_rs to namelist input LAMBDARS
+            lambda_rs = LAMBDARS   !set to lambda_rs to user RSL influence term (namelist input LAMBDARS)
+!        end if
 
         ! Final surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):
-        zo_h  = lamda_rs * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
+        zo_h  = lambda_rs * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
 
     END SUBROUTINE CANOPY_ZPD
 

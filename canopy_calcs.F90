@@ -89,7 +89,7 @@ SUBROUTINE canopy_calcs
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 
                             call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
-                                ubzref, z0ghc, lamdars, rsl_opt, cdrag, pai, hcmref, hgtref, &
+                                ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
                                 z0ref, vtyperef, lu_opt, z0_opt, d_h, zo_h)
 
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
@@ -98,7 +98,7 @@ SUBROUTINE canopy_calcs
                                 do k=1, modlays
                                     call canopy_wind(hcmref, zk(k), fafraczInt(k), ubzref, &
                                         z0ghc, cdrag, pai, hgtref, d_h, zo_h, molref, &
-                                        rsl_opt, canBOT(k), canTOP(k), canWIND_3d(i,j,k))
+                                        rsl_opt, lambdars, canBOT(k), canTOP(k), canWIND_3d(i,j,k))
                                 end do
 
 ! ... determine midflamepoint and flame height from user or FRP calculation
@@ -106,7 +106,7 @@ SUBROUTINE canopy_calcs
                                     frpref, midflamepoint, flameh_2d(i,j))
 
                                 if (flameh_2d(i,j) .gt. 0.0) then !only calculate WAF when flameh > 0
-                                    call canopy_waf(hcmref, lamdars, rsl_opt, hgtref, flameh_2d(i,j), &
+                                    call canopy_waf(hcmref, lambdars, hgtref, flameh_2d(i,j), &
                                         firetype, d_h, zo_h, canBOT(midflamepoint), &
                                         canTOP(midflamepoint), waf_2d(i,j))
                                 end if
@@ -195,7 +195,7 @@ SUBROUTINE canopy_calcs
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 
                         call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
-                            ubzref, z0ghc, lamdars, rsl_opt, cdrag, pai, hcmref, hgtref, &
+                            ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
                             z0ref, vtyperef, lu_opt, z0_opt, d_h, zo_h)
 
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
@@ -204,14 +204,14 @@ SUBROUTINE canopy_calcs
                             do k=1, modlays
                                 call canopy_wind(hcmref, zk(k), fafraczInt(k), ubzref, &
                                     z0ghc, cdrag, pai, hgtref, d_h, zo_h, molref, &
-                                    rsl_opt, canBOT(k), canTOP(k), canWIND(loc, k))
+                                    rsl_opt, lambdars, canBOT(k), canTOP(k), canWIND(loc, k))
                             end do
 ! ... determine midflamepoint and flame height from user or FRP calculation
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
                                 frpref, midflamepoint, flameh(loc))
 
                             if (flameh(loc) .gt. 0.0) then !only calculate WAF when flameh > 0
-                                call canopy_waf(hcmref, lamdars, rsl_opt, hgtref, flameh(loc), &
+                                call canopy_waf(hcmref, lambdars, hgtref, flameh(loc), &
                                     firetype, d_h, zo_h, canBOT(midflamepoint), &
                                     canTOP(midflamepoint), waf(loc))
                             end if
@@ -301,7 +301,7 @@ SUBROUTINE canopy_calcs
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 
                         call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
-                            ubzref, z0ghc, lamdars, rsl_opt, cdrag, pai, hcmref, hgtref, &
+                            ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
                             z0ref, vtyperef, lu_opt, z0_opt, d_h, zo_h)
 
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
@@ -310,14 +310,14 @@ SUBROUTINE canopy_calcs
                             do k=1, modlays
                                 call canopy_wind(hcmref, zk(k), fafraczInt(k), ubzref, &
                                     z0ghc, cdrag, pai, hgtref, d_h, zo_h, molref, &
-                                    rsl_opt, canBOT(k), canTOP(k), canWIND(loc, k))
+                                    rsl_opt, lambdars, canBOT(k), canTOP(k), canWIND(loc, k))
                             end do
 ! ... determine midflamepoint and flame height from user or FRP calculation
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
                                 frpref, midflamepoint, flameh(loc))
 
                             if (flameh(loc) .gt. 0.0) then !only calculate WAF when flameh > 0
-                                call canopy_waf(hcmref, lamdars, rsl_opt, hgtref, flameh(loc), &
+                                call canopy_waf(hcmref, lambdars, hgtref, flameh(loc), &
                                     firetype, d_h, zo_h, canBOT(midflamepoint), &
                                     canTOP(midflamepoint), waf(loc))
                             end if

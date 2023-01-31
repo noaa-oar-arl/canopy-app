@@ -90,7 +90,7 @@ Current Canopy-App components:
     | href_opt         | integer for using href_set in namelist (= 0) or array from file (= 1); default = 0 |
     | href_set         | user set real value of reference height above canopy associated with input wind speed (m) (only used if href_opt = 0)  |
     | z0ghc            | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
-    | lamdars          | Value representing influence of roughness sublayer (Massman et al., 2017)          |
+    | lambdars         | Value representing influence of roughness sublayer (Massman et al., 2017)          |
     | dx_opt           | 0=Calculation of dx resolution/distance from lon; 1=user set dx grid resolution    |
     | dx_set           | user set real value of grid resolution (m) only if dx_opt=1                        |
     | flameh_opt       | 0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh; 2=FRP calculation where available (active fires), otherwise user set flameh    |
@@ -102,7 +102,7 @@ Current Canopy-App components:
     | lai_thresh       | user set real value of LAI threshold for contiguous canopy (m2/m2)                 |
     | frt_thresh       | user set real value of forest fraction threshold for contiguous canopy             |
     | fch_thresh       | user set real value of canopy height  threshold for contiguous canopy (m)          |
-    | rsl_opt          | user set option to include stability and Roughness SubLayer (RSL) effects  0 = off; 1 = on |
+    | rsl_opt          | user set option to include more explicit stability and Roughness SubLayer (RSL) effects in calculation of wind speed at canopy top (Uc) from reference height  0 = off; 1 = on |
 
 **Note:  If modres >> flameh then some error in WAF calculation will be incurred.  Suggestion is to use relative fine modres compared to average flame heights (at least <= 0.5 m) if WAF is required.
 
