@@ -322,7 +322,7 @@ CONTAINS
         g_lon%istart(1) = 1
         g_lon%istart(2) = 1
         g_lon%iend(1) = nlon
-        g_lon%iend(2) = nlat 
+        g_lon%iend(2) = nlat
 
         !-------------------------------------------------------------------------------
         ! Time-varying 2d fields at cell centers.
