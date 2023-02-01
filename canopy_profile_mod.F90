@@ -49,7 +49,7 @@ contains
 
             !approx/average vegtype mapping to Massman et al. forest types
             if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS Cat 1-2/Evergreen Needleleaf & Broadleaf
-                !--> Use average Massman Aspen+Spruce+Pine Forest
+                !--> Use average Massman Aspen+Spruce+ScotsPine+JackPine+LoblollyPine Forest
                 FIRETYPE=0
                 CDRAG=(0.20_rk + 0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk)/5.0_rk
                 if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
@@ -71,7 +71,7 @@ contains
                 SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk)/5.0_rk
             end if
 
-            if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
+            if (VTYPE .ge. 3 .and. VTYPE .le. 4) then !VIIRS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
                 !--> Use Massman Hardwood Forest
                 FIRETYPE=0
                 CDRAG=0.15_rk
@@ -93,6 +93,29 @@ contains
                 SIGMAU=0.13_rk
                 SIGMA1=0.30_rk
             end if
+
+            if (VTYPE .eq. 5) then !VIIRS Cat 5 Mixed Forests
+                !--> Use average Massman Aspen+Spruce+ScotsPine+JackPine+LoblollyPine+Hardwood Forest
+                FIRETYPE=0
+                CDRAG=(0.20_rk + 0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk + 0.15_rk)/6.0_rk
+                if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
+                    PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk + 4.93_rk)/6.0_rk
+                else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
+                    PAI=CalcPAI(FCH,FFRAC)
+                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
+                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
+                    ! https://doi.org/10.1016/j.agrformet.2017.09.004
+                    ! Section 3.3
+                else if (PAI_OPT .eq. 3) then !PAI value from user
+                    PAI=PAI_SET
+                else
+                    write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
+                    call exit(2)
+                end if
+                ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/6.0_rk
+                SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/6.0_rk
+                SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/6.0_rk
+            end if 
 
             if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
                 !--> Average of Massman Corn + Rice )
