@@ -115,7 +115,7 @@ contains
                 ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/6.0_rk
                 SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/6.0_rk
                 SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/6.0_rk
-            end if 
+            end if
 
             if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
                 !--> Average of Massman Corn + Rice )
