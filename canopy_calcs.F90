@@ -125,8 +125,10 @@ SUBROUTINE canopy_calcs
 
 ! ... user option to calculate in-canopy eddy photolysis attenuation at height z
                             if (ifcanphot) then
-                                call canopy_phot(fafraczInt, &
-                                    lairef, cluref, cszref, rjcf_3d(i,j,:))
+                                if (cszref .ge. 0.0_rk) then !only calculate if cell isn't dark
+                                    call canopy_phot(fafraczInt, &
+                                        lairef, cluref, cszref, rjcf_3d(i,j,:))
+                                end if
                             end if
 
                         end if !Contiguous Canopy
@@ -145,7 +147,7 @@ SUBROUTINE canopy_calcs
 !----------------------------------------------------------->
 
     else if (infmt_opt .eq. 1) then !Input format is 1D and output must be 1D
-        print*, variables%lon
+
         if (ifcanwind .or. ifcanwaf) then !only calculate if canopy wind or WAF option
             call canopy_calcdx(dx_opt, dx_set, nlat, nlon, variables%lat, &
                 variables%lon, dx)
@@ -236,8 +238,10 @@ SUBROUTINE canopy_calcs
 
 ! ... user option to calculate in-canopy eddy photolysis attenuation at height z
                         if (ifcanphot) then
-                            call canopy_phot(fafraczInt, &
-                                lairef, cluref, cszref, rjcf(loc, :))
+                            if (cszref .ge. 0.0_rk) then !only calculate if cell isn't dark
+                                call canopy_phot(fafraczInt, &
+                                    lairef, cluref, cszref, rjcf(loc, :))
+                            end if
                         end if
 
                     end if !Contiguous Canopy

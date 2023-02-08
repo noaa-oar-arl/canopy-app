@@ -1,14 +1,17 @@
 &FILENAMES
 !  file_vars    = 'testf000_point.txt'
 ! file_vars    = 'testf000.txt'
-  file_vars    = 'testf000.nc'
+!  file_vars    = 'testf000.nc'
+  file_vars    = 'testf000_conus.nc'
   file_out     = 'test_out'
 /
 
 &USERDEFS
   infmt_opt  =  0
-  nlat       =  43
-  nlon       =  86
+!  nlat       =  43
+!  nlon       =  86
+  nlat       =  214
+  nlon       =  598
   modlays    =  100
   modres     =  0.5
   ifcanwind  = .TRUE.
@@ -21,7 +24,7 @@
   lambdars   =  1.25
   dx_opt     =  0
   dx_set     =  12000.0
-  flameh_opt =  0
+  flameh_opt =  2
   flameh_set =  1.0
   pai_opt    =  0
   pai_set    =  4.0

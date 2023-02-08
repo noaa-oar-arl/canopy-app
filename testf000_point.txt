@@ -1,2 +1,2 @@
-lon,lat,ugrd10m,vgrd10m,fricv,sfcr,vtype,sotyp,pressfc,dswrf,shtfl,tmpsfc,tmp2m,spfh2m,hpbl,prate_ave,lai,clu,ffrac,fh,mol,csz,frp,href
-270.00,34.97,-0.1842,2.5479,0.2770,0.2500,14,4,100694.0859,112.6779,14.5789,295.7195,295.4205,0.0156,162.2376,0.0000,1.1774,0.6913,0.6654,3.2858,-130.1519,-0.6819,0.0000,10.00
+lat,lon,fh,ugrd10m,vgrd10m,clu,lai,vtype,ffrac,fricv,csz,sfcr,mol,frp,href,sotyp,pressfc,dswrf,shtfl,tmpsfc,tmp2m,spfh2m,hpbl,prate_ave
+34.97,276.33,27.9068,-0.9620,-0.2341,0.7125,4.7699,4,0.9038,0.1909,0.2955,0.8260,-31.2996,1000.0000,10.00,3,92656.6484,197.5704,19.6867,293.3393,293.0711,0.0131,87.9127,0.0000
