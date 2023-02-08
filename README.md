@@ -7,7 +7,7 @@ Patrick Campbell, Zachary Moon, and Wei-Ting Hung
 
 Build canopy model:
 
-Canopy-App requires NetCDF-Fortran Libraries (i.e., -lnetcdf -lnetcdff) when using the 2D NetCDF I/O Option (i.e., infmt_opt=0). 
+Canopy-App requires NetCDF-Fortran Libraries (i.e., -lnetcdf -lnetcdff) when using the 2D NetCDF I/O Option (i.e., infmt_opt=0).
 See included Makefile for example (currently developed using netcdf-c/4.7.4-vh and netcdf-fortran/4.5.3-ff modules).
 
 Compile, edit namelist, and run canopy model:

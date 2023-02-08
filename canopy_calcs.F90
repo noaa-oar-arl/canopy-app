@@ -72,8 +72,8 @@ SUBROUTINE canopy_calcs
                 cansublays  = floor(hcmref/modres)
 
 ! ... check for valid model vegetation types
-            if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
-                if (vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS or MODIS types
+                if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
+                    if (vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS or MODIS types
 
 ! ... check for contiguous canopy conditions at each model grid cell
                         if (hcmref .gt. fch_thresh .and. ffracref .gt. frt_thresh &
@@ -180,7 +180,7 @@ SUBROUTINE canopy_calcs
 
 ! ... calculate wind speed from u and v
             ubzref   = sqrt((uref**2.0) + (vref**2.0))
-            
+
 ! ... get scaled canopy model profile and sub-canopy layers
             zhc         = zk/hcmref
             cansublays  = floor(hcmref/modres)
@@ -188,7 +188,7 @@ SUBROUTINE canopy_calcs
 ! ... check for valid model vegetation types
             if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
                 if (vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS or MODIS types
-            
+
 ! ... check for contiguous canopy conditions at each model grid cell
                     if (hcmref .gt. fch_thresh .and. ffracref .gt. frt_thresh &
                         .and. lairef .gt. lai_thresh) then
