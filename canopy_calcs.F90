@@ -71,9 +71,9 @@ SUBROUTINE canopy_calcs
                 zhc         = zk/hcmref
                 cansublays  = floor(hcmref/modres)
 
-! ... check for model vegetation types
-                if (lu_opt .eq. 0 ) then !VIIRS
-                    if (vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS types
+! ... check for valid model vegetation types
+            if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
+                if (vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS or MODIS types
 
 ! ... check for contiguous canopy conditions at each model grid cell
                         if (hcmref .gt. fch_thresh .and. ffracref .gt. frt_thresh &
@@ -132,7 +132,7 @@ SUBROUTINE canopy_calcs
                         end if !Contiguous Canopy
 
                     else
-!                        write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
+!                        write(*,*)  'Warning VIIRS/MODIS VTYPE ', vtyperef, ' is not supported...continue'
                     end if   !Vegetation types
                 else
                     write(*,*)  'Wrong LU_OPT choice of ', lu_opt, ' in namelist...exiting'
@@ -178,15 +178,15 @@ SUBROUTINE canopy_calcs
 
 ! ... calculate wind speed from u and v
             ubzref   = sqrt((uref**2.0) + (vref**2.0))
-
+            
 ! ... get scaled canopy model profile and sub-canopy layers
             zhc         = zk/hcmref
             cansublays  = floor(hcmref/modres)
 
-! ... check for model vegetation types
-            if (lu_opt .eq. 0 ) then !VIIRS
-                if (vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS types
-
+! ... check for valid model vegetation types
+            if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
+                if (vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS or MODIS types
+            
 ! ... check for contiguous canopy conditions at each model grid cell
                     if (hcmref .gt. fch_thresh .and. ffracref .gt. frt_thresh &
                         .and. lairef .gt. lai_thresh) then
@@ -243,7 +243,7 @@ SUBROUTINE canopy_calcs
                     end if !Contiguous Canopy
 
                 else
-!                    write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
+!                    write(*,*)  'Warning VIIRS/MODIS VTYPE ', vtyperef, ' is not supported...continue'
                 end if   !Vegetation types
             else
                 write(*,*)  'Wrong LU_OPT choice of ', lu_opt, ' in namelist...exiting'
