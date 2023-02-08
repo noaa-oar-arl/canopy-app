@@ -303,9 +303,9 @@ CONTAINS
         !-------------------------------------------------------------------------------
 
         g_lat%fld = fillreal
-        g_lat%fldname = 'LAT'
+        g_lat%fldname = 'lat'
         g_lat%long_name = 'latitude at cell centers'
-        g_lat%units = 'degrees_north'
+        g_lat%units = 'degrees_N'
         g_lat%dimnames(1) = 'nlon'
         g_lat%dimnames(2) = 'nlat'
         g_lat%istart(1) = 1
@@ -314,9 +314,9 @@ CONTAINS
         g_lat%iend(2) = nlat
 
         g_lon%fld = fillreal
-        g_lon%fldname = 'LON'
+        g_lon%fldname = 'lon'
         g_lon%long_name = 'longitude at cell centers'
-        g_lon%units = 'degrees_east'
+        g_lon%units = 'degrees_E'
         g_lon%dimnames(1) = 'nlon'
         g_lon%dimnames(2) = 'nlat'
         g_lon%istart(1) = 1
@@ -329,7 +329,7 @@ CONTAINS
         !-------------------------------------------------------------------------------
 
         c_waf%fld = fillreal
-        c_waf%fldname = 'WAF'
+        c_waf%fldname = 'waf'
         c_waf%long_name = 'wind adjustment factor'
         c_waf%units = '1'
         c_waf%fillvalue = fillreal
@@ -341,7 +341,7 @@ CONTAINS
         c_waf%iend(2) = nlat
 
         c_flameh%fld = fillreal
-        c_flameh%fldname = 'FLAMEH'
+        c_flameh%fldname = 'flameh'
         c_flameh%long_name = 'flame height'
         c_flameh%units = 'm'
         c_flameh%fillvalue = fillreal
@@ -358,7 +358,7 @@ CONTAINS
         !-------------------------------------------------------------------------------
 
         c_canwind%fld = fillreal
-        c_canwind%fldname = 'CANWIND'
+        c_canwind%fldname = 'canwind'
         c_canwind%long_name = 'Above/below canopy wind speeds'
         c_canwind%units = 'm s-1'
         c_canwind%fillvalue = fillreal
@@ -373,7 +373,7 @@ CONTAINS
         c_canwind%iend(3) = modlays
 
         c_Kz%fld = fillreal
-        c_Kz%fldname = 'KZ'
+        c_Kz%fldname = 'kz'
         c_Kz%long_name = 'eddy diffusivities'
         c_Kz%units = 'm2 s-1'
         c_Kz%fillvalue = fillreal
@@ -388,7 +388,7 @@ CONTAINS
         c_Kz%iend(3) = modlays
 
         c_rjcf%fld = fillreal
-        c_rjcf%fldname = 'RJCF'
+        c_rjcf%fldname = 'rjcf'
         c_rjcf%long_name = 'photolysis attenuation correction factors'
         c_rjcf%units = '1'
         c_rjcf%fillvalue = fillreal
@@ -555,7 +555,7 @@ CONTAINS
         !    CALL graceful_stop (pname)
         !  ENDIF
 
-        var = "NLON"
+        var = "im"
         rcode = nf90_put_att (cdfid_in, nf90_global, var, nlon)
         IF ( rcode /= nf90_noerr ) THEN
             WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
@@ -563,7 +563,7 @@ CONTAINS
             CALL exit (2)
         ENDIF
 
-        var = "NLAT"
+        var = "jm"
         rcode = nf90_put_att (cdfid_in, nf90_global, var, nlat)
         IF ( rcode /= nf90_noerr ) THEN
             WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
@@ -571,7 +571,7 @@ CONTAINS
             CALL exit (2)
         ENDIF
 
-        var = "NLAYS"
+        var = "levels"
         rcode = nf90_put_att (cdfid_in, nf90_global, var, modlays)
         IF ( rcode /= nf90_noerr ) THEN
             WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
@@ -1127,7 +1127,7 @@ CONTAINS
                 CALL exit(2)
             ENDIF
 
-            var = "west_east"
+            var = "grid_xt"
             rcode = nf90_def_dim (cdfid_m, TRIM(var), nlon, dim_nx)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
@@ -1135,7 +1135,7 @@ CONTAINS
                 CALL exit(2)
             ENDIF
 
-            var = "south_north"
+            var = "grid_yt"
             rcode = nf90_def_dim (cdfid_m, TRIM(var), nlat, dim_ny)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
