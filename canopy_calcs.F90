@@ -109,8 +109,8 @@ SUBROUTINE canopy_calcs
                                 call canopy_flameh(flameh_opt, flameh_set, dx_2d(i,j), modres, &
                                     frpref, midflamepoint, flameh_2d(i,j))
 
-                                if (flameh_2d(i,j) .gt. 0.0 .and. flameh_2d(i,j) .le. hcmref) then 
-                                        !only calculate WAF when flameh > 0 and <= FH
+                                if (flameh_2d(i,j) .gt. 0.0 .and. flameh_2d(i,j) .le. hcmref) then
+                                    !only calculate WAF when flameh > 0 and <= FH
                                     call canopy_waf(hcmref, lambdars, hgtref, flameh_2d(i,j), &
                                         firetype, d_h, zo_h, canBOT(midflamepoint), &
                                         canTOP(midflamepoint), waf_2d(i,j))
@@ -223,8 +223,8 @@ SUBROUTINE canopy_calcs
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
                                 frpref, midflamepoint, flameh(loc))
 
-                            if (flameh(loc) .gt. 0.0 .and. flameh(loc) .le. hcmref) then 
-                                    !only calculate WAF when flameh > 0
+                            if (flameh(loc) .gt. 0.0 .and. flameh(loc) .le. hcmref) then
+                                !only calculate WAF when flameh > 0
                                 call canopy_waf(hcmref, lambdars, hgtref, flameh(loc), &
                                     firetype, d_h, zo_h, canBOT(midflamepoint), &
                                     canTOP(midflamepoint), waf(loc))
