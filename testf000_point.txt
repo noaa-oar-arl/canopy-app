@@ -1,0 +1,2 @@
+lon,lat,ugrd10m,vgrd10m,fricv,sfcr,vtype,sotyp,pressfc,dswrf,shtfl,tmpsfc,tmp2m,spfh2m,hpbl,prate_ave,lai,clu,ffrac,fh,mol,csz,frp,href
+270.00,34.97,-0.1842,2.5479,0.2770,0.2500,14,4,100694.0859,112.6779,14.5789,295.7195,295.4205,0.0156,162.2376,0.0000,1.1774,0.6913,0.6654,3.2858,-130.1519,-0.6819,0.0000,10.00

@@ -51,17 +51,21 @@ SUBROUTINE canopy_calcs
             do j=1, nlat
 
                 hcmref   = variables_2d(i,j)%fh
-                ubzref   = variables_2d(i,j)%ws
+                uref     = variables_2d(i,j)%ugrd10m
+                vref     = variables_2d(i,j)%vgrd10m
                 cluref   = variables_2d(i,j)%clu
                 lairef   = variables_2d(i,j)%lai
                 vtyperef = variables_2d(i,j)%vtype
                 ffracref = variables_2d(i,j)%ffrac
-                ustref   = variables_2d(i,j)%ust
+                ustref   = variables_2d(i,j)%fricv
                 cszref   = variables_2d(i,j)%csz
-                z0ref    = variables_2d(i,j)%z0
+                z0ref    = variables_2d(i,j)%sfcr
                 molref   = variables_2d(i,j)%mol
                 frpref   = variables_2d(i,j)%frp
                 hgtref   = variables_2d(i,j)%href
+
+! ... calculate wind speed from u and v
+                ubzref   = sqrt((uref**2.0) + (vref**2.0))
 
 ! ... get scaled canopy model profile and sub-canopy layers
                 zhc         = zk/hcmref
@@ -141,7 +145,7 @@ SUBROUTINE canopy_calcs
 !----------------------------------------------------------->
 
     else if (infmt_opt .eq. 1) then !Input format is 1D and output must be 1D
-
+        print*, variables%lon
         if (ifcanwind .or. ifcanwaf) then !only calculate if canopy wind or WAF option
             call canopy_calcdx(dx_opt, dx_set, nlat, nlon, variables%lat, &
                 variables%lon, dx)
@@ -159,17 +163,21 @@ SUBROUTINE canopy_calcs
 ! ... Main loop through model grid cells
         do loc=1, nlat*nlon
             hcmref   = variables(loc)%fh
-            ubzref   = variables(loc)%ws
+            uref     = variables(loc)%ugrd10m
+            vref     = variables(loc)%vgrd10m
             cluref   = variables(loc)%clu
             lairef   = variables(loc)%lai
             vtyperef = variables(loc)%vtype
             ffracref = variables(loc)%ffrac
-            ustref   = variables(loc)%ust
+            ustref   = variables(loc)%fricv
             cszref   = variables(loc)%csz
-            z0ref    = variables(loc)%z0
+            z0ref    = variables(loc)%sfcr
             molref   = variables(loc)%mol
             frpref   = variables(loc)%frp
             hgtref   = variables(loc)%href
+
+! ... calculate wind speed from u and v
+            ubzref   = sqrt((uref**2.0) + (vref**2.0))
 
 ! ... get scaled canopy model profile and sub-canopy layers
             zhc         = zk/hcmref
