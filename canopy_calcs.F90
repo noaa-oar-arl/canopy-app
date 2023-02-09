@@ -51,25 +51,29 @@ SUBROUTINE canopy_calcs
             do j=1, nlat
 
                 hcmref   = variables_2d(i,j)%fh
-                ubzref   = variables_2d(i,j)%ws
+                uref     = variables_2d(i,j)%ugrd10m
+                vref     = variables_2d(i,j)%vgrd10m
                 cluref   = variables_2d(i,j)%clu
                 lairef   = variables_2d(i,j)%lai
                 vtyperef = variables_2d(i,j)%vtype
                 ffracref = variables_2d(i,j)%ffrac
-                ustref   = variables_2d(i,j)%ust
+                ustref   = variables_2d(i,j)%fricv
                 cszref   = variables_2d(i,j)%csz
-                z0ref    = variables_2d(i,j)%z0
+                z0ref    = variables_2d(i,j)%sfcr
                 molref   = variables_2d(i,j)%mol
                 frpref   = variables_2d(i,j)%frp
                 hgtref   = variables_2d(i,j)%href
+
+! ... calculate wind speed from u and v
+                ubzref   = sqrt((uref**2.0) + (vref**2.0))
 
 ! ... get scaled canopy model profile and sub-canopy layers
                 zhc         = zk/hcmref
                 cansublays  = floor(hcmref/modres)
 
-! ... check for model vegetation types
-                if (lu_opt .eq. 0 ) then !VIIRS
-                    if (vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS types
+! ... check for valid model vegetation types
+                if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
+                    if (vtyperef .gt. 0 .and. vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS or MODIS types
 
 ! ... check for contiguous canopy conditions at each model grid cell
                         if (hcmref .gt. fch_thresh .and. ffracref .gt. frt_thresh &
@@ -105,7 +109,8 @@ SUBROUTINE canopy_calcs
                                 call canopy_flameh(flameh_opt, flameh_set, dx_2d(i,j), modres, &
                                     frpref, midflamepoint, flameh_2d(i,j))
 
-                                if (flameh_2d(i,j) .gt. 0.0) then !only calculate WAF when flameh > 0
+                                if (flameh_2d(i,j) .gt. 0.0 .and. flameh_2d(i,j) .le. hcmref) then
+                                    !only calculate WAF when flameh > 0 and <= FH
                                     call canopy_waf(hcmref, lambdars, hgtref, flameh_2d(i,j), &
                                         firetype, d_h, zo_h, canBOT(midflamepoint), &
                                         canTOP(midflamepoint), waf_2d(i,j))
@@ -121,14 +126,16 @@ SUBROUTINE canopy_calcs
 
 ! ... user option to calculate in-canopy eddy photolysis attenuation at height z
                             if (ifcanphot) then
-                                call canopy_phot(fafraczInt, &
-                                    lairef, cluref, cszref, rjcf_3d(i,j,:))
+                                if (cszref .ge. 0.0_rk) then !only calculate if cell isn't dark
+                                    call canopy_phot(fafraczInt, &
+                                        lairef, cluref, cszref, rjcf_3d(i,j,:))
+                                end if
                             end if
 
                         end if !Contiguous Canopy
 
                     else
-!                        write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
+!                        write(*,*)  'Warning VIIRS/MODIS VTYPE ', vtyperef, ' is not supported...continue'
                     end if   !Vegetation types
                 else
                     write(*,*)  'Wrong LU_OPT choice of ', lu_opt, ' in namelist...exiting'
@@ -159,25 +166,29 @@ SUBROUTINE canopy_calcs
 ! ... Main loop through model grid cells
         do loc=1, nlat*nlon
             hcmref   = variables(loc)%fh
-            ubzref   = variables(loc)%ws
+            uref     = variables(loc)%ugrd10m
+            vref     = variables(loc)%vgrd10m
             cluref   = variables(loc)%clu
             lairef   = variables(loc)%lai
             vtyperef = variables(loc)%vtype
             ffracref = variables(loc)%ffrac
-            ustref   = variables(loc)%ust
+            ustref   = variables(loc)%fricv
             cszref   = variables(loc)%csz
-            z0ref    = variables(loc)%z0
+            z0ref    = variables(loc)%sfcr
             molref   = variables(loc)%mol
             frpref   = variables(loc)%frp
             hgtref   = variables(loc)%href
+
+! ... calculate wind speed from u and v
+            ubzref   = sqrt((uref**2.0) + (vref**2.0))
 
 ! ... get scaled canopy model profile and sub-canopy layers
             zhc         = zk/hcmref
             cansublays  = floor(hcmref/modres)
 
-! ... check for model vegetation types
-            if (lu_opt .eq. 0 ) then !VIIRS
-                if (vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS types
+! ... check for valid model vegetation types
+            if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
+                if (vtyperef .gt. 0 .and. vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS or MODIS types
 
 ! ... check for contiguous canopy conditions at each model grid cell
                     if (hcmref .gt. fch_thresh .and. ffracref .gt. frt_thresh &
@@ -212,7 +223,8 @@ SUBROUTINE canopy_calcs
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
                                 frpref, midflamepoint, flameh(loc))
 
-                            if (flameh(loc) .gt. 0.0) then !only calculate WAF when flameh > 0
+                            if (flameh(loc) .gt. 0.0 .and. flameh(loc) .le. hcmref) then
+                                !only calculate WAF when flameh > 0
                                 call canopy_waf(hcmref, lambdars, hgtref, flameh(loc), &
                                     firetype, d_h, zo_h, canBOT(midflamepoint), &
                                     canTOP(midflamepoint), waf(loc))
@@ -228,14 +240,16 @@ SUBROUTINE canopy_calcs
 
 ! ... user option to calculate in-canopy eddy photolysis attenuation at height z
                         if (ifcanphot) then
-                            call canopy_phot(fafraczInt, &
-                                lairef, cluref, cszref, rjcf(loc, :))
+                            if (cszref .ge. 0.0_rk) then !only calculate if cell isn't dark
+                                call canopy_phot(fafraczInt, &
+                                    lairef, cluref, cszref, rjcf(loc, :))
+                            end if
                         end if
 
                     end if !Contiguous Canopy
 
                 else
-!                    write(*,*)  'Warning VIIRS VTYPE ', vtyperef, ' is not supported...continue'
+!                    write(*,*)  'Warning VIIRS/MODIS VTYPE ', vtyperef, ' is not supported...continue'
                 end if   !Vegetation types
             else
                 write(*,*)  'Wrong LU_OPT choice of ', lu_opt, ' in namelist...exiting'

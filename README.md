@@ -7,7 +7,14 @@ Patrick Campbell, Zachary Moon, and Wei-Ting Hung
 
 Build canopy model:
 
-Canopy-App requires NetCDF-Fortran Libraries (i.e., -lnetcdf -lnetcdff) for NetCDF I/O Option. See included Makefile for example.
+Canopy-App requires NetCDF-Fortran Libraries (i.e., -lnetcdf -lnetcdff) when using the 2D NetCDF I/O Option (i.e., infmt_opt=0).
+See included Makefile for example (currently developed using netcdf-c/4.7.4-vh and netcdf-fortran/4.5.3-ff modules).
+
+Compilation Options with or without Debug or NetCDF options:
+ - `DEBUG  = 0(off; default) or DEBUG  =1(on)`
+ - `NETCDF = 0(off) or          NETCDF =1(on; default)`
+
+Example: `DEBUG=1 NETCDF=1 make`
 
 Compile, edit namelist, and run canopy model:
 - `make`
@@ -44,8 +51,8 @@ Current Canopy-App components:
     Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats:
                                                             `.txt`, `.nc`, `.ncf`, or `.nc4`)
 
-- See example file inputs for variables and format (`input_variables.txt`, `input_variables_1D.nc`, or `input_variables_2D.nc`).
-- Canopy-App assumes the NetCDF input files are in CF-Convention; recommend using double or float for real variables.
+- See example file inputs for variables and format (`input_variables.txt` or `testf000.nc`).
+- Canopy-App assumes the NetCDF input files are in CF-Convention and test file is based on UFS-GFSv16; recommend using double or float for real variables.
 - Canopy-App can also be run with a single point of 1D input data in a text file (e.g. `input_variables_point.txt`).
 
     **Current Canopy-App Output:** Outputs 3D canopy winds, canopy vertical/eddy diffusivity values, and
@@ -58,21 +65,22 @@ Current Canopy-App components:
 
     | Variable Name    | Variable Description and Units                    |
     | ---------------  | ------------------------------------------------- |  
-    | LAT              | Latitude  (degrees)                               |
-    | LON              | Longitude (degrees; from 0-360)                   |
-    | TIME             | Timestamp (days since YYYY-N-D 0:0:0) (NetCDF Only) |
-    | FH               | Forest canopy height (m)                          |
-    | HREF             | Reference height above canopy (m)                 |
-    | WS               | Wind speed at HREF (m/s), e.g., 10 m              |
-    | CLU              | Forest clumping index (dimensionless)             |
-    | LAI              | Leaf area index (m2/m2)                           |
-    | VTYPE            | Vegetation type (dimensionless), VIIRS Only       |
-    | FFRAC            | Forest fraction (dimensionless)                   |
-    | UST              | Friction velocity (m/s)                           |
-    | CSZ              | Cosine of the solar zenith angle (dimensionless)  |
-    | Z0               | Total surface roughness length (m)                |
-    | MOL              | Monin-Obukhov Length (m)                          |
-    | FRP              | Total Fire Radiative Power (MW/grid cell area)    |
+    | lat              | Latitude  (degrees)                               |
+    | lon              | Longitude (degrees; from 0-360)                   |
+    | time             | Timestamp (days since YYYY-N-D 0:0:0) (NetCDF Only) |
+    | fh               | Forest canopy height (m)                          |
+    | href             | Reference height above canopy (m) - 10 m          |
+    | ugrd10m          | U wind at HREF (m/s), e.g., 10 m              |
+    | vgrd10m          | V wind at HREF (m/s), e.g., 10 m              |
+    | clu              | Forest clumping index (dimensionless)             |
+    | lai              | Leaf area index (m2/m2)                           |
+    | vtype            | Vegetation type (dimensionless), VIIRS Only       |
+    | ffrac            | Forest fraction (dimensionless)                   |
+    | fricv            | Friction velocity (m/s)                           |
+    | csz              | Cosine of the solar zenith angle (dimensionless)  |
+    | sfcr             | Total surface roughness length (m)                |
+    | mol              | Monin-Obukhov Length (m)                          |
+    | frp              | Total Fire Radiative Power (MW/grid cell area)    |
 
     **Table 2. Current User Namelist Options**
 
@@ -93,18 +101,18 @@ Current Canopy-App components:
     | lambdars         | Value representing influence of roughness sublayer (Massman et al., 2017)          |
     | dx_opt           | 0=Calculation of dx resolution/distance from lon; 1=user set dx grid resolution    |
     | dx_set           | user set real value of grid resolution (m) only if dx_opt=1                        |
-    | flameh_opt       | 0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh; 2=FRP calculation where available (active fires), otherwise user set flameh    |
+    | flameh_opt       | 0=Calculation of flame height from FRP (Byram, 1959); 1=user set flameh; 2=FRP calculation where available (active fires), elsewhere user set flameh    |
     | flameh_set       | user set real value of flame height (m) only if flame_opt=1                        |
     | pai_opt          | integer (0=PAI fixed from Katul et al. 2004 veg types-->default; 1=PAI Massman et al. 2017 Eq. 19 calc; 2=PAI from model LAI+WAI; 3=user set PAI value) |
     | pai_set          | user set real value of PAI (default=4.0; only used if pai_opt=3)                   |
-    | lu_opt           | integer (0=VIIRS LU type input mapped to Massman et al., currently only option )   |
+    | lu_opt           | integer for input model land use type (0=VIIRS 17 Cat (default) or 1=MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.)   |
     | z0_opt           | integer (0=use model input or 1 = vegtype dependent z0 for first estimate)         |
     | lai_thresh       | user set real value of LAI threshold for contiguous canopy (m2/m2)                 |
     | frt_thresh       | user set real value of forest fraction threshold for contiguous canopy             |
     | fch_thresh       | user set real value of canopy height  threshold for contiguous canopy (m)          |
     | rsl_opt          | user set option to include more explicit stability and Roughness SubLayer (RSL) effects in calculation of wind speed at canopy top (Uc) from reference height  0 = off; 1 = on |
 
-**Note:  If modres >> flameh then some error in WAF calculation will be incurred.  Suggestion is to use relative fine modres compared to average flame heights (at least <= 0.5 m) if WAF is required.
+**Note:  If modres >> flameh then some error in WAF calculation will be incurred.  Suggestion is to use relative fine modres (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
 
 
 Main Citations (further references contained within):
