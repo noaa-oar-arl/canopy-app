@@ -19,8 +19,10 @@ SUBROUTINE canopy_calcs
     use canopy_waf_mod
     use canopy_phot_mod
     use canopy_eddy_mod
+    use canopy_bioemi_mod
 
     IMPLICIT NONE
+    real(rk) sfcrad,temp2 ! testing bioemis
 
     !Local variables
     integer i,j,k,loc
@@ -131,6 +133,25 @@ SUBROUTINE canopy_calcs
                                         lairef, cluref, cszref, rjcf_3d(i,j,:))
                                 end if
                             end if
+! ... user option to calculate in-canopy biogenic emissions
+!                            if (ifcanbio) then
+                                sfcrad = 100.0  !test w/m2
+                                temp2  = 298.0  !test K
+!                               TBD:  do k=1, size(emi_names)
+                                !if (emi_names(k) .eq. "ISOP") then
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, sfcrad, temp2, &
+                                    lu_opt, vtyperef) !,&
+!                                    , emi_names(k), emi_isop_3d(i,j,:))
+!                            end if
+                                 !else if (emi_names(k) .eq. "MYRC") then
+!                               call canopy_bio(zk, fafraczInt, hcmref, &
+!                                    lairef, cluref, cszref, sfcrad, temp2)!, &
+!                                    vtyperef, emi_names(k), emi_myrc_3d(i,j,:))
+                                 !else
+                                 !warning...no biogenic emissions names found
+!                                end if
+!                               end do
 
                         end if !Contiguous Canopy
 
@@ -245,6 +266,32 @@ SUBROUTINE canopy_calcs
                                     lairef, cluref, cszref, rjcf(loc, :))
                             end if
                         end if
+! ... user option to calculate in-canopy eddy photolysis attenuation at height z
+                        if (ifcanphot) then
+                            call canopy_phot(fafraczInt, &
+                                lairef, cluref, cszref, rjcf(loc, :))
+                        end if
+
+                        ! ... user option to calculate in-canopy biogenic emissions
+!                            if (ifcanbio) then
+                                sfcrad = 100.0  !test w/m2
+                                temp2  = 298.0  !test K
+!                               TBD:  do k=1, size(emi_names)
+                                !if (emi_names(k) .eq. "ISOP") then
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, sfcrad, temp2, &
+                                    lu_opt, vtyperef) !,&
+!                                    , emi_names(k), emi_isop_3d(i,j,:))
+
+!                            end if
+                                 !else if (emi_names(k) .eq. "MYRC") then
+!                               call canopy_bio(zk, fafraczInt, hcmref, &
+!                                    lairef, cluref, cszref, sfcrad, temp2)!, &
+!                                    vtyperef, emi_names(k), emi_myrc_3d(i,j,:))
+                                 !else
+                                 !warning...no biogenic emissions names found
+!                                end if
+!                               end do
 
                     end if !Contiguous Canopy
 
