@@ -51,7 +51,7 @@ Current Canopy-App components:
     Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats:
                                                             `.txt`, `.nc`, `.ncf`, or `.nc4`)
 
-- See example file inputs for variables and format (`input_variables.txt` or `testf000.nc`).  Example input `testf000.nc` is based on UFS GFSv16 or RRFSv1 inputs initialized on July 01, 2022 @ 12 UTC
+- See example file inputs for variables and format (`gfsv16_20220701_t12z_f000.txt` or `gfsv16_20220701_t12z_f000.nc`).  Example input is based on NOAA's UFS-GFSv16 inputs initialized on July 01, 2022 @ 12 UTC
 - Canopy-App assumes the NetCDF input files are in CF-Convention and test file is based on UFS-GFSv16; recommend using double or float for real variables.
 - Canopy-App can also be run with a single point of 1D input data in a text file (e.g. `input_variables_point.txt`).
 
