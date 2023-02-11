@@ -69,6 +69,15 @@ SUBROUTINE canopy_dealloc
     end if
 
 !-------------------------------------------------------------------------------
+! Deallocate arrays for Canopy Biogenic Emissions
+!-------------------------------------------------------------------------------
+
+    if (ifcanbio) then
+        if(allocated(emi_isop))     deallocate(emi_isop)
+        if(allocated(emi_isop_3d))  deallocate(emi_isop_3d)
+    end if
+
+!-------------------------------------------------------------------------------
 !  Deallocate NetCDF data structures if used
 !-------------------------------------------------------------------------------
 

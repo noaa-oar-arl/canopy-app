@@ -133,17 +133,17 @@ SUBROUTINE canopy_calcs
                                         lairef, cluref, cszref, rjcf_3d(i,j,:))
                                 end if
                             end if
+
 ! ... user option to calculate in-canopy biogenic emissions
-!                            if (ifcanbio) then
-                                sfcrad = 100.0  !test w/m2
-                                temp2  = 298.0  !test K
+                            if (ifcanbio) then
+                                sfcrad = 100.0  !test w/m2  TBD: read from input files
+                                temp2  = 298.0  !test K     TBD: read from input files
 !                               TBD:  do k=1, size(emi_names)
                                 !if (emi_names(k) .eq. "ISOP") then
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, sfcrad, temp2, &
-                                    lu_opt, vtyperef) !,&
-!                                    , emi_names(k), emi_isop_3d(i,j,:))
-!                            end if
+                                    lu_opt, vtyperef, emi_isop_3d(i,j,:)) !,&
+!                               TBD:  , emi_names(k), emi_isop_3d(i,j,:))
                                  !else if (emi_names(k) .eq. "MYRC") then
 !                               call canopy_bio(zk, fafraczInt, hcmref, &
 !                                    lairef, cluref, cszref, sfcrad, temp2)!, &
@@ -152,6 +152,7 @@ SUBROUTINE canopy_calcs
                                  !warning...no biogenic emissions names found
 !                                end if
 !                               end do
+                            end if 
 
                         end if !Contiguous Canopy
 
@@ -266,32 +267,27 @@ SUBROUTINE canopy_calcs
                                     lairef, cluref, cszref, rjcf(loc, :))
                             end if
                         end if
-! ... user option to calculate in-canopy eddy photolysis attenuation at height z
-                        if (ifcanphot) then
-                            call canopy_phot(fafraczInt, &
-                                lairef, cluref, cszref, rjcf(loc, :))
-                        end if
 
-                        ! ... user option to calculate in-canopy biogenic emissions
-!                            if (ifcanbio) then
-                                sfcrad = 100.0  !test w/m2
-                                temp2  = 298.0  !test K
+! ... user option to calculate in-canopy biogenic emissions
+                            if (ifcanbio) then
+                                sfcrad = 100.0  !test w/m2  TBD:  Read from input files
+                                temp2  = 298.0  !test K     TBD:  Read from input files
 !                               TBD:  do k=1, size(emi_names)
                                 !if (emi_names(k) .eq. "ISOP") then
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, sfcrad, temp2, &
-                                    lu_opt, vtyperef) !,&
-!                                    , emi_names(k), emi_isop_3d(i,j,:))
-
-!                            end if
+                                    lu_opt, vtyperef, emi_isop(loc,:)) !,&
+!                                   TBD:  , emi_names(k), emi_isop(loc,:))
                                  !else if (emi_names(k) .eq. "MYRC") then
 !                               call canopy_bio(zk, fafraczInt, hcmref, &
 !                                    lairef, cluref, cszref, sfcrad, temp2)!, &
-!                                    vtyperef, emi_names(k), emi_myrc_3d(i,j,:))
+!                                    vtyperef, emi_names(k), emi_myrc(loc,:))
                                  !else
                                  !warning...no biogenic emissions names found
 !                                end if
 !                               end do
+                                print*, emi_isop(loc,:)
+                            end if
 
                     end if !Contiguous Canopy
 

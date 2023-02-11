@@ -95,6 +95,7 @@ Current Canopy-App components:
     | ifcanwaf         | logical canopy WAF option (default = .FALSE.)**                                    |
     | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
     | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |
+    | ifcanbio         | logical canopy biogenic emissions option (default = .FALSE.)                       |
     | href_opt         | integer for using href_set in namelist (= 0) or array from file (= 1); default = 0 |
     | href_set         | user set real value of reference height above canopy associated with input wind speed (m) (only used if href_opt = 0)  |
     | z0ghc            | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |

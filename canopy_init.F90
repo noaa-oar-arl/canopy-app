@@ -48,7 +48,7 @@ SUBROUTINE canopy_init
 
 
 !-------------------------------------------------------------------------------
-! Allocate 3D arrays for Canopy Photolysis Correction Factor
+! Initialize arrays for Canopy Photolysis Correction Factor
 !-------------------------------------------------------------------------------
 
     if (ifcanphot) then
@@ -56,5 +56,13 @@ SUBROUTINE canopy_init
         if(allocated(rjcf_3d))         rjcf_3d(:,:,:) = fillreal
     end if
 
+!-------------------------------------------------------------------------------
+! Initialize arrays for Canopy Biogenic Emissions
+!-------------------------------------------------------------------------------
+
+    if (ifcanbio) then
+        if(allocated(emi_isop))            emi_isop(:,:)      = fillreal
+        if(allocated(emi_isop_3d))         emi_isop_3d(:,:,:) = fillreal
+    end if
 
 END SUBROUTINE canopy_init

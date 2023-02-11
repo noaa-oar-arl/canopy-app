@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_BIO( ZK, FCLAI, FCH, LAI, CLU, COSZEN, SFCRAD, &
-                          TEMP2, LU_OPT, VTYPE)
+                          TEMP2, LU_OPT, VTYPE, EMI_OUT)
 !                            , EMI_NAME, EMI_OUT ) !TBD
 
 !-----------------------------------------------------------------------
@@ -48,8 +48,8 @@ contains
         REAL(RK),    INTENT( IN )  :: TEMP2           ! Model input 2-m Temperature (K)
         INTEGER,     INTENT( IN )  :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
-!        REAL(RK),    INTENT( OUT ) :: EMI_OUT(:)     ! Output emissions (kg /m2 s)
-        REAL(RK)    :: EMI_OUT(SIZE(ZK)) !test bioemis
+        REAL(RK),    INTENT( OUT ) :: EMI_OUT(:)      ! Output emissions (kg /m2 s)
+!        REAL(RK)    :: EMI_OUT(SIZE(ZK)) !test bioemis
 
 ! Local Variables 
         REAL(RK) :: RJCF(SIZE(ZK))                 ! Photolysis correction factor for sun/shade fraction of leaf layer
@@ -287,10 +287,10 @@ contains
            if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then      ! above ground level and at/below canopy top
                FLAI(i) = (FCLAI(i+1) - FCLAI(i)) * LAI  !fractional LAI in layer (surrogate for using LAD to get emissions in layer)
                EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i)  ! (ug/m2 hr)
-!               EMI_OUT(i) = EMI_OUT(i) * 2.77778E-13 !TBD:  convert emissions output to kg/m2 s
+               EMI_OUT(i) = EMI_OUT(i) * 2.77778E-13 !TBD:  convert emissions output to kg/m2 s
            end if
-                print*, 'Z/Hc=',ZK(i)/FCH, 'Gamma*FLAI = ', GammaTLEAF_AVE(i)*GammaPPFD_AVE(i)* FLAI(i), &
-                        'VTYPE=', VTYPE, 'EF = ', EF, 'EMI_OUT (umol/m2 hr) =',EMI_OUT(i)/68.12_rk
+!                print*, 'Z/Hc=',ZK(i)/FCH, 'Gamma*FLAI = ', GammaTLEAF_AVE(i)*GammaPPFD_AVE(i)* FLAI(i), &
+!                        'VTYPE=', VTYPE, 'EF = ', EF, 'EMI_OUT (umol/m2 hr) =',EMI_OUT(i)/68.12_rk
 !               print*, 'Z/Hc=',ZK(i)/FCH, 'FLAI = ', FLAI(i), 'EMI_OUT (ug/m2 hr) =',EMI_OUT(i)
        end do 
 !               print*, SUM(EMI_OUT)/68.12_rk

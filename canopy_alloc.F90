@@ -70,5 +70,15 @@ SUBROUTINE canopy_alloc
         if(.not.allocated(rjcf_3d))         allocate(rjcf_3d(nlon,nlat,modlays))
     end if
 
+!-------------------------------------------------------------------------------
+! Allocate arrays for Canopy Biogenic Emissions Outputs
+!-------------------------------------------------------------------------------
+
+    if (ifcanbio) then
+        write(*,*)  'Canopy biogenic emissions option selected'
+        write(*,*)  '-------------------------------'
+        if(.not.allocated(emi_isop))         allocate(emi_isop(nlat*nlon,modlays))
+        if(.not.allocated(emi_isop_3d))      allocate(emi_isop_3d(nlon,nlat,modlays))
+    end if
 
 END SUBROUTINE canopy_alloc

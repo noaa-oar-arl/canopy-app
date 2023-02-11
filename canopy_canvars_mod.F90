@@ -48,6 +48,8 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: rjcf_3d       ( : , : , : )  ! Photolysis Attenuation Correction Factors -- 3D
     real(rk), allocatable :: flameh        ( : )          ! Flame Height (m)
     real(rk), allocatable :: flameh_2d     ( : , : )      ! Flame Height -- 2D (m)
+    real(rk), allocatable :: emi_isop      ( :, : )       ! Isoprene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_isop_3d   ( : , : , : )  ! Isoprene biogenic emissions (kg/m2 s) -- 3D
 
 !-------------------------------------------------------------------------------
 ! Canopy-App Program and version descriptors.

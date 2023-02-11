@@ -16,6 +16,7 @@ MODULE canopy_canopts_mod
     logical        ::    ifcanwaf    !logical canopy WAF option (default = .FALSE.)
     logical        ::    ifcaneddy   !logical canopy eddy Kz option (default = .FALSE.)
     logical        ::    ifcanphot   !logical canopy photolsyis atten option (default = .FALSE.)
+    logical        ::    ifcanbio    !logical canopy biogenic emissions option (default = .FALSE.)
     integer        ::    pai_opt     !integer for PAI values used or calculated (default = 0)
     real(rk)       ::    pai_set     !real value for PAI set values used (default = 4.0)
     integer        ::    lu_opt      !integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
