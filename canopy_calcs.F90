@@ -22,11 +22,9 @@ SUBROUTINE canopy_calcs
     use canopy_bioemi_mod
 
     IMPLICIT NONE
-    real(rk) sfcrad,temp2 ! testing bioemis
 
     !Local variables
     integer i,j,k,loc
-    real(rk) hgtref !local reference height from namelist or file array
 
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
@@ -52,19 +50,28 @@ SUBROUTINE canopy_calcs
         do i=1, nlon
             do j=1, nlat
 
-                hcmref   = variables_2d(i,j)%fh
-                uref     = variables_2d(i,j)%ugrd10m
-                vref     = variables_2d(i,j)%vgrd10m
-                cluref   = variables_2d(i,j)%clu
-                lairef   = variables_2d(i,j)%lai
-                vtyperef = variables_2d(i,j)%vtype
-                ffracref = variables_2d(i,j)%ffrac
-                ustref   = variables_2d(i,j)%fricv
-                cszref   = variables_2d(i,j)%csz
-                z0ref    = variables_2d(i,j)%sfcr
-                molref   = variables_2d(i,j)%mol
-                frpref   = variables_2d(i,j)%frp
-                hgtref   = variables_2d(i,j)%href
+                hcmref       = variables_2d(i,j)%fh
+                uref         = variables_2d(i,j)%ugrd10m
+                vref         = variables_2d(i,j)%vgrd10m
+                cluref       = variables_2d(i,j)%clu
+                lairef       = variables_2d(i,j)%lai
+                vtyperef     = variables_2d(i,j)%vtype
+                ffracref     = variables_2d(i,j)%ffrac
+                ustref       = variables_2d(i,j)%fricv
+                cszref       = variables_2d(i,j)%csz
+                z0ref        = variables_2d(i,j)%sfcr
+                molref       = variables_2d(i,j)%mol
+                frpref       = variables_2d(i,j)%frp
+                hgtref       = variables_2d(i,j)%href
+                sotypref     = variables_2d(i,j)%sotyp
+                pressfcref   = variables_2d(i,j)%pressfc
+                dswrfref     = variables_2d(i,j)%dswrf
+                shtflref     = variables_2d(i,j)%shtfl
+                tmpsfcref    = variables_2d(i,j)%tmpsfc
+                tmp2mref     = variables_2d(i,j)%tmp2m
+                spfh2mref    = variables_2d(i,j)%spfh2m
+                hpblref      = variables_2d(i,j)%hpbl
+                prate_averef = variables_2d(i,j)%prate_ave
 
 ! ... calculate wind speed from u and v
                 ubzref   = sqrt((uref**2.0) + (vref**2.0))
@@ -136,12 +143,11 @@ SUBROUTINE canopy_calcs
 
 ! ... user option to calculate in-canopy biogenic emissions
                             if (ifcanbio) then
-                                sfcrad = 100.0  !test w/m2  TBD: read from input files
-                                temp2  = 298.0  !test K     TBD: read from input files
+                                if (dswrfref .ge. 0.0_rk) then !only calculate if cell has solar
 !                               TBD:  do k=1, size(emi_names)
                                 !if (emi_names(k) .eq. "ISOP") then
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, sfcrad, temp2, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
                                     lu_opt, vtyperef, emi_isop_3d(i,j,:)) !,&
 !                               TBD:  , emi_names(k), emi_isop_3d(i,j,:))
                                  !else if (emi_names(k) .eq. "MYRC") then
@@ -152,6 +158,9 @@ SUBROUTINE canopy_calcs
                                  !warning...no biogenic emissions names found
 !                                end if
 !                               end do
+!                                print*, 'SRAD=', dswrfref, &
+!                                        'TEMP2=',tmp2mref,'ISOP=',emi_isop_3d(i,j,:)
+                                end if
                             end if 
 
                         end if !Contiguous Canopy
@@ -187,19 +196,28 @@ SUBROUTINE canopy_calcs
 
 ! ... Main loop through model grid cells
         do loc=1, nlat*nlon
-            hcmref   = variables(loc)%fh
-            uref     = variables(loc)%ugrd10m
-            vref     = variables(loc)%vgrd10m
-            cluref   = variables(loc)%clu
-            lairef   = variables(loc)%lai
-            vtyperef = variables(loc)%vtype
-            ffracref = variables(loc)%ffrac
-            ustref   = variables(loc)%fricv
-            cszref   = variables(loc)%csz
-            z0ref    = variables(loc)%sfcr
-            molref   = variables(loc)%mol
-            frpref   = variables(loc)%frp
-            hgtref   = variables(loc)%href
+            hcmref       = variables(loc)%fh
+            uref         = variables(loc)%ugrd10m
+            vref         = variables(loc)%vgrd10m
+            cluref       = variables(loc)%clu
+            lairef       = variables(loc)%lai
+            vtyperef     = variables(loc)%vtype
+            ffracref     = variables(loc)%ffrac
+            ustref       = variables(loc)%fricv
+            cszref       = variables(loc)%csz
+            z0ref        = variables(loc)%sfcr
+            molref       = variables(loc)%mol
+            frpref       = variables(loc)%frp
+            hgtref       = variables(loc)%href
+            sotypref     = variables(loc)%sotyp
+            pressfcref   = variables(loc)%pressfc
+            dswrfref     = variables(loc)%dswrf
+            shtflref     = variables(loc)%shtfl
+            tmpsfcref    = variables(loc)%tmpsfc
+            tmp2mref     = variables(loc)%tmp2m
+            spfh2mref    = variables(loc)%spfh2m
+            hpblref      = variables(loc)%hpbl
+            prate_averef = variables(loc)%prate_ave
 
 ! ... calculate wind speed from u and v
             ubzref   = sqrt((uref**2.0) + (vref**2.0))
@@ -270,12 +288,11 @@ SUBROUTINE canopy_calcs
 
 ! ... user option to calculate in-canopy biogenic emissions
                             if (ifcanbio) then
-                                sfcrad = 100.0  !test w/m2  TBD:  Read from input files
-                                temp2  = 298.0  !test K     TBD:  Read from input files
+                               if (dswrfref .ge. 0.0_rk) then !only calculate if cell has solar
 !                               TBD:  do k=1, size(emi_names)
                                 !if (emi_names(k) .eq. "ISOP") then
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, sfcrad, temp2, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
                                     lu_opt, vtyperef, emi_isop(loc,:)) !,&
 !                                   TBD:  , emi_names(k), emi_isop(loc,:))
                                  !else if (emi_names(k) .eq. "MYRC") then
@@ -286,7 +303,9 @@ SUBROUTINE canopy_calcs
                                  !warning...no biogenic emissions names found
 !                                end if
 !                               end do
-                                print*, emi_isop(loc,:)
+!                                print*, 'SRAD=', dswrfref, &
+!                                        'TEMP2=',tmp2mref,'ISOP=',emi_isop(loc,:)
+                                end if
                             end if
 
                     end if !Contiguous Canopy

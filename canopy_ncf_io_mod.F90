@@ -1662,6 +1662,87 @@ CONTAINS
             ENDIF
             !Also reshape to 1D array for 1D calculation and output
             variables%vtype=reshape(variables_2d%vtype,[size(variables_2d%vtype)])
+            !Soil Type
+            CALL get_var_2d_int_cdf (cdfid, 'sotyp', variables_2d%sotyp, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'sotyp',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Also reshape to 1D array for 1D calculation and output
+            variables%sotyp=reshape(variables_2d%sotyp,[size(variables_2d%sotyp)])
+            !Surface pressure
+            CALL get_var_2d_real_cdf (cdfid, 'pressfc', variables_2d%pressfc, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'pressfc',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Also reshape to 1D array for 1D calculation and output
+            variables%pressfc=reshape(variables_2d%pressfc,[size(variables_2d%pressfc)])
+            !instantaneous surface downward shortwave flux
+            CALL get_var_2d_real_cdf (cdfid, 'dswrf', variables_2d%dswrf, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'dswrf',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Also reshape to 1D array for 1D calculation and output
+            variables%dswrf=reshape(variables_2d%dswrf,[size(variables_2d%dswrf)])
+            !instantaneous surface sensible heat net flux
+            CALL get_var_2d_real_cdf (cdfid, 'shtfl', variables_2d%shtfl, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'shtfl',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Also reshape to 1D array for 1D calculation and output
+            variables%shtfl=reshape(variables_2d%shtfl,[size(variables_2d%shtfl)])
+            !Surface temperature
+            CALL get_var_2d_real_cdf (cdfid, 'tmpsfc', variables_2d%tmpsfc, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'tmpsfc',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Also reshape to 1D array for 1D calculation and output
+            variables%tmpsfc=reshape(variables_2d%tmpsfc,[size(variables_2d%tmpsfc)])
+            !2-meter temperature
+            CALL get_var_2d_real_cdf (cdfid, 'tmp2m', variables_2d%tmp2m, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'tmp2m',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Also reshape to 1D array for 1D calculation and output
+            variables%tmp2m=reshape(variables_2d%tmp2m,[size(variables_2d%tmp2m)])
+            !2-meter specific humidity
+            CALL get_var_2d_real_cdf (cdfid, 'spfh2m', variables_2d%spfh2m, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'spfh2m',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Also reshape to 1D array for 1D calculation and output
+            variables%spfh2m=reshape(variables_2d%spfh2m,[size(variables_2d%spfh2m)])
+            !Height of planetary boundary layer
+            CALL get_var_2d_real_cdf (cdfid, 'hpbl', variables_2d%hpbl, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'hpbl',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Also reshape to 1D array for 1D calculation and output
+            variables%hpbl=reshape(variables_2d%hpbl,[size(variables_2d%hpbl)])
+            !Mass precipitation rate
+            CALL get_var_2d_real_cdf (cdfid, 'prate_ave', variables_2d%prate_ave, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'prate_ave',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Also reshape to 1D array for 1D calculation and output
+            variables%prate_ave=reshape(variables_2d%prate_ave,[size(variables_2d%prate_ave)])
 
         else if (infmt_opt .eq. 1) then !Input format is 1D
 
@@ -1771,7 +1852,69 @@ CONTAINS
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
-
+            !Soil Type
+            CALL get_var_1d_int_cdf (cdfid, 'sotyp', variables%sotyp, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'sotyp',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Surface pressure
+            CALL get_var_1d_real_cdf (cdfid, 'pressfc', variables%pressfc, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'pressfc',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !instantaneous surface downward shortwave flux
+            CALL get_var_1d_real_cdf (cdfid, 'dswrf', variables%dswrf, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'dswrf',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !instantaneous surface sensible heat net flux
+            CALL get_var_1d_real_cdf (cdfid, 'shtfl', variables%shtfl, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'shtfl',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Surface temperature
+            CALL get_var_1d_real_cdf (cdfid, 'tmpsfc', variables%tmpsfc, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'tmpsfc',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !2-meter temperature
+            CALL get_var_1d_real_cdf (cdfid, 'tmp2m', variables%tmp2m, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'tmp2m',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !2-meter specific humidity
+            CALL get_var_1d_real_cdf (cdfid, 'spfh2m', variables%spfh2m, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'spfh2m',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Height of planetary boundary layer
+            CALL get_var_1d_real_cdf (cdfid, 'hpbl', variables%hpbl, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'hpbl',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            !Mass precipitation rate
+            CALL get_var_1d_real_cdf (cdfid, 'prate_ave', variables%prate_ave, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'prate_ave',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
         else
             write(*,*)  'Wrong INFMT_OPT choice of ', infmt_opt, ' in namelist...exiting'
             call exit(2)
