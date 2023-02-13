@@ -304,7 +304,7 @@ CONTAINS
 
         g_levels%fld = fillreal
         g_levels%fldname = 'levels'
-        g_levels%long_name = 'model heights above ground level'
+        g_levels%long_name = 'height above ground level'
         g_levels%units = 'm'
         g_levels%fillvalue = fillreal
         g_levels%dimnames(1) = 'modlays'
