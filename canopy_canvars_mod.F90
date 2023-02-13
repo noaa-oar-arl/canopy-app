@@ -23,7 +23,6 @@ MODULE canopy_canvars_mod
     real(rk)       ::    sigma1        !Standard deviation of shape function below zcanmax (z/h)
     real(rk)       ::    d_h           !Zero plane displacement heights (z/h)
     real(rk)       ::    zo_h          !Surface (soil+veg) roughness lengths (z/h)
-    !real(rk)       ::    flameh        !Flame Height (m)
 
 !-------------------------------------------------------------------------------
 ! Allocatable canopy variable arrays
