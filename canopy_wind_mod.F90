@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_WIND( HCM, ZK, FAFRACK, UBZREF, Z0GHC, &
-        CDRAG, PAI, HREF, D_H, ZO_H, MOL, RSL_OPT, &
+        CDRAG, PAI, HREF, D_H, ZO_H, MOL, RSL_OPT, LAMBDARS, &
         CANBOT_OUT, CANTOP_OUT, CANWIND )
 
 !-----------------------------------------------------------------------
@@ -34,6 +34,7 @@ contains
         ! plant surface distribution (nondimensional)
         REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at reference height (m/s)
         REAL(RK),    INTENT( IN )  :: Z0GHC          ! Ratio of ground roughness length to canopy top height (nondimensional)
+        REAL(RK),    INTENT( IN )  :: LAMBDARS         ! Value representing influence of roughness sublayer (nondimensional)
         REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
         REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height above canopy associated with ref wind speed  (m)
@@ -99,9 +100,9 @@ contains
         ustrmod = uc*(0.38_rk - (0.38_rk + (vonk/log(Z0GHC)))*exp(-1.0_rk*(15.0_rk*drag)))
 
         if (HREF > z0m) then ! input wind speed reference height is > roughness length
-            if (RSL_OPT .eq. 0) then !MOST From NoahMP (M. Barlarge)
-                uc = uc  !no RSL effects--Just MOST
-            else if (RSL_OPT .eq. 1) then !Unified RSL (Rosenzweig et al., 2021)  https://doi.org/10.1029/2021MS002665
+            if (RSL_OPT .eq. 0) then       !MOST From NoahMP (M. Barlarge) with user RSL influence term (LAMBDARS)
+                uc = UBZREF*log(LAMBDARS*(HCM-zpd+z0m)/z0m)/log(HREF/z0m) !Recalculate Uc with LAMBDARS
+            else if (RSL_OPT .eq. 1) then  !Unified RSL (Rosenzweig et al., 2021)  https://doi.org/10.1029/2021MS002665
                 beta_n = 0.35_rk               !beta for neutral conditions
                 can_length = HCM/drag          !canopy length scale
 

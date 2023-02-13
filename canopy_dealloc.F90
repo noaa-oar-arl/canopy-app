@@ -44,6 +44,9 @@ SUBROUTINE canopy_dealloc
         if(allocated(dx_2d))         deallocate(dx_2d)
         if(allocated(waf))           deallocate(waf)
         if(allocated(waf_2d))        deallocate(waf_2d)
+        if(allocated(flameh))        deallocate(flameh)
+        if(allocated(flameh_2d))     deallocate(flameh_2d)
+
     end if
 
 !-------------------------------------------------------------------------------
@@ -69,6 +72,7 @@ SUBROUTINE canopy_dealloc
 !  Deallocate NetCDF data structures if used
 !-------------------------------------------------------------------------------
 
+    if(allocated(fld1dz))        deallocate(fld1dz)
     if(allocated(fld2dxy))        deallocate(fld2dxy)
     if(allocated(fld2dxyt))       deallocate(fld2dxyt)
     if(allocated(fld3dxyzt))      deallocate(fld3dxyzt)

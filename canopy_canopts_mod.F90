@@ -29,6 +29,6 @@ MODULE canopy_canopts_mod
     real(rk)       ::    fch_thresh  !User set grid cell canopy height threshold to apply canopy conditions (m)
     integer        ::    rsl_opt     !RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
     real(rk)       ::    z0ghc       !ratio of ground roughness length to canopy top height
-    real(rk)       ::    lamdars     !Value representing influence of roughness sublayer (nondimensional)
+    real(rk)       ::    lambdars     !Value representing influence of roughness sublayer (nondimensional)
 
 END MODULE canopy_canopts_mod

@@ -1,15 +1,13 @@
 &FILENAMES
-! file_vars    = 'input_variables_point.txt'
-!  file_vars    = 'input_variables.txt'
-!  file_vars    = 'input_variables_1D.nc'
-  file_vars    = 'input_variables_2D.nc'
-  file_out     = 'test'
+  file_vars    = 'gfs.t12z.20220701.sfcf000.nc'
+!  file_vars    = 'gfs.t12z.20220701.sfcf000.txt'
+  file_out     = 'test_out'
 /
 
 &USERDEFS
   infmt_opt  =  0
-  nlat       =  101
-  nlon       =  101
+  nlat       =  43
+  nlon       =  86
   modlays    =  100
   modres     =  0.5
   ifcanwind  = .TRUE.
@@ -19,17 +17,17 @@
   href_opt   =  0
   href_set   =  10.0
   z0ghc      =  0.0025
-  lamdars    =  1.25
+  lambdars   =  1.25
   dx_opt     =  0
   dx_set     =  12000.0
-  flameh_opt =  0
-  flameh_set =  2.0
+  flameh_opt =  2
+  flameh_set =  1.0
   pai_opt    =  0
   pai_set    =  4.0
-  lu_opt     =  0
+  lu_opt     =  1
   z0_opt     =  0
   lai_thresh =  0.1
   frt_thresh =  0.5
   fch_thresh =  0.5
-  rsl_opt    =  0
+  rsl_opt    =  1
 /

@@ -45,11 +45,11 @@ contains
         REAL(RK),    INTENT( OUT ) :: SIGMAU          ! Standard deviation of shape function above zcanmax (z/h)
         REAL(RK),    INTENT( OUT ) :: SIGMA1          ! Standard deviation of shape function below zcanmax (z/h)
 
-        if (LU_OPT .eq. 0) then !VIIRS LU types
+        if (LU_OPT .eq. 0 .or. LU_OPT .eq. 1) then !VIIRS or MODIS LU types
 
             !approx/average vegtype mapping to Massman et al. forest types
-            if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS Cat 1-2/Evergreen Needleleaf & Broadleaf
-                !--> Use average Massman Aspen+Spruce+Pine Forest
+            if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS/MODIS Cat 1-2/Evergreen Needleleaf & Broadleaf
+                !--> Use average Massman Aspen+Spruce+ScotsPine+JackPine+LoblollyPine Forest
                 FIRETYPE=0
                 CDRAG=(0.20_rk + 0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk)/5.0_rk
                 if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
@@ -71,7 +71,7 @@ contains
                 SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk)/5.0_rk
             end if
 
-            if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
+            if (VTYPE .ge. 3 .and. VTYPE .le. 4) then !VIIRS/MODIS Cat 3-4 Deciduous Needleleaf and  Broadleaf
                 !--> Use Massman Hardwood Forest
                 FIRETYPE=0
                 CDRAG=0.15_rk
@@ -94,7 +94,30 @@ contains
                 SIGMA1=0.30_rk
             end if
 
-            if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
+            if (VTYPE .eq. 5) then !VIIRS/MODIS Cat 5 Mixed Forests
+                !--> Use average Massman Aspen+Spruce+ScotsPine+JackPine+LoblollyPine+Hardwood Forest
+                FIRETYPE=0
+                CDRAG=(0.20_rk + 0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk + 0.15_rk)/6.0_rk
+                if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
+                    PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk + 4.93_rk)/6.0_rk
+                else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
+                    PAI=CalcPAI(FCH,FFRAC)
+                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
+                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
+                    ! https://doi.org/10.1016/j.agrformet.2017.09.004
+                    ! Section 3.3
+                else if (PAI_OPT .eq. 3) then !PAI value from user
+                    PAI=PAI_SET
+                else
+                    write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
+                    call exit(2)
+                end if
+                ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/6.0_rk
+                SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/6.0_rk
+                SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/6.0_rk
+            end if
+
+            if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS/MODIS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
                 !--> Average of Massman Corn + Rice )
                 FIRETYPE=1
                 CDRAG=(0.30_rk + 0.30_rk)/2.0_rk
@@ -118,7 +141,7 @@ contains
             end if
 
         else
-            write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS available right now...exiting'
+            write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS/MODIS available right now...exiting'
             call exit(2)
         end if
 
@@ -196,7 +219,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_ZPD( ZHC, FCLAI, UBZREF, Z0GHC, &
-        LAMDARS, RSL_OPT, CDRAG, PAI, FCH, HREF, Z0_MOD, &
+        LAMBDARS, CDRAG, PAI, FCH, HREF, Z0_MOD, &
         VTYPE, LU_OPT, Z0_OPT, d_h, zo_h )
 
 !-----------------------------------------------------------------------
@@ -224,13 +247,12 @@ contains
         ! plant surface distribution, i.e., a Fractional Culmulative LAI
         REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (m/s)
         REAL(RK),    INTENT( IN )  :: Z0GHC           ! Ratio of ground roughness length to canopy top height (nondimensional)
-        REAL(RK),    INTENT( IN )  :: LAMDARS         ! Value representing influence of roughness sublayer (nondimensional)
+        REAL(RK),    INTENT( IN )  :: LAMBDARS         ! Value representing influence of roughness sublayer (nondimensional)
         REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
         REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
         REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
         REAL(RK),    INTENT( IN )  :: Z0_MOD          ! Input model value of surface roughness length, z0 (m)
-        INTEGER,     INTENT( IN )  :: RSL_OPT         ! RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
         INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
         INTEGER,     INTENT( IN )  :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )  :: Z0_OPT          ! integer for setting first estimate of z0 (default = 0 for Z0_MOD)
@@ -252,7 +274,7 @@ contains
         real(rk)                   :: nrat            ! Ratio of drag/cstress (nondimensional)
         real(rk)                   :: z0_set          ! set roughness length (m)
         real(rk)                   :: uc              ! initial guess of wind speed at canopy height (m/s) from log-profile
-        real(rk)                   :: lamda_rs        ! local values for influence of roughness sublayer (nondimensional)
+        real(rk)                   :: lambda_rs        ! local values for influence of roughness sublayer (nondimensional)
 
 ! Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
@@ -267,19 +289,19 @@ contains
         if (Z0_OPT .eq. 0) then !Use input model set z0 for first estimate
             z0_set = Z0_MOD
         else if (Z0_OPT .eq. 1) then !Use veg-type dependent z0 first estimate
-            if (LU_OPT .eq. 0) then !VIIRS LU types
+            if (LU_OPT .eq. 0 .or. LU_OPT .eq. 1) then !VIIRS/MODIS LU types
                 !approx/average vegtype mapping to Massman et al. forest types
-                if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS Cat 1-2/Evergreen Needleleaf & Broadleaf
+                if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS/MODIS Cat 1-2/Evergreen Needleleaf & Broadleaf
                     z0_set  = 1.0_rk
                 end if
-                if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
+                if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS/MODIS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
                     z0_set = 1.0_rk
                 end if
-                if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
+                if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS/MODIS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
                     z0_set = 0.1_rk
                 end if
             else
-                write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS available right now...exiting'
+                write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS/MODIS available right now...exiting'
                 call exit(2)
             end if
         else
@@ -310,14 +332,10 @@ contains
         ! Final zero-plane displacement (zpd) height
         d_h = dha * dhb
 
-        if (RSL_OPT .eq. 1) then  !set lamda_rs = 1 to avoid double counting RSL effects
-            lamda_rs =  1.0
-        else                      !set to lamda_rs to namelist input LAMDARS
-            lamda_rs = LAMDARS
-        end if
+        lambda_rs = LAMBDARS   !set to lambda_rs to user RSL influence term (namelist input LAMBDARS)
 
         ! Final surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):
-        zo_h  = lamda_rs * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
+        zo_h  = lambda_rs * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
 
     END SUBROUTINE CANOPY_ZPD
 

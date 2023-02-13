@@ -43,7 +43,8 @@ SUBROUTINE canopy_alloc
         if(.not.allocated(dx_2d))         allocate(dx_2d(nlon,nlat))
         if(.not.allocated(waf))           allocate(waf(nlat*nlon))
         if(.not.allocated(waf_2d))        allocate(waf_2d(nlon,nlat))
-
+        if(.not.allocated(flameh))        allocate(flameh(nlat*nlon))
+        if(.not.allocated(flameh_2d))     allocate(flameh_2d(nlon,nlat))
     end if
 
 !-------------------------------------------------------------------------------

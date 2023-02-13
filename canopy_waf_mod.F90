@@ -49,6 +49,12 @@ contains
             end if
         else if (FLAMEH_OPT .eq. 1) then  !user set value
             FLAMEH = FLAMEH_SET
+        else if (FLAMEH_OPT .eq. 2) then  !both FRP calc and user set
+            if (FRP .gt. 0.0) then
+                FLAMEH = CalcFlameH(FRP,DX)
+            else
+                FLAMEH = FLAMEH_SET
+            end if
         else
             write(*,*)  'Wrong FLAMEH_OPT choice of ', FLAMEH_OPT, ' in namelist...exiting'
             call exit(2)
@@ -63,7 +69,7 @@ contains
     END SUBROUTINE CANOPY_FLAMEH
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_WAF( HCM, LAMDARS, RSL_OPT, HREF, FLAMEH, FIRETYPE, &
+    SUBROUTINE CANOPY_WAF( HCM, LAMBDARS, HREF, FLAMEH, FIRETYPE, &
         D_H, ZO_H, CANBOTMID, CANTOPMID, WAF )
 
 !-----------------------------------------------------------------------
@@ -87,7 +93,7 @@ contains
 ! Arguments:
 !     IN/OUT
         REAL(RK),    INTENT( IN )  :: HCM             ! Height of canopy top (m)
-        REAL(RK),    INTENT( IN )  :: LAMDARS         ! Value representing influence of roughness sublayer (nondimensional)
+        REAL(RK),    INTENT( IN )  :: LAMBDARS         ! Value representing influence of roughness sublayer (nondimensional)
         REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
         REAL(RK),    INTENT( IN )  :: FLAMEH          ! Flame Height (m) -- Only for Above Canopy Fire
         INTEGER ,    INTENT( IN )  :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire
@@ -95,13 +101,12 @@ contains
         REAL(RK),    INTENT( IN )  :: CANTOPMID       ! Mid-flame canopy top wind reduction factor (nondimensional)
         REAL(RK),    INTENT( IN )  :: D_H             ! Zero-plane displacement height, d/h
         REAL(RK),    INTENT( IN )  :: ZO_H            ! Surface (soil+veg) roughness length, zo/h
-        INTEGER,     INTENT( IN )  :: RSL_OPT         ! RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
         REAL(RK),    INTENT( OUT ) :: WAF             ! Wind Adjustment Factor (nondimensional)
 !     Local variables
         real(rk)                   :: term1           ! Major Term1 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017)
         real(rk)                   :: term2           ! Major Term2 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017)
         real(rk)                   :: delta           ! Ratio parameter used in WAF for above-canopy (Eq. 18 Massman et al.)
-        real(rk)                   :: lamda_rs        ! local values for influence of roughness sublayer (nondimensional)
+        real(rk)                   :: lambda_rs        ! local values for influence of roughness sublayer (nondimensional)
 
 ! Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
@@ -112,21 +117,17 @@ contains
             waf = 1.0
         else
 
-            if (RSL_OPT .eq. 1) then  !set lamda_rs = 1 to avoid double counting RSL effects
-                lamda_rs =  1.0
-            else                      !set to lamda_rs to namelist input LAMDARS
-                lamda_rs = LAMDARS
-            end if
+            lambda_rs = LAMBDARS
 
             if (FIRETYPE == 0) then  !sub-canopy
-                term1 = log( lamda_rs * ( (1.0 - D_H)/ZO_H ) )  !numerator
-                term2 = log( lamda_rs * ( ( (HREF/HCM) + 1.0 - D_H ) / ZO_H ) )  !denominatory
+                term1 = log( lambda_rs * ( (1.0 - D_H)/ZO_H ) )  !numerator
+                term2 = log( lambda_rs * ( ( (HREF/HCM) + 1.0 - D_H ) / ZO_H ) )  !denominatory
                 waf   = CANBOTMID * CANTOPMID * (term1 / term2)
             else                     !above-canopy
                 delta = (1.0 - D_H) / (FLAMEH/HCM)
-                term1 = log( lamda_rs * ( ( (FLAMEH/HCM) +  1.0 - D_H ) / ZO_H ) ) - &   !numerator
+                term1 = log( lambda_rs * ( ( (FLAMEH/HCM) +  1.0 - D_H ) / ZO_H ) ) - &   !numerator
                     1.0 + (delta*log((1.0/delta) + 1.0))
-                term2 = log( lamda_rs * ( ( ( (HREF/HCM) + 1.0 - D_H) )/ ZO_H ) )  !denominator
+                term2 = log( lambda_rs * ( ( ( (HREF/HCM) + 1.0 - D_H) )/ ZO_H ) )  !denominator
                 waf   = term1 / term2
             end if
         end if

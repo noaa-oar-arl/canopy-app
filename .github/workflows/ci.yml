@@ -25,6 +25,25 @@ jobs:
         run: |
           sudo apt install libnetcdff-dev
 
+      - name: Setup Python (for f90nml)
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install -U pip setuptools wheel
+          python -m pip install f90nml
+
+      - name: Check that default input is nc
+        run: |
+          import f90nml
+          with open("namelist.canopy") as f:
+            nml = f90nml.read(f)
+          assert nml["filenames"]["file_vars"].endswith((".nc", ".ncf")), "nc input by default, like build"
+          assert nml["userdefs"]["infmt_opt"] == 0, "necessary to read 2-D"
+        shell: python
+
       - name: Debug compile and run
         run: |
           make clean
@@ -47,7 +66,10 @@ jobs:
         run: |
           make clean
           make
-          sed -e s/input_variables_2D.nc/input_variables.txt/g namelist.canopy > tmp && mv tmp namelist.canopy
+          f90nml -g filenames -v file_vars=gfs.t12z.20220701.sfcf000.txt \
+            namelist.canopy namelist.canopy
+          f90nml -g userdefs -v infmt_opt=1 \
+            namelist.canopy namelist.canopy
           ./canopy
         env:
           DEBUG: 0
