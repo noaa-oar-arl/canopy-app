@@ -1359,18 +1359,27 @@ CONTAINS
             !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.
             !-------------------------------------------------------------------------------
-
-            c_waf%fld = waf_2d
-            c_flameh%fld = flameh_2d
+            if (ifcanwind .or. ifcanwaf) then
+                c_waf%fld = waf_2d
+                c_flameh%fld = flameh_2d
+            end if
 
             !-------------------------------------------------------------------------------
             ! Time-varying 3d fields at cell centers.
             !-------------------------------------------------------------------------------
-            c_canwind%fld  = canWIND_3d
-            c_Kz%fld       = Kz_3d
-            c_rjcf%fld     = rjcf_3d
-            c_emi_isop%fld = emi_isop_3d
-            c_emi_myrc%fld = emi_myrc_3d
+            if (ifcanwind .or. ifcanwaf) then
+                c_canwind%fld  = canWIND_3d
+            end if
+            if (ifcaneddy) then
+                c_Kz%fld       = Kz_3d
+            end if
+            if (ifcanphot) then
+                c_rjcf%fld     = rjcf_3d
+            end if
+            if (ifcanbio) then
+                c_emi_isop%fld = emi_isop_3d
+                c_emi_myrc%fld = emi_myrc_3d
+            end if
 
             !-------------------------------------------------------------------------------
             ! Write variables.
