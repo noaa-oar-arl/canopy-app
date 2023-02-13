@@ -50,7 +50,6 @@ contains
         INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
         INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output emissions (kg /m2 s)
-!        REAL(RK)    :: EMI_OUT(SIZE(ZK)) !test bioemis
 
 ! Local Variables 
         REAL(RK) :: RJCF(SIZE(ZK))                 ! Photolysis correction factor for sun/shade fraction of leaf layer
@@ -161,8 +160,6 @@ contains
 
        PPFD_SUN   = RJCF*SFCRAD*PPFD_CONST
        PPFD_SHADE = MAX((1.0-RJCF),0.0_rk)*SFCRAD*PPFD_CONST
-!       print*, 'Sunlit = ', RJCF, 'Shaded=', MAX((1.0-RJCF),0.0_rk)
-!       print*, 'PPFD_SHADE=',PPFD_SHADE
 ! 
 ! Use linear canopy temperature model based on Silva et al. (2020) to get approx. sun/shade leaf temperatures
 ! through canopy (ignores effect of wind speed on leaf boundary layer ~ 1 % error/bias)
@@ -258,7 +255,6 @@ contains
        end if
 
        E_OPT = CEO * EXP(0.05_rk * (TLEAF24_AVE-297.0_rk)) * EXP(0.05_rk * (TLEAF240_AVE-297.0_rk))
-!       print*, 'TLEAF_AVE = ', TLEAF_AVE, 'E_OPT = ', E_OPT, 'TLEAF_OPT = ', TLEAF_OPT
 
 ! Calculate gamma (activity) values for average Tleaf (Clifton et al., 2022)
 
@@ -283,12 +279,10 @@ contains
        CP_SHADE = 0.0468*(PPFD240_SUN**(0.6))*exp(0.005*(PPFD24_SHADE-PPFD0_SHADE))
        ALPHA_P_SUN = 0.004 - 0.0005*log(PPFD240_SUN)
        ALPHA_P_SHADE = 0.004 - 0.0005*log(PPFD240_SHADE)
-!       print*, 'PPFD240_SUN=',PPFD240_SUN,'PPFD240_SHADE=',PPFD240_SHADE
        GammaPPFD_SUN   = CP_SUN*((ALPHA_P_SUN*PPFD_SUN)/SQRT(1.0 + (ALPHA_P_SUN**2.0) * (PPFD_SUN**2.0)))
        GammaPPFD_SHADE = CP_SHADE*((ALPHA_P_SHADE*PPFD_SHADE)/SQRT(1.0 + (ALPHA_P_SHADE**2.0) * (PPFD_SHADE**2.0)))
        
        GammaPPFD_AVE = (GammaPPFD_SUN*RJCF) + (GammaPPFD_SHADE*(1.0-RJCF)) ! average = sum sun and shade weighted by sunlit fraction
-!       print*, 'CP_SUN=',CP_SUN,'CP_SHADE=',CP_SHADE,'ALPHA_P_SUN=',ALPHA_P_SUN,'ALPHA_P_SHADE=',ALPHA_P_SHADE
 
        if (LU_OPT .eq. 0 .or. LU_OPT .eq. 1) then !VIIRS or MODIS  LU types
 
@@ -345,7 +339,7 @@ contains
             write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS (0) or MODIS (1) available right now...exiting'
             call exit(2)
         end if
-       
+
 ! TBD:  Add input vegtype from model and select representative plant functional type for EPS/EF factors...
 ! Calculate isoprene emissions profile in the canopy
        EMI_OUT = 0.0_rk  ! set initial emissions profile to zero
@@ -355,13 +349,7 @@ contains
                EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i)  ! (ug/m2 hr)
                EMI_OUT(i) = EMI_OUT(i) * 2.77778E-13 !TBD:  convert emissions output to kg/m2 s
            end if
-!                print*, 'Z/Hc=',ZK(i)/FCH, 'Gamma*FLAI = ', GammaTLEAF_AVE(i)*GammaPPFD_AVE(i)* FLAI(i), &
-!                        'VTYPE=', VTYPE, 'EF = ', EF, 'EMI_OUT (umol/m2 hr) =',EMI_OUT(i)/68.12_rk
-!               print*, 'Z/Hc=',ZK(i)/FCH, 'FLAI = ', FLAI(i), 'EMI_OUT (ug/m2 hr) =',EMI_OUT(i)
        end do 
-!               print*, SUM(EMI_OUT)/68.12_rk
-!              print*, 'ZK/HCM=', ZK/FCH, 'GammaTLEAF_AVE=',GammaTLEAF_AVE, 'GammaPPFD_AVE=', GammaPPFD_AVE,'EMI_OUT =',EMI_OUT
-!               print*,'EMI_OUT=',EMI_OUT
 
     END SUBROUTINE CANOPY_BIO
 
