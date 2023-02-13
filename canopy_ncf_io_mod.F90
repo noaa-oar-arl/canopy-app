@@ -299,6 +299,19 @@ CONTAINS
         IMPLICIT NONE
 
         !-------------------------------------------------------------------------------
+        ! Time-independent 1d fields at cell centers.
+        !-------------------------------------------------------------------------------
+
+        g_levels%fld = fillreal
+        g_levels%fldname = 'levels'
+        g_levels%long_name = 'model heights above ground level'
+        g_levels%units = 'm'
+        g_levels%fillvalue = fillreal
+        g_levels%dimnames(1) = 'modlays'
+        g_levels%istart(1) = 1
+        g_levels%iend(1) = modlays
+
+        !-------------------------------------------------------------------------------
         ! Time-independent 2d fields at cell centers.
         !-------------------------------------------------------------------------------
 
@@ -364,7 +377,7 @@ CONTAINS
         c_canwind%fillvalue = fillreal
         c_canwind%dimnames(1) = 'nlon'
         c_canwind%dimnames(2) = 'nlat'
-        c_canwind%dimnames(3) = 'nlays'
+        c_canwind%dimnames(3) = 'modlays'
         c_canwind%istart(1) = 1
         c_canwind%istart(2) = 1
         c_canwind%istart(3) = 1
@@ -379,7 +392,7 @@ CONTAINS
         c_Kz%fillvalue = fillreal
         c_Kz%dimnames(1) = 'nlon'
         c_Kz%dimnames(2) = 'nlat'
-        c_Kz%dimnames(3) = 'nlays'
+        c_Kz%dimnames(3) = 'modlays'
         c_Kz%istart(1) = 1
         c_Kz%istart(2) = 1
         c_Kz%istart(3) = 1
@@ -394,7 +407,7 @@ CONTAINS
         c_rjcf%fillvalue = fillreal
         c_rjcf%dimnames(1) = 'nlon'
         c_rjcf%dimnames(2) = 'nlat'
-        c_rjcf%dimnames(3) = 'nlays'
+        c_rjcf%dimnames(3) = 'modlays'
         c_rjcf%istart(1) = 1
         c_rjcf%istart(2) = 1
         c_rjcf%istart(3) = 1
@@ -419,6 +432,22 @@ CONTAINS
         IMPLICIT NONE
 
         INTEGER                      :: nn
+
+        !-------------------------------------------------------------------------------
+        ! Time-independent 1d fields at cell centers.
+        !-------------------------------------------------------------------------------
+
+        nfld1dz = 0
+
+        nfld1dz = nfld1dz + 1   !LEVELS
+
+        ALLOCATE ( fld1dz ( nfld1dz ) )
+
+        DO nn = 1, nfld1dz
+            ALLOCATE ( fld1dz(nn)%fld(modlays) )
+        ENDDO
+
+        g_levels  => fld1dz( 1)
 
         !-------------------------------------------------------------------------------
         ! Time-independent 2d fields at cell centers.
@@ -1091,7 +1120,7 @@ CONTAINS
 
             it = it + 1
 
-            nvars = nfld2dxy + nfld2dxyt + nfld3dxyzt
+            nvars = nfld1dz + nfld2dxy + nfld2dxyt + nfld3dxyzt
 
             IF ( .NOT. ALLOCATED ( id_fld ) ) ALLOCATE ( id_fld ( nvars ) )
 
@@ -1156,20 +1185,37 @@ CONTAINS
             !-----------------------------------------------------------------------------
 
             !-------------------------------------------------------------------------------
-            ! Time-independent 2d fields at cell centers.
+            ! Time-independent 1d fields at cell centers.
             !-------------------------------------------------------------------------------
 
-            DO n = 1, nfld2dxy
-                var = TRIM(fld2dxy(n)%fldname)
+            DO n = 1, nfld1dz
+                var = TRIM(fld1dz(n)%fldname)
                 rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
-                    (/ dim_nx, dim_ny /), id_fld(n))
+                    (/ dim_nz /), id_fld(n))
                 IF ( rcode /= nf90_noerr ) THEN
                     WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
             ENDDO
-            ntot = nfld2dxy
+            ntot = nfld1dz
+
+            !-------------------------------------------------------------------------------
+            ! Time-independent 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld2dxy
+                nn = ntot + n
+                var = TRIM(fld2dxy(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_nx, dim_ny /), id_fld(nn))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit(2)
+                ENDIF
+            ENDDO
+            ntot = nfld1dz + nfld2dxy
 
             !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.
@@ -1216,26 +1262,49 @@ CONTAINS
             !-----------------------------------------------------------------------------
 
             !-------------------------------------------------------------------------------
-            ! Time-independent 2d fields at cell centers.
+            ! Time-independent 1d fields at cell centers.
             !-------------------------------------------------------------------------------
 
-            DO n = 1, nfld2dxy
-                var = TRIM(fld2dxy(n)%fldname)
+            DO n = 1, nfld1dz
+                var = TRIM(fld1dz(n)%fldname)
                 rcode = nf90_put_att (cdfid_m, id_fld(n), 'long_name',  &
-                    TRIM(fld2dxy(n)%long_name))
+                    TRIM(fld1dz(n)%long_name))
                 IF ( rcode /= nf90_noerr ) THEN
                     WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit (2)
                 ENDIF
-                rcode = nf90_put_att (cdfid_m, id_fld(n), 'units', TRIM(fld2dxy(n)%units))
+                rcode = nf90_put_att (cdfid_m, id_fld(n), 'units', TRIM(fld1dz(n)%units))
                 IF ( rcode /= nf90_noerr ) THEN
                     WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit (2)
                 ENDIF
             ENDDO
-            ntot = nfld2dxy
+            ntot = nfld1dz
+
+            !-------------------------------------------------------------------------------
+            ! Time-independent 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld2dxy
+                nn = ntot + n
+                var = TRIM(fld2dxy(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
+                    TRIM(fld2dxy(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units', TRIM(fld2dxy(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = nfld1dz + nfld2dxy
 
             !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.
@@ -1314,6 +1383,12 @@ CONTAINS
             !-------------------------------------------------------------------------------
 
             !-------------------------------------------------------------------------------
+            ! Time-independent 1d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            g_levels%fld = zk
+
+            !-------------------------------------------------------------------------------
             ! Time-independent 2d fields at cell centers.
             !-------------------------------------------------------------------------------
 
@@ -1349,14 +1424,14 @@ CONTAINS
             write(*,*)  '-------------------------------'
 
             !-------------------------------------------------------------------------------
-            ! Time-independent 2d fields at cell centers.
+            ! Time-independent 1d fields at cell centers.
             !-------------------------------------------------------------------------------
-            write(*,*)  'Writing Time-independent 2d fields'
+            write(*,*)  'Writing Time-independent 1d fields'
             write(*,*)  '-------------------------------'
 
-            DO n = 1, nfld2dxy
-                var = TRIM(fld2dxy(n)%fldname)
-                rcode = nf90_put_var (cdfid_m, id_fld(n), fld2dxy(n)%fld)
+            DO n = 1, nfld1dz
+                var = TRIM(fld1dz(n)%fldname)
+                rcode = nf90_put_var (cdfid_m, id_fld(n), fld1dz(n)%fld)
                 IF ( rcode /= nf90_noerr ) THEN
                     WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
@@ -1364,7 +1439,26 @@ CONTAINS
                 ENDIF
             ENDDO
 
-            ntot = nfld2dxy
+            ntot = nfld1dz
+
+            !-------------------------------------------------------------------------------
+            ! Time-independent 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+            write(*,*)  'Writing Time-independent 2d fields'
+            write(*,*)  '-------------------------------'
+
+            DO n = 1, nfld2dxy
+                nn = ntot + n
+                var = TRIM(fld2dxy(n)%fldname)
+                rcode = nf90_put_var (cdfid_m, id_fld(nn), fld2dxy(n)%fld)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+
+            ntot = nfld1dz + nfld2dxy
 
             !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.

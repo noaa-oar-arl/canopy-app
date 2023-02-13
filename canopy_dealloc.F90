@@ -72,6 +72,7 @@ SUBROUTINE canopy_dealloc
 !  Deallocate NetCDF data structures if used
 !-------------------------------------------------------------------------------
 
+    if(allocated(fld1dz))        deallocate(fld1dz)
     if(allocated(fld2dxy))        deallocate(fld2dxy)
     if(allocated(fld2dxyt))       deallocate(fld2dxyt)
     if(allocated(fld3dxyzt))      deallocate(fld3dxyzt)
