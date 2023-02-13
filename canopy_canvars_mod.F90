@@ -107,7 +107,7 @@ MODULE canopy_canvars_mod
 !-------------------------------------------------------------------------------
 
     TYPE(fld1ddata), ALLOCATABLE, TARGET :: fld1dz ( : )
-    TYPE(fld1ddata), POINTER     :: g_levels
+    TYPE(fld1ddata), POINTER     :: g_level
 
 !-------------------------------------------------------------------------------
 ! Time-independent 2d fields at cell centers.

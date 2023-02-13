@@ -302,14 +302,14 @@ CONTAINS
         ! Time-independent 1d fields at cell centers.
         !-------------------------------------------------------------------------------
 
-        g_levels%fld = fillreal
-        g_levels%fldname = 'levels'
-        g_levels%long_name = 'height above ground level'
-        g_levels%units = 'm'
-        g_levels%fillvalue = fillreal
-        g_levels%dimnames(1) = 'modlays'
-        g_levels%istart(1) = 1
-        g_levels%iend(1) = modlays
+        g_level%fld = fillreal
+        g_level%fldname = 'z'
+        g_level%long_name = 'model interface level'
+        g_level%units = 'm'
+        g_level%fillvalue = fillreal
+        g_level%dimnames(1) = 'modlays'
+        g_level%istart(1) = 1
+        g_level%iend(1) = modlays
 
         !-------------------------------------------------------------------------------
         ! Time-independent 2d fields at cell centers.
@@ -447,7 +447,7 @@ CONTAINS
             ALLOCATE ( fld1dz(nn)%fld(modlays) )
         ENDDO
 
-        g_levels  => fld1dz( 1)
+        g_level  => fld1dz( 1)
 
         !-------------------------------------------------------------------------------
         ! Time-independent 2d fields at cell centers.
@@ -1172,7 +1172,7 @@ CONTAINS
                 CALL exit(2)
             ENDIF
 
-            var = "levels"
+            var = "level"
             rcode = nf90_def_dim (cdfid_m, TRIM(var), modlays, dim_nz)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
@@ -1386,7 +1386,7 @@ CONTAINS
             ! Time-independent 1d fields at cell centers.
             !-------------------------------------------------------------------------------
 
-            g_levels%fld = zk
+            g_level%fld = zk
 
             !-------------------------------------------------------------------------------
             ! Time-independent 2d fields at cell centers.
