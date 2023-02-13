@@ -417,6 +417,21 @@ CONTAINS
         c_emi_isop%iend(2) = nlat
         c_emi_isop%iend(3) = modlays
 
+        c_emi_myrc%fld = fillreal
+        c_emi_myrc%fldname = 'emi_myrc'
+        c_emi_myrc%long_name = 'biogenic myrcene emissions'
+        c_emi_myrc%units = 'kg m2 s-1'
+        c_emi_myrc%fillvalue = fillreal
+        c_emi_myrc%dimnames(1) = 'nlon'
+        c_emi_myrc%dimnames(2) = 'nlat'
+        c_emi_myrc%dimnames(3) = 'nlays'
+        c_emi_myrc%istart(1) = 1
+        c_emi_myrc%istart(2) = 1
+        c_emi_myrc%istart(3) = 1
+        c_emi_myrc%iend(1) = nlon
+        c_emi_myrc%iend(2) = nlat
+        c_emi_myrc%iend(3) = modlays
+
     END SUBROUTINE canopy_outncf_init
 
 
@@ -485,6 +500,8 @@ CONTAINS
 
         nfld3dxyzt = nfld3dxyzt + 1 !EMI_ISOP
 
+        nfld3dxyzt = nfld3dxyzt + 1 !EMI_MYRC
+
         ALLOCATE ( fld3dxyzt ( nfld3dxyzt ) )
 
         DO nn = 1, nfld3dxyzt
@@ -495,6 +512,7 @@ CONTAINS
         c_Kz         => fld3dxyzt( 2 )
         c_rjcf       => fld3dxyzt( 3 )
         c_emi_isop   => fld3dxyzt( 4 )
+        c_emi_myrc   => fld3dxyzt( 5 )
 
     END SUBROUTINE canopy_outncf_alloc
 
@@ -1352,6 +1370,7 @@ CONTAINS
             c_Kz%fld       = Kz_3d
             c_rjcf%fld     = rjcf_3d
             c_emi_isop%fld = emi_isop_3d
+            c_emi_myrc%fld = emi_myrc_3d
 
             !-------------------------------------------------------------------------------
             ! Write variables.

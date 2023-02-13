@@ -75,6 +75,9 @@ SUBROUTINE canopy_dealloc
     if (ifcanbio) then
         if(allocated(emi_isop))     deallocate(emi_isop)
         if(allocated(emi_isop_3d))  deallocate(emi_isop_3d)
+        if(allocated(emi_myrc))     deallocate(emi_myrc)
+        if(allocated(emi_myrc_3d))  deallocate(emi_myrc_3d)
+
     end if
 
 !-------------------------------------------------------------------------------

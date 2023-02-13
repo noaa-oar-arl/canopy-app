@@ -124,11 +124,12 @@ CONTAINS
                 open(13, file=TRIM(TXTPREFX)//'_output_bio.txt')
                 write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
                 write(13, '(a30, i6)') 'Number of model layers: ', modlays
-                write(13, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'emi_isop'
+                write(13, '(a8, a9, a12, a15, a15)') 'Lat', 'Lon', 'Height (m)', 'emi_isop', 'emi_myrc'
                 do loc=1, nlat*nlon
                     do k=1, modlays
-                        write(13, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                            zk(k), emi_isop(loc,k)
+                        write(13, '(f8.2, f9.2, f12.2, es15.7, es15.7)')  &
+                            variables(loc)%lat, variables(loc)%lon, &
+                            zk(k), emi_isop(loc,k), emi_myrc(loc,k)
                     end do
                 end do
             end if

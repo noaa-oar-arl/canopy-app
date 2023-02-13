@@ -6,8 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_BIO( ZK, FCLAI, FCH, LAI, CLU, COSZEN, SFCRAD, &
-                          TEMP2, LU_OPT, VTYPE, EMI_OUT)
-!                            , EMI_NAME, EMI_OUT ) !TBD
+                          TEMP2, LU_OPT, VTYPE, EMI_IND, EMI_OUT)
 
 !-----------------------------------------------------------------------
 
@@ -29,6 +28,7 @@ contains
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
 !     Jan 2023 P.C. Campbell: Initial canopy isoprene only version
+!     Feb 2023 P.C. Campbell: Modified for multiple biogenic species
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
         use canopy_const_mod, ONLY: rk,rgasuniv   !constants for canopy models
@@ -37,18 +37,19 @@ contains
 
 ! Arguments:
 !     IN/OUT
-        REAL(RK),    INTENT( IN )  :: ZK(:)           ! Input model heights (m)
-        REAL(RK),    INTENT( IN )  :: FCLAI(:)        ! Input Fractional (z) shapes of the
+        REAL(RK),    INTENT( IN )       :: ZK(:)           ! Input model heights (m)
+        REAL(RK),    INTENT( IN )       :: FCLAI(:)        ! Input Fractional (z) shapes of the
         ! plant surface distribution (nondimensional), i.e., a Fractional Culmulative LAI
-        REAL(RK),    INTENT( IN )  :: FCH             ! Model input canopy height (m)
-        REAL(RK),    INTENT( IN )  :: LAI             ! Model input total Leaf Area Index
-        REAL(RK),    INTENT( IN )  :: CLU             ! Model input Clumping Index
-        REAL(RK),    INTENT( IN )  :: COSZEN          ! Model input Cosine Solar Zenith Angle
-        REAL(RK),    INTENT( IN )  :: SFCRAD          ! Model input Instantaneous surface downward shortwave flux (W/m2)
-        REAL(RK),    INTENT( IN )  :: TEMP2           ! Model input 2-m Temperature (K)
-        INTEGER,     INTENT( IN )  :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
-        INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
-        REAL(RK),    INTENT( OUT ) :: EMI_OUT(:)      ! Output emissions (kg /m2 s)
+        REAL(RK),    INTENT( IN )       :: FCH             ! Model input canopy height (m)
+        REAL(RK),    INTENT( IN )       :: LAI             ! Model input total Leaf Area Index
+        REAL(RK),    INTENT( IN )       :: CLU             ! Model input Clumping Index
+        REAL(RK),    INTENT( IN )       :: COSZEN          ! Model input Cosine Solar Zenith Angle
+        REAL(RK),    INTENT( IN )       :: SFCRAD          ! Model input Instantaneous surface downward shortwave flux (W/m2)
+        REAL(RK),    INTENT( IN )       :: TEMP2           ! Model input 2-m Temperature (K)
+        INTEGER,     INTENT( IN )       :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
+        INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
+        INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
+        REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output emissions (kg /m2 s)
 !        REAL(RK)    :: EMI_OUT(SIZE(ZK)) !test bioemis
 
 ! Local Variables 
@@ -87,7 +88,10 @@ contains
         REAL(RK) :: FLAI(SIZE(ZK))                 ! Fractional LAI in layer 
         REAL(RK) :: CT1                            ! Activation energy (kJ/mol)
         REAL(RK) :: CEO                            ! Empirical coefficient
-        REAL(RK) :: EF                             ! Emission factor (EF) (ug/m2 hr)
+        REAL(RK) :: EF1,EF2,EF3,EF4,EF5,EF6,EF7    ! Plant Emission factors (EF) (ug/m2 hr)
+        REAL(RK) :: EF8,EF9,EF10,EF11,EF12,EF13    ! Plant Emission factors (EF) (ug/m2 hr)
+        REAL(RK) :: EF14,EF15                      ! Plant Emission factors (EF) (ug/m2 hr)
+        REAL(RK) :: EF                             ! Final Mapped Emission factor (EF) (ug/m2 hr)
         integer i
 
 ! Constant Canopy Parameters
@@ -108,28 +112,44 @@ contains
         REAL(RK),          PARAMETER     :: BTEMP_BOT_SHADE =  1.053_rk   !...
         REAL(RK),          PARAMETER     :: CT2             =  230.0_rk   !Deactivation energy (kJ/mol) (Guenther et al., 2012)
 
-! Plant-Dependent emissions capacity/factors (EFs) (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
-        REAL(RK),          PARAMETER     :: EF1    =  600.0_rk     ! Needleleaf Evergreen Temperate Tree
-        REAL(RK),          PARAMETER     :: EF2    =  3000.0_rk    ! Needleleaf Evergreen Boreal Tree
-        REAL(RK),          PARAMETER     :: EF3    =  1.0_rk       ! Needleleaf Deciduous Boreal Tree
-        REAL(RK),          PARAMETER     :: EF4    =  7000.0_rk    ! Broadleaf Evergreen Tropical Tree
-        REAL(RK),          PARAMETER     :: EF5    =  10000.0_rk   ! Broadleaf Evergreen Temperate Tree
-        REAL(RK),          PARAMETER     :: EF6    =  7000.0_rk    ! Broadleaf Deciduous Tropical Tree
-        REAL(RK),          PARAMETER     :: EF7    =  10000.0_rk   ! Broadleaf Deciduous Temperate Tree
-        REAL(RK),          PARAMETER     :: EF8    =  11000.0_rk   ! Broadleaf Deciduous Boreal Tree                                                                          
-        REAL(RK),          PARAMETER     :: EF9    =  2000.0_rk    ! Broadleaf Evergreen Temperate Shrub
-        REAL(RK),          PARAMETER     :: EF10   =  4000.0_rk    ! Broadleaf Deciduous Temperate Shrub
-        REAL(RK),          PARAMETER     :: EF11   =  4000.0_rk    ! Broadleaf Deciduous Boreal Shrub
-        REAL(RK),          PARAMETER     :: EF12   =  1600.0_rk    ! Arctic C3 Grass
-        REAL(RK),          PARAMETER     :: EF13   =  800.0_rk     ! Cool C3 Grass
-        REAL(RK),          PARAMETER     :: EF14   =  200.0_rk     ! Warm C4 Grass
-        REAL(RK),          PARAMETER     :: EF15   =  1.0_rk       ! Crop1
+! Plant-Dependent emissions capacity/factors (EFs) for Isoprene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
+        REAL(RK),          PARAMETER     :: EF1_ISOP    =  600.0_rk     ! Needleleaf Evergreen Temperate Tree
+        REAL(RK),          PARAMETER     :: EF2_ISOP    =  3000.0_rk    ! Needleleaf Evergreen Boreal Tree
+        REAL(RK),          PARAMETER     :: EF3_ISOP    =  1.0_rk       ! Needleleaf Deciduous Boreal Tree
+        REAL(RK),          PARAMETER     :: EF4_ISOP    =  7000.0_rk    ! Broadleaf Evergreen Tropical Tree
+        REAL(RK),          PARAMETER     :: EF5_ISOP    =  10000.0_rk   ! Broadleaf Evergreen Temperate Tree
+        REAL(RK),          PARAMETER     :: EF6_ISOP    =  7000.0_rk    ! Broadleaf Deciduous Tropical Tree
+        REAL(RK),          PARAMETER     :: EF7_ISOP    =  10000.0_rk   ! Broadleaf Deciduous Temperate Tree
+        REAL(RK),          PARAMETER     :: EF8_ISOP    =  11000.0_rk   ! Broadleaf Deciduous Boreal Tree                                                                          
+        REAL(RK),          PARAMETER     :: EF9_ISOP    =  2000.0_rk    ! Broadleaf Evergreen Temperate Shrub
+        REAL(RK),          PARAMETER     :: EF10_ISOP   =  4000.0_rk    ! Broadleaf Deciduous Temperate Shrub
+        REAL(RK),          PARAMETER     :: EF11_ISOP   =  4000.0_rk    ! Broadleaf Deciduous Boreal Shrub
+        REAL(RK),          PARAMETER     :: EF12_ISOP   =  1600.0_rk    ! Arctic C3 Grass
+        REAL(RK),          PARAMETER     :: EF13_ISOP   =  800.0_rk     ! Cool C3 Grass
+        REAL(RK),          PARAMETER     :: EF14_ISOP   =  200.0_rk     ! Warm C4 Grass
+        REAL(RK),          PARAMETER     :: EF15_ISOP   =  1.0_rk       ! Crop1
+! Plant-Dependent emissions capacity/factors (EFs) for Myrcene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
+        REAL(RK),          PARAMETER     :: EF1_MYRC    =  70.0_rk      ! Needleleaf Evergreen Temperate Tree
+        REAL(RK),          PARAMETER     :: EF2_MYRC    =  70.0_rk      ! Needleleaf Evergreen Boreal Tree
+        REAL(RK),          PARAMETER     :: EF3_MYRC    =  60.0_rk      ! Needleleaf Deciduous Boreal Tree
+        REAL(RK),          PARAMETER     :: EF4_MYRC    =  80.0_rk      ! Broadleaf Evergreen Tropical Tree
+        REAL(RK),          PARAMETER     :: EF5_MYRC    =  30.0_rk      ! Broadleaf Evergreen Temperate Tree
+        REAL(RK),          PARAMETER     :: EF6_MYRC    =  80.0_rk      ! Broadleaf Deciduous Tropical Tree
+        REAL(RK),          PARAMETER     :: EF7_MYRC    =  30.0_rk      ! Broadleaf Deciduous Temperate Tree
+        REAL(RK),          PARAMETER     :: EF8_MYRC    =  30.0_rk      ! Broadleaf Deciduous Boreal Tree
+        REAL(RK),          PARAMETER     :: EF9_MYRC    =  30.0_rk      ! Broadleaf Evergreen Temperate Shrub
+        REAL(RK),          PARAMETER     :: EF10_MYRC   =  50.0_rk      ! Broadleaf Deciduous Temperate Shrub
+        REAL(RK),          PARAMETER     :: EF11_MYRC   =  30.0_rk      ! Broadleaf Deciduous Boreal Shrub
+        REAL(RK),          PARAMETER     :: EF12_MYRC   =  0.3_rk       ! Arctic C3 Grass
+        REAL(RK),          PARAMETER     :: EF13_MYRC   =  0.3_rk       ! Cool C3 Grass
+        REAL(RK),          PARAMETER     :: EF14_MYRC   =  0.3_rk       ! Warm C4 Grass
+        REAL(RK),          PARAMETER     :: EF15_MYRC   =  0.3_rk       ! Crop1
 
 ! Species-Dependent Parameterized Canopy Model Parameters (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: CT1_ISOP         =  95.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_ISOP         =  2.0_rk     !Empirical coefficient
-!        REAL(RK),          PARAMETER     :: CT1_MYRC         =  80.0_rk    !Activation energy (kJ/mol)
-!        REAL(RK),          PARAMETER     :: CEO_MYRC         =  1.83_rk     !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CT1_MYRC         =  80.0_rk    !Activation energy (kJ/mol)
+        REAL(RK),          PARAMETER     :: CEO_MYRC         =  1.83_rk     !Empirical coefficient
 
 
 !Calculate photolyis shading/correction factor through canopy, i.e., the fraction of sunlit leaves downward through canopy
@@ -180,16 +200,62 @@ contains
        TLEAF24_AVE    = TLEAF_AVE
        TLEAF_OPT = 313.0_rk + (0.6_rk * (TLEAF240_AVE-297.0_rk)) !Guenther et al. (2012)
 
-! Set species dependent coefficients
-
-!TBD Check Emission Name
-!       if (EMI_NAME .eq. "ISOP" ) then
-          CT1 = CT1_ISOP
-          CEO = CEO_ISOP
-!       else if (EMI_NAME .eq. "MYRC" ) then 
-!          CT1 = CT1_MYRC
-!          CEO = CEO_MYRC
-!       end if
+! Set tree and species dependent coefficients
+       if (EMI_IND .eq. 0 ) then
+          CT1  = CT1_ISOP
+          CEO  = CEO_ISOP
+          EF1  = EF1_ISOP
+          EF2  = EF2_ISOP
+          EF3  = EF3_ISOP
+          EF4  = EF4_ISOP
+          EF5  = EF5_ISOP
+          EF6  = EF6_ISOP
+          EF7  = EF7_ISOP
+          EF8  = EF8_ISOP
+          EF9  = EF9_ISOP
+          EF10 = EF10_ISOP
+          EF11 = EF11_ISOP
+          EF12 = EF12_ISOP
+          EF13 = EF13_ISOP
+          EF14 = EF14_ISOP
+          EF15 = EF15_ISOP 
+       else if (EMI_IND .eq. 1 ) then 
+          CT1 = CT1_MYRC
+          CEO = CEO_MYRC
+          EF1  = EF1_MYRC
+          EF2  = EF2_MYRC
+          EF3  = EF3_MYRC
+          EF4  = EF4_MYRC
+          EF5  = EF5_MYRC
+          EF6  = EF6_MYRC
+          EF7  = EF7_MYRC
+          EF8  = EF8_MYRC
+          EF9  = EF9_MYRC
+          EF10 = EF10_MYRC
+          EF11 = EF11_MYRC
+          EF12 = EF12_MYRC
+          EF13 = EF13_MYRC
+          EF14 = EF14_MYRC
+          EF15 = EF15_MYRC
+       else 
+          CT1 = CT1_MYRC
+          CEO = CEO_MYRC
+          EF1  = EF1_MYRC
+          EF2  = EF2_MYRC
+          EF3  = EF3_MYRC
+          EF4  = EF4_MYRC
+          EF5  = EF5_MYRC
+          EF6  = EF6_MYRC
+          EF7  = EF7_MYRC
+          EF8  = EF8_MYRC
+          EF9  = EF9_MYRC
+          EF10 = EF10_MYRC
+          EF11 = EF11_MYRC
+          EF12 = EF12_MYRC
+          EF13 = EF13_MYRC
+          EF14 = EF14_MYRC
+          EF15 = EF15_MYRC
+       end if
 
        E_OPT = CEO * EXP(0.05_rk * (TLEAF24_AVE-297.0_rk)) * EXP(0.05_rk * (TLEAF240_AVE-297.0_rk))
 !       print*, 'TLEAF_AVE = ', TLEAF_AVE, 'E_OPT = ', E_OPT, 'TLEAF_OPT = ', TLEAF_OPT

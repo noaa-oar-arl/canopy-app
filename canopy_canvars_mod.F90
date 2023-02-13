@@ -50,13 +50,15 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: flameh_2d     ( : , : )      ! Flame Height -- 2D (m)
     real(rk), allocatable :: emi_isop      ( :, : )       ! Isoprene biogenic emissions (kg/m2 s)
     real(rk), allocatable :: emi_isop_3d   ( : , : , : )  ! Isoprene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_myrc      ( :, : )       ! Myrcene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_myrc_3d   ( : , : , : )  ! Myrcene biogenic emissions (kg/m2 s) -- 3D
 
 !-------------------------------------------------------------------------------
 ! Canopy-App Program and version descriptors.
 !-------------------------------------------------------------------------------
 
     CHARACTER(LEN=16),  PARAMETER     :: progname   = 'Canopy-App'
-    CHARACTER(LEN=10),  PARAMETER     :: vdate      = '12/22/2022'
+    CHARACTER(LEN=10),  PARAMETER     :: vdate      = '02/13/2022'
     CHARACTER(LEN=8),   PARAMETER     :: ver        = 'V1.0.0'
 
 !-------------------------------------------------------------------------------
@@ -119,5 +121,6 @@ MODULE canopy_canvars_mod
     TYPE(fld3ddata), POINTER     :: c_Kz
     TYPE(fld3ddata), POINTER     :: c_rjcf
     TYPE(fld3ddata), POINTER     :: c_emi_isop
+    TYPE(fld3ddata), POINTER     :: c_emi_myrc
 
 END MODULE canopy_canvars_mod

@@ -63,6 +63,8 @@ SUBROUTINE canopy_init
     if (ifcanbio) then
         if(allocated(emi_isop))            emi_isop(:,:)      = fillreal
         if(allocated(emi_isop_3d))         emi_isop_3d(:,:,:) = fillreal
+        if(allocated(emi_myrc))            emi_myrc(:,:)      = fillreal
+        if(allocated(emi_myrc_3d))         emi_myrc_3d(:,:,:) = fillreal
     end if
 
 END SUBROUTINE canopy_init

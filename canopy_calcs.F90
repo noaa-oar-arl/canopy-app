@@ -143,25 +143,17 @@ SUBROUTINE canopy_calcs
 
 ! ... user option to calculate in-canopy biogenic emissions
                             if (ifcanbio) then
-                                if (dswrfref .ge. 0.0_rk) then !only calculate if cell has solar
-!                               TBD:  do k=1, size(emi_names)
-                                !if (emi_names(k) .eq. "ISOP") then
-                                call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, emi_isop_3d(i,j,:)) !,&
-!                               TBD:  , emi_names(k), emi_isop_3d(i,j,:))
-                                 !else if (emi_names(k) .eq. "MYRC") then
-!                               call canopy_bio(zk, fafraczInt, hcmref, &
-!                                    lairef, cluref, cszref, sfcrad, temp2)!, &
-!                                    vtyperef, emi_names(k), emi_myrc_3d(i,j,:))
-                                 !else
-                                 !warning...no biogenic emissions names found
-!                                end if
-!                               end do
-!                                print*, 'SRAD=', dswrfref, &
-!                                        'TEMP2=',tmp2mref,'ISOP=',emi_isop_3d(i,j,:)
-                                end if
-                            end if 
+                               if (cszref .ge. 0.0_rk .and. dswrfref .ge. 0.0_rk) then 
+                                          !ISOP
+                                          call canopy_bio(zk, fafraczInt, hcmref, &
+                                          lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                          lu_opt, vtyperef, 0, emi_isop_3d(i,j,:))
+                                          !MYRC
+                                          call canopy_bio(zk, fafraczInt, hcmref, &
+                                          lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                          lu_opt, vtyperef, 1, emi_myrc_3d(i,j,:))
+                               end if
+                            end if
 
                         end if !Contiguous Canopy
 
@@ -288,24 +280,16 @@ SUBROUTINE canopy_calcs
 
 ! ... user option to calculate in-canopy biogenic emissions
                             if (ifcanbio) then
-                               if (dswrfref .ge. 0.0_rk) then !only calculate if cell has solar
-!                               TBD:  do k=1, size(emi_names)
-                                !if (emi_names(k) .eq. "ISOP") then
-                                    call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, emi_isop(loc,:)) !,&
-!                                   TBD:  , emi_names(k), emi_isop(loc,:))
-                                 !else if (emi_names(k) .eq. "MYRC") then
-!                               call canopy_bio(zk, fafraczInt, hcmref, &
-!                                    lairef, cluref, cszref, sfcrad, temp2)!, &
-!                                    vtyperef, emi_names(k), emi_myrc(loc,:))
-                                 !else
-                                 !warning...no biogenic emissions names found
-!                                end if
-!                               end do
-!                                print*, 'SRAD=', dswrfref, &
-!                                        'TEMP2=',tmp2mref,'ISOP=',emi_isop(loc,:)
-                                end if
+                               if (cszref .ge. 0.0_rk .and. dswrfref .ge. 0.0_rk) then 
+                                          !ISOP
+                                          call canopy_bio(zk, fafraczInt, hcmref, &
+                                          lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                          lu_opt, vtyperef, 0, emi_isop(loc,:))
+                                          !MYRC
+                                          call canopy_bio(zk, fafraczInt, hcmref, &
+                                          lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                          lu_opt, vtyperef, 1, emi_myrc(loc,:)) 
+                               end if
                             end if
 
                     end if !Contiguous Canopy

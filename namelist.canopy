@@ -5,7 +5,7 @@
 /
 
 &USERDEFS
-  infmt_opt  =  1 
+  infmt_opt  =  1
   nlat       =  43
   nlon       =  86
   modlays    =  100

@@ -79,6 +79,8 @@ SUBROUTINE canopy_alloc
         write(*,*)  '-------------------------------'
         if(.not.allocated(emi_isop))         allocate(emi_isop(nlat*nlon,modlays))
         if(.not.allocated(emi_isop_3d))      allocate(emi_isop_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_myrc))         allocate(emi_myrc(nlat*nlon,modlays))
+        if(.not.allocated(emi_myrc_3d))      allocate(emi_myrc_3d(nlon,nlat,modlays))
     end if
 
 END SUBROUTINE canopy_alloc
