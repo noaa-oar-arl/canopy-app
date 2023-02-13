@@ -316,7 +316,7 @@ CONTAINS
         g_lon%fld = fillreal
         g_lon%fldname = 'lon'
         g_lon%long_name = 'longitude at cell centers'
-        g_lon%units = 'degrees_E'
+        g_lon%units = 'degree_east'
         g_lon%dimnames(1) = 'nlon'
         g_lon%dimnames(2) = 'nlat'
         g_lon%istart(1) = 1
