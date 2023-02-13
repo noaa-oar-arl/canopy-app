@@ -374,7 +374,7 @@ CONTAINS
 
         c_Kz%fld = fillreal
         c_Kz%fldname = 'kz'
-        c_Kz%long_name = 'eddy diffusivities'
+        c_Kz%long_name = 'eddy diffusivity'
         c_Kz%units = 'm2 s-1'
         c_Kz%fillvalue = fillreal
         c_Kz%dimnames(1) = 'nlon'
