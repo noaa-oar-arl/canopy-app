@@ -305,7 +305,7 @@ CONTAINS
         g_lat%fld = fillreal
         g_lat%fldname = 'lat'
         g_lat%long_name = 'latitude at cell centers'
-        g_lat%units = 'degrees_N'
+        g_lat%units = 'degree_north'
         g_lat%dimnames(1) = 'nlon'
         g_lat%dimnames(2) = 'nlat'
         g_lat%istart(1) = 1
