@@ -80,13 +80,23 @@ Current Canopy-App components:
     | vgrd10m          | V wind at HREF (m/s), e.g., 10 m                  |
     | clu              | Forest clumping index (dimensionless)             |
     | lai              | Leaf area index (m2/m2)                           |
-    | vtype            | Vegetation type (dimensionless), VIIRS Only       |
+    | vtype            | Vegetation type (dimensionless), VIIRS or MODIS   |
     | ffrac            | Forest fraction (dimensionless)                   |
     | fricv            | Friction velocity (m/s)                           |
     | csz              | Cosine of the solar zenith angle (dimensionless)  |
     | sfcr             | Total surface roughness length (m)                |
     | mol              | Monin-Obukhov Length (m)                          |
     | frp              | Total Fire Radiative Power (MW/grid cell area)    |
+    | sotyp            | Soil type (dimensionless), STATSGO                |
+    | pressfc          | Surface pressure (Pa)                             |
+    | dswrf            | Instantaneous downward shortwave radiation at surface (W/m2) |
+    | shtfl            | Instantaneous sensible heat flux at surface (W/m2)           |
+    | tmpsfc           | Surface temperature (K)                                      |
+    | tmp2m            | 2-meter temperature (K)                                      |
+    | spfh2m           | 2-meter specific humidity (kg/kg)                            |
+    | hpbl             | Height of the planetary boundary layer (m)                   |
+    | prate_ave        | Average mass precipitation rate (kg m-2 s-1)                 |
+
 
     **Table 2. Current User Namelist Options**
 
