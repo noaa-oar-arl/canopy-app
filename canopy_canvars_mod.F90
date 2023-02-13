@@ -23,7 +23,6 @@ MODULE canopy_canvars_mod
     real(rk)       ::    sigma1        !Standard deviation of shape function below zcanmax (z/h)
     real(rk)       ::    d_h           !Zero plane displacement heights (z/h)
     real(rk)       ::    zo_h          !Surface (soil+veg) roughness lengths (z/h)
-    !real(rk)       ::    flameh        !Flame Height (m)
 
 !-------------------------------------------------------------------------------
 ! Allocatable canopy variable arrays
@@ -65,6 +64,17 @@ MODULE canopy_canvars_mod
 ! Define output NETCDF data structures.
 !-------------------------------------------------------------------------------
 
+    TYPE fld1ddata
+        REAL(rk),        POINTER   :: fld        ( : )
+        CHARACTER(LEN=16)          :: fldname
+        CHARACTER(LEN=80)          :: long_name
+        CHARACTER(LEN=16)          :: units
+        REAL                       :: fillvalue
+        CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        INTEGER                    :: istart     ( 4 )
+        INTEGER                    :: iend       ( 4 )
+    END TYPE fld1ddata
+
     TYPE fld2ddata
         REAL(rk),        POINTER   :: fld        ( : , : )
         CHARACTER(LEN=16)          :: fldname
@@ -87,14 +97,21 @@ MODULE canopy_canvars_mod
         INTEGER                    :: iend       ( 4 )
     END TYPE fld3ddata
 
-
 !-------------------------------------------------------------------------------
 ! Assign number of time independent and varying 2D/3D fields at cell centers.
 !-------------------------------------------------------------------------------
 
+    INTEGER           :: nfld1dz        ! time-independent 1d cell centers
     INTEGER           :: nfld2dxy       ! time-independent 2d cell centers
     INTEGER           :: nfld2dxyt      ! time-varying 2d cell centers
     INTEGER           :: nfld3dxyzt     ! time-varying 3d cell centers
+
+!-------------------------------------------------------------------------------
+! Time-independent 1d fields at cell centers.
+!-------------------------------------------------------------------------------
+
+    TYPE(fld1ddata), ALLOCATABLE, TARGET :: fld1dz ( : )
+    TYPE(fld1ddata), POINTER     :: g_level
 
 !-------------------------------------------------------------------------------
 ! Time-independent 2d fields at cell centers.

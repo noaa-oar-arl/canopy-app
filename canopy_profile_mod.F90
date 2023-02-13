@@ -253,7 +253,6 @@ contains
         REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
         REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
         REAL(RK),    INTENT( IN )  :: Z0_MOD          ! Input model value of surface roughness length, z0 (m)
-!        INTEGER,     INTENT( IN )  :: RSL_OPT         ! RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
         INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
         INTEGER,     INTENT( IN )  :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )  :: Z0_OPT          ! integer for setting first estimate of z0 (default = 0 for Z0_MOD)
@@ -333,11 +332,7 @@ contains
         ! Final zero-plane displacement (zpd) height
         d_h = dha * dhb
 
-!        if (RSL_OPT .eq. 1) then  !set lambda_rs = 1 to avoid double counting RSL effects
-!            lambda_rs =  1.0
-!        else                      !set to lambda_rs to namelist input LAMBDARS
         lambda_rs = LAMBDARS   !set to lambda_rs to user RSL influence term (namelist input LAMBDARS)
-!        end if
 
         ! Final surface (soil+veg) roughness length, zo/h (Eq. 16 in Massman et al. 2017):
         zo_h  = lambda_rs * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))

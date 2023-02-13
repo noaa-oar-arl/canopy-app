@@ -101,7 +101,6 @@ contains
         REAL(RK),    INTENT( IN )  :: CANTOPMID       ! Mid-flame canopy top wind reduction factor (nondimensional)
         REAL(RK),    INTENT( IN )  :: D_H             ! Zero-plane displacement height, d/h
         REAL(RK),    INTENT( IN )  :: ZO_H            ! Surface (soil+veg) roughness length, zo/h
-!        INTEGER,     INTENT( IN )  :: RSL_OPT         ! RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
         REAL(RK),    INTENT( OUT ) :: WAF             ! Wind Adjustment Factor (nondimensional)
 !     Local variables
         real(rk)                   :: term1           ! Major Term1 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017)
@@ -118,11 +117,7 @@ contains
             waf = 1.0
         else
 
-!            if (RSL_OPT .eq. 1) then  !set lambda_rs = 1 to avoid double counting RSL effects
-!                lambda_rs =  1.0
-!            else                      !set to lambda_rs to namelist input LAMBDARS
             lambda_rs = LAMBDARS
-!            end if
 
             if (FIRETYPE == 0) then  !sub-canopy
                 term1 = log( lambda_rs * ( (1.0 - D_H)/ZO_H ) )  !numerator

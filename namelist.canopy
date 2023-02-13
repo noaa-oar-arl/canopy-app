@@ -1,11 +1,11 @@
 &FILENAMES
-  file_vars    = 'gfs.t12z.20220701.sfcf000.txt'
-!  file_vars    = 'gfs.t12z.20220701.sfcf000.nc'
+  file_vars    = 'gfs.t12z.20220701.sfcf000.nc'
+!  file_vars    = 'gfs.t12z.20220701.sfcf000.txt'
   file_out     = 'test_out'
 /
 
 &USERDEFS
-  infmt_opt  =  1
+  infmt_opt  =  0
   nlat       =  43
   nlon       =  86
   modlays    =  100
