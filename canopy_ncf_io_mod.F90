@@ -389,7 +389,7 @@ CONTAINS
 
         c_rjcf%fld = fillreal
         c_rjcf%fldname = 'rjcf'
-        c_rjcf%long_name = 'photolysis attenuation correction factors'
+        c_rjcf%long_name = 'photolysis attenuation correction factor'
         c_rjcf%units = '1'
         c_rjcf%fillvalue = fillreal
         c_rjcf%dimnames(1) = 'nlon'
