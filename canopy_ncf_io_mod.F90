@@ -402,6 +402,21 @@ CONTAINS
         c_rjcf%iend(2) = nlat
         c_rjcf%iend(3) = modlays
 
+        c_emi_isop%fld = fillreal
+        c_emi_isop%fldname = 'emi_isop'
+        c_emi_isop%long_name = 'biogenic isoprene emissions'
+        c_emi_isop%units = 'kg m2 s-1'
+        c_emi_isop%fillvalue = fillreal
+        c_emi_isop%dimnames(1) = 'nlon'
+        c_emi_isop%dimnames(2) = 'nlat'
+        c_emi_isop%dimnames(3) = 'nlays'
+        c_emi_isop%istart(1) = 1
+        c_emi_isop%istart(2) = 1
+        c_emi_isop%istart(3) = 1
+        c_emi_isop%iend(1) = nlon
+        c_emi_isop%iend(2) = nlat
+        c_emi_isop%iend(3) = modlays
+
     END SUBROUTINE canopy_outncf_init
 
 
@@ -462,11 +477,13 @@ CONTAINS
 
         nfld3dxyzt = 0
 
-        nfld3dxyzt = nfld3dxyzt + 1 !canwind
+        nfld3dxyzt = nfld3dxyzt + 1 !CANWIND
 
         nfld3dxyzt = nfld3dxyzt + 1 !KZ
 
         nfld3dxyzt = nfld3dxyzt + 1 !RJCF
+
+        nfld3dxyzt = nfld3dxyzt + 1 !EMI_ISOP
 
         ALLOCATE ( fld3dxyzt ( nfld3dxyzt ) )
 
@@ -477,6 +494,7 @@ CONTAINS
         c_canwind    => fld3dxyzt( 1 )
         c_Kz         => fld3dxyzt( 2 )
         c_rjcf       => fld3dxyzt( 3 )
+        c_emi_isop   => fld3dxyzt( 4 )
 
     END SUBROUTINE canopy_outncf_alloc
 
@@ -1330,9 +1348,10 @@ CONTAINS
             !-------------------------------------------------------------------------------
             ! Time-varying 3d fields at cell centers.
             !-------------------------------------------------------------------------------
-            c_canwind%fld = canWIND_3d
-            c_Kz%fld      = Kz_3d
-            c_rjcf%fld    = rjcf_3d
+            c_canwind%fld  = canWIND_3d
+            c_Kz%fld       = Kz_3d
+            c_rjcf%fld     = rjcf_3d
+            c_emi_isop%fld = emi_isop_3d
 
             !-------------------------------------------------------------------------------
             ! Write variables.

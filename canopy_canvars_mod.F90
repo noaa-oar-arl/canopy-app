@@ -118,5 +118,6 @@ MODULE canopy_canvars_mod
     TYPE(fld3ddata), POINTER     :: c_canwind
     TYPE(fld3ddata), POINTER     :: c_Kz
     TYPE(fld3ddata), POINTER     :: c_rjcf
+    TYPE(fld3ddata), POINTER     :: c_emi_isop
 
 END MODULE canopy_canvars_mod
