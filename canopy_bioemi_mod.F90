@@ -344,8 +344,8 @@ contains
 ! Calculate isoprene emissions profile in the canopy
        EMI_OUT = 0.0_rk  ! set initial emissions profile to zero
        do i=1, SIZE(ZK)
-           if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then      ! above ground level and at/below canopy top
-               FLAI(i) = (FCLAI(i+1) - FCLAI(i)) * LAI  !fractional LAI in layer (surrogate for using LAD to get emissions in layer)
+           if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then  ! above ground level and at/below canopy top
+               FLAI(i) = ((FCLAI(i+1) - FCLAI(i)) * LAI)/FCH    !fractional LAI scaled to canopy depth (~ LAD)
                EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i)  ! (ug/m2 hr)
                EMI_OUT(i) = EMI_OUT(i) * 2.77778E-13 !TBD:  convert emissions output to kg/m2 s
            end if
