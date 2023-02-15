@@ -520,10 +520,8 @@ CONTAINS
         set_index = 0
         if (ifcanwind .or. ifcanwaf) then
             set_index = set_index + 1
-!            c_waf       => fld2dxyt( 1 )
             c_waf       => fld2dxyt( set_index )
             set_index = set_index + 1
-!            c_flameh    => fld2dxyt( 2 )
             c_flameh    => fld2dxyt( set_index )
         end if
 
@@ -559,28 +557,23 @@ CONTAINS
         set_index = 0
         if (ifcanwind .or. ifcanwaf) then
             set_index = set_index + 1
-!            c_canwind    => fld3dxyzt( 1 )
             c_canwind    => fld3dxyzt( set_index )
         end if
 
         if (ifcaneddy) then
             set_index = set_index + 1
-!            c_Kz         => fld3dxyzt( 2 )
             c_Kz         => fld3dxyzt( set_index )
         end if
 
         if (ifcanphot) then
             set_index = set_index + 1
-!            c_rjcf       => fld3dxyzt( 3 )
             c_rjcf       => fld3dxyzt( set_index )
         end if
 
         if (ifcanbio) then
             set_index = set_index + 1
-!            c_emi_isop   => fld3dxyzt( 4 )
             c_emi_isop   => fld3dxyzt( set_index )
             set_index = set_index + 1
-!            c_emi_myrc   => fld3dxyzt( 5 )
             c_emi_myrc   => fld3dxyzt( set_index )
         end if
 
