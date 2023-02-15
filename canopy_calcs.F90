@@ -147,11 +147,11 @@ SUBROUTINE canopy_calcs
                                           !ISOP
                                           call canopy_bio(zk, fafraczInt, hcmref, &
                                           lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                          lu_opt, vtyperef, 0, emi_isop_3d(i,j,:))
+                                          lu_opt, vtyperef, 1, emi_isop_3d(i,j,:))
                                           !MYRC
                                           call canopy_bio(zk, fafraczInt, hcmref, &
                                           lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                          lu_opt, vtyperef, 1, emi_myrc_3d(i,j,:))
+                                          lu_opt, vtyperef, 2, emi_myrc_3d(i,j,:))
                                end if
                             end if
 
@@ -284,11 +284,11 @@ SUBROUTINE canopy_calcs
                                           !ISOP
                                           call canopy_bio(zk, fafraczInt, hcmref, &
                                           lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                          lu_opt, vtyperef, 0, emi_isop(loc,:))
+                                          lu_opt, vtyperef, 1, emi_isop(loc,:))
                                           !MYRC
                                           call canopy_bio(zk, fafraczInt, hcmref, &
                                           lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                          lu_opt, vtyperef, 1, emi_myrc(loc,:)) 
+                                          lu_opt, vtyperef, 2, emi_myrc(loc,:)) 
                                end if
                             end if
 
