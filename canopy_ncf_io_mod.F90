@@ -291,7 +291,7 @@ CONTAINS
         ! Purpose:  Initializes output NetCDF structures.
         ! Revised:  21 Dec 2022  Initial version.  (P. C. Campbell)
         !-------------------------------------------------------------------------------
-
+        USE canopy_canopts_mod
         use canopy_const_mod, ONLY: fillreal      !constants for canopy models
         use canopy_coord_mod   !main canopy coordinate descriptions
         use canopy_canvars_mod !main canopy variables descriptions
@@ -340,110 +340,114 @@ CONTAINS
         !-------------------------------------------------------------------------------
         ! Time-varying 2d fields at cell centers.
         !-------------------------------------------------------------------------------
+        if (ifcanwind .or. ifcanwaf) then
+            c_waf%fld = fillreal
+            c_waf%fldname = 'waf'
+            c_waf%long_name = 'wind adjustment factor'
+            c_waf%units = '1'
+            c_waf%fillvalue = fillreal
+            c_waf%dimnames(1) = 'nlon'
+            c_waf%dimnames(2) = 'nlat'
+            c_waf%istart(1) = 1
+            c_waf%istart(2) = 1
+            c_waf%iend(1) = nlon
+            c_waf%iend(2) = nlat
 
-        c_waf%fld = fillreal
-        c_waf%fldname = 'waf'
-        c_waf%long_name = 'wind adjustment factor'
-        c_waf%units = '1'
-        c_waf%fillvalue = fillreal
-        c_waf%dimnames(1) = 'nlon'
-        c_waf%dimnames(2) = 'nlat'
-        c_waf%istart(1) = 1
-        c_waf%istart(2) = 1
-        c_waf%iend(1) = nlon
-        c_waf%iend(2) = nlat
-
-        c_flameh%fld = fillreal
-        c_flameh%fldname = 'flameh'
-        c_flameh%long_name = 'flame height'
-        c_flameh%units = 'm'
-        c_flameh%fillvalue = fillreal
-        c_flameh%dimnames(1) = 'nlon'
-        c_flameh%dimnames(2) = 'nlat'
-        c_flameh%istart(1) = 1
-        c_flameh%istart(2) = 1
-        c_flameh%iend(1) = nlon
-        c_flameh%iend(2) = nlat
-
+            c_flameh%fld = fillreal
+            c_flameh%fldname = 'flameh'
+            c_flameh%long_name = 'flame height'
+            c_flameh%units = 'm'
+            c_flameh%fillvalue = fillreal
+            c_flameh%dimnames(1) = 'nlon'
+            c_flameh%dimnames(2) = 'nlat'
+            c_flameh%istart(1) = 1
+            c_flameh%istart(2) = 1
+            c_flameh%iend(1) = nlon
+            c_flameh%iend(2) = nlat
+        end if
 
         !-------------------------------------------------------------------------------
         ! Time-varying 3d fields at cell centers.
         !-------------------------------------------------------------------------------
+        if (ifcanwind .or. ifcanwaf) then
+            c_canwind%fld = fillreal
+            c_canwind%fldname = 'canwind'
+            c_canwind%long_name = 'above/below canopy wind speed'
+            c_canwind%units = 'm s-1'
+            c_canwind%fillvalue = fillreal
+            c_canwind%dimnames(1) = 'nlon'
+            c_canwind%dimnames(2) = 'nlat'
+            c_canwind%dimnames(3) = 'modlays'
+            c_canwind%istart(1) = 1
+            c_canwind%istart(2) = 1
+            c_canwind%istart(3) = 1
+            c_canwind%iend(1) = nlon
+            c_canwind%iend(2) = nlat
+            c_canwind%iend(3) = modlays
+        end if
+        if (ifcaneddy) then
+            c_Kz%fld = fillreal
+            c_Kz%fldname = 'kz'
+            c_Kz%long_name = 'eddy diffusivity'
+            c_Kz%units = 'm2 s-1'
+            c_Kz%fillvalue = fillreal
+            c_Kz%dimnames(1) = 'nlon'
+            c_Kz%dimnames(2) = 'nlat'
+            c_Kz%dimnames(3) = 'modlays'
+            c_Kz%istart(1) = 1
+            c_Kz%istart(2) = 1
+            c_Kz%istart(3) = 1
+            c_Kz%iend(1) = nlon
+            c_Kz%iend(2) = nlat
+            c_Kz%iend(3) = modlays
+        end if
+        if (ifcanphot) then
+            c_rjcf%fld = fillreal
+            c_rjcf%fldname = 'rjcf'
+            c_rjcf%long_name = 'photolysis attenuation correction factor'
+            c_rjcf%units = '1'
+            c_rjcf%fillvalue = fillreal
+            c_rjcf%dimnames(1) = 'nlon'
+            c_rjcf%dimnames(2) = 'nlat'
+            c_rjcf%dimnames(3) = 'modlays'
+            c_rjcf%istart(1) = 1
+            c_rjcf%istart(2) = 1
+            c_rjcf%istart(3) = 1
+            c_rjcf%iend(1) = nlon
+            c_rjcf%iend(2) = nlat
+            c_rjcf%iend(3) = modlays
+        end if
+        if (ifcanbio) then
+            c_emi_isop%fld = fillreal
+            c_emi_isop%fldname = 'emi_isop'
+            c_emi_isop%long_name = 'biogenic isoprene emissions'
+            c_emi_isop%units = 'kg m2 s-1'
+            c_emi_isop%fillvalue = fillreal
+            c_emi_isop%dimnames(1) = 'nlon'
+            c_emi_isop%dimnames(2) = 'nlat'
+            c_emi_isop%dimnames(3) = 'nlays'
+            c_emi_isop%istart(1) = 1
+            c_emi_isop%istart(2) = 1
+            c_emi_isop%istart(3) = 1
+            c_emi_isop%iend(1) = nlon
+            c_emi_isop%iend(2) = nlat
+            c_emi_isop%iend(3) = modlays
 
-        c_canwind%fld = fillreal
-        c_canwind%fldname = 'canwind'
-        c_canwind%long_name = 'above/below canopy wind speed'
-        c_canwind%units = 'm s-1'
-        c_canwind%fillvalue = fillreal
-        c_canwind%dimnames(1) = 'nlon'
-        c_canwind%dimnames(2) = 'nlat'
-        c_canwind%dimnames(3) = 'modlays'
-        c_canwind%istart(1) = 1
-        c_canwind%istart(2) = 1
-        c_canwind%istart(3) = 1
-        c_canwind%iend(1) = nlon
-        c_canwind%iend(2) = nlat
-        c_canwind%iend(3) = modlays
-
-        c_Kz%fld = fillreal
-        c_Kz%fldname = 'kz'
-        c_Kz%long_name = 'eddy diffusivity'
-        c_Kz%units = 'm2 s-1'
-        c_Kz%fillvalue = fillreal
-        c_Kz%dimnames(1) = 'nlon'
-        c_Kz%dimnames(2) = 'nlat'
-        c_Kz%dimnames(3) = 'modlays'
-        c_Kz%istart(1) = 1
-        c_Kz%istart(2) = 1
-        c_Kz%istart(3) = 1
-        c_Kz%iend(1) = nlon
-        c_Kz%iend(2) = nlat
-        c_Kz%iend(3) = modlays
-
-        c_rjcf%fld = fillreal
-        c_rjcf%fldname = 'rjcf'
-        c_rjcf%long_name = 'photolysis attenuation correction factor'
-        c_rjcf%units = '1'
-        c_rjcf%fillvalue = fillreal
-        c_rjcf%dimnames(1) = 'nlon'
-        c_rjcf%dimnames(2) = 'nlat'
-        c_rjcf%dimnames(3) = 'modlays'
-        c_rjcf%istart(1) = 1
-        c_rjcf%istart(2) = 1
-        c_rjcf%istart(3) = 1
-        c_rjcf%iend(1) = nlon
-        c_rjcf%iend(2) = nlat
-        c_rjcf%iend(3) = modlays
-
-        c_emi_isop%fld = fillreal
-        c_emi_isop%fldname = 'emi_isop'
-        c_emi_isop%long_name = 'biogenic isoprene emissions'
-        c_emi_isop%units = 'kg m2 s-1'
-        c_emi_isop%fillvalue = fillreal
-        c_emi_isop%dimnames(1) = 'nlon'
-        c_emi_isop%dimnames(2) = 'nlat'
-        c_emi_isop%dimnames(3) = 'nlays'
-        c_emi_isop%istart(1) = 1
-        c_emi_isop%istart(2) = 1
-        c_emi_isop%istart(3) = 1
-        c_emi_isop%iend(1) = nlon
-        c_emi_isop%iend(2) = nlat
-        c_emi_isop%iend(3) = modlays
-
-        c_emi_myrc%fld = fillreal
-        c_emi_myrc%fldname = 'emi_myrc'
-        c_emi_myrc%long_name = 'biogenic myrcene emissions'
-        c_emi_myrc%units = 'kg m2 s-1'
-        c_emi_myrc%fillvalue = fillreal
-        c_emi_myrc%dimnames(1) = 'nlon'
-        c_emi_myrc%dimnames(2) = 'nlat'
-        c_emi_myrc%dimnames(3) = 'nlays'
-        c_emi_myrc%istart(1) = 1
-        c_emi_myrc%istart(2) = 1
-        c_emi_myrc%istart(3) = 1
-        c_emi_myrc%iend(1) = nlon
-        c_emi_myrc%iend(2) = nlat
-        c_emi_myrc%iend(3) = modlays
+            c_emi_myrc%fld = fillreal
+            c_emi_myrc%fldname = 'emi_myrc'
+            c_emi_myrc%long_name = 'biogenic myrcene emissions'
+            c_emi_myrc%units = 'kg m2 s-1'
+            c_emi_myrc%fillvalue = fillreal
+            c_emi_myrc%dimnames(1) = 'nlon'
+            c_emi_myrc%dimnames(2) = 'nlat'
+            c_emi_myrc%dimnames(3) = 'nlays'
+            c_emi_myrc%istart(1) = 1
+            c_emi_myrc%istart(2) = 1
+            c_emi_myrc%istart(3) = 1
+            c_emi_myrc%iend(1) = nlon
+            c_emi_myrc%iend(2) = nlat
+            c_emi_myrc%iend(3) = modlays
+        end if 
 
     END SUBROUTINE canopy_outncf_init
 
@@ -455,13 +459,13 @@ CONTAINS
         ! Purpose:  Allocate arrays for NetCDF output Dimensions
         ! Revised:  23 Dec 2022  Original version.  (P. C. Campbell)
         !-------------------------------------------------------------------------------
-
+        USE canopy_canopts_mod
         USE canopy_coord_mod
         USE canopy_canvars_mod
 
         IMPLICIT NONE
 
-        INTEGER                      :: nn
+        INTEGER                      :: nn,set_index
 
         !-------------------------------------------------------------------------------
         ! Time-independent 1d fields at cell centers.
@@ -502,18 +506,26 @@ CONTAINS
 
         nfld2dxyt = 0
 
-        nfld2dxyt = nfld2dxyt + 1  !WAF
-
-        nfld2dxyt = nfld2dxyt + 1  !FLAMEH
+        if (ifcanwind .or. ifcanwaf) then
+            nfld2dxyt = nfld2dxyt + 1  !WAF
+            nfld2dxyt = nfld2dxyt + 1  !FLAMEH
+        end if
 
         ALLOCATE ( fld2dxyt ( nfld2dxyt ) )
 
         DO nn = 1, nfld2dxyt
             ALLOCATE ( fld2dxyt(nn)%fld(nlon,nlat) )
         ENDDO
-
-        c_waf       => fld2dxyt( 1 )
-        c_flameh    => fld2dxyt( 2 )
+        
+        set_index = 0
+        if (ifcanwind .or. ifcanwaf) then
+            set_index = set_index + 1
+!            c_waf       => fld2dxyt( 1 )
+            c_waf       => fld2dxyt( set_index )
+            set_index = set_index + 1
+!            c_flameh    => fld2dxyt( 2 )
+            c_flameh    => fld2dxyt( set_index )
+        end if
 
         !-------------------------------------------------------------------------------
         ! Time-varying 3d fields at cell centers.
@@ -521,27 +533,56 @@ CONTAINS
 
         nfld3dxyzt = 0
 
-        nfld3dxyzt = nfld3dxyzt + 1 !CANWIND
+        if (ifcanwind .or. ifcanwaf) then
+            nfld3dxyzt = nfld3dxyzt + 1 !CANWIND
+        end if
 
-        nfld3dxyzt = nfld3dxyzt + 1 !KZ
+        if (ifcaneddy) then
+            nfld3dxyzt = nfld3dxyzt + 1 !KZ
+        end if
 
-        nfld3dxyzt = nfld3dxyzt + 1 !RJCF
+        if (ifcanphot) then
+            nfld3dxyzt = nfld3dxyzt + 1 !RJCF
+        end if
 
-        nfld3dxyzt = nfld3dxyzt + 1 !EMI_ISOP
-
-        nfld3dxyzt = nfld3dxyzt + 1 !EMI_MYRC
+        if (ifcanbio) then
+            nfld3dxyzt = nfld3dxyzt + 1 !EMI_ISOP
+            nfld3dxyzt = nfld3dxyzt + 1 !EMI_MYRC
+        end if
 
         ALLOCATE ( fld3dxyzt ( nfld3dxyzt ) )
 
         DO nn = 1, nfld3dxyzt
             ALLOCATE ( fld3dxyzt(nn)%fld(nlon,nlat,modlays) )
         ENDDO
+         
+        set_index = 0
+        if (ifcanwind .or. ifcanwaf) then
+            set_index = set_index + 1
+!            c_canwind    => fld3dxyzt( 1 )
+            c_canwind    => fld3dxyzt( set_index )
+        end if
 
-        c_canwind    => fld3dxyzt( 1 )
-        c_Kz         => fld3dxyzt( 2 )
-        c_rjcf       => fld3dxyzt( 3 )
-        c_emi_isop   => fld3dxyzt( 4 )
-        c_emi_myrc   => fld3dxyzt( 5 )
+        if (ifcaneddy) then
+            set_index = set_index + 1
+!            c_Kz         => fld3dxyzt( 2 )
+            c_Kz         => fld3dxyzt( set_index )
+        end if
+
+        if (ifcanphot) then
+            set_index = set_index + 1
+!            c_rjcf       => fld3dxyzt( 3 )
+            c_rjcf       => fld3dxyzt( set_index )
+        end if
+
+        if (ifcanbio) then
+            set_index = set_index + 1
+!            c_emi_isop   => fld3dxyzt( 4 )
+            c_emi_isop   => fld3dxyzt( set_index )
+            set_index = set_index + 1
+!            c_emi_myrc   => fld3dxyzt( 5 )
+            c_emi_myrc   => fld3dxyzt( set_index )
+        end if
 
     END SUBROUTINE canopy_outncf_alloc
 
