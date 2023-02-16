@@ -1,7 +1,7 @@
 &FILENAMES
   file_vars    = 'gfs.t12z.20220701.sfcf000.nc'
 !  file_vars    = 'gfs.t12z.20220701.sfcf000.txt'
-  file_out     = 'test_out'
+  file_out     = 'test_out_se'
 /
 
 &USERDEFS
@@ -28,7 +28,7 @@
   lu_opt     =  1
   z0_opt     =  0
   lai_thresh =  0.1
-  frt_thresh =  0.5
+  frt_thresh =  0.1
   fch_thresh =  0.5
   rsl_opt    =  1
 /
