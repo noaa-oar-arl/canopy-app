@@ -1507,7 +1507,7 @@ CONTAINS
 
             fl = TRIM(OUTPREFX)//trim('.nc')
 
-            rcode = nf90_create (fl, nf90_clobber, cdfid_m)
+            rcode = nf90_create (fl, nf90_hdf5, cdfid_m)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (6,f9500) TRIM(pname), TRIM(fl), TRIM(nf90_strerror(rcode))
                 CALL exit(2)
