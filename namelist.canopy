@@ -14,6 +14,7 @@
   ifcanwaf   = .TRUE.
   ifcaneddy  = .TRUE.
   ifcanphot  = .TRUE.
+  ifcanbio   = .TRUE.
   href_opt   =  0
   href_set   =  10.0
   z0ghc      =  0.0025

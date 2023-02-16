@@ -27,24 +27,56 @@ Canopy is parameterized by foliage distribution shape functions and parameters f
 
 Current Canopy-App components:
 
-1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildfire spread and air quality applications.
+1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildfire spread and air quality applications.  Based on Massman et al. (2017).
 
     Namelist Option : `ifcanwind`
 
     - `canopy_wind_mod.F90`
     - `canopy_waf_mod.F90`
 
-2.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment) for air quality applications.
+2.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment).  Based on Massman et al. (2017) and Makar et al. (2017).
 
     Namelist Option : `ifcaneddy`
 
     - `canopy_eddyx_mod.F90`
 
-3.  In-Canopy vertical photolysis attenuation for air quality applications.
+3.  In-Canopy vertical photolysis attenuation.  Based on Massman et al. (2017) and Markar et al. (2017).  
 
     Namelist Option : `ifcanphot`
 
     - `canopy_phot_mod.F90`
+
+4.  In-Canopy vertical biogenic emissions (kg m-2 s-1).  Based on MEGANv2 and v3 (Guenther et al., 2012), and using both Clifton et al. (2021) and Silva et al. (2020) parameterizations.
+
+    Namelist Option : `ifcanbio`
+
+    - `canopy_bioemi_mod.F90`
+
+    **Note for Biogenic emissions:** When `ifcanbio=.TRUE.`, output will include 3D canopy resolved biogenic emissions for the following species (based on Guenther et al., 2012), which have been mapped from Guenther et al. PFTs to input LU_OPT.
+
+    **Table 1. Canopy-App Biogenic Emissions Output Variables**
+
+    | Variable Name    | Variable Description (Units: kg m-2 s-1)          |
+    | ---------------  | ------------------------------------------------- |
+    | emi_isop         | Isoprene                                          |
+    | emi_myrc         | Myrcene                                           |
+    | emi_sabi         | Sabinene                                          |
+    | emi_limo         | Limonene                                          |
+    | emi_care         | 3-Carene                                          |
+    | emi_ocim         | t-beta-Ocimene                                    |
+    | emi_bpin         | beta-Pinene                                       |
+    | emi_apin         | alpha-Pinene                                      |
+    | emi_mono         | Other Monoterpenes (34 compounds, Table 1 Guenther et al. (2012)               |
+    | emi_farn         | alpha-Farnesene                                   |
+    | emi_cary         | beta-Caryophyllene                                |
+    | emi_sesq         | Other Sesquiterpene (30 compounds, Table 1 Guenther et al. (2012)              |
+    | emi_mbol         | 232-MBO emissions                                 |
+    | emi_meth         | Methanol emissions                                |
+    | emi_acet         | Acetone emissions                                 |
+    | emi_co           | Carbon Monoxide emissions                         |
+    | emi_bvoc         | Bi-Directional VOC emissions (5 compounds, Table 1 Guenther et al. (2012)      |
+    | emi_svoc         | Stress VOC emissions (15 compounds, Table 1 Guenther et al. (2012)             |
+    | emi_ovoc         | Other VOC emissions (49 compounds, Table 1 Guenther et al. (2012)              |
 
     **Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy
 
@@ -61,7 +93,7 @@ Current Canopy-App components:
     Namelist Option : `file_out`  Prefix string (e.g., 'test') used to name output file (Output is 1D txt when using input 1D data (i.e., infmt_opt=1), or is 2D NetCDF output when 2D NetCDF input is used (i.e., infmt_opt=0)).
 
 
-    **Table 1. Canopy-App Required Input Variables**
+    **Table 2. Canopy-App Required Input Variables**
 
     | Variable Name    | Variable Description and Units                    |
     | ---------------  | ------------------------------------------------- |  
@@ -74,15 +106,25 @@ Current Canopy-App components:
     | vgrd10m          | V wind at HREF (m/s), e.g., 10 m                  |
     | clu              | Forest clumping index (dimensionless)             |
     | lai              | Leaf area index (m2/m2)                           |
-    | vtype            | Vegetation type (dimensionless), VIIRS Only       |
+    | vtype            | Vegetation type (dimensionless), VIIRS or MODIS   |
     | ffrac            | Forest fraction (dimensionless)                   |
     | fricv            | Friction velocity (m/s)                           |
     | csz              | Cosine of the solar zenith angle (dimensionless)  |
     | sfcr             | Total surface roughness length (m)                |
     | mol              | Monin-Obukhov Length (m)                          |
     | frp              | Total Fire Radiative Power (MW/grid cell area)    |
+    | sotyp            | Soil type (dimensionless), STATSGO                |
+    | pressfc          | Surface pressure (Pa)                             |
+    | dswrf            | Instantaneous downward shortwave radiation at surface (W/m2) |
+    | shtfl            | Instantaneous sensible heat flux at surface (W/m2)           |
+    | tmpsfc           | Surface temperature (K)                                      |
+    | tmp2m            | 2-meter temperature (K)                                      |
+    | spfh2m           | 2-meter specific humidity (kg/kg)                            |
+    | hpbl             | Height of the planetary boundary layer (m)                   |
+    | prate_ave        | Average mass precipitation rate (kg m-2 s-1)                 |
 
-    **Table 2. Current User Namelist Options**
+
+    **Table 3. Current User Namelist Options**
 
     | Namelist Option  | Namelist Description and Units                                                     |
     | ---------------  | ---------------------------------------------------------------------------------- |
@@ -95,6 +137,7 @@ Current Canopy-App components:
     | ifcanwaf         | logical canopy WAF option (default = .FALSE.)**                                    |
     | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
     | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |
+    | ifcanbio         | logical canopy biogenic emissions option (default = .FALSE.)                       |
     | href_opt         | integer for using href_set in namelist (= 0) or array from file (= 1); default = 0 |
     | href_set         | user set real value of reference height above canopy associated with input wind speed (m) (only used if href_opt = 0)  |
     | z0ghc            | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
@@ -117,11 +160,17 @@ Current Canopy-App components:
 
 Main Citations (further references contained within):
 
-Katul, G.G., Mahrt, L., Poggi, D., and Sanz, C. (2004). One- and two-equation models for canopy turbulence. Boundary-Layer Meteorol. 113: 81–109. https://doi.org/10.1023/B:BOUN.0000037333.48760.e5
+- Clifton, O. E., Patton, E. G., Wang, S., Barth, M., Orlando, J., & Schwantes, R. H. (2022). Large eddy simulation for investigating coupled forest canopy and turbulence influences on atmospheric chemistry. Journal of Advances in Modeling Earth Systems, 14, e2022MS003078. https://doi. org/10.1029/2022MS003078
 
-Massman, W. J., J.M. Forthofer, and M.A. Finney. (2017). An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior. Canadian Journal of Forest Research. 47(5): 594-603. https://doi.org/10.1139/cjfr-2016-0354
+- Guenther, A. B., Jiang, X., Heald, C. L., Sakulyanontvittaya, T., Duhl, T., Emmons, L. K., and Wang, X.: The Model of Emissions of Gases and Aerosols from Nature version 2.1 (MEGAN2.1): an extended and updated framework for modeling biogenic emissions, Geosci. Model Dev., 5, 1471–1492, https://doi.org/10.5194/gmd-5-1471-2012, 2012.
 
-Makar, P., Staebler, R., Akingunola, A. et al. The effects of forest canopy shading and turbulence on boundary layer ozone. Nat Commun 8, 15243 (2017). https://doi.org/10.1038/ncomms15243
+- Katul, G.G., Mahrt, L., Poggi, D., and Sanz, C. (2004). One- and two-equation models for canopy turbulence. Boundary-Layer Meteorol. 113: 81–109. https://doi.org/10.1023/B:BOUN.0000037333.48760.e5
+
+- Makar, P., Staebler, R., Akingunola, A. et al. The effects of forest canopy shading and turbulence on boundary layer ozone. Nat Commun 8, 15243 (2017). https://doi.org/10.1038/ncomms1524
+
+- Massman, W. J., J.M. Forthofer, and M.A. Finney. (2017). An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior. Canadian Journal of Forest Research. 47(5): 594-603. https://doi.org/10.1139/cjfr-2016-0354
+
+- Silva, S. J., Heald, C. L., and Guenther, A. B.: Development of a reduced-complexity plant canopy physics surrogate model for use in chemical transport models: a case study with GEOS-Chem v12.3.0, Geosci. Model Dev., 13, 2569–2585, https://doi.org/10.5194/gmd-13-2569-2020, 2020.
 
 ## Development
 

@@ -19,12 +19,12 @@ SUBROUTINE canopy_calcs
     use canopy_waf_mod
     use canopy_phot_mod
     use canopy_eddy_mod
+    use canopy_bioemi_mod
 
     IMPLICIT NONE
 
     !Local variables
     integer i,j,k,loc
-    real(rk) hgtref !local reference height from namelist or file array
 
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
@@ -50,19 +50,28 @@ SUBROUTINE canopy_calcs
         do i=1, nlon
             do j=1, nlat
 
-                hcmref   = variables_2d(i,j)%fh
-                uref     = variables_2d(i,j)%ugrd10m
-                vref     = variables_2d(i,j)%vgrd10m
-                cluref   = variables_2d(i,j)%clu
-                lairef   = variables_2d(i,j)%lai
-                vtyperef = variables_2d(i,j)%vtype
-                ffracref = variables_2d(i,j)%ffrac
-                ustref   = variables_2d(i,j)%fricv
-                cszref   = variables_2d(i,j)%csz
-                z0ref    = variables_2d(i,j)%sfcr
-                molref   = variables_2d(i,j)%mol
-                frpref   = variables_2d(i,j)%frp
-                hgtref   = variables_2d(i,j)%href
+                hcmref       = variables_2d(i,j)%fh
+                uref         = variables_2d(i,j)%ugrd10m
+                vref         = variables_2d(i,j)%vgrd10m
+                cluref       = variables_2d(i,j)%clu
+                lairef       = variables_2d(i,j)%lai
+                vtyperef     = variables_2d(i,j)%vtype
+                ffracref     = variables_2d(i,j)%ffrac
+                ustref       = variables_2d(i,j)%fricv
+                cszref       = variables_2d(i,j)%csz
+                z0ref        = variables_2d(i,j)%sfcr
+                molref       = variables_2d(i,j)%mol
+                frpref       = variables_2d(i,j)%frp
+                hgtref       = variables_2d(i,j)%href
+                sotypref     = variables_2d(i,j)%sotyp
+                pressfcref   = variables_2d(i,j)%pressfc
+                dswrfref     = variables_2d(i,j)%dswrf
+                shtflref     = variables_2d(i,j)%shtfl
+                tmpsfcref    = variables_2d(i,j)%tmpsfc
+                tmp2mref     = variables_2d(i,j)%tmp2m
+                spfh2mref    = variables_2d(i,j)%spfh2m
+                hpblref      = variables_2d(i,j)%hpbl
+                prate_averef = variables_2d(i,j)%prate_ave
 
 ! ... calculate wind speed from u and v
                 ubzref   = sqrt((uref**2.0) + (vref**2.0))
@@ -132,6 +141,88 @@ SUBROUTINE canopy_calcs
                                 end if
                             end if
 
+! ... user option to calculate in-canopy biogenic emissions
+                            if (ifcanbio) then
+                                if (cszref .ge. 0.0_rk .and. dswrfref .gt. 0.0_rk) then
+                                    !ISOP
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 1, emi_isop_3d(i,j,:))
+                                    !MYRC
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 2, emi_myrc_3d(i,j,:))
+                                    !SABI
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 3, emi_sabi_3d(i,j,:))
+                                    !LIMO
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 4, emi_limo_3d(i,j,:))
+                                    !CARE
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 5, emi_care_3d(i,j,:))
+                                    !OCIM
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 6, emi_ocim_3d(i,j,:))
+                                    !BPIN
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 7, emi_bpin_3d(i,j,:))
+                                    !APIN
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 8, emi_apin_3d(i,j,:))
+                                    !MONO
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 9, emi_mono_3d(i,j,:))
+                                    !FARN
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 10, emi_farn_3d(i,j,:))
+                                    !CARY
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 11, emi_cary_3d(i,j,:))
+                                    !SESQ
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 12, emi_sesq_3d(i,j,:))
+                                    !MBOL
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 13, emi_mbol_3d(i,j,:))
+                                    !METH
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 14, emi_meth_3d(i,j,:))
+                                    !ACET
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 15, emi_acet_3d(i,j,:))
+                                    !CO
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 16, emi_co_3d(i,j,:))
+                                    !BIDI VOC
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 17, emi_bvoc_3d(i,j,:))
+                                    !Stress VOC
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 18, emi_svoc_3d(i,j,:))
+                                    !Other VOC
+                                    call canopy_bio(zk, fafraczInt, hcmref, &
+                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                        lu_opt, vtyperef, 19, emi_ovoc_3d(i,j,:))
+                                end if
+                            end if
+
                         end if !Contiguous Canopy
 
                     else
@@ -165,19 +256,28 @@ SUBROUTINE canopy_calcs
 
 ! ... Main loop through model grid cells
         do loc=1, nlat*nlon
-            hcmref   = variables(loc)%fh
-            uref     = variables(loc)%ugrd10m
-            vref     = variables(loc)%vgrd10m
-            cluref   = variables(loc)%clu
-            lairef   = variables(loc)%lai
-            vtyperef = variables(loc)%vtype
-            ffracref = variables(loc)%ffrac
-            ustref   = variables(loc)%fricv
-            cszref   = variables(loc)%csz
-            z0ref    = variables(loc)%sfcr
-            molref   = variables(loc)%mol
-            frpref   = variables(loc)%frp
-            hgtref   = variables(loc)%href
+            hcmref       = variables(loc)%fh
+            uref         = variables(loc)%ugrd10m
+            vref         = variables(loc)%vgrd10m
+            cluref       = variables(loc)%clu
+            lairef       = variables(loc)%lai
+            vtyperef     = variables(loc)%vtype
+            ffracref     = variables(loc)%ffrac
+            ustref       = variables(loc)%fricv
+            cszref       = variables(loc)%csz
+            z0ref        = variables(loc)%sfcr
+            molref       = variables(loc)%mol
+            frpref       = variables(loc)%frp
+            hgtref       = variables(loc)%href
+            sotypref     = variables(loc)%sotyp
+            pressfcref   = variables(loc)%pressfc
+            dswrfref     = variables(loc)%dswrf
+            shtflref     = variables(loc)%shtfl
+            tmpsfcref    = variables(loc)%tmpsfc
+            tmp2mref     = variables(loc)%tmp2m
+            spfh2mref    = variables(loc)%spfh2m
+            hpblref      = variables(loc)%hpbl
+            prate_averef = variables(loc)%prate_ave
 
 ! ... calculate wind speed from u and v
             ubzref   = sqrt((uref**2.0) + (vref**2.0))
@@ -243,6 +343,88 @@ SUBROUTINE canopy_calcs
                             if (cszref .ge. 0.0_rk) then !only calculate if cell isn't dark
                                 call canopy_phot(fafraczInt, &
                                     lairef, cluref, cszref, rjcf(loc, :))
+                            end if
+                        end if
+
+! ... user option to calculate in-canopy biogenic emissions
+                        if (ifcanbio) then
+                            if (cszref .ge. 0.0_rk .and. dswrfref .gt. 0.0_rk) then
+                                !ISOP
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 1, emi_isop(loc,:))
+                                !MYRC
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 2, emi_myrc(loc,:))
+                                !SABI
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 3, emi_sabi(loc,:))
+                                !LIMO
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 4, emi_limo(loc,:))
+                                !CARE
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 5, emi_care(loc,:))
+                                !OCIM
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 6, emi_ocim(loc,:))
+                                !BPIN
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 7, emi_bpin(loc,:))
+                                !APIN
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 8, emi_apin(loc,:))
+                                !MONO
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 9, emi_mono(loc,:))
+                                !FARN
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 10, emi_farn(loc,:))
+                                !CARY
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 11, emi_cary(loc,:))
+                                !SESQ
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 12, emi_sesq(loc,:))
+                                !MBOL
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 13, emi_mbol(loc,:))
+                                !METH
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 14, emi_meth(loc,:))
+                                !ACET
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 15, emi_acet(loc,:))
+                                !CO
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 16, emi_co(loc,:))
+                                !BIDI VOC
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 17, emi_bvoc(loc,:))
+                                !Stress VOC
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 18, emi_svoc(loc,:))
+                                !Other VOC
+                                call canopy_bio(zk, fafraczInt, hcmref, &
+                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
+                                    lu_opt, vtyperef, 19, emi_ovoc(loc,:))
                             end if
                         end if
 

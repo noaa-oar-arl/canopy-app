@@ -22,8 +22,8 @@ SUBROUTINE canopy_readnml
 
     NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
         z0ghc, lambdars, flameh_opt, flameh_set, ifcanwind, ifcanwaf, ifcaneddy, &
-        ifcanphot, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, dx_set, lai_thresh, &
-        frt_thresh, fch_thresh, rsl_opt
+        ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, dx_set,  &
+        lai_thresh, frt_thresh, fch_thresh, rsl_opt
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -134,6 +134,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default logical for canopy photolysis attenuation (default = .FALSE.)
     ifcanphot = .FALSE.
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default logical for canopy biogenic emissions (default = .FALSE.)
+    ifcanbio = .FALSE.
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

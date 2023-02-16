@@ -70,5 +70,51 @@ SUBROUTINE canopy_alloc
         if(.not.allocated(rjcf_3d))         allocate(rjcf_3d(nlon,nlat,modlays))
     end if
 
+!-------------------------------------------------------------------------------
+! Allocate arrays for Canopy Biogenic Emissions Outputs
+!-------------------------------------------------------------------------------
+
+    if (ifcanbio) then
+        write(*,*)  'Canopy biogenic emissions option selected'
+        write(*,*)  '-------------------------------'
+        if(.not.allocated(emi_isop))         allocate(emi_isop(nlat*nlon,modlays))
+        if(.not.allocated(emi_isop_3d))      allocate(emi_isop_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_myrc))         allocate(emi_myrc(nlat*nlon,modlays))
+        if(.not.allocated(emi_myrc_3d))      allocate(emi_myrc_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_sabi))         allocate(emi_sabi(nlat*nlon,modlays))
+        if(.not.allocated(emi_sabi_3d))      allocate(emi_sabi_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_limo))         allocate(emi_limo(nlat*nlon,modlays))
+        if(.not.allocated(emi_limo_3d))      allocate(emi_limo_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_care))         allocate(emi_care(nlat*nlon,modlays))
+        if(.not.allocated(emi_care_3d))      allocate(emi_care_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_ocim))         allocate(emi_ocim(nlat*nlon,modlays))
+        if(.not.allocated(emi_ocim_3d))      allocate(emi_ocim_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_bpin))         allocate(emi_bpin(nlat*nlon,modlays))
+        if(.not.allocated(emi_bpin_3d))      allocate(emi_bpin_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_apin))         allocate(emi_apin(nlat*nlon,modlays))
+        if(.not.allocated(emi_apin_3d))      allocate(emi_apin_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_mono))         allocate(emi_mono(nlat*nlon,modlays))
+        if(.not.allocated(emi_mono_3d))      allocate(emi_mono_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_farn))         allocate(emi_farn(nlat*nlon,modlays))
+        if(.not.allocated(emi_farn_3d))      allocate(emi_farn_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_cary))         allocate(emi_cary(nlat*nlon,modlays))
+        if(.not.allocated(emi_cary_3d))      allocate(emi_cary_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_sesq))         allocate(emi_sesq(nlat*nlon,modlays))
+        if(.not.allocated(emi_sesq_3d))      allocate(emi_sesq_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_mbol))         allocate(emi_mbol(nlat*nlon,modlays))
+        if(.not.allocated(emi_mbol_3d))      allocate(emi_mbol_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_meth))         allocate(emi_meth(nlat*nlon,modlays))
+        if(.not.allocated(emi_meth_3d))      allocate(emi_meth_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_acet))         allocate(emi_acet(nlat*nlon,modlays))
+        if(.not.allocated(emi_acet_3d))      allocate(emi_acet_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_co))           allocate(emi_co(nlat*nlon,modlays))
+        if(.not.allocated(emi_co_3d))        allocate(emi_co_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_bvoc))         allocate(emi_bvoc(nlat*nlon,modlays))
+        if(.not.allocated(emi_bvoc_3d))      allocate(emi_bvoc_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_svoc))         allocate(emi_svoc(nlat*nlon,modlays))
+        if(.not.allocated(emi_svoc_3d))      allocate(emi_svoc_3d(nlon,nlat,modlays))
+        if(.not.allocated(emi_ovoc))         allocate(emi_ovoc(nlat*nlon,modlays))
+        if(.not.allocated(emi_ovoc_3d))      allocate(emi_ovoc_3d(nlon,nlat,modlays))
+    end if
 
 END SUBROUTINE canopy_alloc

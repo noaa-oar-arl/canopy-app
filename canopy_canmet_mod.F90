@@ -27,6 +27,16 @@ MODULE canopy_canmet_mod
         real(rk)   :: mol          !Monin-Obukhov length (m)
         real(rk)   :: frp          !fire radiative power (MW)
         real(rk)   :: href         !reference height above the canopy (m)
+        integer    :: sotyp        !soil type
+        real(rk)   :: pressfc      !surface pressure (hPa)
+        real(rk)   :: dswrf        !instantaneous downward shortwave radiation (W/m2)
+        real(rk)   :: shtfl        !instantaneous surface sensible heat net flux (W/m2)
+        real(rk)   :: tmpsfc       !surface temperature (K)
+        real(rk)   :: tmp2m        !2-meter temperature (K)
+        real(rk)   :: spfh2m       !2-meter specific humidity (kg/kg)
+        real(rk)   :: hpbl         !height of planetary boundary layer (m)
+        real(rk)   :: prate_ave    !mass precipitation rate (kg/m2 s)
+
     end TYPE variable_type
 
     type(variable_type), allocatable :: variables( : ), variables_2d( : , :)
@@ -47,5 +57,16 @@ MODULE canopy_canmet_mod
     real(rk)       ::    z0ref           !Input total/surface roughness length
     real(rk)       ::    molref          !Input Monin-Obukhov Length
     real(rk)       ::    frpref          !Input fire radiative power
+    real(rk)       ::    hgtref          !reference height above the canopy (m)
+    integer        ::    sotypref        !soil type
+    real(rk)       ::    pressfcref      !surface pressure (hPa)
+    real(rk)       ::    dswrfref        !instantaneous downward shortwave radiation (W/m2)
+    real(rk)       ::    shtflref        !instantaneous surface sensible heat net flux (W/m2)
+    real(rk)       ::    tmpsfcref       !surface temperature (K)
+    real(rk)       ::    tmp2mref        !2-meter temperature (K)
+    real(rk)       ::    spfh2mref       !2-meter specific humidity (kg/kg)
+    real(rk)       ::    hpblref         !height of planetary boundary layer (m)
+    real(rk)       ::    prate_averef    !mass precipitation rate (kg/m2 s)
+
 
 END MODULE canopy_canmet_mod

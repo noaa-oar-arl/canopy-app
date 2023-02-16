@@ -69,6 +69,51 @@ SUBROUTINE canopy_dealloc
     end if
 
 !-------------------------------------------------------------------------------
+! Deallocate arrays for Canopy Biogenic Emissions
+!-------------------------------------------------------------------------------
+
+    if (ifcanbio) then
+        if(allocated(emi_isop))     deallocate(emi_isop)
+        if(allocated(emi_isop_3d))  deallocate(emi_isop_3d)
+        if(allocated(emi_myrc))     deallocate(emi_myrc)
+        if(allocated(emi_myrc_3d))  deallocate(emi_myrc_3d)
+        if(allocated(emi_sabi))     deallocate(emi_sabi)
+        if(allocated(emi_sabi_3d))  deallocate(emi_sabi_3d)
+        if(allocated(emi_limo))     deallocate(emi_limo)
+        if(allocated(emi_limo_3d))  deallocate(emi_limo_3d)
+        if(allocated(emi_care))     deallocate(emi_care)
+        if(allocated(emi_care_3d))  deallocate(emi_care_3d)
+        if(allocated(emi_ocim))     deallocate(emi_ocim)
+        if(allocated(emi_ocim_3d))  deallocate(emi_ocim_3d)
+        if(allocated(emi_bpin))     deallocate(emi_bpin)
+        if(allocated(emi_bpin_3d))  deallocate(emi_bpin_3d)
+        if(allocated(emi_apin))     deallocate(emi_apin)
+        if(allocated(emi_apin_3d))  deallocate(emi_apin_3d)
+        if(allocated(emi_mono))     deallocate(emi_mono)
+        if(allocated(emi_mono_3d))  deallocate(emi_mono_3d)
+        if(allocated(emi_farn))     deallocate(emi_farn)
+        if(allocated(emi_farn_3d))  deallocate(emi_farn_3d)
+        if(allocated(emi_cary))     deallocate(emi_cary)
+        if(allocated(emi_cary_3d))  deallocate(emi_cary_3d)
+        if(allocated(emi_sesq))     deallocate(emi_sesq)
+        if(allocated(emi_sesq_3d))  deallocate(emi_sesq_3d)
+        if(allocated(emi_mbol))     deallocate(emi_mbol)
+        if(allocated(emi_mbol_3d))  deallocate(emi_mbol_3d)
+        if(allocated(emi_meth))     deallocate(emi_meth)
+        if(allocated(emi_meth_3d))  deallocate(emi_meth_3d)
+        if(allocated(emi_acet))     deallocate(emi_acet)
+        if(allocated(emi_acet_3d))  deallocate(emi_acet_3d)
+        if(allocated(emi_co))       deallocate(emi_co)
+        if(allocated(emi_co_3d))    deallocate(emi_co_3d)
+        if(allocated(emi_bvoc))     deallocate(emi_bvoc)
+        if(allocated(emi_bvoc_3d))  deallocate(emi_bvoc_3d)
+        if(allocated(emi_svoc))     deallocate(emi_svoc)
+        if(allocated(emi_svoc_3d))  deallocate(emi_svoc_3d)
+        if(allocated(emi_ovoc))     deallocate(emi_ovoc)
+        if(allocated(emi_ovoc_3d))  deallocate(emi_ovoc_3d)
+    end if
+
+!-------------------------------------------------------------------------------
 !  Deallocate NetCDF data structures if used
 !-------------------------------------------------------------------------------
 
