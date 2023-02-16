@@ -83,7 +83,7 @@ Current Canopy-App components:
     Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats:
                                                             `.txt`, `.nc`, `.ncf`, or `.nc4`)
 
-- See example file inputs for variables and format (`gfs.t12z.20220701.sfcf000.txt` or `gfs.t12z.20220701.sfcf000.nc`).  Example input is based on NOAA's UFS-GFSv16 inputs initialized on July 01, 2022 @ 12 UTC (forecast at hour 000)
+- See example file inputs for variables and format (`gfs.t12z.20220701.sfcf000.txt` or `gfs.t12z.20220701.sfcf000.nc`).  Example surface met/land/soil inputs are based on NOAA's UFS-GFSv16 inputs initialized on July 01, 2022 @ 12 UTC (forecast at hour 000). Other external inputs for canopy related and other calculated variables are from numerous sources.  See Table below for more information.  
 - Canopy-App assumes the NetCDF input files are in CF-Convention and test file is based on UFS-GFSv16; recommend using double or float for real variables.
 - Canopy-App can also be run with a single point of 1D input data in a text file (e.g. `input_variables_point.txt`).
 
@@ -92,37 +92,49 @@ Current Canopy-App components:
 
     Namelist Option : `file_out`  Prefix string (e.g., 'test') used to name output file (Output is 1D txt when using input 1D data (i.e., infmt_opt=1), or is 2D NetCDF output when 2D NetCDF input is used (i.e., infmt_opt=0)).
 
+    The Canopy-App input data in Table 2 below is based around NOAA's UFS operational Global Forecast System Version 16 (GFSv16) gridded met data, and is supplemented with external canopy data (from numerous sources) and other external and calculated input variables.  
 
     **Table 2. Canopy-App Required Input Variables**
 
-    | Variable Name    | Variable Description and Units                    |
-    | ---------------  | ------------------------------------------------- |  
-    | lat              | Latitude  (degrees)                               |
-    | lon              | Longitude (degrees; from 0-360)                   |
-    | time             | Timestamp (days since YYYY-N-D 0:0:0) (NetCDF Only) |
-    | fh               | Forest canopy height (m)                          |
-    | href             | Reference height above canopy (m) - 10 m          |
-    | ugrd10m          | U wind at HREF (m/s), e.g., 10 m                  |
-    | vgrd10m          | V wind at HREF (m/s), e.g., 10 m                  |
-    | clu              | Forest clumping index (dimensionless)             |
-    | lai              | Leaf area index (m2/m2)                           |
-    | vtype            | Vegetation type (dimensionless), VIIRS or MODIS   |
-    | ffrac            | Forest fraction (dimensionless)                   |
-    | fricv            | Friction velocity (m/s)                           |
-    | csz              | Cosine of the solar zenith angle (dimensionless)  |
-    | sfcr             | Total surface roughness length (m)                |
-    | mol              | Monin-Obukhov Length (m)                          |
-    | frp              | Total Fire Radiative Power (MW/grid cell area)    |
-    | sotyp            | Soil type (dimensionless), STATSGO                |
-    | pressfc          | Surface pressure (Pa)                             |
-    | dswrf            | Instantaneous downward shortwave radiation at surface (W/m2) |
-    | shtfl            | Instantaneous sensible heat flux at surface (W/m2)           |
-    | tmpsfc           | Surface temperature (K)                                      |
-    | tmp2m            | 2-meter temperature (K)                                      |
-    | spfh2m           | 2-meter specific humidity (kg/kg)                            |
-    | hpbl             | Height of the planetary boundary layer (m)                   |
-    | prate_ave        | Average mass precipitation rate (kg m-2 s-1)                 |
+    | GFS /Met/Land/Soil Variables        | Variable Description and Units                               |  Data Source/Reference (if necessary)              		|
+    | ----------------------------------  | ------------------------------------------------------------ |  ------------------------------------------------- 		|
+    | lat                                 | Latitude  (degrees)                                          |  N/A                                               		| 
+    | lon                                 | Longitude (degrees; from 0-360)                              |  N/A                                               		|
+    | time                                | Timestamp (days since YYYY-N-D 0:0:0) (NetCDF Only)          |  N/A                                               		|  
+    | href                                | Reference height above canopy (m) - 10 m                     |  UFS NOAA/GFSv16 *(see below for downloading using AWS)      |                                        
+    | ugrd10m                             | U wind at HREF (m/s), e.g., 10 m                             |  UFS NOAA/GFSv16                                   		|
+    | vgrd10m                             | V wind at HREF (m/s), e.g., 10 m                             |  UFS NOAA/GFSv16                                   		|
+    | vtype                               | Vegetation type (dimensionless), VIIRS or MODIS              |  UFS NOAA/GFSv16                                   		|
+    | fricv                               | Friction velocity (m/s)                                      |  UFS NOAA/GFSv16                                   		|
+    | sfcr                                | Total surface roughness length (m)                           |  UFS NOAA/GFSv16                                   		|
+    | frp              			  | Total Fire Radiative Power (MW/grid cell area)               |  UFS NOAA/GFSv16                                   		|
+    | sotyp            			  | Soil type (dimensionless), STATSGO                           |  UFS NOAA/GFSv16                                   		|
+    | pressfc          			  | Surface pressure (Pa)                                        |  UFS NOAA/GFSv16                                   		|
+    | dswrf                               | Instantaneous downward shortwave radiation at surface (W/m2) |  UFS NOAA/GFSv16                                   		|
+    | shtfl                               | Instantaneous sensible heat flux at surface (W/m2)           |  UFS NOAA/GFSv16                                   		|
+    | tmpsfc                              | Surface temperature (K)                                      |  UFS NOAA/GFSv16                                  		|
+    | tmp2m                               | 2-meter temperature (K)                                      |  UFS NOAA/GFSv16                                   		|
+    | spfh2m                              | 2-meter specific humidity (kg/kg)                            |  UFS NOAA/GFSv16                                   		|
+    | hpbl                                | Height of the planetary boundary layer (m)                   |  UFS NOAA/GFSv16                                   		|
+    | prate_ave                           | Average mass precipitation rate (kg m-2 s-1)                 |  UFS NOAA/GFSv16                                   		|
+    | ------------------------------------------------------------------------------------------------------------------------------------------------------- 		|
+    | External Canopy Variables           | Variable Description and Units                               |  Data Source/Reference (if necessary)              		|
+    | ----------------------------------  | ------------------------------------------------------------ |  ------------------------------------------------- 		|
+    | fh                                  | Forest canopy height (m)                                     |  N/A                                                         |  
+    | clu                                 | Forest clumping index (dimensionless)                        |  N/A                                                         | 
+    | lai                                 | Leaf area index (m2/m2)                                      |  N/A                                                         |
+    | ffrac                               | Forest fraction (dimensionless)                              |  N/A                                                         |                               
+    | -------------------------------------------------------------------------------------------------------------------------------------------------------           |
+    | Other External Variables            | Variable Description and Units                               |  Data Source/Reference (if necessary                         |
+    | ----------------------------------  | ------------------------------------------------------------ |  -------------------------------------------------           |
+    | frp                                 | Total Fire Radiative Power (MW/grid cell area)               |  N/A                                                         |
+    | csz                                 | Cosine of the solar zenith angle (dimensionless)             |  N/A                                                         |
+    | mol                                 | Monin-Obukhov Length (m)                                     |  N/A                                                         |
 
+
+    **Note on Data Sources from Table 2:**
+  
+    *NOAA's hourly global GFS, gridded (at ~13x13 km resolution) data may be downloaded publicly from the following Amazon Web Service (AWS) S3 storage location: https://nacc-in-the-cloud.s3.amazonaws.com/inputs/<yyyymmdd>/gfs.t12z.sfcf/<hhh>/.nc, where hhh pertains to the hour forecast (e.g., f000 is initialization).  Example Download: wget --no-check-certificate --no-proxy 'https://nacc-in-the-cloud.s3.amazonaws.com/inputs/20230215/gfs.t12z.sfcf000.nc'. Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day. 
 
     **Table 3. Current User Namelist Options**
 
