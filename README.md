@@ -46,11 +46,37 @@ Current Canopy-App components:
 
     - `canopy_phot_mod.F90`
 
-4.  In-Canopy vertical biogenic emissions (kg m-2 s-1) based on MEGANv2 and v3 and using Clifton et al. (2021) and Silva et al. (2020) parameterizations for air quality applications.
+4.  In-Canopy vertical biogenic emissions (kg m-2 s-1) based on MEGANv2 and v3 (Guenther et al., 2012), and using both Clifton et al. (2021) and Silva et al. (2020) parameterizations for air quality applications.
 
     Namelist Option : `ifcanbio`
 
     - `canopy_bioemi_mod.F90`
+
+    **Note for Biogenic emissions** When `ifcanbio=.TRUE.`, output will include 3D canopy resolved biogenic emissions for the following species (based on Guenther et al., 2012), which have been mapped from Guenther et al. PFTs to input LU_OPT.
+
+    **Table 1. Canopy-App Biogenic Emissions Output Variables**
+
+    | Variable Name    | Variable Description (Units: kg m-2 s-1)          |
+    | ---------------  | ------------------------------------------------- |
+    | emi_isop         | Isoprene                                          |
+    | emi_myrc         | Myrcene                                           |
+    | emi_sabi         | Sabinene                                          |
+    | emi_limo         | Limonene                                          |
+    | emi_care         | 3-Carene                                          |
+    | emi_ocim         | t-beta-Ocimene                                    |
+    | emi_bpin         | beta-Pinene                                       |
+    | emi_apin         | alpha-Pinene                                      |
+    | emi_mono         | Other Monoterpenes (34 compounds, Table 1 Guenther et al. (2012)               |
+    | emi_farn         | alpha-Farnesene                                   |
+    | emi_cary         | beta-Caryophyllene                                |
+    | emi_sesq         | Other Sesquiterpene (30 compounds, Table 1 Guenther et al. (2012)              |
+    | emi_mbol         | 232-MBO emissions                                 |
+    | emi_meth         | Methanol emissions                                |
+    | emi_acet         | Acetone emissions                                 |
+    | emi_co           | Carbon Monoxide emissions                         |
+    | emi_bvoc         | Bi-Directional VOC emissions (5 compounds, Table 1 Guenther et al. (2012)      |
+    | emi_svoc         | Stress VOC emissions (15 compounds, Table 1 Guenther et al. (2012)             |
+    | emi_ovoc         | Other VOC emissions (49 compounds, Table 1 Guenther et al. (2012)              |
 
     **Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy
 
@@ -67,7 +93,7 @@ Current Canopy-App components:
     Namelist Option : `file_out`  Prefix string (e.g., 'test') used to name output file (Output is 1D txt when using input 1D data (i.e., infmt_opt=1), or is 2D NetCDF output when 2D NetCDF input is used (i.e., infmt_opt=0)).
 
 
-    **Table 1. Canopy-App Required Input Variables**
+    **Table 2. Canopy-App Required Input Variables**
 
     | Variable Name    | Variable Description and Units                    |
     | ---------------  | ------------------------------------------------- |  
@@ -98,7 +124,7 @@ Current Canopy-App components:
     | prate_ave        | Average mass precipitation rate (kg m-2 s-1)                 |
 
 
-    **Table 2. Current User Namelist Options**
+    **Table 3. Current User Namelist Options**
 
     | Namelist Option  | Namelist Description and Units                                                     |
     | ---------------  | ---------------------------------------------------------------------------------- |
