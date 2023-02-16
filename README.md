@@ -96,7 +96,7 @@ Current Canopy-App components:
 
     **Table 2. Canopy-App Required Input Variables**
 
-    | GFS /Met/Land/Soil Variables        | Variable Description and Units                               |  Data Source/Reference (if necessary)              		|
+    | **GFS /Met/Land/Soil Variables**    | **Variable Description and Units**                           |  **Data Source/Reference (if necessary)**              		|
     | ----------------------------------  | ------------------------------------------------------------ |  ------------------------------------------------- 		|
     | lat                                 | Latitude  (degrees)                                          |  N/A                                               		| 
     | lon                                 | Longitude (degrees; from 0-360)                              |  N/A                                               		|
@@ -117,24 +117,25 @@ Current Canopy-App components:
     | spfh2m                              | 2-meter specific humidity (kg/kg)                            |  UFS NOAA/GFSv16                                   		|
     | hpbl                                | Height of the planetary boundary layer (m)                   |  UFS NOAA/GFSv16                                   		|
     | prate_ave                           | Average mass precipitation rate (kg m-2 s-1)                 |  UFS NOAA/GFSv16                                   		|
-    | ------------------------------------------------------------------------------------------------------------------------------------------------------- 		|
-    | External Canopy Variables           | Variable Description and Units                               |  Data Source/Reference (if necessary)              		|
-    | ----------------------------------  | ------------------------------------------------------------ |  ------------------------------------------------- 		|
+    | **External Canopy Variables**       | **Variable Description and Units**                           |  **Data Source/Reference (if necessary)**         		|
     | fh                                  | Forest canopy height (m)                                     |  N/A                                                         |  
     | clu                                 | Forest clumping index (dimensionless)                        |  N/A                                                         | 
     | lai                                 | Leaf area index (m2/m2)                                      |  N/A                                                         |
     | ffrac                               | Forest fraction (dimensionless)                              |  N/A                                                         |                               
-    | -------------------------------------------------------------------------------------------------------------------------------------------------------           |
-    | Other External Variables            | Variable Description and Units                               |  Data Source/Reference (if necessary                         |
-    | ----------------------------------  | ------------------------------------------------------------ |  -------------------------------------------------           |
+    | **Other External Variables**        | **Variable Description and Units**                           |  **Data Source/Reference (if necessary)**                    |
     | frp                                 | Total Fire Radiative Power (MW/grid cell area)               |  N/A                                                         |
     | csz                                 | Cosine of the solar zenith angle (dimensionless)             |  N/A                                                         |
     | mol                                 | Monin-Obukhov Length (m)                                     |  N/A                                                         |
 
-
     **Note on Data Sources from Table 2:**
   
-    *NOAA's hourly global GFS, gridded (at ~13x13 km resolution) data may be downloaded publicly from the following Amazon Web Service (AWS) S3 storage location: https://nacc-in-the-cloud.s3.amazonaws.com/inputs/<yyyymmdd>/gfs.t12z.sfcf/<hhh>/.nc, where hhh pertains to the hour forecast (e.g., f000 is initialization).  Example Download: wget --no-check-certificate --no-proxy 'https://nacc-in-the-cloud.s3.amazonaws.com/inputs/20230215/gfs.t12z.sfcf000.nc'. Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day. 
+    *NOAA's hourly global GFS, gridded (at ~13x13 km resolution) data may be downloaded publicly from the following Amazon Web Service (AWS) S3 storage location: 
+    https://nacc-in-the-cloud.s3.amazonaws.com/inputs/<yyyymmdd>/gfs.t12z.sfcf/<hhh>/.nc  
+    Where hhh pertains to the hour of the 24-hr forecast (e.g., f000 is initialization).  
+    Example Download: wget --no-check-certificate --no-proxy 'https://nacc-in-the-cloud.s3.amazonaws.com/inputs/20230215/gfs.t12z.sfcf000.nc'. 
+    Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day. 
+
+
 
     **Table 3. Current User Namelist Options**
 
