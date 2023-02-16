@@ -51,6 +51,40 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: emi_isop_3d   ( : , : , : )  ! Isoprene biogenic emissions (kg/m2 s) -- 3D
     real(rk), allocatable :: emi_myrc      ( :, : )       ! Myrcene biogenic emissions (kg/m2 s)
     real(rk), allocatable :: emi_myrc_3d   ( : , : , : )  ! Myrcene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_sabi      ( :, : )       ! Sabinene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_sabi_3d   ( : , : , : )  ! Sabinene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_limo      ( :, : )       ! Limonene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_limo_3d   ( : , : , : )  ! Limonene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_care      ( :, : )       ! Carene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_care_3d   ( : , : , : )  ! Carene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_ocim      ( :, : )       ! Ocimene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_ocim_3d   ( : , : , : )  ! Ocimene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_bpin      ( :, : )       ! Beta-Pinene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_bpin_3d   ( : , : , : )  ! Beta-Pinene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_apin      ( :, : )       ! Alpha-Pinene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_apin_3d   ( : , : , : )  ! Alpha-Pinene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_mono      ( :, : )       ! Other Monoterpenes biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_mono_3d   ( : , : , : )  ! Other Mononterpenes biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_farn      ( :, : )       ! Farnesene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_farn_3d   ( : , : , : )  ! Farnesene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_cary      ( :, : )       ! Caryophyllene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_cary_3d   ( : , : , : )  ! Caryophyllene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_sesq      ( :, : )       ! Other Sesquiterpenes biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_sesq_3d   ( : , : , : )  ! Other Sesquiterpenes biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_mbol      ( :, : )       ! 232-MBO biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_mbol_3d   ( : , : , : )  ! 232-MBO biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_meth      ( :, : )       ! Methanol biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_meth_3d   ( : , : , : )  ! Methanol biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_acet      ( :, : )       ! Acetone biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_acet_3d   ( : , : , : )  ! Acetone biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_co        ( :, : )       ! CO biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_co_3d     ( : , : , : )  ! CO biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_bvoc      ( :, : )       ! BIDI VOC biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_bvoc_3d   ( : , : , : )  ! BIDI VOC biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_svoc      ( :, : )       ! Stress VOC biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_svoc_3d   ( : , : , : )  ! Stress VOC biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_ovoc      ( :, : )       ! Other VOC biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_ovoc_3d   ( : , : , : )  ! Other VOC biogenic emissions (kg/m2 s) -- 3D
 
 !-------------------------------------------------------------------------------
 ! Canopy-App Program and version descriptors.
@@ -139,5 +173,22 @@ MODULE canopy_canvars_mod
     TYPE(fld3ddata), POINTER     :: c_rjcf
     TYPE(fld3ddata), POINTER     :: c_emi_isop
     TYPE(fld3ddata), POINTER     :: c_emi_myrc
+    TYPE(fld3ddata), POINTER     :: c_emi_sabi
+    TYPE(fld3ddata), POINTER     :: c_emi_limo
+    TYPE(fld3ddata), POINTER     :: c_emi_care
+    TYPE(fld3ddata), POINTER     :: c_emi_ocim
+    TYPE(fld3ddata), POINTER     :: c_emi_bpin
+    TYPE(fld3ddata), POINTER     :: c_emi_apin
+    TYPE(fld3ddata), POINTER     :: c_emi_mono
+    TYPE(fld3ddata), POINTER     :: c_emi_farn
+    TYPE(fld3ddata), POINTER     :: c_emi_cary
+    TYPE(fld3ddata), POINTER     :: c_emi_sesq
+    TYPE(fld3ddata), POINTER     :: c_emi_mbol
+    TYPE(fld3ddata), POINTER     :: c_emi_meth
+    TYPE(fld3ddata), POINTER     :: c_emi_acet
+    TYPE(fld3ddata), POINTER     :: c_emi_co
+    TYPE(fld3ddata), POINTER     :: c_emi_bvoc
+    TYPE(fld3ddata), POINTER     :: c_emi_svoc
+    TYPE(fld3ddata), POINTER     :: c_emi_ovoc
 
 END MODULE canopy_canvars_mod
