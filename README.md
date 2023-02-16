@@ -96,9 +96,9 @@ Current Canopy-App components:
 
     **Table 2. Canopy-App Required Input Variables**
 
-    | **GFS /Met/Land/Soil Variables**    | **Variable Description and Units**                           |  **Example Data Sources/References (if necessary)**                                                | 
+    | **GFS /Met/Land/Soil Variables**    | **Variable Description and Units**                           |  **Example Data Sources/References (if necessary)**                                                |
     | ----------------------------------  | ------------------------------------------------------------ |  ------------------------------------------------- 						      |
-    | lat                                 | Latitude  (degrees)                                          |  N/A                                               						      |	 
+    | lat                                 | Latitude  (degrees)                                          |  N/A                                               						      |
     | lon                                 | Longitude (degrees; from 0-360)                              |  N/A                                               					              |
     | time                                | Timestamp (days since YYYY-N-D 0:0:0) (NetCDF Only)          |  N/A                                               					              |  
     | ugrd10m                             | U wind at HREF (m/s), e.g., 10 m                             |  UFS NOAA/GFSv16 *(see below for downloading using AWS)                                 						      |
@@ -118,9 +118,9 @@ Current Canopy-App components:
     | prate_ave                           | Average mass precipitation rate (kg m-2 s-1)                 |  UFS NOAA/GFSv16                                   						      |
     | **External Canopy Variables**       | **Variable Description and Units**                           |  **Data Source/Reference (if necessary)**         						      |
     | fh                                  | Forest canopy height (m)                                     |  Fused GEDI/Landsat data. (Potapov et al., 2020; https://doi.org/10.1016/j.rse.2020.112165)        |  
-    | clu                                 | Forest clumping index (dimensionless)                        |  GridingMachine/MODIS (Wei et al., 2019; https://doi.org/10.1016/j.rse.2019.111296)                | 
+    | clu                                 | Forest clumping index (dimensionless)                        |  GridingMachine/MODIS (Wei et al., 2019; https://doi.org/10.1016/j.rse.2019.111296)                |
     | lai                                 | Leaf area index (m2/m2)                                      |  VIIRS-NPP (Myneni 2018; https://doi.org/10.5067/VIIRS/VNP15A2H.001)                               |
-    | ffrac                               | Forest fraction (dimensionless)                              |  GriddingMachine/MODIS Terra (DiMiceli et al., 2022; https://doi.org/10.5067/MODIS/MOD44B.061)     |                            
+    | ffrac                               | Forest fraction (dimensionless)                              |  GriddingMachine/MODIS Terra (DiMiceli et al., 2022; https://doi.org/10.5067/MODIS/MOD44B.061)     |  
     | **Other External Variables**        | **Variable Description and Units**                           |  **Data Source/Reference (if necessary)**                                                          |
     | frp                                 | Total Fire Radiative Power (MW/grid cell area)               |  NOAA/NESDIS GBBEPx (https://www.ospo.noaa.gov/Products/land/gbbepx/)                              |
     | csz                                 | Cosine of the solar zenith angle (dimensionless)             |  Based on Python Pysolar (https://pysolar.readthedocs.io/en/latest/)                               |
@@ -128,12 +128,12 @@ Current Canopy-App components:
     | href                                | Reference height above canopy (m) - 10 m                     |  Added as a constant reference height above surface (i.e., 10 m).  Can be taken from NL.           |
 
     **More Information on Data Sources from Table 2:**
-  
-    NOAA's hourly global GFS, gridded (at ~13x13 km resolution) data may be downloaded publicly from the following Amazon Web Service (AWS) S3 location: 
+
+    NOAA's hourly global GFS, gridded (at ~13x13 km resolution) data may be downloaded publicly from the following Amazon Web Service (AWS) S3 location:
     `https://nacc-in-the-cloud.s3.amazonaws.com/inputs/YYYMMDD/gfs.t12z.sfcfHHH.nc`  
     Where HHH pertains to the hour of the 24-hr forecast (e.g., f000 is initialization).  
-    Example download command using wget: `wget --no-check-certificate --no-proxy https://nacc-in-the-cloud.s3.amazonaws.com/inputs/20230215/gfs.t12z.sfcf000.nc` 
-    Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day. 
+    Example download command using wget: `wget --no-check-certificate --no-proxy https://nacc-in-the-cloud.s3.amazonaws.com/inputs/20230215/gfs.t12z.sfcf000.nc`
+    Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day.
 
     GriddingMachine is open source database and software for Earth system modeling at global and regional scales.  Data is easily accessible in consistent formats for ease of downloading/processing.  All avaialable datasets may be found at:  https://github.com/CliMA/GriddingMachine.jl. (Wang et al., 2022; https://doi.org/10.1038/s41597-022-01346-x)
 
