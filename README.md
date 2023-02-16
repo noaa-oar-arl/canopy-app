@@ -27,32 +27,32 @@ Canopy is parameterized by foliage distribution shape functions and parameters f
 
 Current Canopy-App components:
 
-1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildfire spread and air quality applications.
+1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildfire spread and air quality applications.  Based on Massman et al. (2017).
 
     Namelist Option : `ifcanwind`
 
     - `canopy_wind_mod.F90`
     - `canopy_waf_mod.F90`
 
-2.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment) for air quality applications.
+2.  In-Canopy vertical diffusion (i.e., eddy diffusivity adjustment).  Based on Massman et al. (2017) and Makar et al. (2017).
 
     Namelist Option : `ifcaneddy`
 
     - `canopy_eddyx_mod.F90`
 
-3.  In-Canopy vertical photolysis attenuation for air quality applications.
+3.  In-Canopy vertical photolysis attenuation.  Based on Massman et al. (2017) and Markar et al. (2017).  
 
     Namelist Option : `ifcanphot`
 
     - `canopy_phot_mod.F90`
 
-4.  In-Canopy vertical biogenic emissions (kg m-2 s-1) based on MEGANv2 and v3 (Guenther et al., 2012), and using both Clifton et al. (2021) and Silva et al. (2020) parameterizations for air quality applications.
+4.  In-Canopy vertical biogenic emissions (kg m-2 s-1).  Based on MEGANv2 and v3 (Guenther et al., 2012), and using both Clifton et al. (2021) and Silva et al. (2020) parameterizations.
 
     Namelist Option : `ifcanbio`
 
     - `canopy_bioemi_mod.F90`
 
-    **Note for Biogenic emissions** When `ifcanbio=.TRUE.`, output will include 3D canopy resolved biogenic emissions for the following species (based on Guenther et al., 2012), which have been mapped from Guenther et al. PFTs to input LU_OPT.
+    **Note for Biogenic emissions:** When `ifcanbio=.TRUE.`, output will include 3D canopy resolved biogenic emissions for the following species (based on Guenther et al., 2012), which have been mapped from Guenther et al. PFTs to input LU_OPT.
 
     **Table 1. Canopy-App Biogenic Emissions Output Variables**
 
