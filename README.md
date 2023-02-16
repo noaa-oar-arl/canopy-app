@@ -125,19 +125,19 @@ Current Canopy-App components:
     | frp                                 | Total Fire Radiative Power (MW/grid cell area)               |  NOAA/NESDIS GBBEPx (https://www.ospo.noaa.gov/Products/land/gbbepx/)                              |
     | csz                                 | Cosine of the solar zenith angle (dimensionless)             |  Based on Python Pysolar (https://pysolar.readthedocs.io/en/latest/)                               |
     | mol                                 | Monin-Obukhov Length (m)                                     |  Externally calculated using GFS tmp2m, fricv, and shtfl.  (Essa, 1999; https://inis.iaea.org/collection/NCLCollectionStore/_Public/37/118/37118528.pdf)   |
-    | href                                | Reference height above canopy (m) - 10 m                     |  Consant reference height above canopy (e.g., 10 m). Can also be taken from NL     |
+    | href                                | Reference height above canopy (m) - 10 m                     |  Added as a constant reference height above surface (i.e., 10 m).  Can be taken from NL.           |
 
     **More Information on Data Sources from Table 2:**
   
     NOAA's hourly global GFS, gridded (at ~13x13 km resolution) data may be downloaded publicly from the following Amazon Web Service (AWS) S3 location: 
     `https://nacc-in-the-cloud.s3.amazonaws.com/inputs/YYYMMDD/gfs.t12z.sfcfHHH.nc`  
     Where HHH pertains to the hour of the 24-hr forecast (e.g., f000 is initialization).  
-    Example download command using wget: wget --no-check-certificate --no-proxy https://nacc-in-the-cloud.s3.amazonaws.com/inputs/20230215/gfs.t12z.sfcf000.nc 
+    Example download command using wget: `wget --no-check-certificate --no-proxy https://nacc-in-the-cloud.s3.amazonaws.com/inputs/20230215/gfs.t12z.sfcf000.nc` 
     Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day. 
 
     GriddingMachine is open source database and software for Earth system modeling at global and regional scales.  Data is easily accessible in consistent formats for ease of downloading/processing.  All avaialable datasets may be found at:  https://github.com/CliMA/GriddingMachine.jl. (Wang et al., 2022; https://doi.org/10.1038/s41597-022-01346-x)
 
-    Example monthly, global gridded files containing all GFSv16 met/land/soil data combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:     `https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.t12z.MM.canopy.global.nc`
+    Example monthly, global gridded files containing all GFSv16 met/land/soil data combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:     `https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.MM.nc`
 
     **Table 3. Current User Namelist Options**
 
