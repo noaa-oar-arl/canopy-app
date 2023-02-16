@@ -124,18 +124,18 @@ CONTAINS
                 open(13, file=TRIM(TXTPREFX)//'_output_bio.txt')
                 write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
                 write(13, '(a30, i6)') 'Number of model layers: ', modlays
-                write(13, '(a8, a9, a12, a15, a15, a15, a15, a15, a15, a15, a15, a15, a15,             & 
-                         & a15, a15, a15, a15, a15, a15, a15, a15, a15)') 'Lat', 'Lon', 'Height (m)',  &
-                           'emi_isop', 'emi_myrc', 'emi_sabi', 'emi_limo', 'emi_care', 'emi_ocim',     &
-                           'emi_bpin', 'emi_apin', 'emi_mono', 'emi_farn', 'emi_cary', 'emi_sesq',     &
-                           'emi_mbol', 'emi_meth', 'emi_acet', 'emi_co',   'emi_bvoc', 'emi_svoc', 'emi_ovoc'
+                write(13, '(a8, a9, a12, a15, a15, a15, a15, a15, a15, a15, a15, a15, a15,             &
+                & a15, a15, a15, a15, a15, a15, a15, a15, a15)') 'Lat', 'Lon', 'Height (m)',  &
+                    'emi_isop', 'emi_myrc', 'emi_sabi', 'emi_limo', 'emi_care', 'emi_ocim',     &
+                    'emi_bpin', 'emi_apin', 'emi_mono', 'emi_farn', 'emi_cary', 'emi_sesq',     &
+                    'emi_mbol', 'emi_meth', 'emi_acet', 'emi_co',   'emi_bvoc', 'emi_svoc', 'emi_ovoc'
                 do loc=1, nlat*nlon
                     do k=1, modlays
-                        write(13, '(f8.2, f9.2, f12.2, es15.7, es15.7, es15.7, es15.7, es15.7, es15.7, & 
-                           &        es15.7, es15.7, es15.7, es15.7, es15.7, es15.7, es15.7, es15.7,    & 
-                           &        es15.7, es15.7, es15.7, es15.7, es15.7)')  &
+                        write(13, '(f8.2, f9.2, f12.2, es15.7, es15.7, es15.7, es15.7, es15.7, es15.7, &
+                        &        es15.7, es15.7, es15.7, es15.7, es15.7, es15.7, es15.7, es15.7,    &
+                        &        es15.7, es15.7, es15.7, es15.7, es15.7)')  &
                             variables(loc)%lat, variables(loc)%lon, &
-                            zk(k), emi_isop(loc,k), emi_myrc(loc,k), emi_sabi(loc,k), emi_limo(loc,k), & 
+                            zk(k), emi_isop(loc,k), emi_myrc(loc,k), emi_sabi(loc,k), emi_limo(loc,k), &
                             emi_care(loc,k), emi_ocim(loc,k), emi_bpin(loc,k), emi_apin(loc,k),        &
                             emi_mono(loc,k), emi_farn(loc,k), emi_cary(loc,k), emi_sesq(loc,k),        &
                             emi_mbol(loc,k), emi_meth(loc,k), emi_acet(loc,k), emi_co(loc,k),          &

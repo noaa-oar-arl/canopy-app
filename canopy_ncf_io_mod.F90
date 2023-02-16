@@ -702,8 +702,8 @@ CONTAINS
             c_emi_ovoc%iend(1) = nlon
             c_emi_ovoc%iend(2) = nlat
             c_emi_ovoc%iend(3) = modlays
-          
-        end if 
+
+        end if
 
     END SUBROUTINE canopy_outncf_init
 
@@ -772,7 +772,7 @@ CONTAINS
         DO nn = 1, nfld2dxyt
             ALLOCATE ( fld2dxyt(nn)%fld(nlon,nlat) )
         ENDDO
-        
+
         set_index = 0
         if (ifcanwind .or. ifcanwaf) then
             set_index = set_index + 1
@@ -826,7 +826,7 @@ CONTAINS
         DO nn = 1, nfld3dxyzt
             ALLOCATE ( fld3dxyzt(nn)%fld(nlon,nlat,modlays) )
         ENDDO
-         
+
         set_index = 0
         if (ifcanwind .or. ifcanwaf) then
             set_index = set_index + 1

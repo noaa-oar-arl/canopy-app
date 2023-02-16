@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_BIOP( EMI_IND, LU_OPT, VTYPE, &
-                            EF, CT1, CEO)
+        EF, CT1, CEO)
 
 !-----------------------------------------------------------------------
 
@@ -21,9 +21,9 @@ contains
 ! Revision History:
 !     Prototype 02/23 by PCC, based on Guenther et al. (2012)
 ! Citation:
-!Guenther, A. B., et al.,: The Model of Emissions of Gases and Aerosols from 
-!Nature version 2.1 (MEGAN2.1): an extended and updated framework for 
-!modeling biogenic emissions, Geosci. Model Dev., 5, 1471–1492, 
+!Guenther, A. B., et al.,: The Model of Emissions of Gases and Aerosols from
+!Nature version 2.1 (MEGAN2.1): an extended and updated framework for
+!modeling biogenic emissions, Geosci. Model Dev., 5, 1471–1492,
 !https://doi.org/10.5194/gmd-5-1471-2012, 2012.
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
@@ -39,11 +39,11 @@ contains
         INTEGER,     INTENT( IN )       :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
         REAL(RK),    INTENT( OUT )      :: EF              ! Out Mapped EF ((ug/m2 hr)
-        REAL(RK),    INTENT( OUT )      :: CT1             ! Out Activation energy (kJ/mol) 
-        REAL(RK),    INTENT( OUT )      :: CEO             ! Out Empirical coefficient 
+        REAL(RK),    INTENT( OUT )      :: CT1             ! Out Activation energy (kJ/mol)
+        REAL(RK),    INTENT( OUT )      :: CEO             ! Out Empirical coefficient
 !  LOCAL
         REAL(RK) :: EF1,EF2,EF3,EF4,EF5,EF6,EF7    ! Plant Emission factors (EF) (ug/m2 hr)
-        REAL(RK) :: EF8,EF9,EF10,EF11,EF12,EF13    ! 
+        REAL(RK) :: EF8,EF9,EF10,EF11,EF12,EF13    !
         REAL(RK) :: EF14,EF15                      !
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Isoprene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
@@ -54,7 +54,7 @@ contains
         REAL(RK),          PARAMETER     :: EF5_ISOP    =  10000.0_rk   ! Broadleaf Evergreen Temperate Tree
         REAL(RK),          PARAMETER     :: EF6_ISOP    =  7000.0_rk    ! Broadleaf Deciduous Tropical Tree
         REAL(RK),          PARAMETER     :: EF7_ISOP    =  10000.0_rk   ! Broadleaf Deciduous Temperate Tree
-        REAL(RK),          PARAMETER     :: EF8_ISOP    =  11000.0_rk   ! Broadleaf Deciduous Boreal Tree                                                                          
+        REAL(RK),          PARAMETER     :: EF8_ISOP    =  11000.0_rk   ! Broadleaf Deciduous Boreal Tree
         REAL(RK),          PARAMETER     :: EF9_ISOP    =  2000.0_rk    ! Broadleaf Evergreen Temperate Shrub
         REAL(RK),          PARAMETER     :: EF10_ISOP   =  4000.0_rk    ! Broadleaf Deciduous Temperate Shrub
         REAL(RK),          PARAMETER     :: EF11_ISOP   =  4000.0_rk    ! Broadleaf Deciduous Boreal Shrub
@@ -322,7 +322,7 @@ contains
         REAL(RK),          PARAMETER     :: EF14_BVOC   =  80.0_rk      ! Warm C4 Grass
         REAL(RK),          PARAMETER     :: EF15_BVOC   =  80.0_rk      ! Crop1
 ! Plant-Dependent emissions capacity/factors (EFs) for Stress VOCs (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
-! Stress VOC (15 compounds): See Table 1 of Guenther et al. (2012) 
+! Stress VOC (15 compounds): See Table 1 of Guenther et al. (2012)
         REAL(RK),          PARAMETER     :: EF1_SVOC    =  300.0_rk     ! Needleleaf Evergreen Temperate Tree
         REAL(RK),          PARAMETER     :: EF2_SVOC    =  300.0_rk     ! Needleleaf Evergreen Boreal Tree
         REAL(RK),          PARAMETER     :: EF3_SVOC    =  300.0_rk     ! Needleleaf Deciduous Boreal Tree
@@ -355,7 +355,7 @@ contains
         REAL(RK),          PARAMETER     :: EF13_OVOC   =  140.0_rk     ! Cool C3 Grass
         REAL(RK),          PARAMETER     :: EF14_OVOC   =  140.0_rk     ! Warm C4 Grass
         REAL(RK),          PARAMETER     :: EF15_OVOC   =  140.0_rk     ! Crop1
-        
+
 ! Species-Dependent Parameterized Canopy Model Parameters (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: CT1_ISOP         =  95.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_ISOP         =  2.0_rk     !Empirical coefficient
@@ -397,400 +397,400 @@ contains
         REAL(RK),          PARAMETER     :: CEO_OVOC         =  1.83_rk    !Empirical coefficient
 
 ! Set tree and species dependent coefficients
-       if (EMI_IND .eq. 1 ) then
-          CT1  = CT1_ISOP
-          CEO  = CEO_ISOP
-          EF1  = EF1_ISOP
-          EF2  = EF2_ISOP
-          EF3  = EF3_ISOP
-          EF4  = EF4_ISOP
-          EF5  = EF5_ISOP
-          EF6  = EF6_ISOP
-          EF7  = EF7_ISOP
-          EF8  = EF8_ISOP
-          EF9  = EF9_ISOP
-          EF10 = EF10_ISOP
-          EF11 = EF11_ISOP
-          EF12 = EF12_ISOP
-          EF13 = EF13_ISOP
-          EF14 = EF14_ISOP
-          EF15 = EF15_ISOP 
-       else if (EMI_IND .eq. 2 ) then 
-          CT1 = CT1_MYRC
-          CEO = CEO_MYRC
-          EF1  = EF1_MYRC
-          EF2  = EF2_MYRC
-          EF3  = EF3_MYRC
-          EF4  = EF4_MYRC
-          EF5  = EF5_MYRC
-          EF6  = EF6_MYRC
-          EF7  = EF7_MYRC
-          EF8  = EF8_MYRC
-          EF9  = EF9_MYRC
-          EF10 = EF10_MYRC
-          EF11 = EF11_MYRC
-          EF12 = EF12_MYRC
-          EF13 = EF13_MYRC
-          EF14 = EF14_MYRC
-          EF15 = EF15_MYRC
-       else if (EMI_IND .eq. 3 ) then 
-          CT1 = CT1_SABI
-          CEO = CEO_SABI
-          EF1  = EF1_SABI
-          EF2  = EF2_SABI
-          EF3  = EF3_SABI
-          EF4  = EF4_SABI
-          EF5  = EF5_SABI
-          EF6  = EF6_SABI
-          EF7  = EF7_SABI
-          EF8  = EF8_SABI
-          EF9  = EF9_SABI
-          EF10 = EF10_SABI
-          EF11 = EF11_SABI
-          EF12 = EF12_SABI
-          EF13 = EF13_SABI
-          EF14 = EF14_SABI
-          EF15 = EF15_SABI
-       else if (EMI_IND .eq. 4 ) then
-          CT1 = CT1_LIMO
-          CEO = CEO_LIMO
-          EF1  = EF1_LIMO
-          EF2  = EF2_LIMO
-          EF3  = EF3_LIMO
-          EF4  = EF4_LIMO
-          EF5  = EF5_LIMO
-          EF6  = EF6_LIMO
-          EF7  = EF7_LIMO
-          EF8  = EF8_LIMO
-          EF9  = EF9_LIMO
-          EF10 = EF10_LIMO
-          EF11 = EF11_LIMO
-          EF12 = EF12_LIMO
-          EF13 = EF13_LIMO
-          EF14 = EF14_LIMO
-          EF15 = EF15_LIMO
-       else if (EMI_IND .eq. 5 ) then
-          CT1 = CT1_CARE
-          CEO = CEO_CARE
-          EF1  = EF1_CARE
-          EF2  = EF2_CARE
-          EF3  = EF3_CARE
-          EF4  = EF4_CARE
-          EF5  = EF5_CARE
-          EF6  = EF6_CARE
-          EF7  = EF7_CARE
-          EF8  = EF8_CARE
-          EF9  = EF9_CARE
-          EF10 = EF10_CARE
-          EF11 = EF11_CARE
-          EF12 = EF12_CARE
-          EF13 = EF13_CARE
-          EF14 = EF14_CARE
-          EF15 = EF15_CARE
-       else if (EMI_IND .eq. 6 ) then
-          CT1 = CT1_OCIM
-          CEO = CEO_OCIM
-          EF1  = EF1_OCIM
-          EF2  = EF2_OCIM
-          EF3  = EF3_OCIM
-          EF4  = EF4_OCIM
-          EF5  = EF5_OCIM
-          EF6  = EF6_OCIM
-          EF7  = EF7_OCIM
-          EF8  = EF8_OCIM
-          EF9  = EF9_OCIM
-          EF10 = EF10_OCIM
-          EF11 = EF11_OCIM
-          EF12 = EF12_OCIM
-          EF13 = EF13_OCIM
-          EF14 = EF14_OCIM
-          EF15 = EF15_OCIM
-       else if (EMI_IND .eq. 7 ) then
-          CT1 = CT1_BPIN
-          CEO = CEO_BPIN
-          EF1  = EF1_BPIN
-          EF2  = EF2_BPIN
-          EF3  = EF3_BPIN
-          EF4  = EF4_BPIN
-          EF5  = EF5_BPIN
-          EF6  = EF6_BPIN
-          EF7  = EF7_BPIN
-          EF8  = EF8_BPIN
-          EF9  = EF9_BPIN
-          EF10 = EF10_BPIN
-          EF11 = EF11_BPIN
-          EF12 = EF12_BPIN
-          EF13 = EF13_BPIN
-          EF14 = EF14_BPIN
-          EF15 = EF15_BPIN
-       else if (EMI_IND .eq. 8 ) then
-          CT1 = CT1_APIN
-          CEO = CEO_APIN
-          EF1  = EF1_APIN
-          EF2  = EF2_APIN
-          EF3  = EF3_APIN
-          EF4  = EF4_APIN
-          EF5  = EF5_APIN
-          EF6  = EF6_APIN
-          EF7  = EF7_APIN
-          EF8  = EF8_APIN
-          EF9  = EF9_APIN
-          EF10 = EF10_APIN
-          EF11 = EF11_APIN
-          EF12 = EF12_APIN
-          EF13 = EF13_APIN
-          EF14 = EF14_APIN
-          EF15 = EF15_APIN
-       else if (EMI_IND .eq. 9 ) then
-          CT1 = CT1_MONO
-          CEO = CEO_MONO
-          EF1  = EF1_MONO
-          EF2  = EF2_MONO
-          EF3  = EF3_MONO
-          EF4  = EF4_MONO
-          EF5  = EF5_MONO
-          EF6  = EF6_MONO
-          EF7  = EF7_MONO
-          EF8  = EF8_MONO
-          EF9  = EF9_MONO
-          EF10 = EF10_MONO
-          EF11 = EF11_MONO
-          EF12 = EF12_MONO
-          EF13 = EF13_MONO
-          EF14 = EF14_MONO
-          EF15 = EF15_MONO
-       else if (EMI_IND .eq. 10 ) then
-          CT1 = CT1_FARN
-          CEO = CEO_FARN
-          EF1  = EF1_FARN
-          EF2  = EF2_FARN
-          EF3  = EF3_FARN
-          EF4  = EF4_FARN
-          EF5  = EF5_FARN
-          EF6  = EF6_FARN
-          EF7  = EF7_FARN
-          EF8  = EF8_FARN
-          EF9  = EF9_FARN
-          EF10 = EF10_FARN
-          EF11 = EF11_FARN
-          EF12 = EF12_FARN
-          EF13 = EF13_FARN
-          EF14 = EF14_FARN
-          EF15 = EF15_FARN
-       else if (EMI_IND .eq. 11 ) then
-          CT1 = CT1_CARY
-          CEO = CEO_CARY
-          EF1  = EF1_CARY
-          EF2  = EF2_CARY
-          EF3  = EF3_CARY
-          EF4  = EF4_CARY
-          EF5  = EF5_CARY
-          EF6  = EF6_CARY
-          EF7  = EF7_CARY
-          EF8  = EF8_CARY
-          EF9  = EF9_CARY
-          EF10 = EF10_CARY
-          EF11 = EF11_CARY
-          EF12 = EF12_CARY
-          EF13 = EF13_CARY
-          EF14 = EF14_CARY
-          EF15 = EF15_CARY
-       else if (EMI_IND .eq. 12 ) then
-          CT1 = CT1_SESQ
-          CEO = CEO_SESQ
-          EF1  = EF1_SESQ
-          EF2  = EF2_SESQ
-          EF3  = EF3_SESQ
-          EF4  = EF4_SESQ
-          EF5  = EF5_SESQ
-          EF6  = EF6_SESQ
-          EF7  = EF7_SESQ
-          EF8  = EF8_SESQ
-          EF9  = EF9_SESQ
-          EF10 = EF10_SESQ
-          EF11 = EF11_SESQ
-          EF12 = EF12_SESQ
-          EF13 = EF13_SESQ
-          EF14 = EF14_SESQ
-          EF15 = EF15_SESQ
-       else if (EMI_IND .eq. 13 ) then
-          CT1 = CT1_MBOL
-          CEO = CEO_MBOL
-          EF1  = EF1_MBOL
-          EF2  = EF2_MBOL
-          EF3  = EF3_MBOL
-          EF4  = EF4_MBOL
-          EF5  = EF5_MBOL
-          EF6  = EF6_MBOL
-          EF7  = EF7_MBOL
-          EF8  = EF8_MBOL
-          EF9  = EF9_MBOL
-          EF10 = EF10_MBOL
-          EF11 = EF11_MBOL
-          EF12 = EF12_MBOL
-          EF13 = EF13_MBOL
-          EF14 = EF14_MBOL
-          EF15 = EF15_MBOL
-       else if (EMI_IND .eq. 14 ) then
-          CT1 = CT1_METH
-          CEO = CEO_METH
-          EF1  = EF1_METH
-          EF2  = EF2_METH
-          EF3  = EF3_METH
-          EF4  = EF4_METH
-          EF5  = EF5_METH
-          EF6  = EF6_METH
-          EF7  = EF7_METH
-          EF8  = EF8_METH
-          EF9  = EF9_METH
-          EF10 = EF10_METH
-          EF11 = EF11_METH
-          EF12 = EF12_METH
-          EF13 = EF13_METH
-          EF14 = EF14_METH
-          EF15 = EF15_METH
-       else if (EMI_IND .eq. 15 ) then
-          CT1 = CT1_ACET
-          CEO = CEO_ACET
-          EF1  = EF1_ACET
-          EF2  = EF2_ACET
-          EF3  = EF3_ACET
-          EF4  = EF4_ACET
-          EF5  = EF5_ACET
-          EF6  = EF6_ACET
-          EF7  = EF7_ACET
-          EF8  = EF8_ACET
-          EF9  = EF9_ACET
-          EF10 = EF10_ACET
-          EF11 = EF11_ACET
-          EF12 = EF12_ACET
-          EF13 = EF13_ACET
-          EF14 = EF14_ACET
-          EF15 = EF15_ACET
-       else if (EMI_IND .eq. 16 ) then
-          CT1 = CT1_CO
-          CEO = CEO_CO
-          EF1  = EF1_CO
-          EF2  = EF2_CO
-          EF3  = EF3_CO
-          EF4  = EF4_CO
-          EF5  = EF5_CO
-          EF6  = EF6_CO
-          EF7  = EF7_CO
-          EF8  = EF8_CO
-          EF9  = EF9_CO
-          EF10 = EF10_CO
-          EF11 = EF11_CO
-          EF12 = EF12_CO
-          EF13 = EF13_CO
-          EF14 = EF14_CO
-          EF15 = EF15_CO
-       else if (EMI_IND .eq. 17 ) then
-          CT1 = CT1_BVOC
-          CEO = CEO_BVOC
-          EF1  = EF1_BVOC
-          EF2  = EF2_BVOC
-          EF3  = EF3_BVOC
-          EF4  = EF4_BVOC
-          EF5  = EF5_BVOC
-          EF6  = EF6_BVOC
-          EF7  = EF7_BVOC
-          EF8  = EF8_BVOC
-          EF9  = EF9_BVOC
-          EF10 = EF10_BVOC
-          EF11 = EF11_BVOC
-          EF12 = EF12_BVOC
-          EF13 = EF13_BVOC
-          EF14 = EF14_BVOC
-          EF15 = EF15_BVOC
-       else if (EMI_IND .eq. 18 ) then
-          CT1 = CT1_SVOC
-          CEO = CEO_SVOC
-          EF1  = EF1_SVOC
-          EF2  = EF2_SVOC
-          EF3  = EF3_SVOC
-          EF4  = EF4_SVOC
-          EF5  = EF5_SVOC
-          EF6  = EF6_SVOC
-          EF7  = EF7_SVOC
-          EF8  = EF8_SVOC
-          EF9  = EF9_SVOC
-          EF10 = EF10_SVOC
-          EF11 = EF11_SVOC
-          EF12 = EF12_SVOC
-          EF13 = EF13_SVOC
-          EF14 = EF14_SVOC
-          EF15 = EF15_SVOC
-       else   ! EMI_IND = 19 
-          CT1 = CT1_OVOC
-          CEO = CEO_OVOC
-          EF1  = EF1_OVOC
-          EF2  = EF2_OVOC
-          EF3  = EF3_OVOC
-          EF4  = EF4_OVOC
-          EF5  = EF5_OVOC
-          EF6  = EF6_OVOC
-          EF7  = EF7_OVOC
-          EF8  = EF8_OVOC
-          EF9  = EF9_OVOC
-          EF10 = EF10_OVOC
-          EF11 = EF11_OVOC
-          EF12 = EF12_OVOC
-          EF13 = EF13_OVOC
-          EF14 = EF14_OVOC
-          EF15 = EF15_OVOC
-       end if
+        if (EMI_IND .eq. 1 ) then
+            CT1  = CT1_ISOP
+            CEO  = CEO_ISOP
+            EF1  = EF1_ISOP
+            EF2  = EF2_ISOP
+            EF3  = EF3_ISOP
+            EF4  = EF4_ISOP
+            EF5  = EF5_ISOP
+            EF6  = EF6_ISOP
+            EF7  = EF7_ISOP
+            EF8  = EF8_ISOP
+            EF9  = EF9_ISOP
+            EF10 = EF10_ISOP
+            EF11 = EF11_ISOP
+            EF12 = EF12_ISOP
+            EF13 = EF13_ISOP
+            EF14 = EF14_ISOP
+            EF15 = EF15_ISOP
+        else if (EMI_IND .eq. 2 ) then
+            CT1 = CT1_MYRC
+            CEO = CEO_MYRC
+            EF1  = EF1_MYRC
+            EF2  = EF2_MYRC
+            EF3  = EF3_MYRC
+            EF4  = EF4_MYRC
+            EF5  = EF5_MYRC
+            EF6  = EF6_MYRC
+            EF7  = EF7_MYRC
+            EF8  = EF8_MYRC
+            EF9  = EF9_MYRC
+            EF10 = EF10_MYRC
+            EF11 = EF11_MYRC
+            EF12 = EF12_MYRC
+            EF13 = EF13_MYRC
+            EF14 = EF14_MYRC
+            EF15 = EF15_MYRC
+        else if (EMI_IND .eq. 3 ) then
+            CT1 = CT1_SABI
+            CEO = CEO_SABI
+            EF1  = EF1_SABI
+            EF2  = EF2_SABI
+            EF3  = EF3_SABI
+            EF4  = EF4_SABI
+            EF5  = EF5_SABI
+            EF6  = EF6_SABI
+            EF7  = EF7_SABI
+            EF8  = EF8_SABI
+            EF9  = EF9_SABI
+            EF10 = EF10_SABI
+            EF11 = EF11_SABI
+            EF12 = EF12_SABI
+            EF13 = EF13_SABI
+            EF14 = EF14_SABI
+            EF15 = EF15_SABI
+        else if (EMI_IND .eq. 4 ) then
+            CT1 = CT1_LIMO
+            CEO = CEO_LIMO
+            EF1  = EF1_LIMO
+            EF2  = EF2_LIMO
+            EF3  = EF3_LIMO
+            EF4  = EF4_LIMO
+            EF5  = EF5_LIMO
+            EF6  = EF6_LIMO
+            EF7  = EF7_LIMO
+            EF8  = EF8_LIMO
+            EF9  = EF9_LIMO
+            EF10 = EF10_LIMO
+            EF11 = EF11_LIMO
+            EF12 = EF12_LIMO
+            EF13 = EF13_LIMO
+            EF14 = EF14_LIMO
+            EF15 = EF15_LIMO
+        else if (EMI_IND .eq. 5 ) then
+            CT1 = CT1_CARE
+            CEO = CEO_CARE
+            EF1  = EF1_CARE
+            EF2  = EF2_CARE
+            EF3  = EF3_CARE
+            EF4  = EF4_CARE
+            EF5  = EF5_CARE
+            EF6  = EF6_CARE
+            EF7  = EF7_CARE
+            EF8  = EF8_CARE
+            EF9  = EF9_CARE
+            EF10 = EF10_CARE
+            EF11 = EF11_CARE
+            EF12 = EF12_CARE
+            EF13 = EF13_CARE
+            EF14 = EF14_CARE
+            EF15 = EF15_CARE
+        else if (EMI_IND .eq. 6 ) then
+            CT1 = CT1_OCIM
+            CEO = CEO_OCIM
+            EF1  = EF1_OCIM
+            EF2  = EF2_OCIM
+            EF3  = EF3_OCIM
+            EF4  = EF4_OCIM
+            EF5  = EF5_OCIM
+            EF6  = EF6_OCIM
+            EF7  = EF7_OCIM
+            EF8  = EF8_OCIM
+            EF9  = EF9_OCIM
+            EF10 = EF10_OCIM
+            EF11 = EF11_OCIM
+            EF12 = EF12_OCIM
+            EF13 = EF13_OCIM
+            EF14 = EF14_OCIM
+            EF15 = EF15_OCIM
+        else if (EMI_IND .eq. 7 ) then
+            CT1 = CT1_BPIN
+            CEO = CEO_BPIN
+            EF1  = EF1_BPIN
+            EF2  = EF2_BPIN
+            EF3  = EF3_BPIN
+            EF4  = EF4_BPIN
+            EF5  = EF5_BPIN
+            EF6  = EF6_BPIN
+            EF7  = EF7_BPIN
+            EF8  = EF8_BPIN
+            EF9  = EF9_BPIN
+            EF10 = EF10_BPIN
+            EF11 = EF11_BPIN
+            EF12 = EF12_BPIN
+            EF13 = EF13_BPIN
+            EF14 = EF14_BPIN
+            EF15 = EF15_BPIN
+        else if (EMI_IND .eq. 8 ) then
+            CT1 = CT1_APIN
+            CEO = CEO_APIN
+            EF1  = EF1_APIN
+            EF2  = EF2_APIN
+            EF3  = EF3_APIN
+            EF4  = EF4_APIN
+            EF5  = EF5_APIN
+            EF6  = EF6_APIN
+            EF7  = EF7_APIN
+            EF8  = EF8_APIN
+            EF9  = EF9_APIN
+            EF10 = EF10_APIN
+            EF11 = EF11_APIN
+            EF12 = EF12_APIN
+            EF13 = EF13_APIN
+            EF14 = EF14_APIN
+            EF15 = EF15_APIN
+        else if (EMI_IND .eq. 9 ) then
+            CT1 = CT1_MONO
+            CEO = CEO_MONO
+            EF1  = EF1_MONO
+            EF2  = EF2_MONO
+            EF3  = EF3_MONO
+            EF4  = EF4_MONO
+            EF5  = EF5_MONO
+            EF6  = EF6_MONO
+            EF7  = EF7_MONO
+            EF8  = EF8_MONO
+            EF9  = EF9_MONO
+            EF10 = EF10_MONO
+            EF11 = EF11_MONO
+            EF12 = EF12_MONO
+            EF13 = EF13_MONO
+            EF14 = EF14_MONO
+            EF15 = EF15_MONO
+        else if (EMI_IND .eq. 10 ) then
+            CT1 = CT1_FARN
+            CEO = CEO_FARN
+            EF1  = EF1_FARN
+            EF2  = EF2_FARN
+            EF3  = EF3_FARN
+            EF4  = EF4_FARN
+            EF5  = EF5_FARN
+            EF6  = EF6_FARN
+            EF7  = EF7_FARN
+            EF8  = EF8_FARN
+            EF9  = EF9_FARN
+            EF10 = EF10_FARN
+            EF11 = EF11_FARN
+            EF12 = EF12_FARN
+            EF13 = EF13_FARN
+            EF14 = EF14_FARN
+            EF15 = EF15_FARN
+        else if (EMI_IND .eq. 11 ) then
+            CT1 = CT1_CARY
+            CEO = CEO_CARY
+            EF1  = EF1_CARY
+            EF2  = EF2_CARY
+            EF3  = EF3_CARY
+            EF4  = EF4_CARY
+            EF5  = EF5_CARY
+            EF6  = EF6_CARY
+            EF7  = EF7_CARY
+            EF8  = EF8_CARY
+            EF9  = EF9_CARY
+            EF10 = EF10_CARY
+            EF11 = EF11_CARY
+            EF12 = EF12_CARY
+            EF13 = EF13_CARY
+            EF14 = EF14_CARY
+            EF15 = EF15_CARY
+        else if (EMI_IND .eq. 12 ) then
+            CT1 = CT1_SESQ
+            CEO = CEO_SESQ
+            EF1  = EF1_SESQ
+            EF2  = EF2_SESQ
+            EF3  = EF3_SESQ
+            EF4  = EF4_SESQ
+            EF5  = EF5_SESQ
+            EF6  = EF6_SESQ
+            EF7  = EF7_SESQ
+            EF8  = EF8_SESQ
+            EF9  = EF9_SESQ
+            EF10 = EF10_SESQ
+            EF11 = EF11_SESQ
+            EF12 = EF12_SESQ
+            EF13 = EF13_SESQ
+            EF14 = EF14_SESQ
+            EF15 = EF15_SESQ
+        else if (EMI_IND .eq. 13 ) then
+            CT1 = CT1_MBOL
+            CEO = CEO_MBOL
+            EF1  = EF1_MBOL
+            EF2  = EF2_MBOL
+            EF3  = EF3_MBOL
+            EF4  = EF4_MBOL
+            EF5  = EF5_MBOL
+            EF6  = EF6_MBOL
+            EF7  = EF7_MBOL
+            EF8  = EF8_MBOL
+            EF9  = EF9_MBOL
+            EF10 = EF10_MBOL
+            EF11 = EF11_MBOL
+            EF12 = EF12_MBOL
+            EF13 = EF13_MBOL
+            EF14 = EF14_MBOL
+            EF15 = EF15_MBOL
+        else if (EMI_IND .eq. 14 ) then
+            CT1 = CT1_METH
+            CEO = CEO_METH
+            EF1  = EF1_METH
+            EF2  = EF2_METH
+            EF3  = EF3_METH
+            EF4  = EF4_METH
+            EF5  = EF5_METH
+            EF6  = EF6_METH
+            EF7  = EF7_METH
+            EF8  = EF8_METH
+            EF9  = EF9_METH
+            EF10 = EF10_METH
+            EF11 = EF11_METH
+            EF12 = EF12_METH
+            EF13 = EF13_METH
+            EF14 = EF14_METH
+            EF15 = EF15_METH
+        else if (EMI_IND .eq. 15 ) then
+            CT1 = CT1_ACET
+            CEO = CEO_ACET
+            EF1  = EF1_ACET
+            EF2  = EF2_ACET
+            EF3  = EF3_ACET
+            EF4  = EF4_ACET
+            EF5  = EF5_ACET
+            EF6  = EF6_ACET
+            EF7  = EF7_ACET
+            EF8  = EF8_ACET
+            EF9  = EF9_ACET
+            EF10 = EF10_ACET
+            EF11 = EF11_ACET
+            EF12 = EF12_ACET
+            EF13 = EF13_ACET
+            EF14 = EF14_ACET
+            EF15 = EF15_ACET
+        else if (EMI_IND .eq. 16 ) then
+            CT1 = CT1_CO
+            CEO = CEO_CO
+            EF1  = EF1_CO
+            EF2  = EF2_CO
+            EF3  = EF3_CO
+            EF4  = EF4_CO
+            EF5  = EF5_CO
+            EF6  = EF6_CO
+            EF7  = EF7_CO
+            EF8  = EF8_CO
+            EF9  = EF9_CO
+            EF10 = EF10_CO
+            EF11 = EF11_CO
+            EF12 = EF12_CO
+            EF13 = EF13_CO
+            EF14 = EF14_CO
+            EF15 = EF15_CO
+        else if (EMI_IND .eq. 17 ) then
+            CT1 = CT1_BVOC
+            CEO = CEO_BVOC
+            EF1  = EF1_BVOC
+            EF2  = EF2_BVOC
+            EF3  = EF3_BVOC
+            EF4  = EF4_BVOC
+            EF5  = EF5_BVOC
+            EF6  = EF6_BVOC
+            EF7  = EF7_BVOC
+            EF8  = EF8_BVOC
+            EF9  = EF9_BVOC
+            EF10 = EF10_BVOC
+            EF11 = EF11_BVOC
+            EF12 = EF12_BVOC
+            EF13 = EF13_BVOC
+            EF14 = EF14_BVOC
+            EF15 = EF15_BVOC
+        else if (EMI_IND .eq. 18 ) then
+            CT1 = CT1_SVOC
+            CEO = CEO_SVOC
+            EF1  = EF1_SVOC
+            EF2  = EF2_SVOC
+            EF3  = EF3_SVOC
+            EF4  = EF4_SVOC
+            EF5  = EF5_SVOC
+            EF6  = EF6_SVOC
+            EF7  = EF7_SVOC
+            EF8  = EF8_SVOC
+            EF9  = EF9_SVOC
+            EF10 = EF10_SVOC
+            EF11 = EF11_SVOC
+            EF12 = EF12_SVOC
+            EF13 = EF13_SVOC
+            EF14 = EF14_SVOC
+            EF15 = EF15_SVOC
+        else   ! EMI_IND = 19
+            CT1 = CT1_OVOC
+            CEO = CEO_OVOC
+            EF1  = EF1_OVOC
+            EF2  = EF2_OVOC
+            EF3  = EF3_OVOC
+            EF4  = EF4_OVOC
+            EF5  = EF5_OVOC
+            EF6  = EF6_OVOC
+            EF7  = EF7_OVOC
+            EF8  = EF8_OVOC
+            EF9  = EF9_OVOC
+            EF10 = EF10_OVOC
+            EF11 = EF11_OVOC
+            EF12 = EF12_OVOC
+            EF13 = EF13_OVOC
+            EF14 = EF14_OVOC
+            EF15 = EF15_OVOC
+        end if
 
-       if (LU_OPT .eq. 0 .or. LU_OPT .eq. 1) then !VIIRS or MODIS  LU types
+        if (LU_OPT .eq. 0 .or. LU_OPT .eq. 1) then !VIIRS or MODIS  LU types
 
 ! Simple MEGAN (Table 3 in Guenther et al., 2012) PFT to VIIRS/MODIS VTYPE mapping
-       if (VTYPE .eq. 1) then !VIIRS Cat 1 Evergreen Needleleaf
-        !--> Average Needleleaf Evergreen Temperate Tree and Needleleaf Evergreen Boreal Tree
+            if (VTYPE .eq. 1) then !VIIRS Cat 1 Evergreen Needleleaf
+                !--> Average Needleleaf Evergreen Temperate Tree and Needleleaf Evergreen Boreal Tree
 
-            EF = (EF1+EF2)/2.0_rk
+                EF = (EF1+EF2)/2.0_rk
 
-        else if (VTYPE .eq. 2) then !VIIRS/MODIS Cat 2 Evergreen Broadleaf
-        !--> Average Broadleaf Evergreen Tropical Tree and Broadleaf Evergreen Temperate Tree
+            else if (VTYPE .eq. 2) then !VIIRS/MODIS Cat 2 Evergreen Broadleaf
+                !--> Average Broadleaf Evergreen Tropical Tree and Broadleaf Evergreen Temperate Tree
 
-            EF = (EF4+EF5)/2.0_rk
+                EF = (EF4+EF5)/2.0_rk
 
-        else if (VTYPE .eq. 3) then !VIIRS/MODIS Cat 3 Deciduous Needleaf
-        !--> Average Needleleaf Deciduous Boreal Tree
+            else if (VTYPE .eq. 3) then !VIIRS/MODIS Cat 3 Deciduous Needleaf
+                !--> Average Needleleaf Deciduous Boreal Tree
 
-            EF = EF3
+                EF = EF3
 
-        else if (VTYPE .eq. 4) then !VIIRS/MODIS Cat 4 Deciduous Broadleaf
-        !--> Average Broadleaf Deciduous Tropical Tree, Broadleaf Deciduous Temperate Tree, 
-        ! and Broadleaf Deciduous Boreal Tree
+            else if (VTYPE .eq. 4) then !VIIRS/MODIS Cat 4 Deciduous Broadleaf
+                !--> Average Broadleaf Deciduous Tropical Tree, Broadleaf Deciduous Temperate Tree,
+                ! and Broadleaf Deciduous Boreal Tree
 
-            EF = (EF6+EF7+EF8)/3.0_rk
+                EF = (EF6+EF7+EF8)/3.0_rk
 
-        else if (VTYPE .eq. 5) then !VIIRS/MODIS Cat 5 Mixed forests
-        !--> Avearge of all above EF1-EF8 PFTs.
+            else if (VTYPE .eq. 5) then !VIIRS/MODIS Cat 5 Mixed forests
+                !--> Avearge of all above EF1-EF8 PFTs.
 
-            EF = (EF1+EF2+EF3+EF4+EF5+EF6+EF7+EF8)/8.0_rk
+                EF = (EF1+EF2+EF3+EF4+EF5+EF6+EF7+EF8)/8.0_rk
 
-        else if (VTYPE .ge. 6 .and. VTYPE .le. 7) then !VIIRS/MODIS Cat 6-7 Closed/Open Shrublands
-        !--> Avearge Broadleaf Evergreen Temperate Shrub, Broadleaf Deciduous Temperate Shrub,
-        ! and Broadleaf Deciduous Boreal Shrub
+            else if (VTYPE .ge. 6 .and. VTYPE .le. 7) then !VIIRS/MODIS Cat 6-7 Closed/Open Shrublands
+                !--> Avearge Broadleaf Evergreen Temperate Shrub, Broadleaf Deciduous Temperate Shrub,
+                ! and Broadleaf Deciduous Boreal Shrub
 
-            EF = (EF9+EF10+EF11)/3.0_rk
+                EF = (EF9+EF10+EF11)/3.0_rk
 
-        else if (VTYPE .ge. 8 .and. VTYPE .le. 10) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
-        !--> Avearge Arctic C3 Grass, Cool C3 Grass, Warm C4 Grass)
+            else if (VTYPE .ge. 8 .and. VTYPE .le. 10) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
+                !--> Avearge Arctic C3 Grass, Cool C3 Grass, Warm C4 Grass)
 
-            EF = (EF12+EF13+EF14)/3.0_rk
+                EF = (EF12+EF13+EF14)/3.0_rk
 
-        else if (VTYPE .eq. 12 ) then !VIIRS/MODIS Cat 12 Croplands
-        !--> Crop1
+            else if (VTYPE .eq. 12 ) then !VIIRS/MODIS Cat 12 Croplands
+                !--> Crop1
 
-            EF = EF15
+                EF = EF15
 
-        else 
+            else
 
-            EF = 0.0_rk  !set EF=0 for non-valid VTYPEs
+                EF = 0.0_rk  !set EF=0 for non-valid VTYPEs
 
-        end if
+            end if
 
         else
             write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS (0) or MODIS (1) available right now...exiting'
