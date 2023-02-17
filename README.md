@@ -29,20 +29,20 @@ Current Canopy-App components:
 
 1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildfire spread and air quality applications.  Based on Massman et al. (2017).
 
-    Namelist Option : `ifcanwind`  Output Variables: `canwind` `waf`
+    Namelist Option : `ifcanwind`  Output Variables: `canwind (m s-1)` `waf (fraction)`
 
     - `canopy_wind_mod.F90`
     - `canopy_waf_mod.F90`
 
 2.  In-Canopy vertical diffusion (i.e., eddy diffusivities used to scale resolved model layer 1 diffusion).  Based on Massman et al. (2017) and Makar et al. (2017).
 
-    Namelist Option : `ifcaneddy`  Output Variables:  `kz`
+    Namelist Option : `ifcaneddy`  Output Variables:  `kz (m2 s-1)`
 
     - `canopy_eddyx_mod.F90`
 
 3.  In-Canopy vertical photolysis attenuation (i.e., used to scale resolved model layer 1 photolysis).  Based on Massman et al. (2017) and Markar et al. (2017).  
 
-    Namelist Option : `ifcanphot`  Output Variables: `rjcf`
+    Namelist Option : `ifcanphot`  Output Variables: `rjcf (fraction)`
 
     - `canopy_phot_mod.F90`
 
