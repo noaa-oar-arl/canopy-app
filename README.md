@@ -78,6 +78,11 @@ Current Canopy-App components:
     | emi_svoc         | Stress VOC emissions (15 compounds, Table 1 Guenther et al. (2012)             |
     | emi_ovoc         | Other VOC emissions (49 compounds, Table 1 Guenther et al. (2012)              |
 
+    **Current Canopy-App Output:** As discussed above, the current Canopy-App optional outputs includes 3D canopy winds (`canwind`), canopy vertical/eddy diffusivity values `kz`), biogenic emissions (see Table 1), and
+    canopy photolysis attenuation correction factors (`rjcf`).  Current 2D fields includes the Wind Adjustment Factor (`waf`).
+
+    Namelist Option : `file_out`  Prefix string (e.g., 'test') used to name output file (Output is 1D txt when using input 1D data (i.e., infmt_opt=1), or is 2D NetCDF output when 2D NetCDF input is used (i.e., infmt_opt=0)).
+
     **Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy
 
     Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats:
@@ -86,11 +91,6 @@ Current Canopy-App components:
 - See example file inputs for variables and format (`gfs.t12z.20220701.sfcf000.txt` or `gfs.t12z.20220701.sfcf000.nc`).  Example surface met/land/soil inputs are based on NOAA's UFS-GFSv16 inputs initialized on July 01, 2022 @ 12 UTC (forecast at hour 000). Other external inputs for canopy related and other calculated variables are from numerous sources.  See Table 2 below for more information.  **Note:** The example GFSv16 domain has been cut to the southeast U.S. region only in this example for size/time constraints here.
 - Canopy-App assumes the NetCDF input files are in CF-Convention and test file is based on UFS-GFSv16; recommend using double or float for real variables.  Input data must be valid values.
 - Canopy-App can also be run with a single point of 1D input data in a text file (e.g. `input_variables_point.txt`).
-
-    **Current Canopy-App Output:** Outputs 3D canopy winds, canopy vertical/eddy diffusivity values, and
-    canopy photolysis attenuation correction factors, and 2D Wind Adjustment Factor (WAF).
-
-    Namelist Option : `file_out`  Prefix string (e.g., 'test') used to name output file (Output is 1D txt when using input 1D data (i.e., infmt_opt=1), or is 2D NetCDF output when 2D NetCDF input is used (i.e., infmt_opt=0)).
 
     The Canopy-App input data in Table 2 below is based around NOAA's UFS operational Global Forecast System Version 16 (GFSv16) gridded met data, and is supplemented with external canopy data (from numerous sources) and other external and calculated input variables.  
 
