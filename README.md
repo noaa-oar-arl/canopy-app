@@ -135,7 +135,7 @@ Current Canopy-App components:
     Example download command using wget: `wget --no-check-certificate --no-proxy https://nacc-in-the-cloud.s3.amazonaws.com/inputs/20230215/gfs.t12z.sfcf000.nc`
     Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day.
 
-    **GriddingMachine:** GriddingMachine is open source database and software for Earth system modeling at global and regional scales.  Data is easily accessible in consistent formats for ease of downloading/processing.  All avaialable datasets may be found at:  https://github.com/CliMA/GriddingMachine.jl. (Wang et al., 2022; https://doi.org/10.1038/s41597-022-01346-x)
+    **GriddingMachine:** GriddingMachine is open source database and software for Earth system modeling at global and regional scales.  Data is easily accessible in consistent formats for ease of downloading/processing.  All available datasets may be found at:  https://github.com/CliMA/GriddingMachine.jl. (Wang et al., 2022; https://doi.org/10.1038/s41597-022-01346-x)
 
     **Downloading Example Canopy Files from AWS:** Example monthly, global gridded files containing all GFSv16 met/land/soil data combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:     `https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.MM.nc`
 
