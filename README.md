@@ -101,12 +101,11 @@ Current Canopy-App components:
     | lat                                 | Latitude  (degrees)                                          |  N/A                                               						      |
     | lon                                 | Longitude (degrees; from 0-360)                              |  N/A                                               					              |
     | time                                | Timestamp (days since YYYY-N-D 0:0:0) (NetCDF Only)          |  N/A                                               					              |  
-    | ugrd10m                             | U wind at HREF (m/s), e.g., 10 m                             |  UFS NOAA/GFSv16 *(see below for downloading using AWS)                                 						      |
-    | vgrd10m                             | V wind at HREF (m/s), e.g., 10 m                             |  UFS NOAA/GFSv16                                   						      |
+    | ugrd10m                             | U wind at reference height above canopy (m/s), e.g., 10 m    |  UFS NOAA/GFSv16 *(see below for downloading using AWS)                                 						      |
+    | vgrd10m                             | V wind at reference height above canopy  (m/s), e.g., 10 m   |  UFS NOAA/GFSv16                                   						      |
     | vtype                               | Vegetation type (dimensionless), VIIRS or MODIS              |  UFS NOAA/GFSv16                                   						      |
     | fricv                               | Friction velocity (m/s)                                      |  UFS NOAA/GFSv16                                   						      |
     | sfcr                                | Total surface roughness length (m)                           |  UFS NOAA/GFSv16                                   						      |
-    | frp              			  | Total Fire Radiative Power (MW/grid cell area)               |  UFS NOAA/GFSv16                                   						      |
     | sotyp            			  | Soil type (dimensionless), STATSGO                           |  UFS NOAA/GFSv16                                   						      |
     | pressfc          			  | Surface pressure (Pa)                                        |  UFS NOAA/GFSv16                                   						      |
     | dswrf                               | Instantaneous downward shortwave radiation at surface (W/m2) |  UFS NOAA/GFSv16                                   						      |
