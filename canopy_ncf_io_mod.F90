@@ -421,7 +421,7 @@ CONTAINS
             c_emi_isop%fld = fillreal
             c_emi_isop%fldname = 'emi_isop'
             c_emi_isop%long_name = 'biogenic isoprene emissions'
-            c_emi_isop%units = 'kg m2 s-1'
+            c_emi_isop%units = 'kg m-2 s-1'
             c_emi_isop%fillvalue = fillreal
             c_emi_isop%dimnames(1) = 'nlon'
             c_emi_isop%dimnames(2) = 'nlat'
