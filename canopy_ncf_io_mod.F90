@@ -421,7 +421,7 @@ CONTAINS
             c_emi_isop%fld = fillreal
             c_emi_isop%fldname = 'emi_isop'
             c_emi_isop%long_name = 'biogenic isoprene emissions'
-            c_emi_isop%units = 'kg m-2 s-1'
+            c_emi_isop%units = 'kg m-3 s-1'
             c_emi_isop%fillvalue = fillreal
             c_emi_isop%dimnames(1) = 'nlon'
             c_emi_isop%dimnames(2) = 'nlat'
@@ -436,7 +436,7 @@ CONTAINS
             c_emi_myrc%fld = fillreal
             c_emi_myrc%fldname = 'emi_myrc'
             c_emi_myrc%long_name = 'biogenic myrcene emissions'
-            c_emi_myrc%units = 'kg m2 s-1'
+            c_emi_myrc%units = 'kg m-3 s-1'
             c_emi_myrc%fillvalue = fillreal
             c_emi_myrc%dimnames(1) = 'nlon'
             c_emi_myrc%dimnames(2) = 'nlat'
@@ -451,7 +451,7 @@ CONTAINS
             c_emi_sabi%fld = fillreal
             c_emi_sabi%fldname = 'emi_sabi'
             c_emi_sabi%long_name = 'biogenic sabinene emissions'
-            c_emi_sabi%units = 'kg m2 s-1'
+            c_emi_sabi%units = 'kg m-3 s-1'
             c_emi_sabi%fillvalue = fillreal
             c_emi_sabi%dimnames(1) = 'nlon'
             c_emi_sabi%dimnames(2) = 'nlat'
@@ -466,7 +466,7 @@ CONTAINS
             c_emi_limo%fld = fillreal
             c_emi_limo%fldname = 'emi_limo'
             c_emi_limo%long_name = 'biogenic limonene emissions'
-            c_emi_limo%units = 'kg m2 s-1'
+            c_emi_limo%units = 'kg m-3 s-1'
             c_emi_limo%fillvalue = fillreal
             c_emi_limo%dimnames(1) = 'nlon'
             c_emi_limo%dimnames(2) = 'nlat'
@@ -481,7 +481,7 @@ CONTAINS
             c_emi_care%fld = fillreal
             c_emi_care%fldname = 'emi_care'
             c_emi_care%long_name = 'biogenic 3-carene emissions'
-            c_emi_care%units = 'kg m2 s-1'
+            c_emi_care%units = 'kg m-3 s-1'
             c_emi_care%fillvalue = fillreal
             c_emi_care%dimnames(1) = 'nlon'
             c_emi_care%dimnames(2) = 'nlat'
@@ -496,7 +496,7 @@ CONTAINS
             c_emi_ocim%fld = fillreal
             c_emi_ocim%fldname = 'emi_ocim'
             c_emi_ocim%long_name = 'biogenic t-beta-ocimene emissions'
-            c_emi_ocim%units = 'kg m2 s-1'
+            c_emi_ocim%units = 'kg m-3 s-1'
             c_emi_ocim%fillvalue = fillreal
             c_emi_ocim%dimnames(1) = 'nlon'
             c_emi_ocim%dimnames(2) = 'nlat'
@@ -511,7 +511,7 @@ CONTAINS
             c_emi_bpin%fld = fillreal
             c_emi_bpin%fldname = 'emi_bpin'
             c_emi_bpin%long_name = 'biogenic beta-pinene emissions'
-            c_emi_bpin%units = 'kg m2 s-1'
+            c_emi_bpin%units = 'kg m-3 s-1'
             c_emi_bpin%fillvalue = fillreal
             c_emi_bpin%dimnames(1) = 'nlon'
             c_emi_bpin%dimnames(2) = 'nlat'
@@ -526,7 +526,7 @@ CONTAINS
             c_emi_apin%fld = fillreal
             c_emi_apin%fldname = 'emi_apin'
             c_emi_apin%long_name = 'biogenic alpha-pinene emissions'
-            c_emi_apin%units = 'kg m2 s-1'
+            c_emi_apin%units = 'kg m-3 s-1'
             c_emi_apin%fillvalue = fillreal
             c_emi_apin%dimnames(1) = 'nlon'
             c_emi_apin%dimnames(2) = 'nlat'
@@ -541,7 +541,7 @@ CONTAINS
             c_emi_mono%fld = fillreal
             c_emi_mono%fldname = 'emi_mono'
             c_emi_mono%long_name = 'biogenic other monoterpene emissions'
-            c_emi_mono%units = 'kg m2 s-1'
+            c_emi_mono%units = 'kg m-3 s-1'
             c_emi_mono%fillvalue = fillreal
             c_emi_mono%dimnames(1) = 'nlon'
             c_emi_mono%dimnames(2) = 'nlat'
@@ -556,7 +556,7 @@ CONTAINS
             c_emi_farn%fld = fillreal
             c_emi_farn%fldname = 'emi_farn'
             c_emi_farn%long_name = 'biogenic alpha-farnesene emissions'
-            c_emi_farn%units = 'kg m2 s-1'
+            c_emi_farn%units = 'kg m-3 s-1'
             c_emi_farn%fillvalue = fillreal
             c_emi_farn%dimnames(1) = 'nlon'
             c_emi_farn%dimnames(2) = 'nlat'
@@ -571,7 +571,7 @@ CONTAINS
             c_emi_cary%fld = fillreal
             c_emi_cary%fldname = 'emi_cary'
             c_emi_cary%long_name = 'biogenic beta-caryophyllene emissions'
-            c_emi_cary%units = 'kg m2 s-1'
+            c_emi_cary%units = 'kg m-3 s-1'
             c_emi_cary%fillvalue = fillreal
             c_emi_cary%dimnames(1) = 'nlon'
             c_emi_cary%dimnames(2) = 'nlat'
@@ -586,7 +586,7 @@ CONTAINS
             c_emi_sesq%fld = fillreal
             c_emi_sesq%fldname = 'emi_sesq'
             c_emi_sesq%long_name = 'biogenic other sesquiterpene emissions'
-            c_emi_sesq%units = 'kg m2 s-1'
+            c_emi_sesq%units = 'kg m-3 s-1'
             c_emi_sesq%fillvalue = fillreal
             c_emi_sesq%dimnames(1) = 'nlon'
             c_emi_sesq%dimnames(2) = 'nlat'
@@ -601,7 +601,7 @@ CONTAINS
             c_emi_mbol%fld = fillreal
             c_emi_mbol%fldname = 'emi_mbol'
             c_emi_mbol%long_name = 'biogenic 232-MBO emissions'
-            c_emi_mbol%units = 'kg m2 s-1'
+            c_emi_mbol%units = 'kg m-3 s-1'
             c_emi_mbol%fillvalue = fillreal
             c_emi_mbol%dimnames(1) = 'nlon'
             c_emi_mbol%dimnames(2) = 'nlat'
@@ -616,7 +616,7 @@ CONTAINS
             c_emi_meth%fld = fillreal
             c_emi_meth%fldname = 'emi_meth'
             c_emi_meth%long_name = 'biogenic methanol emissions'
-            c_emi_meth%units = 'kg m2 s-1'
+            c_emi_meth%units = 'kg m-3 s-1'
             c_emi_meth%fillvalue = fillreal
             c_emi_meth%dimnames(1) = 'nlon'
             c_emi_meth%dimnames(2) = 'nlat'
@@ -631,7 +631,7 @@ CONTAINS
             c_emi_acet%fld = fillreal
             c_emi_acet%fldname = 'emi_acet'
             c_emi_acet%long_name = 'biogenic acetone emissions'
-            c_emi_acet%units = 'kg m2 s-1'
+            c_emi_acet%units = 'kg m-3 s-1'
             c_emi_acet%fillvalue = fillreal
             c_emi_acet%dimnames(1) = 'nlon'
             c_emi_acet%dimnames(2) = 'nlat'
@@ -646,7 +646,7 @@ CONTAINS
             c_emi_co%fld = fillreal
             c_emi_co%fldname = 'emi_co'
             c_emi_co%long_name = 'biogenic carbon monoxide emissions'
-            c_emi_co%units = 'kg m2 s-1'
+            c_emi_co%units = 'kg m-3 s-1'
             c_emi_co%fillvalue = fillreal
             c_emi_co%dimnames(1) = 'nlon'
             c_emi_co%dimnames(2) = 'nlat'
@@ -661,7 +661,7 @@ CONTAINS
             c_emi_bvoc%fld = fillreal
             c_emi_bvoc%fldname = 'emi_bvoc'
             c_emi_bvoc%long_name = 'biogenic bidi voc emissions'
-            c_emi_bvoc%units = 'kg m2 s-1'
+            c_emi_bvoc%units = 'kg m-3 s-1'
             c_emi_bvoc%fillvalue = fillreal
             c_emi_bvoc%dimnames(1) = 'nlon'
             c_emi_bvoc%dimnames(2) = 'nlat'
@@ -676,7 +676,7 @@ CONTAINS
             c_emi_svoc%fld = fillreal
             c_emi_svoc%fldname = 'emi_svoc'
             c_emi_svoc%long_name = 'biogenic stress voc emissions'
-            c_emi_svoc%units = 'kg m2 s-1'
+            c_emi_svoc%units = 'kg m-3 s-1'
             c_emi_svoc%fillvalue = fillreal
             c_emi_svoc%dimnames(1) = 'nlon'
             c_emi_svoc%dimnames(2) = 'nlat'
@@ -691,7 +691,7 @@ CONTAINS
             c_emi_ovoc%fld = fillreal
             c_emi_ovoc%fldname = 'emi_ovoc'
             c_emi_ovoc%long_name = 'biogenic other voc emissions'
-            c_emi_ovoc%units = 'kg m2 s-1'
+            c_emi_ovoc%units = 'kg m-3 s-1'
             c_emi_ovoc%fillvalue = fillreal
             c_emi_ovoc%dimnames(1) = 'nlon'
             c_emi_ovoc%dimnames(2) = 'nlat'

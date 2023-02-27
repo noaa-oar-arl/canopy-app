@@ -51,7 +51,7 @@ contains
         INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
         REAL(RK),    INTENT( IN )       :: MODRES          ! Canopy model input vertical resolution (m)
         INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
-        REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output emissions (kg /m2 s)
+        REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
 
 ! Local Variables
         REAL(RK) :: RJCF(SIZE(ZK))                 ! Photolysis correction factor for sun/shade fraction of leaf layer
@@ -190,8 +190,8 @@ contains
         do i=1, SIZE(ZK)
             if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then  ! above ground level and at/below canopy top
                 FLAI(i) = ((FCLAI(i+1) - FCLAI(i)) * LAI)/MODRES    !fractional LAI in each layer converted to LAD (m2 m-3)
-                EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i)  ! (ug m-2 hr-1)
-                EMI_OUT(i) = EMI_OUT(i) * 2.7777777777778E-13_rk !TBD:  convert emissions output to (kg m-2 s-1)
+                EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i)  ! (ug m-3 hr-1)
+                EMI_OUT(i) = EMI_OUT(i) * 2.7777777777778E-13_rk !TBD:  convert emissions output to (kg m-3 s-1)
             end if
         end do
 
