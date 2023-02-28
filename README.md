@@ -46,7 +46,7 @@ Current Canopy-App components:
 
     - `canopy_phot_mod.F90`
 
-4.  In-Canopy vertical biogenic emissions (kg m-2 s-1).  Based on MEGANv2 and v3 (Guenther et al., 2012), and using both Clifton et al. (2021) and Silva et al. (2020) parameterizations.
+4.  In-Canopy vertical biogenic emissions (kg m-3 s-1).  Based on MEGANv2 and v3 (Guenther et al., 2012), and using both Clifton et al. (2021) and Silva et al. (2020) parameterizations.
 
     Namelist Option : `ifcanbio`   Output Variables: `see Table 1 below`
 
@@ -56,7 +56,7 @@ Current Canopy-App components:
 
     **Table 1. Canopy-App Biogenic Emissions Output Variables**
 
-    | Variable Name    | Variable Description (Units: kg m-2 s-1)          |
+    | Variable Name    | Variable Description (Units: kg m-3 s-1)          |
     | ---------------  | ------------------------------------------------- |
     | emi_isop         | Isoprene                                          |
     | emi_myrc         | Myrcene                                           |
