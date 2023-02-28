@@ -23,7 +23,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt install libnetcdff-dev
+          sudo apt-get update
+          sudo apt-get install libnetcdff-dev
 
       - name: Setup Python (for f90nml)
         uses: actions/setup-python@v4
