@@ -136,7 +136,7 @@ Current Canopy-App components:
 
     **GriddingMachine:** GriddingMachine is open source database and software for Earth system modeling at global and regional scales.  Data is easily accessible in consistent formats for ease of downloading/processing.  All available datasets may be found at:  https://github.com/CliMA/GriddingMachine.jl. (Wang et al., 2022; https://doi.org/10.1038/s41597-022-01346-x)
 
-    **Downloading Example Canopy Files from AWS:** Example monthly, global gridded files containing all GFSv16 met/land/soil data combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:     `https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.YYYYMM01.testf000.global.nc`
+    **Downloading Example Canopy Files from AWS:** Example 2022 monthly, global gridded files containing all GFSv16 met/land/soil data combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:     `https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.testf000.global.nc`
 
     **Table 3. Current User Namelist Options**
 
