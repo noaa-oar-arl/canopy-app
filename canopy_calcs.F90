@@ -143,7 +143,8 @@ SUBROUTINE canopy_calcs
 
 ! ... user option to calculate in-canopy biogenic emissions
                             if (ifcanbio) then
-                                if (cszref .ge. 0.0_rk .and. dswrfref .gt. 0.0_rk) then
+                                if (cszref .ge. 0.0_rk .and. dswrfref .gt. 0.0_rk &
+                                    .and. cluref .gt. 0.0_rk) then
                                     !ISOP
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
@@ -348,7 +349,8 @@ SUBROUTINE canopy_calcs
 
 ! ... user option to calculate in-canopy biogenic emissions
                         if (ifcanbio) then
-                            if (cszref .ge. 0.0_rk .and. dswrfref .gt. 0.0_rk) then
+                            if (cszref .ge. 0.0_rk .and. dswrfref .gt. 0.0_rk &
+                                .and. cluref .gt. 0.0_rk) then
                                 !ISOP
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
