@@ -46,7 +46,7 @@ Current Canopy-App components:
 
     - `canopy_phot_mod.F90`
 
-4.  In-Canopy vertical biogenic emissions (kg m-3 s-1).  Based on MEGANv2 and v3 (Guenther et al., 2012), and using both Clifton et al. (2021) and Silva et al. (2020) parameterizations.
+4.  In-Canopy vertical biogenic emissions (kg m-3 s-1). Note the units are in per m3 (layer volume) for vegetation type in grid cell/point.  Based on MEGANv2 and v3 (Guenther et al., 2012), and using both Clifton et al. (2021) and Silva et al. (2020) parameterizations.
 
     Namelist Option : `ifcanbio`   Output Variables: `see Table 1 below`
 
