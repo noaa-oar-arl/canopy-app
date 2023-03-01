@@ -29,7 +29,7 @@ Current Canopy-App components:
 
 1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildfire spread and air quality applications.  Based on Massman et al. (2017).
 
-    Namelist Option : `ifcanwind`  Output Variables: `canwind (m s-1)` `waf (fraction)`
+    Namelist Option : `ifcanwind` and/or `ifcanwaf` Output Variables: `canwind (m s-1)` `waf (fraction)`
 
     - `canopy_wind_mod.F90`
     - `canopy_waf_mod.F90`
