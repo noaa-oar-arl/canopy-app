@@ -97,7 +97,7 @@ contains
         REAL(RK),          PARAMETER     :: PPFD0_SUN       =  200.0      !Constant PPFDo sunlit (umol/m2 s) (Guenther et al.,2012)
         REAL(RK),          PARAMETER     :: PPFD0_SHADE     =  50.0       !Constant PPFDo shaded (umol/m2 s) (Guenther et al.,2012)
         REAL(RK),          PARAMETER     :: ATEMP_1_SUN     =  -13.891_rk !Linearized 2-m temp --> leaf temp parameters (Level 1 =
-                                                                          !top of canopy
+        !top of canopy
         REAL(RK),          PARAMETER     :: ATEMP_2_SUN     =  -12.322_rk !Based on Table 1 in Silva et al. (2022)
         REAL(RK),          PARAMETER     :: ATEMP_3_SUN     =  -1.032_rk  !
         REAL(RK),          PARAMETER     :: ATEMP_4_SUN     =  -5.172_rk  !
@@ -120,12 +120,12 @@ contains
         REAL(RK),          PARAMETER     :: CT2             =  230.0_rk   !Deactivation energy (kJ/mol) (Guenther et al., 2012)
 
         REAL(RK),          PARAMETER     :: CCE             =  0.21_rk    !Canopy environment coefficient.  Needed to properly scale
-                                                                          !all emission factors to the plant canopy using a canopy
-                                                                          !model.  (Value based on Silva et al. 2020).  Highly
-                                                                          !sensitive to model, and assumption here.  As stated in
-                                                                          !Guenther et al. (2012) and Clifton et al. (2022), this is
-                                                                          !a model specific tuning parameter neeeded to get
-                                                                          !reasonable emissions from MEGAN for a particular model. 
+        !all emission factors to the plant canopy using a canopy
+        !model.  (Value based on Silva et al. 2020).  Highly
+        !sensitive to model, and assumption here.  As stated in
+        !Guenther et al. (2012) and Clifton et al. (2022), this is
+        !a model specific tuning parameter neeeded to get
+        !reasonable emissions from MEGAN for a particular model.
 
 !Calculate photolyis shading/correction factor through canopy, i.e., the fraction of sunlit leaves downward through canopy
 
@@ -149,41 +149,41 @@ contains
                 ATEMP_SHADE(i) = 0.0
                 BTEMP_SHADE(i) = 1.0
             else if (ZK(i) .le. FCH .and. ZK(i) .gt. FCH*(4.0_rk/5.0_rk)) then  !Level 1 - 2
-                ATEMP_SUN(i)   = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), & 
-                                 (/ ATEMP_2_SUN,ATEMP_1_SUN /),ZK(i))
-                BTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), & 
-                                 (/ BTEMP_2_SUN,BTEMP_1_SUN /),ZK(i))
+                ATEMP_SUN(i)   = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
+                    (/ ATEMP_2_SUN,ATEMP_1_SUN /),ZK(i))
+                BTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
+                    (/ BTEMP_2_SUN,BTEMP_1_SUN /),ZK(i))
                 ATEMP_SHADE(i) = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
-                                 (/ ATEMP_2_SHADE,ATEMP_1_SHADE /),ZK(i))
+                    (/ ATEMP_2_SHADE,ATEMP_1_SHADE /),ZK(i))
                 BTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
-                                 (/ BTEMP_2_SHADE,BTEMP_1_SHADE /),ZK(i))
+                    (/ BTEMP_2_SHADE,BTEMP_1_SHADE /),ZK(i))
             else if (ZK(i) .le. FCH*(4.0_rk/5.0_rk) .and. ZK(i) .gt. FCH*(3.0_rk/5.0_rk)) then  !Level 2 - 3
                 ATEMP_SUN(i)   = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-                                 (/ ATEMP_3_SUN,ATEMP_2_SUN /),ZK(i))
+                    (/ ATEMP_3_SUN,ATEMP_2_SUN /),ZK(i))
                 BTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-                                 (/ BTEMP_3_SUN,BTEMP_2_SUN /),ZK(i))
+                    (/ BTEMP_3_SUN,BTEMP_2_SUN /),ZK(i))
                 ATEMP_SHADE(i) = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-                                 (/ ATEMP_3_SHADE,ATEMP_2_SHADE /),ZK(i))
+                    (/ ATEMP_3_SHADE,ATEMP_2_SHADE /),ZK(i))
                 BTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-                                 (/ BTEMP_3_SHADE,BTEMP_2_SHADE /),ZK(i))
+                    (/ BTEMP_3_SHADE,BTEMP_2_SHADE /),ZK(i))
             else if (ZK(i) .le. FCH*(3.0_rk/5.0_rk) .and. ZK(i) .gt. FCH*(2.0_rk/5.0_rk)) then  !Level 3 - 4
                 ATEMP_SUN(i)   = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-                                 (/ ATEMP_4_SUN,ATEMP_3_SUN /),ZK(i))
+                    (/ ATEMP_4_SUN,ATEMP_3_SUN /),ZK(i))
                 BTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-                                 (/ BTEMP_4_SUN,BTEMP_3_SUN /),ZK(i))
+                    (/ BTEMP_4_SUN,BTEMP_3_SUN /),ZK(i))
                 ATEMP_SHADE(i) = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-                                 (/ ATEMP_4_SHADE,ATEMP_3_SHADE /),ZK(i))
+                    (/ ATEMP_4_SHADE,ATEMP_3_SHADE /),ZK(i))
                 BTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-                                 (/ BTEMP_4_SHADE,BTEMP_3_SHADE /),ZK(i))
+                    (/ BTEMP_4_SHADE,BTEMP_3_SHADE /),ZK(i))
             else if (ZK(i) .le. FCH*(2.0_rk/5.0_rk) ) then  !Level 4 - Bottom
                 ATEMP_SUN(i)   = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-                                 (/ ATEMP_5_SUN,ATEMP_4_SUN /),ZK(i))
+                    (/ ATEMP_5_SUN,ATEMP_4_SUN /),ZK(i))
                 BTEMP_SUN(i)   = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-                                 (/ BTEMP_5_SUN,BTEMP_4_SUN /),ZK(i))
+                    (/ BTEMP_5_SUN,BTEMP_4_SUN /),ZK(i))
                 ATEMP_SHADE(i) = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-                                 (/ ATEMP_5_SHADE,ATEMP_4_SHADE /),ZK(i))
+                    (/ ATEMP_5_SHADE,ATEMP_4_SHADE /),ZK(i))
                 BTEMP_SHADE(i) = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-                                 (/ BTEMP_5_SHADE,BTEMP_4_SHADE /),ZK(i))
+                    (/ BTEMP_5_SHADE,BTEMP_4_SHADE /),ZK(i))
             end if
         end do
 
@@ -193,7 +193,7 @@ contains
 
 ! Calculate maximum normalized emission capacity (E_OPT) and Tleaf at E_OPT
         TLEAF240_AVE   = TLEAF_AVE  !Assume instantaneous TLEAF estimate for TLEAF240 and TLEAF24 (could improve...)
-        TLEAF24_AVE    = TLEAF_AVE  
+        TLEAF24_AVE    = TLEAF_AVE
         TLEAF_OPT = 313.0_rk + (0.6_rk * (TLEAF240_AVE-297.0_rk)) !Guenther et al. (2012)
 
 ! Calculate emission species/plant-dependent mapped emission factors
