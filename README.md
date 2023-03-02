@@ -46,7 +46,7 @@ Current Canopy-App components:
 
     - `canopy_phot_mod.F90`
 
-4.  In-Canopy vertical biogenic emissions (kg m-3 s-1). Note the units are in per m3 (layer volume) for vegetation type in grid cell/point. To get 2D total flux of biogenic emissions per m2 for each grid cell, the emissions profile would need to be integrated through the canopy layers, i.e., E*dz (or simply summed if dz is constant), and then multiplied by the fractional grid box areal coverage for each vegetation types.  For the current dominant vtype approach as input to Canopy-App, this multiplicative fraction = 1.  Based on MEGANv2 and v3 (Guenther et al., 2012), and using both Clifton et al. (2021) and Silva et al. (2020) parameterizations.
+4.  In-Canopy vertical biogenic emissions (kg m-3 s-1). Note the units are in per m3 (layer volume) for vegetation type in grid cell/point. To get 2D total flux of biogenic emissions per m2 for each grid cell, the emissions profile would need to be integrated/summed through the canopy layers, and then multiplied by the fractional grid box areal coverage for each vegetation types in the grid cell.  For the current dominant vtype approach as input to Canopy-App, this multiplicative fraction = 1.  Based on MEGANv2 and v3 (Guenther et al., 2012), and using both Clifton et al. (2021) and Silva et al. (2020) parameterizations.
 
     Namelist Option : `ifcanbio`   Output Variables: `see Table 1 below`
 
