@@ -124,9 +124,9 @@ CONTAINS
                 open(13, file=TRIM(TXTPREFX)//'_output_bio.txt')
                 write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
                 write(13, '(a30, i6)') 'Number of model layers: ', modlays
-                write(13, '(a8, a9, a12, a28, a15, a15, a15, a15, a15, a15, a15, a15, a15,             &
+                write(13, '(a8, a9, a12, a15, a15, a15, a15, a15, a15, a15, a15, a15, a15,             &
                 & a15, a15, a15, a15, a15, a15, a15, a15, a15)') 'Lat', 'Lon', 'Height (m)',  &
-                    'emi_isop (kg m-3 s-1)', 'emi_myrc', 'emi_sabi', 'emi_limo', 'emi_care', 'emi_ocim',     &
+                    'emi_isop', 'emi_myrc', 'emi_sabi', 'emi_limo', 'emi_care', 'emi_ocim',     &
                     'emi_bpin', 'emi_apin', 'emi_mono', 'emi_farn', 'emi_cary', 'emi_sesq',     &
                     'emi_mbol', 'emi_meth', 'emi_acet', 'emi_co',   'emi_bvoc', 'emi_svoc', 'emi_ovoc'
                 do loc=1, nlat*nlon
