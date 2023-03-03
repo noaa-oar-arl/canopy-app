@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_FLAMEH( FLAMEH_OPT, FLAMEH_SET, DX, MODRES, &
-        FRP, MIDFLAMEPOINT, FLAMEH )
+        FRP, FCH, MIDFLAMEPOINT, FLAMEH )
 
 !-----------------------------------------------------------------------
 
@@ -32,6 +32,7 @@ contains
         REAL(RK),    INTENT( IN )  :: DX              ! DX cell distances using haversine formula (m)
         REAL(RK),    INTENT( IN )  :: MODRES          ! Canopy model input vertical resolution (m)
         REAL(RK),    INTENT( IN )  :: FRP             ! Model input FRP (MW/grid cell area)
+        REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
         INTEGER,     INTENT( OUT ) :: MIDFLAMEPOINT   ! Indice of the mid-flame point
         REAL(RK),    INTENT( OUT ) :: FLAMEH          ! Flame Height (m)
 
@@ -54,6 +55,24 @@ contains
                 FLAMEH = CalcFlameH(FRP,DX)
             else
                 FLAMEH = FLAMEH_SET
+            end if
+        else if (FLAMEH_OPT .eq. 3) then  !overides use of "flame heights" --> User set fraction (<= 1) of FCH
+            if (FLAMEH_SET .le. 1.0) then
+                FLAMEH = FCH * FLAMEH_SET  !not real flame height but uses WAF at this fractional FCH
+            else
+                write(*,*)  'Under this FLAMEH_OPT ', FLAMEH_OPT, ' FLAMEH_SET must be =< 1.0'
+                call exit(2)
+            end if
+        else if (FLAMEH_OPT .eq. 4) then  !uses FRP and overide elsewhere
+            if (FRP .gt. 0.0) then
+                FLAMEH = CalcFlameH(FRP,DX)
+            else
+                if (FLAMEH_SET .le. 1.0) then
+                    FLAMEH = FCH * FLAMEH_SET  !not real flame height but uses WAF at this fractional FCH
+                else
+                    write(*,*)  'Under this FLAMEH_OPT ', FLAMEH_OPT, ' FLAMEH_SET must be =< 1.0'
+                    call exit(2)
+                end if
             end if
         else
             write(*,*)  'Wrong FLAMEH_OPT choice of ', FLAMEH_OPT, ' in namelist...exiting'

@@ -116,7 +116,7 @@ SUBROUTINE canopy_calcs
 
 ! ... determine midflamepoint and flame height from user or FRP calculation
                                 call canopy_flameh(flameh_opt, flameh_set, dx_2d(i,j), modres, &
-                                    frpref, midflamepoint, flameh_2d(i,j))
+                                    frpref, hcmref, midflamepoint, flameh_2d(i,j))
 
                                 if (flameh_2d(i,j) .gt. 0.0 .and. flameh_2d(i,j) .le. hcmref) then
                                     !only calculate WAF when flameh > 0 and <= FH
@@ -322,7 +322,7 @@ SUBROUTINE canopy_calcs
                             end do
 ! ... determine midflamepoint and flame height from user or FRP calculation
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
-                                frpref, midflamepoint, flameh(loc))
+                                frpref, hcmref, midflamepoint, flameh(loc))
 
                             if (flameh(loc) .gt. 0.0 .and. flameh(loc) .le. hcmref) then
                                 !only calculate WAF when flameh > 0
