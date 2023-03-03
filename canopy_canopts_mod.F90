@@ -31,5 +31,6 @@ MODULE canopy_canopts_mod
     integer             ::    rsl_opt     !RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
     real(rk)            ::    z0ghc       !ratio of ground roughness length to canopy top height
     real(rk)            ::    lambdars    !Value representing influence of roughness sublayer (nondimensional)
+    real(rk)            ::    bio_cce     !MEGAN biogenic emission canopy environment coefficient.
 
 END MODULE canopy_canopts_mod

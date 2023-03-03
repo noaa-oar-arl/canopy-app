@@ -166,10 +166,11 @@ Current Canopy-App components:
     | pai_set          | user set real value of PAI (default=4.0; only used if pai_opt=3)                   |
     | lu_opt           | integer for input model land use type (0=VIIRS 17 Cat (default) or 1=MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.)   |
     | z0_opt           | integer (0=use model input or 1 = vegtype dependent z0 for first estimate)         |
+    | rsl_opt          | user set option to include more explicit stability and Roughness SubLayer (RSL) effects in calculation of wind speed at canopy top (Uc) from reference height  0 = off; 1 = on |
+    | bio_cce          | user set real value of MEGAN biogenic emissions "canopy environment coefficient" used to tune emissions to model inputs/calculations (default = 0.21 based on Silva et al. 2020)   |
     | lai_thresh       | user set real value of LAI threshold for contiguous canopy (m2/m2)                 |
     | frt_thresh       | user set real value of forest fraction threshold for contiguous canopy             |
     | fch_thresh       | user set real value of canopy height  threshold for contiguous canopy (m)          |
-    | rsl_opt          | user set option to include more explicit stability and Roughness SubLayer (RSL) effects in calculation of wind speed at canopy top (Uc) from reference height  0 = off; 1 = on |
 
 **Note:  If modres >> flameh then some error in WAF calculation will be incurred.  Suggestion is to use relative fine modres (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
 

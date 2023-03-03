@@ -27,8 +27,9 @@
   pai_set    =  4.0
   lu_opt     =  1
   z0_opt     =  0
+  rsl_opt    =  1
+  bio_cce    =  0.21
   lai_thresh =  0.1
   frt_thresh =  0.1
   fch_thresh =  0.5
-  rsl_opt    =  1
 /

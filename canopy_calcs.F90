@@ -148,79 +148,79 @@ SUBROUTINE canopy_calcs
                                     !ISOP
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 1, emi_isop_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 1, emi_isop_3d(i,j,:))
                                     !MYRC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 2, emi_myrc_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 2, emi_myrc_3d(i,j,:))
                                     !SABI
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 3, emi_sabi_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 3, emi_sabi_3d(i,j,:))
                                     !LIMO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 4, emi_limo_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 4, emi_limo_3d(i,j,:))
                                     !CARE
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 5, emi_care_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 5, emi_care_3d(i,j,:))
                                     !OCIM
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 6, emi_ocim_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 6, emi_ocim_3d(i,j,:))
                                     !BPIN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 7, emi_bpin_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 7, emi_bpin_3d(i,j,:))
                                     !APIN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 8, emi_apin_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 8, emi_apin_3d(i,j,:))
                                     !MONO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 9, emi_mono_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 9, emi_mono_3d(i,j,:))
                                     !FARN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 10, emi_farn_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 10, emi_farn_3d(i,j,:))
                                     !CARY
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 11, emi_cary_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 11, emi_cary_3d(i,j,:))
                                     !SESQ
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 12, emi_sesq_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 12, emi_sesq_3d(i,j,:))
                                     !MBOL
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 13, emi_mbol_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 13, emi_mbol_3d(i,j,:))
                                     !METH
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 14, emi_meth_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 14, emi_meth_3d(i,j,:))
                                     !ACET
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 15, emi_acet_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 15, emi_acet_3d(i,j,:))
                                     !CO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 16, emi_co_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 16, emi_co_3d(i,j,:))
                                     !BIDI VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 17, emi_bvoc_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 17, emi_bvoc_3d(i,j,:))
                                     !Stress VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 18, emi_svoc_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 18, emi_svoc_3d(i,j,:))
                                     !Other VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, 19, emi_ovoc_3d(i,j,:))
+                                        lu_opt, vtyperef, modres, bio_cce, 19, emi_ovoc_3d(i,j,:))
                                 end if
                             end if
 
@@ -354,79 +354,79 @@ SUBROUTINE canopy_calcs
                                 !ISOP
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 1, emi_isop(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 1, emi_isop(loc,:))
                                 !MYRC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 2, emi_myrc(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 2, emi_myrc(loc,:))
                                 !SABI
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 3, emi_sabi(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 3, emi_sabi(loc,:))
                                 !LIMO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 4, emi_limo(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 4, emi_limo(loc,:))
                                 !CARE
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 5, emi_care(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 5, emi_care(loc,:))
                                 !OCIM
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 6, emi_ocim(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 6, emi_ocim(loc,:))
                                 !BPIN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 7, emi_bpin(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 7, emi_bpin(loc,:))
                                 !APIN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 8, emi_apin(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 8, emi_apin(loc,:))
                                 !MONO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 9, emi_mono(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 9, emi_mono(loc,:))
                                 !FARN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 10, emi_farn(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 10, emi_farn(loc,:))
                                 !CARY
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 11, emi_cary(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 11, emi_cary(loc,:))
                                 !SESQ
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 12, emi_sesq(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 12, emi_sesq(loc,:))
                                 !MBOL
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 13, emi_mbol(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 13, emi_mbol(loc,:))
                                 !METH
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 14, emi_meth(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 14, emi_meth(loc,:))
                                 !ACET
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 15, emi_acet(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 15, emi_acet(loc,:))
                                 !CO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 16, emi_co(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 16, emi_co(loc,:))
                                 !BIDI VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 17, emi_bvoc(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 17, emi_bvoc(loc,:))
                                 !Stress VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 18, emi_svoc(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 18, emi_svoc(loc,:))
                                 !Other VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, 19, emi_ovoc(loc,:))
+                                    lu_opt, vtyperef, modres, bio_cce, 19, emi_ovoc(loc,:))
                             end if
                         end if
 

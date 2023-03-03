@@ -23,7 +23,7 @@ SUBROUTINE canopy_readnml
     NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
         z0ghc, lambdars, flameh_opt, flameh_set, ifcanwind, ifcanwaf, ifcaneddy, &
         ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, dx_set,  &
-        lai_thresh, frt_thresh, fch_thresh, rsl_opt
+        lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -189,6 +189,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set integer for unified RSL option used in model (default = 0, off)
     rsl_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for MEGAN biogenic canopy environment coeficient (default = 0.21; Silva et al. (2020)
+    bio_cce = 0.21_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

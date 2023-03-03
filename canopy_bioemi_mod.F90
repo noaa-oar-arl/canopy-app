@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_BIO( ZK, FCLAI, FCH, LAI, CLU, COSZEN, SFCRAD, &
-        TEMP2, LU_OPT, VTYPE, MODRES, EMI_IND, EMI_OUT)
+        TEMP2, LU_OPT, VTYPE, MODRES, CCE, EMI_IND, EMI_OUT)
 
 !-----------------------------------------------------------------------
 
@@ -50,6 +50,7 @@ contains
         INTEGER,     INTENT( IN )       :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
         REAL(RK),    INTENT( IN )       :: MODRES          ! Canopy model input vertical resolution (m)
+        REAL(RK),    INTENT( IN )       :: CCE             ! MEGAN Canopy environment coefficient.
         INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
 
@@ -118,14 +119,6 @@ contains
         REAL(RK),          PARAMETER     :: BTEMP_4_SHADE   =  1.051_rk   !...
         REAL(RK),          PARAMETER     :: BTEMP_5_SHADE   =  1.053_rk   !...
         REAL(RK),          PARAMETER     :: CT2             =  230.0_rk   !Deactivation energy (kJ/mol) (Guenther et al., 2012)
-
-        REAL(RK),          PARAMETER     :: CCE             =  0.21_rk    !Canopy environment coefficient.  Needed to properly scale
-        !all emission factors to the plant canopy using a canopy
-        !model.  (Value based on Silva et al. 2020).  Highly
-        !sensitive to model, and assumption here.  As stated in
-        !Guenther et al. (2012) and Clifton et al. (2022), this is
-        !a model specific tuning parameter neeeded to get
-        !reasonable emissions from MEGAN for a particular model.
 
 !Calculate photolyis shading/correction factor through canopy, i.e., the fraction of sunlit leaves downward through canopy
 
