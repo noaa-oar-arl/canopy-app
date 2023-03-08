@@ -118,10 +118,10 @@ Current Canopy-App components:
     | hpbl                                | Height of the planetary boundary layer (m)                   |  UFS NOAA/GFSv16                                   						      |
     | prate_ave                           | Average mass precipitation rate (kg m-2 s-1)                 |  UFS NOAA/GFSv16                                   						      |
     | **External Canopy Variables**       | **Variable Description and Units**                           |  **Data Source/Reference (if necessary)**         						      |
-    | fh                                  | Forest canopy height (m)                                     |  Fused GEDI/Landsat data. (Potapov et al., 2020; https://doi.org/10.1016/j.rse.2020.112165)        |  
-    | clu                                 | Forest clumping index (dimensionless)                        |  GridingMachine/MODIS (Wei et al., 2019; https://doi.org/10.1016/j.rse.2019.111296)                |
-    | lai                                 | Leaf area index (m2/m2)                                      |  VIIRS-NPP (Myneni 2018; https://doi.org/10.5067/VIIRS/VNP15A2H.001)                               |
-    | ffrac                               | Forest fraction (dimensionless)                              |  GriddingMachine/MODIS Terra (DiMiceli et al., 2022; https://doi.org/10.5067/MODIS/MOD44B.061)     |  
+    | fh                                  | Forest canopy height (m)                                     |  Fused GEDI/Landsat data. Year=2020. (Potapov et al., 2020; https://doi.org/10.1016/j.rse.2020.112165)        |  
+    | clu                                 | Forest clumping index (dimensionless)                        |  GridingMachine/MODIS Year=2001-2017 Climatology.(Wei et al., 2019; https://doi.org/10.1016/j.rse.2019.111296)                |
+    | lai                                 | Leaf area index (m2/m2)                                      |  VIIRS-NPP. Year=2018-2020 Climatology. (Myneni 2018; https://doi.org/10.5067/VIIRS/VNP15A2H.001)                               |
+    | ffrac                               | Forest fraction (dimensionless)                              |  GriddingMachine/MODIS Terra.  Year=2020. (DiMiceli et al., 2022; https://doi.org/10.5067/MODIS/MOD44B.061)     |  
     | **Other External Variables**        | **Variable Description and Units**                           |  **Data Source/Reference (if necessary)**                                                          |
     | frp                                 | Total Fire Radiative Power (MW/grid cell area)               |  NOAA/NESDIS GBBEPx (https://www.ospo.noaa.gov/Products/land/gbbepx/)                              |
     | csz                                 | Cosine of the solar zenith angle (dimensionless)             |  Based on Python Pysolar (https://pysolar.readthedocs.io/en/latest/)                               |
@@ -138,7 +138,7 @@ Current Canopy-App components:
 
     **GriddingMachine:** GriddingMachine is open source database and software for Earth system modeling at global and regional scales.  Data is easily accessible in consistent formats for ease of downloading/processing.  All available datasets may be found at:  https://github.com/CliMA/GriddingMachine.jl. (Wang et al., 2022; https://doi.org/10.1038/s41597-022-01346-x)
 
-    **Downloading Example Canopy Files from AWS:** Example 2022 monthly, global gridded files containing all GFSv16 met/land/soil data combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:     `https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.testf000.global.nc`
+    **Downloading Example Canopy Files from AWS:** Example monthly, global gridded files containing all GFSv16 met/land/soil data from 2022 combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:     `https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.testf000.global.nc`
 
     **Table 3. Current User Namelist Options**
 
