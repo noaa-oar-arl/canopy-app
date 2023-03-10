@@ -55,7 +55,7 @@ contains
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
 
 ! Local Variables
-        REAL(RK) :: RJCF(SIZE(ZK))                 ! Photolysis correction factor for sun/shade fraction of leaf layer
+        REAL(RK) :: FSUN(SIZE(ZK))                 ! Sunlit/Shaded fraction from photolysis correction factor
         REAL(RK) :: PPFD_SUN(SIZE(ZK))             ! PPFD for sunlit leaves (umol phot/m2 s)
         REAL(RK) :: PPFD_SHADE(SIZE(ZK))           ! PPFD for shaded leaves (umol phot/m2 s)
         REAL(RK) :: ATEMP_SUN(SIZE(ZK))            ! Regression coefficient A for sun leaves (Silva et al., 2020)
@@ -148,7 +148,7 @@ contains
 
 !Calculate photolyis shading/correction factor through canopy, i.e., the fraction of sunlit leaves downward through canopy
 
-        call canopy_phot(FCLAI, LAI, CLU, COSZEN, RJCF)
+        call canopy_phot(FCLAI, LAI, CLU, COSZEN, FSUN)
 
 ! Use linear canopy temperature model based on Silva et al. (2020) to get approx. sun/shade leaf temperatures
 ! through canopy (ignores effect of wind speed on leaf boundary layer ~ 1 % error/bias)
@@ -203,7 +203,7 @@ contains
 
         TLEAF_SUN   = ATEMP_SUN + (BTEMP_SUN*TEMP2)
         TLEAF_SHADE = ATEMP_SHADE + (BTEMP_SHADE*TEMP2)
-        TLEAF_AVE = (TLEAF_SUN*RJCF) + (TLEAF_SHADE*(1.0-RJCF)) ! average = sum sun and shade weighted by sunlit fraction
+        TLEAF_AVE = (TLEAF_SUN*FSUN) + (TLEAF_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
 
 ! Use exponential PPFD model based on Silva et al. (2020) to get approx. sun/shade PPFD
 ! through canopy
@@ -278,7 +278,7 @@ contains
         GammaTLEAF_SHADE_DEN = (CT2-CT1)*(1.0-exp((CT2/(rgasuniv/1000.0))*((1.0/TLEAF_OPT)-(1.0/TLEAF_SHADE))))
         GammaTLEAF_SHADE     = E_OPT*(GammaTLEAF_SHADE_NUM/GammaTLEAF_SHADE_DEN)
 
-        GammaTLEAF_AVE = (GammaTLEAF_SUN*RJCF) + (GammaTLEAF_SHADE*(1.0-RJCF)) ! average = sum sun and shade weighted by sunlit fraction
+        GammaTLEAF_AVE = (GammaTLEAF_SUN*FSUN) + (GammaTLEAF_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
 
 ! Calculate gamma (activity) values for average PPFD (Clifton et al., 2022)
         PPFD240_SUN   = PPFD_SUN/2.0  !Clifton et al...halve the instantaneous PPFD estimate to get PPFD240 and PPFD24
@@ -293,7 +293,7 @@ contains
         GammaPPFD_SUN   = CP_SUN*((ALPHA_P_SUN*PPFD_SUN)/SQRT(1.0 + (ALPHA_P_SUN**2.0) * (PPFD_SUN**2.0)))
         GammaPPFD_SHADE = CP_SHADE*((ALPHA_P_SHADE*PPFD_SHADE)/SQRT(1.0 + (ALPHA_P_SHADE**2.0) * (PPFD_SHADE**2.0)))
 
-        GammaPPFD_AVE = (GammaPPFD_SUN*RJCF) + (GammaPPFD_SHADE*(1.0-RJCF)) ! average = sum sun and shade weighted by sunlit fraction
+        GammaPPFD_AVE = (GammaPPFD_SUN*FSUN) + (GammaPPFD_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
 
 ! Calculate emissions profile in the canopy
         EMI_OUT = 0.0_rk  ! set initial emissions profile to zero
