@@ -98,7 +98,7 @@ contains
         integer i
 
 ! Constant Canopy Parameters
-        REAL(RK),          PARAMETER     :: FRAC_PPFD       =  0.5_rk     !Fraction of incoming solar irradiance that is active PPFD
+        REAL(RK),          PARAMETER     :: FRAC_PAR        =  0.5_rk     !Fraction of incoming solar irradiance that is PAR
         REAL(RK),          PARAMETER     :: PPFD0_SUN       =  200.0      !Constant PPFDo sunlit (umol/m2 s) (Guenther et al.,2012)
         REAL(RK),          PARAMETER     :: PPFD0_SHADE     =  50.0       !Constant PPFDo shaded (umol/m2 s) (Guenther et al.,2012)
         REAL(RK),          PARAMETER     :: ATEMP_1_SUN     =  -13.891_rk !Linearized 2-m temp --> leaf temp parameters (Level 1 =
@@ -256,8 +256,8 @@ contains
             end if
         end do
 
-        PPFD_SUN     = FRAC_PPFD * SFCRAD * EXP(CTEMP_SUN + DTEMP_SUN * LAI)  !W/m2 --> umol m-2 s-1
-        PPFD_SHADE   = FRAC_PPFD * SFCRAD * EXP(CTEMP_SHADE + DTEMP_SHADE * LAI)
+        PPFD_SUN     = FRAC_PAR * SFCRAD * EXP(CTEMP_SUN + DTEMP_SUN * LAI)  !Silva et al. W/m2 --> umol m-2 s-1
+        PPFD_SHADE   = FRAC_PAR * SFCRAD * EXP(CTEMP_SHADE + DTEMP_SHADE * LAI)
 
 ! Calculate maximum normalized emission capacity (E_OPT) and Tleaf at E_OPT
         TLEAF240_AVE   = TLEAF_AVE  !Assume instantaneous TLEAF estimate for TLEAF240 and TLEAF24 (could improve...)
