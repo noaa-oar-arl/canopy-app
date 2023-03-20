@@ -74,6 +74,24 @@ contains
                     call exit(2)
                 end if
             end if
+        else if (FLAMEH_OPT .eq. 5) then  !uses adjusted FRP (based on intensity) and overide elsewhere
+            if (FRP .gt. 0.0) then
+                if ( ((FRP*1000.0_rk)/DX) .gt. 1700.0_rk .and. &
+                    ((FRP*1000.0_rk)/DX) .le. 3500.0_rk ) then           !Crown fire possible (Andrews et al., 2011).
+                    FLAMEH = FCH*0.5                                 !https://doi.org/10.2737/RMRS-GTR-253
+                else if ( ((FRP*1000.0_rk)/DX) .gt. 3500.0_rk ) then !Crown fire likely (Andrews et al., 2011).
+                    FLAMEH = FCH
+                else
+                    FLAMEH = CalcFlameH(FRP,DX)
+                end if
+            else
+                if (FLAMEH_SET .le. 1.0) then
+                    FLAMEH = FCH * FLAMEH_SET  !not real flame height but uses WAF at this fractional FCH
+                else
+                    write(*,*)  'Under this FLAMEH_OPT ', FLAMEH_OPT, ' FLAMEH_SET must be =< 1.0'
+                    call exit(2)
+                end if
+            end if
         else
             write(*,*)  'Wrong FLAMEH_OPT choice of ', FLAMEH_OPT, ' in namelist...exiting'
             call exit(2)
