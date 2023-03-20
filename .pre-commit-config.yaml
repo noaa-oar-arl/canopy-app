@@ -13,3 +13,4 @@ repos:
       # NOTE: doesn't work on Windows currently
       - id: wfindent-pypi
         args: ['-i4']
+        additional_dependencies: ['findent<4.2.6']
