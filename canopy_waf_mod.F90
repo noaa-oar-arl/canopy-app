@@ -76,7 +76,6 @@ contains
             end if
         else if (FLAMEH_OPT .eq. 5) then  !uses adjusted FRP (based on intensity) and overide elsewhere.
             if (FRP .gt. 0.0) then
-                print*, ((FRP*1000.0_rk)/DX)
                 if ( ((FRP*1000.0_rk)/DX) .ge. 1700.0_rk ) then       !Crown fire likely (Andrews et al., 2011).
                     FLAMEH = FCH                                      !https://doi.org/10.2737/RMRS-GTR-253
                 else
