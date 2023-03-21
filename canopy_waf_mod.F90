@@ -76,11 +76,9 @@ contains
             end if
         else if (FLAMEH_OPT .eq. 5) then  !uses adjusted FRP (based on intensity) and overide elsewhere.
             if (FRP .gt. 0.0) then
-                if ( ((FRP*1000.0_rk)/DX) .gt. 1700.0_rk .and. &
-                    ((FRP*1000.0_rk)/DX) .le. 3500.0_rk ) then       !Crown fire possible (Andrews et al., 2011).
-                    FLAMEH = FCH*0.5                                 !https://doi.org/10.2737/RMRS-GTR-253
-                else if ( ((FRP*1000.0_rk)/DX) .gt. 3500.0_rk ) then !Crown fire likely (Andrews et al., 2011).
-                    FLAMEH = FCH
+                print*, ((FRP*1000.0_rk)/DX)
+                if ( ((FRP*1000.0_rk)/DX) .ge. 1700.0_rk ) then       !Crown fire likely (Andrews et al., 2011).
+                    FLAMEH = FCH                                      !https://doi.org/10.2737/RMRS-GTR-253
                 else
                     FLAMEH = CalcFlameH(FRP,DX)
                 end if
@@ -101,6 +99,9 @@ contains
         else
             flamelays     = floor(FLAMEH/MODRES) + 1      !force full flame layers
             MIDFLAMEPOINT = max(ceiling(flamelays/2.0),2) !conservative midflamepoint
+            if ( FLAMEH_OPT .eq. 5 .and. ((FRP*1000.0_rk)/DX) .ge. 1700.0_rk ) then !crowning likely
+                MIDFLAMEPOINT = max(ceiling(flamelays/1.0),2) !sets to top of flame
+            end if
         end if
 
     END SUBROUTINE CANOPY_FLAMEH
