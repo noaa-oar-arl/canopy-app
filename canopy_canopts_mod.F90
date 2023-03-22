@@ -23,6 +23,7 @@ MODULE canopy_canopts_mod
     integer             ::    z0_opt      !integer for setting first estimate of z0 (default = 0 for Z0_MOD)
     integer             ::    flameh_opt  !Integer for flameh values used or calculated (default = 0)
     real(rk)            ::    flameh_set  !User Set Flame Height (m)
+    real(rk)            ::    frp_fac     !FRP tuning factor for flame height calculation (default = 1.0)
     integer             ::    dx_opt      !Integer for dx resolution values used or calculated (default = 0)
     real(rk)            ::    dx_set      !User Set Grid Cell Resolution (m)
     real(rk)            ::    lai_thresh  !User set grid cell LAI threshold to apply canopy conditions (m2/m2)

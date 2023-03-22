@@ -21,9 +21,9 @@ SUBROUTINE canopy_readnml
     NAMELIST /filenames/ file_vars, file_out
 
     NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
-        z0ghc, lambdars, flameh_opt, flameh_set, ifcanwind, ifcanwaf, ifcaneddy, &
-        ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, dx_set,  &
-        lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce
+        z0ghc, lambdars, flameh_opt, flameh_set, frp_fac, ifcanwind, ifcanwaf, &
+        ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, &
+        dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -114,6 +114,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default real value for flame height (m) (Default = 2.0 m)
     flameh_set = 2.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for FRP tuning factor for flameh (m) (Default = 1.0 )
+    frp_fac = 1.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_FLAMEH( FLAMEH_OPT, FLAMEH_SET, DX, MODRES, &
-        FRP, FCH, MIDFLAMEPOINT, FLAMEH )
+        FRP_IN, FRP_FAC, FCH, MIDFLAMEPOINT, FLAMEH )
 
 !-----------------------------------------------------------------------
 
@@ -31,7 +31,8 @@ contains
         REAL(RK),    INTENT( IN )  :: FLAMEH_SET      ! User Set Flame Height (m)
         REAL(RK),    INTENT( IN )  :: DX              ! DX cell distances using haversine formula (m)
         REAL(RK),    INTENT( IN )  :: MODRES          ! Canopy model input vertical resolution (m)
-        REAL(RK),    INTENT( IN )  :: FRP             ! Model input FRP (MW/grid cell area)
+        REAL(RK),    INTENT( IN )  :: FRP_IN          ! Model input FRP (MW/grid cell area)
+        REAL(RK),    INTENT( IN )  :: FRP_FAC         ! FRP tuning factor for flame height calculation
         REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
         INTEGER,     INTENT( OUT ) :: MIDFLAMEPOINT   ! Indice of the mid-flame point
         REAL(RK),    INTENT( OUT ) :: FLAMEH          ! Flame Height (m)
@@ -39,6 +40,9 @@ contains
 !     Local variables
 
         integer  ::    flamelays                      ! number of flame layers
+        real(rk) ::    frp                            ! FRP after tuning factor applied (MW/grid cell area)
+
+        frp = FRP_IN*FRP_FAC  !apply FRP tuning factor for flame height
 
         if (FLAMEH_OPT .eq. 0) then
             if (DX .le. 0.0) then !single lon point -- reset to user value
@@ -46,13 +50,13 @@ contains
                     FLAMEH_SET, ' from namelist'
                 FLAMEH = FLAMEH_SET
             else                                    !calculate flameh
-                FLAMEH = CalcFlameH(FRP,DX)
+                FLAMEH = CalcFlameH(frp,DX)
             end if
         else if (FLAMEH_OPT .eq. 1) then  !user set value
             FLAMEH = FLAMEH_SET
         else if (FLAMEH_OPT .eq. 2) then  !both FRP calc and user set
-            if (FRP .gt. 0.0) then
-                FLAMEH = CalcFlameH(FRP,DX)
+            if (frp .gt. 0.0) then
+                FLAMEH = CalcFlameH(frp,DX)
             else
                 FLAMEH = FLAMEH_SET
             end if
@@ -64,8 +68,8 @@ contains
                 call exit(2)
             end if
         else if (FLAMEH_OPT .eq. 4) then  !uses FRP and overide elsewhere
-            if (FRP .gt. 0.0) then
-                FLAMEH = CalcFlameH(FRP,DX)
+            if (frp .gt. 0.0) then
+                FLAMEH = CalcFlameH(frp,DX)
             else
                 if (FLAMEH_SET .le. 1.0) then
                     FLAMEH = FCH * FLAMEH_SET  !not real flame height but uses WAF at this fractional FCH
@@ -75,11 +79,11 @@ contains
                 end if
             end if
         else if (FLAMEH_OPT .eq. 5) then  !uses adjusted FRP (based on intensity) and overide elsewhere.
-            if (FRP .gt. 0.0) then
-                if ( ((FRP*1000.0_rk)/DX) .ge. 1700.0_rk ) then       !Crown fire likely (Andrews et al., 2011).
+            if (frp .gt. 0.0) then
+                if ( ((frp*1000.0_rk)/DX) .ge. 1700.0_rk ) then       !Crown fire likely (Andrews et al., 2011).
                     FLAMEH = FCH                                      !https://doi.org/10.2737/RMRS-GTR-253
                 else
-                    FLAMEH = CalcFlameH(FRP,DX)
+                    FLAMEH = CalcFlameH(frp,DX)
                 end if
             else
                 if (FLAMEH_SET .le. 1.0) then
@@ -98,7 +102,7 @@ contains
         else
             flamelays     = floor(FLAMEH/MODRES) + 1      !force full flame layers
             MIDFLAMEPOINT = max(ceiling(flamelays/2.0),2) !conservative midflamepoint
-            if ( FLAMEH_OPT .eq. 5 .and. ((FRP*1000.0_rk)/DX) .ge. 1700.0_rk ) then !crowning likely
+            if ( FLAMEH_OPT .eq. 5 .and. ((frp*1000.0_rk)/DX) .ge. 1700.0_rk ) then !crowning likely
                 MIDFLAMEPOINT = max(ceiling(flamelays/1.0),2) !sets to top of flame
             end if
         end if
