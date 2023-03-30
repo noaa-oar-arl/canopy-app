@@ -1,11 +1,11 @@
 &FILENAMES
-  file_vars    = 'gfs.t12z.20220701.sfcf000.nc'
-!  file_vars    = 'gfs.t12z.20220701.sfcf000.txt'
+!  file_vars    = 'gfs.t12z.20220701.sfcf000.canopy.nc'
+  file_vars    = 'gfs.t12z.20220701.sfcf000.canopy.txt'
   file_out     = 'test_out_southeast_us'
 /
 
 &USERDEFS
-  infmt_opt  =  0
+  infmt_opt  =  1
   nlat       =  43
   nlon       =  86
   modlays    =  100
@@ -21,7 +21,7 @@
   lambdars   =  1.25
   dx_opt     =  0
   dx_set     =  12000.0
-  flameh_opt =  5
+  flameh_opt =  2
   flameh_set =  1.0
   frp_fac    =  1.0
   pai_opt    =  0
