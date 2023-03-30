@@ -67,7 +67,7 @@ jobs:
         run: |
           make clean
           make
-          f90nml -g filenames -v file_vars=gfs.t12z.20220701.sfcf000.txt \
+          f90nml -g filenames -v file_vars=gfs.t12z.20220701.sfcf000.canopy.txt \
             namelist.canopy namelist.canopy
           f90nml -g userdefs -v infmt_opt=1 \
             namelist.canopy namelist.canopy
