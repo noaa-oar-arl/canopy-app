@@ -147,8 +147,11 @@ contains
         REAL(RK),          PARAMETER     :: CT2             =  230.0_rk   !Deactivation energy (kJ/mol) (Guenther et al., 2012)
 
 !Calculate photolyis shading/correction factor through canopy, i.e., the fraction of sunlit leaves downward through canopy
+!  `canopy_phot` gives relative direct beam irradiance,
+!  which, multiplied by clumping index, gives sunlit fraction (e.g., Bonan 2019, eq. 14.18)
 
         call canopy_phot(FCLAI, LAI, CLU, COSZEN, FSUN)
+        FSUN = FSUN * CLU
 
 ! Use linear canopy temperature model based on Silva et al. (2020) to get approx. sun/shade leaf temperatures
 ! through canopy (ignores effect of wind speed on leaf boundary layer ~ 1 % error/bias)
