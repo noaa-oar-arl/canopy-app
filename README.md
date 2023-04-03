@@ -9,31 +9,34 @@
 
 Repository for low-level, stand-alone/column canopy parameterizations for testing and application to gridded atmospheric composition/air quality models.
 
-Author(s):
-
-Patrick Campbell, Zachary Moon, and Wei-Ting Hung
+Authors: Patrick Campbell, Zachary Moon, and Wei-Ting Hung
 
 ## Getting Started
 
-Build canopy model:
+### Build
 
 Canopy-App requires NetCDF-Fortran Libraries (i.e., `-lnetcdf -lnetcdff`) when using the 2D NetCDF I/O Option (i.e., `infmt_opt=0`).
-See included Makefile for example (currently developed using `netcdf-c/4.7.4-vh` and `netcdf-fortran/4.5.3-ff` modules on GMU Hopper).
+See [the included Makefile](./src/Makefile), which detects NetCDF using `nf-config`, for an example (on GMU Hopper, you can use the `netcdf-c/4.7.4-vh` and `netcdf-fortran/4.5.3-ff` modules).
 
-Compilation Options with or without Debug or NetCDF options:
- - `DEBUG  = 0(off; default) or DEBUG  =1(on)`
- - `NETCDF = 0(off) or          NETCDF =1(on; default)`
+Compilation options can be controlled with environment variables:
+ - `DEBUG=0` (off; default) or `DEBUG=1` (on)
+ - `NETCDF=0` (off) or `NETCDF=1` (on; default)
 
-Example: `DEBUG=1 NETCDF=1 make -C src`
+Example:
+```
+DEBUG=1 NETCDF=1 make -C src
+```
 
-Compile, edit namelist, and run canopy model:
-- `make -C src`
-- `namelist.canopy`
-- `./canopy`
+### Modify settings
 
-Canopy is parameterized by foliage distribution shape functions and parameters for different vegetation types.
+If necessary, modify [the settings](#table-3-current-user-namelist-options) in the Fortran namelist file [`input/namelist.canopy`](./input/namelist.canopy),
+which is read at runtime.
 
-- `canopy_parm_mod.F90`
+### Run
+
+```
+./canopy
+```
 
 ## Components
 
@@ -41,20 +44,20 @@ Current Canopy-App components:
 
 1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildfire spread and air quality applications.  Based on Massman et al. (2017).
 
-    Namelist Option : `ifcanwind` and/or `ifcanwaf` Output Variables: `canwind (m s-1)` `waf (fraction)`
+    Namelist Option : `ifcanwind` and/or `ifcanwaf` Output Variables: `canwind` (m s-1) `waf` (fraction)
 
     - `canopy_wind_mod.F90`
     - `canopy_waf_mod.F90`
 
 2.  In-Canopy vertical diffusion (i.e., eddy diffusivities used to scale resolved model layer 1 diffusion).  Based on Massman et al. (2017) and Makar et al. (2017).
 
-    Namelist Option : `ifcaneddy`  Output Variables:  `kz (m2 s-1)`
+    Namelist Option : `ifcaneddy`  Output Variables:  `kz` (m2 s-1)
 
     - `canopy_eddyx_mod.F90`
 
 3.  In-Canopy photolysis attenuation (i.e., used to scale resolved model layer 1 photolysis).  Based on Massman et al. (2017) and Markar et al. (2017).  
 
-    Namelist Option : `ifcanphot`  Output Variables: `rjcf (fraction)`
+    Namelist Option : `ifcanphot`  Output Variables: `rjcf` (fraction)
 
     - `canopy_phot_mod.F90`
 
@@ -66,9 +69,9 @@ Current Canopy-App components:
 
     - `canopy_bioemi_mod.F90`
 
-    **Note for Biogenic emissions:** When `ifcanbio=.TRUE.`, output will include 3D canopy resolved biogenic emissions for the following species (based on Guenther et al., 2012), which have been mapped from Guenther et al. PFTs to input LU_OPT.
-
 ## Outputs
+
+**Note for Biogenic emissions:** When `ifcanbio=.TRUE.`, output will include 3D canopy resolved biogenic emissions for the following species (based on Guenther et al., 2012), which have been mapped from Guenther et al. PFTs to input LU_OPT.
 
 ### Table 1. Canopy-App Biogenic Emissions Output Variables
 
@@ -134,7 +137,7 @@ The Canopy-App input data in Table 2 below is based around NOAA's UFS operationa
 | prate_ave                           | Average mass precipitation rate (kg m-2 s-1)                 |  UFS NOAA/GFSv16                                   						      |
 | **External Canopy Variables**       | **Variable Description and Units**                           |  **Data Source/Reference (if necessary)**         						      |
 | fh                                  | Forest canopy height (m)                                     |  Fused GEDI/Landsat data. Data Period=2020. ([Potapov et al., 2020](https://doi.org/10.1016/j.rse.2020.112165))           |  
-| clu                                 | Forest clumping index (dimensionless)                        |  GridingMachine/MODIS. Data Period=2001-2017 Climatology.([Wei et al., 2019](https://doi.org/10.1016/j.rse.2019.111296)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
+| clu                                 | Forest clumping index (dimensionless)                        |  GridingMachine/MODIS. Data Period=2001-2017 Climatology. ([Wei et al., 2019](https://doi.org/10.1016/j.rse.2019.111296)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
 | lai                                 | Leaf area index (m2/m2)                                      |  VIIRS-NPP. Data Period=2018-2020 Climatology. ([Myneni 2018](https://doi.org/10.5067/VIIRS/VNP15A2H.001)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |                |
 | ffrac                               | Forest fraction (dimensionless)                              |  Based on [VIIRS GVF-NPP](https://www.star.nesdis.noaa.gov/jpss/gvf.php) and GriddingMachine/MODIS FFRAC/FVC from Terra.  Data Period=2020. ([DiMiceli et al., 2022](https://doi.org/10.5067/MODIS/MOD44B.061)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |      |  
 | **Other External Variables**        | **Variable Description and Units**                           |  **Data Source/Reference (if necessary)**                                                          |
@@ -146,14 +149,22 @@ The Canopy-App input data in Table 2 below is based around NOAA's UFS operationa
 **More Information on Data Sources from Table 2:**
 
 **Downloading GFS Files from AWS:** NOAA's hourly global GFS, gridded (at ~13x13 km resolution) data may be downloaded publicly from the following Amazon Web Service (AWS) S3 location:
-`https://nacc-in-the-cloud.s3.amazonaws.com/inputs/YYYYMMDD/gfs.t12z.sfcfHHH.nc`  
+```
+https://nacc-in-the-cloud.s3.amazonaws.com/inputs/YYYYMMDD/gfs.t12z.sfcfHHH.nc
+```
 Where HHH pertains to the hour of the 24-hr forecast (e.g., f000 is initialization).  
-Example download command using wget: `wget --no-check-certificate --no-proxy https://nacc-in-the-cloud.s3.amazonaws.com/inputs/20230215/gfs.t12z.sfcf000.nc`
+Example download command using wget:
+```
+wget --no-check-certificate --no-proxy https://nacc-in-the-cloud.s3.amazonaws.com/inputs/20230215/gfs.t12z.sfcf000.nc
+```
 Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day.
 
 **GriddingMachine:** GriddingMachine is open source database and software for Earth system modeling at global and regional scales.  Data is easily accessible in consistent formats for ease of downloading/processing.  All available datasets may be found at:  https://github.com/CliMA/GriddingMachine.jl. ([Wang et al., 2022](https://doi.org/10.1038/s41597-022-01346-x)).
 
-**Downloading Example Canopy Files from AWS:** Example monthly, global gridded files containing all GFSv16 met/land/soil data from 2022 combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:     `https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.testf000.global.nc`
+**Downloading Example Canopy Files from AWS:** Example monthly, global gridded files containing all GFSv16 met/land/soil data from 2022 combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:
+```
+https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.testf000.global.nc
+```
 
 ### Table 3. Current User Namelist Options
 
@@ -161,11 +172,11 @@ Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day
 | ---------------  | ---------------------------------------------------------------------------------- |
 | infmt_opt        | integer for choosing 1D text ( = 1)  or 2D NetCDF input file format (= 0, default) |
 | nlat             | number of latitude cells (must match # of LAT in `file_vars` above)                |
-| nlon             | number of longitude cells (must match # of LON in `file_vars`above)                |
+| nlon             | number of longitude cells (must match # of LON in `file_vars` above)               |
 | modlays          | number of model (below and above canopy) layers                                    |
 | modres           | above and below canopy model vertical resolution (m)                               |
 | ifcanwind        | logical canopy wind option (default = .FALSE.)                                     |
-| ifcanwaf         | logical canopy WAF option (default = .FALSE.)**                                    |
+| ifcanwaf         | logical canopy WAF option (default = .FALSE.) **\*\***                             |
 | ifcaneddy        | logical canopy eddy Kz option (default = .FALSE.)                                  |
 | ifcanphot        | logical canopy photolysis option (default = .FALSE.)                               |
 | ifcanbio         | logical canopy biogenic emissions option (default = .FALSE.)                       |
@@ -188,8 +199,11 @@ Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day
 | frt_thresh       | user set real value of forest fraction threshold for contiguous canopy             |
 | fch_thresh       | user set real value of canopy height  threshold for contiguous canopy (m)          |
 
-**Note:**  If modres >> flameh then some error in WAF calculation will be incurred.  Suggestion is to use relative fine modres (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
+**\*\*** If modres >> flameh then some error in WAF calculation will be incurred.  Suggestion is to use relative fine modres (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
 
+**Note:** Canopy is parameterized by foliage distribution shape functions and parameters for different vegetation types.
+
+- `canopy_profile_mod.F90`
 
 ## References
 
