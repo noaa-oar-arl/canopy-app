@@ -80,7 +80,7 @@ ifeq ($(NETCDF), 0)
 endif
 
 # Program name
-PROGRAM := canopy
+PROGRAM := ../canopy
 
 # Targets
 .PHONY: all clean

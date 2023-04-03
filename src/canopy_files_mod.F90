@@ -12,6 +12,6 @@ MODULE canopy_files_mod
     INTEGER,            PARAMETER :: iutnml     =  8
     CHARACTER(LEN=256)            :: file_vars ( max_mm )
     CHARACTER(LEN=256)            :: file_out  ( max_mm )
-    CHARACTER(LEN=*), PARAMETER   :: file_nml   = 'namelist.canopy'
+    CHARACTER(LEN=*), PARAMETER   :: file_nml   = 'input/namelist.canopy'
 
 END MODULE canopy_files_mod

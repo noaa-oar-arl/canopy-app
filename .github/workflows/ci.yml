@@ -39,7 +39,7 @@ jobs:
       - name: Check that default input is nc
         run: |
           import f90nml
-          with open("namelist.canopy") as f:
+          with open("input/namelist.canopy") as f:
             nml = f90nml.read(f)
           assert nml["filenames"]["file_vars"].endswith((".nc", ".ncf")), "nc input by default, like build"
           assert nml["userdefs"]["infmt_opt"] == 0, "necessary to read 2-D"
@@ -68,9 +68,9 @@ jobs:
           make clean
           make
           f90nml -g filenames -v file_vars=gfs.t12z.20220701.sfcf000.canopy.txt \
-            namelist.canopy namelist.canopy
+            input/namelist.canopy input/namelist.canopy
           f90nml -g userdefs -v infmt_opt=1 \
-            namelist.canopy namelist.canopy
+            input/namelist.canopy input/namelist.canopy
           ./canopy
         env:
           DEBUG: 0

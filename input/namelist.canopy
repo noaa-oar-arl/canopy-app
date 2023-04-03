@@ -1,6 +1,6 @@
 &FILENAMES
-  file_vars    = 'gfs.t12z.20220701.sfcf000.canopy.nc'
-!  file_vars    = 'gfs.t12z.20220701.sfcf000.canopy.txt'
+  file_vars    = 'input/gfs.t12z.20220701.sfcf000.canopy.nc'
+!  file_vars    = 'input/gfs.t12z.20220701.sfcf000.canopy.txt'
   file_out     = 'test_out_southeast_us'
 /
 
