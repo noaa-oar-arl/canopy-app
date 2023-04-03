@@ -23,7 +23,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt install libnetcdff-dev
+          sudo apt-get update
+          sudo apt-get install libnetcdff-dev
 
       - name: Setup Python (for f90nml)
         uses: actions/setup-python@v4
@@ -66,7 +67,7 @@ jobs:
         run: |
           make clean
           make
-          f90nml -g filenames -v file_vars=gfs.t12z.20220701.sfcf000.txt \
+          f90nml -g filenames -v file_vars=gfs.t12z.20220701.sfcf000.canopy.txt \
             namelist.canopy namelist.canopy
           f90nml -g userdefs -v infmt_opt=1 \
             namelist.canopy namelist.canopy

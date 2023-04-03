@@ -21,9 +21,9 @@ SUBROUTINE canopy_readnml
     NAMELIST /filenames/ file_vars, file_out
 
     NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
-        z0ghc, lambdars, flameh_opt, flameh_set, ifcanwind, ifcanwaf, ifcaneddy, &
-        ifcanphot, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, dx_set, lai_thresh, &
-        frt_thresh, fch_thresh, rsl_opt
+        z0ghc, lambdars, flameh_opt, flameh_set, frp_fac, ifcanwind, ifcanwaf, &
+        ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, &
+        dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -117,6 +117,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
+! Set default real value for FRP tuning factor for flameh (m) (Default = 1.0 )
+    frp_fac = 1.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
 ! Set default logical for canopy wind option (default = .FALSE.)
     ifcanwind = .FALSE.
 !-------------------------------------------------------------------------------
@@ -134,6 +139,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default logical for canopy photolysis attenuation (default = .FALSE.)
     ifcanphot = .FALSE.
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default logical for canopy biogenic emissions (default = .FALSE.)
+    ifcanbio = .FALSE.
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -184,6 +194,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set integer for unified RSL option used in model (default = 0, off)
     rsl_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for MEGAN biogenic canopy environment coeficient (default = 0.21; Silva et al. (2020)
+    bio_cce = 0.21_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
