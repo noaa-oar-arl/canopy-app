@@ -47,8 +47,8 @@ jobs:
 
       - name: Debug compile and run
         run: |
-          make clean
-          make
+          make -C src clean
+          make -C src
           ./canopy
         env:
           DEBUG: 1
@@ -56,8 +56,8 @@ jobs:
 
       - name: Non-debug compile and run
         run: |
-          make clean
-          make
+          make -C src clean
+          make -C src
           ./canopy
         env:
           DEBUG: 0
@@ -65,8 +65,8 @@ jobs:
 
       - name: Non-NetCDF compile and run
         run: |
-          make clean
-          make
+          make -C src clean
+          make -C src
           f90nml -g filenames -v file_vars=gfs.t12z.20220701.sfcf000.canopy.txt \
             input/namelist.canopy input/namelist.canopy
           f90nml -g userdefs -v infmt_opt=1 \
