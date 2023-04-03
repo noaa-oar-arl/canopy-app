@@ -67,7 +67,7 @@ jobs:
         run: |
           make -C src clean
           make -C src
-          f90nml -g filenames -v file_vars=gfs.t12z.20220701.sfcf000.canopy.txt \
+          f90nml -g filenames -v file_vars=input/gfs.t12z.20220701.sfcf000.canopy.txt \
             input/namelist.canopy input/namelist.canopy
           f90nml -g userdefs -v infmt_opt=1 \
             input/namelist.canopy input/namelist.canopy
