@@ -13,6 +13,8 @@ Author(s):
 
 Patrick Campbell, Zachary Moon, and Wei-Ting Hung
 
+## Getting Started
+
 Build canopy model:
 
 Canopy-App requires NetCDF-Fortran Libraries (i.e., `-lnetcdf -lnetcdff`) when using the 2D NetCDF I/O Option (i.e., `infmt_opt=0`).
@@ -32,6 +34,8 @@ Compile, edit namelist, and run canopy model:
 Canopy is parameterized by foliage distribution shape functions and parameters for different vegetation types.
 
 - `canopy_parm_mod.F90`
+
+## Components
 
 Current Canopy-App components:
 
@@ -64,7 +68,9 @@ Current Canopy-App components:
 
     **Note for Biogenic emissions:** When `ifcanbio=.TRUE.`, output will include 3D canopy resolved biogenic emissions for the following species (based on Guenther et al., 2012), which have been mapped from Guenther et al. PFTs to input LU_OPT.
 
-**Table 1. Canopy-App Biogenic Emissions Output Variables**
+## Outputs
+
+### Table 1. Canopy-App Biogenic Emissions Output Variables
 
 | Variable Name    | Variable Description (Units: kg m-3 s-1)          |
 | ---------------  | ------------------------------------------------- |
@@ -93,6 +99,8 @@ canopy photolysis attenuation correction factors (`rjcf`).  Current 2D fields in
 
 Namelist Option : `file_out`  Prefix string (e.g., `'test'`) used to name output file (Output is 1D txt when using input 1D data (i.e., `infmt_opt=1`), or is 2D NetCDF output when 2D NetCDF input is used (i.e., `infmt_opt=0`)).
 
+## Inputs and Settings
+
 **Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy
 
 Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats: `.txt`, `.nc`, `.ncf`, or `.nc4`)
@@ -103,7 +111,7 @@ Namelist Option : `file_vars`  Full name of input file (Supports either text or 
 
 The Canopy-App input data in Table 2 below is based around NOAA's UFS operational Global Forecast System Version 16 (GFSv16) gridded met data, and is supplemented with external canopy data (from numerous sources) and other external and calculated input variables.  
 
-**Table 2. Canopy-App Required Input Variables**
+### Table 2. Canopy-App Required Input Variables
 
 | **GFS /Met/Land/Soil Variables**    | **Variable Description and Units**                           |  **Example Data Sources/References (if necessary)**                                                |
 | ----------------------------------  | ------------------------------------------------------------ |  ------------------------------------------------- 						      |
@@ -147,7 +155,7 @@ Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day
 
 **Downloading Example Canopy Files from AWS:** Example monthly, global gridded files containing all GFSv16 met/land/soil data from 2022 combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:     `https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.testf000.global.nc`
 
-**Table 3. Current User Namelist Options**
+### Table 3. Current User Namelist Options
 
 | Namelist Option  | Namelist Description and Units                                                     |
 | ---------------  | ---------------------------------------------------------------------------------- |
