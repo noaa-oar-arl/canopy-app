@@ -1,4 +1,9 @@
-# canopy-app
+<h1>
+  <a href="https://github.com/noaa-oar-arl/canopy-app">
+    <img src="docs/canopy-app-logo_no-bg.png" alt="canopy-app logo" height="125" valign="bottom">
+  </a>
+</h1>
+
 Repository for low-level, stand-alone/column canopy parameterizations for testing and application to gridded atmospheric composition/air quality models.
 
 Author(s):
