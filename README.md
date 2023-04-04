@@ -116,35 +116,35 @@ The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variab
 
 ### Table 2. Canopy-App Required Input Variables
 
-| **GFS /Met/Land/Soil Variables**    | **Variable Description and Units**                           |  **Example Data Sources/References (if necessary)**                                                |
-| ----------------------------------  | ------------------------------------------------------------ |  ------------------------------------------------- 						      |
-| `lat`                           | Latitude  (degrees)                                          |  N/A                                               						      |
-| `lon`                           | Longitude (degrees; from 0-360)                              |  N/A                                               					              |
-| `time`                           | Timestamp (days since YYYY-N-D 0:0:0) (NetCDF Only)          |  N/A                                               					              |  
-| `ugrd10m`                           | U wind at reference height above canopy (m/s), e.g., 10 m    |  UFS NOAA/GFSv16 *(see below for downloading using AWS)                                 						      |
-| `vgrd10m`                           | V wind at reference height above canopy  (m/s), e.g., 10 m   |  UFS NOAA/GFSv16                                   						      |
-| `vtype`                           | Vegetation type (dimensionless), VIIRS or MODIS              |  UFS NOAA/GFSv16                                   						      |
-| `fricv`                           | Friction velocity (m/s)                                      |  UFS NOAA/GFSv16                                   						      |
-| `sfcr`                           | Total surface roughness length (m)                           |  UFS NOAA/GFSv16                                   						      |
-| `sotyp`        			  | Soil type (dimensionless), STATSGO                           |  UFS NOAA/GFSv16                                   						      |
-| `pressfc`        			  | Surface pressure (Pa)                                        |  UFS NOAA/GFSv16                                   						      |
-| `dswrf`                           | Instantaneous downward shortwave radiation at surface (W/m2) |  UFS NOAA/GFSv16                                   						      |
-| `shtfl`                           | Instantaneous sensible heat flux at surface (W/m2)           |  UFS NOAA/GFSv16                                   						      |
-| `tmpsfc`                           | Surface temperature (K)                                      |  UFS NOAA/GFSv16                                  						      |
-| `tmp2m`                           | 2-meter temperature (K)                                      |  UFS NOAA/GFSv16                                   						      |
-| `spfh2m`                           | 2-meter specific humidity (kg/kg)                            |  UFS NOAA/GFSv16                                   					              |
-| `hpbl`                           | Height of the planetary boundary layer (m)                   |  UFS NOAA/GFSv16                                   						      |
-| `prate_ave`                           | Average mass precipitation rate (kg m-2 s-1)                 |  UFS NOAA/GFSv16                                   						      |
-| **External Canopy Variables**       | **Variable Description and Units**                           |  **Data Source/Reference (if necessary)**         						      |
-| `fh`                                  | Forest canopy height (m)                                     |  Fused GEDI/Landsat data. Data Period=2020. ([Potapov et al., 2020](https://doi.org/10.1016/j.rse.2020.112165))           |  
-| `clu`                                 | Forest clumping index (dimensionless)                        |  GridingMachine/MODIS. Data Period=2001-2017 Climatology. ([Wei et al., 2019](https://doi.org/10.1016/j.rse.2019.111296)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
-| `lai`                                 | Leaf area index (m2/m2)                                      |  VIIRS-NPP. Data Period=2018-2020 Climatology. ([Myneni 2018](https://doi.org/10.5067/VIIRS/VNP15A2H.001)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |                |
-| `ffrac`                               | Forest fraction (dimensionless)                              |  Based on [VIIRS GVF-NPP](https://www.star.nesdis.noaa.gov/jpss/gvf.php) and GriddingMachine/MODIS FFRAC/FVC from Terra.  Data Period=2020. ([DiMiceli et al., 2022](https://doi.org/10.5067/MODIS/MOD44B.061)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |      |  
-| **Other External Variables**        | **Variable Description and Units**                           |  **Data Source/Reference (if necessary)**                                                          |
-| `frp`                                 | Total Fire Radiative Power (MW/grid cell area)               |  [NOAA/NESDIS GBBEPx](https://www.ospo.noaa.gov/Products/land/gbbepx/)                              |
-| `csz`                                 | Cosine of the solar zenith angle (dimensionless)             |  [Based on Python Pysolar](https://pysolar.readthedocs.io/en/latest/)                               |
-| `mol`                                 | Monin-Obukhov Length (m)                                     |  Externally calculated using GFS `tmp2m`, `fricv`, and `shtfl`.  ([Essa, 1999](https://inis.iaea.org/collection/NCLCollectionStore/_Public/37/118/37118528.pdf))   |
-| `href`                                | Reference height above canopy (m) - 10 m                     |  Added as a constant reference height above surface (i.e., 10 m).  Can be taken from NL.           |
+| **GFS /Met/Land/Soil Variables** | **Variable Description and Units**          | **Example Data Sources/References (if necessary)** |
+| -------------------------------- | ------------------------------------------- | -------------------------------------------------- |
+| `lat`                            | Latitude  (degrees)                         | N/A                                                |
+| `lon`                            | Longitude (degrees; from 0-360)             | N/A                                                |
+| `time`                           | Timestamp (days since YYYY-N-D 0:0:0) (NetCDF Only) | N/A                                        |
+| `ugrd10m`                        | U wind at reference height above canopy (m/s), e.g., 10 m | UFS NOAA/GFSv16 *(see below for downloading using AWS) |
+| `vgrd10m`                        | V wind at reference height above canopy  (m/s), e.g., 10 m | UFS NOAA/GFSv16                     |
+| `vtype`                          | Vegetation type (dimensionless), VIIRS or MODIS | UFS NOAA/GFSv16                                |
+| `fricv`                          | Friction velocity (m/s)                     | UFS NOAA/GFSv16                                    |
+| `sfcr`                           | Total surface roughness length (m)          | UFS NOAA/GFSv16                                    |
+| `sotyp`                          | Soil type (dimensionless), STATSGO          | UFS NOAA/GFSv16                                    |
+| `pressfc`                        | Surface pressure (Pa)                       | UFS NOAA/GFSv16                                    |
+| `dswrf`                          | Instantaneous downward shortwave radiation at surface (W/m2) | UFS NOAA/GFSv16                   |
+| `shtfl`                          | Instantaneous sensible heat flux at surface (W/m2) | UFS NOAA/GFSv16                             |
+| `tmpsfc`                         | Surface temperature (K)                     | UFS NOAA/GFSv16                                    |
+| `tmp2m`                          | 2-meter temperature (K)                     | UFS NOAA/GFSv16                                    |
+| `spfh2m`                         | 2-meter specific humidity (kg/kg)           | UFS NOAA/GFSv16                                    |
+| `hpbl`                           | Height of the planetary boundary layer (m)  | UFS NOAA/GFSv16                                    |
+| `prate_ave`                      | Average mass precipitation rate (kg m-2 s-1) | UFS NOAA/GFSv16                                   |
+| **External Canopy Variables**    | **Variable Description and Units**          | **Data Source/Reference (if necessary)**           |
+| `fh`                             | Forest canopy height (m)                    | Fused GEDI/Landsat data. Data Period=2020. ([Potapov et al., 2020](https://doi.org/10.1016/j.rse.2020.112165)) |
+| `clu`                            | Forest clumping index (dimensionless)       | GridingMachine/MODIS. Data Period=2001-2017 Climatology. ([Wei et al., 2019](https://doi.org/10.1016/j.rse.2019.111296)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
+| `lai`                            | Leaf area index (m2/m2)                     | VIIRS-NPP. Data Period=2018-2020 Climatology. ([Myneni 2018](https://doi.org/10.5067/VIIRS/VNP15A2H.001)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
+| `ffrac`                          | Forest fraction (dimensionless)             | Based on [VIIRS GVF-NPP](https://www.star.nesdis.noaa.gov/jpss/gvf.php) and GriddingMachine/MODIS FFRAC/FVC from Terra.  Data Period=2020. ([DiMiceli et al., 2022](https://doi.org/10.5067/MODIS/MOD44B.061)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
+| **Other External Variables**     | **Variable Description and Units**          | **Data Source/Reference (if necessary)**           |
+| `frp`                            | Total Fire Radiative Power (MW/grid cell area) | [NOAA/NESDIS GBBEPx](https://www.ospo.noaa.gov/Products/land/gbbepx/) |
+| `csz`                            | Cosine of the solar zenith angle (dimensionless) | [Based on Python Pysolar](https://pysolar.readthedocs.io/en/latest/) |
+| `mol`                            | Monin-Obukhov Length (m)                    | Externally calculated using GFS `tmp2m`, `fricv`, and `shtfl`.  ([Essa, 1999](https://inis.iaea.org/collection/NCLCollectionStore/_Public/37/118/37118528.pdf)) |
+| `href`                           | Reference height above canopy (m) - 10 m    | Added as a constant reference height above surface (i.e., 10 m).  Can be taken from NL. |
 
 **More Information on Data Sources from [Table 2](#table-2-canopy-app-required-input-variables):**
 
