@@ -234,3 +234,16 @@ The [current configuration](./.pre-commit-config.yaml) applies
 [`findent -i4`](https://www.ratrabbit.nl/ratrabbit/findent/) to fix indentation
 and strips trailing whitespace.
 Using pre-commit saves you time/energy and reduces diffs.
+
+Pull requests should target the `develop` branch (current default).
+The `stable` branch is periodically updated to reflect the "stable" state of the code, e.g. for users.
+After updating `stable` from `develop` (via GitHub pull request or manual merge),
+rebase `develop` so that it doesn't appear to be behind.
+This can be done locally:
+```
+git switch stable
+git pull
+git switch develop
+git rebase stable
+git push
+```
