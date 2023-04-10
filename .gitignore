@@ -3,6 +3,7 @@ output*.txt
 test_*.txt
 test*.nc
 .vscode/
+test*/
 
 # Prerequisites
 *.d
