@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import contextlib
 import os
+import shutil
 import subprocess
 from pathlib import Path
 from typing import Any, Callable
@@ -46,17 +47,32 @@ def out_and_back(p: Path, *, finally_: Callable | None = None):
 def run(
     *,
     config: dict[str, Any] | None = None,
-    out_dir: Path | None = None,
+    case_dir: Path | None = None,
     cleanup: bool = True,
 ) -> xr.Dataset:
+    """Run canopy-app, returning xarray dataset.
+
+    Parameters
+    ----------
+    config
+        Namelist options as a dict.
+        Defaults used if not provided.
+        (Don't need to change input path, we set to absolute path automatically.)
+    case_dir
+        Directory for the case.
+        A temporary directory is used if not provided.
+        Replicates a bit of the structure (``input``, ``output`` subdirectories).
+    cleanup
+        Clean up (remove) the case directory after (successful) run.
+    """
     # Ready the output directory
-    if out_dir is None:
+    if case_dir is None:
         import tempfile
 
         temp_dir = tempfile.TemporaryDirectory(prefix="canopy-app_")
-        out_dir = Path(temp_dir.name)
+        case_dir = Path(temp_dir.name)
     else:
-        out_dir.mkdir(parents=True, exist_ok=True)
+        case_dir.mkdir(parents=True, exist_ok=True)
 
     # Create config
     full_config: f90nml.Namelist
@@ -64,14 +80,14 @@ def run(
         full_config = DEFAULTS.copy()
     else:
         full_config = f90nml.Namelist({**DEFAULTS, **config})
-    output_dir = out_dir / "output"
+    output_dir = case_dir / "output"
     output_dir.mkdir(exist_ok=True)
     ofp_stem = output_dir / "out"
-    full_config["filenames"]["file_out"] = ofp_stem.relative_to(out_dir).as_posix()
+    full_config["filenames"]["file_out"] = ofp_stem.relative_to(case_dir).as_posix()
     print(full_config)
 
     # Write namelist
-    config_dir = out_dir / "input"
+    config_dir = case_dir / "input"
     config_dir.mkdir(exist_ok=True)
     full_config.write(config_dir / "namelist.canopy", force=True)
 
@@ -79,7 +95,7 @@ def run(
     exe = REPO / "canopy"
     if not exe.is_file():
         raise RuntimeError("compile canopy-app first")
-    with out_and_back(out_dir):
+    with out_and_back(case_dir):
         subprocess.run([exe])
 
     # Load nc
@@ -87,11 +103,11 @@ def run(
 
     # Clean up
     if cleanup:
-        os.rmdir(out_dir)
+        shutil.rmtree(case_dir)
 
     return ds
 
 
 if __name__ == "__main__":
     # run()
-    ds = run(out_dir=Path("test"), cleanup=False)
+    ds = run(case_dir=Path("test"), cleanup=False)
