@@ -1,0 +1,12 @@
+name: canopy-app
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.9
+  #
+  - f90nml
+  - netcdf4
+  - xarray
+  #
+  - ipython
