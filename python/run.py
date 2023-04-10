@@ -4,6 +4,7 @@ Run canopy-app using the namelist and load nc data.
 from __future__ import annotations
 
 import contextlib
+import json
 import os
 import shutil
 import subprocess
@@ -100,6 +101,10 @@ def run(
 
     # Load nc
     ds = xr.open_dataset(ofp_stem.with_suffix(".nc"))
+
+    # Store namelist settings
+    ds.attrs["nml"] = str(full_config)
+    ds.attrs["nml_json"] = json.dumps(full_config.todict())
 
     # Clean up
     if cleanup:
