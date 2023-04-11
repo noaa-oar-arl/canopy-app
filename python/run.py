@@ -139,7 +139,14 @@ def run(
 
     # Load nc
     if nc_out:
-        ds = xr.open_dataset(ofp_stem.with_suffix(".nc"))
+        ds0 = xr.open_dataset(ofp_stem.with_suffix(".nc"))
+        ds = (
+            ds0.rename_dims(grid_xt="x", grid_yt="y")
+            .swap_dims(level="z")
+            .assign(time=ds0.time)
+            .set_coords(["time", "z", "lat", "lon"])
+            .squeeze()
+        )
     else:
         dfs: list[pd.DataFrame] = []
         ifcans = [
@@ -271,7 +278,7 @@ def sens_config(cases: list[dict[str, Any]]) -> xr.Dataset:
         ds = run(config=case, case_dir=Path(f"case_{i:0{len(cases)}}"), cleanup=True)
         dss.append(ds)
 
-    ds = xr.concat(dss, dim="case")
+    ds = xr.concat(dss, dim="case", join="exact", combine_attrs="drop_conflicts")
 
     for k, v in case_vars.items():
         ds[k] = ("case", v)
