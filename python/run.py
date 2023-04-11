@@ -22,6 +22,8 @@ REPO = HERE.parent
 with open(REPO / "input" / "namelist.canopy") as f:
     DEFAULTS = f90nml.read(f)
 
+del f
+
 # Make input paths absolute in default config
 for k, v in DEFAULTS["filenames"].items():
     p0 = Path(v)
@@ -30,6 +32,8 @@ for k, v in DEFAULTS["filenames"].items():
     else:
         p = p0
     DEFAULTS["filenames"][k] = p.as_posix()
+
+del (k, v, p0, p)
 
 
 @contextlib.contextmanager
