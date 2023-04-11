@@ -274,7 +274,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
     return df
 
 
-def sens_config(
+def run_config_sens(
     cases: list[dict[str, Any]],
     base_dir: Path | None = None,
     cleanup: bool = True,
@@ -411,7 +411,7 @@ if __name__ == "__main__":
     #         "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1, "z0ghc": 0.01},
     #     },
     # ]
-    # ds = sens_config(cases)
+    # ds = run_config_sens(cases)
 
     cases = config_cases(
         file_vars="../input/input_variables_point.txt",
@@ -425,4 +425,4 @@ if __name__ == "__main__":
     from pprint import pprint
 
     pprint(cases)
-    ds = sens_config(cases)
+    ds = run_config_sens(cases)
