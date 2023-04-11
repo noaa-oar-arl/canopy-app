@@ -156,7 +156,7 @@ def run(
             stem_suff = _TXT_STEM_SUFFS.get(which)
             if stem_suff is None:
                 print(
-                    f"warning: skipping {which!r} ({ifcan}) output since stem suffix unkonwn."
+                    f"warning: skipping {which!r} ({ifcan}) output since stem suffix unknown."
                 )
                 continue
             df = read_txt(
