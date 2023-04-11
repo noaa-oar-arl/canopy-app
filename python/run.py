@@ -52,6 +52,14 @@ def out_and_back(p: Path, *, finally_: Callable | None = None):
 
 POINT_DEFAULT = pd.read_csv(REPO / "input" / "input_variables_point.txt", index_col=False)
 
+_TXT_STEM_SUFFS = {
+    "wind": "_output_canopy_wind",
+    "waf": "_output_waf",
+    "eddy": "_output_eddy_Kz",
+    "phot": "_output_phot",
+    "bio": "_output_bio",
+}
+
 
 def run(
     *,
@@ -133,7 +141,37 @@ def run(
     if nc_out:
         ds = xr.open_dataset(ofp_stem.with_suffix(".nc"))
     else:
-        ds = pd.read_csv(ofp_stem.with_suffix(".txt"), index_col=False).to_xarray()
+        dfs: list[pd.DataFrame] = []
+        ifcans = [
+            k
+            for k, v in full_config["userdefs"].items()
+            if k.startswith("ifcan") and v is True
+        ]
+        if not ifcans:
+            raise RuntimeError("None of the 'ifcan' switches are on, so no text output.")
+
+        # Read txt outputs
+        for ifcan in ifcans:
+            which = ifcan[len("ifcan") :]
+            stem_suff = _TXT_STEM_SUFFS.get(which)
+            if stem_suff is None:
+                print(
+                    f"warning: skipping {which!r} ({ifcan}) output since stem suffix unkonwn."
+                )
+                continue
+            df = read_txt(
+                ofp_stem.with_name(f"{ofp_stem.name}{stem_suff}").with_suffix(".txt")
+            )
+            df.attrs.update(which=which)
+            dfs.append(df)
+
+        # Merge
+        for df in dfs:
+            assert {"lat", "lon", "height"}.issubset(df.columns)
+        df_ = dfs[0]
+        for df in dfs[1:]:
+            df_ = df_.merge(df, on=["lat", "lon", "height"], how="outer")
+        ds = df_.set_index(["height", "lat", "lon"]).to_xarray().squeeze()
 
     # Store namelist settings
     ds.attrs["nml"] = str(full_config)
@@ -206,15 +244,14 @@ def read_txt(fp: Path) -> pd.DataFrame:
 if __name__ == "__main__":
     ...
     # ds = run(case_dir=Path("test"), cleanup=False)
-    # ds = run(
-    #     config={
-    #         "filenames": {"file_vars": "../input/input_variables_point.txt"},
-    #         "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1},
-    #         # "filenames": {"file_vars": "../input/gfs.t12z.20220701.sfcf000.canopy.txt"},
-    #         # "userdefs": {"infmt_opt": 1},
-    #     },
-    #     case_dir=Path("test"),
-    #     cleanup=False,
-    # )
-
-    df = read_txt(Path("test/output/out_output_waf.txt"))
+    ds = run(
+        config={
+            "filenames": {"file_vars": "../input/input_variables_point.txt"},
+            "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1},
+            # "filenames": {"file_vars": "../input/gfs.t12z.20220701.sfcf000.canopy.txt"},
+            # "userdefs": {"infmt_opt": 1},
+        },
+        case_dir=Path("test"),
+        cleanup=False,
+    )
+    # df = read_txt(Path("test/output/out_output_waf.txt"))
