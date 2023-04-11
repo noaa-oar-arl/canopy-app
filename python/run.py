@@ -146,7 +146,7 @@ def run(
     return ds
 
 
-def read_txt(fp: Path) -> xr.Dataset:
+def read_txt(fp: Path) -> pd.DataFrame:
     """Read canopy-app txt output file."""
     import re
 
@@ -175,7 +175,7 @@ def read_txt(fp: Path) -> xr.Dataset:
                 names: list[str] = []
                 units: dict[str, str | None] = {}
                 for head in heads:
-                    m = re.fullmatch(r"([a-zA-Z_]+) \(([^)]+)\)", head)
+                    m = re.fullmatch(r"([a-zA-Z_ ]+) \(([^)]+)\)", head)
                     if m is None:
                         u = None
                         name = head
@@ -199,12 +199,8 @@ def read_txt(fp: Path) -> xr.Dataset:
         )
     df.columns = names
     df.attrs.update(hc=hc, nlay=nlay, units=units)
-    print(df)
-    df.info()
 
-    ds = df.to_xarray()
-
-    return ds
+    return df
 
 
 if __name__ == "__main__":
@@ -221,4 +217,4 @@ if __name__ == "__main__":
     #     cleanup=False,
     # )
 
-    ds = read_txt(Path("test/output/out_output_canopy_wind.txt"))
+    df = read_txt(Path("test/output/out_output_waf.txt"))
