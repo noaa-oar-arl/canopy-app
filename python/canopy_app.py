@@ -82,6 +82,7 @@ def run(
         Namelist options as a dict.
         Defaults used if not provided.
         (Don't need to change input path, we set to absolute path automatically.)
+        If using relative paths, specify relative to the working directory.
     case_dir
         Directory for the case.
         A temporary directory is used if not provided.
