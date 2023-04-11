@@ -166,12 +166,24 @@ def run(
             dfs.append(df)
 
         # Merge
+        units: dict[str, str] = {}
+        dss = []
         for df in dfs:
-            assert {"lat", "lon", "height"}.issubset(df.columns)
-        df_ = dfs[0]
-        for df in dfs[1:]:
-            df_ = df_.merge(df, on=["lat", "lon", "height"], how="outer")
-        ds = df_.set_index(["height", "lat", "lon"]).to_xarray().squeeze()
+            if {"lat", "lon", "height"}.issubset(df.columns):
+                ds_ = df.set_index(["height", "lat", "lon"]).to_xarray().squeeze()
+            elif {"lat", "lon"}.issubset(df.columns):
+                ds_ = df.set_index(["lat", "lon"]).to_xarray().squeeze()
+            else:
+                raise ValueError("Expected df to have columns 'lat', 'lon' [,'height'].")
+            units.update(df.attrs["units"])
+            for vn in ds_.data_vars:
+                ds_[vn].attrs["units"] = units[vn]
+                ds_[vn].attrs["group"] = df.attrs["which"]
+            ds_.attrs.update(
+                {k: v for k, v in df.attrs.items() if k not in {"which", "units"}}
+            )
+            dss.append(ds_)
+        ds = xr.merge(dss, combine_attrs="no_conflicts")
 
     # Store namelist settings
     ds.attrs["nml"] = str(full_config)
@@ -198,7 +210,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
                     raise ValueError(
                         f"Unexpected file format. Line {i} failed to match regex {pattern!r}."
                     )
-                hc = float(m.group(1))
+                href = float(m.group(1))
             elif i == 1:
                 pattern = r" *Number of model layers\: *([0-9]*)"
                 m = re.match(pattern, line)
@@ -236,7 +248,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
             f"are of a different number than the loaded dataframe ({len(df.columns)})."
         )
     df.columns = names
-    df.attrs.update(hc=hc, nlay=nlay, units=units)
+    df.attrs.update(href=href, nlay=nlay, units=units)
 
     return df
 

@@ -80,7 +80,7 @@ CONTAINS
                 open(11, file=TRIM(TXTPREFX)//'_output_waf.txt')
                 write(11, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
                 write(11, '(a30, i6)') 'Number of model layers: ', modlays
-                write(11, '(a8, a9, a19, a19, a11)') 'Lat', 'Lon', 'Height (m)', 'Flame height (m)', 'WAF'
+                write(11, '(a8, a9, a19, a19, a11)') 'Lat', 'Lon', 'Canopy height (m)', 'Flame height (m)', 'WAF'
                 do loc=1, nlat*nlon
                     write(11, '(f8.2, f9.2, f19.2, f19.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
                         variables(loc)%fh, flameh(loc), waf(loc)
