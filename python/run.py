@@ -265,7 +265,11 @@ def read_txt(fp: Path) -> pd.DataFrame:
     return df
 
 
-def sens_config(cases: list[dict[str, Any]], base_dir: Path | None = None) -> xr.Dataset:
+def sens_config(
+    cases: list[dict[str, Any]],
+    base_dir: Path | None = None,
+    cleanup: bool = True,
+) -> xr.Dataset:
     """Do multiple runs with different namelist configuration,
     returning single merged dataset.
     """
@@ -289,7 +293,7 @@ def sens_config(cases: list[dict[str, Any]], base_dir: Path | None = None) -> xr
         ds = run(
             config=case,
             case_dir=base_dir / f"case_{i:0{len(str(len(cases) - 1))}}",
-            cleanup=True,
+            cleanup=False,
         )
         dss.append(ds)
 
@@ -297,6 +301,10 @@ def sens_config(cases: list[dict[str, Any]], base_dir: Path | None = None) -> xr
 
     for k, v in case_vars.items():
         ds[k] = ("case", v)
+
+    # Clean up
+    if cleanup:
+        shutil.rmtree(base_dir)
 
     return ds
 
