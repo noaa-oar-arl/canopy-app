@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 import f90nml
+import numpy as np
 import pandas as pd
 import xarray as xr
 
@@ -294,6 +295,59 @@ def sens_config(cases: list[dict[str, Any]]) -> xr.Dataset:
     return ds
 
 
+def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
+    """Helper to generate config dicts.
+
+    Supply any namelist parameter as a keyword argument,
+    with a single option or list of options
+    (those with lists must be the same length, unless using `product`).
+    """
+    # import itertools
+    from collections import defaultdict
+
+    if not product:
+        sings = {}
+        mults = {}
+        for k, v in kwargs.items():
+            if np.isscalar(v):
+                sings[k] = v
+            else:
+                mults[k] = v
+
+        max_len = max(len(v) for v in mults.values())
+        for k, v in mults.items():
+            if len(v) != max_len:
+                raise ValueError(
+                    "All lists should be the same length. "
+                    f"Max length is {max_len} but {k!r} has length {len(v)}."
+                )
+
+        cases = []
+        for i in range(max_len):
+            case = defaultdict(dict)
+            for k, v in sings.items():
+                if k.startswith("file_"):
+                    case["filenames"][k] = v
+                else:
+                    case["userdefs"][k] = v
+            for k, v in mults.items():
+                if k.startswith("file_"):
+                    case["filenames"][k] = v[i]
+                else:
+                    case["userdefs"][k] = v[i]
+            cases.append(case)
+        for i, case in enumerate(cases):
+            cases[i] = dict(case)
+
+    else:
+        raise NotImplementedError
+
+    # if product:
+    #     cases = [dict(zip(kwargs, v)) for v in itertools.product(*kwargs.values())]
+
+    return cases
+
+
 if __name__ == "__main__":
     ...
     # ds = run(case_dir=Path("test"), cleanup=False)
@@ -310,14 +364,24 @@ if __name__ == "__main__":
 
     # df = read_txt(Path("test/output/out_output_waf.txt"))
 
-    cases = [
-        {
-            "filenames": {"file_vars": "../input/input_variables_point.txt"},
-            "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1, "z0ghc": 0.001},
-        },
-        {
-            "filenames": {"file_vars": "../input/input_variables_point.txt"},
-            "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1, "z0ghc": 0.01},
-        },
-    ]
+    # cases = [
+    #     {
+    #         "filenames": {"file_vars": "../input/input_variables_point.txt"},
+    #         "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1, "z0ghc": 0.001},
+    #     },
+    #     {
+    #         "filenames": {"file_vars": "../input/input_variables_point.txt"},
+    #         "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1, "z0ghc": 0.01},
+    #     },
+    # ]
+    # ds = sens_config(cases)
+
+    cases = config_cases(
+        file_vars="../input/input_variables_point.txt",
+        infmt_opt=1,
+        nlat=1,
+        nlon=1,
+        z0ghc=[0.001, 0.01],
+    )
+    print(cases)
     ds = sens_config(cases)
