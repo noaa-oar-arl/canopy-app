@@ -194,6 +194,7 @@ def run(
                 raise ValueError("Expected df to have columns 'lat', 'lon' [,'height'].")
             units.update(df.attrs["units"])
             for vn in ds_.data_vars:
+                assert isinstance(vn, str)
                 ds_[vn].attrs["units"] = units[vn]
                 ds_[vn].attrs["group"] = df.attrs["which"]
             ds_.attrs.update(
@@ -268,7 +269,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
             f"Unexpected file format. Detected columns names {names} ({len(names)}) "
             f"are of a different number than the loaded dataframe ({len(df.columns)})."
         )
-    df.columns = names
+    df.columns = names  # type: ignore[assignment]
     df.attrs.update(href=href, nlay=nlay, units=units)
 
     return df
@@ -367,7 +368,7 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
 
         cases = []
         for i in range(max_len):
-            case = defaultdict(dict)
+            case: defaultdict[str, dict[str, Any]] = defaultdict(dict)
             for k, v in sings.items():
                 case[_k_sec(k)][k] = v
             for k, v in mults.items():
@@ -389,10 +390,7 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
                 case[_k_sec(k)][k] = v
             cases.append(case)
 
-    for i, case in enumerate(cases):
-        cases[i] = dict(case)
-
-    return cases
+    return [dict(case) for case in cases]
 
 
 if __name__ == "__main__":
