@@ -265,11 +265,17 @@ def read_txt(fp: Path) -> pd.DataFrame:
     return df
 
 
-def sens_config(cases: list[dict[str, Any]]) -> xr.Dataset:
+def sens_config(cases: list[dict[str, Any]], base_dir: Path | None = None) -> xr.Dataset:
     """Do multiple runs with different namelist configuration,
     returning single merged dataset.
     """
     from collections import defaultdict
+
+    if base_dir is None:
+        import tempfile
+
+        temp_dir = tempfile.TemporaryDirectory(prefix="canopy-app_")
+        base_dir = Path(temp_dir.name)
 
     dss = []
     case_vars = defaultdict(list)
@@ -282,7 +288,7 @@ def sens_config(cases: list[dict[str, Any]]) -> xr.Dataset:
         print(f"Running case {i+1}/{len(cases)}")
         ds = run(
             config=case,
-            case_dir=Path(f"case_{i:0{len(str(len(cases) - 1))}}"),
+            case_dir=base_dir / f"case_{i:0{len(str(len(cases) - 1))}}",
             cleanup=True,
         )
         dss.append(ds)
