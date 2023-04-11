@@ -67,6 +67,7 @@ def run(
     config: dict[str, Any] | None = None,
     case_dir: Path | None = None,
     cleanup: bool = True,
+    verbose: bool = False,
 ) -> xr.Dataset:
     """Run canopy-app, returning xarray dataset.
 
@@ -102,7 +103,8 @@ def run(
             assert not isinstance(v, dict)
             if k not in full_config[section_name]:
                 raise ValueError(f"Unexpected namelist option: '{section_name}.{k}'")
-            print(f"'{section_name}.{k}' {full_config[section_name][k]} -> {v!r}")
+            if verbose:
+                print(f"'{section_name}.{k}' {full_config[section_name][k]} -> {v!r}")
             full_config[section_name][k] = v
     output_dir = case_dir / "output"
     output_dir.mkdir(exist_ok=True)
@@ -125,7 +127,9 @@ def run(
         raise ValueError(f"Unexpected input file type: {ifp.suffix}")
 
     # Write namelist
-    print(full_config)
+    if verbose:
+        print("Full namelist config:")
+        print(full_config)
     config_dir = case_dir / "input"
     config_dir.mkdir(exist_ok=True)
     full_config.write(config_dir / "namelist.canopy", force=True)
@@ -269,6 +273,7 @@ def sens_config(
     cases: list[dict[str, Any]],
     base_dir: Path | None = None,
     cleanup: bool = True,
+    verbose: bool = False,
 ) -> xr.Dataset:
     """Do multiple runs with different namelist configuration,
     returning single merged dataset.
@@ -289,11 +294,13 @@ def sens_config(
         for k, v in case["userdefs"].items():
             case_vars[k].append(v)
 
-        print(f"Running case {i+1}/{len(cases)}")
+        if verbose:
+            print(f"Running case {i+1}/{len(cases)}")
         ds = run(
             config=case,
             case_dir=base_dir / f"case_{i:0{len(str(len(cases) - 1))}}",
             cleanup=False,
+            verbose=verbose,
         )
         dss.append(ds)
 
