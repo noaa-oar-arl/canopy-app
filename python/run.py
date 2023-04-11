@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 import f90nml
+import pandas as pd
 import xarray as xr
 
 HERE = Path(__file__).parent.absolute()
@@ -49,6 +50,9 @@ def out_and_back(p: Path, *, finally_: Callable | None = None):
         os.chdir(cwd)
 
 
+POINT_DEFAULT = pd.read_csv(REPO / "input" / "input_variables_point.txt", index_col=False)
+
+
 def run(
     *,
     config: dict[str, Any] | None = None,
@@ -80,18 +84,39 @@ def run(
         case_dir.mkdir(parents=True, exist_ok=True)
 
     # Create config
-    full_config: f90nml.Namelist
-    if config is None:
-        full_config = DEFAULTS.copy()
-    else:
-        full_config = f90nml.Namelist({**DEFAULTS, **config})
+    full_config: f90nml.Namelist = DEFAULTS.copy()
+    user_config = config or {}
+    for name, sub_config in user_config.items():
+        if name not in full_config:
+            raise ValueError(f"Unexpected namelist section: {name!r}")
+        for k, v in sub_config.items():
+            assert not isinstance(v, dict)
+            if k not in full_config[name]:
+                raise ValueError(f"Unexpected namelist option: '{name}.{k}'")
+            print(f"'{name}.{k}' {full_config[name][k]} -> {v!r}")
+            full_config[name][k] = v
     output_dir = case_dir / "output"
     output_dir.mkdir(exist_ok=True)
     ofp_stem = output_dir / "out"
     full_config["filenames"]["file_out"] = ofp_stem.relative_to(case_dir).as_posix()
-    print(full_config)
+
+    # Check input file
+    ifp = Path(full_config["filenames"]["file_vars"])
+    if not ifp.is_file():
+        raise ValueError(f"Input file {ifp.as_posix()!r} does not exist")
+    if not ifp.is_absolute():
+        full_config["filenames"]["file_vars"] = ifp.resolve().as_posix()
+    if ifp.suffix in {".nc", ".nc4", ".ncf"}:  # consistent with sr `canopy_check_input`
+        nc_out = True
+        assert full_config["userdefs"]["infmt_opt"] == 0
+    elif ifp.suffix in {".txt"}:
+        nc_out = False
+        assert full_config["userdefs"]["infmt_opt"] == 1
+    else:
+        raise ValueError(f"Unexpected input file type: {ifp.suffix}")
 
     # Write namelist
+    print(full_config)
     config_dir = case_dir / "input"
     config_dir.mkdir(exist_ok=True)
     full_config.write(config_dir / "namelist.canopy", force=True)
@@ -104,7 +129,10 @@ def run(
         subprocess.run([exe])
 
     # Load nc
-    ds = xr.open_dataset(ofp_stem.with_suffix(".nc"))
+    if nc_out:
+        ds = xr.open_dataset(ofp_stem.with_suffix(".nc"))
+    else:
+        ds = pd.read_csv(ofp_stem.with_suffix(".txt"), index_col=False).to_xarray()
 
     # Store namelist settings
     ds.attrs["nml"] = str(full_config)
@@ -118,5 +146,13 @@ def run(
 
 
 if __name__ == "__main__":
-    # run()
-    ds = run(case_dir=Path("test"), cleanup=False)
+    ...
+    # ds = run(case_dir=Path("test"), cleanup=False)
+    ds = run(
+        config={
+            "filenames": {"file_vars": "../input/input_variables_point.txt"},
+            "userdefs": {"infmt_opt": 1},
+        },
+        case_dir=Path("test"),
+        cleanup=False,
+    )
