@@ -21,21 +21,24 @@ assert HERE.name == "python"
 assert HERE.parent.name == "canopy-app"
 REPO = HERE.parent
 
-with open(REPO / "input" / "namelist.canopy") as f:
-    DEFAULTS = f90nml.read(f)
 
-del f
+def _load_default_config():
+    with open(REPO / "input" / "namelist.canopy") as f:
+        config = f90nml.read(f)
 
-# Make input paths absolute in default config
-for k, v in DEFAULTS["filenames"].items():
-    p0 = Path(v)
-    if not p0.is_absolute():
-        p = REPO / p0
-    else:
-        p = p0
-    DEFAULTS["filenames"][k] = p.as_posix()
+    # Make input paths absolute in default config
+    for k, v in config["filenames"].items():
+        p0 = Path(v)
+        if not p0.is_absolute():
+            p = REPO / p0
+        else:
+            p = p0
+        config["filenames"][k] = p.as_posix()
 
-del (k, v, p0, p)
+    return config
+
+
+DEFAULT_CONFIG = _load_default_config()
 
 
 @contextlib.contextmanager
@@ -51,7 +54,9 @@ def out_and_back(p: Path, *, finally_: Callable | None = None):
         os.chdir(cwd)
 
 
-POINT_DEFAULT = pd.read_csv(REPO / "input" / "input_variables_point.txt", index_col=False)
+DEFAULT_POINT_INPUT = pd.read_csv(
+    REPO / "input" / "input_variables_point.txt", index_col=False
+)
 
 _TXT_STEM_SUFFS = {
     "wind": "_output_canopy_wind",
@@ -94,7 +99,7 @@ def run(
         case_dir.mkdir(parents=True, exist_ok=True)
 
     # Create config
-    full_config: f90nml.Namelist = DEFAULTS.copy()
+    full_config: f90nml.Namelist = DEFAULT_CONFIG.copy()
     user_config = config or {}
     for section_name, sub_config in user_config.items():
         if section_name not in full_config:
@@ -337,7 +342,7 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
         sings = {}
         mults = {}
         for k, v in kwargs.items():
-            if np.isscalar(DEFAULTS[_k_sec(k)][k]):
+            if np.isscalar(DEFAULT_CONFIG[_k_sec(k)][k]):
                 sings[k] = v
             else:
                 mults[k] = v
@@ -364,6 +369,7 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
 
         for k, v in kwargs.items():
             if not isinstance(v, list):
+                # NOTE: This condition won't work if the namelist default is an array
                 kwargs[k] = [v]
 
         cases = []
