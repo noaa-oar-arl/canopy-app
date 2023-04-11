@@ -140,7 +140,7 @@ def run(
         raise RuntimeError("compile canopy-app first")
     cmd = [exe.as_posix()]
     with out_and_back(case_dir):
-        subprocess.run(cmd, check=True)
+        subprocess.run(cmd, check=True, capture_output=not verbose)
 
     # Load nc
     if nc_out:
