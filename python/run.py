@@ -86,15 +86,15 @@ def run(
     # Create config
     full_config: f90nml.Namelist = DEFAULTS.copy()
     user_config = config or {}
-    for name, sub_config in user_config.items():
-        if name not in full_config:
-            raise ValueError(f"Unexpected namelist section: {name!r}")
+    for section_name, sub_config in user_config.items():
+        if section_name not in full_config:
+            raise ValueError(f"Unexpected namelist section: {section_name!r}")
         for k, v in sub_config.items():
             assert not isinstance(v, dict)
-            if k not in full_config[name]:
-                raise ValueError(f"Unexpected namelist option: '{name}.{k}'")
-            print(f"'{name}.{k}' {full_config[name][k]} -> {v!r}")
-            full_config[name][k] = v
+            if k not in full_config[section_name]:
+                raise ValueError(f"Unexpected namelist option: '{section_name}.{k}'")
+            print(f"'{section_name}.{k}' {full_config[section_name][k]} -> {v!r}")
+            full_config[section_name][k] = v
     output_dir = case_dir / "output"
     output_dir.mkdir(exist_ok=True)
     ofp_stem = output_dir / "out"
@@ -125,8 +125,9 @@ def run(
     exe = REPO / "canopy"
     if not exe.is_file():
         raise RuntimeError("compile canopy-app first")
+    cmd = [exe.as_posix()]
     with out_and_back(case_dir):
-        subprocess.run([exe])
+        subprocess.run(cmd, check=True)
 
     # Load nc
     if nc_out:
@@ -151,7 +152,9 @@ if __name__ == "__main__":
     ds = run(
         config={
             "filenames": {"file_vars": "../input/input_variables_point.txt"},
-            "userdefs": {"infmt_opt": 1},
+            "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1},
+            # "filenames": {"file_vars": "../input/gfs.t12z.20220701.sfcf000.canopy.txt"},
+            # "userdefs": {"infmt_opt": 1},
         },
         case_dir=Path("test"),
         cleanup=False,
