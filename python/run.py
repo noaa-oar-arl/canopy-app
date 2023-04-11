@@ -253,17 +253,54 @@ def read_txt(fp: Path) -> pd.DataFrame:
     return df
 
 
+def sens_config(cases: list[dict[str, Any]]) -> xr.Dataset:
+    """Do multiple runs with different namelist configuration,
+    returning single merged dataset.
+    """
+    from collections import defaultdict
+
+    dss = []
+    case_vars = defaultdict(list)
+    for i, case in enumerate(cases):
+        assert not ({"modlays", "modres"} & set(case["userdefs"]))
+
+        for k, v in case["userdefs"].items():
+            case_vars[k].append(v)
+
+        print(f"Running case {i+1}/{len(cases)}")
+        ds = run(config=case, case_dir=Path(f"case_{i:0{len(cases)}}"), cleanup=True)
+        dss.append(ds)
+
+    ds = xr.concat(dss, dim="case")
+
+    for k, v in case_vars.items():
+        ds[k] = ("case", v)
+
+    return ds
+
+
 if __name__ == "__main__":
     ...
     # ds = run(case_dir=Path("test"), cleanup=False)
-    ds = run(
-        config={
-            "filenames": {"file_vars": "../input/input_variables_point.txt"},
-            "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1},
-            # "filenames": {"file_vars": "../input/gfs.t12z.20220701.sfcf000.canopy.txt"},
-            # "userdefs": {"infmt_opt": 1},
-        },
-        case_dir=Path("test"),
-        cleanup=False,
-    )
+    # ds = run(
+    #     config={
+    #         "filenames": {"file_vars": "../input/input_variables_point.txt"},
+    #         "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1},
+    #         # "filenames": {"file_vars": "../input/gfs.t12z.20220701.sfcf000.canopy.txt"},
+    #         # "userdefs": {"infmt_opt": 1},
+    #     },
+    #     case_dir=Path("test"),
+    #     cleanup=False,
+    # )
+
     # df = read_txt(Path("test/output/out_output_waf.txt"))
+
+    cases = [
+        {
+            "userdefs": {"z0ghc": 0.001},
+        },
+        {
+            "userdefs": {"z0ghc": 0.01},
+        },
+    ]
+    ds = sens_config(cases)
