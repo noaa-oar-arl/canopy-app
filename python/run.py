@@ -279,7 +279,11 @@ def sens_config(cases: list[dict[str, Any]]) -> xr.Dataset:
             case_vars[k].append(v)
 
         print(f"Running case {i+1}/{len(cases)}")
-        ds = run(config=case, case_dir=Path(f"case_{i:0{len(cases)}}"), cleanup=True)
+        ds = run(
+            config=case,
+            case_dir=Path(f"case_{i:0{len(str(len(cases) - 1))}}"),
+            cleanup=True,
+        )
         dss.append(ds)
 
     ds = xr.concat(dss, dim="case", join="exact", combine_attrs="drop_conflicts")
@@ -293,25 +297,27 @@ def sens_config(cases: list[dict[str, Any]]) -> xr.Dataset:
 if __name__ == "__main__":
     ...
     # ds = run(case_dir=Path("test"), cleanup=False)
-    ds = run(
-        config={
-            "filenames": {"file_vars": "../input/input_variables_point.txt"},
-            "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1},
-            # "filenames": {"file_vars": "../input/gfs.t12z.20220701.sfcf000.canopy.txt"},
-            # "userdefs": {"infmt_opt": 1},
-        },
-        case_dir=Path("test"),
-        cleanup=False,
-    )
+    # ds = run(
+    #     config={
+    #         "filenames": {"file_vars": "../input/input_variables_point.txt"},
+    #         "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1},
+    #         # "filenames": {"file_vars": "../input/gfs.t12z.20220701.sfcf000.canopy.txt"},
+    #         # "userdefs": {"infmt_opt": 1},
+    #     },
+    #     case_dir=Path("test"),
+    #     cleanup=False,
+    # )
 
     # df = read_txt(Path("test/output/out_output_waf.txt"))
 
-    # cases = [
-    #     {
-    #         "userdefs": {"z0ghc": 0.001},
-    #     },
-    #     {
-    #         "userdefs": {"z0ghc": 0.01},
-    #     },
-    # ]
-    # ds = sens_config(cases)
+    cases = [
+        {
+            "filenames": {"file_vars": "../input/input_variables_point.txt"},
+            "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1, "z0ghc": 0.001},
+        },
+        {
+            "filenames": {"file_vars": "../input/input_variables_point.txt"},
+            "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1, "z0ghc": 0.01},
+        },
+    ]
+    ds = sens_config(cases)
