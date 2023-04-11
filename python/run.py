@@ -146,16 +146,79 @@ def run(
     return ds
 
 
+def read_txt(fp: Path) -> xr.Dataset:
+    """Read canopy-app txt output file."""
+    import re
+
+    # Parse header lines
+    with open(fp) as f:
+        for i, line in enumerate(f):
+            if i == 0:
+                pattern = r" *Reference height, h\: *([0-9\.]*) m"
+                m = re.match(pattern, line)
+                if m is None:
+                    raise ValueError(
+                        f"Unexpected file format. Line {i} failed to match regex {pattern!r}."
+                    )
+                hc = float(m.group(1))
+            elif i == 1:
+                pattern = r" *Number of model layers\: *([0-9]*)"
+                m = re.match(pattern, line)
+                if m is None:
+                    raise ValueError(
+                        f"Unexpected file format. Line {i} failed to match regex {pattern!r}."
+                    )
+                nlay = int(m.group(1))
+            elif i == 2:
+                # Column names (some with units)
+                heads = re.split(r" {2,}", line.strip())
+                names: list[str] = []
+                units: dict[str, str | None] = {}
+                for head in heads:
+                    m = re.fullmatch(r"([a-zA-Z_]+) \(([^)]+)\)", head)
+                    if m is None:
+                        u = None
+                        name = head
+                    else:
+                        name, u = m.groups()
+                    clean_name = name.lower().replace(" ", "_")
+                    names.append(clean_name)
+                    units[clean_name] = u
+            else:
+                break
+        else:
+            raise ValueError(
+                "Unexpected file format. Expected 3 header lines followed by data."
+            )
+
+    df = pd.read_csv(fp, index_col=False, skiprows=3, header=None, delimiter=r"\s+")
+    if len(names) != len(df.columns):
+        raise RuntimeError(
+            f"Unexpected file format. Detected columns names {names} ({len(names)}) "
+            f"are of a different number than the loaded dataframe ({len(df.columns)})."
+        )
+    df.columns = names
+    df.attrs.update(hc=hc, nlay=nlay, units=units)
+    print(df)
+    df.info()
+
+    ds = df.to_xarray()
+
+    return ds
+
+
 if __name__ == "__main__":
     ...
     # ds = run(case_dir=Path("test"), cleanup=False)
-    ds = run(
-        config={
-            "filenames": {"file_vars": "../input/input_variables_point.txt"},
-            "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1},
-            # "filenames": {"file_vars": "../input/gfs.t12z.20220701.sfcf000.canopy.txt"},
-            # "userdefs": {"infmt_opt": 1},
-        },
-        case_dir=Path("test"),
-        cleanup=False,
-    )
+    # ds = run(
+    #     config={
+    #         "filenames": {"file_vars": "../input/input_variables_point.txt"},
+    #         "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1},
+    #         # "filenames": {"file_vars": "../input/gfs.t12z.20220701.sfcf000.canopy.txt"},
+    #         # "userdefs": {"infmt_opt": 1},
+    #     },
+    #     case_dir=Path("test"),
+    #     cleanup=False,
+    # )
+
+    ds = read_txt(Path("test/output/out_output_canopy_wind.txt"))
