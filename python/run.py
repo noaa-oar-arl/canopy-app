@@ -309,6 +309,14 @@ def sens_config(
     return ds
 
 
+def _k_sec(k: str) -> str:
+    if k.startswith("file_"):
+        sec = "filenames"
+    else:
+        sec = "userdefs"
+    return sec
+
+
 def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
     """Helper to generate config dicts.
 
@@ -316,14 +324,13 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
     with a single option or list of options
     (those with lists must be the same length, unless using `product`).
     """
-    # import itertools
     from collections import defaultdict
 
     if not product:
         sings = {}
         mults = {}
         for k, v in kwargs.items():
-            if np.isscalar(v):
+            if np.isscalar(DEFAULTS[_k_sec(k)][k]):
                 sings[k] = v
             else:
                 mults[k] = v
@@ -340,24 +347,27 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
         for i in range(max_len):
             case = defaultdict(dict)
             for k, v in sings.items():
-                if k.startswith("file_"):
-                    case["filenames"][k] = v
-                else:
-                    case["userdefs"][k] = v
+                case[_k_sec(k)][k] = v
             for k, v in mults.items():
-                if k.startswith("file_"):
-                    case["filenames"][k] = v[i]
-                else:
-                    case["userdefs"][k] = v[i]
+                case[_k_sec(k)][k] = v[i]
             cases.append(case)
-        for i, case in enumerate(cases):
-            cases[i] = dict(case)
 
     else:
-        raise NotImplementedError
+        import itertools
 
-    # if product:
-    #     cases = [dict(zip(kwargs, v)) for v in itertools.product(*kwargs.values())]
+        for k, v in kwargs.items():
+            if not isinstance(v, list):
+                kwargs[k] = [v]
+
+        cases = []
+        for vs in itertools.product(*kwargs.values()):
+            case = defaultdict(dict)
+            for k, v in zip(kwargs, vs):
+                case[_k_sec(k)][k] = v
+            cases.append(case)
+
+    for i, case in enumerate(cases):
+        cases[i] = dict(case)
 
     return cases
 
@@ -396,6 +406,10 @@ if __name__ == "__main__":
         nlat=1,
         nlon=1,
         z0ghc=[0.001, 0.01],
+        lambdars=[1.0, 1.25],
+        product=True,
     )
-    print(cases)
+    from pprint import pprint
+
+    pprint(cases)
     ds = sens_config(cases)
