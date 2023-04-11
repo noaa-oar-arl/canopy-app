@@ -282,6 +282,15 @@ def run_config_sens(
 ) -> xr.Dataset:
     """Do multiple runs with different namelist configuration,
     returning single merged dataset.
+
+    Parameters
+    ----------
+    cases
+        List of namelist configurations in dict format,
+        each one suitable for passing to :func:`run`.
+    base_dir
+        Base directory for the cases (case directories are created under).
+        A temporary directory is used if not provided.
     """
     from collections import defaultdict
 
@@ -334,7 +343,8 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
 
     Supply any namelist parameter as a keyword argument,
     with a single option or list of options
-    (those with lists must be the same length, unless using `product`).
+    (those with lists must be the same length,
+    unless using `product`, which generates all possible combinations).
     """
     from collections import defaultdict
 
@@ -386,33 +396,6 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
 
 
 if __name__ == "__main__":
-    ...
-    # ds = run(case_dir=Path("test"), cleanup=False)
-    # ds = run(
-    #     config={
-    #         "filenames": {"file_vars": "../input/input_variables_point.txt"},
-    #         "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1},
-    #         # "filenames": {"file_vars": "../input/gfs.t12z.20220701.sfcf000.canopy.txt"},
-    #         # "userdefs": {"infmt_opt": 1},
-    #     },
-    #     case_dir=Path("test"),
-    #     cleanup=False,
-    # )
-
-    # df = read_txt(Path("test/output/out_output_waf.txt"))
-
-    # cases = [
-    #     {
-    #         "filenames": {"file_vars": "../input/input_variables_point.txt"},
-    #         "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1, "z0ghc": 0.001},
-    #     },
-    #     {
-    #         "filenames": {"file_vars": "../input/input_variables_point.txt"},
-    #         "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1, "z0ghc": 0.01},
-    #     },
-    # ]
-    # ds = run_config_sens(cases)
-
     cases = config_cases(
         file_vars="../input/input_variables_point.txt",
         infmt_opt=1,
@@ -422,7 +405,4 @@ if __name__ == "__main__":
         lambdars=[1.0, 1.25],
         product=True,
     )
-    from pprint import pprint
-
-    pprint(cases)
     ds = run_config_sens(cases)
