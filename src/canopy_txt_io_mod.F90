@@ -78,7 +78,7 @@ CONTAINS
                 write(*,*)  'Writing canopy WAF output'
                 write(*,*)  '-------------------------------'
                 open(11, file=TRIM(TXTPREFX)//'_output_waf.txt')
-                write(11, '(a30, f6.1)') 'Reference height, h: ', href_set, 'm'
+                write(11, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
                 write(11, '(a30, i6)') 'Number of model layers: ', modlays
                 write(11, '(a8, a9, a19, a19, a11)') 'Lat', 'Lon', 'Height (m)', 'Flame height (m)', 'WAF'
                 do loc=1, nlat*nlon
