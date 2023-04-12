@@ -354,7 +354,21 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
         sings = {}
         mults = {}
         for k, v in kwargs.items():
-            if np.isscalar(DEFAULT_CONFIG[_k_sec(k)][k]):
+            if not (
+                np.isscalar(v)
+                or (type(v) is list and np.isscalar(v[0]))
+                or (type(v) is list and type(v[0]) is list and np.isscalar(v[0][0]))
+            ):  # FIXME: could be more stringent
+                raise ValueError(
+                    f"Expected {k!r} value to be "
+                    f"scalar, list[scalar], or list[list[scalar]], got: {type(v)}."
+                )
+
+            if (np.isscalar(DEFAULT_CONFIG[_k_sec(k)][k]) and np.isscalar(v)) or (
+                type(DEFAULT_CONFIG[_k_sec(k)][k]) is list
+                and type(v) is list
+                and np.isscalar(v[0])
+            ):
                 sings[k] = v
             else:
                 mults[k] = v
