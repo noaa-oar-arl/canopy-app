@@ -38,6 +38,8 @@ which is read at runtime.
 ./canopy
 ```
 
+You can also [run with Python](./python/README.md).
+
 ## Components
 
 Current Canopy-App components:
