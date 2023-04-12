@@ -17,6 +17,9 @@ jobs:
     strategy:
       matrix:
         compiler: [gfortran-9, gfortran-10, gfortran-11]
+    defaults:
+      run:
+        shell: bash -l {0}
 
     steps:
       - uses: actions/checkout@v3
@@ -26,24 +29,23 @@ jobs:
           sudo apt-get update
           sudo apt-get install libnetcdff-dev
 
-      - name: Setup Python (for f90nml)
-        uses: actions/setup-python@v4
+      - name: Set up Python (micromamba)
+        uses: mamba-org/provision-with-micromamba@v15
         with:
-          python-version: '3.10'
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install -U pip setuptools wheel
-          python -m pip install f90nml
+          environment-file: python/environment.yml
+          cache-env: true
+          extra-specs: |
+            python=3.10
 
       - name: Check that default input is nc
         run: |
+          python -c '
           import f90nml
           with open("input/namelist.canopy") as f:
             nml = f90nml.read(f)
           assert nml["filenames"]["file_vars"].endswith((".nc", ".ncf")), "nc input by default, like build"
           assert nml["userdefs"]["infmt_opt"] == 0, "necessary to read 2-D"
-        shell: python
+          '
 
       - name: Debug compile and run
         run: |
@@ -53,6 +55,12 @@ jobs:
         env:
           DEBUG: 1
           FC: ${{ matrix.compiler }}
+
+      - name: Run Python module as script
+        run: |
+          cd python
+          python canopy_app.py
+          cd -
 
       - name: Non-debug compile and run
         run: |
