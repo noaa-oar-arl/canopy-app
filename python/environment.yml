@@ -5,10 +5,19 @@ channels:
 dependencies:
   - python>=3.7
   #
+  # Core
   - f90nml
   - netcdf4
   - numpy
   - pandas
   - xarray
   #
+  # Examples
+  - cartopy
+  - ipympl
+  - ipywidgets
+  - jupyterlab
+  - matplotlib
+  #
+  # Extra
   - ipython
