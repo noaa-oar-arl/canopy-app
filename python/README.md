@@ -44,3 +44,4 @@ cases = config_cases(
 )
 ds = run_config_sens(cases)
 ```
+:point_up: We still get a single output dataset, but it has a `case` dimension.
