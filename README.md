@@ -183,7 +183,7 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.test
 | `ifcanphot`     | logical canopy photolysis option (default: `.FALSE.`)                              |
 | `ifcanbio`      | logical canopy biogenic emissions option (default: `.FALSE.`)                      |
 | `href_opt`      | integer for using href_set in namelist (= `0`, default) or array from file (= `1`) |
-| `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`); Note that if href becomes small and approaches z0 (or as href --> 0), only the sub-canopy wind profile is calculated, recommend href = 10m  |
+| `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) **\*\*** |
 | `z0ghc`         | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
 | `rsl_opt`       | user-set option for Roughness SubLayer (RSL) effects above and at canopy top (Uc). `0`: uses a constant lambdars factor only |
 | `lambdars`      | Value representing influence of RSL effects (with `rsl_opt=0`) (Massman et al., 2017)          |
@@ -202,6 +202,7 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.test
 | `fch_thresh`    | user-set real value of canopy height  threshold for contiguous canopy (m)          |
 
 **\*\*** If `modres` >> `flameh` then some error in WAF calculation will be incurred.  Suggestion is to use relative fine `modres` (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
+**\*\*** If `href_set` becomes small and approaches z0 (or as `href_set` --> 0), only the sub-canopy wind profile is calculated, recommend `href_set` = 10 m.  
 
 **Note:** Canopy is parameterized by foliage distribution shape functions and parameters for different vegetation types.
 
