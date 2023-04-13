@@ -185,7 +185,8 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.test
 | `href_opt`      | integer for using href_set in namelist (= `0`, default) or array from file (= `1`) |
 | `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) |
 | `z0ghc`         | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
-| `lambdars`      | Value representing influence of roughness sublayer (Massman et al., 2017)          |
+| `rsl_opt`       | user-set option for Roughness SubLayer (RSL) effects above and at canopy top (Uc). `0`: uses a constant lambdars factor only |
+| `lambdars`      | Value representing influence of RSL effects (with `rsl_opt=0`) (Massman et al., 2017)          |
 | `dx_opt`        | `0`: Calculation of dx resolution/distance from lon; `1`: user-set dx grid resolution |
 | `dx_set`        | user-set real value of grid resolution (m) only if `dx_opt=1`                      |
 | `flameh_opt`    | `0`: Calculation of flame height from FRP (Byram, 1959); `1`: user-set flameh; `2`: FRP calculation where available (active fires), elsewhere user-set `flameh`; `3`: FlameH override, i.e., only uses fraction of canopy height (`flameh_set` must be <=1.0) as a surrogate for `flameh`; `4`: FRP calculation where available (active fires) and FlameH override elsewhere (same as option 3); `5`: FRP/intensity dependent (i.e., sub-canopy vs. crown fires) calculation where available (active fires) and FlameH override elsewhere (same as option 3). If option 5 is used and crowning is calculated, then the total flame height (i.e., top of canopy=FCH) is used instead of 1/2 flame height. |
@@ -195,7 +196,6 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.test
 | `pai_set`       | user-set real value of PAI (default: `4.0`; only used if `pai_opt=3`)              |
 | `lu_opt`        | integer for input model land use type (`0`: VIIRS 17 Cat (default) or `1`: MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.) |
 | `z0_opt`        | integer (`0`: use model input or `1`: vegtype dependent z0 for first estimate)     |
-| `rsl_opt`       | user-set option to include more explicit stability and Roughness SubLayer (RSL) effects in calculation of wind speed at canopy top (Uc) from reference height. `0`: off; `1`: on |
 | `bio_cce`       | user-set real value of MEGAN biogenic emissions "canopy environment coefficient" used to tune emissions to model inputs/calculations (default: `0.21`, based on Silva et al. 2020) |
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
 | `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
