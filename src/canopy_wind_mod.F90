@@ -88,6 +88,16 @@ contains
             uc = UBZREF
         end if
 
+        !Some checks on Uc calculation
+        if (uc > UBZREF) then !reference height too small and close to roughness length
+            uc = UBZREF
+        end if
+
+        if (uc <= 0.0) then
+            write(*,*)  'Uc cannot be <= 0 at  ',uc , ' in canopy_wind calc...exiting'
+            call exit(1)
+        end if
+
         !calculate U* from Massman 1997 (https://doi.org/10.1023/A:1000234813011)
         ustrmod = uc*(0.38_rk - (0.38_rk + (vonk/log(Z0GHC)))*exp(-1.0_rk*(15.0_rk*drag)))
 
@@ -132,15 +142,6 @@ contains
 !            uc = UBZREF
 !        end if
 
-        if (uc > UBZREF) then !reference height still small and close to roughness length
-            uc = UBZREF
-        end if
-
-        if (uc <= 0.0) then
-            write(*,*)  'Uc cannot be <= 0 at  ',uc , ' in canopy_wind calc...exiting'
-            call exit(1)
-        end if
-
         !Calculate in-canopy parameters that dominate near top region of canopy (Massman et al., 2017)
         cstress = (2.0_rk*(ustrmod**2.0_rk))/(uc**2.0_rk)
         nrat   =  drag/cstress
@@ -157,10 +158,14 @@ contains
         end if
         CANBOT_OUT = canbot
 
-        if (ZK <= HCM) then       !at or below canopy top --> modify uc winds
+        if (ZK <= HCM) then       !at or below canopy top --> in-canopy profile
             CANWIND = uc*canbot*cantop
-        else
-            CANWIND = UBZREF*log(LAMBDARS*(ZK-zpd+z0m)/z0m)/log(HREF/z0m)       !above canopy top = logarithmic profile
+        else                      !above canopy top       --> log profile
+            if (uc < UBZREF) then !reference height is not small compared to z0m
+                CANWIND = UBZREF*log(LAMBDARS*(ZK-zpd+z0m)/z0m)/log(HREF/z0m)
+            else                  !cannot calcualate above canopy wind, set constant to UBZREF
+                CANWIND = UBZREF
+            end if
         end if
 
     END SUBROUTINE CANOPY_WIND
