@@ -1,5 +1,11 @@
 ## Getting started
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/noaa-oar-arl/canopy-app/HEAD?labpath=python%2Fexamples.ipynb)
+
+Try it out on Binder :point_up: or follow the steps below :point_down: to run locally.
+
+---
+
 Check that your active Python environment has the dependencies listed in [`environment.yml`](./environment.yml).
 Otherwise, you can create a new environment using:
 
