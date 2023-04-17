@@ -19,7 +19,9 @@ import xarray as xr
 
 HERE = Path(__file__).parent.absolute()
 assert HERE.name == "python"
-assert HERE.parent.name == "canopy-app"
+assert (HERE.parent / "README.md").is_file() and (
+    HERE.parent / "LICENSE"
+).is_file(), "repo base"
 REPO = HERE.parent
 
 
