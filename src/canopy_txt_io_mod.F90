@@ -64,7 +64,7 @@ CONTAINS
                 open(10, file=TRIM(TXTPREFX)//'_output_canopy_wind.txt')
                 write(10, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(10, '(a30, i6)') 'number of model layers: ', modlays
-                write(10, '(a8, a9, a12, a17)') 'lat', 'lon', 'height (m)', 'canwind (m s-1)'
+                write(10, '(a8, a9, a12, a17)') 'lat', 'lon', 'height (m)', 'ws (m s-1)'
                 do loc=1, nlat*nlon
                     do k=1, modlays
                         write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &

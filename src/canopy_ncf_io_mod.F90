@@ -383,7 +383,7 @@ CONTAINS
         !-------------------------------------------------------------------------------
         if (ifcanwind .or. ifcanwaf) then
             c_canwind%fld = fillreal
-            c_canwind%fldname = 'canwind'
+            c_canwind%fldname = 'ws'
             c_canwind%long_name = 'above/below canopy wind speed'
             c_canwind%units = 'm s-1'
             c_canwind%fillvalue = fillreal
