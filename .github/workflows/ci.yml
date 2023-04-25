@@ -62,6 +62,14 @@ jobs:
           python canopy_app.py
           cd -
 
+      - name: Run Python example nbs
+        run: |
+          cd python
+          for f in *.ipynb; do
+            jupyter nbconvert --to notebook --execute $f
+          done
+          cd -
+
       - name: Non-debug compile and run
         run: |
           make -C src clean

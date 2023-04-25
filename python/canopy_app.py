@@ -8,6 +8,7 @@ import json
 import os
 import shutil
 import subprocess
+from copy import deepcopy
 from pathlib import Path
 from typing import Any, Callable
 
@@ -18,11 +19,13 @@ import xarray as xr
 
 HERE = Path(__file__).parent.absolute()
 assert HERE.name == "python"
-assert HERE.parent.name == "canopy-app"
+assert (HERE.parent / "README.md").is_file() and (
+    HERE.parent / "LICENSE"
+).is_file(), "repo base"
 REPO = HERE.parent
 
 
-def _load_default_config():
+def _load_default_config() -> f90nml.Namelist:
     with open(REPO / "input" / "namelist.canopy") as f:
         config = f90nml.read(f)
 
@@ -100,7 +103,7 @@ def run(
         case_dir.mkdir(parents=True, exist_ok=True)
 
     # Create config
-    full_config: f90nml.Namelist = DEFAULT_CONFIG.copy()
+    full_config: f90nml.Namelist = deepcopy(DEFAULT_CONFIG)
     user_config = config or {}
     for section_name, sub_config in user_config.items():
         if section_name not in full_config:
@@ -227,7 +230,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
     with open(fp) as f:
         for i, line in enumerate(f):
             if i == 0:
-                pattern = r" *Reference height, h\: *([0-9\.]*) m"
+                pattern = r" *reference height, h\: *([0-9\.]*) m"
                 m = re.match(pattern, line)
                 if m is None:
                     raise ValueError(
@@ -235,7 +238,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
                     )
                 href = float(m.group(1))
             elif i == 1:
-                pattern = r" *Number of model layers\: *([0-9]*)"
+                pattern = r" *number of model layers\: *([0-9]*)"
                 m = re.match(pattern, line)
                 if m is None:
                     raise ValueError(
@@ -354,7 +357,21 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
         sings = {}
         mults = {}
         for k, v in kwargs.items():
-            if np.isscalar(DEFAULT_CONFIG[_k_sec(k)][k]):
+            if not (
+                np.isscalar(v)
+                or (type(v) is list and np.isscalar(v[0]))
+                or (type(v) is list and type(v[0]) is list and np.isscalar(v[0][0]))
+            ):  # FIXME: could be more stringent
+                raise ValueError(
+                    f"Expected {k!r} value to be "
+                    f"scalar, list[scalar], or list[list[scalar]], got: {type(v)}."
+                )
+
+            if (np.isscalar(DEFAULT_CONFIG[_k_sec(k)][k]) and np.isscalar(v)) or (
+                type(DEFAULT_CONFIG[_k_sec(k)][k]) is list
+                and type(v) is list
+                and np.isscalar(v[0])
+            ):
                 sings[k] = v
             else:
                 mults[k] = v
@@ -379,15 +396,16 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
     else:
         import itertools
 
-        for k, v in kwargs.items():
+        kwargs_ = deepcopy(kwargs)
+        for k, v in kwargs_.items():
             if not isinstance(v, list):
                 # NOTE: This condition won't work if the namelist default is an array
-                kwargs[k] = [v]
+                kwargs_[k] = [v]
 
         cases = []
-        for vs in itertools.product(*kwargs.values()):
+        for vs in itertools.product(*kwargs_.values()):
             case = defaultdict(dict)
-            for k, v in zip(kwargs, vs):
+            for k, v in zip(kwargs_, vs):
                 case[_k_sec(k)][k] = v
             cases.append(case)
 
