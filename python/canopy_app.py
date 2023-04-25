@@ -230,7 +230,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
     with open(fp) as f:
         for i, line in enumerate(f):
             if i == 0:
-                pattern = r" *Reference height, h\: *([0-9\.]*) m"
+                pattern = r" *reference height, h\: *([0-9\.]*) m"
                 m = re.match(pattern, line)
                 if m is None:
                     raise ValueError(
@@ -238,7 +238,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
                     )
                 href = float(m.group(1))
             elif i == 1:
-                pattern = r" *Number of model layers\: *([0-9]*)"
+                pattern = r" *number of model layers\: *([0-9]*)"
                 m = re.match(pattern, line)
                 if m is None:
                     raise ValueError(
