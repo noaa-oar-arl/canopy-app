@@ -162,6 +162,7 @@ MODULE canopy_canvars_mod
     TYPE(fld2ddata), ALLOCATABLE, TARGET :: fld2dxyt ( : )
     TYPE(fld2ddata), POINTER     :: c_waf
     TYPE(fld2ddata), POINTER     :: c_flameh
+    TYPE(fld2ddata), POINTER     :: c_canheight
 
 !-------------------------------------------------------------------------------
 ! Time-varying 3d fields at cell centers for output NETCDF
