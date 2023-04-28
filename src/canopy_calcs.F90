@@ -110,7 +110,7 @@ SUBROUTINE canopy_calcs
                             if (ifcanwind .or. ifcanwaf) then
                                 do k=1, modlays
                                     call canopy_wind(hcmref, zk(k), fafraczInt(k), ubzref, &
-                                        z0ghc, cdrag, pai, hgtref, d_h, zo_h, &
+                                        z0ghc, cdrag, pai, hgtref, d_h, zo_h, molref, &
                                         rsl_opt, lambdars, canBOT(k), canTOP(k), canWIND_3d(i,j,k))
                                 end do
 
@@ -317,7 +317,7 @@ SUBROUTINE canopy_calcs
                         if (ifcanwind .or. ifcanwaf) then
                             do k=1, modlays
                                 call canopy_wind(hcmref, zk(k), fafraczInt(k), ubzref, &
-                                    z0ghc, cdrag, pai, hgtref, d_h, zo_h, &
+                                    z0ghc, cdrag, pai, hgtref, d_h, zo_h, molref, &
                                     rsl_opt, lambdars, canBOT(k), canTOP(k), canWIND(loc, k))
                             end do
 ! ... determine midflamepoint and flame height from user or FRP calculation

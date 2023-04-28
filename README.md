@@ -185,7 +185,7 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.test
 | `href_opt`      | integer for using href_set in namelist (= `0`, default) or array from file (= `1`) |
 | `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) ***\*\*** |
 | `z0ghc`         | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
-| `rsl_opt`       | user-set option for Roughness SubLayer (RSL) effects above and at canopy top (Uc). `0`: uses a constant lambdars factor only |
+| `rsl_opt`       | user-set option for Roughness SubLayer (RSL) effects above and at canopy top (Uc).(= `0`, default: uses a constant lambdars factor only), (= `1`, default: uses a unified RSL approach from Bonan et al. (2018) and Abolafia-Rosenzweig et al., 2021)   |
 | `lambdars`      | Value representing influence of RSL effects (with `rsl_opt=0`) (Massman et al., 2017)          |
 | `dx_opt`        | `0`: Calculation of dx resolution/distance from lon; `1`: user-set dx grid resolution |
 | `dx_set`        | user-set real value of grid resolution (m) only if `dx_opt=1`                      |
@@ -212,6 +212,10 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.test
 ## References
 
 *Further references contained within the source code.*
+
+- Abolafia-Rosenzweig, R., He, C., Burns, S. P., & Chen, F. (2021). Implementation and evaluation of a unified turbulence parameterization throughout the canopy and roughness sublayer in Noah-MP snow simulations. Journal of Advances in Modeling Earth Systems, 13, e2021MS002665. https://doi.org/10.1029/2021MS002665.
+
+- Bonan, G. B., Patton, E. G., Harman, I. N., Oleson, K. W., Finnigan, J. J., Lu, Y., & Burakowski, E. A. (2018). Modeling canopy-induced turbulence in the Earth system: A unified parameterization of turbulent exchange within plant canopies and the roughness sublayer (CLM-ml v0). Geoscientific Model Development, 11, 1467–1496. https://doi.org/10.5194/gmd-11-1467-2018.
 
 - Clifton, O. E., Patton, E. G., Wang, S., Barth, M., Orlando, J., & Schwantes, R. H. (2022). Large eddy simulation for investigating coupled forest canopy and turbulence influences on atmospheric chemistry. Journal of Advances in Modeling Earth Systems, 14, e2022MS003078. https://doi.org/10.1029/2022MS003078
 
