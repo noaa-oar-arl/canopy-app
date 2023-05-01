@@ -112,8 +112,8 @@ contains
             ustrmod = uc*(0.38_rk - (0.38_rk + (vonk/log(Z0GHC)))*exp(-1.0_rk*(15.0_rk*drag)))
 
         else if (RSL_OPT .eq. 1) then  !Unified RSL (Rosenzweig et al., 2021)  https://doi.org/10.1029/2021MS002665
-            cbeta = vonk**2.0_rk*(log((HCM + 0.01_rk)/0.01_rk))**(-2.0_rk)
-            beta_n = (cbeta + (0.3_rk*PAI))**(0.5) !beta for neutral conditions
+            cbeta = vonk**2.0_rk*(log((HCM + 0.01_rk)/0.01_rk))**(-2.0_rk) !dense and sparse canopies
+            beta_n = (cbeta + (0.3_rk*PAI))**(0.5) !beta for neutral conditions, dense and sparse canopies
             if (beta_n .gt. 0.35_rk) then      !constrained to be less than 0.35
                 beta_n = 0.35_rk
             end if
@@ -139,10 +139,6 @@ contains
                 beta = beta_n
             END IF
 
-            !Mixing length (lm)
-            mix_length=2.0_rk*(beta**(3.0_rk))*can_length
-            print*, 'mix_length=',mix_length
-
             !The solution for β is constrained between 0.2 and 0.5 (Bonan et al., 2018).
             if (beta .lt. 0.2) then
                 beta = 0.2
@@ -150,13 +146,17 @@ contains
                 beta = 0.5
             end if
 
-            !recalculate the zero plane displacement height for Unified RSL if dense or sparse canopy
-            !dense+sparse
+            !Mixing length (lm)
+            mix_length=2.0_rk*(beta**(3.0_rk))*can_length
+!            print*, 'mix_length=',mix_length
+
+!recalculate the zero plane displacement height for Unified RSL if dense or sparse canopy
+!dense+sparse
             zpd_rsl = HCM - ((beta**2.0_rk) * can_length) * &
                 (1.0_rk - exp(-1.0_rk*((0.25_rk*PAI)/(beta**2.0_rk))))
 
-            print*, 'can_length=',can_length, 'zpd=',zpd, 'zpd_rsl=',zpd_rsl
-            zpd_rsl=zpd
+!            print*, 'can_length=',can_length, 'zpd=',zpd, 'zpd_rsl=',zpd_rsl
+!            zpd_rsl=zpd
 
             !calculate U* from Unified RSL (Rosenzweig et al., 2021)  https://doi.org/10.1029/2021MS002665
             IF ( MOL .LT.  0.0 )  THEN     !UNSTABLE
@@ -238,7 +238,9 @@ contains
                     phim_rsl = 1.0_rk - c1*exp(-1.0_rk*c2*xi)
                     den1 = (ZK-zpd_rsl)/(HCM-zpd_rsl)
                     den2 = (ZK-zpd_rsl)/MOL
+!                    den2 = (ZK-zpd_rsl)/(mix_length*beta)
                     den3 = (HCM-zpd_rsl)/MOL
+!                    den3 = (HCM-zpd_rsl)/(mix_length*beta)
 
                     CANWIND = (ustrmod / vonk) * &
                         (log(den1) - (phim*den2) + (phim*den3) + (phim_rsl*den2) - (phim_rsl*den3) +  &
