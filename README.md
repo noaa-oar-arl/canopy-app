@@ -185,7 +185,7 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.test
 | `href_opt`      | integer for using href_set in namelist (= `0`, default) or array from file (= `1`) |
 | `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) ***\*\*** |
 | `z0ghc`         | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
-| `rsl_opt`       | user-set option for Roughness SubLayer (RSL) effects above and at canopy top (Uc).(= `0`, default: uses a constant lambdars factor only), (= `1`, default: uses a unified RSL approach from Bonan et al. (2018) and Abolafia-Rosenzweig et al., 2021)   |
+| `rsl_opt`       | user-set option for either MOST or unified Roughness SubLayer (RSL) effects above and at canopy top (Uc).(= `0`, default: uses MOST and a constant lambdars factor only), (= `1`, under development: will use a more unified RSL approach from Bonan et al. (2018) and Abolafia-Rosenzweig et al., 2021)   |
 | `lambdars`      | Value representing influence of RSL effects (with `rsl_opt=0`) (Massman et al., 2017)          |
 | `dx_opt`        | `0`: Calculation of dx resolution/distance from lon; `1`: user-set dx grid resolution |
 | `dx_set`        | user-set real value of grid resolution (m) only if `dx_opt=1`                      |

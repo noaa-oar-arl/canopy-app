@@ -8,14 +8,14 @@ SUBROUTINE canopy_calcs
 !-------------------------------------------------------------------------------
 
     use canopy_const_mod, ONLY: rk      !constants for canopy models
-    use canopy_coord_mod   !main canopy coordinate descriptions
-    use canopy_canopts_mod !main canopy option descriptions
-    use canopy_canmet_mod  !main canopy met/sfc input descriptions
-    use canopy_canvars_mod !main canopy variables descriptions
-    use canopy_utils_mod   !main canopy utilities
-    use canopy_dxcalc_mod  !main canopy dx calculation
-    use canopy_profile_mod !main canopy foliage profile routines
-    use canopy_wind_mod    !main canopy components/submodules
+    use canopy_coord_mod      !main canopy coordinate descriptions
+    use canopy_canopts_mod    !main canopy option descriptions
+    use canopy_canmet_mod     !main canopy met/sfc input descriptions
+    use canopy_canvars_mod    !main canopy variables descriptions
+    use canopy_utils_mod      !main canopy utilities
+    use canopy_dxcalc_mod     !main canopy dx calculation
+    use canopy_profile_mod    !main canopy foliage profile routines
+    use canopy_wind_mod       !main canopy wind components
     use canopy_waf_mod
     use canopy_phot_mod
     use canopy_eddy_mod
@@ -108,11 +108,16 @@ SUBROUTINE canopy_calcs
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 
                             if (ifcanwind .or. ifcanwaf) then
-                                do k=1, modlays
-                                    call canopy_wind(hcmref, zk(k), fafraczInt(k), ubzref, &
-                                        z0ghc, cdrag, pai, hgtref, d_h, zo_h, molref, &
-                                        rsl_opt, lambdars, canBOT(k), canTOP(k), canWIND_3d(i,j,k))
-                                end do
+                                if (rsl_opt .eq. 0) then
+                                    do k=1, modlays
+                                        call canopy_wind_most(hcmref, zk(k), fafraczInt(k), ubzref, &
+                                            z0ghc, cdrag, pai, hgtref, d_h, zo_h, &
+                                            lambdars, canBOT(k), canTOP(k), canWIND_3d(i,j,k))
+                                    end do
+                                else
+                                    write(*,*) 'wrong namelist option = ', rsl_opt, 'only option = 0 right now'
+                                    call exit(2)
+                                end if
 
 ! ... determine midflamepoint and flame height from user or FRP calculation
                                 call canopy_flameh(flameh_opt, flameh_set, dx_2d(i,j), modres, &
@@ -315,11 +320,17 @@ SUBROUTINE canopy_calcs
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 
                         if (ifcanwind .or. ifcanwaf) then
-                            do k=1, modlays
-                                call canopy_wind(hcmref, zk(k), fafraczInt(k), ubzref, &
-                                    z0ghc, cdrag, pai, hgtref, d_h, zo_h, molref, &
-                                    rsl_opt, lambdars, canBOT(k), canTOP(k), canWIND(loc, k))
-                            end do
+                            if (rsl_opt .eq. 0) then
+                                do k=1, modlays
+                                    call canopy_wind_most(hcmref, zk(k), fafraczInt(k), ubzref, &
+                                        z0ghc, cdrag, pai, hgtref, d_h, zo_h, &
+                                        lambdars, canBOT(k), canTOP(k), canWIND(loc,k))
+                                end do
+                            else
+                                write(*,*) 'wrong namelist option = ', rsl_opt, 'only option = 0 right now'
+                                call exit(2)
+                            end if
+
 ! ... determine midflamepoint and flame height from user or FRP calculation
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
                                 frpref, frp_fac, hcmref, midflamepoint, flameh(loc))
