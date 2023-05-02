@@ -209,9 +209,9 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022
 
 ## Global Canopy-App Example
 
-<p align="center">
-  <img src="docs/Global_Canopy_App_Example.png" width="350" title="Global Canopy-App Example">
-</p>
+<a href="https://github.com/noaa-oar-arl/canopy-app">
+  <img src="docs/Global_Canopy_App_Example.png" alt="canopy-app example" height="125" valign="bottom">
+</a>
 
 ## References
 
