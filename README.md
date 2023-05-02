@@ -207,6 +207,12 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.test
 
 - `canopy_profile_mod.F90`
 
+## Global Canopy-App Example
+
+<p align="center">
+  <img src="docs/Global_Canopy_App_Example.png" width="350" title="Global Canopy-App Example">
+</p>
+
 ## References
 
 *Further references contained within the source code.*
