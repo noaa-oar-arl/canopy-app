@@ -62,9 +62,9 @@ CONTAINS
                 write(*,*)  '-------------------------------'
 ! ... save as text file
                 open(10, file=TRIM(TXTPREFX)//'_output_canopy_wind.txt')
-                write(10, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
-                write(10, '(a30, i6)') 'Number of model layers: ', modlays
-                write(10, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'WS (m/s)'
+                write(10, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
+                write(10, '(a30, i6)') 'number of model layers: ', modlays
+                write(10, '(a8, a9, a12, a17)') 'lat', 'lon', 'height (m)', 'ws (m s-1)'
                 do loc=1, nlat*nlon
                     do k=1, modlays
                         write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
@@ -78,9 +78,9 @@ CONTAINS
                 write(*,*)  'Writing canopy WAF output'
                 write(*,*)  '-------------------------------'
                 open(11, file=TRIM(TXTPREFX)//'_output_waf.txt')
-                write(11, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
-                write(11, '(a30, i6)') 'Number of model layers: ', modlays
-                write(11, '(a8, a9, a19, a19, a11)') 'Lat', 'Lon', 'Canopy height (m)', 'Flame height (m)', 'WAF'
+                write(11, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
+                write(11, '(a30, i6)') 'number of model layers: ', modlays
+                write(11, '(a8, a9, a19, a19, a11)') 'lat', 'lon', 'canheight (m)', 'flameh (m)', 'waf (1)'
                 do loc=1, nlat*nlon
                     write(11, '(f8.2, f9.2, f19.2, f19.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
                         variables(loc)%fh, flameh(loc), waf(loc)
@@ -92,9 +92,9 @@ CONTAINS
                 write(*,*)  '-------------------------------'
 ! ... save as text file
                 open(12, file=TRIM(TXTPREFX)//'_output_eddy_Kz.txt')
-                write(12, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
-                write(12, '(a30, i6)') 'Number of model layers: ', modlays
-                write(12, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'Kz'
+                write(12, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
+                write(12, '(a30, i6)') 'number of model layers: ', modlays
+                write(12, '(a8, a9, a12, a15)') 'lat', 'lon', 'height (m)', 'kz (m2 s-1)'
                 do loc=1, nlat*nlon
                     do k=1, modlays
                         write(12, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
@@ -108,9 +108,9 @@ CONTAINS
                 write(*,*)  '-------------------------------'
 ! ... save as text file
                 open(13, file=TRIM(TXTPREFX)//'_output_phot.txt')
-                write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
-                write(13, '(a30, i6)') 'Number of model layers: ', modlays
-                write(13, '(a8, a9, a12, a15)') 'Lat', 'Lon', 'Height (m)', 'rjcf'
+                write(13, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
+                write(13, '(a30, i6)') 'number of model layers: ', modlays
+                write(13, '(a8, a9, a12, a15)') 'lat', 'lon', 'height (m)', 'rjcf (1)'
                 do loc=1, nlat*nlon
                     do k=1, modlays
                         write(13, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
@@ -123,13 +123,17 @@ CONTAINS
                 write(*,*)  '-------------------------------'
 ! ... save as text file
                 open(13, file=TRIM(TXTPREFX)//'_output_bio.txt')
-                write(13, '(a30, f6.1, a2)') 'Reference height, h: ', href_set, 'm'
-                write(13, '(a30, i6)') 'Number of model layers: ', modlays
-                write(13, '(a8, a9, a12, a15, a15, a15, a15, a15, a15, a15, a15, a15, a15,             &
-                & a15, a15, a15, a15, a15, a15, a15, a15, a15)') 'Lat', 'Lon', 'Height (m)',  &
-                    'emi_isop', 'emi_myrc', 'emi_sabi', 'emi_limo', 'emi_care', 'emi_ocim',     &
-                    'emi_bpin', 'emi_apin', 'emi_mono', 'emi_farn', 'emi_cary', 'emi_sesq',     &
-                    'emi_mbol', 'emi_meth', 'emi_acet', 'emi_co',   'emi_bvoc', 'emi_svoc', 'emi_ovoc'
+                write(13, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
+                write(13, '(a30, i6)') 'number of model layers: ', modlays
+                write(13, '(a8, a9, a12, a28, a28, a28, a28, a28, a28, a28, a28, a28, a28, &
+                & a28, a28, a28, a28, a28, a28, a28, a28, a28)') 'lat', 'lon', 'height (m)', &
+                    'emi_isop (kg m-3 s-1)', 'emi_myrc (kg m-3 s-1)', 'emi_sabi (kg m-3 s-1)', &
+                    'emi_limo (kg m-3 s-1)', 'emi_care (kg m-3 s-1)', 'emi_ocim (kg m-3 s-1)', &
+                    'emi_bpin (kg m-3 s-1)', 'emi_apin (kg m-3 s-1)', 'emi_mono (kg m-3 s-1)', &
+                    'emi_farn (kg m-3 s-1)', 'emi_cary (kg m-3 s-1)', 'emi_sesq (kg m-3 s-1)', &
+                    'emi_mbol (kg m-3 s-1)', 'emi_meth (kg m-3 s-1)', 'emi_acet (kg m-3 s-1)', &
+                    'emi_co (kg m-3 s-1)',   'emi_bvoc (kg m-3 s-1)', 'emi_svoc (kg m-3 s-1)', &
+                    'emi_ovoc (kg m-3 s-1)'
                 do loc=1, nlat*nlon
                     do k=1, modlays
                         write(13, '(f8.2, f9.2, f12.2, es15.7, es15.7, es15.7, es15.7, es15.7, es15.7, &

@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - nodefaults
 dependencies:
-  - python>=3.7
+  - python=3.10
   #
   # Core
   - f90nml
@@ -16,8 +16,4 @@ dependencies:
   - cartopy
   - ipympl
   - ipywidgets
-  - jupyterlab
   - matplotlib
-  #
-  # Extra
-  - ipython
