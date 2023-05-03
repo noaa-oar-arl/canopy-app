@@ -213,7 +213,7 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022
   src="docs/Global_Canopy_App_Example.png"
   alt="Alt text"
   title="Global Canopy-App Example"
-  style="display: inline-block; margin: 0 auto; max-width: 300px">
+  style="display: inline-block; margin: 0 auto; max-width: 600px">
 
 ## References
 
