@@ -154,7 +154,7 @@ contains
 ! (2017)  W.J. Massman, J.M. Forthofer, M.A. Finney.  https://doi.org/10.1139/cjfr-2016-0354
 
         if (HREF <= 0.0) then
-            write(*,*) "critical problem: HREF <= 0, WAF calculation not accurate and thus is reset to 1"
+            write(*,*) "warning: HREF <= 0, WAF calculation not accurate and thus is reset to 1"
             waf = 1.0
         else
 
