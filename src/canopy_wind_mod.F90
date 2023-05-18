@@ -79,7 +79,6 @@ contains
             call exit(1)
         end if
 
-        !       if (RSL_OPT .eq. 0) then !Massman approach with MOST + LAMBDARS tuned RSL factor/effects
 
         if (HREF > z0m) then ! input wind speed reference height is > roughness length
             uc = UBZREF*log(LAMBDARS*(HCM-zpd+z0m)/z0m)/log(HREF/z0m)  !MOST From NoahMP (M. Barlarge) with user RSL influence term (LAMBDARS)
