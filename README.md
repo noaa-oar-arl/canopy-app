@@ -38,13 +38,15 @@ which is read at runtime.
 ./canopy
 ```
 
+You can also [run with Python](./python/README.md).
+
 ## Components
 
 Current Canopy-App components:
 
 1.  In-Canopy Winds and Wind Adjustment Factor (WAF) for wildfire spread and air quality applications.  Based on Massman et al. (2017).
 
-    Namelist Option : `ifcanwind` and/or `ifcanwaf` Output Variables: `canwind` (m s-1) `waf` (fraction)
+    Namelist Option : `ifcanwind` and/or `ifcanwaf` Output Variables: `ws` (m s-1) `waf` (fraction)
 
     - `canopy_wind_mod.F90`
     - `canopy_waf_mod.F90`
@@ -137,7 +139,7 @@ The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variab
 | `prate_ave`                      | Average mass precipitation rate (kg m-2 s-1) | UFS NOAA/GFSv16                                   |
 | **External Canopy Variables**    | **Variable Description and Units**          | **Data Source/Reference (if necessary)**           |
 | `fh`                             | Forest canopy height (m)                    | Fused GEDI/Landsat data. Data Period=2020. ([Potapov et al., 2020](https://doi.org/10.1016/j.rse.2020.112165)) |
-| `clu`                            | Forest clumping index (dimensionless)       | GridingMachine/MODIS. Data Period=2001-2017 Climatology. ([Wei et al., 2019](https://doi.org/10.1016/j.rse.2019.111296)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
+| `clu`                            | Forest clumping index (dimensionless)       | GriddingMachine/MODIS. Data Period=2001-2017 Climatology. ([Wei et al., 2019](https://doi.org/10.1016/j.rse.2019.111296)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
 | `lai`                            | Leaf area index (m2/m2)                     | VIIRS-NPP. Data Period=2018-2020 Climatology. ([Myneni 2018](https://doi.org/10.5067/VIIRS/VNP15A2H.001)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
 | `ffrac`                          | Forest fraction (dimensionless)             | Based on [VIIRS GVF-NPP](https://www.star.nesdis.noaa.gov/jpss/gvf.php) and GriddingMachine/MODIS FFRAC/FVC from Terra.  Data Period=2020. ([DiMiceli et al., 2022](https://doi.org/10.5067/MODIS/MOD44B.061)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
 | **Other External Variables**     | **Variable Description and Units**          | **Data Source/Reference (if necessary)**           |
@@ -163,7 +165,7 @@ Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day
 
 **Downloading Example Canopy Files from AWS:** Example monthly, global gridded files containing all GFSv16 met/land/soil data from 2022 combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:
 ```
-https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.testf000.global.nc
+https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022MM01.sfcf000.nc
 ```
 
 ### Table 3. Current User Namelist Options
@@ -181,9 +183,10 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.test
 | `ifcanphot`     | logical canopy photolysis option (default: `.FALSE.`)                              |
 | `ifcanbio`      | logical canopy biogenic emissions option (default: `.FALSE.`)                      |
 | `href_opt`      | integer for using href_set in namelist (= `0`, default) or array from file (= `1`) |
-| `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) |
+| `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) **\*\*\*** |
 | `z0ghc`         | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
-| `lambdars`      | Value representing influence of roughness sublayer (Massman et al., 2017)          |
+| `rsl_opt`       | user-set option for either MOST or unified Roughness SubLayer (RSL) effects above and at canopy top (Uc).(= `0`, default: uses MOST and a constant lambdars factor only), (= `1`, under development: will use a more unified RSL approach from Bonan et al. (2018) and Abolafia-Rosenzweig et al., 2021)   |
+| `lambdars`      | Value representing influence of RSL effects (with `rsl_opt=0`) (Massman et al., 2017)          |
 | `dx_opt`        | `0`: Calculation of dx resolution/distance from lon; `1`: user-set dx grid resolution |
 | `dx_set`        | user-set real value of grid resolution (m) only if `dx_opt=1`                      |
 | `flameh_opt`    | `0`: Calculation of flame height from FRP (Byram, 1959); `1`: user-set flameh; `2`: FRP calculation where available (active fires), elsewhere user-set `flameh`; `3`: FlameH override, i.e., only uses fraction of canopy height (`flameh_set` must be <=1.0) as a surrogate for `flameh`; `4`: FRP calculation where available (active fires) and FlameH override elsewhere (same as option 3); `5`: FRP/intensity dependent (i.e., sub-canopy vs. crown fires) calculation where available (active fires) and FlameH override elsewhere (same as option 3). If option 5 is used and crowning is calculated, then the total flame height (i.e., top of canopy=FCH) is used instead of 1/2 flame height. |
@@ -193,7 +196,6 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.test
 | `pai_set`       | user-set real value of PAI (default: `4.0`; only used if `pai_opt=3`)              |
 | `lu_opt`        | integer for input model land use type (`0`: VIIRS 17 Cat (default) or `1`: MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.) |
 | `z0_opt`        | integer (`0`: use model input or `1`: vegtype dependent z0 for first estimate)     |
-| `rsl_opt`       | user-set option to include more explicit stability and Roughness SubLayer (RSL) effects in calculation of wind speed at canopy top (Uc) from reference height. `0`: off; `1`: on |
 | `bio_cce`       | user-set real value of MEGAN biogenic emissions "canopy environment coefficient" used to tune emissions to model inputs/calculations (default: `0.21`, based on Silva et al. 2020) |
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
 | `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
@@ -201,13 +203,27 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/canopy.2022MM01.test
 
 **\*\*** If `modres` >> `flameh` then some error in WAF calculation will be incurred.  Suggestion is to use relative fine `modres` (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
 
+**\*\*\*** If `href_set` becomes small and approaches z0 (or as `href_set` --> 0), only the sub-canopy wind profile is calculated, recommend `href_set` = 10 m.  
+
 **Note:** Canopy is parameterized by foliage distribution shape functions and parameters for different vegetation types.
 
 - `canopy_profile_mod.F90`
 
+## Global Canopy-App Example (July 01, 2022 at 1200 UTC)
+
+<img
+  src="docs/Global_Canopy_App_Example.png"
+  alt="Alt text"
+  title="Global Canopy-App Example"
+  style="display: inline-block; margin: 0 auto">
+
 ## References
 
 *Further references contained within the source code.*
+
+- Abolafia-Rosenzweig, R., He, C., Burns, S. P., & Chen, F. (2021). Implementation and evaluation of a unified turbulence parameterization throughout the canopy and roughness sublayer in Noah-MP snow simulations. Journal of Advances in Modeling Earth Systems, 13, e2021MS002665. https://doi.org/10.1029/2021MS002665.
+
+- Bonan, G. B., Patton, E. G., Harman, I. N., Oleson, K. W., Finnigan, J. J., Lu, Y., & Burakowski, E. A. (2018). Modeling canopy-induced turbulence in the Earth system: A unified parameterization of turbulent exchange within plant canopies and the roughness sublayer (CLM-ml v0). Geoscientific Model Development, 11, 1467–1496. https://doi.org/10.5194/gmd-11-1467-2018.
 
 - Clifton, O. E., Patton, E. G., Wang, S., Barth, M., Orlando, J., & Schwantes, R. H. (2022). Large eddy simulation for investigating coupled forest canopy and turbulence influences on atmospheric chemistry. Journal of Advances in Modeling Earth Systems, 14, e2022MS003078. https://doi.org/10.1029/2022MS003078
 

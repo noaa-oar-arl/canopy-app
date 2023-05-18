@@ -1,0 +1,19 @@
+name: canopy-app
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.10
+  #
+  # Core
+  - f90nml
+  - netcdf4
+  - numpy
+  - pandas
+  - xarray
+  #
+  # Examples
+  - cartopy
+  - ipympl
+  - ipywidgets
+  - matplotlib

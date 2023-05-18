@@ -18,6 +18,7 @@
   href_opt   =  0
   href_set   =  10.0
   z0ghc      =  0.0025
+  rsl_opt    =  0
   lambdars   =  1.25
   dx_opt     =  0
   dx_set     =  12000.0
@@ -28,7 +29,6 @@
   pai_set    =  4.0
   lu_opt     =  1
   z0_opt     =  0
-  rsl_opt    =  1
   bio_cce    =  0.21
   lai_thresh =  0.1
   frt_thresh =  0.1

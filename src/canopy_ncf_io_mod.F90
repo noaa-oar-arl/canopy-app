@@ -340,6 +340,18 @@ CONTAINS
         !-------------------------------------------------------------------------------
         ! Time-varying 2d fields at cell centers.
         !-------------------------------------------------------------------------------
+        c_canheight%fld = fillreal
+        c_canheight%fldname = 'canheight'
+        c_canheight%long_name = 'canopy height'
+        c_canheight%units = 'm'
+        c_canheight%fillvalue = fillreal
+        c_canheight%dimnames(1) = 'nlon'
+        c_canheight%dimnames(2) = 'nlat'
+        c_canheight%istart(1) = 1
+        c_canheight%istart(2) = 1
+        c_canheight%iend(1) = nlon
+        c_canheight%iend(2) = nlat
+
         if (ifcanwind .or. ifcanwaf) then
             c_waf%fld = fillreal
             c_waf%fldname = 'waf'
@@ -371,7 +383,7 @@ CONTAINS
         !-------------------------------------------------------------------------------
         if (ifcanwind .or. ifcanwaf) then
             c_canwind%fld = fillreal
-            c_canwind%fldname = 'canwind'
+            c_canwind%fldname = 'ws'
             c_canwind%long_name = 'above/below canopy wind speed'
             c_canwind%units = 'm s-1'
             c_canwind%fillvalue = fillreal
@@ -760,7 +772,7 @@ CONTAINS
         ! Time-varying 2d fields at cell centers.
         !-------------------------------------------------------------------------------
 
-        nfld2dxyt = 0
+        nfld2dxyt = 1  ! canopy height
 
         if (ifcanwind .or. ifcanwaf) then
             nfld2dxyt = nfld2dxyt + 1  !WAF
@@ -773,7 +785,8 @@ CONTAINS
             ALLOCATE ( fld2dxyt(nn)%fld(nlon,nlat) )
         ENDDO
 
-        set_index = 0
+        set_index = 1
+        c_canheight => fld2dxyt( set_index )
         if (ifcanwind .or. ifcanwaf) then
             set_index = set_index + 1
             c_waf       => fld2dxyt( set_index )
@@ -1775,6 +1788,7 @@ CONTAINS
             !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.
             !-------------------------------------------------------------------------------
+            c_canheight%fld = variables_2d%fh
             if (ifcanwind .or. ifcanwaf) then
                 c_waf%fld = waf_2d
                 c_flameh%fld = flameh_2d
