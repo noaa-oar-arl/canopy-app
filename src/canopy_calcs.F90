@@ -20,6 +20,7 @@ SUBROUTINE canopy_calcs
     use canopy_phot_mod
     use canopy_eddy_mod
     use canopy_bioemi_mod
+    use canopy_models_mod
 
     IMPLICIT NONE
 
@@ -28,6 +29,9 @@ SUBROUTINE canopy_calcs
 
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
+
+    !Quick test of running canacc fully in canopy-app
+    call canopy_canacc()
 
     if (infmt_opt .eq. 0) then !Input format is 2D then output is then 2D
 

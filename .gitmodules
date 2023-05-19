@@ -1,0 +1,3 @@
+[submodule "models/CANACC"]
+	path = models/CANACC
+	url = https://github.com/rdsaylor-noaa/CANACC.git

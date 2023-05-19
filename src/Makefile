@@ -69,6 +69,7 @@ OBJS :=\
  canopy_eddy_mod.o \
  canopy_bioparm_mod.o \
  canopy_bioemi_mod.o \
+ canopy_models_mod.o \
  canopy_calcs.o \
  canopy_write_txt.o \
  canopy_dealloc.o \
