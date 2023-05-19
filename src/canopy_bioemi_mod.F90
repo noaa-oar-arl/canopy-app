@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_BIO( ZK, FCLAI, FCH, LAI, CLU, COSZEN, SFCRAD, &
-        TEMP2, LU_OPT, VTYPE, MODRES, CCE, EMI_IND, EMI_OUT)
+        TEMP2, LU_OPT, VTYPE, MODRES, CCE, VERT, EMI_IND, EMI_OUT)
 
 !-----------------------------------------------------------------------
 
@@ -52,6 +52,7 @@ contains
         REAL(RK),    INTENT( IN )       :: MODRES          ! Canopy model input vertical resolution (m)
         REAL(RK),    INTENT( IN )       :: CCE             ! MEGAN Canopy environment coefficient.
         INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
+        INTEGER,     INTENT( IN )       :: VERT            ! MEGAN vertical integration option (default = 0/no integration)
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
 
 ! Local Variables
@@ -300,13 +301,16 @@ contains
 
 ! Calculate emissions profile in the canopy
         EMI_OUT = 0.0_rk  ! set initial emissions profile to zero
-        do i=1, SIZE(ZK)
-            if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then  ! above ground level and at/below canopy top
-                FLAI(i) = ((FCLAI(i+1) - FCLAI(i)) * LAI)/MODRES    !fractional LAI in each layer converted to LAD (m2 m-3)
-                EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i) * CCE  ! (ug m-3 hr-1)
-                EMI_OUT(i) = EMI_OUT(i) * 2.7777777777778E-13_rk !TBD:  convert emissions output to (kg m-3 s-1)
-            end if
-        end do
+
+        if (VERT .eq. 0) then  !Full 3D leaf-level biogenic emissions (no averaging, summing, or integration
+            do i=1, SIZE(ZK)
+                if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then  ! above ground level and at/below canopy top
+                    FLAI(i) = ((FCLAI(i+1) - FCLAI(i)) * LAI)/MODRES    !fractional LAI in each layer converted to LAD (m2 m-3)
+                    EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i) * CCE  ! (ug m-3 hr-1)
+                    EMI_OUT(i) = EMI_OUT(i) * 2.7777777777778E-13_rk !TBD:  convert emissions output to (kg m-3 s-1)
+                end if
+            end do
+        end if
 
     END SUBROUTINE CANOPY_BIO
 

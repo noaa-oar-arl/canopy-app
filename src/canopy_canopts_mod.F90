@@ -33,5 +33,6 @@ MODULE canopy_canopts_mod
     real(rk)            ::    z0ghc       !ratio of ground roughness length to canopy top height
     real(rk)            ::    lambdars    !Value representing influence of roughness sublayer (nondimensional)
     real(rk)            ::    bio_cce     !MEGAN biogenic emission canopy environment coefficient.
+    integer             ::    bio_vert    !MEGAN vertical integration of emissions option (default = 0, off)
 
 END MODULE canopy_canopts_mod
