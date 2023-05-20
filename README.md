@@ -197,6 +197,7 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022
 | `lu_opt`        | integer for input model land use type (`0`: VIIRS 17 Cat (default) or `1`: MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.) |
 | `z0_opt`        | integer (`0`: use model input or `1`: vegtype dependent z0 for first estimate)     |
 | `bio_cce`       | user-set real value of MEGAN biogenic emissions "canopy environment coefficient" used to tune emissions to model inputs/calculations (default: `0.21`, based on Silva et al. 2020) |
+| `bio_vert`      | user set biogenic vertical integration option (default = 0/no integration, full leaf-level biogenic emissions)         |
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
 | `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
 | `fch_thresh`    | user-set real value of canopy height  threshold for contiguous canopy (m)          |
