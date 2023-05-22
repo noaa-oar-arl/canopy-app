@@ -93,10 +93,11 @@ contains
         REAL(RK) :: E_OPT(SIZE(ZK))                ! maximum normalized emission capacity
         REAL(RK) :: TLEAF_OPT(SIZE(ZK))            ! Tleaf at which E_OPT occurs (K)
         REAL(RK) :: FLAI(SIZE(ZK))                 ! Fractional LAI in layer
+        REAL(RK) :: VPGWT(SIZE(ZK))                ! MEGANv3-like in-canopy weighting factor
         REAL(RK) :: CT1                            ! Activation energy (kJ/mol)
         REAL(RK) :: CEO                            ! Empirical coefficient
         REAL(RK) :: EF                             ! Final Mapped Emission factor (EF) (ug/m2 hr)
-        integer i
+        integer i, LAYERS
 
 ! Constant Canopy Parameters
         REAL(RK),          PARAMETER     :: FRAC_PAR        =  0.5_rk     !Fraction of incoming solar irradiance that is PAR
@@ -302,7 +303,7 @@ contains
 ! Calculate emissions profile in the canopy
         EMI_OUT = 0.0_rk  ! set initial emissions profile to zero
 
-        if (VERT .eq. 0) then  !Full 3D leaf-level biogenic emissions (no averaging, summing, or integration)
+        if (VERT .eq. 0) then         !Full 3D leaf-level biogenic emissions (no averaging, summing, or integration)
             do i=1, SIZE(ZK)
                 if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then           ! above ground level and at/below canopy top
                     FLAI(i) = ((FCLAI(i+1) - FCLAI(i)) * LAI)/MODRES    !fractional LAI in each layer converted to LAD (m2 m-3)
@@ -310,7 +311,15 @@ contains
                     EMI_OUT(i) = EMI_OUT(i) * 2.7777777777778E-13_rk    !convert emissions output to (kg m-3 s-1)
                 end if
             end do
-        else                   !Need to add vertical sum/ave/integ options here...
+        else if (VERT .eq. 1) then       !MEGANv3: Add weighted sum of activity coefficients for all canopy layers
+            LAYERS = floor(FCH/MODRES)
+            do i=1,  SIZE(ZK)
+                VPGWT(i) = 1.0_rk/LAYERS !constant weighting factors across depth of canopy
+            end do
+            EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
+                VPGWT(1:LAYERS)) * CCE   !put into top model layer (ug m-2 hr-1)
+            EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
+        else
             write(*,*)  'Wrong BIO_VERT choice of ', VERT, ' in namelist...exiting'
             call exit(2)
         end if
