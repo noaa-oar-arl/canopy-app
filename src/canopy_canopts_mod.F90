@@ -34,5 +34,7 @@ MODULE canopy_canopts_mod
     real(rk)            ::    lambdars    !Value representing influence of roughness sublayer (nondimensional)
     real(rk)            ::    bio_cce     !MEGAN biogenic emission canopy environment coefficient.
     integer             ::    bio_vert    !MEGAN vertical integration of emissions option (default = 0, off)
+    integer             ::    crop_opt    !Set default integer for crop vegtype option from GEDI or user (default = 0)
+    real(rk)            ::    crop_set    !Set default value for crop vegtype heights used in model (m) (Default = 3 m)
 
 END MODULE canopy_canopts_mod

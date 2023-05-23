@@ -23,7 +23,8 @@ SUBROUTINE canopy_readnml
     NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
         z0ghc, lambdars, flameh_opt, flameh_set, frp_fac, ifcanwind, ifcanwaf, &
         ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, &
-        dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, bio_vert
+        dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, bio_vert, &
+        crop_opt, crop_set
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -204,6 +205,16 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default integer value for MEGAN vertical integration of emissions (0, off full leaf-level emissions)
     bio_vert = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for crop vegtype option from GEDI or user (default = 0)
+    crop_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for crop vegtype heights used in model (m) (Default = 3 m)
+    crop_set = 3.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
