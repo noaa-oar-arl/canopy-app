@@ -314,15 +314,7 @@ contains
                     EMI_OUT(i) = EMI_OUT(i) * 2.7777777777778E-13_rk    !convert emissions output to (kg m-3 s-1)
                 end if
             end do
-        else if (VERT .eq. 1) then       !MEGANv3: Add weighted sum of activity coefficients for all canopy layers
-            LAYERS = floor(FCH/MODRES)
-            do i=1,  SIZE(ZK)
-                VPGWT(i) = 1.0_rk/LAYERS !MEGANv3: Constant weighting factors across depth of canopy
-            end do
-            EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * CCE   !put into top model layer (ug m-2 hr-1)
-            EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
-        else if (VERT .eq. 2) then       !Use weighting factors normalized to plant distribution shape (FCLAI)
+        else if (VERT .eq. 1) then       !MEGANv3: Use weighting factors normalized to plant distribution shape (FCLAI)
             LAYERS = floor(FCH/MODRES)
             do i=1,  SIZE(ZK)
                 if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then
@@ -333,6 +325,14 @@ contains
                 if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then
                     VPGWT(i) = (FLAI(i))/sum(FLAI(1:LAYERS))
                 end if
+            end do
+            EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
+                VPGWT(1:LAYERS)) * CCE   !put into top model layer (ug m-2 hr-1)
+            EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
+        else if (VERT .eq. 2) then       !MEGANv3: Add weighted sum of activity coefficients for all canopy layers
+            LAYERS = floor(FCH/MODRES)
+            do i=1,  SIZE(ZK)
+                VPGWT(i) = 1.0_rk/LAYERS !MEGANv3: Constant weighting factors across depth of canopy
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
                 VPGWT(1:LAYERS)) * CCE   !put into top model layer (ug m-2 hr-1)
