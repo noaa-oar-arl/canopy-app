@@ -94,6 +94,7 @@ contains
         REAL(RK) :: TLEAF_OPT(SIZE(ZK))            ! Tleaf at which E_OPT occurs (K)
         REAL(RK) :: FLAI(SIZE(ZK))                 ! Fractional LAI in layer
         REAL(RK) :: VPGWT(SIZE(ZK))                ! MEGANv3-like in-canopy weighting factor
+        REAL(RK) :: GAUSS(SIZE(ZK))                ! MEGANv3-like in-canopy gaussian
         REAL(RK) :: CT1                            ! Activation energy (kJ/mol)
         REAL(RK) :: CEO                            ! Empirical coefficient
         REAL(RK) :: EF                             ! Final Mapped Emission factor (EF) (ug/m2 hr)
@@ -314,7 +315,8 @@ contains
                     EMI_OUT(i) = EMI_OUT(i) * 2.7777777777778E-13_rk    !convert emissions output to (kg m-3 s-1)
                 end if
             end do
-        else if (VERT .eq. 1) then       !MEGANv3: Use weighting factors normalized to plant distribution shape (FCLAI)
+        else if (VERT .eq. 1) then       !"MEGANv3-like": Use weighting factors normalized to plant distribution shape (FCLAI)
+            !across canopy layers
             LAYERS = floor(FCH/MODRES)
             do i=1,  SIZE(ZK)
                 if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then
@@ -326,13 +328,51 @@ contains
                     VPGWT(i) = (FLAI(i))/sum(FLAI(1:LAYERS))
                 end if
             end do
+!            print*,'--------------'
+!            print*,sum(VPGWT(1:LAYERS))
+!            print*,'--------------'
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
                 VPGWT(1:LAYERS)) * CCE   !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
-        else if (VERT .eq. 2) then       !MEGANv3: Add weighted sum of activity coefficients for all canopy layers
+        else if (VERT .eq. 2) then       !"MEGANv3-like": Add weighted sum of activity coefficients using normal distribution
+            !across canopy layers using 5 layer numbers directly from MEGANv3
+            !--warning: weights are not consistent with FCLAI distribution
+            !used for biomass distribution used for sunlit/shaded in Gamma TLEAF and GammaPPFD.
+            LAYERS = floor(FCH/MODRES)
+            do i=1, SIZE(ZK)
+                if (ZK(i) .gt. FCH) then
+                    GAUSS(i) = 0.0
+                else if (ZK(i) .le. FCH .and. ZK(i) .gt. FCH*(4.0_rk/5.0_rk)) then  !Level 1 - 2
+                    GAUSS(i)   = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
+                        (/ 0.118464_rk,0.0_rk /),ZK(i))
+                else if (ZK(i) .le. FCH*(4.0_rk/5.0_rk) .and. ZK(i) .gt. FCH*(3.0_rk/5.0_rk)) then  !Level 2 - 3
+                    GAUSS(i)   = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
+                        (/ 0.239314_rk,0.118464_rk /),ZK(i))
+                else if (ZK(i) .le. FCH*(3.0_rk/5.0_rk) .and. ZK(i) .gt. FCH*(2.0_rk/5.0_rk)) then  !Level 3 - 4
+                    GAUSS(i)   = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
+                        (/ 0.284444_rk,0.239314_rk /),ZK(i))
+                else if (ZK(i) .le. FCH*(2.0_rk/5.0_rk) .and. ZK(i) .gt. FCH*(1.0_rk/5.0_rk) ) then  !Level 4 - Bottom
+                    GAUSS(i)   = interp_linear1_internal((/ FCH*(1.0_rk/5.0_rk),FCH*(2.0_rk/5.0_rk) /), &
+                        (/ 0.239314_rk,0.284444_rk /),ZK(i))
+                else if (ZK(i) .le. FCH*(1.0_rk/5.0_rk) ) then  !Level 4 - Bottom
+                    GAUSS(i)   = interp_linear1_internal((/ ZK(1),FCH*(1.0_rk/5.0_rk) /), &
+                        (/ 0.118464_rk,0.239314_rk /),ZK(i))
+                end if
+            end do
+
+            do i=1, SIZE(ZK)
+                VPGWT(i) = GAUSS(i)/sum(GAUSS(1:LAYERS))
+            end do
+            EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
+                VPGWT(1:LAYERS)) * CCE   !put into top model layer (ug m-2 hr-1)
+            EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
+        else if (VERT .eq. 3) then       !"MEGANv3-like": Add weighted sum of activity coefficients equally
+            !across canopy layers
+            !--warning: weights are not consistent with FCLAI distribution
+            !used for biomass distribution used for sunlit/shaded in Gamma TLEAF and GammaPPFD.
             LAYERS = floor(FCH/MODRES)
             do i=1,  SIZE(ZK)
-                VPGWT(i) = 1.0_rk/LAYERS !MEGANv3: Constant weighting factors across depth of canopy
+                VPGWT(i) = 1.0_rk/LAYERS
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
                 VPGWT(1:LAYERS)) * CCE   !put into top model layer (ug m-2 hr-1)
