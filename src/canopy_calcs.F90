@@ -84,9 +84,25 @@ SUBROUTINE canopy_calcs
                 if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
                     if (vtyperef .gt. 0 .and. vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS or MODIS types
 
+! ... check for ssg_opt from user namelist
+                        if (vtyperef .ge. 6 .and. vtyperef .le. 10) then !VIIRS/MODIS shrubs/savannas/grasses (SSG) type
+                            if (ssg_opt .eq. 0) then !use GEDI inputs for SSG heights (not likely captured...)
+                                hcmref = hcmref
+                            else if (ssg_opt .eq. 1) then !user set constant shrubs/savannas/grasslands height
+                                hcmref = ssg_set
+                                !recalculate
+                                zhc         = zk/hcmref
+                                cansublays  = floor(hcmref/modres)
+                            else
+                                write(*,*)  'Wrong SSG_OPT choice of ', ssg_opt, &
+                                    ' in namelist...exiting'
+                                call exit(2)
+                            end if
+                        end if
+
 ! ... check for crop_opt from user namelist
                         if (vtyperef .eq. 12) then !VIIRS/MODIS crop type
-                            if (crop_opt .eq. 0) then !use GEDI inputs for crop height
+                            if (crop_opt .eq. 0) then !use GEDI inputs for crop height (not likely captured...)
                                 hcmref = hcmref
                             else if (crop_opt .eq. 1) then !user set constant crop height
                                 hcmref = crop_set
@@ -311,6 +327,22 @@ SUBROUTINE canopy_calcs
 ! ... check for valid model vegetation types
             if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
                 if (vtyperef .gt. 0 .and. vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS or MODIS types
+
+! ... check for ssg_opt from user namelist
+                    if (vtyperef .ge. 6 .and. vtyperef .le. 10) then !VIIRS/MODIS shrubs/savannas/grasses (SSG) type
+                        if (ssg_opt .eq. 0) then !use GEDI inputs for SSG heights (not likely captured...)
+                            hcmref = hcmref
+                        else if (ssg_opt .eq. 1) then !user set constant shrubs/savannas/grasslands height
+                            hcmref = ssg_set
+                            !recalculate
+                            zhc         = zk/hcmref
+                            cansublays  = floor(hcmref/modres)
+                        else
+                            write(*,*)  'Wrong SSG_OPT choice of ', ssg_opt, &
+                                ' in namelist...exiting'
+                            call exit(2)
+                        end if
+                    end if
 
 ! ... check for crop_opt from user namelist
                     if (vtyperef .eq. 12) then !VIIRS/MODIS crop type

@@ -31,6 +31,8 @@
   z0_opt     =  0
   bio_cce    =  0.21
   bio_vert   =  0
+  ssg_opt    =  0
+  ssg_set    =  1.0
   crop_opt   =  0
   crop_set   =  3.0
   lai_thresh =  0.1
