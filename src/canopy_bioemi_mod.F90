@@ -6,7 +6,8 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_BIO( ZK, FCLAI, FCH, LAI, CLU, COSZEN, SFCRAD, &
-        TEMP2, LU_OPT, VTYPE, MODRES, CCE, VERT, EMI_IND, EMI_OUT)
+        TEMP2, LU_OPT, VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
+        EMI_IND, EMI_OUT)
 
 !-----------------------------------------------------------------------
 
@@ -32,7 +33,7 @@ contains
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
         use canopy_const_mod, ONLY: rk,rgasuniv   !constants for canopy models
-        use canopy_utils_mod,  ONLY: interp_linear1_internal
+        use canopy_utils_mod,  ONLY: interp_linear1_internal, GET_GAMMA_CO2
         use canopy_phot_mod
         use canopy_bioparm_mod
 
@@ -51,8 +52,10 @@ contains
         INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
         REAL(RK),    INTENT( IN )       :: MODRES          ! Canopy model input vertical resolution (m)
         REAL(RK),    INTENT( IN )       :: CCE             ! MEGAN Canopy environment coefficient.
-        INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
         INTEGER,     INTENT( IN )       :: VERT            ! MEGAN vertical integration option (default = 0/no integration)
+        INTEGER,     INTENT( IN )       :: CO2OPT          ! Option for co2 inhibition calculation
+        REAL(RK),    INTENT( IN )       :: CO2SET          ! User set atmospheric CO2 conc [ppmv]
+        INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
 
 ! Local Variables
@@ -98,6 +101,7 @@ contains
         REAL(RK) :: CT1                            ! Activation energy (kJ/mol)
         REAL(RK) :: CEO                            ! Empirical coefficient
         REAL(RK) :: EF                             ! Final Mapped Emission factor (EF) (ug/m2 hr)
+        REAL(RK) :: GAMMACO2                       ! CO2 inhibition factor (isoprene only)
         integer i, LAYERS
 
 ! Constant Canopy Parameters
@@ -301,8 +305,14 @@ contains
 
         GammaPPFD_AVE = (GammaPPFD_SUN*FSUN) + (GammaPPFD_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
 
+! Get CO2 inhibition factor for isoprene only
 
-!        print*, 'FCLAI=',FCLAI
+        if (EMI_IND .eq. 1) then  !Isoprene
+            GAMMACO2 = GET_GAMMA_CO2(CO2OPT,CO2SET)
+        else
+            GAMMACO2 = 1.0_rk
+        end if
+
 ! Calculate emissions profile in the canopy
         EMI_OUT = 0.0_rk  ! set initial emissions profile to zero
         FLAI = 0.0_rk  ! set initial fractional FLAI (LAD) profile to zero
@@ -311,7 +321,7 @@ contains
             do i=1, SIZE(ZK)
                 if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then           ! above ground level and at/below canopy top
                     FLAI(i) = ((FCLAI(i+1) - FCLAI(i)) * LAI)/MODRES    !fractional LAI in each layer converted to LAD (m2 m-3)
-                    EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i) * CCE  ! (ug m-3 hr-1)
+                    EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i) * GAMMACO2 * CCE  ! (ug m-3 hr-1)
                     EMI_OUT(i) = EMI_OUT(i) * 2.7777777777778E-13_rk    !convert emissions output to (kg m-3 s-1)
                 end if
             end do
@@ -328,11 +338,8 @@ contains
                     VPGWT(i) = (FLAI(i))/sum(FLAI(1:LAYERS))
                 end if
             end do
-!            print*,'--------------'
-!            print*,sum(VPGWT(1:LAYERS))
-!            print*,'--------------'
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * CCE   !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE   !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else if (VERT .eq. 2) then       !"MEGANv3-like": Add weighted sum of activity coefficients using normal distribution
             !across canopy layers using 5 layer numbers directly from MEGANv3
@@ -364,7 +371,7 @@ contains
                 VPGWT(i) = GAUSS(i)/sum(GAUSS(1:LAYERS))
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * CCE   !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE   !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else if (VERT .eq. 3) then       !"MEGANv3-like": Add weighted sum of activity coefficients equally
             !across canopy layers
@@ -375,7 +382,7 @@ contains
                 VPGWT(i) = 1.0_rk/LAYERS
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * CCE   !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE   !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else
             write(*,*)  'Wrong BIO_VERT choice of ', VERT, ' in namelist...exiting'

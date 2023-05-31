@@ -38,5 +38,7 @@ MODULE canopy_canopts_mod
     real(rk)            ::    ssg_set     !Set default value for shrubs/savanna/grassland vegtype heights used in model (m) (Default = 1 m)
     integer             ::    crop_opt    !Set default integer for crop vegtype option from GEDI or user (default = 0)
     real(rk)            ::    crop_set    !Set default value for crop vegtype heights used in model (m) (Default = 3 m)
+    integer             ::    co2_opt     !Set default integer for co2 inhibition option for biogenic isoprene emissions (default=0; Possell & Hewitt (2011))
+    real(rk)            ::    co2_set     !Set default value for atmospheric co2 concentration for co2_opt (m) (Default = 400.0 ppmv)
 
 END MODULE canopy_canopts_mod
