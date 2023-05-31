@@ -202,7 +202,7 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022
 | `ssg_set`       | user-set real value of constant SSG vegetation type heights (m) (only used if `ssg_opt=1`) |
 | `crop_opt`      | integer for using either input data  (= `0`, default) or user set crop vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data only provides canopy heights for forests and not crops.  Warning: use of crop_opt=1 will overide typically higher resolution input data (e.g., GEDI) forest canopy heights where the lower resolution vegtype data indicates crops  |
 | `crop_set`      | user-set real value of constant crop vegetation type heights (m) (only used if `crop_opt=1`) |
-| `co2_opt`       | integer for using different options for the co2 inhibition option for biogenic isoprene emissions using either Possell & Hewitt (2011) (= `0`, default) or Wilkinson et al. (2009) method (= `1`). To turn off co2 inhibition use `co2_opt=2`  |
+| `co2_opt`       | user-set options for applying a CO2 inhibition factor for biogenic isoprene-only emissions using either the Possell & Hewitt (2011) (= `0`, default) or Wilkinson et al. (2009) method (= `1`). To turn off co2 inhibition factor set `co2_opt=2`  |
 | `co2_set`       | user-set real value of atmospheric co2 concentration (ppmv) (only used if `co2_opt=0` or `co2_opt=1`) |
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
 | `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
