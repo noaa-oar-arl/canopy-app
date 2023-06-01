@@ -126,11 +126,6 @@ contains
     end function
 
     real(rk) function GET_GAMMA_CO2(co2_opt, co2_set)  result( GAMMA_CO2 )
-        !!------------------------------------------------------------------------------
-        !                   Harmonized Emissions Component (HEMCO)                    !
-        !------------------------------------------------------------------------------
-        !BOP
-        !
         ! !IROUTINE: get_gamma_co2
         !
         ! !DESCRIPTION: Function GET\_GAMMA\_CO2 computes the CO2 activity factor
