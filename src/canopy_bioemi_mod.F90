@@ -345,7 +345,7 @@ contains
             !across canopy layers using 5 layer numbers directly from MEGANv3
             !--warning: weights are not consistent with FCLAI distribution
             !used for biomass distribution used for sunlit/shaded in Gamma TLEAF and GammaPPFD.
-            LAYERS = floor(FCH/MODRES)
+            LAYERS = floor(FCH/MODRES) + 1
             do i=1, SIZE(ZK)
                 if (ZK(i) .gt. FCH) then
                     GAUSS(i) = 0.0
@@ -377,7 +377,7 @@ contains
             !across canopy layers
             !--warning: weights are not consistent with FCLAI distribution
             !used for biomass distribution used for sunlit/shaded in Gamma TLEAF and GammaPPFD.
-            LAYERS = floor(FCH/MODRES)
+            LAYERS = floor(FCH/MODRES) + 1
             do i=1,  SIZE(ZK)
                 VPGWT(i) = 1.0_rk/LAYERS
             end do
