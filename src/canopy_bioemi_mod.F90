@@ -327,7 +327,7 @@ contains
             end do
         else if (VERT .eq. 1) then       !"MEGANv3-like": Use weighting factors normalized to plant distribution shape (FCLAI)
             !across canopy layers
-            LAYERS = floor(FCH/MODRES)
+            LAYERS = floor(FCH/MODRES) + 1
             do i=1,  SIZE(ZK)
                 if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then
                     FLAI(i) = ((FCLAI(i+1) - FCLAI(i)) * LAI)/MODRES    !fractional LAI in each layer converted to LAD (m2 m-3)
