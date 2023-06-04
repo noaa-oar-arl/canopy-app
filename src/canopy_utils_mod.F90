@@ -188,8 +188,7 @@ contains
 
             ! Use empirical relationship of Possell & Hewitt (2011):
             ! Empirical relationship of Possell & Hewitt (2011) based on nine
-            ! experimental studies including Wilkinson et al. (2009). This is
-            ! especially recommended for sub-ambient CO2 concentrations:
+            ! experimental studies including Wilkinson et al. (2009).
 
             GAMMA_CO2 = 8.9406_rk / ( 1.0_rk + 8.9406_rk * 0.0024_rk * co2_set )
 
@@ -200,7 +199,8 @@ contains
             ! Semi-process-based parameterization of Wilkinson et al. (2009),
             ! taking into account of sensitivity to intercellular CO2
             ! fluctuation, which is here set as a constant fraction of
-            ! atmospheric CO2:
+            ! atmospheric CO2. This is especially recommended for sub-ambient
+            ! CO2 concentrations::
 
 
             ! Parameters for intercellular CO2 using linear interpolation:
