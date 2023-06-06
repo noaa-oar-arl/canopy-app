@@ -21,3 +21,5 @@ dependencies:
   #
   # Extra
   - ipython
+  - pysolar
+  - scipy

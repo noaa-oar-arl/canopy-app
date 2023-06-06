@@ -38,7 +38,7 @@ which is read at runtime.
 ./canopy
 ```
 
-You can also [run with Python](./python/README.md).
+You can also [generate global inputs and run with Python](./python/README.md).
 
 ## Components
 
