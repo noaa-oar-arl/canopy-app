@@ -20,7 +20,7 @@ month = 7  # month
 day = 1  # day
 houri = 12  # gfs initialization hour in UTC (caution: currently GFS input files are initialized at 12 UTC only -- do not change)
 hour = 0  # gfs forecast hour (0-24) in UTC
-ref_lev = 10  # reference height (m, a.g.l.)
+ref_lev = 10  # reference height above the canopy (m)
 frp_src = 1  # frp data source for WAF (0: local source; 1: check local source first, switch to climatological file if no available data ; 2: 12 month climatology)
 
 
@@ -395,7 +395,7 @@ for i in np.arange(len(canlist)):
 
     elif varname == "href":
         ATTNAME = ["long_name", "units", "missing_value"]
-        ATT = ["Reference height above the surface", "m", fill_value]
+        ATT = ["Reference height above the canopy", "m", fill_value]
         DATA = np.empty([nlat, nlon])
         DATA[:] = ref_lev
 
