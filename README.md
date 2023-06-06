@@ -168,6 +168,9 @@ Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day
 https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022MM01.sfcf000.nc
 ```
 
+You can also [generate global inputs using Python (see python/global_data_process.py script)](./python/README.md).
+
+
 ### Table 3. Current User Namelist Options
 
 | Namelist Option | Namelist Description and Units                                                     |
