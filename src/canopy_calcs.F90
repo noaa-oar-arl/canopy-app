@@ -15,11 +15,13 @@ SUBROUTINE canopy_calcs
     use canopy_utils_mod      !main canopy utilities
     use canopy_dxcalc_mod     !main canopy dx calculation
     use canopy_profile_mod    !main canopy foliage profile routines
+    use canopy_phot_mod       !main canopy radiation/photolysis attenuation components
+    use canopy_tleaf_mod      !main canopy leaf temperature components
+    use canopy_ppfd_mod       !main canopy leaf ppfd components
     use canopy_wind_mod       !main canopy wind components
-    use canopy_waf_mod
-    use canopy_phot_mod
-    use canopy_eddy_mod
-    use canopy_bioemi_mod
+    use canopy_waf_mod        !main canopy WAF components
+    use canopy_eddy_mod       !main canopy eddy diffusivity components
+    use canopy_bioemi_mod     !main canopy biogenic emissions components
 
     IMPLICIT NONE
 
@@ -150,6 +152,13 @@ SUBROUTINE canopy_calcs
                             if (ifcanbio) then
                                 if (cszref .ge. 0.0_rk .and. dswrfref .gt. 0.0_rk &
                                     .and. cluref .gt. 0.0_rk) then
+                                    !calculate sunlit/shade leaves, tleaf, and ppfd
+                                    call canopy_phot(fafraczInt, &
+                                        lairef, cluref, cszref, rjcf_3d(i,j,:))
+                                    call canopy_tleaf_lin( zk, hcmref, tmp2mref, tleaf_sun, tleaf_shade)
+                                    call canopy_ppfd_exp( zk, hcmref, dswrfref, lairef, ppfd_sun, &
+                                        ppfd_shade)
+                                    !calculate biogenic emissions
                                     !ISOP
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, cluref, cszref, dswrfref, tmp2mref, &
@@ -362,6 +371,13 @@ SUBROUTINE canopy_calcs
                         if (ifcanbio) then
                             if (cszref .ge. 0.0_rk .and. dswrfref .gt. 0.0_rk &
                                 .and. cluref .gt. 0.0_rk) then
+                                !calculate sunlit/shade leaves, tleaf, and ppfd
+                                call canopy_phot(fafraczInt, &
+                                    lairef, cluref, cszref, rjcf(loc, :))
+                                call canopy_tleaf_lin( zk, hcmref, tmp2mref, tleaf_sun, tleaf_shade)
+                                call canopy_ppfd_exp( zk, hcmref, dswrfref, lairef, ppfd_sun, &
+                                    ppfd_shade)
+                                !calculate biogenic emissions
                                 !ISOP
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, cluref, cszref, dswrfref, tmp2mref, &

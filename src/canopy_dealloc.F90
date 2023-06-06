@@ -25,11 +25,15 @@ SUBROUTINE canopy_dealloc
 ! Dellocate arrays for Canopy Distribution
 !-------------------------------------------------------------------------------
 
-    if(allocated(zk))         deallocate(zk) !allocated in canopy_readnml
-    if(allocated(zhc))        deallocate(zhc)
-    if(allocated(fainc))      deallocate(fainc) !allocated in canopy_profile
-    if(allocated(fafracz))    deallocate(fafracz) !allocated in canopy_profile
-    if(allocated(fafraczInt)) deallocate(fafraczInt)
+    if(allocated(zk))          deallocate(zk) !allocated in canopy_readnml
+    if(allocated(zhc))         deallocate(zhc)
+    if(allocated(fainc))       deallocate(fainc) !allocated in canopy_profile
+    if(allocated(fafracz))     deallocate(fafracz) !allocated in canopy_profile
+    if(allocated(fafraczInt))  deallocate(fafraczInt)
+    if(allocated(tleaf_sun))   deallocate(tleaf_sun)
+    if(allocated(tleaf_shade)) deallocate(tleaf_shade)
+    if(allocated(ppfd_sun))    deallocate(ppfd_sun)
+    if(allocated(ppfd_shade))  deallocate(ppfd_shade)
 
 !-------------------------------------------------------------------------------
 ! Deallocate arrays for Canopy Wind
