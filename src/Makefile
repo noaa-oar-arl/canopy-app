@@ -36,7 +36,7 @@ endif
 # NETCDF Settings here
 LIBS :=
 INC :=
-$(info NETCDF setting: '$(NC)')
+$(info NC setting: '$(NC)')
 ifeq ($(NC), 1)
   NETCDF_FLIBS := $(shell nf-config --flibs)
   NETCDF_INC := -I$(shell nf-config --includedir)
