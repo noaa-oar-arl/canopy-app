@@ -2,10 +2,13 @@
 # Use `FC=<compiler> ... make` to select compiler
 # Use `DEBUG=1 ... make` for a debug build
 # Use `NETCDF=1 ... make` to build with NetCDF using `nf-config`
+# compile with either FC=ifort or FC=gfortran
 
 # Compiler
 FC ?= gfortran
 ifeq ($(FC), f77)  # override possible Make default
+  FC := ifort 
+else ifeq ($(FC),gfortran)
   FC := gfortran
 endif
 $(info FC setting: '$(FC)')
@@ -19,7 +22,12 @@ NETCDF ?= 1
 # Compile flags
 $(info DEBUG setting: '$(DEBUG)')
 ifeq ($(DEBUG), 1)
-  FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5
+  ifeq ($(FC),gfortran)
+    FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5 
+  else ifeq ($(FC),ifort)
+    #FCFLAGS := -g -warn all -implicitnone -O1 -stand f90 -error-limit 5  #Equivalent to gfortran Debug flags, builds with warnings on Hera
+    FCFLAGS  := -g -warn all -check bounds -traceback #builds without warnings on Hera
+  endif
 else ifeq ($(DEBUG), 0)
   FCFLAGS := -O3
 else
