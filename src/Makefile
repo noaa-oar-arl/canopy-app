@@ -2,7 +2,6 @@
 # Use `FC=<compiler> ... make` to select compiler
 # Use `DEBUG=1 ... make` for a debug build
 # Use `NETCDF=1 ... make` to build with NetCDF using `nf-config`
-# compile with either FC=ifort or FC=gfortran
 
 # Compiler
 FC ?= gfortran
