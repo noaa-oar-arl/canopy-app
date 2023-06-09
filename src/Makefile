@@ -6,7 +6,7 @@
 # Compiler
 FC ?= gfortran
 ifeq ($(FC), f77)  # override possible Make default
-  FC := gfortran
+  FC := ifort
 endif
 $(info FC setting: '$(FC)')
 
