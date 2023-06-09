@@ -47,7 +47,7 @@ ifeq ($(NC), 1)
 else ifeq ($(NC), 0)
   #
 else
-  $(error invalid setting for NETCDF, should be 0 or 1 but is '$(NC)')
+  $(error invalid setting for NC, should be 0 or 1 but is '$(NC)')
 endif
 $(info LIBS: '$(LIBS)')
 $(info INC:  '$(INC)')
