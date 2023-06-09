@@ -30,7 +30,7 @@
   lu_opt      =  1
   z0_opt      =  0
   bio_cce     =  0.21
-  biovert_opt =  4
+  biovert_opt =  0
   ssg_opt     =  0
   ssg_set     =  1.0
   crop_opt    =  0
