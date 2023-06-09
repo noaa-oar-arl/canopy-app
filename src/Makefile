@@ -1,7 +1,7 @@
 #
 # Use `FC=<compiler> ... make` to select compiler
 # Use `DEBUG=1 ... make` for a debug build
-# Use `NETCDF=1 ... make` to build with NetCDF using `nf-config`
+# Use `NC=1 ... make` to build with NetCDF using `nf-config`
 
 # Compiler
 FC ?= gfortran
@@ -14,17 +14,18 @@ $(info FC setting: '$(FC)')
 DEBUG ?= 0
 
 # Default to NetCDF build
-NETCDF ?= 1
+NC ?= 1
 
 # Compile flags
 $(info DEBUG setting: '$(DEBUG)')
 ifeq ($(DEBUG), 1)
   ifeq ($(FC),gfortran)
-    FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5 
+    FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5 -std=f2003 -fall-intrinsics
   else ifeq ($(FC),ifort)
-    # Tested the following Debug flag options on Hera with 'DEBUG=1 NETCDF=1 FC=ifort make -C src'
-    #FCFLAGS := -g -warn all -implicitnone -O1 -stand f90 -error-limit 5  #Equivalent to gfortran Debug flags  #builds but with WARNINGS to be resolved 
-    FCFLAGS  := -g -warn all -check bounds -traceback  #builds Canopy-app on Hera with FC=ifort without warnings
+    # Tested the following Debug flag options on Hera with 'DEBUG=1 NC=1 FC=ifort make -C src'
+    # Both options build without warnings and also make clean in src
+    FCFLAGS := -g -warn all -implicitnone -O1 -error-limit 5  #Equivalent to gfortran Debug flags
+    #FCFLAGS  := -g -warn all -check bounds -traceback  #also builds Canopy-app on Hera with FC=ifort without warnings
   endif
 else ifeq ($(DEBUG), 0)
   FCFLAGS := -O3
@@ -35,18 +36,18 @@ endif
 # NETCDF Settings here
 LIBS :=
 INC :=
-$(info NETCDF setting: '$(NETCDF)')
-ifeq ($(NETCDF), 1)
+$(info NETCDF setting: '$(NC)')
+ifeq ($(NC), 1)
   NETCDF_FLIBS := $(shell nf-config --flibs)
   NETCDF_INC := -I$(shell nf-config --includedir)
   #
   LIBS += $(NETCDF_FLIBS)
   INC += $(NETCDF_INC)
   FCFLAGS += -DNETCDF
-else ifeq ($(NETCDF), 0)
+else ifeq ($(NC), 0)
   #
 else
-  $(error invalid setting for NETCDF, should be 0 or 1 but is '$(NETCDF)')
+  $(error invalid setting for NETCDF, should be 0 or 1 but is '$(NC)')
 endif
 $(info LIBS: '$(LIBS)')
 $(info INC:  '$(INC)')
@@ -80,7 +81,7 @@ OBJS :=\
  canopy_dealloc.o \
  canopy_app.o
 
-ifeq ($(NETCDF), 0)
+ifeq ($(NC), 0)
   _ncf_objs := canopy_check_input.o canopy_ncf_io_mod.o
   OBJS := $(filter-out $(_ncf_objs),$(OBJS))
 endif
