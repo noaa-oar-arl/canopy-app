@@ -23,7 +23,7 @@ SUBROUTINE canopy_readnml
     NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
         z0ghc, lambdars, flameh_opt, flameh_set, frp_fac, ifcanwind, ifcanwaf, &
         ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, &
-        dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, bio_vert, &
+        dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, biovert_opt, &
         ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set
 
 !-------------------------------------------------------------------------------
@@ -204,7 +204,7 @@ SUBROUTINE canopy_readnml
 
 !-------------------------------------------------------------------------------
 ! Set default integer value for MEGAN vertical integration of emissions (0, off full leaf-level emissions)
-    bio_vert = 0
+    biovert_opt = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

@@ -385,7 +385,7 @@ contains
                 VPGWT(1:LAYERS)) * GAMMACO2 * CCE   !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else
-            write(*,*)  'Wrong BIO_VERT choice of ', VERT, ' in namelist...exiting'
+            write(*,*)  'Wrong BIOVERT_OPT choice of ', VERT, ' in namelist...exiting'
             call exit(2)
         end if
 
