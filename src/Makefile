@@ -6,7 +6,7 @@
 # Compiler
 FC ?= gfortran
 ifeq ($(FC), f77)  # override possible Make default
-  FC := ifort
+  FC := gfortran
 endif
 $(info FC setting: '$(FC)')
 
@@ -22,9 +22,9 @@ ifeq ($(DEBUG), 1)
   ifeq ($(FC),gfortran)
     FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5 
   else ifeq ($(FC),ifort)
-    # Both the following Debug flag options build Canopy-app on Hera with ifort without warnings 
-    #FCFLAGS := -g -warn all -implicitnone -O1 -stand f90 -error-limit 5  #Equivalent to gfortran Debug flags
-    FCFLAGS  := -g -warn all -check bounds -traceback 
+    # Tested the following Debug flag options on Hera with 'DEBUG=1 NETCDF=1 FC=ifort make -C src'
+    #FCFLAGS := -g -warn all -implicitnone -O1 -stand f90 -error-limit 5  #Equivalent to gfortran Debug flags  #builds but with WARNINGS to be resolved 
+    FCFLAGS  := -g -warn all -check bounds -traceback  #builds Canopy-app on Hera with FC=ifort without warnings
   endif
 else ifeq ($(DEBUG), 0)
   FCFLAGS := -O3
