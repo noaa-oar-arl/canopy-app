@@ -22,21 +22,21 @@ Compilation options can be controlled with environment variables:
 
 - `FC=gfortran` (default) or ifort
 - `DEBUG=0` (off; default) or `DEBUG=1` (on)
- - `NC=0` (off) or `NETCDF=1` (on; default)
+- `NC=0` (off) or `NETCDF=1` (on; default)
 
 Example:
 a) with gfortran, Debug flags ON and with Netcdf:
 ```
-DEBUG=1 NC=1 make -C src 
+DEBUG=1 NC=1 make -C src
 ```
 Note: Not supplying `FC` doesn't necessary give gfortran, since `FC` might already be set in the environment (such as, `module load` situations do this). On such case do:
 ```
-DEBUG=1 NC=1 FC=gfortran make -C src 
+DEBUG=1 NC=1 FC=gfortran make -C src
 ```
 b) with ifort, Debug flags ON and with Netcdf:
 ```
 DEBUG=1 NC=1 FC=ifort make -C src
-``` 
+```
 
 ### Modify settings
 
