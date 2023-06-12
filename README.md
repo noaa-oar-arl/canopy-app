@@ -33,7 +33,7 @@ Note: Not supplying `FC` doesn't necessarily give `gfortran`, since `FC` might a
 ```
 DEBUG=1 NC=1 FC=gfortran make -C src
 ```
-b) with ifort, Debug flags ON and with Netcdf:
+b) with Intel Fortran (`ifort`), Debug flags ON and with NetCDF:
 ```
 DEBUG=1 NC=1 FC=ifort make -C src
 ```
