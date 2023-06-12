@@ -25,7 +25,7 @@ Compilation options can be controlled with environment variables:
 - `NC=0` (off) or `NETCDF=1` (on; default)
 
 Example:
-a) with gfortran, Debug flags ON and with Netcdf (if `echo $FC` gives gfortran):
+a) with compiler set by `FC` environment variable (falling back to `gfortran` if unset), Debug flags ON and with NetCDF:
 ```
 DEBUG=1 NC=1 make -C src
 ```
