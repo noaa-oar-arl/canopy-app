@@ -19,12 +19,23 @@ Canopy-App requires NetCDF-Fortran Libraries (i.e., `-lnetcdf -lnetcdff`) when u
 See [the included Makefile](./src/Makefile), which detects NetCDF using `nf-config`, for an example (on GMU Hopper, you can use the `netcdf-c/4.7.4-vh` and `netcdf-fortran/4.5.3-ff` modules).
 
 Compilation options can be controlled with environment variables:
- - `DEBUG=0` (off; default) or `DEBUG=1` (on)
- - `NETCDF=0` (off) or `NETCDF=1` (on; default)
+
+- `FC=gfortran` (default) or ifort
+- `DEBUG=0` (off; default) or `DEBUG=1` (on)
+- `NC=0` (off) or `NC=1` (on; default)
 
 Example:
+a) with compiler set by `FC` environment variable (falling back to `gfortran` if unset), Debug flags ON and with NetCDF:
 ```
-DEBUG=1 NETCDF=1 make -C src
+DEBUG=1 NC=1 make -C src
+```
+Note: Not supplying `FC` doesn't necessarily give `gfortran`, since `FC` might already be set in the environment (for example, `module load` situations may do this). In such case do:
+```
+DEBUG=1 NC=1 FC=gfortran make -C src
+```
+b) with Intel Fortran (`ifort`), Debug flags ON and with NetCDF:
+```
+DEBUG=1 NC=1 FC=ifort make -C src
 ```
 
 ### Modify settings
