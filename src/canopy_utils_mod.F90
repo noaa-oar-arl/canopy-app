@@ -6,7 +6,7 @@ module canopy_utils_mod
 
     private
     public IntegrateTrapezoid,interp_linear1_internal,CalcPAI, &
-        CalcDX,CalcFlameH
+        CalcDX,CalcFlameH,GET_GAMMA_CO2
 
 contains
 
@@ -124,5 +124,131 @@ contains
         CalcFlameH=0.0775_rk*((frp*1000.0_rk)/dx)**0.46_rk  !Byram flameh calculation as function of FRP
 
     end function
+
+    real(rk) function GET_GAMMA_CO2(co2_opt, co2_set)  result( GAMMA_CO2 )
+        ! !IROUTINE: get_gamma_co2
+        !
+        ! !DESCRIPTION: Function GET\_GAMMA\_CO2 computes the CO2 activity factor
+        !  associated with CO2 inhibition of isoprene emission. Called from
+        !  GET\_MEGAN\_EMISSIONS only.
+        !\\
+        !\\
+        ! !INTERFACE:
+
+        ! !INPUT PARAMETERS:
+        integer,  INTENT(IN) :: co2_opt       ! Option for co2 inhibition calculation
+        ! 0=Possell & Hewitt (2011);
+        ! 1=Wilkinson et al. (2009)
+        ! >1=off
+        real(rk), INTENT(IN) :: co2_set       ! User set atmospheric CO2 conc [ppmv]
+        !
+        ! !RETURN VALUE:
+!        REAL(rk)             :: GAMMA_CO2  ! CO2 activity factor [unitless]
+        !
+        ! !LOCAL VARIABLES:
+        REAL(rk)             :: CO2i       ! Intercellular CO2 conc [ppmv]
+        REAL(rk)             :: ISMAXi     ! Asymptote for intercellular CO2
+        REAL(rk)             :: HEXPi      ! Exponent for intercellular CO2
+        REAL(rk)             :: CSTARi     ! Scaling coef for intercellular CO2
+        REAL(rk)             :: ISMAXa     ! Asymptote for atmospheric CO2
+        REAL(rk)             :: HEXPa      ! Exponent for atmospheric CO2
+        REAL(rk)             :: CSTARa     ! Scaling coef for atmospheric CO2
+        !
+        ! !REMARKS:
+        !  References:
+        !  ============================================================================
+        !  (1 ) Heald, C. L., Wilkinson, M. J., Monson, R. K., Alo, C. A.,
+        !       Wang, G. L., and Guenther, A.: Response of isoprene emission
+        !       to ambient co(2) changes and implications for global budgets,
+        !       Global Change Biology, 15, 1127-1140, 2009.
+        !  (2 ) Wilkinson, M. J., Monson, R. K., Trahan, N., Lee, S., Brown, E.,
+        !       Jackson, R. B., Polley, H. W., Fay, P. A., and Fall, R.: Leaf
+        !       isoprene emission rate as a function of atmospheric CO2
+        !       concentration, Global Change Biology, 15, 1189-1200, 2009.
+        !  (3 ) Possell, M., and Hewitt, C. N.: Isoprene emissions from plants
+        !       are mediated by atmospheric co2 concentrations, Global Change
+        !       Biology, 17, 1595-1610, 2011.
+
+        ! !REVISION HISTORY:
+        !  (1 ) Implemented in the standard code by A. Tai (Jun 2012).
+        !  See https://github.com/geoschem/hemco for complete history
+        !EOP
+        !------------------------------------------------------------------------------
+        !BOC
+
+        !-----------------------
+        ! Compute GAMMA_CO2
+        !-----------------------
+
+        !----------------------------------------------------------
+        ! Choose between two alternative CO2 inhibition schemes
+        !----------------------------------------------------------
+
+        IF ( co2_opt .eq. 0 ) THEN
+
+            ! Use empirical relationship of Possell & Hewitt (2011):
+            ! Empirical relationship of Possell & Hewitt (2011) based on nine
+            ! experimental studies including Wilkinson et al. (2009).
+
+            GAMMA_CO2 = 8.9406_rk / ( 1.0_rk + 8.9406_rk * 0.0024_rk * co2_set )
+
+
+        ELSEIF ( co2_opt .eq. 1 ) THEN
+
+            ! Use parameterization of Wilkinson et al. (2009):
+            ! Semi-process-based parameterization of Wilkinson et al. (2009),
+            ! taking into account of sensitivity to intercellular CO2
+            ! fluctuation, which is here set as a constant fraction of
+            ! atmospheric CO2. This is especially recommended for sub-ambient
+            ! CO2 concentrations::
+
+
+            ! Parameters for intercellular CO2 using linear interpolation:
+            IF ( co2_set <= 600.0_rk ) THEN
+                ISMAXi = 1.036_rk  - (1.036_rk - 1.072_rk) / &
+                    (600.0_rk - 400.0_rk) * (600.0_rk - co2_set)
+                HEXPi  = 2.0125_rk - (2.0125_rk - 1.7000_rk) / &
+                    (600.0_rk - 400.0_rk) * (600.0_rk - co2_set)
+                CSTARi = 1150.0_rk - (1150.0_rk - 1218.0_rk) / &
+                    (600.0_rk - 400.0_rk) * (600.0_rk - co2_set)
+            ELSEIF ( co2_set > 600.0_rk .AND. co2_set < 800.0_rk ) THEN
+                ISMAXi = 1.046_rk  - (1.046_rk - 1.036_rk) / &
+                    (800.0_rk - 600.0_rk) * (800.0_rk - co2_set)
+                HEXPi  = 1.5380_rk - (1.5380_rk - 2.0125_rk) / &
+                    (800.0_rk - 600.0_rk) * (800.0_rk - co2_set)
+                CSTARi = 2025.0_rk - (2025.0_rk - 1150.0_rk) / &
+                    (800.0_rk - 600.0_rk) * (800.0_rk - co2_set)
+            ELSE
+                ISMAXi = 1.014_rk - (1.014_rk - 1.046_rk) / &
+                    (1200.0_rk - 800.0_rk) * (1200.0_rk - co2_set)
+                HEXPi  = 2.8610_rk - (2.8610_rk - 1.5380_rk) / &
+                    (1200.0_rk - 800.0_rk) * (1200.0_rk - co2_set)
+                CSTARi = 1525.0_rk - (1525.0_rk - 2025.0_rk) / &
+                    (1200.0_rk - 800.0_rk) * (1200.0_rk - co2_set)
+            ENDIF
+
+            ! Parameters for atmospheric CO2:
+            ISMAXa    = 1.344_rk
+            HEXPa     = 1.4614_rk
+            CSTARa    = 585.0_rk
+
+            ! For now, set CO2_Ci = 0.7d0 * CO2_Ca as recommended by Heald
+            ! et al. (2009):
+            CO2i      = 0.7_rk * co2_set
+
+            ! Compute GAMMA_CO2:
+            GAMMA_CO2 = ( ISMAXi -  ISMAXi * CO2i**HEXPi / &
+                ( CSTARi**HEXPi + CO2i**HEXPi ) )  &
+                * ( ISMAXa - ISMAXa * ( 0.7_rk * co2_set )**HEXPa / &
+                ( CSTARa**HEXPa + ( 0.7_rk * co2_set )**HEXPa ) )
+
+        ELSE
+
+            ! No CO2 inhibition scheme is used; GAMMA_CO2 set to unity:
+            GAMMA_CO2 = 1.0_rk
+
+        ENDIF
+
+    end function GET_GAMMA_CO2
 
 end module canopy_utils_mod
