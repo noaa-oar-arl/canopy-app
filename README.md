@@ -29,7 +29,7 @@ a) with compiler set by `FC` environment variable (falling back to `gfortran` if
 ```
 DEBUG=1 NC=1 make -C src
 ```
-Note: Not supplying `FC` doesn't necessary give gfortran, since `FC` might already be set in the environment (such as, `module load` situations do this). In such case do:
+Note: Not supplying `FC` doesn't necessarily give `gfortran`, since `FC` might already be set in the environment (for example, `module load` situations may do this). In such case do:
 ```
 DEBUG=1 NC=1 FC=gfortran make -C src
 ```
