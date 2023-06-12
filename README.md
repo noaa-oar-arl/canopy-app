@@ -22,7 +22,7 @@ Compilation options can be controlled with environment variables:
 
 - `FC=gfortran` (default) or ifort
 - `DEBUG=0` (off; default) or `DEBUG=1` (on)
-- `NC=0` (off) or `NETCDF=1` (on; default)
+- `NC=0` (off) or `NC=1` (on; default)
 
 Example:
 a) with compiler set by `FC` environment variable (falling back to `gfortran` if unset), Debug flags ON and with NetCDF:
