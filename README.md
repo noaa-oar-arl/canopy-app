@@ -19,12 +19,23 @@ Canopy-App requires NetCDF-Fortran Libraries (i.e., `-lnetcdf -lnetcdff`) when u
 See [the included Makefile](./src/Makefile), which detects NetCDF using `nf-config`, for an example (on GMU Hopper, you can use the `netcdf-c/4.7.4-vh` and `netcdf-fortran/4.5.3-ff` modules).
 
 Compilation options can be controlled with environment variables:
- - `DEBUG=0` (off; default) or `DEBUG=1` (on)
- - `NETCDF=0` (off) or `NETCDF=1` (on; default)
+
+- `FC=gfortran` (default) or ifort
+- `DEBUG=0` (off; default) or `DEBUG=1` (on)
+- `NC=0` (off) or `NC=1` (on; default)
 
 Example:
+a) with compiler set by `FC` environment variable (falling back to `gfortran` if unset), Debug flags ON and with NetCDF:
 ```
-DEBUG=1 NETCDF=1 make -C src
+DEBUG=1 NC=1 make -C src
+```
+Note: Not supplying `FC` doesn't necessarily give `gfortran`, since `FC` might already be set in the environment (for example, `module load` situations may do this). In such case do:
+```
+DEBUG=1 NC=1 FC=gfortran make -C src
+```
+b) with Intel Fortran (`ifort`), Debug flags ON and with NetCDF:
+```
+DEBUG=1 NC=1 FC=ifort make -C src
 ```
 
 ### Modify settings
@@ -197,6 +208,13 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022
 | `lu_opt`        | integer for input model land use type (`0`: VIIRS 17 Cat (default) or `1`: MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.) |
 | `z0_opt`        | integer (`0`: use model input or `1`: vegtype dependent z0 for first estimate)     |
 | `bio_cce`       | user-set real value of MEGAN biogenic emissions "canopy environment coefficient" used to tune emissions to model inputs/calculations (default: `0.21`, based on Silva et al. 2020) |
+| `biovert_opt`   | user set biogenic vertical summing option (`0`: no sum, full leaf-level biogenic emissions, units=kg/m3/s; `1`: MEGANv3-like summing of LAD weighted activity coefficients using the canopy-app plant distributions, caution-- units=kg m-2 s-1 and puts the total emissions in the topmost canopy-app model layer only; `2`: Same as in option 1, but instead uses Gaussian/normally weighted activity coefficients acoss all sub-canopy layers -- also units of kg m-2 s-1 in topmost model layer; `3`: Same as in option 1, but instead uses evenly weighted activity coefficients acoss all sub-canopy layers -- also units of kg m-2 s-1 in topmost model layer          |
+| `ssg_opt`       | integer for using either input data  (= `0`, default) or user set shrub/savanna/grass (SSG) vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data only provides canopy heights for forests and not SSG.  Warning: use of ssg_opt=1 will overide typically higher resolution input data (e.g., GEDI) forest canopy heights where the lower resolution vegtype data indicates SSG  |
+| `ssg_set`       | user-set real value of constant SSG vegetation type heights (m) (only used if `ssg_opt=1`) |
+| `crop_opt`      | integer for using either input data  (= `0`, default) or user set crop vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data only provides canopy heights for forests and not crops.  Warning: use of crop_opt=1 will overide typically higher resolution input data (e.g., GEDI) forest canopy heights where the lower resolution vegtype data indicates crops  |
+| `crop_set`      | user-set real value of constant crop vegetation type heights (m) (only used if `crop_opt=1`) |
+| `co2_opt`       | user-set options for applying a CO2 inhibition factor for biogenic isoprene-only emissions using either the [Possell & Hewitt (2011)](https://doi.org/10.1111/j.1365-2486.2010.02306.x) (= `0`, default) or [Wilkinson et al. (2009)](https://doi.org/10.1111/j.1365-2486.2008.01803.x) method (= `1`). Use of option = `1` (Possell & Hewitt 2011) is especially recommended for sub-ambient CO2 concentrations.  To turn off co2 inhibition factor set `co2_opt=2`  |
+| `co2_set`       | user-set real value of atmospheric co2 concentration (ppmv) (only used if `co2_opt=0` or `co2_opt=1`) |
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
 | `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
 | `fch_thresh`    | user-set real value of canopy height  threshold for contiguous canopy (m)          |

@@ -23,7 +23,8 @@ SUBROUTINE canopy_readnml
     NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
         z0ghc, lambdars, flameh_opt, flameh_set, frp_fac, ifcanwind, ifcanwaf, &
         ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, &
-        dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce
+        dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, biovert_opt, &
+        ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -199,6 +200,41 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default real value for MEGAN biogenic canopy environment coeficient (default = 0.21; Silva et al. (2020)
     bio_cce = 0.21_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer value for MEGAN vertical integration of emissions (0, off full leaf-level emissions)
+    biovert_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for shrubs/savanaa/grasslands vegtype option from GEDI or user (default = 0)
+    ssg_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for shrubs/savanaa/grasslands vegtype heights used in model (m) (Default = 1 m)
+    ssg_set = 1.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for crop vegtype option from GEDI or user (default = 0)
+    crop_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for crop vegtype heights used in model (m) (Default = 3 m)
+    crop_set = 3.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for co2 inhibition option for biogenic isoprene emissions (default = 0; Possell & Hewitt (2011))
+    co2_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for atmospheric co2 concentration for co2_opt (m) (Default = 400.0 ppmv)
+    co2_set = 400.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
