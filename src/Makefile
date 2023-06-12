@@ -22,10 +22,7 @@ ifeq ($(DEBUG), 1)
   ifeq ($(FC),gfortran)
     FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5 -std=f2003 -fall-intrinsics
   else ifeq ($(FC),ifort)
-    # Tested the following Debug flag options on Hera with 'DEBUG=1 NC=1 FC=ifort make -C src'
-    # Both options build without warnings and also make clean in src
-    FCFLAGS := -g -warn all -implicitnone -O1 -error-limit 5  #Equivalent to gfortran Debug flags
-    #FCFLAGS  := -g -warn all -check bounds -traceback  #also builds Canopy-app on Hera with FC=ifort without warnings
+    FCFLAGS := -g -warn all -check bounds -implicitnone -O0 -error-limit 5
   endif
 else ifeq ($(DEBUG), 0)
   FCFLAGS := -O3
