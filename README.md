@@ -49,7 +49,7 @@ which is read at runtime.
 ./canopy
 ```
 
-You can also [run with Python](./python/README.md).
+You can also [generate global inputs and run with Python](./python/README.md).
 
 ## Components
 
@@ -157,7 +157,7 @@ The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variab
 | `frp`                            | Total Fire Radiative Power (MW/grid cell area) | [NOAA/NESDIS GBBEPx](https://www.ospo.noaa.gov/Products/land/gbbepx/) |
 | `csz`                            | Cosine of the solar zenith angle (dimensionless) | [Based on Python Pysolar](https://pysolar.readthedocs.io/en/latest/) |
 | `mol`                            | Monin-Obukhov Length (m)                    | Externally calculated using GFS `tmp2m`, `fricv`, and `shtfl`.  ([Essa, 1999](https://inis.iaea.org/collection/NCLCollectionStore/_Public/37/118/37118528.pdf)) |
-| `href`                           | Reference height above canopy (m) - 10 m    | Added as a constant reference height above surface (i.e., 10 m).  Can be taken from NL. |
+| `href`                           | Reference height above canopy (m) - 10 m    | Assumed constant (i.e., 10 m).  Can be taken from NL. |
 
 **More Information on Data Sources from [Table 2](#table-2-canopy-app-required-input-variables):**
 
@@ -179,6 +179,9 @@ Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day
 https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022MM01.sfcf000.nc
 ```
 
+You can also [generate global inputs using Python (see python/global_data_process.py)](./python/README.md).
+
+
 ### Table 3. Current User Namelist Options
 
 | Namelist Option | Namelist Description and Units                                                     |
@@ -193,7 +196,7 @@ https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022
 | `ifcaneddy`     | logical canopy eddy Kz option (default: `.FALSE.`)                                 |
 | `ifcanphot`     | logical canopy photolysis option (default: `.FALSE.`)                              |
 | `ifcanbio`      | logical canopy biogenic emissions option (default: `.FALSE.`)                      |
-| `href_opt`      | integer for using href_set in namelist (= `0`, default) or array from file (= `1`) |
+| `href_opt`      | integer for using `href_set` in namelist (= `0`, default) or array from file (= `1`) |
 | `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) **\*\*\*** |
 | `z0ghc`         | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
 | `rsl_opt`       | user-set option for either MOST or unified Roughness SubLayer (RSL) effects above and at canopy top (Uc).(= `0`, default: uses MOST and a constant lambdars factor only), (= `1`, under development: will use a more unified RSL approach from Bonan et al. (2018) and Abolafia-Rosenzweig et al., 2021)   |

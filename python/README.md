@@ -51,3 +51,35 @@ cases = config_cases(
 ds = run_config_sens(cases)
 ```
 :point_up: We still get a single output dataset, but it has a `case` dimension.
+
+### Generating global data
+
+You can also download and generate global gridded canopy-app inputs using Python.
+
+1. Edit python script (`global_data_process.py`)
+
+2. Change user settings
+
+   ```python
+   '''User Options'''
+   path     = '/scratch/pcampbe8/canopy-app/input'  # work directory
+   year     = 2022   # year
+   month    = 7      # month
+   day      = 1      # day
+   houri    = 12     # gfs initialization hour in UTC (caution currently GFS files are initialized at 12 UTC only -- do not change)
+   hour     = 00     # gfs forecast hour in UTC
+   ref_lev  = 10     # reference height above the canopy (m)
+   frp_src  = 1      # frp data source (0: local source; 1: check local source first, switch to climatological file if no available data ; 2: 12 month climatology)
+   ```
+
+2. Activate canopy-app Conda environment:
+
+   ```
+   conda activate canopy-app
+   ```
+
+3. Run python script
+
+   ```
+   python global_data_process.py
+   ```

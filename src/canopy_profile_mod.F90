@@ -245,13 +245,13 @@ contains
         REAL(RK),    INTENT( IN )  :: ZHC     ( : )   ! SUB-CANOPY Total z/h layers (nondimensional)
         REAL(RK),    INTENT( IN )  :: FCLAI   ( : )   ! SUB-CANOPY Fractional (z) shapes of the
         ! plant surface distribution, i.e., a Fractional Culmulative LAI
-        REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at zref-height of canopy top (m/s)
+        REAL(RK),    INTENT( IN )  :: UBZREF          ! Mean wind speed at reference height (ZREF) (m/s)
         REAL(RK),    INTENT( IN )  :: Z0GHC           ! Ratio of ground roughness length to canopy top height (nondimensional)
         REAL(RK),    INTENT( IN )  :: LAMBDARS         ! Value representing influence of roughness sublayer (nondimensional)
         REAL(RK),    INTENT( IN )  :: CDRAG           ! Drag coefficient (nondimensional)
         REAL(RK),    INTENT( IN )  :: PAI             ! Total plant/foliage area index (nondimensional)
         REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
-        REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height (m) above the canopy
+        REAL(RK),    INTENT( IN )  :: HREF            ! Reference Height above the canopy (ZREF = FCH + HREF; m)
         REAL(RK),    INTENT( IN )  :: Z0_MOD          ! Input model value of surface roughness length, z0 (m)
         INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
         INTEGER,     INTENT( IN )  :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
