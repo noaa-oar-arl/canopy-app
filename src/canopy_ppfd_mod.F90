@@ -10,7 +10,7 @@ contains
 !-----------------------------------------------------------------------
 
 ! Description:
-!     computes linear interpolation method for tleaf sun/shade in canopy.
+!     computes linear interpolation method for PPFD sun/shade in canopy.
 
 ! Preconditions:
 !     in-canopy height, and model LAI, clumping index, and solar zenith angle
@@ -19,8 +19,8 @@ contains
 
 ! Revision History:
 !     Prototype 06/23 by PCC
-!     Jun 2023 P.C. Campbell: Initial standalone tleaf linear subroutine based on
-!                             Silva et al. (2020) algorithms
+!     Jun 2023 P.C. Campbell: Initial standalone PPFD linear subroutine based on
+!                             Silva et al. (2020) exponential curve algorithms
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
         use canopy_const_mod, ONLY: RK     !constants for canopy models

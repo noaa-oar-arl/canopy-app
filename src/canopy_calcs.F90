@@ -137,6 +137,15 @@ SUBROUTINE canopy_calcs
                                 ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
                                 z0ref, vtyperef, lu_opt, z0_opt, d_h, zo_h)
 
+! ... calculate canopy leaf temperature (sun/shade) profile
+
+
+! ... calculate canopy Photosynthetic Photon Flux Density (PPFD) (sun/shade) profile
+
+
+
+
+! ...                            **** User Canopy-App Options ***
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 
                             if (ifcanwind .or. ifcanwaf) then
@@ -399,6 +408,14 @@ SUBROUTINE canopy_calcs
                         call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
                             ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
                             z0ref, vtyperef, lu_opt, z0_opt, d_h, zo_h)
+
+! ... calculate canopy leaf temperature (sun/shade) profile
+
+
+! ... calculate canopy Photosynthetic Photon Flux Density (PPFD) (sun/shade) profile
+
+
+! ...                            **** User Canopy-App Options ***
 
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 
