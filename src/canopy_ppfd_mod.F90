@@ -5,7 +5,8 @@ module canopy_ppfd_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_PPFD_EXP( ZK, FCH, SFCRAD, LAI, PPFD_SUN, PPFD_SHADE)
+    SUBROUTINE CANOPY_PPFD_EXP( ZK, FCH, SFCRAD, LAI, FSUN, &
+        PPFD_SUN, PPFD_SHADE, PPFD_AVE)
 
 !-----------------------------------------------------------------------
 
@@ -32,8 +33,10 @@ contains
         REAL(RK),    INTENT( IN )       :: FCH                            ! Model input canopy height (m)
         REAL(RK),    INTENT( IN )       :: SFCRAD                         ! Model input Instantaneous surface downward shortwave flux (W/m2)
         REAL(RK),    INTENT( IN )       :: LAI                            ! Model input total Leaf Area Index
+        REAL(RK),    INTENT( IN )       :: FSUN(:)                        ! Sunlit/Shaded fraction from photolysis correction factor
         REAL(RK),    INTENT( OUT )      :: PPFD_SUN(SIZE(ZK))             ! PPFD for sunlit leaves (umol phot/m2 s)
         REAL(RK),    INTENT( OUT )      :: PPFD_SHADE(SIZE(ZK))           ! PPFD for shaded leaves (umol phot/m2 s)
+        REAL(RK),    INTENT( OUT )      :: PPFD_AVE(SIZE(ZK))             ! Average PPFD for sunlit and shaded leaves (umol phot/m2 s)
 
 !      LOCAL
         REAL(RK),          PARAMETER     :: CTEMP_1_SUN     =  1.083_rk   !Exponential 2-m PPFD --> PPFD parameters (Level 1 =
@@ -120,6 +123,7 @@ contains
 
         PPFD_SUN     = FRAC_PAR * SFCRAD * EXP(CTEMP_SUN + DTEMP_SUN * LAI)  !Silva et al. W/m2 --> umol m-2 s-1
         PPFD_SHADE   = FRAC_PAR * SFCRAD * EXP(CTEMP_SHADE + DTEMP_SHADE * LAI)
+        PPFD_AVE = (PPFD_SUN*FSUN) + (PPFD_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
 
     END SUBROUTINE CANOPY_PPFD_EXP
 

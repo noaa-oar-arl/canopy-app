@@ -30,10 +30,13 @@ SUBROUTINE canopy_dealloc
     if(allocated(fainc))       deallocate(fainc) !allocated in canopy_profile
     if(allocated(fafracz))     deallocate(fafracz) !allocated in canopy_profile
     if(allocated(fafraczInt))  deallocate(fafraczInt)
+    if(allocated(fsun))        deallocate(fsun)
     if(allocated(tleaf_sun))   deallocate(tleaf_sun)
     if(allocated(tleaf_shade)) deallocate(tleaf_shade)
+    if(allocated(tleaf_ave))   deallocate(tleaf_ave)
     if(allocated(ppfd_sun))    deallocate(ppfd_sun)
     if(allocated(ppfd_shade))  deallocate(ppfd_shade)
+    if(allocated(ppfd_ave))    deallocate(ppfd_ave)
 
 !-------------------------------------------------------------------------------
 ! Deallocate arrays for Canopy Wind

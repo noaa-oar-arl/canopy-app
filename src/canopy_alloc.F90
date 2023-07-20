@@ -27,10 +27,13 @@ SUBROUTINE canopy_alloc
 
     if(.not.allocated(zhc))         allocate(zhc(modlays))
     if(.not.allocated(fafraczInt))  allocate(fafraczInt(modlays))
+    if(.not.allocated(fsun))        allocate(fsun(modlays))
     if(.not.allocated(tleaf_sun))   allocate(tleaf_sun(modlays))
     if(.not.allocated(tleaf_shade)) allocate(tleaf_shade(modlays))
+    if(.not.allocated(tleaf_ave))   allocate(tleaf_ave(modlays))
     if(.not.allocated(ppfd_sun))    allocate(ppfd_sun(modlays))
     if(.not.allocated(ppfd_shade))  allocate(ppfd_shade(modlays))
+    if(.not.allocated(ppfd_ave))    allocate(ppfd_ave(modlays))
 
 !-------------------------------------------------------------------------------
 ! Allocate arrays for Canopy Wind Outputs

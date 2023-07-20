@@ -15,7 +15,10 @@ SUBROUTINE canopy_calcs
     use canopy_utils_mod      !main canopy utilities
     use canopy_dxcalc_mod     !main canopy dx calculation
     use canopy_profile_mod    !main canopy foliage profile routines
-    use canopy_wind_mod       !main canopy wind components
+    use canopy_rad_mod        !main canopy radiation sunlit/shaded routines
+    use canopy_tleaf_mod      !main canopy leaf temperature optons
+    use canopy_ppfd_mod       !main canopy leaf PPFD optons
+    use canopy_wind_mod       !main canopy components
     use canopy_waf_mod
     use canopy_phot_mod
     use canopy_eddy_mod
@@ -137,13 +140,19 @@ SUBROUTINE canopy_calcs
                                 ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
                                 z0ref, vtyperef, lu_opt, z0_opt, d_h, zo_h)
 
+! ... calculate canopy radiation (sunlit and shade) profile
+
+                            call canopy_fsun_clu( fafraczInt, lairef, cluref, cszref, fsun)
+
 ! ... calculate canopy leaf temperature (sun/shade) profile
 
+                            call canopy_tleaf_lin(zk, hcmref, tmp2mref, fsun, &
+                                tleaf_sun, tleaf_shade, tleaf_ave)
 
 ! ... calculate canopy Photosynthetic Photon Flux Density (PPFD) (sun/shade) profile
 
-
-
+                            call canopy_ppfd_exp(zk, hcmref, dswrfref, lairef, fsun, &
+                                ppfd_sun, ppfd_shade, ppfd_ave)
 
 ! ...                            **** User Canopy-App Options ***
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
@@ -409,11 +418,19 @@ SUBROUTINE canopy_calcs
                             ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
                             z0ref, vtyperef, lu_opt, z0_opt, d_h, zo_h)
 
+! ... calculate canopy radiation (sunlit and shade) profile
+
+                        call canopy_fsun_clu( fafraczInt, lairef, cluref, cszref, fsun)
+
 ! ... calculate canopy leaf temperature (sun/shade) profile
 
+                        call canopy_tleaf_lin(zk, hcmref, tmp2mref, fsun, &
+                            tleaf_sun, tleaf_shade, tleaf_ave)
 
 ! ... calculate canopy Photosynthetic Photon Flux Density (PPFD) (sun/shade) profile
 
+                        call canopy_ppfd_exp(zk, hcmref, dswrfref, lairef, fsun, &
+                            ppfd_sun, ppfd_shade, ppfd_ave)
 
 ! ...                            **** User Canopy-App Options ***
 

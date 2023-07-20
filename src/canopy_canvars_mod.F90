@@ -33,10 +33,13 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: fainc         ( : )          ! incremental foliage shape function
     real(rk), allocatable :: fafracz       ( : )          ! incremental fractional foliage shape function
     real(rk), allocatable :: fafraczInt    ( : )          ! integral of incremental fractional foliage shape function
+    real(rk), allocatable :: fsun          ( : )          ! Sunlit/Shaded fraction from photolysis correction factor
     real(rk), allocatable :: tleaf_sun     ( : )          ! Leaf temp for sunlit leaves (K)
     real(rk), allocatable :: tleaf_shade   ( : )          ! Leaf temp for shaded leaves (K)
+    real(rk), allocatable :: tleaf_ave     ( : )          ! Average Leaf temp for sunlit and shaded leaves (K)
     real(rk), allocatable :: ppfd_sun      ( : )          ! PPFD for sunlit leaves (umol phot/m2 s)
     real(rk), allocatable :: ppfd_shade    ( : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: ppfd_ave      ( : )          ! Average PPFD for sunlit and shaded leaves (umol phot/m2 s)
     real(rk), allocatable :: canBOT        ( : )          ! Canopy bottom wind reduction factors
     real(rk), allocatable :: canTOP        ( : )          ! Canopy top wind reduction factors
     real(rk), allocatable :: canWIND       ( : , : )      ! canopy wind speeds (m/s)

@@ -30,6 +30,8 @@ contains
 !-----------------------------------------------------------------------
 !     Jan 2023 P.C. Campbell: Initial canopy isoprene only version
 !     Feb 2023 P.C. Campbell: Modified for multiple biogenic species
+!     Jul 2023 P.C. Campbell: Restructured to use FSUN, TLEAF, and PPFD
+!                             as inputs
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
         use canopy_const_mod, ONLY: rk,rgasuniv   !constants for canopy models
@@ -42,12 +44,15 @@ contains
         REAL(RK),    INTENT( IN )       :: ZK(:)           ! Input model heights (m)
         REAL(RK),    INTENT( IN )       :: FCLAI(:)        ! Input Fractional (z) shapes of the
         ! plant surface distribution (nondimensional), i.e., a Fractional Culmulative LAI
+!add....new inputs FSUN, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE, PPFD_SUN, PPFD_SHADE
         REAL(RK),    INTENT( IN )       :: FCH             ! Model input canopy height (m)
         REAL(RK),    INTENT( IN )       :: LAI             ! Model input total Leaf Area Index
+!---------comment out
         REAL(RK),    INTENT( IN )       :: CLU             ! Model input Clumping Index
         REAL(RK),    INTENT( IN )       :: COSZEN          ! Model input Cosine Solar Zenith Angle
         REAL(RK),    INTENT( IN )       :: SFCRAD          ! Model input Instantaneous surface downward shortwave flux (W/m2)
         REAL(RK),    INTENT( IN )       :: TEMP2           ! Model input 2-m Temperature (K)
+!---------
         INTEGER,     INTENT( IN )       :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
         REAL(RK),    INTENT( IN )       :: MODRES          ! Canopy model input vertical resolution (m)
@@ -59,6 +64,7 @@ contains
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
 
 ! Local Variables
+!---------comment out
         REAL(RK) :: FSUN(SIZE(ZK))                 ! Sunlit/Shaded fraction from photolysis correction factor
         REAL(RK) :: PPFD_SUN(SIZE(ZK))             ! PPFD for sunlit leaves (umol phot/m2 s)
         REAL(RK) :: PPFD_SHADE(SIZE(ZK))           ! PPFD for shaded leaves (umol phot/m2 s)
@@ -73,6 +79,7 @@ contains
         REAL(RK) :: TLEAF_SUN(SIZE(ZK))            ! Leaf temp for sunlit leaves (K)
         REAL(RK) :: TLEAF_SHADE(SIZE(ZK))          ! Leaf temp for shaded leaves (K)
         REAL(RK) :: TLEAF_AVE(SIZE(ZK))            ! Average Leaf temp (K)
+!-------------
         REAL(RK) :: TLEAF24_AVE(SIZE(ZK))          ! Average Leaf temp over the past 24 hours (K)
         REAL(RK) :: TLEAF240_AVE(SIZE(ZK))         ! Average Leaf temp over the past 240 hours (K)
         REAL(RK) :: GammaTLEAF_SUN_NUM(SIZE(ZK))   ! Numerator in Tleaf sun activity factor
@@ -108,6 +115,8 @@ contains
         REAL(RK),          PARAMETER     :: FRAC_PAR        =  0.5_rk     !Fraction of incoming solar irradiance that is PAR
         REAL(RK),          PARAMETER     :: PPFD0_SUN       =  200.0      !Constant PPFDo sunlit (umol/m2 s) (Guenther et al.,2012)
         REAL(RK),          PARAMETER     :: PPFD0_SHADE     =  50.0       !Constant PPFDo shaded (umol/m2 s) (Guenther et al.,2012)
+
+!----------------comment out
         REAL(RK),          PARAMETER     :: ATEMP_1_SUN     =  -13.891_rk !Linearized 2-m temp --> leaf temp parameters (Level 1 =
         !top of canopy
         REAL(RK),          PARAMETER     :: ATEMP_2_SUN     =  -12.322_rk !Based on Table 1 in Silva et al. (2022)
@@ -150,9 +159,13 @@ contains
         REAL(RK),          PARAMETER     :: DTEMP_3_SHADE   =  -0.368_rk  !...
         REAL(RK),          PARAMETER     :: DTEMP_4_SHADE   =  -0.592_rk  !...
         REAL(RK),          PARAMETER     :: DTEMP_5_SHADE   =  -0.743_rk  !...
+!------------
+
 
         REAL(RK),          PARAMETER     :: CT2             =  230.0_rk   !Deactivation energy (kJ/mol) (Guenther et al., 2012)
 
+
+!------------comment out
 !Calculate photolyis shading/correction factor through canopy, i.e., the fraction of sunlit leaves downward through canopy
 !  `canopy_phot` gives relative direct beam irradiance,
 !  which, multiplied by clumping index, gives sunlit fraction (e.g., Bonan 2019, eq. 14.18)
@@ -268,6 +281,10 @@ contains
 
         PPFD_SUN     = FRAC_PAR * SFCRAD * EXP(CTEMP_SUN + DTEMP_SUN * LAI)  !Silva et al. W/m2 --> umol m-2 s-1
         PPFD_SHADE   = FRAC_PAR * SFCRAD * EXP(CTEMP_SHADE + DTEMP_SHADE * LAI)
+!----------------
+
+!Start here for biogenic calculations needed in model....new inputs FSUN, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE
+        !PPFD_SUN, PPFD_SHADE
 
 ! Calculate maximum normalized emission capacity (E_OPT) and Tleaf at E_OPT
         TLEAF240_AVE   = TLEAF_AVE  !Assume instantaneous TLEAF estimate for TLEAF240 and TLEAF24 (could improve...)

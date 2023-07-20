@@ -5,7 +5,8 @@ module canopy_tleaf_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_TLEAF_LIN( ZK, FCH, TEMP2, TLEAF_SUN, TLEAF_SHADE)
+    SUBROUTINE CANOPY_TLEAF_LIN( ZK, FCH, TEMP2, FSUN, &
+        TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE)
 
 !-----------------------------------------------------------------------
 
@@ -31,8 +32,10 @@ contains
         REAL(RK),    INTENT( IN )       :: ZK(:)                          ! Input model heights (m)
         REAL(RK),    INTENT( IN )       :: FCH                            ! Model input canopy height (m)
         REAL(RK),    INTENT( IN )       :: TEMP2                          ! Model input 2-m Temperature (K
+        REAL(RK),    INTENT( IN )       :: FSUN(:)                        ! Sunlit/Shaded fraction from photolysis correction factor
         REAL(RK),    INTENT( OUT )      :: TLEAF_SUN(SIZE(ZK))            ! Leaf temp for sunlit leaves (K)
         REAL(RK),    INTENT( OUT )      :: TLEAF_SHADE(SIZE(ZK))          ! Leaf temp for shaded leaves (K)
+        REAL(RK),    INTENT( OUT )      :: TLEAF_AVE(SIZE(ZK))            ! Ave Leaf temp for sun/shaded leaves (K)
 
 !      LOCAL
         !Linearized 2-m temp --> leaf temp parameters Based on Table 1 in Silva et al. (2020)
@@ -116,6 +119,7 @@ contains
 
         TLEAF_SUN   = ATEMP_SUN + (BTEMP_SUN*TEMP2)
         TLEAF_SHADE = ATEMP_SHADE + (BTEMP_SHADE*TEMP2)
+        TLEAF_AVE = (TLEAF_SUN*FSUN) + (TLEAF_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
 
     END SUBROUTINE CANOPY_TLEAF_LIN
 

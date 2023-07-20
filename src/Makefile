@@ -68,6 +68,7 @@ OBJS :=\
  canopy_dxcalc_mod.o \
  canopy_profile_mod.o \
  canopy_phot_mod.o \
+ canopy_rad_mod.o \
  canopy_ppfd_mod.o \
  canopy_tleaf_mod.o \
  canopy_wind_mod.o \
