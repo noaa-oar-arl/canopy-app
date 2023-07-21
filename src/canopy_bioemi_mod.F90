@@ -10,17 +10,13 @@ contains
         VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
         EMI_IND, EMI_OUT)
 
-!    SUBROUTINE CANOPY_BIO( ZK, FCLAI, FCH, LAI, CLU, COSZEN, SFCRAD, &
-!        TEMP2, LU_OPT, VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
-!        EMI_IND, EMI_OUT)
-
 !-----------------------------------------------------------------------
 
 ! Description:
 !     computes parameterized canopy biogenic emissions
 
 ! Preconditions:
-!     in-canopy FCLAI, model LAI, surface/skin temperature.
+!     in-canopy FCLAI, model LAI, etc.
 
 ! Subroutines and Functions Called:
 
@@ -49,7 +45,6 @@ contains
         REAL(RK),    INTENT( IN )       :: ZK(:)           ! Model heights (m)
         REAL(RK),    INTENT( IN )       :: FCLAI(:)        ! Fractional (z) shapes of the
         ! plant surface distribution (nondimensional), i.e., a Fractional Culmulative LAI
-!add....new inputs FSUN, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE, PPFD_SUN, PPFD_SHADE
         REAL(RK),    INTENT( IN )       :: FCH             ! Ccanopy height (m)
         REAL(RK),    INTENT( IN )       :: LAI             ! Total Leaf Area Index
         REAL(RK),    INTENT( IN )       :: FSUN(:)         ! Sunlit/Shaded fraction from photolysis correction factor
@@ -58,14 +53,6 @@ contains
         REAL(RK),    INTENT( IN )       :: TLEAF_SUN(:)    ! Leaf temp for sunlit leaves (K)
         REAL(RK),    INTENT( IN )       :: TLEAF_SHADE(:)  ! Leaf temp for shaded leaves (K)
         REAL(RK),    INTENT( IN )       :: TLEAF_AVE(:)    ! Average Leaf temp (K)
-
-
-!---------comment out
-!        REAL(RK),    INTENT( IN )       :: CLU             ! Model input Clumping Index
-!        REAL(RK),    INTENT( IN )       :: COSZEN          ! Model input Cosine Solar Zenith Angle
-!        REAL(RK),    INTENT( IN )       :: SFCRAD          ! Model input Instantaneous surface downward shortwave flux (W/m2)
-!        REAL(RK),    INTENT( IN )       :: TEMP2           ! Model input 2-m Temperature (K)
-!---------
         INTEGER,     INTENT( IN )       :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
         REAL(RK),    INTENT( IN )       :: MODRES          ! Canopy model input vertical resolution (m)
@@ -77,22 +64,6 @@ contains
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
 
 ! Local Variables
-!---------comment out
-!        REAL(RK) :: FSUN(SIZE(ZK))                 ! Sunlit/Shaded fraction from photolysis correction factor
-!        REAL(RK) :: PPFD_SUN(SIZE(ZK))             ! PPFD for sunlit leaves (umol phot/m2 s)
-!        REAL(RK) :: PPFD_SHADE(SIZE(ZK))           ! PPFD for shaded leaves (umol phot/m2 s)
-!        REAL(RK) :: ATEMP_SUN(SIZE(ZK))            ! Regression coefficient A for sun leaves (Silva et al., 2020)
-!        REAL(RK) :: BTEMP_SUN(SIZE(ZK))            ! Regression coefficient B for sun leaves
-!        REAL(RK) :: CTEMP_SUN(SIZE(ZK))            ! Regression coefficient C for sun leaves
-!        REAL(RK) :: DTEMP_SUN(SIZE(ZK))            ! Regression coefficient D for sun leaves
-!        REAL(RK) :: ATEMP_SHADE(SIZE(ZK))          ! Regression coefficient A for shade leaves
-!        REAL(RK) :: BTEMP_SHADE(SIZE(ZK))          ! Regression coefficient B for shade leaves
-!        REAL(RK) :: CTEMP_SHADE(SIZE(ZK))          ! Regression coefficient C for shade leaves
-!        REAL(RK) :: DTEMP_SHADE(SIZE(ZK))          ! Regression coefficient D for shade leaves
-!        REAL(RK) :: TLEAF_SUN(SIZE(ZK))            ! Leaf temp for sunlit leaves (K)
-!        REAL(RK) :: TLEAF_SHADE(SIZE(ZK))          ! Leaf temp for shaded leaves (K)
-!        REAL(RK) :: TLEAF_AVE(SIZE(ZK))            ! Average Leaf temp (K)
-!-------------
         REAL(RK) :: TLEAF24_AVE(SIZE(ZK))          ! Average Leaf temp over the past 24 hours (K)
         REAL(RK) :: TLEAF240_AVE(SIZE(ZK))         ! Average Leaf temp over the past 240 hours (K)
         REAL(RK) :: GammaTLEAF_SUN_NUM(SIZE(ZK))   ! Numerator in Tleaf sun activity factor
@@ -128,176 +99,7 @@ contains
         REAL(RK),          PARAMETER     :: FRAC_PAR        =  0.5_rk     !Fraction of incoming solar irradiance that is PAR
         REAL(RK),          PARAMETER     :: PPFD0_SUN       =  200.0      !Constant PPFDo sunlit (umol/m2 s) (Guenther et al.,2012)
         REAL(RK),          PARAMETER     :: PPFD0_SHADE     =  50.0       !Constant PPFDo shaded (umol/m2 s) (Guenther et al.,2012)
-
-!----------------comment out
-!        REAL(RK),          PARAMETER     :: ATEMP_1_SUN     =  -13.891_rk !Linearized 2-m temp --> leaf temp parameters (Level 1 =
-!        !top of canopy
-!        REAL(RK),          PARAMETER     :: ATEMP_2_SUN     =  -12.322_rk !Based on Table 1 in Silva et al. (2022)
-!        REAL(RK),          PARAMETER     :: ATEMP_3_SUN     =  -1.032_rk  !
-!        REAL(RK),          PARAMETER     :: ATEMP_4_SUN     =  -5.172_rk  !
-!        REAL(RK),          PARAMETER     :: ATEMP_5_SUN     =  -5.589_rk  !...
-!        REAL(RK),          PARAMETER     :: BTEMP_1_SUN     =  1.064_rk   !...
-!        REAL(RK),          PARAMETER     :: BTEMP_2_SUN     =  1.057_rk   !...
-!        REAL(RK),          PARAMETER     :: BTEMP_3_SUN     =  1.031_rk   !...
-!        REAL(RK),          PARAMETER     :: BTEMP_4_SUN     =  1.050_rk   !...
-!        REAL(RK),          PARAMETER     :: BTEMP_5_SUN     =  1.051_rk   !...
-!        REAL(RK),          PARAMETER     :: CTEMP_1_SUN     =  1.083_rk   !Exponential 2-m PPFD --> PPFD parameters (Level 1 =
-!        !top of canopy
-!        REAL(RK),          PARAMETER     :: CTEMP_2_SUN     =  1.096_rk   !Based on Table 1 in Silva et al. (2022)
-!        REAL(RK),          PARAMETER     :: CTEMP_3_SUN     =  1.104_rk   !
-!        REAL(RK),          PARAMETER     :: CTEMP_4_SUN     =  1.098_rk   !
-!        REAL(RK),          PARAMETER     :: CTEMP_5_SUN     =  1.090_rk   !...
-!        REAL(RK),          PARAMETER     :: DTEMP_1_SUN     =  0.002_rk   !...
-!        REAL(RK),          PARAMETER     :: DTEMP_2_SUN     =  -0.128_rk  !...
-!        REAL(RK),          PARAMETER     :: DTEMP_3_SUN     =  -0.298_rk  !...
-!        REAL(RK),          PARAMETER     :: DTEMP_4_SUN     =  -0.445_rk  !...
-!        REAL(RK),          PARAMETER     :: DTEMP_5_SUN     =  -0.535_rk  !...
-!        REAL(RK),          PARAMETER     :: ATEMP_1_SHADE   =  -12.846_rk !...
-!        REAL(RK),          PARAMETER     :: ATEMP_2_SHADE   =  -11.343_rk !...
-!        REAL(RK),          PARAMETER     :: ATEMP_3_SHADE   =  -1.068_rk  !...
-!        REAL(RK),          PARAMETER     :: ATEMP_4_SHADE   =  -5.551_rk  !...
-!        REAL(RK),          PARAMETER     :: ATEMP_5_SHADE   =  -5.955_rk  !...
-!        REAL(RK),          PARAMETER     :: BTEMP_1_SHADE   =  1.060_rk   !...
-!        REAL(RK),          PARAMETER     :: BTEMP_2_SHADE   =  1.053_rk   !...
-!        REAL(RK),          PARAMETER     :: BTEMP_3_SHADE   =  1.031_rk   !...
-!        REAL(RK),          PARAMETER     :: BTEMP_4_SHADE   =  1.051_rk   !...
-!        REAL(RK),          PARAMETER     :: BTEMP_5_SHADE   =  1.053_rk   !...
-!        REAL(RK),          PARAMETER     :: CTEMP_1_SHADE   =  0.871_rk   !...
-!        REAL(RK),          PARAMETER     :: CTEMP_2_SHADE   =  0.890_rk   !...
-!        REAL(RK),          PARAMETER     :: CTEMP_3_SHADE   =  0.916_rk   !...
-!        REAL(RK),          PARAMETER     :: CTEMP_4_SHADE   =  0.941_rk   !...
-!        REAL(RK),          PARAMETER     :: CTEMP_5_SHADE   =  0.956_rk   !...
-!        REAL(RK),          PARAMETER     :: DTEMP_1_SHADE   =  0.015_rk   !...
-!        REAL(RK),          PARAMETER     :: DTEMP_2_SHADE   =  -0.141_rk  !...
-!        REAL(RK),          PARAMETER     :: DTEMP_3_SHADE   =  -0.368_rk  !...
-!        REAL(RK),          PARAMETER     :: DTEMP_4_SHADE   =  -0.592_rk  !...
-!        REAL(RK),          PARAMETER     :: DTEMP_5_SHADE   =  -0.743_rk  !...
-!------------
-
-
         REAL(RK),          PARAMETER     :: CT2             =  230.0_rk   !Deactivation energy (kJ/mol) (Guenther et al., 2012)
-
-
-!------------comment out
-!!Calculate photolyis shading/correction factor through canopy, i.e., the fraction of sunlit leaves downward through canopy
-!!  `canopy_phot` gives relative direct beam irradiance,
-!!  which, multiplied by clumping index, gives sunlit fraction (e.g., Bonan 2019, eq. 14.18)
-!
-!        call canopy_phot(FCLAI, LAI, CLU, COSZEN, FSUN)
-!        FSUN = FSUN * CLU
-!
-!! Use linear canopy temperature model based on Silva et al. (2020) to get approx. sun/shade leaf temperatures
-!! through canopy (ignores effect of wind speed on leaf boundary layer ~ 1 % error/bias)
-!!Citation:
-!!Silva, S. J., Heald, C. L., and Guenther, A. B.: Development of a reduced-complexity plant canopy
-!!physics surrogate model for use in chemical transport models: a case study with GEOS-Chem v12.3.0,
-!!Geosci. Model Dev., 13, 2569–2585, https://doi.org/10.5194/gmd-13-2569-2020, 2020.
-!        do i=1, SIZE(ZK)  !calculate linear change in parameters interpolated to Silva et al. 5 layer canopy regions
-!            if (ZK(i) .gt. FCH) then ! above canopy, Tleaf = Tair
-!                ATEMP_SUN(i)   = 0.0
-!                BTEMP_SUN(i)   = 1.0
-!                ATEMP_SHADE(i) = 0.0
-!                BTEMP_SHADE(i) = 1.0
-!            else if (ZK(i) .le. FCH .and. ZK(i) .gt. FCH*(4.0_rk/5.0_rk)) then  !Level 1 - 2
-!                ATEMP_SUN(i)   = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
-!                    (/ ATEMP_2_SUN,ATEMP_1_SUN /),ZK(i))
-!                BTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
-!                    (/ BTEMP_2_SUN,BTEMP_1_SUN /),ZK(i))
-!                ATEMP_SHADE(i) = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
-!                    (/ ATEMP_2_SHADE,ATEMP_1_SHADE /),ZK(i))
-!                BTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
-!                    (/ BTEMP_2_SHADE,BTEMP_1_SHADE /),ZK(i))
-!            else if (ZK(i) .le. FCH*(4.0_rk/5.0_rk) .and. ZK(i) .gt. FCH*(3.0_rk/5.0_rk)) then  !Level 2 - 3
-!                ATEMP_SUN(i)   = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-!                    (/ ATEMP_3_SUN,ATEMP_2_SUN /),ZK(i))
-!                BTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-!                    (/ BTEMP_3_SUN,BTEMP_2_SUN /),ZK(i))
-!                ATEMP_SHADE(i) = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-!                    (/ ATEMP_3_SHADE,ATEMP_2_SHADE /),ZK(i))
-!                BTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-!                    (/ BTEMP_3_SHADE,BTEMP_2_SHADE /),ZK(i))
-!            else if (ZK(i) .le. FCH*(3.0_rk/5.0_rk) .and. ZK(i) .gt. FCH*(2.0_rk/5.0_rk)) then  !Level 3 - 4
-!                ATEMP_SUN(i)   = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-!                    (/ ATEMP_4_SUN,ATEMP_3_SUN /),ZK(i))
-!                BTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-!                    (/ BTEMP_4_SUN,BTEMP_3_SUN /),ZK(i))
-!                ATEMP_SHADE(i) = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-!                    (/ ATEMP_4_SHADE,ATEMP_3_SHADE /),ZK(i))
-!                BTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-!                    (/ BTEMP_4_SHADE,BTEMP_3_SHADE /),ZK(i))
-!            else if (ZK(i) .le. FCH*(2.0_rk/5.0_rk) ) then  !Level 4 - Bottom
-!                ATEMP_SUN(i)   = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-!                    (/ ATEMP_5_SUN,ATEMP_4_SUN /),ZK(i))
-!                BTEMP_SUN(i)   = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-!                    (/ BTEMP_5_SUN,BTEMP_4_SUN /),ZK(i))
-!                ATEMP_SHADE(i) = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-!                    (/ ATEMP_5_SHADE,ATEMP_4_SHADE /),ZK(i))
-!                BTEMP_SHADE(i) = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-!                    (/ BTEMP_5_SHADE,BTEMP_4_SHADE /),ZK(i))
-!            end if
-!        end do
-!
-!        TLEAF_SUN   = ATEMP_SUN + (BTEMP_SUN*TEMP2)
-!        TLEAF_SHADE = ATEMP_SHADE + (BTEMP_SHADE*TEMP2)
-!        TLEAF_AVE = (TLEAF_SUN*FSUN) + (TLEAF_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
-!
-!! Use exponential PPFD model based on Silva et al. (2020) to get approx. sun/shade PPFD
-!! through canopy
-!!Citation:
-!!Silva, S. J., Heald, C. L., and Guenther, A. B.: Development of a reduced-complexity plant canopy
-!!physics surrogate model for use in chemical transport models: a case study with GEOS-Chem v12.3.0,
-!!Geosci. Model Dev., 13, 2569–2585, https://doi.org/10.5194/gmd-13-2569-2020, 2020.
-!        do i=1, SIZE(ZK)  !calculate linear change in parameters interpolated to Silva et al. 5 layer canopy regions
-!            if (ZK(i) .gt. FCH) then ! above canopy, PPFD_leaf = PPFD_toc (toc=top of canopy)
-!                CTEMP_SUN(i)   = 0.0
-!                DTEMP_SUN(i)   = 0.0
-!                CTEMP_SHADE(i) = 0.0
-!                DTEMP_SHADE(i) = 0.0
-!            else if (ZK(i) .le. FCH .and. ZK(i) .gt. FCH*(4.0_rk/5.0_rk)) then  !Level 1 - 2
-!                CTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
-!                    (/ CTEMP_2_SUN,CTEMP_1_SUN /),ZK(i))
-!                DTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
-!                    (/ DTEMP_2_SUN,DTEMP_1_SUN /),ZK(i))
-!                CTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
-!                    (/ CTEMP_2_SHADE,CTEMP_1_SHADE /),ZK(i))
-!                DTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(4.0_rk/5.0_rk),FCH /), &
-!                    (/ DTEMP_2_SHADE,DTEMP_1_SHADE /),ZK(i))
-!            else if (ZK(i) .le. FCH*(4.0_rk/5.0_rk) .and. ZK(i) .gt. FCH*(3.0_rk/5.0_rk)) then  !Level 2 - 3
-!                CTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-!                    (/ CTEMP_3_SUN,CTEMP_2_SUN /),ZK(i))
-!                DTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-!                    (/ DTEMP_3_SUN,DTEMP_2_SUN /),ZK(i))
-!                CTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-!                    (/ CTEMP_3_SHADE,CTEMP_2_SHADE /),ZK(i))
-!                DTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(3.0_rk/5.0_rk),FCH*(4.0_rk/5.0_rk) /), &
-!                    (/ DTEMP_3_SHADE,DTEMP_2_SHADE /),ZK(i))
-!            else if (ZK(i) .le. FCH*(3.0_rk/5.0_rk) .and. ZK(i) .gt. FCH*(2.0_rk/5.0_rk)) then  !Level 3 - 4
-!                CTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-!                    (/ CTEMP_4_SUN,CTEMP_3_SUN /),ZK(i))
-!                DTEMP_SUN(i)   = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-!                    (/ DTEMP_4_SUN,DTEMP_3_SUN /),ZK(i))
-!                CTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-!                    (/ CTEMP_4_SHADE,CTEMP_3_SHADE /),ZK(i))
-!                DTEMP_SHADE(i) = interp_linear1_internal((/ FCH*(2.0_rk/5.0_rk),FCH*(3.0_rk/5.0_rk) /), &
-!                    (/ DTEMP_4_SHADE,DTEMP_3_SHADE /),ZK(i))
-!            else if (ZK(i) .le. FCH*(2.0_rk/5.0_rk) ) then  !Level 4 - Bottom
-!                CTEMP_SUN(i)   = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-!                    (/ CTEMP_5_SUN,CTEMP_4_SUN /),ZK(i))
-!                DTEMP_SUN(i)   = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-!                    (/ DTEMP_5_SUN,DTEMP_4_SUN /),ZK(i))
-!                CTEMP_SHADE(i) = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-!                    (/ CTEMP_5_SHADE,CTEMP_4_SHADE /),ZK(i))
-!                DTEMP_SHADE(i) = interp_linear1_internal((/ ZK(1),FCH*(2.0_rk/5.0_rk) /), &
-!                    (/ DTEMP_5_SHADE,DTEMP_4_SHADE /),ZK(i))
-!            end if
-!        end do
-!
-!        PPFD_SUN     = FRAC_PAR * SFCRAD * EXP(CTEMP_SUN + DTEMP_SUN * LAI)  !Silva et al. W/m2 --> umol m-2 s-1
-!        PPFD_SHADE   = FRAC_PAR * SFCRAD * EXP(CTEMP_SHADE + DTEMP_SHADE * LAI)
-!----------------
-
-!Start here for biogenic calculations needed in model....new inputs FSUN, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE
-        !PPFD_SUN, PPFD_SHADE
 
 ! Calculate maximum normalized emission capacity (E_OPT) and Tleaf at E_OPT
         TLEAF240_AVE   = TLEAF_AVE  !Assume instantaneous TLEAF estimate for TLEAF240 and TLEAF24 (could improve...)
