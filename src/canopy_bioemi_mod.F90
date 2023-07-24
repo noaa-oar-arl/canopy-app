@@ -37,7 +37,6 @@ contains
 !-----------------------------------------------------------------------
         use canopy_const_mod, ONLY: rk,rgasuniv   !constants for canopy models
         use canopy_utils_mod,  ONLY: interp_linear1_internal, GET_GAMMA_CO2
-        use canopy_phot_mod
         use canopy_bioparm_mod
 
 ! Arguments:
