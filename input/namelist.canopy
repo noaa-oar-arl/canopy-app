@@ -15,6 +15,9 @@
   ifcaneddy   = .TRUE.
   ifcanphot   = .TRUE.
   ifcanbio    = .TRUE.
+  var3d_opt   =  0
+  var3d_set   =  14
+  pavd_opt    =  0
   href_opt    =  0
   href_set    =  10.0
   z0ghc       =  0.0025

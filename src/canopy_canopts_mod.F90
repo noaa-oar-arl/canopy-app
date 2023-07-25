@@ -10,6 +10,9 @@ MODULE canopy_canopts_mod
 
 !! .... defines canopy options (read from user namelist)
     integer             ::    infmt_opt   !Integer for choosing 1D or 2D input file format (default = 0, 2D)
+    integer             ::    var3d_opt    !Integer for choosing if 3D variables will be read from file (default = 0, off)
+    integer             ::    var3d_set  !Integer for number fo 3D levels in input file, if var3d_opt=1 (default = 14)
+    integer             ::    pavd_opt    !Integer for turning on 3D GEDI PAVD profiles read from input file (default = 0, off)
     integer             ::    href_opt    !Integer for using set href in namelist (=0) or array from file(=1) (default = 0)
     real(rk)            ::    href_set    !Set reference Height above canopy @ 10 m  (m)
     logical             ::    ifcanwind   !logical canopy wind option (default = .FALSE.)

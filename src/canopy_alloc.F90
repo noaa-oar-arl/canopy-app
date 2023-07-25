@@ -20,6 +20,9 @@ SUBROUTINE canopy_alloc
 
     if(.not.allocated(variables))     allocate(variables(nlat*nlon))
     if(.not.allocated(variables_2d))  allocate(variables_2d(nlon,nlat))
+    if (var3d_opt .eq. 1) then
+        if(.not.allocated(variables_3d))  allocate(variables_3d(nlon,nlat,var3d_set))
+    end if
 
 !-------------------------------------------------------------------------------
 ! Allocate arrays for Internal Canopy Distribution Variables

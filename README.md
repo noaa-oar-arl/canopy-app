@@ -15,7 +15,7 @@ Authors: Patrick Campbell, Zachary Moon, and Wei-Ting Hung
 
 ### Build
 
-Canopy-App requires NetCDF-Fortran Libraries (i.e., `-lnetcdf -lnetcdff`) when using the 2D NetCDF I/O Option (i.e., `infmt_opt=0`).
+Canopy-App requires NetCDF-Fortran Libraries (i.e., `-lnetcdf -lnetcdff`) when using the 1D/2D NetCDF I/O Option (i.e., `infmt_opt=0`).
 See [the included Makefile](./src/Makefile), which detects NetCDF using `nf-config`, for an example (on GMU Hopper, you can use the `netcdf-c/4.7.4-vh` and `netcdf-fortran/4.5.3-ff` modules).
 
 Compilation options can be controlled with environment variables:
@@ -117,7 +117,7 @@ Namelist Option : `file_out`  Prefix string (e.g., `'test'`) used to name output
 
 ## Inputs and Settings
 
-**Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy
+**Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy.  Some 3D inputs are supported (see `var3d_opt` and associated options in Table 3).
 
 Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats: `.txt`, `.nc`, `.ncf`, or `.nc4`)
 
@@ -186,7 +186,7 @@ You can also [generate global inputs using Python (see python/global_data_proces
 
 | Namelist Option | Namelist Description and Units                                                     |
 | --------------- | ---------------------------------------------------------------------------------- |
-| `infmt_opt`     | integer for choosing 1D text (= `1`)  or 2D NetCDF input file format (= `0`, default) |
+| `infmt_opt`     | integer for choosing 1D text/NetCDF (= `1`)  or 2D/3D NetCDF input file format (= `0`, default) |
 | `nlat`          | number of latitude cells (must match # of LAT in `file_vars` above)                |
 | `nlon`          | number of longitude cells (must match # of LON in `file_vars` above)               |
 | `modlays`       | number of model (below and above canopy) layers                                    |
@@ -196,6 +196,9 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `ifcaneddy`     | logical canopy eddy Kz option (default: `.FALSE.`)                                 |
 | `ifcanphot`     | logical canopy photolysis option (default: `.FALSE.`)                              |
 | `ifcanbio`      | logical canopy biogenic emissions option (default: `.FALSE.`)                      |
+| `var3d_opt`     | integer for selecting to use 3d variable inputs (= `0`, default, off) or (= `1`, on) with the number of levels defined by `var3d_set` below |
+| `var3d_set`     | integer for selecting number of 3d input levels, only used when setting `var3d_set= `1`, default = 14  |
+| `pavd_opt`      | integer for choosing to use GEDI 3D input PAVD profiles instead of prescribed plant distribution functions (= `0`, default, off) or (= `1`, on);  Note: To use this option, must set `var3d_set= `1`, and the 3D pavd variable must be available in the input NetCDF file (i.e., `file_vars`) and `infmt_opt = `0` |
 | `href_opt`      | integer for using `href_set` in namelist (= `0`, default) or array from file (= `1`) |
 | `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) **\*\*\*** |
 | `z0ghc`         | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
