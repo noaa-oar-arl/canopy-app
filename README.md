@@ -117,7 +117,7 @@ Namelist Option : `file_out`  Prefix string (e.g., `'test'`) used to name output
 
 ## Inputs and Settings
 
-**Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy.  Some 3D inputs are supported (see `var3d_opt` and associated options in Table 3).
+**Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy.  Some 3D inputs are supported (see `var3d_opt` in [Table 3](#table-3-current-user-namelist-options) and associated options).
 
 Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats: `.txt`, `.nc`, `.ncf`, or `.nc4`)
 
@@ -196,8 +196,8 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `ifcaneddy`     | logical canopy eddy Kz option (default: `.FALSE.`)                                 |
 | `ifcanphot`     | logical canopy photolysis option (default: `.FALSE.`)                              |
 | `ifcanbio`      | logical canopy biogenic emissions option (default: `.FALSE.`)                      |
-| `var3d_opt`     | integer for selecting to use 3d variable inputs (= `0`, default, off) or (= `1`, on) with the number of levels defined by `var3d_set` below |
-| `var3d_set`     | integer for selecting number of 3d input levels, only used when setting `var3d_set= `1`, default = 14  |
+| `var3d_opt`     | integer for selecting to use 3D variable inputs (= `0`, default, off) or (= `1`, on) with the number of levels defined by `var3d_set` below |
+| `var3d_set`     | integer for selecting number of 3D input levels, only used when setting `var3d_set= `1`, default = 14  |
 | `pavd_opt`      | integer for choosing to use GEDI 3D input PAVD profiles instead of prescribed plant distribution functions (= `0`, default, off) or (= `1`, on);  Note: To use this option, must set `var3d_set= `1`, and the 3D pavd variable must be available in the input NetCDF file (i.e., `file_vars`) and `infmt_opt = `0` |
 | `href_opt`      | integer for using `href_set` in namelist (= `0`, default) or array from file (= `1`) |
 | `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) **\*\*\*** |
