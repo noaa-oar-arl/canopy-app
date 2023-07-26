@@ -136,15 +136,25 @@ SUBROUTINE canopy_calcs
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
                                 call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
                                     fafraczInt)
-!                                    print*,'prescribed shape function =', fafraczInt
+!                                    if (i .eq. 25 .and. j .eq. 25) then
+!                                        print*,'prescribed shape function =', fafraczInt
+!                                        print*,'zhc = ', zhc
+!                                    end if
                             else
 ! ... derive canopy/foliage distribution shape profile from interpolated GEDI PAVD profile - bottom up total in-canopy and fraction at z
 !                                print*, 'Before Interpolation PAVD---------------------'
 !                                print*, variables_3d(i,j,:)%pavd
 !                                print*, 'Levels---------------------'
 !                                print*, variables_1d%lev
+!                                print*, 'Forest Canopy Height = ', hcmref, '----------'
+!                                 print*, 'VIIRS PAI = ', lairef+0.5
+!                                 if (i .eq. 25 .and. j .eq. 25) then
                                 call canopy_pavd2fafrac(modlays, modres, hcmref, zhc, &
                                     variables_3d(i,j,:)%pavd, variables_1d%lev, fafraczInt)
+                                !if (i .eq. 25 .and. j .eq. 25) then
+!                                     print*, 'fafraczInt(pavd) = ', fafraczInt
+!                                     print*,'zhc = ', zhc
+!                                 end if
                             end if
 
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc

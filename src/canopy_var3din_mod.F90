@@ -24,8 +24,8 @@ contains
 !     Jul 2023 P.C. Campbell: Initial version
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
-        use canopy_const_mod, ONLY: rk                        !constants for canopy models
-        use canopy_utils_mod, ONLY: interp_linear1_internal   !utilities for canopy models
+        use canopy_const_mod, ONLY: rk                                           !constants for canopy models
+        use canopy_utils_mod, ONLY: interp_linear1_internal,IntegrateTrapezoid   !utilities for canopy models
 
 ! Arguments:
 !     IN/OUT
@@ -39,6 +39,7 @@ contains
 
 !     Local variables
         INTEGER                     :: i, lev
+        REAL(RK)                    :: PAI                  ! Plant Area Index, m2/m2
         REAL(RK)                    :: ZK(SIZE(ZHC))
         REAL(RK)                    :: PAVD_INTERP(SIZE(ZHC))
 !        REAL(RK), allocatable       :: fainc(:)              ! incremental foliage shape function
@@ -51,21 +52,40 @@ contains
         PAVD_INTERP = 0.0_rk  !Initialize PAVD_INTERP = 0
         do lev=1, SIZE(PAVD_LEVS) - 1
             do i=2, SIZE(ZK)  !loop over only levels ABOVE ground
-                if (ZK(i) .le.  PAVD_LEVS(1)) then
-                    PAVD_INTERP(i)   = PAVD_IN(1)
-                end if
-                if (ZK(i) .ge.  PAVD_LEVS(lev) .and. ZK(i) .le.  PAVD_LEVS(lev+1)) then
-                    PAVD_INTERP(i)   = interp_linear1_internal((/ PAVD_LEVS(lev),PAVD_LEVS(lev+1) /), &
-                        (/ PAVD_IN(lev),PAVD_IN(lev+1) /),ZK(i))
+                if (ZK(i) .le. FCH) then !constrain to less than the forest canopy height observed
+                    if (ZK(i) .le.  PAVD_LEVS(1)) then
+                        PAVD_INTERP(i)   = PAVD_IN(1)
+                    end if
+                    if (ZK(i) .ge.  PAVD_LEVS(lev) .and. ZK(i) .le.  PAVD_LEVS(lev+1)) then
+                        PAVD_INTERP(i)   = interp_linear1_internal((/ PAVD_LEVS(lev),PAVD_LEVS(lev+1) /), &
+                            (/ PAVD_IN(lev),PAVD_IN(lev+1) /),ZK(i))
+                    end if
                 end if
             end do
         end do
 
-        FAFRACZINT = PAVD_INTERP  !TODO:  Convert PAVD_INTERP to FAFRACZINT
+!        print*, 'FCH = ', FCH
+!        print*, 'pavd_orig = ', PAVD_IN
+!        print*, 'pavd_levs = ', PAVD_LEVS
+!        print*, 'pavd_interp = ', PAVD_INTERP
+!Integrate the PAVD_INTERP to get the total PAI
+        PAI = IntegrateTrapezoid(ZK,PAVD_INTERP)
 
-!        print*,'After interpolation-----'
+!Convert the PAVD_INTERP to FAFRACZINT
+        FAFRACZINT = PAVD_INTERP * 0.0_rk !Initialize FAFRACZINT = 0
+        do i=2, SIZE(ZK)  !loop over only levels ABOVE ground
+            FAFRACZINT(i) = FAFRACZINT(i-1) + ((PAVD_INTERP(i)*MODRES)/PAI)
+        end do
+
+!        print*,'PAVD After Interpolation (canopy-app)-----'
 !        print*,PAVD_INTERP
 !        print*,'------------------------'
+!        print*,'canopy-app levels-----'
+!        print*,ZK
+!        print*,'------------------------'
+!        print*, 'PAI (Integrated PAVD) = ', PAI
+!        print*, 'FAFRACZINT (PAVD) --------'
+!        print*, FAFRACZINT
 
     END SUBROUTINE CANOPY_PAVD2FAFRAC
 
