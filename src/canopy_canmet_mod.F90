@@ -41,7 +41,13 @@ MODULE canopy_canmet_mod
 
     type(variable_type), allocatable :: variables( : ), variables_2d( : , :)
 
-! Generic 3D canopy input variables that should be passed to canopy calculations
+! Handles generic 3D input variables that should be passed to canopy calculations
+    TYPE :: variable_type_1d
+        real(rk)   :: lev         !Input mid-level heights associated with 3D input option
+    end TYPE variable_type_1d
+
+    type(variable_type_1d), allocatable :: variables_1d( : )
+
     TYPE :: variable_type_3d
         real(rk)   :: pavd         !Plant Area Volume Density (PAVD) profile (m2/m3)
     end TYPE variable_type_3d
@@ -74,7 +80,6 @@ MODULE canopy_canmet_mod
     real(rk)       ::    spfh2mref       !2-meter specific humidity (kg/kg)
     real(rk)       ::    hpblref         !height of planetary boundary layer (m)
     real(rk)       ::    prate_averef    !mass precipitation rate (kg/m2 s)
-    real(rk)       ::    pavdref         !Plant Area Volume Density (PAVD) profile (m2/m3)
 
 
 END MODULE canopy_canmet_mod

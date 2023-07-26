@@ -15,6 +15,7 @@ SUBROUTINE canopy_calcs
     use canopy_utils_mod      !main canopy utilities
     use canopy_dxcalc_mod     !main canopy dx calculation
     use canopy_profile_mod    !main canopy foliage profile routines
+    use canopy_var3din_mod    !main canopy 3D variable in routines
     use canopy_rad_mod        !main canopy radiation sunlit/shaded routines
     use canopy_tleaf_mod      !main canopy leaf temperature optons
     use canopy_ppfd_mod       !main canopy leaf PPFD optons
@@ -129,10 +130,22 @@ SUBROUTINE canopy_calcs
                                 pai_opt, pai_set, lu_opt, firetype, cdrag, &
                                 pai, zcanmax, sigmau, sigma1)
 
-! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
+! ... Choose between prescribed canopy/foliate shape profile or observed GEDI PAVD profile
 
-                            call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
-                                fafraczInt)
+                            if (pavd_opt .eq. 0) then
+! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
+                                call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
+                                    fafraczInt)
+!                                    print*,'prescribed shape function =', fafraczInt
+                            else
+! ... derive canopy/foliage distribution shape profile from interpolated GEDI PAVD profile - bottom up total in-canopy and fraction at z
+!                                print*, 'Before Interpolation PAVD---------------------'
+!                                print*, variables_3d(i,j,:)%pavd
+!                                print*, 'Levels---------------------'
+!                                print*, variables_1d%lev
+                                call canopy_pavd2fafrac(modlays, modres, hcmref, zhc, &
+                                    variables_3d(i,j,:)%pavd, variables_1d%lev, fafraczInt)
+                            end if
 
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 

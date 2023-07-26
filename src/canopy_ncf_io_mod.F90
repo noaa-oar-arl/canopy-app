@@ -2256,6 +2256,16 @@ CONTAINS
             ENDIF
             !Also reshape to 1D array for 1D calculation and output
 !            variables%prate_ave=reshape(variables_2d%prate_ave,[size(variables_2d%prate_ave)])
+            !3D Input Level Profile
+            if (var3d_opt .eq. 1) then
+                CALL get_var_1d_real_cdf (cdfid, 'lev', variables_1d%lev, it, rcode)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (*,f9410) TRIM(pname), 'lev',  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit(2)
+                ENDIF
+            end if
+            !GEDI 3D PAVD Profile
             if (pavd_opt .eq. 1 ) then
                 if (var3d_opt .ne. 1) then !check to make sure variables_3d are allocated
                     write(*,*)  'Wrong choice of VAR3D_OPT ', var3d_opt, ' in namelist...exiting'
@@ -2270,6 +2280,8 @@ CONTAINS
                     ENDIF
                 end if
             end if
+
+
 
         else if (infmt_opt .eq. 1) then !Input format is 1D
 
