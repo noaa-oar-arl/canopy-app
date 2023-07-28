@@ -44,7 +44,7 @@ contains
         REAL(RK),    INTENT( IN )       :: ZK(:)           ! Model heights (m)
         REAL(RK),    INTENT( IN )       :: FCLAI(:)        ! Fractional (z) shapes of the
         ! plant surface distribution (nondimensional), i.e., a Fractional Culmulative LAI
-        REAL(RK),    INTENT( IN )       :: FCH             ! Ccanopy height (m)
+        REAL(RK),    INTENT( IN )       :: FCH             ! Canopy height (m)
         REAL(RK),    INTENT( IN )       :: LAI             ! Total Leaf Area Index
         REAL(RK),    INTENT( IN )       :: FSUN(:)         ! Sunlit/Shaded fraction from photolysis correction factor
         REAL(RK),    INTENT( IN )       :: PPFD_SUN(:)     ! PPFD for sunlit leaves (umol phot/m2 s)
