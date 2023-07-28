@@ -21,7 +21,7 @@ day = 1  # day
 houri = 12  # gfs initialization hour in UTC (caution: currently GFS input files are initialized at 12 UTC only -- do not change)
 hour = 0  # gfs forecast hour (0-24) in UTC
 ref_lev = 10  # reference height above the canopy (m)
-frp_src = 1  # frp data source for WAF (0: local source; 1: check local source first, switch to climatological file if no available data ; 2: 12 month climatology)
+frp_src = 1  # frp data source for WAF (0: local source; 1: check local source first, switch to climatological file if no available data; 2: 12 month climatology; 3: all ones when ifcanwaf=.FALSE.)
 
 
 # ---------------------------------ATTENTION---------------------------------#
@@ -390,6 +390,9 @@ for i in np.arange(len(canlist)):
 
         if frp_src == 2:
             DATA = read_gfs_climatology(f_can, "frp")
+        elif frp_src == 3:
+            DATA = np.empty(lat.shape)
+            DATA[:] = 1
         else:
             DATA = read_frp_local(f_frp, lat, lon, fill_value)
 

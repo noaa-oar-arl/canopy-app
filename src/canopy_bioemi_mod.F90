@@ -37,7 +37,6 @@ contains
 !-----------------------------------------------------------------------
         use canopy_const_mod, ONLY: rk,rgasuniv   !constants for canopy models
         use canopy_utils_mod,  ONLY: interp_linear1_internal, GET_GAMMA_CO2
-        use canopy_phot_mod
         use canopy_bioparm_mod
 
 ! Arguments:
@@ -45,7 +44,7 @@ contains
         REAL(RK),    INTENT( IN )       :: ZK(:)           ! Model heights (m)
         REAL(RK),    INTENT( IN )       :: FCLAI(:)        ! Fractional (z) shapes of the
         ! plant surface distribution (nondimensional), i.e., a Fractional Culmulative LAI
-        REAL(RK),    INTENT( IN )       :: FCH             ! Ccanopy height (m)
+        REAL(RK),    INTENT( IN )       :: FCH             ! Canopy height (m)
         REAL(RK),    INTENT( IN )       :: LAI             ! Total Leaf Area Index
         REAL(RK),    INTENT( IN )       :: FSUN(:)         ! Sunlit/Shaded fraction from photolysis correction factor
         REAL(RK),    INTENT( IN )       :: PPFD_SUN(:)     ! PPFD for sunlit leaves (umol phot/m2 s)
@@ -96,7 +95,6 @@ contains
         integer i, LAYERS
 
 ! Constant Canopy Parameters
-        REAL(RK),          PARAMETER     :: FRAC_PAR        =  0.5_rk     !Fraction of incoming solar irradiance that is PAR
         REAL(RK),          PARAMETER     :: PPFD0_SUN       =  200.0      !Constant PPFDo sunlit (umol/m2 s) (Guenther et al.,2012)
         REAL(RK),          PARAMETER     :: PPFD0_SHADE     =  50.0       !Constant PPFDo shaded (umol/m2 s) (Guenther et al.,2012)
         REAL(RK),          PARAMETER     :: CT2             =  230.0_rk   !Deactivation energy (kJ/mol) (Guenther et al., 2012)
