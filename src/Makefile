@@ -67,9 +67,11 @@ OBJS :=\
  canopy_read_txt.o \
  canopy_dxcalc_mod.o \
  canopy_profile_mod.o \
+ canopy_phot_mod.o \
+ canopy_rad_mod.o \
+ canopy_tleaf_mod.o \
  canopy_wind_mod.o \
  canopy_waf_mod.o \
- canopy_phot_mod.o \
  canopy_eddy_mod.o \
  canopy_bioparm_mod.o \
  canopy_bioemi_mod.o \
