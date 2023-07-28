@@ -16,8 +16,7 @@ SUBROUTINE canopy_calcs
     use canopy_dxcalc_mod     !main canopy dx calculation
     use canopy_profile_mod    !main canopy foliage profile routines
     use canopy_rad_mod        !main canopy radiation sunlit/shaded routines
-    use canopy_tleaf_mod      !main canopy leaf temperature options
-    use canopy_ppfd_mod       !main canopy leaf PPFD options
+    use canopy_tleaf_mod      !main canopy leaf temperature sunlit/shaded routines
     use canopy_wind_mod       !main canopy components
     use canopy_waf_mod
     use canopy_phot_mod
