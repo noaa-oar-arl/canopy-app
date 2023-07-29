@@ -194,12 +194,26 @@ SUBROUTINE canopy_calcs
 ! ... determine midflamepoint and flame height from user or FRP calculation
                                 call canopy_flameh(flameh_opt, flameh_set, dx_2d(i,j), modres, &
                                     frpref, frp_fac, hcmref, midflamepoint, flameh_2d(i,j))
-
-                                if (flameh_2d(i,j) .gt. 0.0 .and. flameh_2d(i,j) .le. hcmref) then
-                                    !only calculate WAF when flameh > 0 and <= FH
-                                    call canopy_waf(hcmref, lambdars, hgtref, flameh_2d(i,j), &
-                                        firetype, d_h, zo_h, canBOT(midflamepoint), &
-                                        canTOP(midflamepoint), waf_2d(i,j))
+                                if (firetype .eq. 0) then !forest/sub-canopy firetype
+                                    if (flameh_2d(i,j) .gt. 0.0) then !flameh must be > 0
+                                        if (flameh_2d(i,j) .le. hcmref) then !only calculate when flameh <= FCH
+                                            call canopy_waf(hcmref, lambdars, hgtref, flameh_2d(i,j), &
+                                                firetype, d_h, zo_h, canBOT(midflamepoint), &
+                                                canTOP(midflamepoint), waf_2d(i,j))
+                                        else
+                                            write(*,*) 'warning...sub-canopy type fire, but flameh > FCH, setting WAF=1'
+                                            waf_2d(i,j) = 1.0_rk
+                                        end if
+                                    end if
+                                else  !grass/crops, above-canopy firetype
+                                    if (flameh_2d(i,j) .gt. 0.0) then !flameh still must be > 0
+                                        call canopy_waf(hcmref, lambdars, hgtref, flameh_2d(i,j), &
+                                            firetype, d_h, zo_h, canBOT(midflamepoint), &
+                                            canTOP(midflamepoint), waf_2d(i,j))
+                                    end if
+                                end if
+                                if (waf_2d(i,j) .gt. 1.0_rk) then !Final check of WAF > 1, must be <=1
+                                    waf_2d(i,j) = 1.0_rk
                                 end if
                             end if
 
@@ -492,12 +506,26 @@ SUBROUTINE canopy_calcs
 ! ... determine midflamepoint and flame height from user or FRP calculation
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
                                 frpref, frp_fac, hcmref, midflamepoint, flameh(loc))
-
-                            if (flameh(loc) .gt. 0.0 .and. flameh(loc) .le. hcmref) then
-                                !only calculate WAF when flameh > 0
-                                call canopy_waf(hcmref, lambdars, hgtref, flameh(loc), &
-                                    firetype, d_h, zo_h, canBOT(midflamepoint), &
-                                    canTOP(midflamepoint), waf(loc))
+                            if (firetype .eq. 0) then !forest/sub-canopy firetype
+                                if (flameh(loc) .gt. 0.0) then !flameh must be > 0
+                                    if (flameh(loc) .le. hcmref) then !only calculate when flameh <= FCH
+                                        call canopy_waf(hcmref, lambdars, hgtref, flameh(loc), &
+                                            firetype, d_h, zo_h, canBOT(midflamepoint), &
+                                            canTOP(midflamepoint), waf(loc))
+                                    else
+                                        write(*,*) 'warning...sub-canopy type fire, but flameh > FCH, setting WAF=1'
+                                        waf(loc) = 1.0_rk
+                                    end if
+                                end if
+                            else  !grass/crops, above-canopy firetype
+                                if (flameh(loc) .gt. 0.0) then !flameh still must be > 0
+                                    call canopy_waf(hcmref, lambdars, hgtref, flameh(loc), &
+                                        firetype, d_h, zo_h, canBOT(midflamepoint), &
+                                        canTOP(midflamepoint), waf(loc))
+                                end if
+                            end if
+                            if (waf(loc) .gt. 1.0_rk) then !Final check of WAF > 1, must be <=1
+                                waf(loc) = 1.0_rk
                             end if
                         end if
 
