@@ -64,10 +64,6 @@ contains
             end do
         end do
 
-!        print*, 'FCH = ', FCH
-!        print*, 'pavd_orig = ', PAVD_IN
-!        print*, 'pavd_levs = ', PAVD_LEVS
-!        print*, 'pavd_interp = ', PAVD_INTERP
 !Integrate the PAVD_INTERP to get the total PAI
         PAI = IntegrateTrapezoid(ZK,PAVD_INTERP)
 
@@ -77,6 +73,10 @@ contains
             FAFRACZINT(i) = FAFRACZINT(i-1) + ((PAVD_INTERP(i)*MODRES)/PAI)
         end do
 
+        !test debug prints...
+!        print*, 'FCH = ', FCH
+!        print*, 'pavd_orig = ', PAVD_IN
+!        print*, 'pavd_levs = ', PAVD_LEVS
 !        print*,'PAVD After Interpolation (canopy-app)-----'
 !        print*,PAVD_INTERP
 !        print*,'------------------------'
@@ -84,8 +84,6 @@ contains
 !        print*,ZK
 !        print*,'------------------------'
 !        print*, 'PAI (Integrated PAVD) = ', PAI
-!        print*, 'FAFRACZINT (PAVD) --------'
-!        print*, FAFRACZINT
 
     END SUBROUTINE CANOPY_PAVD2FAFRAC
 

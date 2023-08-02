@@ -129,7 +129,7 @@ SUBROUTINE canopy_calcs
                                 pai_opt, pai_set, lu_opt, firetype, cdrag, &
                                 pai, zcanmax, sigmau, sigma1)
 
-! ... Choose between prescribed canopy/foliate shape profile or observed GEDI PAVD profile
+! ... Choose between prescribed canopy/foliate shape profile or observed GEDI PAVD profile (only between -52 and 52 degrees lat)
 
                             if (pavd_opt .eq. 0) then
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
@@ -141,19 +141,21 @@ SUBROUTINE canopy_calcs
 !                                    end if
                             else
 ! ... derive canopy/foliage distribution shape profile from interpolated GEDI PAVD profile - bottom up total in-canopy and fraction at z
-!                                print*, 'Before Interpolation PAVD---------------------'
-!                                print*, variables_3d(i,j,:)%pavd
-!                                print*, 'Levels---------------------'
-!                                print*, variables_1d%lev
-!                                print*, 'Forest Canopy Height = ', hcmref, '----------'
-!                                 print*, 'VIIRS PAI = ', lairef+0.5
-!                                 if (i .eq. 25 .and. j .eq. 25) then
-                                call canopy_pavd2fafrac(modlays, modres, hcmref, zhc, &
-                                    variables_3d(i,j,:)%pavd, variables_1d%lev, fafraczInt)
-                                !if (i .eq. 25 .and. j .eq. 25) then
-!                                     print*, 'fafraczInt(pavd) = ', fafraczInt
-!                                     print*,'zhc = ', zhc
-!                                 end if
+!                                           if (i .eq. 25 .and. j .eq. 25) then  !test debug
+!                                           print*, 'Lat = ', variables_2d(i,j)%lat
+!                                           print*, 'Lon = ', variables_2d(i,j)%lon
+!                                           print*, 'VIIRS PAI = ', lairef+0.5
+                                if (variables_2d(i,j)%lat .gt. -52.0_rk .and. &
+                                    variables_2d(i,j)%lat .lt. 52.0_rk) then !use GEDI PAVD
+                                    call canopy_pavd2fafrac(modlays, modres, hcmref, zhc, &
+                                        variables_3d(i,j,:)%pavd, variables_1d%lev, fafraczInt)
+!                                           print*, 'fafraczInt(pavd) = ', fafraczInt
+!                                           print*,'zhc = ', zhc
+                                else !revert back to using prescribed shape profile
+                                    call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
+                                        fafraczInt)
+                                end if
+!                                          end if !test debug
                             end if
 
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
