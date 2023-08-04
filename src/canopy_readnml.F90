@@ -20,11 +20,12 @@ SUBROUTINE canopy_readnml
 
     NAMELIST /filenames/ file_vars, file_out
 
-    NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
-        z0ghc, lambdars, flameh_opt, flameh_set, frp_fac, ifcanwind, ifcanwaf, &
-        ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, &
-        dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, biovert_opt, &
-        ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set
+    NAMELIST /userdefs/  infmt_opt, time_start, time_end, time_intvl, ntime, &
+        nlat, nlon, modlays, modres, href_opt, &
+        href_set, z0ghc, lambdars, flameh_opt, flameh_set, frp_fac, ifcanwind, &
+        ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
+        dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, &
+        biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -70,6 +71,14 @@ SUBROUTINE canopy_readnml
 ! Set default integer for 1D (txt or ncf) or 2D (ncf only) input file format
 ! (default = 0, i.e., 2D)
     infmt_opt = 0
+!-------------------------------------------------------------------------------
+
+
+! Set default value for number of timesteps, start/end, and interval (hrs)
+    ntime      =  0
+    time_start = '0000-00-00-00:00:00.0000'
+    time_end   = '0000-00-00-00:00:00.0000'
+    time_intvl =  0
 !-------------------------------------------------------------------------------
 
 ! Set default value for number of latitude/longitude cells (default = 1D point)

@@ -338,6 +338,19 @@ CONTAINS
         g_lon%iend(2) = nlat
 
         !-------------------------------------------------------------------------------
+        ! Time field.
+        !-------------------------------------------------------------------------------
+
+        g_time%fld = fillreal
+        g_time%fldname = 'time'
+        g_time%long_name = 'time'
+        g_time%units = 'hours since ' // time_start
+        g_time%fillvalue = fillreal
+        g_time%dimnames(1) = 'ntime'
+        g_time%istart(1) = 1
+        g_time%iend(1) = ntime
+
+        !-------------------------------------------------------------------------------
         ! Time-varying 2d fields at cell centers.
         !-------------------------------------------------------------------------------
         c_canheight%fld = fillreal
@@ -736,6 +749,22 @@ CONTAINS
         INTEGER                      :: nn,set_index
 
         !-------------------------------------------------------------------------------
+        ! Time field
+        !-------------------------------------------------------------------------------
+
+        nfld1dt = 0
+
+        nfld1dt = nfld1dt + 1  !TIME
+
+        if(.not.allocated(fld1dt)) ALLOCATE ( fld1dt ( nfld1dt ) )
+
+        DO nn = 1, nfld1dt
+            ALLOCATE ( fld1dt(nn)%fld(ntime) )
+        ENDDO
+
+        g_time  => fld1dt( 1)
+
+        !-------------------------------------------------------------------------------
         ! Time-independent 1d fields at cell centers.
         !-------------------------------------------------------------------------------
 
@@ -743,7 +772,7 @@ CONTAINS
 
         nfld1dz = nfld1dz + 1   !LEVELS
 
-        ALLOCATE ( fld1dz ( nfld1dz ) )
+        if(.not.allocated(fld1dz)) ALLOCATE ( fld1dz ( nfld1dz ) )
 
         DO nn = 1, nfld1dz
             ALLOCATE ( fld1dz(nn)%fld(modlays) )
@@ -759,7 +788,7 @@ CONTAINS
 
         nfld2dxy = nfld2dxy + 2   !LAT, LON
 
-        ALLOCATE ( fld2dxy ( nfld2dxy ) )
+        if(.not.allocated(fld2dxy)) ALLOCATE ( fld2dxy ( nfld2dxy ) )
 
         DO nn = 1, nfld2dxy
             ALLOCATE ( fld2dxy(nn)%fld(nlon,nlat) )
@@ -779,7 +808,7 @@ CONTAINS
             nfld2dxyt = nfld2dxyt + 1  !FLAMEH
         end if
 
-        ALLOCATE ( fld2dxyt ( nfld2dxyt ) )
+        if(.not.allocated(fld2dxyt)) ALLOCATE ( fld2dxyt ( nfld2dxyt ) )
 
         DO nn = 1, nfld2dxyt
             ALLOCATE ( fld2dxyt(nn)%fld(nlon,nlat) )
@@ -834,7 +863,7 @@ CONTAINS
             nfld3dxyzt = nfld3dxyzt + 1 !EMI_OVOC
         end if
 
-        ALLOCATE ( fld3dxyzt ( nfld3dxyzt ) )
+        if(.not.allocated(fld3dxyzt)) ALLOCATE ( fld3dxyzt ( nfld3dxyzt ) )
 
         DO nn = 1, nfld3dxyzt
             ALLOCATE ( fld3dxyzt(nn)%fld(nlon,nlat,modlays) )
@@ -992,6 +1021,14 @@ CONTAINS
 
         var = "levels"
         rcode = nf90_put_att (cdfid_in, nf90_global, var, modlays)
+        IF ( rcode /= nf90_noerr ) THEN
+            WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                TRIM(nf90_strerror(rcode))
+            CALL exit (2)
+        ENDIF
+
+        var = "times"
+        rcode = nf90_put_att (cdfid_in, nf90_global, var, ntime)
         IF ( rcode /= nf90_noerr ) THEN
             WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
                 TRIM(nf90_strerror(rcode))
@@ -1510,7 +1547,7 @@ CONTAINS
 
             it = it + 1
 
-            nvars = nfld1dz + nfld2dxy + nfld2dxyt + nfld3dxyzt
+            nvars = nfld1dt + nfld1dz + nfld2dxy + nfld2dxyt + nfld3dxyzt
 
             IF ( .NOT. ALLOCATED ( id_fld ) ) ALLOCATE ( id_fld ( nvars ) )
 
@@ -1608,6 +1645,25 @@ CONTAINS
             ntot = nfld1dz + nfld2dxy
 
             !-------------------------------------------------------------------------------
+            ! Time field.
+            !-------------------------------------------------------------------------------
+
+
+            DO n = 1, nfld1dt
+                nn = ntot + n
+                var = TRIM(fld1dt(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_time /), id_fld(nn))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit(2)
+                ENDIF
+            ENDDO
+            ntot = ntot + nfld1dt
+
+
+            !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.
             !-------------------------------------------------------------------------------
 
@@ -1695,6 +1751,29 @@ CONTAINS
                 ENDIF
             ENDDO
             ntot = nfld1dz + nfld2dxy
+
+            !-------------------------------------------------------------------------------
+            ! Time field.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld1dt
+                nn = ntot + n
+                var = TRIM(fld1dt(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
+                    TRIM(fld1dt(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units', TRIM(fld1dt(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = ntot + nfld1dt
 
             !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.
@@ -1786,6 +1865,12 @@ CONTAINS
             g_lon%fld = variables_2d%lon
 
             !-------------------------------------------------------------------------------
+            ! Time field.
+            !-------------------------------------------------------------------------------
+
+            g_time%fld = it
+
+            !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.
             !-------------------------------------------------------------------------------
             c_canheight%fld = variables_2d%fh
@@ -1871,6 +1956,26 @@ CONTAINS
             ENDDO
 
             ntot = nfld1dz + nfld2dxy
+
+            !-------------------------------------------------------------------------------
+            ! Time field.
+            !-------------------------------------------------------------------------------
+            write(*,*)  'Writing Time field'
+            write(*,*)  '-------------------------------'
+
+            DO n = 1, nfld1dt
+                nn = ntot + n
+                var = TRIM(fld1dt(n)%fldname)
+                rcode = nf90_put_var (cdfid_m, id_fld(nn), fld1dt(n)%fld,  &
+                    start = (/ 1 /),  &
+                    count = (/ it /) )
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = ntot + nfld1dt
 
             !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.
