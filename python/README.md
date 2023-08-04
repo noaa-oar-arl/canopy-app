@@ -78,7 +78,7 @@ You can also download and generate global gridded canopy-app inputs using Python
    conda activate canopy-app
    ```
 
-3. Run python script
+3. Run Python script
 
    ```
    python global_data_process.py
