@@ -8,6 +8,7 @@ MODULE canopy_files_mod
 
     IMPLICIT NONE
 
+    INTEGER                       :: cdfid_m
     INTEGER,            PARAMETER :: max_mm     = 1
     INTEGER,            PARAMETER :: iutnml     =  8
     CHARACTER(LEN=256)            :: file_vars ( max_mm )

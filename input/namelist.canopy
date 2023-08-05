@@ -1,11 +1,11 @@
 &FILENAMES
-!  file_vars    = 'input/gfs.t12z.20220701.sfcf000.canopy.nc'
-  file_vars    = 'input/gfs.t12z.20220701.sfcf000.canopy.txt'
+  file_vars    = 'input/gfs.t12z.20220701.sfcf000.canopy.nc'
+!  file_vars    = 'input/gfs.t12z.20220701.sfcf000.canopy.txt'
   file_out     = 'output/test_out_southeast_us'
 /
 
 &USERDEFS
-  infmt_opt   =  1
+  infmt_opt   =  0
   time_start  = '2022-07-01-12:00:00.0000'
   time_end    = '2022-07-01-12:00:00.0000'
   time_intvl  =  1

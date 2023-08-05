@@ -14,7 +14,7 @@ program canopy_app
 
     implicit none
 
-    CHARACTER(LEN=24)                 :: time_next  ! YYYY-MM-DD-HH:MM:SS.SSSS
+    !   CHARACTER(LEN=24)                 :: time_next  ! YYYY-MM-DD-HH:MM:SS.SSSS
     CHARACTER(LEN=24)                 :: time_now   ! YYYY-MM-DD-HH:MM:SS.SSSS
     integer   :: nn
 
@@ -26,9 +26,9 @@ program canopy_app
     & /,  1x, '~~~ Processing canopy-app for time = ', a,  &
     & /,  1x, 78('~'), /)"
 
-    CHARACTER(LEN=256), PARAMETER :: f200 = "(//, 1x, 78('~'), &
-    & /,  1x, '~~~ Metadata summary', &
-    & /,  1x, 78('~'), /)"
+    !   CHARACTER(LEN=256), PARAMETER :: f200 = "(//, 1x, 78('~'), &
+    !   & /,  1x, '~~~ Metadata summary', &
+    !   & /,  1x, 78('~'), /)"
 
 !-------------------------------------------------------------------------------
 
@@ -101,5 +101,14 @@ program canopy_app
 !-------------------------------------------------------------------------------
 
     call canopy_dealloc
+
+!-------------------------------------------------------------------------------
+! Close output NetCDF files (if necessary).
+!-------------------------------------------------------------------------------
+#ifdef NETCDF
+    call canopy_close_files(file_out(1))
+#endif
+
+    WRITE (*,'(//, a)') 'Canopy-App Finished Normally'
 
 end program canopy_app

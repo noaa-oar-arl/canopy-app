@@ -79,6 +79,7 @@ OBJS :=\
  canopy_calcs.o \
  canopy_write_txt.o \
  canopy_dealloc.o \
+ canopy_close_files.o \
  canopy_app.o
 
 ifeq ($(NC), 0)
