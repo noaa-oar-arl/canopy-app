@@ -20,7 +20,7 @@ See [the included Makefile](./src/Makefile), which detects NetCDF using `nf-conf
 
 Compilation options can be controlled with environment variables:
 
-- `FC=gfortran` (default) or ifort
+- `FC=gfortran` (default) or compiler name/path (e.g. `FC=ifort`, `FC=gfortran-11`, `FC=/usr/bin/gfortran-11`)
 - `DEBUG=0` (off; default) or `DEBUG=1` (on)
 - `NC=0` (off) or `NC=1` (on; default)
 
