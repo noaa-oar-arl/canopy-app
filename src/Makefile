@@ -1,7 +1,7 @@
 #
 # Use `FC=<compiler> ... make` to select compiler
 # Use `DEBUG=1 ... make` for a debug build
-# Use `NETCDF=1 ... make` to build with NetCDF using `nf-config`
+# Use `NC=1 ... make` to build with NetCDF using `nf-config`
 
 # Compiler
 FC ?= gfortran
@@ -14,33 +14,38 @@ $(info FC setting: '$(FC)')
 DEBUG ?= 0
 
 # Default to NetCDF build
-NETCDF ?= 1
+NC ?= 1
 
 # Compile flags
 $(info DEBUG setting: '$(DEBUG)')
 ifeq ($(DEBUG), 1)
-  FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5
+  ifeq ($(findstring gfortran,$(notdir $(FC))),gfortran)
+    FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5 -std=f2003 -fall-intrinsics
+  else ifeq ($(FC),ifort)
+    FCFLAGS := -g -warn all -check bounds -implicitnone -O0 -error-limit 5
+  endif
 else ifeq ($(DEBUG), 0)
   FCFLAGS := -O3
 else
   $(error invalid setting for DEBUG, should be 0 or 1 but is '$(DEBUG)')
 endif
+$(info FCFLAGS: '$(FCFLAGS)')
 
 # NETCDF Settings here
 LIBS :=
 INC :=
-$(info NETCDF setting: '$(NETCDF)')
-ifeq ($(NETCDF), 1)
+$(info NC setting: '$(NC)')
+ifeq ($(NC), 1)
   NETCDF_FLIBS := $(shell nf-config --flibs)
   NETCDF_INC := -I$(shell nf-config --includedir)
   #
   LIBS += $(NETCDF_FLIBS)
   INC += $(NETCDF_INC)
   FCFLAGS += -DNETCDF
-else ifeq ($(NETCDF), 0)
+else ifeq ($(NC), 0)
   #
 else
-  $(error invalid setting for NETCDF, should be 0 or 1 but is '$(NETCDF)')
+  $(error invalid setting for NC, should be 0 or 1 but is '$(NC)')
 endif
 $(info LIBS: '$(LIBS)')
 $(info INC:  '$(INC)')
@@ -63,9 +68,11 @@ OBJS :=\
  canopy_read_txt.o \
  canopy_dxcalc_mod.o \
  canopy_profile_mod.o \
+ canopy_phot_mod.o \
+ canopy_rad_mod.o \
+ canopy_tleaf_mod.o \
  canopy_wind_mod.o \
  canopy_waf_mod.o \
- canopy_phot_mod.o \
  canopy_eddy_mod.o \
  canopy_bioparm_mod.o \
  canopy_bioemi_mod.o \
@@ -74,7 +81,7 @@ OBJS :=\
  canopy_dealloc.o \
  canopy_app.o
 
-ifeq ($(NETCDF), 0)
+ifeq ($(NC), 0)
   _ncf_objs := canopy_check_input.o canopy_ncf_io_mod.o
   OBJS := $(filter-out $(_ncf_objs),$(OBJS))
 endif

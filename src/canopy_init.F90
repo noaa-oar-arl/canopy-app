@@ -19,8 +19,15 @@ SUBROUTINE canopy_init
 ! Initialize arrays for Canopy Distribution
 !-------------------------------------------------------------------------------
 
-    if(allocated(zhc))        zhc(:)        = fillreal
-    if(allocated(fafraczInt)) fafraczInt(:) = fillreal
+    if(allocated(zhc))          zhc(:)         = fillreal
+    if(allocated(fafraczInt))   fafraczInt(:)  = fillreal
+    if(allocated(fsun))         fsun(:)        = fillreal
+    if(allocated(tleaf_sun))    tleaf_sun(:)   = fillreal
+    if(allocated(tleaf_shade))  tleaf_shade(:) = fillreal
+    if(allocated(tleaf_ave))    tleaf_ave(:)   = fillreal
+    if(allocated(ppfd_sun))     ppfd_sun(:)    = fillreal
+    if(allocated(ppfd_shade))   ppfd_shade(:)  = fillreal
+    if(allocated(ppfd_ave))   ppfd_ave(:)      = fillreal
 
 !-------------------------------------------------------------------------------
 ! Initialize arrays for Canopy Wind

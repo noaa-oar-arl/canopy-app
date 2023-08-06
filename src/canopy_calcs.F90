@@ -15,7 +15,9 @@ SUBROUTINE canopy_calcs
     use canopy_utils_mod      !main canopy utilities
     use canopy_dxcalc_mod     !main canopy dx calculation
     use canopy_profile_mod    !main canopy foliage profile routines
-    use canopy_wind_mod       !main canopy wind components
+    use canopy_rad_mod        !main canopy radiation sunlit/shaded routines
+    use canopy_tleaf_mod      !main canopy leaf temperature sunlit/shaded routines
+    use canopy_wind_mod       !main canopy components
     use canopy_waf_mod
     use canopy_phot_mod
     use canopy_eddy_mod
@@ -84,6 +86,38 @@ SUBROUTINE canopy_calcs
                 if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
                     if (vtyperef .gt. 0 .and. vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS or MODIS types
 
+! ... check for ssg_opt from user namelist
+                        if (vtyperef .ge. 6 .and. vtyperef .le. 10) then !VIIRS/MODIS shrubs/savannas/grasses (SSG) type
+                            if (ssg_opt .eq. 0) then !use GEDI inputs for SSG heights (not likely captured...)
+                                hcmref = hcmref
+                            else if (ssg_opt .eq. 1) then !user set constant shrubs/savannas/grasslands height
+                                hcmref = ssg_set
+                                !recalculate
+                                zhc         = zk/hcmref
+                                cansublays  = floor(hcmref/modres)
+                            else
+                                write(*,*)  'Wrong SSG_OPT choice of ', ssg_opt, &
+                                    ' in namelist...exiting'
+                                call exit(2)
+                            end if
+                        end if
+
+! ... check for crop_opt from user namelist
+                        if (vtyperef .eq. 12) then !VIIRS/MODIS crop type
+                            if (crop_opt .eq. 0) then !use GEDI inputs for crop height (not likely captured...)
+                                hcmref = hcmref
+                            else if (crop_opt .eq. 1) then !user set constant crop height
+                                hcmref = crop_set
+                                !recalculate
+                                zhc         = zk/hcmref
+                                cansublays  = floor(hcmref/modres)
+                            else
+                                write(*,*)  'Wrong CROP_OPT choice of ', crop_opt, &
+                                    ' in namelist...exiting'
+                                call exit(2)
+                            end if
+                        end if
+
 ! ... check for contiguous canopy conditions at each model grid cell
                         if (hcmref .gt. fch_thresh .and. ffracref .gt. frt_thresh &
                             .and. lairef .gt. lai_thresh) then
@@ -105,6 +139,21 @@ SUBROUTINE canopy_calcs
                                 ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
                                 z0ref, vtyperef, lu_opt, z0_opt, d_h, zo_h)
 
+! ... calculate canopy radiation (sunlit and shade) profile
+
+                            call canopy_fsun_clu( fafraczInt, lairef, cluref, cszref, fsun)
+
+! ... calculate canopy leaf temperature (sun/shade) profile
+
+                            call canopy_tleaf_lin(zk, hcmref, tmp2mref, fsun, &
+                                tleaf_sun, tleaf_shade, tleaf_ave)
+
+! ... calculate canopy Photosynthetic Photon Flux Density (PPFD) (sun/shade) profile
+
+                            call canopy_ppfd_exp(zk, hcmref, dswrfref, lairef, fsun, &
+                                ppfd_sun, ppfd_shade, ppfd_ave)
+
+! ...                            **** User Canopy-App Options ***
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 
                             if (ifcanwind .or. ifcanwaf) then
@@ -122,12 +171,26 @@ SUBROUTINE canopy_calcs
 ! ... determine midflamepoint and flame height from user or FRP calculation
                                 call canopy_flameh(flameh_opt, flameh_set, dx_2d(i,j), modres, &
                                     frpref, frp_fac, hcmref, midflamepoint, flameh_2d(i,j))
-
-                                if (flameh_2d(i,j) .gt. 0.0 .and. flameh_2d(i,j) .le. hcmref) then
-                                    !only calculate WAF when flameh > 0 and <= FH
-                                    call canopy_waf(hcmref, lambdars, hgtref, flameh_2d(i,j), &
-                                        firetype, d_h, zo_h, canBOT(midflamepoint), &
-                                        canTOP(midflamepoint), waf_2d(i,j))
+                                if (firetype .eq. 0) then !forest/sub-canopy firetype
+                                    if (flameh_2d(i,j) .gt. 0.0) then !flameh must be > 0
+                                        if (flameh_2d(i,j) .le. hcmref) then !only calculate when flameh <= FCH
+                                            call canopy_waf(hcmref, lambdars, hgtref, flameh_2d(i,j), &
+                                                firetype, d_h, zo_h, canBOT(midflamepoint), &
+                                                canTOP(midflamepoint), waf_2d(i,j))
+                                        else
+                                            write(*,*) 'warning...sub-canopy type fire, but flameh > FCH, setting WAF=1'
+                                            waf_2d(i,j) = 1.0_rk
+                                        end if
+                                    end if
+                                else  !grass/crops, above-canopy firetype
+                                    if (flameh_2d(i,j) .gt. 0.0) then !flameh still must be > 0
+                                        call canopy_waf(hcmref, lambdars, hgtref, flameh_2d(i,j), &
+                                            firetype, d_h, zo_h, canBOT(midflamepoint), &
+                                            canTOP(midflamepoint), waf_2d(i,j))
+                                    end if
+                                end if
+                                if (waf_2d(i,j) .gt. 1.0_rk) then !Final check of WAF > 1, must be <=1
+                                    waf_2d(i,j) = 1.0_rk
                                 end if
                             end if
 
@@ -152,80 +215,118 @@ SUBROUTINE canopy_calcs
                                     .and. cluref .gt. 0.0_rk) then
                                     !ISOP
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 1, emi_isop_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        1, emi_isop_3d(i,j,:))
                                     !MYRC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 2, emi_myrc_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        2, emi_myrc_3d(i,j,:))
                                     !SABI
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 3, emi_sabi_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        3, emi_sabi_3d(i,j,:))
                                     !LIMO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 4, emi_limo_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        4, emi_limo_3d(i,j,:))
                                     !CARE
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 5, emi_care_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        5, emi_care_3d(i,j,:))
                                     !OCIM
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 6, emi_ocim_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        6, emi_ocim_3d(i,j,:))
                                     !BPIN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 7, emi_bpin_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        7, emi_bpin_3d(i,j,:))
                                     !APIN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 8, emi_apin_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        8, emi_apin_3d(i,j,:))
                                     !MONO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 9, emi_mono_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        9, emi_mono_3d(i,j,:))
                                     !FARN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 10, emi_farn_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        10, emi_farn_3d(i,j,:))
                                     !CARY
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 11, emi_cary_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        11, emi_cary_3d(i,j,:))
                                     !SESQ
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 12, emi_sesq_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        12, emi_sesq_3d(i,j,:))
                                     !MBOL
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 13, emi_mbol_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        13, emi_mbol_3d(i,j,:))
                                     !METH
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 14, emi_meth_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        14, emi_meth_3d(i,j,:))
                                     !ACET
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 15, emi_acet_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        15, emi_acet_3d(i,j,:))
                                     !CO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 16, emi_co_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        16, emi_co_3d(i,j,:))
                                     !BIDI VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 17, emi_bvoc_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        17, emi_bvoc_3d(i,j,:))
                                     !Stress VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 18, emi_svoc_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        18, emi_svoc_3d(i,j,:))
                                     !Other VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
-                                        lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, 19, emi_ovoc_3d(i,j,:))
+                                        lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                        tleaf_ave, &
+                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        19, emi_ovoc_3d(i,j,:))
                                 end if
                             end if
 
@@ -296,6 +397,38 @@ SUBROUTINE canopy_calcs
             if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
                 if (vtyperef .gt. 0 .and. vtyperef .le. 10 .or. vtyperef .eq. 12) then !VIIRS or MODIS types
 
+! ... check for ssg_opt from user namelist
+                    if (vtyperef .ge. 6 .and. vtyperef .le. 10) then !VIIRS/MODIS shrubs/savannas/grasses (SSG) type
+                        if (ssg_opt .eq. 0) then !use GEDI inputs for SSG heights (not likely captured...)
+                            hcmref = hcmref
+                        else if (ssg_opt .eq. 1) then !user set constant shrubs/savannas/grasslands height
+                            hcmref = ssg_set
+                            !recalculate
+                            zhc         = zk/hcmref
+                            cansublays  = floor(hcmref/modres)
+                        else
+                            write(*,*)  'Wrong SSG_OPT choice of ', ssg_opt, &
+                                ' in namelist...exiting'
+                            call exit(2)
+                        end if
+                    end if
+
+! ... check for crop_opt from user namelist
+                    if (vtyperef .eq. 12) then !VIIRS/MODIS crop type
+                        if (crop_opt .eq. 0) then !use GEDI inputs for crop height
+                            hcmref = hcmref
+                        else if (crop_opt .eq. 1) then !user set constant crop height
+                            hcmref = crop_set
+                            !recalculate
+                            zhc         = zk/hcmref
+                            cansublays  = floor(hcmref/modres)
+                        else
+                            write(*,*)  'Wrong CROP_OPT choice of ', crop_opt, &
+                                ' in namelist...exiting'
+                            call exit(2)
+                        end if
+                    end if
+
 ! ... check for contiguous canopy conditions at each model grid cell
                     if (hcmref .gt. fch_thresh .and. ffracref .gt. frt_thresh &
                         .and. lairef .gt. lai_thresh) then
@@ -317,6 +450,22 @@ SUBROUTINE canopy_calcs
                             ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
                             z0ref, vtyperef, lu_opt, z0_opt, d_h, zo_h)
 
+! ... calculate canopy radiation (sunlit and shade) profile
+
+                        call canopy_fsun_clu( fafraczInt, lairef, cluref, cszref, fsun)
+
+! ... calculate canopy leaf temperature (sun/shade) profile
+
+                        call canopy_tleaf_lin(zk, hcmref, tmp2mref, fsun, &
+                            tleaf_sun, tleaf_shade, tleaf_ave)
+
+! ... calculate canopy Photosynthetic Photon Flux Density (PPFD) (sun/shade) profile
+
+                        call canopy_ppfd_exp(zk, hcmref, dswrfref, lairef, fsun, &
+                            ppfd_sun, ppfd_shade, ppfd_ave)
+
+! ...                            **** User Canopy-App Options ***
+
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 
                         if (ifcanwind .or. ifcanwaf) then
@@ -334,12 +483,26 @@ SUBROUTINE canopy_calcs
 ! ... determine midflamepoint and flame height from user or FRP calculation
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
                                 frpref, frp_fac, hcmref, midflamepoint, flameh(loc))
-
-                            if (flameh(loc) .gt. 0.0 .and. flameh(loc) .le. hcmref) then
-                                !only calculate WAF when flameh > 0
-                                call canopy_waf(hcmref, lambdars, hgtref, flameh(loc), &
-                                    firetype, d_h, zo_h, canBOT(midflamepoint), &
-                                    canTOP(midflamepoint), waf(loc))
+                            if (firetype .eq. 0) then !forest/sub-canopy firetype
+                                if (flameh(loc) .gt. 0.0) then !flameh must be > 0
+                                    if (flameh(loc) .le. hcmref) then !only calculate when flameh <= FCH
+                                        call canopy_waf(hcmref, lambdars, hgtref, flameh(loc), &
+                                            firetype, d_h, zo_h, canBOT(midflamepoint), &
+                                            canTOP(midflamepoint), waf(loc))
+                                    else
+                                        write(*,*) 'warning...sub-canopy type fire, but flameh > FCH, setting WAF=1'
+                                        waf(loc) = 1.0_rk
+                                    end if
+                                end if
+                            else  !grass/crops, above-canopy firetype
+                                if (flameh(loc) .gt. 0.0) then !flameh still must be > 0
+                                    call canopy_waf(hcmref, lambdars, hgtref, flameh(loc), &
+                                        firetype, d_h, zo_h, canBOT(midflamepoint), &
+                                        canTOP(midflamepoint), waf(loc))
+                                end if
+                            end if
+                            if (waf(loc) .gt. 1.0_rk) then !Final check of WAF > 1, must be <=1
+                                waf(loc) = 1.0_rk
                             end if
                         end if
 
@@ -364,80 +527,118 @@ SUBROUTINE canopy_calcs
                                 .and. cluref .gt. 0.0_rk) then
                                 !ISOP
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 1, emi_isop(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    1, emi_isop(loc,:))
                                 !MYRC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 2, emi_myrc(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    2, emi_myrc(loc,:))
                                 !SABI
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 3, emi_sabi(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    3, emi_sabi(loc,:))
                                 !LIMO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 4, emi_limo(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    4, emi_limo(loc,:))
                                 !CARE
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 5, emi_care(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    5, emi_care(loc,:))
                                 !OCIM
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 6, emi_ocim(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    6, emi_ocim(loc,:))
                                 !BPIN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 7, emi_bpin(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    7, emi_bpin(loc,:))
                                 !APIN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 8, emi_apin(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    8, emi_apin(loc,:))
                                 !MONO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 9, emi_mono(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    9, emi_mono(loc,:))
                                 !FARN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 10, emi_farn(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    10, emi_farn(loc,:))
                                 !CARY
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 11, emi_cary(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    11, emi_cary(loc,:))
                                 !SESQ
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 12, emi_sesq(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    12, emi_sesq(loc,:))
                                 !MBOL
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 13, emi_mbol(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    13, emi_mbol(loc,:))
                                 !METH
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 14, emi_meth(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    14, emi_meth(loc,:))
                                 !ACET
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 15, emi_acet(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    15, emi_acet(loc,:))
                                 !CO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 16, emi_co(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    16, emi_co(loc,:))
                                 !BIDI VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 17, emi_bvoc(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    17, emi_bvoc(loc,:))
                                 !Stress VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 18, emi_svoc(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    18, emi_svoc(loc,:))
                                 !Other VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
-                                    lairef, cluref, cszref, dswrfref, tmp2mref, &
-                                    lu_opt, vtyperef, modres, bio_cce, 19, emi_ovoc(loc,:))
+                                    lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
+                                    tleaf_ave, &
+                                    lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    19, emi_ovoc(loc,:))
                             end if
                         end if
 
