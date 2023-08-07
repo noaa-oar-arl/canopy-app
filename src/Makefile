@@ -20,7 +20,8 @@ NC ?= 1
 $(info DEBUG setting: '$(DEBUG)')
 ifeq ($(DEBUG), 1)
   ifeq ($(findstring gfortran,$(notdir $(FC))),gfortran)
-    FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5 -std=f2003 -fall-intrinsics
+    FCFLAGS := -g -Og -Wall -Wextra -pedantic -fcheck=all -fmax-errors=5 -std=f2003 \
+      -fall-intrinsics -fbacktrace -ffpe-trap=invalid,zero,overflow
   else ifeq ($(FC),ifort)
     FCFLAGS := -g -warn all -check bounds -implicitnone -O0 -error-limit 5
   endif
