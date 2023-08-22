@@ -1480,7 +1480,7 @@ CONTAINS
         LOGICAL,            SAVE        :: first      = .TRUE.
         INTEGER,  SAVE,     ALLOCATABLE :: id_fld     ( : )
         INTEGER,  SAVE                  :: it         = 0
-        INTEGER,            PARAMETER   :: len_time   = 1
+        INTEGER,            PARAMETER   :: len_time   = 19
         INTEGER                         :: n
         INTEGER                         :: nn
         INTEGER                         :: ntot
@@ -1615,9 +1615,6 @@ CONTAINS
                 !-------------------------------------------------------------------------------
                 ! Time field.
                 !-------------------------------------------------------------------------------
-
-!           print*, 'it=', it, 'dim_time=', dim_time, 'ntime=', ntime, 'dim_timestr=',dim_timestr, &
-!                   'len_time=',len_time
 
                 DO n = 1, nfld1dt
                     var = TRIM(fld1dt(n)%fldname)
@@ -1850,6 +1847,7 @@ CONTAINS
                 ENDIF
 
             ENDIF  ! first = .TRUE.
+
             !-------------------------------------------------------------------------------
             ! Assign pointer variables to the respective arrays from canopy-app.
             !-------------------------------------------------------------------------------
@@ -1923,7 +1921,6 @@ CONTAINS
             write(*,*)  'Writing NetCDF Output'
             write(*,*)  '-------------------------------'
 
-!            print*, first, cdfid_m
             !-------------------------------------------------------------------------------
             ! Time field.
             !-------------------------------------------------------------------------------
@@ -1933,8 +1930,8 @@ CONTAINS
             DO n = 1, nfld1dt
                 var = TRIM(fld1dt(n)%fldname)
                 rcode = nf90_put_var (cdfid_m, id_fld(n), fld1dt(n)%fld,  &
-                    start = (/ 1 /),  &
-                    count = (/ it /) )
+                    start = (/ it /),  &
+                    count = (/ 1 /) )
                 IF ( rcode /= nf90_noerr ) THEN
                     WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
@@ -1950,40 +1947,44 @@ CONTAINS
                 !-------------------------------------------------------------------------------
                 write(*,*)  'Writing Time-independent 1d fields'
                 write(*,*)  '-------------------------------'
+            ENDIF  ! first
 
-                DO n = 1, nfld1dz
-                    nn = ntot + n
-                    var = TRIM(fld1dz(n)%fldname)
+            DO n = 1, nfld1dz
+                nn = ntot + n
+                var = TRIM(fld1dz(n)%fldname)
+                IF ( first ) THEN  ! write time-independent fields
                     rcode = nf90_put_var (cdfid_m, id_fld(nn), fld1dz(n)%fld)
                     IF ( rcode /= nf90_noerr ) THEN
                         WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
                             TRIM(nf90_strerror(rcode))
                         CALL exit (2)
                     ENDIF
-                ENDDO
+                ENDIF  ! first
+            ENDDO
 
-                ntot = ntot + nfld1dz
+            ntot = ntot + nfld1dz
 
-                !-------------------------------------------------------------------------------
-                ! Time-independent 2d fields at cell centers.
-                !-------------------------------------------------------------------------------
+            !-------------------------------------------------------------------------------
+            ! Time-independent 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+            IF ( first ) THEN  ! write time-independent fields
                 write(*,*)  'Writing Time-independent 2d fields'
                 write(*,*)  '-------------------------------'
-
-                DO n = 1, nfld2dxy
-                    nn = ntot + n
-                    var = TRIM(fld2dxy(n)%fldname)
+            ENDIF  ! first
+            DO n = 1, nfld2dxy
+                nn = ntot + n
+                var = TRIM(fld2dxy(n)%fldname)
+                IF ( first ) THEN  ! write time-independent fields
                     rcode = nf90_put_var (cdfid_m, id_fld(nn), fld2dxy(n)%fld)
                     IF ( rcode /= nf90_noerr ) THEN
                         WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
                             TRIM(nf90_strerror(rcode))
                         CALL exit (2)
                     ENDIF
-                ENDDO
+                ENDIF  ! first
+            ENDDO
 
-                ntot = ntot + nfld2dxy
-
-            ENDIF  ! first
+            ntot = ntot + nfld2dxy
 
             !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.

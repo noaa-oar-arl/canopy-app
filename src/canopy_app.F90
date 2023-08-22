@@ -5,6 +5,7 @@ program canopy_app
 !  History:
 !    Prototype: Patrick C. Campbell, 06/2022
 !    Revised  : PCC (10/2022)
+!    21 Aug 2023 Adding multiple timesteps (P.C. Campbell)
 !-------------------------------------------------------------
     use canopy_files_mod  ! main canopy input files
     use canopy_coord_mod  ! main canopy coordinates
@@ -52,6 +53,16 @@ program canopy_app
     call canopy_init
 
 !-------------------------------------------------------------------------------
+! Allocate and initialize 2D/3D NetCDF output data structures
+!-------------------------------------------------------------------------------
+
+#ifdef NETCDF
+    call canopy_outncf_alloc
+
+    call canopy_outncf_init
+#endif
+
+!-------------------------------------------------------------------------------
 ! Loop over time to get input, calculate canopy fields, and write output.
 !-------------------------------------------------------------------------------
     time_now = time_start
@@ -59,6 +70,7 @@ program canopy_app
     timeloop: DO nn=1,ntime
 
         WRITE (*,f100) time_now
+
 !-------------------------------------------------------------------------------
 ! Read met/sfc gridded model input file (currently 1D TXT or 1D/2D NETCDF).
 !-------------------------------------------------------------------------------
@@ -76,16 +88,6 @@ program canopy_app
         call canopy_calcs
 
 !-------------------------------------------------------------------------------
-! Allocate and initialize 2D/3D NetCDF output data structures
-!-------------------------------------------------------------------------------
-
-#ifdef NETCDF
-        call canopy_outncf_alloc
-
-        call canopy_outncf_init
-#endif
-
-!-------------------------------------------------------------------------------
 ! Write model output of canopy model calculations.
 !-------------------------------------------------------------------------------
 
@@ -96,6 +98,7 @@ program canopy_app
 #endif
 
     ENDDO timeloop
+
 !-------------------------------------------------------------------------------
 ! Dellocate necessary variables.
 !-------------------------------------------------------------------------------
