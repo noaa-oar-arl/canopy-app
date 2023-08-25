@@ -343,6 +343,9 @@ CONTAINS
 
         g_time%fld = fillreal
         g_time%fldname = 'time'
+        g_time%calendar_type = 'JULIAN'
+        g_time%calendar = 'JULIAN'
+        g_time%cartesian_axis = "T"
         g_time%long_name = 'time'
         g_time%units = 'hours since ' // time_start
         g_time%fillvalue = fillreal
@@ -1712,6 +1715,27 @@ CONTAINS
 
                 DO n = 1, nfld1dt
                     var = TRIM(fld1dt(n)%fldname)
+                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'calendar',  &
+                        TRIM(fld1dt(n)%calendar))
+                    IF ( rcode /= nf90_noerr ) THEN
+                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                            TRIM(nf90_strerror(rcode))
+                        CALL exit (2)
+                    ENDIF
+                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'calendar_type',  &
+                        TRIM(fld1dt(n)%calendar_type))
+                    IF ( rcode /= nf90_noerr ) THEN
+                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                            TRIM(nf90_strerror(rcode))
+                        CALL exit (2)
+                    ENDIF
+                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'cartesian_axis',  &
+                        TRIM(fld1dt(n)%cartesian_axis))
+                    IF ( rcode /= nf90_noerr ) THEN
+                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                            TRIM(nf90_strerror(rcode))
+                        CALL exit (2)
+                    ENDIF
                     rcode = nf90_put_att (cdfid_m, id_fld(n), 'long_name',  &
                         TRIM(fld1dt(n)%long_name))
                     IF ( rcode /= nf90_noerr ) THEN

@@ -110,9 +110,9 @@ MODULE canopy_canvars_mod
         CHARACTER(LEN=16)          :: fldname
         CHARACTER(LEN=80)          :: long_name
         CHARACTER(LEN=80)          :: units
-!        CHARACTER(LEN=80)          :: cartesian_axis = "T"
-!        CHARACTER(LEN=80)          :: calendar_type = "JULIAN"
-!        CHARACTER(LEN=80)          :: calendar = "JULIAN"
+        CHARACTER(LEN=80)          :: cartesian_axis = "T"
+        CHARACTER(LEN=80)          :: calendar_type = "JULIAN"
+        CHARACTER(LEN=80)          :: calendar = "JULIAN"
         REAL                       :: fillvalue
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
         INTEGER                    :: istart     ( 4 )
