@@ -53,6 +53,7 @@ $(info INC:  '$(INC)')
 # Source objects
 OBJS :=\
  canopy_const_mod.o \
+ canopy_date_mod.o \
  canopy_coord_mod.o \
  canopy_canopts_mod.o \
  canopy_canmet_mod.o \
@@ -79,7 +80,6 @@ OBJS :=\
  canopy_calcs.o \
  canopy_write_txt.o \
  canopy_dealloc.o \
- canopy_close_files.o \
  canopy_app.o
 
 ifeq ($(NC), 0)

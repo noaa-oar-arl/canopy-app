@@ -7,6 +7,7 @@ program canopy_app
 !    Revised  : PCC (10/2022)
 !    21 Aug 2023 Adding multiple timesteps (P.C. Campbell)
 !-------------------------------------------------------------
+    use canopy_date_mod   ! main canopy date module
     use canopy_files_mod  ! main canopy input files
     use canopy_coord_mod  ! main canopy coordinates
 #ifdef NETCDF
@@ -15,7 +16,7 @@ program canopy_app
 
     implicit none
 
-    !   CHARACTER(LEN=24)                 :: time_next  ! YYYY-MM-DD-HH:MM:SS.SSSS
+    CHARACTER(LEN=24)                 :: time_next  ! YYYY-MM-DD-HH:MM:SS.SSSS
     CHARACTER(LEN=24)                 :: time_now   ! YYYY-MM-DD-HH:MM:SS.SSSS
     integer   :: nn
 
@@ -70,15 +71,14 @@ program canopy_app
     timeloop: DO nn=1,ntime
 
         WRITE (*,f100) time_now
-
 !-------------------------------------------------------------------------------
 ! Read met/sfc gridded model input file (currently 1D TXT or 1D/2D NETCDF).
 !-------------------------------------------------------------------------------
 
 #ifdef NETCDF
-        call canopy_check_input(file_vars(1))
+        call canopy_check_input(file_vars(nn))
 #else
-        call canopy_read_txt(file_vars(1))
+        call canopy_read_txt(file_vars(nn))
 #endif
 
 !-------------------------------------------------------------------------------
@@ -97,6 +97,11 @@ program canopy_app
         call canopy_write_ncf(file_out(1)) !only output if 2D input NCF is used
 #endif
 
+! Update new date and time
+
+        CALL geth_newdate (time_next, time_now, time_intvl*3600)
+        time_now = time_next
+
     ENDDO timeloop
 
 !-------------------------------------------------------------------------------
@@ -108,9 +113,10 @@ program canopy_app
 !-------------------------------------------------------------------------------
 ! Close output NetCDF files (if necessary).
 !-------------------------------------------------------------------------------
-#ifdef NETCDF
-    call canopy_close_files(file_out(1))
-#endif
+
+!#ifdef NETCDF
+!        call canopy_close_files(file_out(1))
+!#endif
 
     WRITE (*,'(//, a)') 'Canopy-App Finished Normally'
 
