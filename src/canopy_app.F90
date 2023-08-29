@@ -91,10 +91,11 @@ program canopy_app
 ! Write model output of canopy model calculations.
 !-------------------------------------------------------------------------------
 
-        call canopy_write_txt(file_out(1))
+        call canopy_write_txt(trim(file_out(1)) // '_' // trim(time_now))
 
 #ifdef NETCDF
-        call canopy_write_ncf(file_out(1)) !only output if 2D input NCF is used
+        !only output if 2D input NCF is used
+        call canopy_write_ncf(trim(file_out(1)) // '_' // trim(time_start))
 #endif
 
 ! Update new date and time

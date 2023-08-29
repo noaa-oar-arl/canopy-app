@@ -61,7 +61,7 @@ CONTAINS
                 write(*,*)  'Writing canopy wind output'
                 write(*,*)  '-------------------------------'
 ! ... save as text file
-                open(10, file=TRIM(TXTPREFX)//'_output_canopy_wind.txt')
+                open(10, file=TRIM(TXTPREFX)//'_canopy_wind.txt')
                 write(10, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(10, '(a30, i6)') 'number of model layers: ', modlays
                 write(10, '(a8, a9, a12, a17)') 'lat', 'lon', 'height (m)', 'ws (m s-1)'
@@ -77,7 +77,7 @@ CONTAINS
             if (ifcanwaf) then
                 write(*,*)  'Writing canopy WAF output'
                 write(*,*)  '-------------------------------'
-                open(11, file=TRIM(TXTPREFX)//'_output_waf.txt')
+                open(11, file=TRIM(TXTPREFX)//'_waf.txt')
                 write(11, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(11, '(a30, i6)') 'number of model layers: ', modlays
                 write(11, '(a8, a9, a19, a19, a11)') 'lat', 'lon', 'canheight (m)', 'flameh (m)', 'waf (1)'
@@ -91,7 +91,7 @@ CONTAINS
                 write(*,*)  'Writing canopy eddy diffusivity scaling values'
                 write(*,*)  '-------------------------------'
 ! ... save as text file
-                open(12, file=TRIM(TXTPREFX)//'_output_eddy_Kz.txt')
+                open(12, file=TRIM(TXTPREFX)//'_eddy.txt')
                 write(12, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(12, '(a30, i6)') 'number of model layers: ', modlays
                 write(12, '(a8, a9, a12, a15)') 'lat', 'lon', 'height (m)', 'kz (m2 s-1)'
@@ -107,7 +107,7 @@ CONTAINS
                 write(*,*)  'Writing canopy photolysis correction factors'
                 write(*,*)  '-------------------------------'
 ! ... save as text file
-                open(13, file=TRIM(TXTPREFX)//'_output_phot.txt')
+                open(13, file=TRIM(TXTPREFX)//'_phot.txt')
                 write(13, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(13, '(a30, i6)') 'number of model layers: ', modlays
                 write(13, '(a8, a9, a12, a15)') 'lat', 'lon', 'height (m)', 'rjcf (1)'
@@ -122,7 +122,7 @@ CONTAINS
                 write(*,*)  'Writing biogenic emissions'
                 write(*,*)  '-------------------------------'
 ! ... save as text file
-                open(13, file=TRIM(TXTPREFX)//'_output_bio.txt')
+                open(13, file=TRIM(TXTPREFX)//'_bio.txt')
                 write(13, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(13, '(a30, i6)') 'number of model layers: ', modlays
                 write(13, '(a8, a9, a12, a28, a28, a28, a28, a28, a28, a28, a28, a28, a28, &
