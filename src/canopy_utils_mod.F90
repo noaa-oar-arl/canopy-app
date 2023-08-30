@@ -112,8 +112,8 @@ contains
         !! Approximates the Flame Height as a function of FRP intensity, grid cell distance (dx),
         !! and vegetation type (Based on Alexander and Cruz 2012).
 
-        !!  Alexander, Martin E.; Cruz, Miguel G. 2012. Interdependencies between flame length and 
-        !!  fireline intensity in predicting crown fire initiation and crown scorch height. 
+        !!  Alexander, Martin E.; Cruz, Miguel G. 2012. Interdependencies between flame length and
+        !!  fireline intensity in predicting crown fire initiation and crown scorch height.
         !!  International Journal of Wildland Fire 21(2):95-113.
 
         !! Assume Flame Length = Flame Height under calm winds
@@ -131,7 +131,7 @@ contains
         real(rk)              :: CalcFlameH_N86   !! Fireline intensity to flame height (m): Nelson and Adkins (1986)
         real(rk)              :: CalcFlameH_V86   !! Fireline intensity to flame height (m): van Wilgen (1986)
         real(rk)              :: CalcFlameH_B94   !! Fireline intensity to flame height (m): Burrows (1994)
-        real(rk)              :: CalcFlameH_W96   !! Fireline intensity to flame height (m): Weise and Biging (1996) 
+        real(rk)              :: CalcFlameH_W96   !! Fireline intensity to flame height (m): Weise and Biging (1996)
         real(rk)              :: CalcFlameH_V98   !! Fireline intensity to flame height (m): Vega et al. (1998)
         real(rk)              :: CalcFlameH_C98   !! Fireline intensity to flame height (m): Catchpole et al. (1998)
         real(rk)              :: CalcFlameH_F00   !! Fireline intensity to flame height (m): Fernandes et al. (2000)
@@ -143,11 +143,11 @@ contains
         !!  Byram, GM (1959). Combustion of Forest Fuels. In Forest Fire: Control and Use.
         !!  (Ed. KP David) pp. 61-89.  McGraw Hill, New York, NY
         !Pine litter with grass understorey (Evergreen and Grasses)
-        CalcFlameH_B59=0.0775_rk*((frp*1000.0_rk)/dx)**0.46_rk  
+        CalcFlameH_B59=0.0775_rk*((frp*1000.0_rk)/dx)**0.46_rk
         !!  -------------------------------------------------------------------------------------
 
         !!  -------------------------------------------------------------------------------------
-        !!  Anderson HE, Brackebusch AP, Mutch RW, Rothermel RC (1966) Mechanisms of fire spread 
+        !!  Anderson HE, Brackebusch AP, Mutch RW, Rothermel RC (1966) Mechanisms of fire spread
         !!  research progress report 2. USDA Forest Service,
         !!  Intermountain Forest and Range Experiment Station, Research Paper
         !!  INT-28. (Ogden, UT)
@@ -196,7 +196,7 @@ contains
         !Eucalypt Forest (Evergreens)
         CalcFlameH_B94=0.0147_rk*((frp*1000.0_rk)/dx)**0.767_rk
         !!  -------------------------------------------------------------------------------------
-        
+
         !!  -------------------------------------------------------------------------------------
         !!  Weise DR, Biging GS (1996) Effects of wind velocity and slope on flame
         !!  properties. Canadian Journal of Forest Research 26, 1849–1858.
@@ -209,7 +209,7 @@ contains
         !!  Vega JA, Cuinas P, Fonturbel T, Perez-Gorostiaga P, Fernandez C (1998)
         !!  Predicting fire behaviour in Galician (NW Spain) shrubland fuel
         !!  complexes. In ‘Proceedings of 3rd International Conference on Forest
-        !!  Flame length and fireline intensity interdependences. 
+        !!  Flame length and fireline intensity interdependences.
         !Shrublands
         CalcFlameH_V98=0.087_rk*((frp*1000.0_rk)/dx)**0.493_rk
         !!  -------------------------------------------------------------------------------------
@@ -256,7 +256,7 @@ contains
         if (lu_opt .eq. 0 .or. lu_opt .eq. 1) then !VIIRS or MODIS LU types
             if (vtype .ge. 1 .and. vtype .le. 2) then !VIIRS/MODIS Cat 1-2/Evergreen Needleleaf & Broadleaf
                 CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_A66_L+CalcFlameH_A66_D+CalcFlameH_B94+ &
-                               CalcFlameH_F09_H+CalcFlameH_F09_B) / 6.0_rk
+                    CalcFlameH_F09_H+CalcFlameH_F09_B) / 6.0_rk
                 if (((frp*1000.0_rk)/dx) .ge. 1700.0_rk ) then !Evergreen forest crowning likely
                     CalcFlameH_set=CalcFlameH_B04
                 end if
@@ -266,17 +266,17 @@ contains
                 CalcFlameH_set=CalcFlameH_N80
             else if (vtype .ge. 6 .and. vtype .le. 7) then !VIIRS/MODIS Cat 6-7 Shrublands
                 CalcFlameH_set=(CalcFlameH_N86+CalcFlameH_V86+CalcFlameH_V98+CalcFlameH_C98+ &
-                               CalcFlameH_F00) / 5.0_rk    
+                    CalcFlameH_F00) / 5.0_rk
             else if (vtype .ge. 8 .and. vtype .le. 10) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
                 CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_C83_H+CalcFlameH_C83_B) / 3.0_rk
-            else if (vtype .ge. 12) then !VIIRS/MODIS Cat 12 Croplands        
-                CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_C83_H+CalcFlameH_C83_B) / 3.0_rk    
+            else if (vtype .ge. 12) then !VIIRS/MODIS Cat 12 Croplands
+                CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_C83_H+CalcFlameH_C83_B) / 3.0_rk
             else
                 CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_A66_L+CalcFlameH_A66_D+CalcFlameH_N80+ &
-                                CalcFlameH_C83_H+CalcFlameH_C83_B+CalcFlameH_N86+CalcFlameH_V86+ &
-                                CalcFlameH_B94+CalcFlameH_W96+CalcFlameH_V98+CalcFlameH_C98+ &
-                                CalcFlameH_F00+CalcFlameH_B04+CalcFlameH_F09_H+ &
-                                CalcFlameH_F09_B) / 16.0_rk
+                    CalcFlameH_C83_H+CalcFlameH_C83_B+CalcFlameH_N86+CalcFlameH_V86+ &
+                    CalcFlameH_B94+CalcFlameH_W96+CalcFlameH_V98+CalcFlameH_C98+ &
+                    CalcFlameH_F00+CalcFlameH_B04+CalcFlameH_F09_H+ &
+                    CalcFlameH_F09_B) / 16.0_rk
             end if
         else
             write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS/MODIS available right now...exiting'
