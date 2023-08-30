@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_FLAMEH( FLAMEH_OPT, FLAMEH_SET, DX, MODRES, &
-        FRP_IN, FRP_FAC, FCH, MIDFLAMEPOINT, FLAMEH )
+        FRP_IN, FRP_FAC, FCH, LU_OPT, VTYPE, MIDFLAMEPOINT, FLAMEH )
 
 !-----------------------------------------------------------------------
 
@@ -34,6 +34,8 @@ contains
         REAL(RK),    INTENT( IN )  :: FRP_IN          ! Model input FRP (MW/grid cell area)
         REAL(RK),    INTENT( IN )  :: FRP_FAC         ! FRP tuning factor for flame height calculation
         REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
+        INTEGER,     INTENT( IN )  :: LU_OPT          ! Supported land use classifications
+        INTEGER,     INTENT( IN )  :: VTYPE           ! Dominant vegetation type
         INTEGER,     INTENT( OUT ) :: MIDFLAMEPOINT   ! Indice of the mid-flame point
         REAL(RK),    INTENT( OUT ) :: FLAMEH          ! Flame Height (m)
 
@@ -50,13 +52,13 @@ contains
                     FLAMEH_SET, ' from namelist'
                 FLAMEH = FLAMEH_SET
             else                                    !calculate flameh
-                FLAMEH = CalcFlameH(frp,DX)
+                FLAMEH = CalcFlameH(frp,DX,LU_OPT,VTYPE)
             end if
         else if (FLAMEH_OPT .eq. 1) then  !user set value
             FLAMEH = FLAMEH_SET
         else if (FLAMEH_OPT .eq. 2) then  !both FRP calc and user set
             if (frp .gt. 0.0) then
-                FLAMEH = CalcFlameH(frp,DX)
+                FLAMEH = CalcFlameH(frp,DX,LU_OPT,VTYPE)
             else
                 FLAMEH = FLAMEH_SET
             end if
@@ -69,7 +71,7 @@ contains
             end if
         else if (FLAMEH_OPT .eq. 4) then  !uses FRP and overide elsewhere
             if (frp .gt. 0.0) then
-                FLAMEH = CalcFlameH(frp,DX)
+                FLAMEH = CalcFlameH(frp,DX,LU_OPT,VTYPE)
             else
                 if (FLAMEH_SET .le. 1.0) then
                     FLAMEH = FCH * FLAMEH_SET  !not real flame height but uses WAF at this fractional FCH
@@ -83,7 +85,7 @@ contains
                 if ( ((frp*1000.0_rk)/DX) .ge. 1700.0_rk ) then       !Crown fire likely (Andrews et al., 2011).
                     FLAMEH = FCH                                      !https://doi.org/10.2737/RMRS-GTR-253
                 else
-                    FLAMEH = CalcFlameH(frp,DX)
+                    FLAMEH = CalcFlameH(frp,DX,LU_OPT,VTYPE)
                 end if
             else
                 if (FLAMEH_SET .le. 1.0) then

@@ -170,7 +170,7 @@ SUBROUTINE canopy_calcs
 
 ! ... determine midflamepoint and flame height from user or FRP calculation
                                 call canopy_flameh(flameh_opt, flameh_set, dx_2d(i,j), modres, &
-                                    frpref, frp_fac, hcmref, midflamepoint, flameh_2d(i,j))
+                                    frpref, frp_fac, hcmref, lu_opt, vtyperef, midflamepoint, flameh_2d(i,j))
                                 if (firetype .eq. 0) then !forest/sub-canopy firetype
                                     if (flameh_2d(i,j) .gt. 0.0) then !flameh must be > 0
                                         if (flameh_2d(i,j) .le. hcmref) then !only calculate when flameh <= FCH
@@ -482,7 +482,7 @@ SUBROUTINE canopy_calcs
 
 ! ... determine midflamepoint and flame height from user or FRP calculation
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
-                                frpref, frp_fac, hcmref, midflamepoint, flameh(loc))
+                                frpref, frp_fac, hcmref, lu_opt, vtyperef, midflamepoint, flameh(loc))
                             if (firetype .eq. 0) then !forest/sub-canopy firetype
                                 if (flameh(loc) .gt. 0.0) then !flameh must be > 0
                                     if (flameh(loc) .le. hcmref) then !only calculate when flameh <= FCH

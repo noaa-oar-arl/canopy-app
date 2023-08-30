@@ -108,21 +108,180 @@ contains
     ! end function
     ! !--------------------------------------------------------------------------------------
 
-    function CalcFlameH(frp, dx)
-        !! Approximates the Flame Height as a function of FRP intensity and grid cell distance (dx)
-        !! forest fraction (Based on Byram 1959).
+    real(rk) function CalcFlameH(frp, dx, lu_opt, vtype) result( CalcFlameH_set )
+        !! Approximates the Flame Height as a function of FRP intensity, grid cell distance (dx),
+        !! and vegetation type (Based on Alexander and Cruz 2012).
 
-        !!  Byram, GM (1959). Combustion of Forest Fuels. In Forest Fire: Control and Use.
-        !!  (Ed. KP David) pp. 61-89.  McGraw Hill, New York, NY
+        !!  Alexander, Martin E.; Cruz, Miguel G. 2012. Interdependencies between flame length and 
+        !!  fireline intensity in predicting crown fire initiation and crown scorch height. 
+        !!  International Journal of Wildland Fire 21(2):95-113.
 
         !! Assume Flame Length = Flame Height under calm winds
 
-        real(rk), intent(in)  :: frp          !! Input Grid cell Fire Radiative Power (MW/cell)
-        real(rk), intent(in)  :: dx           !! Input Grid cell length (m)
-        real(rk)              :: CalcFlameH   !! Calculated Plant area index (PAI)
+        real(rk), intent(in)  :: frp              !! Input Grid cell Fire Radiative Power (MW/cell)
+        real(rk), intent(in)  :: dx               !! Input Grid cell length (m)
+        integer,  intent(in)  :: lu_opt           !! Supported land use classifications
+        integer,  intent(in)  :: vtype            !! Grid cell dominant vegetation type
+        real(rk)              :: CalcFlameH_B59   !! Fireline intensity flame length (height) relationship (m): Byram (1959)
+        real(rk)              :: CalcFlameH_A66_L !! Fireline intensity to flame height (m): Anderson et al. (1966)
+        real(rk)              :: CalcFlameH_A66_D !! Fireline intensity to flame height (m): Anderson et al. (1966)
+        real(rk)              :: CalcFlameH_N80   !! Fireline intensity to flame height (m): Nelson (1980)
+        real(rk)              :: CalcFlameH_C83_H !! Fireline intensity to flame height (m): Clark (1983)
+        real(rk)              :: CalcFlameH_C83_B !! Fireline intensity to flame height (m): Clark (1983)
+        real(rk)              :: CalcFlameH_N86   !! Fireline intensity to flame height (m): Nelson and Adkins (1986)
+        real(rk)              :: CalcFlameH_V86   !! Fireline intensity to flame height (m): van Wilgen (1986)
+        real(rk)              :: CalcFlameH_B94   !! Fireline intensity to flame height (m): Burrows (1994)
+        real(rk)              :: CalcFlameH_W96   !! Fireline intensity to flame height (m): Weise and Biging (1996) 
+        real(rk)              :: CalcFlameH_V98   !! Fireline intensity to flame height (m): Vega et al. (1998)
+        real(rk)              :: CalcFlameH_C98   !! Fireline intensity to flame height (m): Catchpole et al. (1998)
+        real(rk)              :: CalcFlameH_F00   !! Fireline intensity to flame height (m): Fernandes et al. (2000)
+        real(rk)              :: CalcFlameH_B04   !! Fireline intensity to flame height (m): Butler et al. (2004)
+        real(rk)              :: CalcFlameH_F09_H !! Fireline intensity to flame height (m): Fernandes et al. (2009)
+        real(rk)              :: CalcFlameH_F09_B !! Fireline intensity to flame height (m): Fernandes et al. (2009)
 
-        CalcFlameH=0.0775_rk*((frp*1000.0_rk)/dx)**0.46_rk  !Byram flameh calculation as function of FRP
+        !!  -------------------------------------------------------------------------------------
+        !!  Byram, GM (1959). Combustion of Forest Fuels. In Forest Fire: Control and Use.
+        !!  (Ed. KP David) pp. 61-89.  McGraw Hill, New York, NY
+        !Pine litter with grass understorey (Evergreen and Grasses)
+        CalcFlameH_B59=0.0775_rk*((frp*1000.0_rk)/dx)**0.46_rk  
+        !!  -------------------------------------------------------------------------------------
 
+        !!  -------------------------------------------------------------------------------------
+        !!  Anderson HE, Brackebusch AP, Mutch RW, Rothermel RC (1966) Mechanisms of fire spread 
+        !!  research progress report 2. USDA Forest Service,
+        !!  Intermountain Forest and Range Experiment Station, Research Paper
+        !!  INT-28. (Ogden, UT)
+        !Lodgepole pine slash (Evergreen)
+        CalcFlameH_A66_L=0.074_rk*((frp*1000.0_rk)/dx)**0.651_rk
+        !Douglas-fir slash  (Evergreen)
+        CalcFlameH_A66_D=0.0447_rk*((frp*1000.0_rk)/dx)**0.67_rk
+        !!  -------------------------------------------------------------------------------------
+
+        !!  -------------------------------------------------------------------------------------
+        !!  Nelson RM Jr (1980) Flame characteristics for fires in southern fuels. USDA
+        !!  Forest Service, Southeastern Forest Experiment Station, Research Paper
+        !!  SE-205. (Asheville, NC)
+        !Southern USA Fuels (Mixed Forest)
+        CalcFlameH_N80=0.0377_rk*((frp*1000.0_rk)/dx)**0.50_rk
+        !!  -------------------------------------------------------------------------------------
+
+        !!  -------------------------------------------------------------------------------------
+        !!  Clark RG (1983) Threshold requirements for fire spread in grassland fuels.
+        !!  PhD dissertation, Texas Tech University, Lubbock.
+        !Grasslands (head fire) (Grasslands)
+        CalcFlameH_C83_H=0.00015_rk*((frp*1000.0_rk)/dx)**1.75_rk
+        !Grasslands (backfire) (Grasslands)
+        CalcFlameH_C83_B=0.000722_rk*((frp*1000.0_rk)/dx)**0.99_rk
+        !!  -------------------------------------------------------------------------------------
+
+        !!  -------------------------------------------------------------------------------------
+        !!  Nelson RM Jr, Adkins CW (1986) Flame characteristics of wind-driven
+        !!  surface fires. Canadian Journal of Forest Research 16, 1293–1300.
+        !!  doi:10.1139/X86-229
+        !Litter and shrubs (Shrublands)
+        CalcFlameH_N86=0.0475_rk*((frp*1000.0_rk)/dx)**0.493_rk
+        !!  -------------------------------------------------------------------------------------
+
+        !!  -------------------------------------------------------------------------------------
+        !!  van Wilgen BW (1986) A simple relationship for estimating the intensity of
+        !!  fires in natural vegetation. South African Journal of Botany 52, 384–385
+        !Fynbos shrublands (Shrublands)
+        CalcFlameH_V86=0.0075_rk*((frp*1000.0_rk)/dx)**0.46_rk
+        !!  -------------------------------------------------------------------------------------
+
+        !!  -------------------------------------------------------------------------------------
+        !!  Burrows ND (1994) Experimental development of a fire management model
+        !!  for jarrah (Eucalyptus marginata Donn ex Sm.) forest. PhD thesis,
+        !!  Australian National University, Canberra.
+        !Eucalypt Forest (Evergreens)
+        CalcFlameH_B94=0.0147_rk*((frp*1000.0_rk)/dx)**0.767_rk
+        !!  -------------------------------------------------------------------------------------
+        
+        !!  -------------------------------------------------------------------------------------
+        !!  Weise DR, Biging GS (1996) Effects of wind velocity and slope on flame
+        !!  properties. Canadian Journal of Forest Research 26, 1849–1858.
+        !!  doi:10.1139/X26-210
+        !Excelsior (Deciduous)
+        CalcFlameH_W96=0.016_rk*((frp*1000.0_rk)/dx)**0.7_rk
+        !!  -------------------------------------------------------------------------------------
+
+        !!  -------------------------------------------------------------------------------------
+        !!  Vega JA, Cuinas P, Fonturbel T, Perez-Gorostiaga P, Fernandez C (1998)
+        !!  Predicting fire behaviour in Galician (NW Spain) shrubland fuel
+        !!  complexes. In ‘Proceedings of 3rd International Conference on Forest
+        !!  Flame length and fireline intensity interdependences. 
+        !Shrublands
+        CalcFlameH_V98=0.087_rk*((frp*1000.0_rk)/dx)**0.493_rk
+        !!  -------------------------------------------------------------------------------------
+
+        !!  -------------------------------------------------------------------------------------
+        !!  CatchpoleWR, Bradstock RA, Choate J, Fogarty LG, Gellie N, McCarthy G,
+        !!  McCaw WL, Marsden-Smedley JB, Pearce G (1998) Cooperative
+        !!  development of equations for heathland fire behaviour. In ‘Proceedings
+        !!  of 3rd International Conference on Forest Fire Research and 14th
+        !!  Conference on Fire and Forest Meteorology, Volume II’, 16–20
+        !!  November 1998, Luso–Coimbra, Portugal. (Ed. DX Viegas)
+        !!  pp. 631–645. (University of Coimbra: Coimbra, Portugal)
+        !Shrublands
+        CalcFlameH_C98=0.0325_rk*((frp*1000.0_rk)/dx)**0.56_rk
+        !!  -------------------------------------------------------------------------------------
+
+        !!  -------------------------------------------------------------------------------------
+        !!  Fernandes PM, Catchpole WR, Rego FC (2000) Shrubland fire behaviour
+        !!  modelling with microplot data.Canadian Journal of Forest Research 30,
+        !!  889–899. doi:10.1139/X00-012
+        !Shrublands
+        CalcFlameH_F00=0.0516_rk*((frp*1000.0_rk)/dx)**0.453_rk
+        !!  -------------------------------------------------------------------------------------
+
+        !!  -------------------------------------------------------------------------------------
+        !!  Butler BW, Finney MA, Andrews PL, Albini FA (2004) A radiation-driven
+        !!  model of crown fire spread. Canadian Journal of Forest Research 34,
+        !!  1588–1599. doi:10.1139/X04-074
+        !Jack Pine Forest - Crown Fire (Evergreen)
+        CalcFlameH_B04=0.0175_rk*((frp*1000.0_rk)/dx)**0.667_rk
+        !!  -------------------------------------------------------------------------------------
+
+        !!  -------------------------------------------------------------------------------------
+        !!  Fernandes PM, Botelho HS, Rego FC, Loureiro C (2009) Empirical
+        !!  modelling of surface fire behaviour in maritime pine stands.
+        !!  International Journal of Wildland Fire 18, 698–710. doi:10.1071/
+        !!  WF08023
+        !Maritime Pine (head fire) (Evergreen)
+        CalcFlameH_F09_H=0.045_rk*((frp*1000.0_rk)/dx)**0.543_rk
+        !Maritime Pine (backfire) (Evergreen)
+        CalcFlameH_F09_B=0.029_rk*((frp*1000.0_rk)/dx)**0.724_rk
+        !!  -------------------------------------------------------------------------------------
+
+        if (lu_opt .eq. 0 .or. lu_opt .eq. 1) then !VIIRS or MODIS LU types
+            if (vtype .ge. 1 .and. vtype .le. 2) then !VIIRS/MODIS Cat 1-2/Evergreen Needleleaf & Broadleaf
+                CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_A66_L+CalcFlameH_A66_D+CalcFlameH_B94+ &
+                               CalcFlameH_F09_H+CalcFlameH_F09_B) / 6.0_rk
+                if (((frp*1000.0_rk)/dx) .ge. 1700.0_rk ) then !Evergreen forest crowning likely
+                    CalcFlameH_set=CalcFlameH_B04
+                end if
+            else if (vtype .ge. 3 .and. vtype .le. 4) then !VIIRS/MODIS Cat 3-4 Deciduous Needleleaf and  Broadleaf
+                CalcFlameH_set=(CalcFlameH_N80+CalcFlameH_W96) / 2.0_rk
+            else if (vtype .eq. 5) then !VIIRS/MODIS Cat 5 Mixed Forests
+                CalcFlameH_set=CalcFlameH_N80
+            else if (vtype .ge. 6 .and. vtype .le. 7) then !VIIRS/MODIS Cat 6-7 Shrublands
+                CalcFlameH_set=(CalcFlameH_N86+CalcFlameH_V86+CalcFlameH_V98+CalcFlameH_C98+ &
+                               CalcFlameH_F00) / 5.0_rk    
+            else if (vtype .ge. 8 .and. vtype .le. 10) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
+                CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_C83_H+CalcFlameH_C83_B) / 3.0_rk
+            else if (vtype .ge. 12) then !VIIRS/MODIS Cat 12 Croplands        
+                CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_C83_H+CalcFlameH_C83_B) / 3.0_rk    
+            else
+                CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_A66_L+CalcFlameH_A66_D+CalcFlameH_N80+ &
+                                CalcFlameH_C83_H+CalcFlameH_C83_B+CalcFlameH_N86+CalcFlameH_V86+ &
+                                CalcFlameH_B94+CalcFlameH_W96+CalcFlameH_V98+CalcFlameH_C98+ &
+                                CalcFlameH_F00+CalcFlameH_B04+CalcFlameH_F09_H+ &
+                                CalcFlameH_F09_B) / 16.0_rk
+            end if
+        else
+            write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS/MODIS available right now...exiting'
+            call exit(2)
+        end if
     end function
 
     real(rk) function GET_GAMMA_CO2(co2_opt, co2_set)  result( GAMMA_CO2 )
