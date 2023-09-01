@@ -21,10 +21,10 @@ SUBROUTINE canopy_readnml
     NAMELIST /filenames/ file_vars, file_out
 
     NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
-        z0ghc, lambdars, flameh_opt, flameh_set, frp_fac, ifcanwind, ifcanwaf, &
-        ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, &
-        dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, biovert_opt, &
-        ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set
+        z0ghc, lambdars, flameh_opt, flameh_frp, flameh_set, frp_fac, ifcanwind, &
+        ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
+        dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, &
+        biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -110,6 +110,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default integer for flame height set values or calculation (default = 0)
     flameh_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for FRP to flame height relationships used (default = 0)
+    flameh_frp = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
