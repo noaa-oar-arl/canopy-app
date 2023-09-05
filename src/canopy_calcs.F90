@@ -18,7 +18,7 @@ SUBROUTINE canopy_calcs
     use canopy_rad_mod        !main canopy radiation sunlit/shaded routines
     use canopy_tleaf_mod      !main canopy leaf temperature sunlit/shaded routines
     use canopy_wind_mod       !main canopy components
-    use canopy_waf_mod
+    use canopy_fire_mod
     use canopy_phot_mod
     use canopy_eddy_mod
     use canopy_bioemi_mod

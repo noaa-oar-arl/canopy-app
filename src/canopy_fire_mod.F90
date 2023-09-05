@@ -1,4 +1,4 @@
-module canopy_waf_mod
+module canopy_fire_mod
 
     implicit none
 
@@ -179,4 +179,4 @@ contains
 
     END SUBROUTINE CANOPY_WAF
 
-end module canopy_waf_mod
+end module canopy_fire_mod
