@@ -18,6 +18,7 @@
   var3d_opt   =  0
   var3d_set   =  14
   pavd_opt    =  0
+  pavd_set    =  52.0
   href_opt    =  0
   href_set    =  10.0
   z0ghc       =  0.0025

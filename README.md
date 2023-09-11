@@ -199,6 +199,7 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `var3d_opt`     | integer for selecting to use 3D variable inputs (= `0`, default, off) or (= `1`, on) with the number of levels defined by `var3d_set` below |
 | `var3d_set`     | integer for selecting number of 3D input levels, only used when setting `var3d_set= `1`, default = 14  |
 | `pavd_opt`      | integer for choosing to use GEDI 3D input PAVD profiles instead of prescribed plant distribution functions (= `0`, default, off) or (= `1`, on);  Note: To use this option, must set `var3d_set= `1`, and the 3D pavd variable must be available in the input NetCDF file (i.e., `file_vars`) and `infmt_opt = `0` |
+| `pavd_set`      | real value for +/- latitude threshold within to use observed GEDI 3D PAVD profiles instead of prescribed plant distribution functions.  Used only if `pavd_opt=1`.  Default  = 52.0 degrees latitude.   |
 | `href_opt`      | integer for using `href_set` in namelist (= `0`, default) or array from file (= `1`) |
 | `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) **\*\*\*** |
 | `z0ghc`         | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |

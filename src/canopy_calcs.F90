@@ -129,7 +129,7 @@ SUBROUTINE canopy_calcs
                                 pai_opt, pai_set, lu_opt, firetype, cdrag, &
                                 pai, zcanmax, sigmau, sigma1)
 
-! ... Choose between prescribed canopy/foliate shape profile or observed GEDI PAVD profile (only between -52 and 52 degrees lat)
+! ... Choose between prescribed canopy/foliate shape profile or observed GEDI PAVD profile
 
                             if (pavd_opt .eq. 0) then
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
@@ -145,8 +145,8 @@ SUBROUTINE canopy_calcs
 !                                           print*, 'Lat = ', variables_2d(i,j)%lat
 !                                           print*, 'Lon = ', variables_2d(i,j)%lon
 !                                           print*, 'VIIRS PAI = ', lairef+0.5
-                                if (variables_2d(i,j)%lat .gt. -52.0_rk .and. &
-                                    variables_2d(i,j)%lat .lt. 52.0_rk) then !use GEDI PAVD
+                                if (variables_2d(i,j)%lat .gt. (-1.0_rk*pavd_set) .and. &
+                                    variables_2d(i,j)%lat .lt. pavd_set) then !use GEDI PAVD
                                     call canopy_pavd2fafrac(modlays, modres, hcmref, zhc, &
                                         variables_3d(i,j,:)%pavd, variables_1d%lev, fafraczInt)
 !                                           print*, 'fafraczInt(pavd) = ', fafraczInt

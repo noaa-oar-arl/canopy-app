@@ -21,7 +21,7 @@ SUBROUTINE canopy_readnml
     NAMELIST /filenames/ file_vars, file_out
 
     NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
-        var3d_opt, var3d_set, pavd_opt, &
+        var3d_opt, var3d_set, pavd_opt, pavd_set, &
         z0ghc, lambdars, flameh_opt, flameh_set, frp_fac, ifcanwind, ifcanwaf, &
         ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, &
         dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, biovert_opt, &
@@ -101,6 +101,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default integer for using 3D GEDI PAVD inputs from file (default = 0)
     pavd_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for latitude threshold when using 3D GEDI PAVD inputs from file (default = 52 degrees)
+    pavd_set = 52.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
