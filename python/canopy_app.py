@@ -62,11 +62,11 @@ DEFAULT_POINT_INPUT = pd.read_csv(
 )
 
 _TXT_STEM_SUFFS = {
-    "wind": "_2022-07-01-12:00:00.0000_canopy_wind",
-    "waf": "_2022-07-01-12:00:00.0000_waf",
-    "eddy": "_2022-07-01-12:00:00.0000_eddy",
-    "phot": "_2022-07-01-12:00:00.0000_phot",
-    "bio": "_2022-07-01-12:00:00.0000_bio",
+    "wind": "_canopy_wind",
+    "waf": "_waf",
+    "eddy": "_eddy",
+    "phot": "_phot",
+    "bio": "_bio",
 }
 
 
@@ -180,9 +180,20 @@ def run(
                     f"warning: skipping {which!r} ({ifcan}) output since stem suffix unknown."
                 )
                 continue
-            df = read_txt(
-                ofp_stem.with_name(f"{ofp_stem.name}{stem_suff}").with_suffix(".txt")
-            )
+            # NOTE: Separate file for each time
+            patt = f"{ofp_stem.name}_*{stem_suff}.txt"
+            cands = sorted(output_dir.glob(patt))
+            if not cands:
+                raise ValueError(
+                    f"No matches for pattern {patt!r} in directory {output_dir.as_posix()!r}. "
+                    f"Files present are: {[p.as_posix() for p in output_dir.glob('*')]}."
+                )
+            if len(cands) > 1:
+                print(
+                    f"warning: more than one matching output file for {ifcan}. "
+                    "Taking the first one."
+                )
+            df = read_txt(cands[0])
             df.attrs.update(which=which)
             dfs.append(df)
 
