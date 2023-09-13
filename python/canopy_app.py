@@ -62,11 +62,11 @@ DEFAULT_POINT_INPUT = pd.read_csv(
 )
 
 _TXT_STEM_SUFFS = {
-    "wind": "_canopy_wind",
-    "waf": "_waf",
-    "eddy": "_eddy_Kz",
-    "phot": "_phot",
-    "bio": "_bio",
+    "wind": "_2022-07-01-12:00:00.0000_canopy_wind",
+    "waf": "_2022-07-01-12:00:00.0000_waf",
+    "eddy": "_2022-07-01-12:00:00.0000_eddy",
+    "phot": "_2022-07-01-12:00:00.0000_phot",
+    "bio": "_2022-07-01-12:00:00.0000_bio",
 }
 
 
