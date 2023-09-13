@@ -153,7 +153,17 @@ def run(
 
     # Load nc
     if nc_out:
-        ds0 = xr.open_dataset(ofp_stem.with_suffix(".nc"))
+        # NOTE: Separate file for each time
+        patt = f"{ofp_stem.name}_*.nc"
+        cands = sorted(output_dir.glob(patt))
+        if not cands:
+            raise ValueError(
+                f"No matches for pattern {patt!r} in directory {output_dir.as_posix()!r}. "
+                f"Files present are: {[p.as_posix() for p in output_dir.glob('*')]}."
+            )
+        if len(cands) > 1:
+            print("Taking the first nc file only.")
+        ds0 = xr.open_dataset(cands[0])
         ds = (
             ds0.rename_dims(grid_xt="x", grid_yt="y")
             .swap_dims(level="z")
