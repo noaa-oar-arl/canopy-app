@@ -347,7 +347,7 @@ CONTAINS
         g_time%calendar = 'JULIAN'
         g_time%cartesian_axis = "T"
         g_time%long_name = 'time'
-        g_time%units = 'time steps since ' // time_start
+        g_time%units = 'seconds since ' // time_start
         g_time%fillvalue = fillreal
         g_time%dimnames(1) = 'ntime'
         g_time%istart(1) = 1
@@ -1892,7 +1892,7 @@ CONTAINS
             ! Time field.
             !-------------------------------------------------------------------------------
 
-            g_time%fld = it
+            g_time%fld = it*time_intvl
 
             !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.
