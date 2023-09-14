@@ -250,6 +250,14 @@ def read_txt(fp: Path) -> pd.DataFrame:
     # Parse header lines
     with open(fp) as f:
         for i, line in enumerate(f):
+            if i == 0:
+                pattern = r" *time stamp\: *([0-9\.]*)"
+                m = re.match(pattern, line)
+                if m is None:
+                    raise ValueError(
+                        f"Unexpected file format. Line {i} failed to match regex {pattern!r}."
+                    )
+                href = float(m.group(1))
             if i == 1:
                 pattern = r" *reference height, h\: *([0-9\.]*) m"
                 m = re.match(pattern, line)
