@@ -347,7 +347,7 @@ CONTAINS
         g_time%calendar = 'JULIAN'
         g_time%cartesian_axis = "T"
         g_time%long_name = 'time'
-        g_time%units = 'hours since ' // time_start
+        g_time%units = 'time steps since ' // time_start
         g_time%fillvalue = fillreal
         g_time%dimnames(1) = 'ntime'
         g_time%istart(1) = 1
@@ -1558,7 +1558,6 @@ CONTAINS
                 !-----------------------------------------------------------------------------
                 ! Create netCDF file.
                 !-----------------------------------------------------------------------------
-
                 fl = TRIM(OUTPREFX)//trim('.nc')
 
                 rcode = nf90_create (fl, nf90_hdf5, cdfid_m)
@@ -2166,7 +2165,7 @@ CONTAINS
 
         !grid 1D or 2D  lat/lon variables
 !        it = int(rdtime) + 1
-        it = 1  !Assume input files are single time stamps (e.g., hours since...)
+        it = 1  !Assume input files are full integer time steps
 
         if (infmt_opt .eq. 0) then !Input format is 2D
 

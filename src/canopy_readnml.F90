@@ -74,7 +74,7 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 
 
-! Set default value for number of timesteps, start/end, and interval (hrs)
+! Set default value for number of timesteps, start/end, and interval (seconds)
     ntime      =  0
     time_start = '0000-00-00-00:00:00.0000'
     time_end   = '0000-00-00-00:00:00.0000'

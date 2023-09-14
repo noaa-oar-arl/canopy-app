@@ -12,7 +12,7 @@ MODULE canopy_coord_mod
 !! .... defines time and geographic domain of inputs (read from file and/or user namelist)
     CHARACTER(LEN=24)  :: time_start  !user input: YYYY-MM-DD-HH:MM:SS.SSSS
     CHARACTER(LEN=24)  :: time_end    !user input: YYYY-MM-DD-HH:MM:SS.SSSS
-    INTEGER            :: time_intvl  !user input: time interval for input/output [hrs]
+    INTEGER            :: time_intvl  !user input: time interval for input/output [seconds]
     integer            :: ntime       !number of model timesteps
     integer            :: nlat        !length of x coordinate
     integer            :: nlon        !length of y coordinate
