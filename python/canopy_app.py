@@ -250,7 +250,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
     # Parse header lines
     with open(fp) as f:
         for i, line in enumerate(f):
-            if i == 0:
+            if i == 1:
                 pattern = r" *reference height, h\: *([0-9\.]*) m"
                 m = re.match(pattern, line)
                 if m is None:
@@ -258,7 +258,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
                         f"Unexpected file format. Line {i} failed to match regex {pattern!r}."
                     )
                 href = float(m.group(1))
-            elif i == 1:
+            elif i == 2:
                 pattern = r" *number of model layers\: *([0-9]*)"
                 m = re.match(pattern, line)
                 if m is None:
@@ -266,7 +266,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
                         f"Unexpected file format. Line {i} failed to match regex {pattern!r}."
                     )
                 nlay = int(m.group(1))
-            elif i == 2:
+            elif i == 3:
                 # Column names (some with units)
                 heads = re.split(r" {2,}", line.strip())
                 names: list[str] = []
