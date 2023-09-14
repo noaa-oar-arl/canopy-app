@@ -296,7 +296,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
                 "Unexpected file format. Expected 3 header lines followed by data."
             )
 
-    df = pd.read_csv(fp, index_col=False, skiprows=3, header=None, delimiter=r"\s+")
+    df = pd.read_csv(fp, index_col=False, skiprows=4, header=None, delimiter=r"\s+")
     if len(names) != len(df.columns):
         raise RuntimeError(
             f"Unexpected file format. Detected columns names {names} ({len(names)}) "
