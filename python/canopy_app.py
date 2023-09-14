@@ -163,7 +163,7 @@ def run(
             )
         if len(cands) > 1:
             print("Taking the first nc file only.")
-        ds0 = xr.open_dataset(cands[0], decode_times=False)  # FIXME: want decode
+        ds0 = xr.open_dataset(cands[0], decode_times=True)
         ds = (
             ds0.rename_dims(grid_xt="x", grid_yt="y")
             .swap_dims(level="z")
