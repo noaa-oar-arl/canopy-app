@@ -24,7 +24,7 @@ SUBROUTINE canopy_readnml
         z0ghc, lambdars, flameh_opt, flameh_set, frp_fac, ifcanwind, ifcanwaf, &
         ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, &
         dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, biovert_opt, &
-        ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set
+        ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, leafage_opt
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -235,6 +235,12 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default value for atmospheric co2 concentration for co2_opt (m) (Default = 400.0 ppmv)
     co2_set = 400.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for Leaf Age response option for biogenic (all) emissions
+! (default = 0 i.e. ON, = 1 means GAMMA_LEAFAGE=1 i.e. response off)
+    leafage_opt = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
