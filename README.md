@@ -189,8 +189,8 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `infmt_opt`     | integer for choosing 1D text (= `1`)  or 2D NetCDF input file format (= `0`, default) |
 | `time_start`    | Start/initial time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs  |
 | `time_end`      | End time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs       |
-| `ntime   `      | Number of time steps for simulation/observation inputs                             |
-| `time_intvl   ` | Integer time interval for simulation/observation inputs in seconds (default = 3600) |
+| `ntime`         | Number of time steps for simulation/observation inputs                             |
+| `time_intvl`    | Integer time interval for simulation/observation inputs in seconds (default = 3600) |
 | `nlat`          | number of latitude cells (must match # of LAT in `file_vars` above)                |
 | `nlon`          | number of longitude cells (must match # of LON in `file_vars` above)               |
 | `modlays`       | number of model (below and above canopy) layers                                    |
