@@ -153,8 +153,8 @@ def run(
 
     # Load nc
     if nc_out:
-        # NOTE: Separate file for each time
-        patt = f"{ofp_stem.name}_*.nc"
+        # NOTE: Could be a separate file for each time?
+        patt = f"{ofp_stem.name}*.nc"
         cands = sorted(output_dir.glob(patt))
         if not cands:
             raise ValueError(
@@ -163,7 +163,7 @@ def run(
             )
         if len(cands) > 1:
             print("Taking the first nc file only.")
-        ds0 = xr.open_dataset(cands[0])
+        ds0 = xr.open_dataset(cands[0], decode_times=False)  # FIXME: want decode
         ds = (
             ds0.rename_dims(grid_xt="x", grid_yt="y")
             .swap_dims(level="z")
