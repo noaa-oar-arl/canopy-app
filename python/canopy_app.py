@@ -153,8 +153,8 @@ def run(
 
     # Load nc
     if nc_out:
-        # NOTE: Separate file for each time
-        patt = f"{ofp_stem.name}_*.nc"
+        # NOTE: Could be a separate file for each time?
+        patt = f"{ofp_stem.name}*.nc"
         cands = sorted(output_dir.glob(patt))
         if not cands:
             raise ValueError(
@@ -163,7 +163,7 @@ def run(
             )
         if len(cands) > 1:
             print("Taking the first nc file only.")
-        ds0 = xr.open_dataset(cands[0])
+        ds0 = xr.open_dataset(cands[0], decode_times=True)
         ds = (
             ds0.rename_dims(grid_xt="x", grid_yt="y")
             .swap_dims(level="z")
@@ -251,14 +251,14 @@ def read_txt(fp: Path) -> pd.DataFrame:
     with open(fp) as f:
         for i, line in enumerate(f):
             if i == 0:
-                pattern = r" *time stamp\: *([0-9\.]*)"
+                pattern = r" *time stamp\: *([0-9\.\:\-]*)"
                 m = re.match(pattern, line)
                 if m is None:
                     raise ValueError(
                         f"Unexpected file format. Line {i} failed to match regex {pattern!r}."
                     )
-                href = float(m.group(1))
-            if i == 1:
+                time_stamp = pd.Timestamp(m.group(1))
+            elif i == 1:
                 pattern = r" *reference height, h\: *([0-9\.]*) m"
                 m = re.match(pattern, line)
                 if m is None:
@@ -293,7 +293,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
                 break
         else:
             raise ValueError(
-                "Unexpected file format. Expected 3 header lines followed by data."
+                "Unexpected file format. Expected 4 header lines followed by data."
             )
 
     df = pd.read_csv(fp, index_col=False, skiprows=4, header=None, delimiter=r"\s+")
@@ -303,7 +303,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
             f"are of a different number than the loaded dataframe ({len(df.columns)})."
         )
     df.columns = names  # type: ignore[assignment]
-    df.attrs.update(href=href, nlay=nlay, units=units)
+    df.attrs.update(href=href, nlay=nlay, units=units, time=time_stamp)
 
     return df
 
