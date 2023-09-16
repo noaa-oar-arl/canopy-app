@@ -6,7 +6,7 @@ module canopy_utils_mod
 
     private
     public IntegrateTrapezoid,interp_linear1_internal,CalcPAI, &
-        CalcDX,CalcFlameH,GET_GAMMA_CO2
+        CalcDX,CalcFlameH,GET_GAMMA_CO2,GET_GAMMA_LEAFAGE
 
 contains
 
@@ -251,44 +251,43 @@ contains
 
     end function GET_GAMMA_CO2
 
-  
-    real(rk) function GET_GAMMA_LEAFAGE(leafage_opt, LAIp, LAIc, tdays, AboveCanopy_TEMP, Anew, Agro, Amat, Aold) result(GAMMA_LEAFAGE)
-        ! !IROUTINE: GET_GAMMA_LEAFAGE
+    function GET_GAMMA_LEAFAGE(leafage_opt,LAIp,LAIc,tdays,Tt,Anew,Agro,Amat,Aold)  result( GAMMA_LEAFAGE )
+        ! ROUTINE: GET_GAMMA_LEAFAGE
         !
         ! !DESCRIPTION: Function GET_GAMMA_LEAFAGE computes the leaf age activity factor
         !  associated with foliage fraction calculation.
         !
         !     leaf age response to Biogenic VOCs
         ! Revision: Sept 2023 Quazi Z. Rasool NOAA CSL/CIRES
-!----------------------------------------------------------------
-!
-!       GAMLA = Fnew*Anew + Fgro*Agro + Fmat*Amat + Fold*Aold
-!       where Fnew = new foliage fraction
-!             Fgro = growing foliage fraction
-!             Fmat = mature foliage fraction
-!             Fold = old foliage fraction
-!             Anew = emission activity for new foliage
-!             Agro = emission activity for growing foliage
-!             Amat = emission activity for mature foliage
-!             Aold = emission activity for old foliage
-!           "Age class fractions are determined from LAI changes"
-!             LAIc = current Month's LAI (asuuming monthly LAI but can be
-!             customized as per tdays)
-!             LAIp = past Month's LAI
-!             tdays  = length of the time step (days) i.e. days in between LAIp and LAIc 
-!             ti = days between budbreak and emission induction (calculated below)
-!             tm = days between budbreak and peak emission (Calculated below)
-!             Tt = average above canopy temperature (K)
-!------------------------------------------------------------------------------
+        !----------------------------------------------------------------
+        !
+        !       GAMLA = Fnew*Anew + Fgro*Agro + Fmat*Amat + Fold*Aold
+        !       where Fnew = new foliage fraction
+        !             Fgro = growing foliage fraction
+        !             Fmat = mature foliage fraction
+        !             Fold = old foliage fraction
+        !             Anew = emission activity for new foliage
+        !             Agro = emission activity for growing foliage
+        !             Amat = emission activity for mature foliage
+        !             Aold = emission activity for old foliage
+        !           "Age class fractions are determined from LAI changes"
+        !             LAIc = current Month's LAI (asuuming monthly LAI but can be
+        !             customized as per tdays)
+        !             LAIp = past Month's LAI
+        !             tdays  = length of the time step (days) i.e. days in between LAIp and LAIc
+        !             ti = days between budbreak and emission induction (calculated below)
+        !             tm = days between budbreak and peak emission (Calculated below)
+        !             Tt = average above canopy temperature (K)
+        !------------------------------------------------------------------------------
         ! !INTERFACE:
 
         ! !INPUT PARAMETERS:
-        integer,  INTENT(IN) :: leafage_opt       ! Option for leaf age emission factor calculation
+        INTEGER,  INTENT(IN) :: leafage_opt       ! Option for leaf age emission factor calculation
         ! 0=On;
-        ! 1 or  >1 =off i.e. GAMMA_LEAFAGE =1 
+        ! 1 or  >1 =off i.e. GAMMA_LEAFAGE =1
 
         REAl(rk), INTENT(IN) :: tdays                      ! time step, number of days between Past and Current LAI inputs
-        REAL(rk), INTENT(IN) :: AboveCanopy_TEMP       ! Above canopy temperature (K), t2m or tmpsfc
+        REAL(rk), INTENT(IN) :: Tt !AboveCanopy_TEMP(:)       ! Above canopy temperature (K), t2m or tmpsfc
         REAL(rk), INTENT(IN) :: LAIp         ! Past LAI [cm2/cm2]
         REAL(rk), INTENT(IN) :: LAIc         ! Current LAI [cm2/cm2]
         REAL(rk), INTENT(IN) :: Anew        ! Relative emiss factor (new leaves)
@@ -304,7 +303,7 @@ contains
         REAL(rk) :: Fnew, Fgro                ! foliage fractions
         REAL(rk) :: Fmat, Fold
         REAL(rk) :: ti, tm
-        REAL(rk) :: Tt
+        !REAL(rk) :: Tt
         !
         ! !REMARKS:
         !  The function computes the leaf age activity factor based on BVOC's leaf age response.
@@ -320,61 +319,62 @@ contains
         !-----------------------
 
 
-        Tt = AboveCanopy_TEMP
+        !Tt = AboveCanopy_TEMP
 
         ! Calculate foliage fraction
-         !-----------------------
+        !-----------------------
         !Also, Compute ti and tm
         ! ti: number of days after budbreak required to induce emissions
         ! tm: number of days after budbreak required to reach peak emissions
-        IF (LAIp .LT. LAIc) THEN
-                IF (Tt .LE. 303.0_rk) THEN
-                        ti = 5.0_rk + 0.7_rk*(300.0_rk-Tt)
-                ELSE
-                        ti = 2.9_rk
-                ENDIF
-                tm = 2.3_rk*ti
+        IF (LAIp < LAIc) THEN !(i.e. LAI has Increased)
+            IF (Tt .le. 303.0_rk) THEN
+                ti = 5.0_rk + 0.7_rk*(300.0_rk-Tt)
+            ELSE
+                ti = 2.9_rk
+            ENDIF
+            tm = 2.3_rk*ti
+            !Fnew calculated
+            IF (ti .ge. tdays) THEN
+                Fnew = 1.0_rk - (LAIp/LAIc)
+            ELSE
+                Fnew = (ti/tdays) * ( 1.0_rk-(LAIp/LAIc) )
+            ENDIF
+            !Fmat calculated
+            IF (tm .ge. tdays) THEN
+                Fmat = LAIp/LAIc
+            ELSE
+                Fmat = (LAIp/LAIc) + ( (tdays-tm)/tdays ) * ( 1.0_rk-(LAIp/LAIc) )
+            ENDIF
 
-                IF (ti .GE. tdays) THEN
-                        Fnew = 1.0_rk - (LAIp/LAIc)
-                ELSE
-                        Fnew = (ti/tdays) * ( 1-(LAIp/LAIc) )
-                ENDIF
-
-                IF (tm .GE. tdays) THEN
-                        Fmat = LAIp/LAIc
-                ELSE
-                        Fmat = (LAIp/LAIc) + ( (tdays-tm)/tdays ) * ( 1-(LAIp/LAIc) )
-                ENDIF
-
-                Fgro = 1.0 - Fnew - Fmat
-                Fold = 0.0
-        ELSEIF (LAIp .EQ. LAIc) THEN
-                Fnew = 0.0
-                Fgro = 0.1
-                Fmat = 0.8
-                Fold = 0.1
+            Fgro = 1.0_rk - Fnew - Fmat
+            Fold = 0.0_rk
+        ELSEIF (LAIp == LAIc) THEN !If LAI remains same
+            Fnew = 0.0_rk
+            Fgro = 0.1_rk
+            Fmat = 0.8_rk
+            Fold = 0.1_rk
         ELSE
-                Fnew = 0.0
-                Fgro = 0.0
-                Fold = ( LAIp-LAIc ) / LAIp
-                Fmat = 1-Fold
+            Fnew = 0.0_rk
+            Fgro = 0.0_rk
+            Fold = ( LAIp-LAIc ) / LAIp
+            Fmat = 1.0_rk-Fold
         ENDIF
 
         !-----------------------
         ! Compute GAMMA_AGE
         !-----------------------
-        IF (leafage_opt .EQ. 0) THEN
-        ! Compute GAMMA_LEAFAGE
-                GAMMA_LEAFAGE = Fnew*Anew + Fgro*Agro + Fmat*Amat + Fold*Aold
-                ! Prevent negative values
-                GAMMA_LEAFAGE = MAX( GAMMA_LEAFAGE , 0.0 )
-        ELSEIF (leafage_opt .EQ. 1) THEN
-                GAMMA_LEAFAGE = 1
+        IF (leafage_opt .eq. 0) THEN
+            ! Compute GAMMA_LEAFAGE
+            GAMMA_LEAFAGE = Fnew*Anew + Fgro*Agro + Fmat*Amat + Fold*Aold
+            ! Prevent negative values
+            GAMMA_LEAFAGE = MAX( GAMMA_LEAFAGE , 0.0_rk )
+        ELSEIF (leafage_opt .eq. 1) THEN
+            GAMMA_LEAFAGE = 1.0_rk
         ELSE
-                GAMMA_LEAFAGE = 1
+            GAMMA_LEAFAGE = 1.0_rk
+        ENDIF
 
-        end function GET_GAMMA_LEAFAGE
+    end function GET_GAMMA_LEAFAGE
 
 
 

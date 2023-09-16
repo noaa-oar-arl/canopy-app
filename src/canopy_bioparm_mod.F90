@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_BIOP( EMI_IND, LU_OPT, VTYPE, &
-        EF, CT1, CEO, A_NEW, A_GRO, A_MAT, A_OLD)
+        EF, CT1, CEO, ANEW, AGRO, AMAT, AOLD)
 
 !-----------------------------------------------------------------------
 
@@ -41,7 +41,7 @@ contains
         REAL(RK),    INTENT( OUT )      :: EF              ! Out Mapped EF ((ug/m2 hr)
         REAL(RK),    INTENT( OUT )      :: CT1             ! Out Activation energy (kJ/mol)
         REAL(RK),    INTENT( OUT )      :: CEO             ! Out Empirical coefficient
-        REAL(RK),    INTENT( OUT )      :: A_NEW, A_GRO, A_MAT, A_OLD   !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, as per Table 4 of Guenther et al., 2012
+        REAL(RK),    INTENT( OUT )      :: ANEW, AGRO, AMAT, AOLD   !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, as per Table 4 of Guenther et al., 2012
 
 !  LOCAL
         REAL(RK) :: EF1,EF2,EF3,EF4,EF5,EF6,EF7    ! Plant Emission factors (EF) (ug/m2 hr)
@@ -65,12 +65,12 @@ contains
         REAL(RK),          PARAMETER     :: EF13_ISOP   =  800.0_rk     ! Cool C3 Grass
         REAL(RK),          PARAMETER     :: EF14_ISOP   =  200.0_rk     ! Warm C4 Grass
         REAL(RK),          PARAMETER     :: EF15_ISOP   =  1.0_rk       ! Crop1
-        
+
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Isoprene as per Table 4 of Guenther et al., 2012
-        REAL(RK),          PARAMETER     :: A_NEW_ISOP  = 0.05_rk
-        REAL(RK),          PARAMETER     :: A_GRO_ISOP  = 0.6_rk
-        REAL(RK),          PARAMETER     :: A_MAT_ISOP  = 1.0_rk
-        REAL(RK),          PARAMETER     :: A_OLD_ISOP  = 0.9_rk
+        REAL(RK),          PARAMETER     :: ANEW_ISOP  = 0.05_rk
+        REAL(RK),          PARAMETER     :: AGRO_ISOP  = 0.6_rk
+        REAL(RK),          PARAMETER     :: AMAT_ISOP  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_ISOP  = 0.9_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Myrcene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_MYRC    =  70.0_rk      ! Needleleaf Evergreen Temperate Tree
@@ -90,10 +90,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_MYRC   =  0.3_rk       ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Myrcene as per Table 4 of Guenther et al., 2012
-        REAL(RK),          PARAMETER     :: A_NEW_MYRC  = 2.0_rk
-        REAL(RK),          PARAMETER     :: A_GRO_MYRC  = 1.8_rk
-        REAL(RK),          PARAMETER     :: A_MAT_MYRC  = 1.0_rk
-        REAL(RK),          PARAMETER     :: A_OLD_MYRC  = 1.05_rk
+        REAL(RK),          PARAMETER     :: ANEW_MYRC  = 2.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_MYRC  = 1.8_rk
+        REAL(RK),          PARAMETER     :: AMAT_MYRC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_MYRC  = 1.05_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Sabinene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_SABI    =  70.0_rk      ! Needleleaf Evergreen Temperate Tree
@@ -113,10 +113,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_SABI   =  0.7_rk       ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Sabinene as per Table 4 of Guenther et al., 2012
-        REAL(RK),          PARAMETER     :: A_NEW_SABI  = 2.0_rk
-        REAL(RK),          PARAMETER     :: A_GRO_SABI  = 1.8_rk
-        REAL(RK),          PARAMETER     :: A_MAT_SABI  = 1.0_rk
-        REAL(RK),          PARAMETER     :: A_OLD_SABI  = 1.05_rk
+        REAL(RK),          PARAMETER     :: ANEW_SABI  = 2.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_SABI  = 1.8_rk
+        REAL(RK),          PARAMETER     :: AMAT_SABI  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_SABI  = 1.05_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Limonene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_LIMO    =  100.0_rk     ! Needleleaf Evergreen Temperate Tree
@@ -135,11 +135,11 @@ contains
         REAL(RK),          PARAMETER     :: EF14_LIMO   =  0.7_rk       ! Warm C4 Grass
         REAL(RK),          PARAMETER     :: EF15_LIMO   =  0.7_rk       ! Crop1
 
-!Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Limonene as per Table 4 of Guenther et al., 2012   
-        REAL(RK),          PARAMETER     :: A_NEW_LIMO  = 2.0_rk
-        REAL(RK),          PARAMETER     :: A_GRO_LIMO  = 1.8_rk
-        REAL(RK),          PARAMETER     :: A_MAT_LIMO  = 1.0_rk
-        REAL(RK),          PARAMETER     :: A_OLD_LIMO  = 1.05_rk
+!Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Limonene as per Table 4 of Guenther et al., 2012
+        REAL(RK),          PARAMETER     :: ANEW_LIMO  = 2.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_LIMO  = 1.8_rk
+        REAL(RK),          PARAMETER     :: AMAT_LIMO  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_LIMO  = 1.05_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for 3-Carene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_CARE    =  160.0_rk     ! Needleleaf Evergreen Temperate Tree
@@ -159,10 +159,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_CARE   =  0.3_rk       ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for 3-Carene as per Table 4 of Guenther et al., 2012
-        REAL(RK),          PARAMETER     :: A_NEW_CARE  = 2.0_rk
-        REAL(RK),          PARAMETER     :: A_GRO_CARE  = 1.8_rk
-        REAL(RK),          PARAMETER     :: A_MAT_CARE  = 1.0_rk
-        REAL(RK),          PARAMETER     :: A_OLD_CARE  = 1.05_rk
+        REAL(RK),          PARAMETER     :: ANEW_CARE  = 2.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_CARE  = 1.8_rk
+        REAL(RK),          PARAMETER     :: AMAT_CARE  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_CARE  = 1.05_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for t-Beta-Ocimene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_OCIM    =  70.0_rk      ! Needleleaf Evergreen Temperate Tree
@@ -182,10 +182,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_OCIM   =  2.0_rk       ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for t-Beta-Ocimene as per Table 4 of Guenther et al., 2012
-       REAL(RK),          PARAMETER     :: A_NEW_OCIM  = 2.0_rk
-       REAL(RK),          PARAMETER     :: A_GRO_OCIM  = 1.8_rk
-       REAL(RK),          PARAMETER     :: A_MAT_OCIM  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_OLD_OCIM  = 1.05_rk
+        REAL(RK),          PARAMETER     :: ANEW_OCIM  = 2.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_OCIM  = 1.8_rk
+        REAL(RK),          PARAMETER     :: AMAT_OCIM  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_OCIM  = 1.05_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Beta-Pinene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_BPIN    =  300.0_rk     ! Needleleaf Evergreen Temperate Tree
@@ -205,10 +205,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_BPIN   =  1.5_rk       ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Beta-Pinene as per Table 4 of Guenther et al., 2012
-        REAL(RK),          PARAMETER     :: A_NEW_BPIN  = 2.0_rk
-        REAL(RK),          PARAMETER     :: A_GRO_BPIN  = 1.8_rk
-        REAL(RK),          PARAMETER     :: A_MAT_BPIN  = 1.0_rk
-        REAL(RK),          PARAMETER     :: A_OLD_BPIN  = 1.05_rk
+        REAL(RK),          PARAMETER     :: ANEW_BPIN  = 2.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_BPIN  = 1.8_rk
+        REAL(RK),          PARAMETER     :: AMAT_BPIN  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_BPIN  = 1.05_rk
 
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Alpha-Pinene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
@@ -229,10 +229,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_APIN   =  2.0_rk       ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Alpha-Pinene as per Table 4 of Guenther et al., 2012
-        REAL(RK),          PARAMETER     :: A_NEW_APIN  = 2.0_rk
-        REAL(RK),          PARAMETER     :: A_GRO_APIN  = 1.8_rk
-        REAL(RK),          PARAMETER     :: A_MAT_APIN  = 1.0_rk
-        REAL(RK),          PARAMETER     :: A_OLD_APIN  = 1.05_rk
+        REAL(RK),          PARAMETER     :: ANEW_APIN  = 2.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_APIN  = 1.8_rk
+        REAL(RK),          PARAMETER     :: AMAT_APIN  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_APIN  = 1.05_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Other Monoterpenes (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
 ! ! Other Monoterpenes category (34 compounds):  See Table 1 of Guenther et al. (2012)
@@ -253,10 +253,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_MONO   =  5.0_rk       ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Other Monoterpenes as per Table 4 of Guenther et al., 2012
-        REAL(RK),          PARAMETER     :: A_NEW_MONO  = 2.0_rk
-        REAL(RK),          PARAMETER     :: A_GRO_MONO  = 1.8_rk
-        REAL(RK),          PARAMETER     :: A_MAT_MONO  = 1.0_rk
-        REAL(RK),          PARAMETER     :: A_OLD_MONO  = 1.05_rk
+        REAL(RK),          PARAMETER     :: ANEW_MONO  = 2.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_MONO  = 1.8_rk
+        REAL(RK),          PARAMETER     :: AMAT_MONO  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_MONO  = 1.05_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Alpha-Farnesene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_FARN    =  40.0_rk      ! Needleleaf Evergreen Temperate Tree
@@ -276,10 +276,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_FARN   =  4.0_rk       ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Alpha-Farnesene as per Table 4 of Guenther et al., 2012
-       REAL(RK),          PARAMETER     :: A_NEW_FARN  = 0.4_rk
-       REAL(RK),          PARAMETER     :: A_GRO_FARN  = 0.6_rk 
-       REAL(RK),          PARAMETER     :: A_MAT_FARN  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_OLD_FARN  = 0.95_rk
+        REAL(RK),          PARAMETER     :: ANEW_FARN  = 0.4_rk
+        REAL(RK),          PARAMETER     :: AGRO_FARN  = 0.6_rk
+        REAL(RK),          PARAMETER     :: AMAT_FARN  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_FARN  = 0.95_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Beta-Caryophyllene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_CARY    =  80.0_rk      ! Needleleaf Evergreen Temperate Tree
@@ -299,10 +299,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_CARY   =  4.0_rk       ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Beta-Caryophyllene as per Table 4 of Guenther et al., 2012
-       REAL(RK),          PARAMETER     :: A_NEW_CARY  = 0.4_rk
-       REAL(RK),          PARAMETER     :: A_GRO_CARY  = 0.6_rk
-       REAL(RK),          PARAMETER     :: A_MAT_CARY  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_OLD_CARY  = 0.95_rk
+        REAL(RK),          PARAMETER     :: ANEW_CARY  = 0.4_rk
+        REAL(RK),          PARAMETER     :: AGRO_CARY  = 0.6_rk
+        REAL(RK),          PARAMETER     :: AMAT_CARY  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_CARY  = 0.95_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Other Sesquieterpenes (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
 ! Other Sesquiterpenes category (30 compounds):  See Table 1 of Guenther et al. (2012)
@@ -323,10 +323,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_SESQ   =  1.0_rk       ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Other Sesquieterpenes as per Table 4 of Guenther et al., 2012
-       REAL(RK),          PARAMETER     :: A_NEW_SESQ  = 0.4_rk
-       REAL(RK),          PARAMETER     :: A_GRO_SESQ  = 0.6_rk
-       REAL(RK),          PARAMETER     :: A_MAT_SESQ  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_OLD_SESQ  = 0.95_rk
+        REAL(RK),          PARAMETER     :: ANEW_SESQ  = 0.4_rk
+        REAL(RK),          PARAMETER     :: AGRO_SESQ  = 0.6_rk
+        REAL(RK),          PARAMETER     :: AMAT_SESQ  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_SESQ  = 0.95_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for 232-MBO (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_MBOL    =  700.0_rk     ! Needleleaf Evergreen Temperate Tree
@@ -346,10 +346,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_MBOL   =  0.01_rk      ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for 232-MBO as per Table 4 of Guenther et al., 2012
-       REAL(RK),          PARAMETER     :: A_NEW_MBOL  = 0.05_rk
-       REAL(RK),          PARAMETER     :: A_GRO_MBOL  = 0.6_rk
-       REAL(RK),          PARAMETER     :: A_MAT_MBOL  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_OLD_MBOL  = 0.9_rk
+        REAL(RK),          PARAMETER     :: ANEW_MBOL  = 0.05_rk
+        REAL(RK),          PARAMETER     :: AGRO_MBOL  = 0.6_rk
+        REAL(RK),          PARAMETER     :: AMAT_MBOL  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_MBOL  = 0.9_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Methanol (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_METH    =  900.0_rk     ! Needleleaf Evergreen Temperate Tree
@@ -369,10 +369,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_METH   =  900.0_rk     ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Methanol as per Table 4 of Guenther et al., 2012
-       REAL(RK),          PARAMETER     :: A_NEW_METH  = 3.5_rk
-       REAL(RK),          PARAMETER     :: A_GRO_METH  = 3.0_rk
-       REAL(RK),          PARAMETER     :: A_MAT_METH  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_OLD_METH  = 1.2_rk
+        REAL(RK),          PARAMETER     :: ANEW_METH  = 3.5_rk
+        REAL(RK),          PARAMETER     :: AGRO_METH  = 3.0_rk
+        REAL(RK),          PARAMETER     :: AMAT_METH  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_METH  = 1.2_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Acetone (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_ACET    =  240.0_rk     ! Needleleaf Evergreen Temperate Tree
@@ -392,10 +392,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_ACET   =  80.0_rk      ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Acetone as per Table 4 of Guenther et al., 2012
-       REAL(RK),          PARAMETER     :: A_NEW_ACET  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_GRO_ACET  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_MAT_ACET  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_OLD_ACET  = 1.0_rk
+        REAL(RK),          PARAMETER     :: ANEW_ACET  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_ACET  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AMAT_ACET  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_ACET  = 1.0_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Carbon Monoxide (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_CO      =  600.0_rk     ! Needleleaf Evergreen Temperate Tree
@@ -415,10 +415,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_CO     =  600.0_rk     ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Carbon Monoxide as per Table 4 of Guenther et al., 2012
-       REAL(RK),          PARAMETER     :: A_NEW_CO  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_GRO_CO  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_MAT_CO  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_OLD_CO  = 1.0_rk
+        REAL(RK),          PARAMETER     :: ANEW_CO  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_CO  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AMAT_CO  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_CO  = 1.0_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for BIDI VOC species (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
 ! Bidirectional VOC (5 compounds): See Table 1 of Guenther et al. (2012)
@@ -439,10 +439,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_BVOC   =  80.0_rk      ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for BIDI VOC species as per Table 4 of Guenther et al., 2012
-       REAL(RK),          PARAMETER     :: A_NEW_BVOC  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_GRO_BVOC  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_MAT_BVOC  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_OLD_BVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: ANEW_BVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_BVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AMAT_BVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_BVOC  = 1.0_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Stress VOCs (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
 ! Stress VOC (15 compounds): See Table 1 of Guenther et al. (2012)
@@ -463,10 +463,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_SVOC   =  300.0_rk     ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Stress VOCs as per Table 4 of Guenther et al., 2012
-       REAL(RK),          PARAMETER     :: A_NEW_SVOC  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_GRO_SVOC  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_MAT_SVOC  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_OLD_SVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: ANEW_SVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_SVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AMAT_SVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_SVOC  = 1.0_rk
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Other VOCs (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
 ! Other VOC (49 compounds): See Table 1 of Guenther et al. (2012)
@@ -487,10 +487,10 @@ contains
         REAL(RK),          PARAMETER     :: EF15_OVOC   =  140.0_rk     ! Crop1
 
 !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Other VOCs as per Table 4 of Guenther et al., 2012
-       REAL(RK),          PARAMETER     :: A_NEW_OVOC  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_GRO_OVOC  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_MAT_OVOC  = 1.0_rk
-       REAL(RK),          PARAMETER     :: A_OLD_OVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: ANEW_OVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AGRO_OVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AMAT_OVOC  = 1.0_rk
+        REAL(RK),          PARAMETER     :: AOLD_OVOC  = 1.0_rk
 
 ! Species-Dependent Parameterized Canopy Model Parameters (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: CT1_ISOP         =  95.0_rk    !Activation energy (kJ/mol)
@@ -551,10 +551,10 @@ contains
             EF13 = EF13_ISOP
             EF14 = EF14_ISOP
             EF15 = EF15_ISOP
-            A_NEW  = A_NEW_ISOP
-            A_GRO  = A_GRO_ISOP
-            A_MAT  = A_MAT_ISOP
-            A_OLD  = A_OLD_ISOP
+            ANEW  = ANEW_ISOP
+            AGRO  = AGRO_ISOP
+            AMAT  = AMAT_ISOP
+            AOLD  = AOLD_ISOP
         else if (EMI_IND .eq. 2 ) then
             CT1 = CT1_MYRC
             CEO = CEO_MYRC
@@ -573,10 +573,10 @@ contains
             EF13 = EF13_MYRC
             EF14 = EF14_MYRC
             EF15 = EF15_MYRC
-            A_NEW  = A_NEW_MYRC
-            A_GRO  = A_GRO_MYRC
-            A_MAT  = A_MAT_MYRC
-            A_OLD  = A_OLD_MYRC
+            ANEW  = ANEW_MYRC
+            AGRO  = AGRO_MYRC
+            AMAT  = AMAT_MYRC
+            AOLD  = AOLD_MYRC
         else if (EMI_IND .eq. 3 ) then
             CT1 = CT1_SABI
             CEO = CEO_SABI
@@ -595,10 +595,10 @@ contains
             EF13 = EF13_SABI
             EF14 = EF14_SABI
             EF15 = EF15_SABI
-            A_NEW  = A_NEW_SABI
-            A_GRO  = A_GRO_SABI
-            A_MAT  = A_MAT_SABI
-            A_OLD  = A_OLD_SABI
+            ANEW  = ANEW_SABI
+            AGRO  = AGRO_SABI
+            AMAT  = AMAT_SABI
+            AOLD  = AOLD_SABI
         else if (EMI_IND .eq. 4 ) then
             CT1 = CT1_LIMO
             CEO = CEO_LIMO
@@ -617,10 +617,10 @@ contains
             EF13 = EF13_LIMO
             EF14 = EF14_LIMO
             EF15 = EF15_LIMO
-            A_NEW  = A_NEW_LIMO
-            A_GRO  = A_GRO_LIMO
-            A_MAT  = A_MAT_LIMO
-            A_OLD  = A_OLD_LIMO
+            ANEW  = ANEW_LIMO
+            AGRO  = AGRO_LIMO
+            AMAT  = AMAT_LIMO
+            AOLD  = AOLD_LIMO
         else if (EMI_IND .eq. 5 ) then
             CT1 = CT1_CARE
             CEO = CEO_CARE
@@ -639,10 +639,10 @@ contains
             EF13 = EF13_CARE
             EF14 = EF14_CARE
             EF15 = EF15_CARE
-            A_NEW  = A_NEW_CARE
-            A_GRO  = A_GRO_CARE
-            A_MAT  = A_MAT_CARE
-            A_OLD  = A_OLD_CARE
+            ANEW  = ANEW_CARE
+            AGRO  = AGRO_CARE
+            AMAT  = AMAT_CARE
+            AOLD  = AOLD_CARE
         else if (EMI_IND .eq. 6 ) then
             CT1 = CT1_OCIM
             CEO = CEO_OCIM
@@ -661,10 +661,10 @@ contains
             EF13 = EF13_OCIM
             EF14 = EF14_OCIM
             EF15 = EF15_OCIM
-            A_NEW  = A_NEW_OCIM
-            A_GRO  = A_GRO_OCIM
-            A_MAT  = A_MAT_OCIM
-            A_OLD  = A_OLD_OCIM
+            ANEW  = ANEW_OCIM
+            AGRO  = AGRO_OCIM
+            AMAT  = AMAT_OCIM
+            AOLD  = AOLD_OCIM
         else if (EMI_IND .eq. 7 ) then
             CT1 = CT1_BPIN
             CEO = CEO_BPIN
@@ -683,10 +683,10 @@ contains
             EF13 = EF13_BPIN
             EF14 = EF14_BPIN
             EF15 = EF15_BPIN
-            A_NEW  = A_NEW_BPIN
-            A_GRO  = A_GRO_BPIN
-            A_MAT  = A_MAT_BPIN
-            A_OLD  = A_OLD_BPIN
+            ANEW  = ANEW_BPIN
+            AGRO  = AGRO_BPIN
+            AMAT  = AMAT_BPIN
+            AOLD  = AOLD_BPIN
         else if (EMI_IND .eq. 8 ) then
             CT1 = CT1_APIN
             CEO = CEO_APIN
@@ -705,10 +705,10 @@ contains
             EF13 = EF13_APIN
             EF14 = EF14_APIN
             EF15 = EF15_APIN
-            A_NEW  = A_NEW_APIN
-            A_GRO  = A_GRO_APIN
-            A_MAT  = A_MAT_APIN
-            A_OLD  = A_OLD_APIN
+            ANEW  = ANEW_APIN
+            AGRO  = AGRO_APIN
+            AMAT  = AMAT_APIN
+            AOLD  = AOLD_APIN
         else if (EMI_IND .eq. 9 ) then
             CT1 = CT1_MONO
             CEO = CEO_MONO
@@ -727,10 +727,10 @@ contains
             EF13 = EF13_MONO
             EF14 = EF14_MONO
             EF15 = EF15_MONO
-            A_NEW  = A_NEW_MONO
-            A_GRO  = A_GRO_MONO
-            A_MAT  = A_MAT_MONO
-            A_OLD  = A_OLD_MONO
+            ANEW  = ANEW_MONO
+            AGRO  = AGRO_MONO
+            AMAT  = AMAT_MONO
+            AOLD  = AOLD_MONO
         else if (EMI_IND .eq. 10 ) then
             CT1 = CT1_FARN
             CEO = CEO_FARN
@@ -749,10 +749,10 @@ contains
             EF13 = EF13_FARN
             EF14 = EF14_FARN
             EF15 = EF15_FARN
-            A_NEW  = A_NEW_FARN
-            A_GRO  = A_GRO_FARN
-            A_MAT  = A_MAT_FARN
-            A_OLD  = A_OLD_FARN
+            ANEW  = ANEW_FARN
+            AGRO  = AGRO_FARN
+            AMAT  = AMAT_FARN
+            AOLD  = AOLD_FARN
         else if (EMI_IND .eq. 11 ) then
             CT1 = CT1_CARY
             CEO = CEO_CARY
@@ -771,10 +771,10 @@ contains
             EF13 = EF13_CARY
             EF14 = EF14_CARY
             EF15 = EF15_CARY
-            A_NEW  = A_NEW_CARY
-            A_GRO  = A_GRO_CARY
-            A_MAT  = A_MAT_CARY
-            A_OLD  = A_OLD_CARY
+            ANEW  = ANEW_CARY
+            AGRO  = AGRO_CARY
+            AMAT  = AMAT_CARY
+            AOLD  = AOLD_CARY
         else if (EMI_IND .eq. 12 ) then
             CT1 = CT1_SESQ
             CEO = CEO_SESQ
@@ -793,10 +793,10 @@ contains
             EF13 = EF13_SESQ
             EF14 = EF14_SESQ
             EF15 = EF15_SESQ
-            A_NEW  = A_NEW_SESQ
-            A_GRO  = A_GRO_SESQ
-            A_MAT  = A_MAT_SESQ
-            A_OLD  = A_OLD_SESQ
+            ANEW  = ANEW_SESQ
+            AGRO  = AGRO_SESQ
+            AMAT  = AMAT_SESQ
+            AOLD  = AOLD_SESQ
         else if (EMI_IND .eq. 13 ) then
             CT1 = CT1_MBOL
             CEO = CEO_MBOL
@@ -815,10 +815,10 @@ contains
             EF13 = EF13_MBOL
             EF14 = EF14_MBOL
             EF15 = EF15_MBOL
-            A_NEW  = A_NEW_MBOL
-            A_GRO  = A_GRO_MBOL
-            A_MAT  = A_MAT_MBOL
-            A_OLD  = A_OLD_MBOL
+            ANEW  = ANEW_MBOL
+            AGRO  = AGRO_MBOL
+            AMAT  = AMAT_MBOL
+            AOLD  = AOLD_MBOL
         else if (EMI_IND .eq. 14 ) then
             CT1 = CT1_METH
             CEO = CEO_METH
@@ -837,10 +837,10 @@ contains
             EF13 = EF13_METH
             EF14 = EF14_METH
             EF15 = EF15_METH
-            A_NEW  = A_NEW_METH
-            A_GRO  = A_GRO_METH
-            A_MAT  = A_MAT_METH
-            A_OLD  = A_OLD_METH
+            ANEW  = ANEW_METH
+            AGRO  = AGRO_METH
+            AMAT  = AMAT_METH
+            AOLD  = AOLD_METH
         else if (EMI_IND .eq. 15 ) then
             CT1 = CT1_ACET
             CEO = CEO_ACET
@@ -859,10 +859,10 @@ contains
             EF13 = EF13_ACET
             EF14 = EF14_ACET
             EF15 = EF15_ACET
-            A_NEW  = A_NEW_ACET
-            A_GRO  = A_GRO_ACET
-            A_MAT  = A_MAT_ACET
-            A_OLD  = A_OLD_ACET
+            ANEW  = ANEW_ACET
+            AGRO  = AGRO_ACET
+            AMAT  = AMAT_ACET
+            AOLD  = AOLD_ACET
         else if (EMI_IND .eq. 16 ) then
             CT1 = CT1_CO
             CEO = CEO_CO
@@ -881,10 +881,10 @@ contains
             EF13 = EF13_CO
             EF14 = EF14_CO
             EF15 = EF15_CO
-            A_NEW  = A_NEW_CO
-            A_GRO  = A_GRO_CO
-            A_MAT  = A_MAT_CO
-            A_OLD  = A_OLD_CO
+            ANEW  = ANEW_CO
+            AGRO  = AGRO_CO
+            AMAT  = AMAT_CO
+            AOLD  = AOLD_CO
         else if (EMI_IND .eq. 17 ) then
             CT1 = CT1_BVOC
             CEO = CEO_BVOC
@@ -903,10 +903,10 @@ contains
             EF13 = EF13_BVOC
             EF14 = EF14_BVOC
             EF15 = EF15_BVOC
-            A_NEW  = A_NEW_BVOC
-            A_GRO  = A_GRO_BVOC
-            A_MAT  = A_MAT_BVOC
-            A_OLD  = A_OLD_BVOC
+            ANEW  = ANEW_BVOC
+            AGRO  = AGRO_BVOC
+            AMAT  = AMAT_BVOC
+            AOLD  = AOLD_BVOC
         else if (EMI_IND .eq. 18 ) then
             CT1 = CT1_SVOC
             CEO = CEO_SVOC
@@ -925,10 +925,10 @@ contains
             EF13 = EF13_SVOC
             EF14 = EF14_SVOC
             EF15 = EF15_SVOC
-            A_NEW  = A_NEW_SVOC
-            A_GRO  = A_GRO_SVOC
-            A_MAT  = A_MAT_SVOC
-            A_OLD  = A_OLD_SVOC
+            ANEW  = ANEW_SVOC
+            AGRO  = AGRO_SVOC
+            AMAT  = AMAT_SVOC
+            AOLD  = AOLD_SVOC
         else   ! EMI_IND = 19
             CT1 = CT1_OVOC
             CEO = CEO_OVOC
@@ -947,10 +947,10 @@ contains
             EF13 = EF13_OVOC
             EF14 = EF14_OVOC
             EF15 = EF15_OVOC
-            A_NEW  = A_NEW_OVOC
-            A_GRO  = A_GRO_OVOC
-            A_MAT  = A_MAT_OVOC
-            A_OLD  = A_OLD_OVOC
+            ANEW  = ANEW_OVOC
+            AGRO  = AGRO_OVOC
+            AMAT  = AMAT_OVOC
+            AOLD  = AOLD_OVOC
         end if
 
         if (LU_OPT .eq. 0 .or. LU_OPT .eq. 1) then !VIIRS or MODIS  LU types
