@@ -37,7 +37,7 @@ SUBROUTINE canopy_calcs
     REAL(rk) :: plai          ! Past LAI [cm2/cm2]
     REAL(rk) :: clai          ! Current LAI [cm2/cm2]
     REAL(rk) :: ndays         !Number of days between the past and current LAI
-    REAL(rk) :: tabovecanopy, temp2 !(modlays) ! Above Canopy Temp (assigned = TEMP2 )
+    REAL(rk) :: tabovecanopy ! Above Canopy Temp (assigned = tmp2mref )
 
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
@@ -227,7 +227,7 @@ SUBROUTINE canopy_calcs
                                     !ISOP
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -235,7 +235,7 @@ SUBROUTINE canopy_calcs
                                     !MYRC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -243,7 +243,7 @@ SUBROUTINE canopy_calcs
                                     !SABI
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -251,7 +251,7 @@ SUBROUTINE canopy_calcs
                                     !LIMO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -259,7 +259,7 @@ SUBROUTINE canopy_calcs
                                     !CARE
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -267,7 +267,7 @@ SUBROUTINE canopy_calcs
                                     !OCIM
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -275,7 +275,7 @@ SUBROUTINE canopy_calcs
                                     !BPIN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -283,7 +283,7 @@ SUBROUTINE canopy_calcs
                                     !APIN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -291,7 +291,7 @@ SUBROUTINE canopy_calcs
                                     !MONO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -299,7 +299,7 @@ SUBROUTINE canopy_calcs
                                     !FARN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -307,7 +307,7 @@ SUBROUTINE canopy_calcs
                                     !CARY
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -315,7 +315,7 @@ SUBROUTINE canopy_calcs
                                     !SESQ
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -323,7 +323,7 @@ SUBROUTINE canopy_calcs
                                     !MBOL
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -331,7 +331,7 @@ SUBROUTINE canopy_calcs
                                     !METH
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -339,7 +339,7 @@ SUBROUTINE canopy_calcs
                                     !ACET
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -347,7 +347,7 @@ SUBROUTINE canopy_calcs
                                     !CO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -355,7 +355,7 @@ SUBROUTINE canopy_calcs
                                     !BIDI VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -363,7 +363,7 @@ SUBROUTINE canopy_calcs
                                     !Stress VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -371,7 +371,7 @@ SUBROUTINE canopy_calcs
                                     !Other VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, temp2, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, plai, clai, ndays, tabovecanopy, &
                                         anew, agro, amat, aold, &
@@ -577,7 +577,7 @@ SUBROUTINE canopy_calcs
                                 !ISOP
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -585,7 +585,7 @@ SUBROUTINE canopy_calcs
                                 !MYRC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -593,7 +593,7 @@ SUBROUTINE canopy_calcs
                                 !SABI
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -601,7 +601,7 @@ SUBROUTINE canopy_calcs
                                 !LIMO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -609,7 +609,7 @@ SUBROUTINE canopy_calcs
                                 !CARE
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -617,7 +617,7 @@ SUBROUTINE canopy_calcs
                                 !OCIM
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -625,7 +625,7 @@ SUBROUTINE canopy_calcs
                                 !BPIN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -633,7 +633,7 @@ SUBROUTINE canopy_calcs
                                 !APIN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -641,7 +641,7 @@ SUBROUTINE canopy_calcs
                                 !MONO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -649,7 +649,7 @@ SUBROUTINE canopy_calcs
                                 !FARN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -657,7 +657,7 @@ SUBROUTINE canopy_calcs
                                 !CARY
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -665,7 +665,7 @@ SUBROUTINE canopy_calcs
                                 !SESQ
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -673,7 +673,7 @@ SUBROUTINE canopy_calcs
                                 !MBOL
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -681,7 +681,7 @@ SUBROUTINE canopy_calcs
                                 !METH
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -689,7 +689,7 @@ SUBROUTINE canopy_calcs
                                 !ACET
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -697,7 +697,7 @@ SUBROUTINE canopy_calcs
                                 !CO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -705,7 +705,7 @@ SUBROUTINE canopy_calcs
                                 !BIDI VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -713,7 +713,7 @@ SUBROUTINE canopy_calcs
                                 !Stress VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &
@@ -721,7 +721,7 @@ SUBROUTINE canopy_calcs
                                 !Other VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, temp2, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, plai, clai, ndays, tabovecanopy, &
                                     anew, agro, amat, aold, &

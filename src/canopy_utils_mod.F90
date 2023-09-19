@@ -251,7 +251,7 @@ contains
 
     end function GET_GAMMA_CO2
 
-    function GET_GAMMA_LEAFAGE(leafage_opt,LAIp,LAIc,tdays,Tt,Anew,Agro,Amat,Aold)  result( GAMMA_LEAFAGE )
+    function GET_GAMMA_LEAFAGE(leafage_opt,LAIp,LAIc,tdays,TABOVE,Anew,Agro,Amat,Aold)  result( GAMMA_LEAFAGE )
         ! ROUTINE: GET_GAMMA_LEAFAGE
         !
         ! !DESCRIPTION: Function GET_GAMMA_LEAFAGE computes the leaf age activity factor
@@ -277,7 +277,7 @@ contains
         !             tdays  = length of the time step (days) i.e. days in between LAIp and LAIc
         !             ti = days between budbreak and emission induction (calculated below)
         !             tm = days between budbreak and peak emission (Calculated below)
-        !             Tt = 2-meter temperature (K) TEMP2 from the input model/obs
+        !             TABOVE = 2-meter temperature (K) TEMP2 or tmp2mref from the input model/obs
         !------------------------------------------------------------------------------
         ! !INTERFACE:
 
@@ -287,7 +287,7 @@ contains
         ! 1 or  >1 =off i.e. GAMMA_LEAFAGE =1
 
         REAl(rk), INTENT(IN) :: tdays                      ! time step, number of days between Past and Current LAI inputs
-        REAL(rk), INTENT(IN) :: Tt !AboveCanopy_TEMP(:)       ! Above canopy temperature (K), t2m or tmpsfc
+        REAL(rk), INTENT(IN) :: TABOVE      ! Above canopy temperature (K), t2m or tmpsfc
         REAL(rk), INTENT(IN) :: LAIp         ! Past LAI [cm2/cm2]
         REAL(rk), INTENT(IN) :: LAIc         ! Current LAI [cm2/cm2]
         REAL(rk), INTENT(IN) :: Anew        ! Relative emiss factor (new leaves)
@@ -303,7 +303,7 @@ contains
         REAL(rk) :: Fnew, Fgro                ! foliage fractions
         REAL(rk) :: Fmat, Fold
         REAL(rk) :: ti, tm
-        !REAL(rk) :: Tt
+
         !
         ! !REMARKS:
         !  The function computes the leaf age activity factor based on BVOC's leaf age response.
@@ -319,7 +319,7 @@ contains
         !-----------------------
 
 
-        !Tt = AboveCanopy_TEMP
+        !TABOVE (Tt in MEGAN code) -> Above Canopy TEMP (tmp2mref or temp2)
 
         ! Calculate foliage fraction
         !-----------------------
@@ -327,8 +327,8 @@ contains
         ! ti: number of days after budbreak required to induce emissions
         ! tm: number of days after budbreak required to reach peak emissions
         IF (LAIp < LAIc) THEN !(i.e. LAI has Increased)
-            IF (Tt .le. 303.0_rk) THEN
-                ti = 5.0_rk + 0.7_rk*(300.0_rk-Tt)
+            IF (TABOVE .le. 303.0_rk) THEN
+                ti = 5.0_rk + 0.7_rk*(300.0_rk-TABOVE)
             ELSE
                 ti = 2.9_rk
             ENDIF
