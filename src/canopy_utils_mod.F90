@@ -277,7 +277,7 @@ contains
         !             tdays  = length of the time step (days) i.e. days in between LAIp and LAIc
         !             ti = days between budbreak and emission induction (calculated below)
         !             tm = days between budbreak and peak emission (Calculated below)
-        !             Tt = average above canopy temperature (K)
+        !             Tt = 2-meter temperature (K) TEMP2 from the input model/obs
         !------------------------------------------------------------------------------
         ! !INTERFACE:
 
