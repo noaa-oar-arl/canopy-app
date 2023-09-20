@@ -8,7 +8,7 @@ contains
     SUBROUTINE CANOPY_BIO( ZK, FCLAI, FCH, LAI, FSUN, PPFD_SUN, &
         PPFD_SHADE, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE, TEMP2, LU_OPT, &
         VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
-        LEAFAGEOPT, PLAI, CLAI, NDAYS, TABOVECANOPY, &
+        LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, TABOVECANOPY, &
         ANEW, AGRO, AMAT, AOLD, &
         EMI_IND, EMI_OUT)
 
@@ -67,9 +67,9 @@ contains
         REAL(RK),    INTENT( IN )       :: CO2SET          ! User set atmospheric CO2 conc [ppmv]
 
         INTEGER,    INTENT( IN )       :: LEAFAGEOPT      ! leafage_opt (0= ON, 1= off i.e. GAMMALEAFAGE =1, in canopy_readnml.F90)
-        REAL(RK),    INTENT( IN )       :: PLAI           ! Past LAI [cm2/cm2]
-        REAL(RK),    INTENT( IN )       :: CLAI           ! Current LAI [cm2/cm2]
-        REAL(RK),    INTENT( IN )       :: NDAYS           !Number of days between the past and current LAI
+        REAL(RK),    INTENT( IN )       :: PASTLAI           ! Past LAI [cm2/cm2]
+        REAL(RK),    INTENT( IN )       :: CURRENTLAI           ! Current LAI [cm2/cm2]
+        REAL(RK),    INTENT( IN )       :: TSTEPLAI           !Number of days between the past and current LAI
 
         INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
@@ -171,7 +171,7 @@ contains
 ! Get LEAF AGE factor
         TABOVECANOPY  = TEMP2   !TEMP2 (above air temp) for TABOVECANOPY
         !do i=1, SIZE(ZK)
-        GAMMALEAFAGE = GET_GAMMA_LEAFAGE(LEAFAGEOPT, PLAI, CLAI, NDAYS, TABOVECANOPY, ANEW, AGRO, AMAT, AOLD)
+        GAMMALEAFAGE = GET_GAMMA_LEAFAGE(LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, TABOVECANOPY, ANEW, AGRO, AMAT, AOLD)
         !end do
 
 ! Calculate emissions profile in the canopy

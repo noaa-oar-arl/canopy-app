@@ -251,7 +251,7 @@ contains
 
     end function GET_GAMMA_CO2
 
-    function GET_GAMMA_LEAFAGE(leafage_opt,LAIp,LAIc,tdays,TABOVE,Anew,Agro,Amat,Aold)  result( GAMMA_LEAFAGE )
+    function GET_GAMMA_LEAFAGE(leafage_opt,LAIpast,LAIcurrent,tsteplai,TABOVE,Anew,Agro,Amat,Aold)  result( GAMMA_LEAFAGE )
         ! ROUTINE: GET_GAMMA_LEAFAGE
         !
         ! !DESCRIPTION: Function GET_GAMMA_LEAFAGE computes the leaf age activity factor
@@ -271,10 +271,10 @@ contains
         !             Amat = emission activity for mature foliage
         !             Aold = emission activity for old foliage
         !           "Age class fractions are determined from LAI changes"
-        !             LAIc = current Month's LAI (asuuming monthly LAI but can be
-        !             customized as per tdays)
-        !             LAIp = past Month's LAI
-        !             tdays  = length of the time step (days) i.e. days in between LAIp and LAIc
+        !             LAIcurrent = current Month's LAI (asuuming monthly LAI but can be
+        !             customized as per tsteplai)
+        !             LAIpast = past Month's LAI
+        !             tsteplai  = length of the time step (days) i.e. days in between LAIpast and LAIcurrent
         !             ti = days between budbreak and emission induction (calculated below)
         !             tm = days between budbreak and peak emission (Calculated below)
         !             TABOVE = 2-meter temperature (K) TEMP2 or tmp2mref from the input model/obs
@@ -286,10 +286,10 @@ contains
         ! 0=On;
         ! 1 or  >1 =off i.e. GAMMA_LEAFAGE =1
 
-        REAl(rk), INTENT(IN) :: tdays                      ! time step, number of days between Past and Current LAI inputs
+        REAl(rk), INTENT(IN) :: tsteplai                      ! time step, number of days between Past and Current LAI inputs
         REAL(rk), INTENT(IN) :: TABOVE      ! Above canopy temperature (K), t2m or tmpsfc
-        REAL(rk), INTENT(IN) :: LAIp         ! Past LAI [cm2/cm2]
-        REAL(rk), INTENT(IN) :: LAIc         ! Current LAI [cm2/cm2]
+        REAL(rk), INTENT(IN) :: LAIpast         ! Past LAI [cm2/cm2]
+        REAL(rk), INTENT(IN) :: LAIcurrent         ! Current LAI [cm2/cm2]
         REAL(rk), INTENT(IN) :: Anew        ! Relative emiss factor (new leaves)
         REAL(rk), INTENT(IN) :: Agro        ! Relative emiss factor (growing leaves)
         REAL(rk), INTENT(IN) :: Amat        ! Relative emiss factor (mature leaves)
@@ -299,7 +299,7 @@ contains
         REAL(rk) :: GAMMA_LEAFAGE             ! Leaf age activity factor [unitless]
         !
         ! !LOCAL VARIABLES:
-        !INTEGER :: tdays                      ! time step
+        !INTEGER :: tsteplai                      ! time step
         REAL(rk) :: Fnew, Fgro                ! foliage fractions
         REAL(rk) :: Fmat, Fold
         REAL(rk) :: ti, tm
@@ -326,7 +326,7 @@ contains
         !Also, Compute ti and tm
         ! ti: number of days after budbreak required to induce emissions
         ! tm: number of days after budbreak required to reach peak emissions
-        IF (LAIp < LAIc) THEN !(i.e. LAI has Increased)
+        IF (LAIpast < LAIcurrent) THEN !(i.e. LAI has Increased)
             IF (TABOVE .le. 303.0_rk) THEN
                 ti = 5.0_rk + 0.7_rk*(300.0_rk-TABOVE)
             ELSE
@@ -334,21 +334,21 @@ contains
             ENDIF
             tm = 2.3_rk*ti
             !Fnew calculated
-            IF (ti .ge. tdays) THEN
-                Fnew = 1.0_rk - (LAIp/LAIc)
+            IF (ti .ge. tsteplai) THEN
+                Fnew = 1.0_rk - (LAIpast/LAIcurrent)
             ELSE
-                Fnew = (ti/tdays) * ( 1.0_rk-(LAIp/LAIc) )
+                Fnew = (ti/tsteplai) * ( 1.0_rk-(LAIpast/LAIcurrent) )
             ENDIF
             !Fmat calculated
-            IF (tm .ge. tdays) THEN
-                Fmat = LAIp/LAIc
+            IF (tm .ge. tsteplai) THEN
+                Fmat = LAIpast/LAIcurrent
             ELSE
-                Fmat = (LAIp/LAIc) + ( (tdays-tm)/tdays ) * ( 1.0_rk-(LAIp/LAIc) )
+                Fmat = (LAIpast/LAIcurrent) + ( (tsteplai-tm)/tsteplai ) * ( 1.0_rk-(LAIpast/LAIcurrent) )
             ENDIF
 
             Fgro = 1.0_rk - Fnew - Fmat
             Fold = 0.0_rk
-        ELSEIF (LAIp == LAIc) THEN !If LAI remains same
+        ELSEIF (LAIpast == LAIcurrent) THEN !If LAI remains same
             Fnew = 0.0_rk
             Fgro = 0.1_rk
             Fmat = 0.8_rk
@@ -356,7 +356,7 @@ contains
         ELSE
             Fnew = 0.0_rk
             Fgro = 0.0_rk
-            Fold = ( LAIp-LAIc ) / LAIp
+            Fold = ( LAIpast-LAIcurrent ) / LAIpast
             Fmat = 1.0_rk-Fold
         ENDIF
 

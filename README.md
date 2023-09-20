@@ -218,6 +218,7 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `crop_set`      | user-set real value of constant crop vegetation type heights (m) (only used if `crop_opt=1`) |
 | `co2_opt`       | user-set options for applying a CO2 inhibition factor for biogenic isoprene-only emissions using either the [Possell & Hewitt (2011)](https://doi.org/10.1111/j.1365-2486.2010.02306.x) (= `0`, default) or [Wilkinson et al. (2009)](https://doi.org/10.1111/j.1365-2486.2008.01803.x) method (= `1`). Use of option = `1` (Possell & Hewitt 2011) is especially recommended for sub-ambient CO2 concentrations.  To turn off co2 inhibition factor set `co2_opt=2`  |
 | `co2_set`       | user-set real value of atmospheric co2 concentration (ppmv) (only used if `co2_opt=0` or `co2_opt=1`) |
+| `leafage_opt`   | user-set options for applying leaf-age response to  biogenic  VOC emissions based on Guenther et al. 2006 https://doi.org/10.5194/acp-6-3181-2006, 2006. (= `0`, default), other wise assigns GAMMA_LEAGE=1 |
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
 | `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
 | `fch_thresh`    | user-set real value of canopy height  threshold for contiguous canopy (m)          |
