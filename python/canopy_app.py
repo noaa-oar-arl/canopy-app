@@ -337,12 +337,20 @@ def read_txt(fp: Path) -> pd.DataFrame:
                 "Unexpected file format. Expected 4 header lines followed by data."
             )
 
-    df = pd.read_csv(fp, index_col=False, skiprows=4, header=None, delimiter=r"\s+")
+    df = pd.read_csv(
+        fp,
+        index_col=False,
+        skiprows=4,
+        header=None,
+        delimiter=r"\s+",
+        dtype=np.float32,
+    )
     if len(names) != len(df.columns):
         raise RuntimeError(
             f"Unexpected file format. Detected columns names {names} ({len(names)}) "
             f"are of a different number than the loaded dataframe ({len(df.columns)})."
         )
+    df = df.replace(np.float32(-9.0e20), np.nan)  # fill value, defined in const mod
     df.columns = names  # type: ignore[assignment]
     df.attrs.update(href=href, nlay=nlay, units=units, time=time_stamp)
 
