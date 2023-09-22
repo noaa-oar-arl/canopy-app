@@ -187,7 +187,7 @@ def run(
 
     # Load nc
     if nc_out:
-        # NOTE: Could be a separate file for each time?
+        # Should be just one file, even if multiple output time steps
         patt = f"{ofp_stem.name}*.nc"
         cands = sorted(output_dir.glob(patt))
         if not cands:
@@ -232,25 +232,32 @@ def run(
                     f"No matches for pattern {patt!r} in directory {output_dir.as_posix()!r}. "
                     f"Files present are: {[p.as_posix() for p in output_dir.glob('*')]}."
                 )
-            if len(cands) > 1:
-                print(
-                    f"warning: more than one matching output file for {ifcan}. "
-                    "Taking the first one."
-                )
-            df = read_txt(cands[0])
+            if verbose:
+                print(f"detected output files for {ifcan}:")
+                print("\n".join(f"- {p.as_posix()}" for p in cands))
+            dfs_ifcan = []
+            for cand in cands:
+                df_t = read_txt(cand)
+                df_t["time"] = df_t.attrs["time"]
+                dfs_ifcan.append(df_t)
+            df = pd.concat(dfs_ifcan, ignore_index=True)
             df.attrs.update(which=which)
+            df.attrs.update(df_t.attrs)
             dfs.append(df)
 
         # Merge
         units: dict[str, str] = {}
         dss = []
         for df in dfs:
-            if {"lat", "lon", "height"}.issubset(df.columns):
-                ds_ = df.set_index(["height", "lat", "lon"]).to_xarray().squeeze()
-            elif {"lat", "lon"}.issubset(df.columns):
-                ds_ = df.set_index(["lat", "lon"]).to_xarray().squeeze()
+            if {"time", "lat", "lon", "height"}.issubset(df.columns):
+                ds_ = df.set_index(["time", "height", "lat", "lon"]).to_xarray().squeeze()
+            elif {"time", "lat", "lon"}.issubset(df.columns):
+                ds_ = df.set_index(["time", "lat", "lon"]).to_xarray().squeeze()
             else:
-                raise ValueError("Expected df to have columns 'lat', 'lon' [,'height'].")
+                raise ValueError(
+                    "Expected df to have columns 'time', 'lat', 'lon' [,'height']. "
+                    f"Got: {sorted(df)}."
+                )
             units.update(df.attrs["units"])
             for vn in ds_.data_vars:
                 assert isinstance(vn, str)
