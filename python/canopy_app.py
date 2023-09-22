@@ -445,6 +445,16 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
                     f"scalar, list[scalar], or list[list[scalar]], got: {type(v)}."
                 )
 
+            if k == "file_vars":
+                # Only support single time step runs for now
+                if type(v) is list:
+                    assert type(v[0]) is str
+                    mults[k] = v
+                else:
+                    assert type(v) is str
+                    sings[k] = v
+                continue
+
             if (np.isscalar(DEFAULT_CONFIG[_k_sec(k)][k]) and np.isscalar(v)) or (
                 type(DEFAULT_CONFIG[_k_sec(k)][k]) is list
                 and type(v) is list
@@ -491,33 +501,14 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
 
 
 if __name__ == "__main__":
-    # cases = config_cases(
-    #     file_vars="../input/point_file_20220701.sfcf000.txt",
-    #     infmt_opt=1,
-    #     ntime=1,
-    #     nlat=1,
-    #     nlon=1,
-    #     z0ghc=[0.001, 0.01],
-    #     lambdars=[1.0, 1.25],
-    #     product=True,
-    # )
-    # ds = run_config_sens(cases)
-
-    ds = run(
-        config={
-            "filenames": {
-                "file_vars": [
-                    "../input/point_file_20220630.sfcf023.txt",
-                    "../input/point_file_20220701.sfcf000.txt",
-                    "../input/point_file_20220701.sfcf001.txt",
-                ],
-            },
-            "userdefs": {
-                "infmt_opt": 1,
-                "ntime": 3,
-                "nlat": 1,
-                "nlon": 1,
-            },
-        },
-        verbose=True,
+    cases = config_cases(
+        file_vars="../input/point_file_20220701.sfcf000.txt",
+        infmt_opt=1,
+        ntime=1,
+        nlat=1,
+        nlon=1,
+        z0ghc=[0.001, 0.01],
+        lambdars=[1.0, 1.25],
+        product=True,
     )
+    ds = run_config_sens(cases)
