@@ -41,6 +41,8 @@ jobs:
         run: |
           f90nml -g filenames -v file_vars="'input/gfs.t12z.20220701.sfcf000.canopy.nc'" \
             input/namelist.canopy input/namelist.canopy
+          f90nml -g userdefs -v ntime=1 \
+            input/namelist.canopy input/namelist.canopy
           python -c '
           import f90nml
           with open("input/namelist.canopy") as f:
