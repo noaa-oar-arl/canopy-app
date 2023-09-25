@@ -8,10 +8,11 @@ MODULE canopy_files_mod
 
     IMPLICIT NONE
 
-    INTEGER,            PARAMETER :: max_mm     = 1
+    INTEGER                       :: cdfid_m
+    INTEGER,            PARAMETER :: max_mm     = 250
     INTEGER,            PARAMETER :: iutnml     =  8
     CHARACTER(LEN=256)            :: file_vars ( max_mm )
-    CHARACTER(LEN=256)            :: file_out  ( max_mm )
+    CHARACTER(LEN=256)            :: file_out  ( 1 )
     CHARACTER(LEN=*), PARAMETER   :: file_nml   = 'input/namelist.canopy'
 
 END MODULE canopy_files_mod
