@@ -28,7 +28,7 @@ You can override default namelist options by passing a dictionary to `run()`.
 # Point setup
 ds = run(
     config={
-        "filenames": {"file_vars": "../input/input_variables_point.txt"},
+        "filenames": {"file_vars": "../input/point_file_20220701.sfcf000.txt"},
         "userdefs": {"infmt_opt": 1, "nlat": 1, "nlon": 1},
     },
 )
@@ -40,8 +40,9 @@ There are also helper functions for running sets of experiments with different n
 from canopy_app import config_cases, run_config_sens
 
 cases = config_cases(
-    file_vars="../input/input_variables_point.txt",
+    file_vars="../input/point_file_20220701.sfcf000.txt",
     infmt_opt=1,
+    ntime=1,
     nlat=1,
     nlon=1,
     z0ghc=[0.001, 0.01],
@@ -78,7 +79,7 @@ You can also download and generate global gridded canopy-app inputs using Python
    conda activate canopy-app
    ```
 
-3. Run python script
+3. Run Python script
 
    ```
    python global_data_process.py

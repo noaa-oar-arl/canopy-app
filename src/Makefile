@@ -19,7 +19,7 @@ NC ?= 1
 # Compile flags
 $(info DEBUG setting: '$(DEBUG)')
 ifeq ($(DEBUG), 1)
-  ifeq ($(FC),gfortran)
+  ifeq ($(findstring gfortran,$(notdir $(FC))),gfortran)
     FCFLAGS := -g -Wall -Wextra -Wconversion -Og -pedantic -fcheck=bounds -fmax-errors=5 -std=f2003 -fall-intrinsics
   else ifeq ($(FC),ifort)
     FCFLAGS := -g -warn all -check bounds -implicitnone -O0 -error-limit 5
@@ -29,6 +29,7 @@ else ifeq ($(DEBUG), 0)
 else
   $(error invalid setting for DEBUG, should be 0 or 1 but is '$(DEBUG)')
 endif
+$(info FCFLAGS: '$(FCFLAGS)')
 
 # NETCDF Settings here
 LIBS :=
@@ -52,6 +53,7 @@ $(info INC:  '$(INC)')
 # Source objects
 OBJS :=\
  canopy_const_mod.o \
+ canopy_date_mod.o \
  canopy_coord_mod.o \
  canopy_canopts_mod.o \
  canopy_canmet_mod.o \
