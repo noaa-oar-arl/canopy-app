@@ -389,7 +389,7 @@ for i in np.arange(len(canlist)):
         ATT = ["Mean fire radiative power", "MW", fill_value]
 
         if frp_src == 2:
-            DATA = read_gfs_climatology(f_can, "frp")
+            DATA = read_gfs_climatology(f_can, lat, lon, "frp")
         elif frp_src == 3:
             DATA = np.empty(lat.shape)
             DATA[:] = 1

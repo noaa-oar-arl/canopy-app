@@ -29,14 +29,20 @@ def _load_default_config() -> f90nml.Namelist:
     with open(REPO / "input" / "namelist.canopy") as f:
         config = f90nml.read(f)
 
-    # Make input paths absolute in default config
-    for k, v in config["filenames"].items():
-        p0 = Path(v)
+    def as_abs(p_str: str) -> str:
+        p0 = Path(p_str)
         if not p0.is_absolute():
             p = REPO / p0
         else:
             p = p0
-        config["filenames"][k] = p.as_posix()
+        return p.as_posix()
+
+    # Make input paths absolute in default config
+    for k, v in config["filenames"].items():
+        if isinstance(v, list):
+            config["filenames"][k] = [as_abs(v_) for v_ in v]
+        else:
+            config["filenames"][k] = as_abs(v)
 
     return config
 
@@ -58,15 +64,15 @@ def out_and_back(p: Path, *, finally_: Callable | None = None):
 
 
 DEFAULT_POINT_INPUT = pd.read_csv(
-    REPO / "input" / "input_variables_point.txt", index_col=False
+    REPO / "input" / "point_file_20220701.sfcf000.txt", index_col=False
 )
 
 _TXT_STEM_SUFFS = {
-    "wind": "_output_canopy_wind",
-    "waf": "_output_waf",
-    "eddy": "_output_eddy_Kz",
-    "phot": "_output_phot",
-    "bio": "_output_bio",
+    "wind": "_canopy_wind",
+    "waf": "_waf",
+    "eddy": "_eddy",
+    "phot": "_phot",
+    "bio": "_bio",
 }
 
 
@@ -120,20 +126,48 @@ def run(
     ofp_stem = output_dir / "out"
     full_config["filenames"]["file_out"] = ofp_stem.relative_to(case_dir).as_posix()
 
-    # Check input file
-    ifp = Path(full_config["filenames"]["file_vars"])
-    if not ifp.is_file():
-        raise ValueError(f"Input file {ifp.as_posix()!r} does not exist")
-    if not ifp.is_absolute():
-        full_config["filenames"]["file_vars"] = ifp.resolve().as_posix()
-    if ifp.suffix in {".nc", ".nc4", ".ncf"}:  # consistent with sr `canopy_check_input`
-        nc_out = True
-        assert full_config["userdefs"]["infmt_opt"] == 0
-    elif ifp.suffix in {".txt"}:
-        nc_out = False
-        assert full_config["userdefs"]["infmt_opt"] == 1
+    # Check input file(s)
+    input_files_setting = full_config["filenames"]["file_vars"]
+    if isinstance(input_files_setting, list):
+        ifps_to_check = [Path(s) for s in input_files_setting]
     else:
-        raise ValueError(f"Unexpected input file type: {ifp.suffix}")
+        ifps_to_check = [Path(input_files_setting)]
+    nc_outs = []
+    for ifp in ifps_to_check:
+        if not ifp.is_file():
+            raise ValueError(f"Input file {ifp.as_posix()!r} does not exist")
+        if ifp.suffix in {
+            ".nc",
+            ".nc4",
+            ".ncf",
+        }:  # consistent with sr `canopy_check_input`
+            nc_out = True
+            assert full_config["userdefs"]["infmt_opt"] == 0
+        elif ifp.suffix in {".txt"}:
+            nc_out = False
+            assert full_config["userdefs"]["infmt_opt"] == 1
+        else:
+            raise ValueError(f"Unexpected input file extension: {ifp.suffix}")
+        nc_outs.append(nc_out)
+    if not len(set(nc_outs)) == 1:
+        raise ValueError(
+            f"Expected all input files to be of the same type (nc or txt). "
+            f"filenames.file_vars: {input_files_setting}."
+        )
+    nc_out = nc_outs[0]
+    if isinstance(input_files_setting, list):
+        abs_path_strs = []
+        for s in input_files_setting:
+            ifp = Path(s)
+            if not ifp.is_absolute():
+                abs_path_strs.append(ifp.resolve().as_posix())
+            else:
+                abs_path_strs.append(ifp.as_posix())
+        full_config["filenames"]["file_vars"] = abs_path_strs
+    else:
+        ifp = Path(input_files_setting)
+        if not ifp.is_absolute():
+            full_config["filenames"]["file_vars"] = ifp.resolve().as_posix()
 
     # Write namelist
     if verbose:
@@ -153,7 +187,17 @@ def run(
 
     # Load nc
     if nc_out:
-        ds0 = xr.open_dataset(ofp_stem.with_suffix(".nc"))
+        # Should be just one file, even if multiple output time steps
+        patt = f"{ofp_stem.name}*.nc"
+        cands = sorted(output_dir.glob(patt))
+        if not cands:
+            raise ValueError(
+                f"No matches for pattern {patt!r} in directory {output_dir.as_posix()!r}. "
+                f"Files present are: {[p.as_posix() for p in output_dir.glob('*')]}."
+            )
+        if len(cands) > 1:
+            print("Taking the first nc file only.")
+        ds0 = xr.open_dataset(cands[0], decode_times=True)
         ds = (
             ds0.rename_dims(grid_xt="x", grid_yt="y")
             .swap_dims(level="z")
@@ -180,22 +224,40 @@ def run(
                     f"warning: skipping {which!r} ({ifcan}) output since stem suffix unknown."
                 )
                 continue
-            df = read_txt(
-                ofp_stem.with_name(f"{ofp_stem.name}{stem_suff}").with_suffix(".txt")
-            )
+            # NOTE: Separate file for each time
+            patt = f"{ofp_stem.name}_*{stem_suff}.txt"
+            cands = sorted(output_dir.glob(patt))
+            if not cands:
+                raise ValueError(
+                    f"No matches for pattern {patt!r} in directory {output_dir.as_posix()!r}. "
+                    f"Files present are: {[p.as_posix() for p in output_dir.glob('*')]}."
+                )
+            if verbose:
+                print(f"detected output files for {ifcan}:")
+                print("\n".join(f"- {p.as_posix()}" for p in cands))
+            dfs_ifcan = []
+            for cand in cands:
+                df_t = read_txt(cand)
+                df_t["time"] = df_t.attrs["time"]
+                dfs_ifcan.append(df_t)
+            df = pd.concat(dfs_ifcan, ignore_index=True)
             df.attrs.update(which=which)
+            df.attrs.update(df_t.attrs)
             dfs.append(df)
 
         # Merge
         units: dict[str, str] = {}
         dss = []
         for df in dfs:
-            if {"lat", "lon", "height"}.issubset(df.columns):
-                ds_ = df.set_index(["height", "lat", "lon"]).to_xarray().squeeze()
-            elif {"lat", "lon"}.issubset(df.columns):
-                ds_ = df.set_index(["lat", "lon"]).to_xarray().squeeze()
+            if {"time", "lat", "lon", "height"}.issubset(df.columns):
+                ds_ = df.set_index(["time", "height", "lat", "lon"]).to_xarray().squeeze()
+            elif {"time", "lat", "lon"}.issubset(df.columns):
+                ds_ = df.set_index(["time", "lat", "lon"]).to_xarray().squeeze()
             else:
-                raise ValueError("Expected df to have columns 'lat', 'lon' [,'height'].")
+                raise ValueError(
+                    "Expected df to have columns 'time', 'lat', 'lon' [,'height']. "
+                    f"Got: {sorted(df)}."
+                )
             units.update(df.attrs["units"])
             for vn in ds_.data_vars:
                 assert isinstance(vn, str)
@@ -230,6 +292,14 @@ def read_txt(fp: Path) -> pd.DataFrame:
     with open(fp) as f:
         for i, line in enumerate(f):
             if i == 0:
+                pattern = r" *time stamp\: *([0-9\.\:\-]*)"
+                m = re.match(pattern, line)
+                if m is None:
+                    raise ValueError(
+                        f"Unexpected file format. Line {i} failed to match regex {pattern!r}."
+                    )
+                time_stamp = pd.Timestamp(m.group(1))
+            elif i == 1:
                 pattern = r" *reference height, h\: *([0-9\.]*) m"
                 m = re.match(pattern, line)
                 if m is None:
@@ -237,7 +307,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
                         f"Unexpected file format. Line {i} failed to match regex {pattern!r}."
                     )
                 href = float(m.group(1))
-            elif i == 1:
+            elif i == 2:
                 pattern = r" *number of model layers\: *([0-9]*)"
                 m = re.match(pattern, line)
                 if m is None:
@@ -245,7 +315,7 @@ def read_txt(fp: Path) -> pd.DataFrame:
                         f"Unexpected file format. Line {i} failed to match regex {pattern!r}."
                     )
                 nlay = int(m.group(1))
-            elif i == 2:
+            elif i == 3:
                 # Column names (some with units)
                 heads = re.split(r" {2,}", line.strip())
                 names: list[str] = []
@@ -264,17 +334,25 @@ def read_txt(fp: Path) -> pd.DataFrame:
                 break
         else:
             raise ValueError(
-                "Unexpected file format. Expected 3 header lines followed by data."
+                "Unexpected file format. Expected 4 header lines followed by data."
             )
 
-    df = pd.read_csv(fp, index_col=False, skiprows=3, header=None, delimiter=r"\s+")
+    df = pd.read_csv(
+        fp,
+        index_col=False,
+        skiprows=4,
+        header=None,
+        delimiter=r"\s+",
+        dtype=np.float32,
+    )
     if len(names) != len(df.columns):
         raise RuntimeError(
             f"Unexpected file format. Detected columns names {names} ({len(names)}) "
             f"are of a different number than the loaded dataframe ({len(df.columns)})."
         )
+    df = df.replace(np.float32(-9.0e20), np.nan)  # fill value, defined in const mod
     df.columns = names  # type: ignore[assignment]
-    df.attrs.update(href=href, nlay=nlay, units=units)
+    df.attrs.update(href=href, nlay=nlay, units=units, time=time_stamp)
 
     return df
 
@@ -367,6 +445,16 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
                     f"scalar, list[scalar], or list[list[scalar]], got: {type(v)}."
                 )
 
+            if k == "file_vars":
+                # Only support single time step runs for now
+                if type(v) is list:
+                    assert type(v[0]) is str
+                    mults[k] = v
+                else:
+                    assert type(v) is str
+                    sings[k] = v
+                continue
+
             if (np.isscalar(DEFAULT_CONFIG[_k_sec(k)][k]) and np.isscalar(v)) or (
                 type(DEFAULT_CONFIG[_k_sec(k)][k]) is list
                 and type(v) is list
@@ -414,8 +502,9 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
 
 if __name__ == "__main__":
     cases = config_cases(
-        file_vars="../input/input_variables_point.txt",
+        file_vars="../input/point_file_20220701.sfcf000.txt",
         infmt_opt=1,
+        ntime=1,
         nlat=1,
         nlon=1,
         z0ghc=[0.001, 0.01],

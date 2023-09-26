@@ -105,11 +105,25 @@ MODULE canopy_canvars_mod
 ! Define output NETCDF data structures.
 !-------------------------------------------------------------------------------
 
+    TYPE fld1dtdata
+        REAL(rk),        POINTER   :: fld        ( : )
+        CHARACTER(LEN=16)          :: fldname
+        CHARACTER(LEN=80)          :: long_name
+        CHARACTER(LEN=80)          :: units
+        CHARACTER(LEN=80)          :: cartesian_axis = "T"
+        CHARACTER(LEN=80)          :: calendar_type = "JULIAN"
+        CHARACTER(LEN=80)          :: calendar = "JULIAN"
+        REAL                       :: fillvalue
+        CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        INTEGER                    :: istart     ( 4 )
+        INTEGER                    :: iend       ( 4 )
+    END TYPE fld1dtdata
+
     TYPE fld1ddata
         REAL(rk),        POINTER   :: fld        ( : )
         CHARACTER(LEN=16)          :: fldname
         CHARACTER(LEN=80)          :: long_name
-        CHARACTER(LEN=16)          :: units
+        CHARACTER(LEN=80)          :: units
         REAL                       :: fillvalue
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
         INTEGER                    :: istart     ( 4 )
@@ -142,10 +156,19 @@ MODULE canopy_canvars_mod
 ! Assign number of time independent and varying 2D/3D fields at cell centers.
 !-------------------------------------------------------------------------------
 
+    INTEGER           :: nfld1dt        ! time field
     INTEGER           :: nfld1dz        ! time-independent 1d cell centers
     INTEGER           :: nfld2dxy       ! time-independent 2d cell centers
     INTEGER           :: nfld2dxyt      ! time-varying 2d cell centers
     INTEGER           :: nfld3dxyzt     ! time-varying 3d cell centers
+
+
+!-------------------------------------------------------------------------------
+! Time field.
+!-------------------------------------------------------------------------------
+
+    TYPE(fld1dtdata), ALLOCATABLE, TARGET :: fld1dt ( : )
+    TYPE(fld1dtdata), POINTER     :: g_time
 
 !-------------------------------------------------------------------------------
 ! Time-independent 1d fields at cell centers.

@@ -123,7 +123,7 @@ Namelist Option : `file_vars`  Full name of input file (Supports either text or 
 
 - See example file inputs for variables and format (`gfs.t12z.20220701.sfcf000.canopy.txt` or `gfs.t12z.20220701.sfcf000.canopy.nc`).  Example surface met/land/soil inputs are based on NOAA's UFS-GFSv16 inputs initialized on July 01, 2022 @ 12 UTC (forecast at hour 000). Other external inputs for canopy related and other calculated variables are from numerous sources.  See [Table 2](#table-2-canopy-app-required-input-variables) below for more information.  **Note:** The example GFSv16 domain has been cut to the southeast U.S. region only in this example for size/time constraints here.
 - Canopy-App assumes the NetCDF input files are in CF-Convention and test file is based on UFS-GFSv16; recommend using double or float for real variables.  Input data must be valid values.
-- Canopy-App can also be run with a single point of 1D input data in a text file (e.g. `input_variables_point.txt`).
+- Canopy-App can also be run with a single point of 1D input data in a text file (e.g. `point_file_20220701.sfcf000.txt`).
 
 The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variables) below is based around NOAA's UFS operational Global Forecast System Version 16 (GFSv16) gridded met data, and is supplemented with external canopy data (from numerous sources) and other external and calculated input variables.  
 
@@ -187,6 +187,10 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | Namelist Option | Namelist Description and Units                                                     |
 | --------------- | ---------------------------------------------------------------------------------- |
 | `infmt_opt`     | integer for choosing 1D text (= `1`)  or 2D NetCDF input file format (= `0`, default) |
+| `time_start`    | Start/initial time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs  |
+| `time_end`      | End time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs       |
+| `ntime`         | Number of time steps for simulation/observation inputs                             |
+| `time_intvl`    | Integer time interval for simulation/observation input time steps in seconds (default = 3600) |
 | `nlat`          | number of latitude cells (must match # of LAT in `file_vars` above)                |
 | `nlon`          | number of longitude cells (must match # of LON in `file_vars` above)               |
 | `modlays`       | number of model (below and above canopy) layers                                    |

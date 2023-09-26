@@ -1,5 +1,5 @@
 
-SUBROUTINE canopy_write_txt(OUTPREFX)
+SUBROUTINE canopy_write_txt(OUTPREFX,TIMENOW)
 
 !-------------------------------------------------------------------------------
 ! Name:     Write Canopy Outputs to TXT
@@ -12,9 +12,9 @@ SUBROUTINE canopy_write_txt(OUTPREFX)
     IMPLICIT NONE
 
     CHARACTER(LEN=*), INTENT( IN )  :: OUTPREFX
+    CHARACTER(LEN=*), INTENT( IN )  :: TIMENOW
 
-
-    call write_txt(OUTPREFX)
+    call write_txt(OUTPREFX,TIMENOW)
 
 
 END SUBROUTINE canopy_write_txt
