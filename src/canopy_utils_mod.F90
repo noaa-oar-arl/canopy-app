@@ -299,6 +299,7 @@ contains
         REAL(rk) :: GAMMA_LEAFAGE             ! Leaf age activity factor [unitless]
         !
         ! !LOCAL VARIABLES:
+        REAL(rk) :: LAIdelta = 1.0e-10_rk    ! Tolerance for LAI comparison
         !INTEGER :: tsteplai                      ! time step
         REAL(rk) :: Fnew, Fgro                ! foliage fractions
         REAL(rk) :: Fmat, Fold
@@ -326,7 +327,7 @@ contains
         !Also, Compute ti and tm
         ! ti: number of days after budbreak required to induce emissions
         ! tm: number of days after budbreak required to reach peak emissions
-        IF (LAIpast < LAIcurrent) THEN !(i.e. LAI has Increased)
+        IF (LAIcurrent - LAIpast > LAIdelta) THEN !(i.e. LAI has Increased)
             IF (TABOVE .le. 303.0_rk) THEN
                 ti = 5.0_rk + 0.7_rk*(300.0_rk-TABOVE)
             ELSE
@@ -348,16 +349,16 @@ contains
 
             Fgro = 1.0_rk - Fnew - Fmat
             Fold = 0.0_rk
-        ELSEIF (LAIpast == LAIcurrent) THEN !If LAI remains same
-            Fnew = 0.0_rk
-            Fgro = 0.1_rk
-            Fmat = 0.8_rk
-            Fold = 0.1_rk
-        ELSE
+        ELSEIF (LAIpast - LAIcurrent > LAIdelta) THEN !(i.e. LAI has decreased)
             Fnew = 0.0_rk
             Fgro = 0.0_rk
             Fold = ( LAIpast-LAIcurrent ) / LAIpast
             Fmat = 1.0_rk-Fold
+        ELSE !(LAIpast == LAIcurrent) THEN !If LAI remains same
+            Fnew = 0.0_rk
+            Fgro = 0.1_rk
+            Fmat = 0.8_rk
+            Fold = 0.1_rk
         ENDIF
 
         !-----------------------
