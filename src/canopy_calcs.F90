@@ -37,7 +37,7 @@ SUBROUTINE canopy_calcs
     REAL(rk) :: pastlai       !Past LAI [cm2/cm2]
     REAL(rk) :: currentlai    ! Current LAI [cm2/cm2]
     REAL(rk) :: tsteplai  !Number of days between the past and current LAI
-    REAL(rk) :: tabovecanopy  ! Above Canopy Temp (assigned = tmp2mref )
+    !!REAL(rk) :: tabovecanopy  ! Above Canopy Temp (assigned = tmp2mref ), done in canopy_bioemi_mod.F90
 
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
@@ -229,7 +229,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         1, emi_isop_3d(i,j,:))
                                     !MYRC
@@ -237,7 +237,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         2, emi_myrc_3d(i,j,:))
                                     !SABI
@@ -245,7 +245,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         3, emi_sabi_3d(i,j,:))
                                     !LIMO
@@ -253,7 +253,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         4, emi_limo_3d(i,j,:))
                                     !CARE
@@ -261,7 +261,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         5, emi_care_3d(i,j,:))
                                     !OCIM
@@ -269,7 +269,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         6, emi_ocim_3d(i,j,:))
                                     !BPIN
@@ -277,7 +277,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         7, emi_bpin_3d(i,j,:))
                                     !APIN
@@ -285,7 +285,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         8, emi_apin_3d(i,j,:))
                                     !MONO
@@ -293,7 +293,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         9, emi_mono_3d(i,j,:))
                                     !FARN
@@ -301,7 +301,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         10, emi_farn_3d(i,j,:))
                                     !CARY
@@ -309,7 +309,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         11, emi_cary_3d(i,j,:))
                                     !SESQ
@@ -317,7 +317,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         12, emi_sesq_3d(i,j,:))
                                     !MBOL
@@ -325,7 +325,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         13, emi_mbol_3d(i,j,:))
                                     !METH
@@ -333,7 +333,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         14, emi_meth_3d(i,j,:))
                                     !ACET
@@ -341,7 +341,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         15, emi_acet_3d(i,j,:))
                                     !CO
@@ -349,7 +349,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         16, emi_co_3d(i,j,:))
                                     !BIDI VOC
@@ -357,7 +357,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         17, emi_bvoc_3d(i,j,:))
                                     !Stress VOC
@@ -365,7 +365,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         18, emi_svoc_3d(i,j,:))
                                     !Other VOC
@@ -373,7 +373,7 @@ SUBROUTINE canopy_calcs
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                        leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         anew, agro, amat, aold, &
                                         19, emi_ovoc_3d(i,j,:))
                                 end if
@@ -579,7 +579,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     1, emi_isop(loc,:))
                                 !MYRC
@@ -587,7 +587,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     2, emi_myrc(loc,:))
                                 !SABI
@@ -595,7 +595,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     3, emi_sabi(loc,:))
                                 !LIMO
@@ -603,7 +603,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     4, emi_limo(loc,:))
                                 !CARE
@@ -611,7 +611,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     5, emi_care(loc,:))
                                 !OCIM
@@ -619,7 +619,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     6, emi_ocim(loc,:))
                                 !BPIN
@@ -627,7 +627,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     7, emi_bpin(loc,:))
                                 !APIN
@@ -635,7 +635,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     8, emi_apin(loc,:))
                                 !MONO
@@ -643,7 +643,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     9, emi_mono(loc,:))
                                 !FARN
@@ -651,7 +651,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     10, emi_farn(loc,:))
                                 !CARY
@@ -659,7 +659,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     11, emi_cary(loc,:))
                                 !SESQ
@@ -667,7 +667,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     12, emi_sesq(loc,:))
                                 !MBOL
@@ -675,7 +675,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     13, emi_mbol(loc,:))
                                 !METH
@@ -683,7 +683,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     14, emi_meth(loc,:))
                                 !ACET
@@ -691,7 +691,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     15, emi_acet(loc,:))
                                 !CO
@@ -699,7 +699,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     16, emi_co(loc,:))
                                 !BIDI VOC
@@ -707,7 +707,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     17, emi_bvoc(loc,:))
                                 !Stress VOC
@@ -715,7 +715,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     18, emi_svoc(loc,:))
                                 !Other VOC
@@ -723,7 +723,7 @@ SUBROUTINE canopy_calcs
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
-                                    leafage_opt, pastlai, currentlai, tsteplai, tabovecanopy, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     anew, agro, amat, aold, &
                                     19, emi_ovoc(loc,:))
                             end if
