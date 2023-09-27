@@ -1,5 +1,5 @@
 
-SUBROUTINE canopy_calcs
+SUBROUTINE canopy_calcs(nn)
 
 !-------------------------------------------------------------------------------
 ! Name:     Contains main canopy calculations dependent on canopy conditions
@@ -26,6 +26,8 @@ SUBROUTINE canopy_calcs
 
     IMPLICIT NONE
 
+    INTEGER,     INTENT( IN )       :: nn         ! Input time step
+
     !Local variables
     integer i,j,k,loc
     ! Empirical coeff.'s for Leaf Age factor calculations (see
@@ -35,9 +37,11 @@ SUBROUTINE canopy_calcs
     REAL(rk) :: amat
     REAL(rk) :: aold
     REAL(rk) :: pastlai       !Past LAI [cm2/cm2]
-    REAL(rk) :: currentlai    ! Current LAI [cm2/cm2]
+    REAL(rk), save :: currentlai    ! Current LAI [cm2/cm2]  (saved from one timestep to the next)
     REAL(rk) :: tsteplai  !Number of days between the past and current LAI
     !!REAL(rk) :: tabovecanopy  ! Above Canopy Temp (assigned = tmp2mref ), done in canopy_bioemi_mod.F90
+
+
 
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
@@ -219,6 +223,23 @@ SUBROUTINE canopy_calcs
                                         lairef, cluref, cszref, rjcf_3d(i,j,:))
                                 end if
                             end if
+
+!.......user option to calculate in-canopy leafage influence and assigning LAI as per timestep
+                            if (leafage_opt .eq. 0) then
+                                if (nn .eq. 1) then
+                                    currentlai= lairef
+                                    pastlai = currentlai
+                                else
+                                    pastlai = currentlai
+                                    currentlai = lairef
+                                end if
+
+                                ! Print diagnostics for currentlai and pastlai at each timestep nn
+                                print *, 'Timestep (nn):', nn, 'Current LAI:', currentlai, 'Past LAI:', pastlai
+
+                                tsteplai = time_intvl/86400.0_rk   !Convert timestep into days for biogenic leafage
+                            end if
+
 
 ! ... user option to calculate in-canopy biogenic emissions
                             if (ifcanbio) then
