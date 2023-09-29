@@ -34,7 +34,7 @@
   dx_opt      =  0
   dx_set      =  12000.0
   flameh_opt  =  2
-  flameh_frp  =  0
+  flameh_cal  =  0
   flameh_set  =  1.0
   frp_fac     =  1.0
   pai_opt     =  0
