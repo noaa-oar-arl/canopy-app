@@ -108,7 +108,7 @@ contains
     ! end function
     ! !--------------------------------------------------------------------------------------
 
-    real(rk) function CalcFlameH(frp, dx, lu_opt, vtype, flameh_frp) result( CalcFlameH_set )
+    real(rk) function CalcFlameH(frp, dx, lu_opt, vtype, flameh_cal) result( CalcFlameH_set )
         !! Approximates the Flame Height as a function of FRP intensity, grid cell distance (dx),
         !! and vegetation type (Based on Alexander and Cruz 2012).
 
@@ -122,7 +122,7 @@ contains
         real(rk), intent(in)  :: dx               !! Input Grid cell length (m)
         integer,  intent(in)  :: lu_opt           !! Supported land use classifications
         integer,  intent(in)  :: vtype            !! Grid cell dominant vegetation type
-        integer,  intent(in)  :: flameh_frp       !! Option of vegtype dependent FRP to Flame Height relationships used
+        integer,  intent(in)  :: flameh_cal       !! Option of vegtype dependent FRP to Flame Height relationships used
         real(rk)              :: CalcFlameH_B59   !! Fireline intensity to flame length (=height) (m): Byram (1959)
         real(rk)              :: CalcFlameH_A66_L !! Fireline intensity to flame length (=height) (m): Anderson et al. (1966)
         real(rk)              :: CalcFlameH_A66_D !! Fireline intensity to flame length (=height) (m): Anderson et al. (1966)
@@ -154,7 +154,7 @@ contains
         real(rk)              :: CalcFlameS_set   !! Vegetation dependent average crown scorch height (m)
 
 
-        if (flameh_frp .eq. 0) then !We assume that flame height=flame length,
+        if (flameh_cal .eq. 0) then !We assume that flame height=flame length,
             !and use the relationships in Table 1 of Alexander and Cruz (2012)
 
             !!  -------------------------------------------------------------------------------------
@@ -305,7 +305,7 @@ contains
 
 
 
-        else if (flameh_frp .eq. 1) then!We use the crown scorch height relationships in
+        else if (flameh_cal .eq. 1) then!We use the crown scorch height relationships in
             !Table 2 of Alexander and Cruz (2012) and Equation 14
             !that directly relates flame height to crown scorch height
 
@@ -451,7 +451,7 @@ contains
                 call exit(2)
             end if
         else
-            write(*,*)  'Wrong FLAMEH_FRP choice of ', FLAMEH_FRP, 'in namelist...exiting'
+            write(*,*)  'Wrong FLAMEH_CAL choice of ', FLAMEH_CAL, 'in namelist...exiting'
             call exit(2)
         end if
 
