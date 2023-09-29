@@ -73,7 +73,7 @@ OBJS :=\
  canopy_rad_mod.o \
  canopy_tleaf_mod.o \
  canopy_wind_mod.o \
- canopy_waf_mod.o \
+ canopy_fire_mod.o \
  canopy_eddy_mod.o \
  canopy_bioparm_mod.o \
  canopy_bioemi_mod.o \

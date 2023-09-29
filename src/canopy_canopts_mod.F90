@@ -22,6 +22,7 @@ MODULE canopy_canopts_mod
     integer             ::    lu_opt      !integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
     integer             ::    z0_opt      !integer for setting first estimate of z0 (default = 0 for Z0_MOD)
     integer             ::    flameh_opt  !Integer for flameh values used or calculated (default = 0)
+    integer             ::    flameh_cal  !Integer for FRP to flame height relationships used (default = 0)
     real(rk)            ::    flameh_set  !User Set Flame Height (m)
     real(rk)            ::    frp_fac     !FRP tuning factor for flame height calculation (default = 1.0)
     integer             ::    dx_opt      !Integer for dx resolution values used or calculated (default = 0)
