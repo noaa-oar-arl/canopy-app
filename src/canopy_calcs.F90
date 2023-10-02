@@ -39,7 +39,17 @@ SUBROUTINE canopy_calcs(nn)
     REAL(rk) :: pastlai       !Past LAI [cm2/cm2]
     REAL(rk), save :: currentlai    ! Current LAI [cm2/cm2]  (saved from one timestep to the next)
     REAL(rk) :: tsteplai  !Number of days between the past and current LAI
-    !!REAL(rk) :: tabovecanopy  ! Above Canopy Temp (assigned = tmp2mref ), done in canopy_bioemi_mod.F90
+    !REAL(rk) :: tabovecanopy  ! Above Canopy Temp (assigned = tmp2mref ), done in canopy_bioemi_mod.F90
+
+    ! Assuming LAI input at tsteplaiinput intervals (namelist)
+    ! Here, tsteplaiinput is the number of seconds in the LAI input interval (daily or monthly)
+    integer :: total_time_steps, l ! l is loop counter
+    !'fraction_through_interval' represents the fractional progress through the current LAI input interval (be it daily or monthly) for a given model time step.
+    !For instance, if the model is running on an hourly timestep and the LAI input is daily, then fraction_through_interval would be 1/24 (i.e., 0.0417) on the first hour,  2/24 on the second hour, and so on.
+    !This fraction is used to determine where to interpolate between the pastlai and currentlai to obtain the LAI value for a specific hour within the day.
+    !'interpolated_lai' is the result of the linear interpolation between pastlai and currentlai based on the fraction_through_interval.
+    !It provides the Leaf Area Index (LAI) value for a specific model time step within the LAI input interval. This value is used in the model to represent the LAI for that specific hour or timestep.
+    real(rk) :: fraction_through_interval, interpolated_lai
 
 
 
@@ -225,20 +235,78 @@ SUBROUTINE canopy_calcs(nn)
                             end if
 
 !.......user option to calculate in-canopy leafage influence and assigning LAI as per timestep
-                            if (leafage_opt .eq. 0) then
-                                if (nn .eq. 1) then
-                                    currentlai= lairef
-                                    pastlai = currentlai
-                                else
-                                    pastlai = currentlai
-                                    currentlai = lairef
-                                end if
 
-                                ! Print diagnostics for currentlai and pastlai at each timestep nn
-                                print *, 'Timestep (nn):', nn, 'Current LAI:', currentlai, 'Past LAI:', pastlai
 
-                                tsteplai = time_intvl/86400.0_rk   !Convert timestep into days for biogenic leafage
-                            end if
+                            ! Check the LAI input interval
+                            IF (tsteplaiinput == 24 * 3600) THEN
+                                WRITE (*, *) "Info: LAI input is set to daily timesteps."
+                            ELSE IF (tsteplaiinput == 28 * 24 * 3600 .OR. &
+                                tsteplaiinput == 29 * 24 * 3600 .OR. &
+                                tsteplaiinput == 30 * 24 * 3600 .OR. &
+                                tsteplaiinput == 31 * 24 * 3600) THEN
+                                WRITE (*, *) "Info: LAI input is set to monthly timesteps."
+                            ELSE
+                                WRITE (*, *) "Warning: tsteplaiinput is not  set to daily or monthly."
+                                CALL EXIT(1)
+                            ENDIF
+
+                            ! Check if the tsteplaiinput is greater than time_intvl to decide if interpolation is necessary
+                            IF (tsteplaiinput > time_intvl) THEN
+                                ! Calculate the total number of model timesteps within an LAI input interval
+                                total_time_steps = tsteplaiinput / time_intvl
+
+                                if (leafage_opt .eq. 0) then
+
+                                    ! Initialize pastlai and currentlai based on current timestep
+                                    if (nn .eq. 1) then
+                                        currentlai = lairef
+                                        pastlai = currentlai
+                                    else
+                                        pastlai = currentlai
+                                        currentlai = lairef
+                                    end if
+
+                                    ! Print the initial values of pastlai and currentlai before interpolation
+                                    print *, 'Timestep (nn) Before Interpolation:', nn, &
+                                        'Initial Current LAI:', currentlai, 'Initial Past LAI:', pastlai
+
+                                    ! Calculate the interpolated LAI values for each model time step within the
+                                    ! LAI input interval
+                                    do l = 1, total_time_steps
+                                        fraction_through_interval = real(l) / real(total_time_steps)
+                                        interpolated_lai = interp_linear1_internal([0.0_rk, 1.0_rk], &
+                                            [pastlai, currentlai], &
+                                            fraction_through_interval)
+
+                                        pastlai = currentlai
+                                        currentlai = interpolated_lai
+                                    end do
+
+                                    ! Print diagnostics for currentlai and pastlai at each timestep nn
+                                    print *, 'Timestep (nn) After Interpolation:', nn, &
+                                        'Interpolated Current LAI:', currentlai, 'Interpolated Past LAI:', pastlai
+
+                                    tsteplai = time_intvl/86400.0_rk   !Convert timestep into days for biogenic leafage
+                                end if !leafage_opt = 0 end
+
+                            ELSE !Interpolation block end
+                                ! If the LAI input interval is not greater than the model time interval, then you can use the LAI directly without interpolation or add specific logic for this scenario (placeholder, if needed)
+                            ENDIF
+
+                            !if (leafage_opt .eq. 0) then
+                            !if (nn .eq. 1) then
+                            !currentlai= lairef
+                            !pastlai = currentlai
+                            !else
+                            !pastlai = currentlai
+                            !currentlai = lairef
+                            !end if
+
+                            ! Print diagnostics for currentlai and pastlai at each timestep nn
+                            !print *, 'Timestep (nn):', nn, 'Current LAI:', currentlai, 'Past LAI:', pastlai
+
+                            !tsteplai = time_intvl/86400.0_rk   !Convert timestep into days for biogenic leafage
+                            !end if
 
 
 ! ... user option to calculate in-canopy biogenic emissions
