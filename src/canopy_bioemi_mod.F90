@@ -9,7 +9,6 @@ contains
         PPFD_SHADE, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE, TEMP2, LU_OPT, &
         VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
         LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, &
-        ANEW, AGRO, AMAT, AOLD, &
         EMI_IND, EMI_OUT)
 
 !-----------------------------------------------------------------------

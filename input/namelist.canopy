@@ -3,7 +3,7 @@
 ! Recommend set file_out prefix to initial 'YYYY-MM-DD-HH-MMSS_region_identifier'
   file_vars    = 'input/gfs.t12z.20220630.sfcf023.canopy.nc' 'input/gfs.t12z.20220701.sfcf000.canopy.nc' 'input/gfs.t12z.20220701.sfcf001.canopy.nc'
 !  file_vars    = 'input/gfs.t12z.20220630.sfcf023.canopy.txt' 'input/gfs.t12z.20220701.sfcf000.canopy.txt' 'input/gfs.t12z.20220701.sfcf001.canopy.txt'
-  file_out     = 'output/2022-07-01-11-0000_southeast_us_LEAFAGEON_laiPrinttsteps_intrpltdlaitoModelhourlytstep'
+  file_out     = 'output/2022-07-01-11-0000_southeast_us'
 
 !1D Point Example
 ! Recommend set file_out prefix to initial 'YYYY-MM-DD-HH-MMSS_point_identifier'
@@ -48,8 +48,8 @@
   crop_set    =  3.0
   co2_opt     =  0
   co2_set     =  400.0
-  tsteplaiinput = 2592000  ! Set to 1 day = 86400 sec if LAI inputs are daily (default). Change to 31 or 30 or 29 or 28 *24*3600 for Monthly
-  leafage_opt =  0
+  lai_tstep   =  86400
+  leafage_opt =  1 !0
   lai_thresh  =  0.1
   frt_thresh  =  0.1
   fch_thresh  =  0.5

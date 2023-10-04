@@ -26,7 +26,7 @@ SUBROUTINE canopy_readnml
         ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
         dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, &
         biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, &
-        leafage_opt, tsteplaiinput
+        leafage_opt, lai_tstep
 
 
 !-------------------------------------------------------------------------------
@@ -250,13 +250,14 @@ SUBROUTINE canopy_readnml
 
 !-------------------------------------------------------------------------------
 ! Set default integer for Leaf Age response option for biogenic (all) emissions
-! (default = 0 i.e. ON, = 1 means GAMMA_LEAFAGE=1 i.e. response off)
-    leafage_opt = 0
+! (default is OFF i.e., leafage_opt=1 making GAMMA_LEAFAGE=1 i.e. leaf age response to Biogenic VOCs is off.)
+!  Otherwise swithced ON i.e., leafage_opt= 0 for which lai_tstep is defined to  enable GAMMA_LEAFAGE calculation
+    leafage_opt = 1
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default timestep for LAI input as daily = 24*3600 seconds, otherwise specified in namelist
-    tsteplaiinput = 86400 !Daily LAI inputs
+    lai_tstep = 86400 !Daily LAI inputs
 !-------------------------------------------------------------------------------
 
 
