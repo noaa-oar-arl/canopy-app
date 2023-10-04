@@ -240,7 +240,7 @@ SUBROUTINE canopy_calcs(nn)
                                 lai_tstep == 31 * 24 * 3600) THEN
                                 WRITE (*, *) "Info: LAI input is set to monthly timesteps."
                             ELSE
-                                WRITE (*, *) "Warning: lai_tstep is not  set to daily or monthly."
+                                WRITE (*, *) "Error: lai_tstep is not  set to daily or monthly...exiting!!!"
                                 CALL EXIT(1)
                             ENDIF
 
