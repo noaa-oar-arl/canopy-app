@@ -19,7 +19,7 @@ SUBROUTINE canopy_calcs
     use canopy_rad_mod        !main canopy radiation sunlit/shaded routines
     use canopy_tleaf_mod      !main canopy leaf temperature sunlit/shaded routines
     use canopy_wind_mod       !main canopy components
-    use canopy_waf_mod
+    use canopy_fire_mod
     use canopy_phot_mod
     use canopy_eddy_mod
     use canopy_bioemi_mod
@@ -195,7 +195,8 @@ SUBROUTINE canopy_calcs
 
 ! ... determine midflamepoint and flame height from user or FRP calculation
                                 call canopy_flameh(flameh_opt, flameh_set, dx_2d(i,j), modres, &
-                                    frpref, frp_fac, hcmref, midflamepoint, flameh_2d(i,j))
+                                    frpref, frp_fac, hcmref, lu_opt, vtyperef, flameh_cal, &
+                                    midflamepoint, flameh_2d(i,j))
                                 if (firetype .eq. 0) then !forest/sub-canopy firetype
                                     if (flameh_2d(i,j) .gt. 0.0) then !flameh must be > 0
                                         if (flameh_2d(i,j) .le. hcmref) then !only calculate when flameh <= FCH
@@ -507,7 +508,8 @@ SUBROUTINE canopy_calcs
 
 ! ... determine midflamepoint and flame height from user or FRP calculation
                             call canopy_flameh(flameh_opt, flameh_set, dx(loc), modres, &
-                                frpref, frp_fac, hcmref, midflamepoint, flameh(loc))
+                                frpref, frp_fac, hcmref, lu_opt, vtyperef, flameh_cal, &
+                                midflamepoint, flameh(loc))
                             if (firetype .eq. 0) then !forest/sub-canopy firetype
                                 if (flameh(loc) .gt. 0.0) then !flameh must be > 0
                                     if (flameh(loc) .le. hcmref) then !only calculate when flameh <= FCH
