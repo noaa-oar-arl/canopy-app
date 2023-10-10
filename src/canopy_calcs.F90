@@ -147,7 +147,7 @@ SUBROUTINE canopy_calcs
 !                                           print*, 'VIIRS PAI = ', lairef+0.5
                                 if (variables_2d(i,j)%lat .gt. (-1.0_rk*pavd_set) .and. &
                                     variables_2d(i,j)%lat .lt. pavd_set) then !use GEDI PAVD
-                                    call canopy_pavd2fafrac(modlays, modres, hcmref, zhc, &
+                                    call canopy_pavd2fafrac(modres, hcmref, zhc, &
                                         variables_3d(i,j,:)%pavd, variables_1d%lev, fafraczInt)
 !                                           print*, 'fafraczInt(pavd) = ', fafraczInt
 !                                           print*,'zhc = ', zhc
