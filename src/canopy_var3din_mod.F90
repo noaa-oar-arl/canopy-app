@@ -5,7 +5,7 @@ module canopy_var3din_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_PAVD2FAFRAC ( MODLAYS, MODRES, FCH, ZHC, &
+    SUBROUTINE CANOPY_PAVD2FAFRAC ( MODRES, FCH, ZHC, &
         PAVD_IN, PAVD_LEVS, FAFRACZINT )
 
 !-----------------------------------------------------------------------
@@ -29,7 +29,6 @@ contains
 
 ! Arguments:
 !     IN/OUT
-        INTEGER,     INTENT( IN )  :: MODLAYS               ! Number of total above and below canopy model layers
         REAL(RK),    INTENT( IN )  :: MODRES                ! Canopy model input vertical resolution (m)
         REAL(RK),    INTENT( IN )  :: FCH                   ! Grid cell canopy height (m)  !From GEDI
         REAL(RK),    INTENT( IN )  :: ZHC(:)                ! z/h (dimensionless)
