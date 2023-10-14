@@ -177,7 +177,7 @@ Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day
 
 **Downloading Example Canopy Files from AWS:** Example monthly, global gridded files containing all GFSv16 met/land/soil data from 2022 combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:
 ```
-https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022MM01.sfcf000.nc
+https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022MMDD.sfcf000.nc
 ```
 
 You can also [generate global inputs using Python (see python/global_data_process.py)](./python/README.md).
