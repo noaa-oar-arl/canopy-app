@@ -168,7 +168,7 @@ def read_gfs_climatology(filename, lat, lon, varname):
                 "linear",
                 np.nan,
             )
-    
+
     else:
         # map to met grids
         yt = readin["lat"][:]
@@ -178,7 +178,7 @@ def read_gfs_climatology(filename, lat, lon, varname):
         DATA = mapping(
             lat, lon, data.flatten(), yt.flatten(), xt.flatten(), "linear", np.nan
         )
-        
+
     DATA[np.isnan(DATA)] = 0
     DATA[DATA < 0] = 0
     return DATA
@@ -384,7 +384,7 @@ for i in np.arange(len(canlist)):
         ATTNAME = ["long_name", "units", "missing_value"]
         ATT = ["Plant area volume density profile", "m2/m3", fill_value]
         DATA = read_gfs_climatology(f_can, lat, lon, "pavd")
-    
+
     elif varname == "mol":
         # Reference:
         # Essa 1999, ESTIMATION OF MONIN-OBUKHOV LENGTH USING RICHARDSON AND BULK RICHARDSON NUMBER
