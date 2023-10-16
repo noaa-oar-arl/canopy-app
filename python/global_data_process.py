@@ -152,8 +152,8 @@ def read_gfs_climatology(filename, lat, lon, varname):
 
     if varname == "pavd":
         ## map to met grids
-        yt = readin['lat'][:]
-        xt = readin['lon'][:]
+        yt = readin["lat"][:]
+        xt = readin["lon"][:]
         data = np.squeeze(readin[varname][:])
 
         DATA = np.empty([data.shape[0], lat.shape[0], lat.shape[1]])
@@ -165,7 +165,7 @@ def read_gfs_climatology(filename, lat, lon, varname):
                 data[ll, :, :].flatten(), 
                 yt.flatten(), 
                 xt.flatten(), 
-                'linear', 
+                "linear", 
                 np.nan
             )
     
@@ -382,8 +382,8 @@ for i in np.arange(len(canlist)):
 
     elif varname == "pavd":
         ATTNAME = ["long_name", "units", "missing_value"]
-        ATT     = ["Plant area volume density profile", "m2/m3", fill_value]
-        DATA    = read_gfs_climatology(f_can, lat, lon, "pavd")
+        ATT = ["Plant area volume density profile", "m2/m3", fill_value]
+        DATA = read_gfs_climatology(f_can, lat, lon, "pavd")
     
     elif varname == "mol":
         # Reference:
@@ -444,25 +444,25 @@ for i in np.arange(len(canlist)):
         output = Dataset(f_output, "a")
         output.createDimension("level", DATA.shape[0])
 
-        var_bot = output.createVariable("layer_bottom", "i4", ("level", ))
-        var_top = output.createVariable("layer_top", "i4", ("level", ))
+        var_bot = output.createVariable("layer_bottom", "i4", ("level",))
+        var_top = output.createVariable("layer_top", "i4", ("level",))
         var = output.createVariable(
             varname, 
             "float", 
             ("time", "level", "grid_yt", "grid_xt"), 
-            fill_value=fill_value
+            fill_value=fill_value,
         )
 
         write_varatt(var, ATTNAME, ATT)
         write_varatt(
             var_bot, 
             ["long_name", "units"], 
-            ["height of the layer bottom above the ground", "m"]
+            ["height of the layer bottom above the ground", "m"],
         )
         write_varatt(
             var_top, 
             ["long_name", "units"], 
-            ["height of the layer top above the ground", "m"]
+            ["height of the layer top above the ground", "m"],
         )
 
         var_bot[:] = np.arange(0, 65 + 1, 5)
