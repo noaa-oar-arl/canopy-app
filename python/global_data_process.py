@@ -151,7 +151,7 @@ def read_gfs_climatology(filename, lat, lon, varname):
     readin = Dataset(filename)
 
     if varname == "pavd":
-        ## map to met grids
+        # map to met grids
         yt = readin["lat"][:]
         xt = readin["lon"][:]
         data = np.squeeze(readin[varname][:])
