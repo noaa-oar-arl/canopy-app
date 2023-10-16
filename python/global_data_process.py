@@ -1,6 +1,6 @@
 """
 Created on Sun Jun 4 2023
-Updated on Mon Oct 16 2023: Use daily gfs.canopy files 
+Updated on Mon Oct 16 2023: Use daily gfs.canopy files
 
 Author: Wei-Ting Hung
 """
@@ -160,13 +160,13 @@ def read_gfs_climatology(filename, lat, lon, varname):
 
         for ll in np.arange(data.shape[0]):
             DATA[ll, :, :] = mapping(
-                lat, 
-                lon, 
-                data[ll, :, :].flatten(), 
-                yt.flatten(), 
-                xt.flatten(), 
-                "linear", 
-                np.nan
+                lat,
+                lon,
+                data[ll, :, :].flatten(),
+                yt.flatten(),
+                xt.flatten(),
+                "linear",
+                np.nan,
             )
     
     else:
@@ -447,21 +447,21 @@ for i in np.arange(len(canlist)):
         var_bot = output.createVariable("layer_bottom", "i4", ("level",))
         var_top = output.createVariable("layer_top", "i4", ("level",))
         var = output.createVariable(
-            varname, 
-            "float", 
-            ("time", "level", "grid_yt", "grid_xt"), 
+            varname,
+            "float",
+            ("time", "level", "grid_yt", "grid_xt"),
             fill_value=fill_value,
         )
 
         write_varatt(var, ATTNAME, ATT)
         write_varatt(
-            var_bot, 
-            ["long_name", "units"], 
+            var_bot,
+            ["long_name", "units"],
             ["height of the layer bottom above the ground", "m"],
         )
         write_varatt(
-            var_top, 
-            ["long_name", "units"], 
+            var_top,
+            ["long_name", "units"],
             ["height of the layer top above the ground", "m"],
         )
 
