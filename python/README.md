@@ -104,7 +104,6 @@ You can also download and generate global gridded canopy-app inputs using Python
    #SBATCH --ntasks=1
    #SBATCH --mem-per-cpu=1000GB
 
-   source ~/.bashrc
    conda activate canopy-app
    python python/global_data_process.py
    srun canopy
