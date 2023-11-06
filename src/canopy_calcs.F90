@@ -232,7 +232,7 @@ SUBROUTINE canopy_calcs(nn)
                                     currentlai = lairef
                                 end if
 
-                                ! Check if the lai_tstep is greater than time_intvl
+                                !!! Check if the lai_tstep is greater than time_intvl
                                 if (lai_tstep .ge. time_intvl) then
                                     tsteplai = lai_tstep/86400.0_rk
                                 else
