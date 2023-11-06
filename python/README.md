@@ -84,3 +84,21 @@ You can also download and generate global gridded canopy-app inputs using Python
    ```
    python global_data_process.py
    ```
+
+### Notes for running global data
+
+1. Edit namelist for correct number of lat/lon grid points(`namelist.canopy`)
+
+   For example:
+   `nlat        =  1536`
+   `nlon        =  3072`
+
+2. Global inputs require a lot of memory, suggest not running on head node:
+
+   Slurm batch script suggestion:
+   ```
+   #SBATCH --partition=bigmem
+   #SBATCH --nodes=1
+   #SBATCH --ntasks=1
+   #SBATCH --mem-per-cpu=1000GB
+   ```
