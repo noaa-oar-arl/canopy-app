@@ -232,8 +232,6 @@ SUBROUTINE canopy_calcs(nn)
                                     currentlai = lairef
                                 end if
 
-                                ! Print diagnostics for currentlai and pastlai at each timestep nn
-                                print *, 'Timestep (nn):', nn, 'Current LAI:', currentlai, 'Past LAI:', pastlai
 
                                 ! Check if the lai_tstep is greater than time_intvl
                                 if (lai_tstep .ge. time_intvl) then
