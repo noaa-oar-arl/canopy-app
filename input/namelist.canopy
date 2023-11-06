@@ -49,7 +49,7 @@
   co2_opt     =  0
   co2_set     =  400.0
   lai_tstep   =  86400
-  leafage_opt =  1 !0
+  leafage_opt =  1 
   lai_thresh  =  0.1
   frt_thresh  =  0.1
   fch_thresh  =  0.5
