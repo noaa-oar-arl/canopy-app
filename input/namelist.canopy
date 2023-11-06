@@ -1,8 +1,8 @@
 &FILENAMES
 !2D Text and NCF Examples
 ! Recommend set file_out prefix to initial 'YYYY-MM-DD-HH-MMSS_region_identifier'
-!  file_vars    = 'input/gfs.t12z.20220630.sfcf023.canopy.nc' 'input/gfs.t12z.20220701.sfcf000.canopy.nc' 'input/gfs.t12z.20220701.sfcf001.canopy.nc'
-  file_vars = 'input/canopy.t12z.20220630.testf023.southeast.nc' 'input/canopy.t12z.20220701.testf000.southeast.nc' 'input/canopy.t12z.20220701.testf001.southeast.nc'
+  file_vars    = 'input/gfs.t12z.20220630.sfcf023.canopy.nc' 'input/gfs.t12z.20220701.sfcf000.canopy.nc' 'input/gfs.t12z.20220701.sfcf001.canopy.nc'
+!  file_vars = 'input/canopy.t12z.20220630.testf023.southeast.nc' 'input/canopy.t12z.20220701.testf000.southeast.nc' 'input/canopy.t12z.20220701.testf001.southeast.nc'
 !  file_vars = 'input/gfs.canopy.t12z.20220701.global.f000.nc' 'input/gfs.canopy.t12z.20220701.sfcf000.nc' 'input/gfs.t12z.20220701.sfcf000.nc'
  ! file_vars = 'input/gfs.t12z.20220630.sfcf023.canopy.nc' 'input/gfs.t12z.20220701.sfcf000.canopy.nc' 'input/gfs.t12z.20220701.sfcf001.canopy.nc'
 !  file_vars    = 'input/gfs.t12z.20220630.sfcf023.canopy.txt' 'input/gfs.t12z.20220701.sfcf000.canopy.txt' 'input/gfs.t12z.20220701.sfcf001.canopy.txt'
