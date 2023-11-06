@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 #SBATCH --partition=bigmem             # big memory node
 #SBATCH --job-name=canopy-app          # name the job
 #SBATCH --output=canopy-%j.out         # write stdout to named file
@@ -9,4 +9,5 @@
 #SBATCH --ntasks=1                     # Request n tasks
 #SBATCH --mem-per-cpu=1000GB           # Request nGB RAM per core
 
+python python/global_data_process.py
 srun canopy

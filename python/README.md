@@ -85,7 +85,7 @@ You can also download and generate global gridded canopy-app inputs using Python
    python global_data_process.py
    ```
 
-### Notes for running global data
+### Running global data
 
 1. Edit namelist for correct number of lat/lon grid points(`namelist.canopy`)
 
@@ -101,4 +101,7 @@ You can also download and generate global gridded canopy-app inputs using Python
    #SBATCH --nodes=1
    #SBATCH --ntasks=1
    #SBATCH --mem-per-cpu=1000GB
+
+   python python/global_data_process.py
+   srun canopy
    ```
