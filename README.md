@@ -187,7 +187,7 @@ You can also [generate global inputs using Python (see python/global_data_proces
 
 | Namelist Option | Namelist Description and Units                                                     |
 | --------------- | ---------------------------------------------------------------------------------- |
-| Input model format options                                                                         | |
+                  | Input model format options                                                        ||
 | `infmt_opt`     | integer for choosing 1D text (= `1`)  or 2D NetCDF input file format (= `0`, default) |
 | Input model grid sizes------------------------------------------------------------------------------ |
 | `nlat`          | number of latitude cells (must match # of LAT in `file_vars` above)                |
