@@ -187,31 +187,31 @@ You can also [generate global inputs using Python (see python/global_data_proces
 
 | Namelist Option | Namelist Description and Units                                                     |
 | --------------- | ---------------------------------------------------------------------------------- |
-| Input model format options                                                                           |
+| Input model format options-------------------------------------------------------------------------- |
 | `infmt_opt`     | integer for choosing 1D text (= `1`)  or 2D NetCDF input file format (= `0`, default) |
-| Input model grid sizes                                                                               |
+| Input model grid sizes------------------------------------------------------------------------------ |
 | `nlat`          | number of latitude cells (must match # of LAT in `file_vars` above)                |
 | `nlon`          | number of longitude cells (must match # of LON in `file_vars` above)               |
-| Input model run times and interval                                                                   |
+| Input model run times and interval------------------------------------------------------------------ |
 | `time_start`    | Start/initial time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs  |
 | `time_end`      | End time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs       |
 | `ntime`         | Number of time steps for simulation/observation inputs                             |
 | `time_intvl`    | Integer time interval for simulation/observation input time steps in seconds (default = 3600) |
-| Canopy model vertical layers                                                                         |
+| Canopy model vertical layers------------------------------------------------------------------------ |
 | `modlays`       | number of model (below and above canopy) layers                                    |
 | `modres`        | above and below canopy model vertical resolution (m)                               |
 | Contiguous canopy model thresholds                                                                   |
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
 | `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
 | `fch_thresh`    | user-set real value of canopy height  threshold for contiguous canopy (m)          |
-| Canopy model vegetation/land use input dataset options                                               |
+| Canopy model vegetation/land use input dataset options---------------------------------------------- |
 | `lu_opt`        | integer for input model land use type (`0`: VIIRS 17 Cat (default) or `1`: MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.) |
-| Canopy crop and shrub/savanna/grass extension options                                                |
+| Canopy crop and shrub/savanna/grass extension options----------------------------------------------  |
 | `ssg_opt`       | integer for using either input data  (= `0`, default) or user set shrub/savanna/grass (SSG) vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data only provides canopy heights for forests and not SSG.  Warning: use of ssg_opt=1 will overide typically higher resolution input data (e.g., GEDI) forest canopy heights where the lower resolution vegtype data indicates SSG  |
 | `ssg_set`       | user-set real value of constant SSG vegetation type heights (m) (only used if `ssg_opt=1`) |
 | `crop_opt`      | integer for using either input data  (= `0`, default) or user set crop vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data only provides canopy heights for forests and not crops.  Warning: use of crop_opt=1 will overide typically higher resolution input data (e.g., GEDI) forest canopy heights where the lower resolution vegtype data indicates crops  |
 | `crop_set`      | user-set real value of constant crop vegetation type heights (m) (only used if `crop_opt=1`) |
-| Canopy physics and wind-specific options                                                             |
+| Canopy physics and wind-specific options----------------------------------------------------------   |
 | `ifcanwind`     | logical canopy wind option (default: `.FALSE.`)                                    |
 | `href_opt`      | integer for using `href_set` in namelist (= `0`, default) or array from file (= `1`) |
 | `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) **\*\*\*** |
@@ -221,7 +221,7 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `pai_opt`       | integer (`0`: PAI fixed from Katul et al. 2004 veg types-->default; `1`: PAI Massman et al. 2017 Eq. 19 calc; `2`: PAI from model LAI+WAI; `3`: user-set PAI value) |
 | `pai_set`       | user-set real value of PAI (default: `4.0`; only used if `pai_opt=3`)              |
 | `z0_opt`        | integer (`0`: use model input or `1`: vegtype dependent z0 for first estimate)     |
-| Canopy fire/WAF-specific options                                                                     |
+| Canopy fire/WAF-specific options-------------------------------------------------------------------- |
 | `ifcanwaf`      | logical canopy WAF option (default: `.FALSE.`) **\*\***                            |
 | `dx_opt`        | `0`: Calculation of dx resolution/distance from lon; `1`: user-set dx grid resolution |
 | `dx_set`        | user-set real value of grid resolution (m) only if `dx_opt=1`                      |
@@ -229,11 +229,11 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `flameh_cal`    | `0`: Calculates the vegtype dependent flame height from FRP, based on Table 1 of Alexander and Cruz (2012) and assuming that flame height = flame length (overestimates flame height in high winds and/or slope conditions).  `1`: Calculates the vegtype dependent flame height from FRP based on Table 2 and Equation 14 of Alexander and Cruz (2012).  These relate flame height directly to crown scorch height, which is derived from FRP. This method assumes that the ambient temperature is in the experimental ranges from Table 3 of Alexander and Cruz (2012), and that the lethal temperature for burning foliage is 60.0 C.           |
 | `flameh_set`    | user-set real value of flame height (m) if `flameh_opt=1` or `2`, or `flameh` = fraction of canopy height (<=1.0), i.e., `flameh` override, if `flameh_opt=3`, `4`, or `5` |
 | `frp_fac`       | user-set real value of tuning factor applied to FRP in calculation of flame height (default: 1.0). Used only if `flameh_opt=0`, `2`, `4`, or `5`. |
-| Canopy eddy diffusivity-specific options                                                             |
+| Canopy eddy diffusivity-specific options-----------------------------------------------------------  |
 | `ifcaneddy`     | logical canopy eddy Kz option (default: `.FALSE.`)                                 |
-| Canopy radiation/photolysis-specific options                                                         |
+| Canopy radiation/photolysis-specific options-------------------------------------------------------  |
 | `ifcanphot`     | logical canopy photolysis option (default: `.FALSE.`)                              |
-| Canopy biogenic emissions-specific options                                                           |
+| Canopy biogenic emissions-specific options---------------------------------------------------------  |
 | `ifcanbio`      | logical canopy biogenic emissions option (default: `.FALSE.`)                      |
 | `bio_cce`       | user-set real value of MEGAN biogenic emissions "canopy environment coefficient" used to tune emissions to model inputs/calculations (default: `0.21`, based on Silva et al. 2020) |
 | `biovert_opt`   | user set biogenic vertical summing option (`0`: no sum, full leaf-level biogenic emissions, units=kg/m3/s; `1`: MEGANv3-like summing of LAD weighted activity coefficients using the canopy-app plant distributions, caution-- units=kg m-2 s-1 and puts the total emissions in the topmost canopy-app model layer only; `2`: Same as in option 1, but instead uses Gaussian/normally weighted activity coefficients acoss all sub-canopy layers -- also units of kg m-2 s-1 in topmost model layer; `3`: Same as in option 1, but instead uses evenly weighted activity coefficients acoss all sub-canopy layers -- also units of kg m-2 s-1 in topmost model layer          |
