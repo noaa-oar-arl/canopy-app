@@ -348,7 +348,7 @@ for inputtime in timelist:
 
 
 
-    os.system("cp " + f_met + " " + f_output)  # copy gfs met file for appending 
+    os.system("cp " + f_met + " " + f_output)  # copy gfs met file for appending
 
 
 
