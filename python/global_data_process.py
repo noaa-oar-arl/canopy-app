@@ -336,6 +336,7 @@ for inputtime in timelist:
                     + ".sfcf000.nc",
                 ]
             )
+            if os.path.isfile(f_frp) == True:
                 os.chmod(f_frp, 0o0755)
                 print("---- Download complete!")
             else:
