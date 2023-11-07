@@ -224,7 +224,7 @@ for inputtime in timelist:
     print("------------------------------------")
 
     # met file
-    if os.path.isfile(f_met) == True:
+    if os.path.isfile(f_met) is True:
         print("---- Met file found!")
     else:
         print("---- Cannot find met file. Downloading from AWS...")
@@ -246,7 +246,7 @@ for inputtime in timelist:
                 + ".nc",
             ]
         )
-        if os.path.isfile(f_met) == True:
+        if os.path.isfile(f_met) is True:
             os.chmod(f_met, 0o0755)
             print("---- Download complete!")
         else:
@@ -254,7 +254,7 @@ for inputtime in timelist:
             exit()
 
     # can file
-    if os.path.isfile(f_can) == True:
+    if os.path.isfile(f_can) is True:
         print("---- Canopy file found!")
     else:
         print("---- Cannot find canopy file. Downloading from AWS...")
@@ -274,7 +274,7 @@ for inputtime in timelist:
                 + ".sfcf000.nc",
             ]
         )
-        if os.path.isfile(f_can) == True:
+        if os.path.isfile(f_can) is True:
             os.chmod(f_can, 0o0755)
             print("---- Download complete!")
         else:
@@ -283,7 +283,7 @@ for inputtime in timelist:
 
     # frp file
     if frp_src == 0:  # local source
-        if os.path.isfile(f_frp) == True:
+        if os.path.isfile(f_frp) is True:
             os.system("cp " + f_frp + " " + path)
             if int(YY + MM + DD) <= 20230510:
                 f_frp = path + "/GBBEPx_all01GRID.emissions_v003_" + YY + MM + DD + ".nc"
@@ -296,7 +296,7 @@ for inputtime in timelist:
             exit()
 
     if frp_src == 1:  # local source
-        if os.path.isfile(f_frp) == True:
+        if os.path.isfile(f_frp) is True:
             os.system("cp " + f_frp + " " + path)
             if int(YY + MM + DD) <= 20230510:
                 f_frp = path + "/GBBEPx_all01GRID.emissions_v003_" + YY + MM + DD + ".nc"
@@ -310,7 +310,7 @@ for inputtime in timelist:
             f_frp = path + "/gfs.canopy.t" + HH + "z." + YY + MM + DD + ".sfcf000.nc"
 
     if frp_src == 2:  # 12 month climatology frp
-        if os.path.isfile(f_frp) == True:
+        if os.path.isfile(f_frp) is True:
             print("---- FRP file found!")
         else:
             print("---- Canot find FRP file. Downloading from AWS...")
@@ -330,7 +330,7 @@ for inputtime in timelist:
                     + ".sfcf000.nc",
                 ]
             )
-            if os.path.isfile(f_frp) == True:
+            if os.path.isfile(f_frp) is True:
                 os.chmod(f_frp, 0o0755)
                 print("---- Download complete!")
             else:
@@ -414,7 +414,7 @@ for inputtime in timelist:
 
             DATA = (-1 * den * Cp * t2m * (fricv**3)) / (K * g * shtfl)
             DATA[DATA > 500] = 500
-            DATA[DATA <- 500] = -500
+            DATA[DATA < -500] = -500
 
             del [readin, t2m, fricv, shtfl]
 
