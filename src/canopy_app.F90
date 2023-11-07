@@ -85,7 +85,7 @@ program canopy_app
 ! Main canopy model calculations.
 !-------------------------------------------------------------------------------
 
-        call canopy_calcs
+        call canopy_calcs(nn)
 
 !-------------------------------------------------------------------------------
 ! Write model output of canopy model calculations.
