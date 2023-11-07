@@ -6,7 +6,7 @@ module canopy_utils_mod
 
     private
     public IntegrateTrapezoid,interp_linear1_internal,CalcPAI, &
-        CalcDX,CalcFlameH,GET_GAMMA_CO2
+        CalcDX,CalcFlameH,GET_GAMMA_CO2,GET_GAMMA_LEAFAGE
 
 contains
 
@@ -582,5 +582,134 @@ contains
         ENDIF
 
     end function GET_GAMMA_CO2
+
+    function GET_GAMMA_LEAFAGE(leafage_opt,LAIpast,LAIcurrent,tsteplai,TABOVE,Anew,Agro,Amat,Aold)  result( GAMMA_LEAFAGE )
+        ! ROUTINE: GET_GAMMA_LEAFAGE
+        !
+        ! !DESCRIPTION: Function GET_GAMMA_LEAFAGE computes the leaf age activity factor
+        !  associated with foliage fraction calculation.
+        !
+        !     leaf age response to Biogenic VOCs
+        ! Revision: Sept 2023 Quazi Z. Rasool NOAA CSL/CIRES
+        !----------------------------------------------------------------
+        !
+        !       GAMLA = Fnew*Anew + Fgro*Agro + Fmat*Amat + Fold*Aold
+        !       where Fnew = new foliage fraction
+        !             Fgro = growing foliage fraction
+        !             Fmat = mature foliage fraction
+        !             Fold = old foliage fraction
+        !             Anew = emission activity for new foliage
+        !             Agro = emission activity for growing foliage
+        !             Amat = emission activity for mature foliage
+        !             Aold = emission activity for old foliage
+        !           "Age class fractions are determined from LAI changes"
+        !             LAIcurrent = current Month's LAI (asuuming monthly LAI but can be
+        !             customized as per tsteplai)
+        !             LAIpast = past Month's LAI
+        !             tsteplai  = length of the time step (days) i.e. days in between LAIpast and LAIcurrent
+        !             ti = days between budbreak and emission induction (calculated below)
+        !             tm = days between budbreak and peak emission (Calculated below)
+        !             TABOVE = 2-meter temperature (K) TEMP2 or tmp2mref from the input model/obs
+        !------------------------------------------------------------------------------
+        ! !INTERFACE:
+
+        ! !INPUT PARAMETERS:
+        INTEGER,  INTENT(IN) :: leafage_opt       ! Option for leaf age emission factor calculation
+        ! 0=On;
+        ! 1 or  >1 =off i.e. GAMMA_LEAFAGE =1
+
+        REAl(rk), INTENT(IN) :: tsteplai                      ! time step, number of days between Past and Current LAI inputs
+        REAL(rk), INTENT(IN) :: TABOVE      ! Above canopy temperature (K), t2m or tmpsfc
+        REAL(rk), INTENT(IN) :: LAIpast         ! Past LAI [cm2/cm2]
+        REAL(rk), INTENT(IN) :: LAIcurrent         ! Current LAI [cm2/cm2]
+        REAL(rk), INTENT(IN) :: Anew        ! Relative emiss factor (new leaves)
+        REAL(rk), INTENT(IN) :: Agro        ! Relative emiss factor (growing leaves)
+        REAL(rk), INTENT(IN) :: Amat        ! Relative emiss factor (mature leaves)
+        REAL(rk), INTENT(IN) :: Aold        ! Relative emiss factor (old leaves)
+        !
+        ! !RETURN VALUE:
+        REAL(rk) :: GAMMA_LEAFAGE             ! Leaf age activity factor [unitless]
+        !
+        ! !LOCAL VARIABLES:
+        REAL(rk) :: LAIdelta = 1.0e-10_rk    ! Tolerance for LAI comparison
+        !INTEGER :: tsteplai                      ! time step
+        REAL(rk) :: Fnew, Fgro                ! foliage fractions
+        REAL(rk) :: Fmat, Fold
+        REAL(rk) :: ti, tm
+
+        !
+        ! !REMARKS:
+        !  The function computes the leaf age activity factor based on BVOC's leaf age response.
+        !
+        ! !REVISION HISTORY:
+        !  Adapted from HEMCO: https://github.com/geoschem/hemco for complete history
+        !EOP
+        !------------------------------------------------------------------------------
+        !BOC
+
+        !-----------------------
+        ! Compute GAMMA_LEAFAGE
+        !-----------------------
+
+
+        !TABOVE (Tt in MEGAN code) -> Above Canopy TEMP (tmp2mref or temp2)
+
+        ! Calculate foliage fraction
+        !-----------------------
+        !Also, Compute ti and tm
+        ! ti: number of days after budbreak required to induce emissions
+        ! tm: number of days after budbreak required to reach peak emissions
+        IF (LAIcurrent - LAIpast > LAIdelta) THEN !(i.e. LAI has Increased)
+            IF (TABOVE .le. 303.0_rk) THEN
+                ti = 5.0_rk + 0.7_rk*(300.0_rk-TABOVE)
+            ELSE
+                ti = 2.9_rk
+            ENDIF
+            tm = 2.3_rk*ti
+            !Fnew calculated
+            IF (ti .ge. tsteplai) THEN
+                Fnew = 1.0_rk - (LAIpast/LAIcurrent)
+            ELSE
+                Fnew = (ti/tsteplai) * ( 1.0_rk-(LAIpast/LAIcurrent) )
+            ENDIF
+            !Fmat calculated
+            IF (tm .ge. tsteplai) THEN
+                Fmat = LAIpast/LAIcurrent
+            ELSE
+                Fmat = (LAIpast/LAIcurrent) + ( (tsteplai-tm)/tsteplai ) * ( 1.0_rk-(LAIpast/LAIcurrent) )
+            ENDIF
+
+            Fgro = 1.0_rk - Fnew - Fmat
+            Fold = 0.0_rk
+        ELSEIF (LAIpast - LAIcurrent > LAIdelta) THEN !(i.e. LAI has decreased)
+            Fnew = 0.0_rk
+            Fgro = 0.0_rk
+            Fold = ( LAIpast-LAIcurrent ) / LAIpast
+            Fmat = 1.0_rk-Fold
+        ELSE !(LAIpast == LAIcurrent) THEN !If LAI remains same
+            Fnew = 0.0_rk
+            Fgro = 0.1_rk
+            Fmat = 0.8_rk
+            Fold = 0.1_rk
+        ENDIF
+
+        !-----------------------
+        ! Compute GAMMA_AGE
+        !-----------------------
+        IF (leafage_opt .eq. 0) THEN
+            ! Compute GAMMA_LEAFAGE
+            GAMMA_LEAFAGE = Fnew*Anew + Fgro*Agro + Fmat*Amat + Fold*Aold
+            ! Prevent negative values
+            GAMMA_LEAFAGE = MAX( GAMMA_LEAFAGE , 0.0_rk )
+        ELSEIF (leafage_opt .eq. 1) THEN
+            GAMMA_LEAFAGE = 1.0_rk
+        ELSE
+            GAMMA_LEAFAGE = 1.0_rk
+        ENDIF
+
+    end function GET_GAMMA_LEAFAGE
+
+
+
 
 end module canopy_utils_mod

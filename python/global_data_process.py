@@ -15,7 +15,7 @@ from pysolar.solar import get_altitude
 from scipy.interpolate import griddata
 
 """User Options"""
-path = "/scratch/pcampbe8/canopy-app/input"  # work directory
+path = "/scratch1/BMC/rcm2/qrasool/canopy-app-LeafAgeTimeFeature/input"  # "/scratch/pcampbe8/canopy-app/input"  # work directory
 year = 2022  # year
 month = 7  # month
 day = 1  # day
