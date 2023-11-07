@@ -18,15 +18,15 @@ from pysolar.solar import get_altitude
 from scipy.interpolate import griddata
 
 """User Arguments"""
-## Time: yyyymmddhhfff
+# Time: yyyymmddhhfff
 timelist = sys.argv[1]
 timelist = np.array(timelist.split(",")).astype(str)
 
 
 """User Options"""
-path     = "/scratch/pcampbe8/canopy-app/input"  # work directory
-ref_lev  = 10  # reference height (m, a.g.l.)
-frp_src  = 0  # frp data source (0: local source; 1: check local source first, switch to climatological file if no available data; 2: 12 month climatology; 3: all ones when ifcanwaf=.FALSE.)
+path = "/scratch/pcampbe8/canopy-app/input"  # work directory
+ref_lev = 10  # reference height (m, a.g.l.)
+frp_src = 0  # frp data source (0: local source; 1: check local source first, switch to climatological file if no available data; 2: 12 month climatology; 3: all ones when ifcanwaf=.FALSE.)
 
 
 
@@ -45,7 +45,6 @@ frp_src  = 0  # frp data source (0: local source; 1: check local source first, s
 # 12 month climatological FRP will not be respective of actual conditions.  #
 # Only use it when users do not need the limited WAF application for fires. #
 # ------------------------------------------------------------------------- #
-
 
 
 """Global Settings"""
@@ -89,16 +88,18 @@ def read_varatt(var):
     att = [var.getncattr(X) for X in attname]
     return attname, att
 
+
 def write_varatt(var, attname, att):
     for X in np.arange(len(attname)):
         if attname[X] == "_FillValue":
             continue
         elif attname[X] == "missing_value":
             value = np.float32(att[X])
-            value = np.round(value / 1e+15) * 1e+15
+            value = np.round(value / 1e15) * 1e15
             var.setncattr(attname[X], value)
         else:
             var.setncattr(attname[X], att[X])
+
 
 def mapping(xgrid, ygrid, data, xdata, ydata, map_method, fvalue):
     output = griddata(
@@ -106,13 +107,14 @@ def mapping(xgrid, ygrid, data, xdata, ydata, map_method, fvalue):
     )
     return output
 
+
 def read_gfs_climatology(filename, lat, lon, varname):
     readin = Dataset(filename)
 
     if varname == "pavd":
         # map to met grids
-        yt   = readin["lat"][:]
-        xt   = readin["lon"][:]
+        yt = readin["lat"][:]
+        xt = readin["lon"][:]
         data = np.squeeze(readin[varname][:])
 
         DATA = np.empty([data.shape[0], lat.shape[0], lat.shape[1]])
@@ -125,13 +127,13 @@ def read_gfs_climatology(filename, lat, lon, varname):
                 yt.flatten(),
                 xt.flatten(),
                 "linear",
-                np.nan
+                np.nan,
             )
 
     else:
         # map to met grids
-        yt   = readin["lat"][:]
-        xt   = readin["lon"][:]
+        yt = readin["lat"][:]
+        xt = readin["lon"][:]
         data = np.squeeze(readin[varname][0, :, :])
 
         DATA = mapping(
@@ -142,12 +144,13 @@ def read_gfs_climatology(filename, lat, lon, varname):
     DATA[DATA < 0] = 0
     return DATA
 
+
 def read_frp_local(filename, lat, lon, fill_value):
     readin = Dataset(filename)
 
     # map to met grids
     xt, yt = np.meshgrid(readin["Longitude"][:], readin["Latitude"][:])
-    xt[xt < 0] = xt[xt < 0]+360
+    xt[xt < 0] = xt[xt < 0] + 360
     data = np.squeeze(readin["MeanFRP"][:])
 
     DATA = mapping(
@@ -156,18 +159,13 @@ def read_frp_local(filename, lat, lon, fill_value):
     return DATA
 
 
-
-
 starttime = datetime.now()
 print("------------------------------------")
 print("---- Global input pre-process start!", starttime.strftime("%Y/%m/%d %H:%M:%S"))
 print("------------------------------------")
 
 
-
-
 for inputtime in timelist:
-
     if (
         (len(inputtime) != 13)
         or (int(inputtime[4:6]) > 12)
@@ -181,7 +179,6 @@ for inputtime in timelist:
         print("---- " + inputtime[:10] + " f" + inputtime[10:] + " processing...")
         print("------------------------------------")
 
-
     """Settings"""
     # date/time
     YY = inputtime[:4]  # year
@@ -189,7 +186,6 @@ for inputtime in timelist:
     DD = inputtime[6:8]  # date
     HH = inputtime[8:10]  # hour in UTC
     FH = inputtime[10:]  # forecast hour, for met file only
-
 
     # input/output files
     f_met = (
@@ -221,8 +217,6 @@ for inputtime in timelist:
             )
     elif frp_src == 2:  # climatological frp
         f_frp = path + "/gfs.canopy.t" + HH + "z." + YY + MM + DD + ".sfcf000.nc"
-
-
 
     """Data Download"""
     """Download from servers if required files do not exist."""
@@ -313,7 +307,7 @@ for inputtime in timelist:
         else:
             print("---- No available FRP file. Switch to Climatology FRP...")
             frp_src = 2
-            f_frp   = path + "/gfs.canopy.t" + HH + "z." + YY + MM + DD + ".sfcf000.nc"
+            f_frp = path + "/gfs.canopy.t" + HH + "z." + YY + MM + DD + ".sfcf000.nc"
 
     if frp_src == 2:  # 12 month climatology frp
         if os.path.isfile(f_frp) == True:
@@ -346,31 +340,23 @@ for inputtime in timelist:
         print("-----------!!!WARNING!!!-------------")
         print("---!!!Climatological FRP is used!!!--")
 
-
-
-
     os.system("cp " + f_met + " " + f_output)  # copy gfs met file for appending
-
-
-
 
     """Reading dimensions"""
     print("------------------------------------")
     print("---- Checking variable dimensions...")
     print("------------------------------------")
-    readin  = Dataset(f_met)
+    readin = Dataset(f_met)
     grid_yt = readin["grid_yt"][:]
     grid_xt = readin["grid_xt"][:]
     lat = readin["lat"][:]
     lon = readin["lon"][:]
     time = readin["time"][:]
 
-
     # dimension sizes
     ntime = len(time)
     nlat = len(grid_yt)
     nlon = len(grid_xt)
-
 
     # var check
     print("time", time.shape)
@@ -378,8 +364,6 @@ for inputtime in timelist:
     print("grid_xt", grid_xt.shape)
     print("lat", lat.shape)
     print("lon", lon.shape)
-
-
 
     """Adding canvar"""
     print("------------------------------------")
@@ -396,30 +380,25 @@ for inputtime in timelist:
             ATT = ["Leaf area index", "m^2/m^2", fill_value]
             DATA = read_gfs_climatology(f_can, lat, lon, "lai")
 
-
         elif varname == "clu":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Canopy clumping index", "none", fill_value]
             DATA = read_gfs_climatology(f_can, lat, lon, "clu")
-
 
         elif varname == "ffrac":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Forest fraction of grid cell", "none", fill_value]
             DATA = read_gfs_climatology(f_can, lat, lon, "ffrac")
 
-
         elif varname == "fh":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Canopy height above the surface", "m", fill_value]
             DATA = read_gfs_climatology(f_can, lat, lon, "fh")
 
-
         elif varname == "pavd":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Plant area volume density profile", "m2/m3", fill_value]
             DATA = read_gfs_climatology(f_can, lat, lon, "pavd")
-
 
         elif varname == "mol":
             # Reference:
@@ -434,11 +413,10 @@ for inputtime in timelist:
             shtfl = np.squeeze(readin["shtfl"][:])
 
             DATA = (-1 * den * Cp * t2m * (fricv**3)) / (K * g * shtfl)
-            DATA[DATA > 500]  = 500
+            DATA[DATA > 500] = 500
             DATA[DATA <- 500] = -500
 
             del [readin, t2m, fricv, shtfl]
-
 
         elif varname == "csz":
             ATTNAME = ["long_name", "units", "missing_value"]
@@ -451,8 +429,7 @@ for inputtime in timelist:
             DATA = np.cos(sza * 0.0174532925)  # degree to radian
 
             del [time_conv, sza]
-
-
+ 
         elif varname == "frp":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Mean fire radiative power", "MW", fill_value]
@@ -465,13 +442,11 @@ for inputtime in timelist:
             else:
                 DATA = read_frp_local(f_frp, lat, lon, fill_value)
 
-
         elif varname == "href":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Reference height above the surface", "m", fill_value]
             DATA = np.empty([nlat, nlon])
             DATA[:] = ref_lev
-
 
         # var check
         print("Dimension/Attributes:")
@@ -479,15 +454,14 @@ for inputtime in timelist:
         print(ATTNAME)
         print(ATT)
 
-
         # adding to output file
         if varname == "pavd":
             output = Dataset(f_output, "a")
             output.createDimension("level", DATA.shape[0])
 
-            var_lev = output.createVariable("lev", "float", ("level", ))
-            var_bot = output.createVariable("layer_bottom", "i4", ("level", ))
-            var_top = output.createVariable("layer_top", "i4", ("level", ))
+            var_lev = output.createVariable("lev", "float", ("level",))
+            var_bot = output.createVariable("layer_bottom", "i4", ("level",))
+            var_top = output.createVariable("layer_top", "i4", ("level",))
             var = output.createVariable(
                 varname,
                 "float",
@@ -541,11 +515,9 @@ for inputtime in timelist:
     print("------------------------------------")
 
 
-
 endtime = datetime.now()
 
 
-
 print("---- Global input pre-process complete!", endtime.strftime("%Y/%m/%d %H:%M:%S"))
-print("---- Process time:", str(endtime-starttime))
+print("---- Process time:", str(endtime - starttime))
 print("------------------------------------")
