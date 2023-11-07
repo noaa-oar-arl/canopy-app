@@ -29,7 +29,6 @@ ref_lev = 10  # reference height (m, a.g.l.)
 frp_src = 0  # frp data source (0: local source; 1: check local source first, switch to climatological file if no available data; 2: 12 month climatology; 3: all ones when ifcanwaf=.FALSE.)
 
 
-
 # ----------------------------- ATTENTION --------------------------------- #
 # If local FRP is used (frp_src=0,1), archived GBBEPx files since 2020 are  #
 # available for GMU HOPPER users. For users outside GMU, parameter "f_frp"  #
@@ -429,7 +428,7 @@ for inputtime in timelist:
             DATA = np.cos(sza * 0.0174532925)  # degree to radian
 
             del [time_conv, sza]
- 
+
         elif varname == "frp":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Mean fire radiative power", "MW", fill_value]
