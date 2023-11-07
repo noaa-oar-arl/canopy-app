@@ -75,7 +75,7 @@ You can also download and generate global gridded canopy-app inputs using Python
    ```
 
 3. Run Python script with time arguments:
-   
+
    Time format: `YYYY(year)+MM(month)+DD(date)+HH(hour in UTC)+FFF(forecast hour)` Multiple time steps available. Use `,` to separate different times, no spaces.
 
    Example 1: 15-17 Jul 2020 12Z, forecast hour=0
