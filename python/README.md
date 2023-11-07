@@ -74,7 +74,7 @@ You can also download and generate global gridded canopy-app inputs using Python
    conda activate canopy-app
    ```
 
-3. Run Python script with time arguments: 
+3. Run Python script with time arguments:
    
    Time format: `YYYY(year)+MM(month)+DD(date)+HH(hour in UTC)+FFF(forecast hour)` Multiple time steps available. Use `,` to separate different times, no spaces.
 
