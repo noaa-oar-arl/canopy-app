@@ -197,7 +197,7 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `time_start`    | Start/initial time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs  |
 | `time_end`      | End time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs       |
 | `ntime`         | Number of time steps for simulation/observation inputs                             |
-| `time_intvl`    | Integer time interval for simulation/observation input time steps in seconds (default = 3600) |
+| `time_intvl`    | Integer time interval for simulation/observation input time steps in seconds (e.g. 3600 for hourly time stpes and 24*3600 for daily time steps) |
 |                 | **Canopy model vertical layers**                                                   |
 | `modlays`       | number of model (below and above canopy) layers                                    |
 | `modres`        | above and below canopy model vertical resolution (m)                               |
