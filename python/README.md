@@ -89,7 +89,7 @@ You can also download and generate global gridded canopy-app inputs using Python
    ```
    python global_data_process.py 2020070112000,2020070112001,2020070112002,2020070112003,2020070112004
    ```
-### Running global data (following Example 1 above)
+### Running global data process and canopy-app with global data (following Example 1 above)
 
 1. Edit namelist (`namelist.canopy`) for correct number of global lat/lon grid points
 
@@ -117,7 +117,7 @@ You can also download and generate global gridded canopy-app inputs using Python
    time_intvl  =  86400  !!!For daily time steps (i.e., 24*3600)
    ```
 
-4. Run canopy-app: Running canopy-app with global inputs require a lot of memory, so suggest not running on head node:
+4. Run global process and canopy-app: Running canopy-app globally requires a lot of memory, so suggest not running on head node:
 
    Slurm batch script suggestion (cpu time = ~20-30 min for processing a single time step):
    ```
