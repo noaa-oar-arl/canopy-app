@@ -84,9 +84,9 @@ You can also download and generate global gridded canopy-app inputs using Python
    ```
    python global_data_process.py
    ```
-### Running global data
+### Running global data (following Example 1 above)
 
-1. Edit namelist for correct number of lat/lon grid points(`namelist.canopy`)
+1. Edit namelist (`namelist.canopy`) for correct number of global lat/lon grid points
 
    For example:
    ```
@@ -94,7 +94,25 @@ You can also download and generate global gridded canopy-app inputs using Python
    nlon        =  3072
    ```
 
-2. Global inputs require a lot of memory, suggest not running on head node:
+2. Edit namelist (`namelist.canopy`) for correctly named global input files and output prefix
+
+   For example:
+   ```
+   file_vars    = 'input/gfs.t12z.20220715.sfcf000.canopy.nc' 'input/gfs.t12z.20220716.sfcf000.canopy.nc' 'input/gfs.t12z.20220717.sfcf000.canopy.nc'
+   file_out     = 'output/2022-07-15-12-0000_global'
+   ```
+
+3. Edit namelist (`namelist.canopy`) for correct time start/end and interval
+
+   For example:
+   ```
+   time_start  = '2022-07-15-12:00:00.0000'
+   time_end    = '2022-07-17-12:00:00.0000'
+   ntime       =  3
+   time_intvl  =  86400  !!!For daily time steps (i.e., 24*3600)
+   ```
+
+4. Run canopy-app: Running canopy-app with global inputs require a lot of memory, so suggest not running on head node:
 
    Slurm batch script suggestion:
    ```
