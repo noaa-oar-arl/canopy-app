@@ -114,17 +114,17 @@ You can also download and generate global gridded canopy-app inputs using Python
 
 4. Run canopy-app: Running canopy-app with global inputs require a lot of memory, so suggest not running on head node:
 
-   Slurm batch script suggestion:
+   Slurm batch script suggestion (cpu time = ~20-30 min for processing a single time step):
    ```
    #!/bin/bash -l
    #SBATCH --partition=bigmem             # big memory node
    #SBATCH --job-name=canopy-app          # name the job
    #SBATCH --output=canopy-%j.out         # write stdout to named file
    #SBATCH --error=canopy-%j.err          # write stdout to named file
-   #SBATCH --time=0-04:00:00              # Run for max of 00 hrs, 10 mins, 00 secs
+   #SBATCH --time=0-01:30:00              # Run for max of 00 hrs, 10 mins, 00 secs
    #SBATCH --nodes=1                      # Request N nodes
    #SBATCH --ntasks=1                     # Request n tasks
-   #SBATCH --mem-per-cpu=1000GB           # Request nGB RAM per core
+   #SBATCH --mem-per-cpu=12GB             # Request nGB RAM per core
 
    conda activate canopy-app
    python python/global_data_process.py 2020071512000,2020071612000,2020071712000
