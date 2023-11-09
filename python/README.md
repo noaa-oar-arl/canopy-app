@@ -103,33 +103,34 @@ You can also download and generate global gridded canopy-app inputs using Python
 
    For example:
    ```
-   file_vars    = 'input/gfs.t12z.20220715.sfcf000.canopy.nc' 'input/gfs.t12z.20220716.sfcf000.canopy.nc' 'input/gfs.t12z.20220717.sfcf000.canopy.nc'
-   file_out     = 'output/2022-07-15-12-0000_global'
+   file_vars    = 'input/gfs.t12z.20220630.sfcf023.canopy.nc' 'input/gfs.t12z.20220701.sfcf000.canopy.nc' 'input/gfs.t12z.20220701.sfcf001.canopy.nc'
+   file_out     = 'output/2022-07-01-11-0000_global'
    ```
 
 3. Edit namelist (`namelist.canopy`) for correct time start/end and interval
 
    For example:
    ```
-   time_start  = '2022-07-15-12:00:00.0000'
-   time_end    = '2022-07-17-12:00:00.0000'
+   time_start  = '2022-07-01-11:00:00.0000'
+   time_end    = '2022-07-01-13:00:00.0000'
    ntime       =  3
-   time_intvl  =  86400  !!!For daily time steps (i.e., 24*3600)
+   time_intvl  =  3600   !!! For hourly time steps
    ```
+   `time_intvl = 86400` for daily time steps (i.e., 24*3600).
 
-4. Run global process and canopy-app: Running canopy-app globally requires a lot of memory, so suggest not running on head node:
+5. Run global process and canopy-app
 
-   Slurm batch script suggestion (cpu time = ~20-30 min for processing a single time step):
+   Running canopy-app globally requires a lot of memory, so suggest not running on head node. Slurm batch script suggestion (cpu time = ~20-30 min for a single time step):
    ```
    #!/bin/bash -l
    #SBATCH --partition=bigmem             # big memory node
    #SBATCH --job-name=canopy-app          # name the job
    #SBATCH --output=canopy-%j.out         # write stdout to named file
    #SBATCH --error=canopy-%j.err          # write stdout to named file
-   #SBATCH --time=0-01:30:00              # Run for max of 00 hrs, 10 mins, 00 secs
+   #SBATCH --time=0-02:00:00              # Run for max of 00 hrs, 10 mins, 00 secs
    #SBATCH --nodes=1                      # Request N nodes
    #SBATCH --ntasks=1                     # Request n tasks
-   #SBATCH --mem-per-cpu=12GB             # Request nGB RAM per core
+   #SBATCH --mem-per-cpu=256GB            # Request nGB RAM per core
 
    conda activate canopy-app
    python python/global_data_process.py 2022063012023,2022070112000,2022070112001
