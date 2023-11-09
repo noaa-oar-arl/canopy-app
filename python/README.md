@@ -120,7 +120,7 @@ You can also download and generate global gridded canopy-app inputs using Python
 
 5. Run global process and canopy-app
 
-   Running canopy-app globally requires a lot of memory, so suggest not running on head node. Slurm batch script suggestion (cpu time = ~20-30 min for a single time step):
+   Running canopy-app globally requires a lot of memory, so suggest not running on head node. Slurm batch script suggestion (cpu time = ~20-30 min per model time step):
    ```
    #!/bin/bash -l
    #SBATCH --partition=bigmem             # big memory node
