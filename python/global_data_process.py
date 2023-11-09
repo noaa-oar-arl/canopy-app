@@ -194,7 +194,7 @@ for inputtime in timelist:
         path + "/gfs.canopy.t" + HH + "z." + YY + MM + DD + ".sfcf000.nc"
     )  # canopy file
     f_output = (
-        path + "/canopy.t" + HH + "z." + YY + MM + DD + ".testf" + FH + ".nc"
+        path + "/gfs.t" + HH + "z." + YY + MM + DD + ".sfcf" + FH + ".canopy.nc"
     )  # output file
 
     if (frp_src == 0) or (frp_src == 1):  # local frp file
