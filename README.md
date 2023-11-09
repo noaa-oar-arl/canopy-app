@@ -188,48 +188,60 @@ You can also [generate global inputs using Python (see python/global_data_proces
 
 | Namelist Option | Namelist Description and Units                                                     |
 | --------------- | ---------------------------------------------------------------------------------- |
+|                 | **Input model format options**                                                     |
 | `infmt_opt`     | integer for choosing 1D text (= `1`)  or 2D NetCDF input file format (= `0`, default) |
+|                 | **Input model grid sizes**                                                         |
+| `nlat`          | number of latitude cells (must match # of LAT in `file_vars` above)                |
+| `nlon`          | number of longitude cells (must match # of LON in `file_vars` above)               |
+|                 | **Input model run times and interval**                                             |
 | `time_start`    | Start/initial time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs  |
 | `time_end`      | End time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs       |
 | `ntime`         | Number of time steps for simulation/observation inputs                             |
-| `time_intvl`    | Integer time interval for simulation/observation input time steps in seconds (default = 3600) |
-| `nlat`          | number of latitude cells (must match # of LAT in `file_vars` above)                |
-| `nlon`          | number of longitude cells (must match # of LON in `file_vars` above)               |
+| `time_intvl`    | Integer time interval for simulation/observation input time steps in seconds (e.g. 3600 for hourly time stpes and 24*3600 for daily time steps) |
+|                 | **Canopy model vertical layers**                                                   |
 | `modlays`       | number of model (below and above canopy) layers                                    |
 | `modres`        | above and below canopy model vertical resolution (m)                               |
+|                 | **Contiguous canopy model thresholds**                                             |
+| `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
+| `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
+| `fch_thresh`    | user-set real value of canopy height  threshold for contiguous canopy (m)          |
+|                 | **Canopy model vegetation/land use input dataset options**                         |
+| `lu_opt`        | integer for input model land use type (`0`: VIIRS 17 Cat (default) or `1`: MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.) |
+|                 | **Canopy crop and shrub/savanna/grass extension options**                          |
+| `ssg_opt`       | integer for using either input data  (= `0`, default) or user set shrub/savanna/grass (SSG) vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data only provides canopy heights for forests and not SSG.  Warning: use of ssg_opt=1 will overide typically higher resolution input data (e.g., GEDI) forest canopy heights where the lower resolution vegtype data indicates SSG  |
+| `ssg_set`       | user-set real value of constant SSG vegetation type heights (m) (only used if `ssg_opt=1`) |
+| `crop_opt`      | integer for using either input data  (= `0`, default) or user set crop vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data only provides canopy heights for forests and not crops.  Warning: use of crop_opt=1 will overide typically higher resolution input data (e.g., GEDI) forest canopy heights where the lower resolution vegtype data indicates crops  |
+| `crop_set`      | user-set real value of constant crop vegetation type heights (m) (only used if `crop_opt=1`) |
+|                 | **Canopy physics and wind-specific options**                                       |
 | `ifcanwind`     | logical canopy wind option (default: `.FALSE.`)                                    |
-| `ifcanwaf`      | logical canopy WAF option (default: `.FALSE.`) **\*\***                            |
-| `ifcaneddy`     | logical canopy eddy Kz option (default: `.FALSE.`)                                 |
-| `ifcanphot`     | logical canopy photolysis option (default: `.FALSE.`)                              |
-| `ifcanbio`      | logical canopy biogenic emissions option (default: `.FALSE.`)                      |
 | `href_opt`      | integer for using `href_set` in namelist (= `0`, default) or array from file (= `1`) |
 | `href_set`      | user-set real value of reference height above canopy associated with input wind speed (m) (only used if `href_opt=0`) **\*\*\*** |
 | `z0ghc`         | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
 | `rsl_opt`       | user-set option for either MOST or unified Roughness SubLayer (RSL) effects above and at canopy top (Uc).(= `0`, default: uses MOST and a constant lambdars factor only), (= `1`, under development: will use a more unified RSL approach from Bonan et al. (2018) and Abolafia-Rosenzweig et al., 2021)   |
 | `lambdars`      | Value representing influence of RSL effects (with `rsl_opt=0`) (Massman et al., 2017)          |
+| `pai_opt`       | integer (`0`: PAI fixed from Katul et al. 2004 veg types-->default; `1`: PAI Massman et al. 2017 Eq. 19 calc; `2`: PAI from model LAI+WAI; `3`: user-set PAI value) |
+| `pai_set`       | user-set real value of PAI (default: `4.0`; only used if `pai_opt=3`)              |
+| `z0_opt`        | integer (`0`: use model input or `1`: vegtype dependent z0 for first estimate)     |
+|                 | **Canopy fire/WAF-specific options**                                               |
+| `ifcanwaf`      | logical canopy WAF option (default: `.FALSE.`) **\*\***                            |
 | `dx_opt`        | `0`: Calculation of dx resolution/distance from lon; `1`: user-set dx grid resolution |
 | `dx_set`        | user-set real value of grid resolution (m) only if `dx_opt=1`                      |
 | `flameh_opt`    | `0`: Calculation of vegtype dependent flame height from FRP (i.e., fire intensity); Note: this uses the one of two FRP calculation methods based on `flameh_cal` below;  `1`: user-set flameh; `2`: FRP calculation where available (active fires), elsewhere user-set `flameh`; `3`: FlameH override, i.e., only uses fraction of canopy height (`flameh_set` must be <=1.0) as a surrogate for `flameh`; `4`: FRP calculation where available (active fires) and FlameH override elsewhere (same as option 3); `5`: FRP/intensity dependent (i.e., sub-canopy vs. crown fires) calculation where available (active fires) and FlameH override elsewhere (same as option 3). If option 5 is used and crowning is calculated, then the total flame height (i.e., top of canopy=FCH) is used instead of 1/2 flame height. |
 | `flameh_cal`    | `0`: Calculates the vegtype dependent flame height from FRP, based on Table 1 of Alexander and Cruz (2012) and assuming that flame height = flame length (overestimates flame height in high winds and/or slope conditions).  `1`: Calculates the vegtype dependent flame height from FRP based on Table 2 and Equation 14 of Alexander and Cruz (2012).  These relate flame height directly to crown scorch height, which is derived from FRP. This method assumes that the ambient temperature is in the experimental ranges from Table 3 of Alexander and Cruz (2012), and that the lethal temperature for burning foliage is 60.0 C.           |
 | `flameh_set`    | user-set real value of flame height (m) if `flameh_opt=1` or `2`, or `flameh` = fraction of canopy height (<=1.0), i.e., `flameh` override, if `flameh_opt=3`, `4`, or `5` |
 | `frp_fac`       | user-set real value of tuning factor applied to FRP in calculation of flame height (default: 1.0). Used only if `flameh_opt=0`, `2`, `4`, or `5`. |
-| `pai_opt`       | integer (`0`: PAI fixed from Katul et al. 2004 veg types-->default; `1`: PAI Massman et al. 2017 Eq. 19 calc; `2`: PAI from model LAI+WAI; `3`: user-set PAI value) |
-| `pai_set`       | user-set real value of PAI (default: `4.0`; only used if `pai_opt=3`)              |
-| `lu_opt`        | integer for input model land use type (`0`: VIIRS 17 Cat (default) or `1`: MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.) |
-| `z0_opt`        | integer (`0`: use model input or `1`: vegtype dependent z0 for first estimate)     |
+|                 | **Canopy eddy diffusivity-specific options**                                       |
+| `ifcaneddy`     | logical canopy eddy Kz option (default: `.FALSE.`)                                 |
+|                 | **Canopy radiation/photolysis-specific options**                                   |
+| `ifcanphot`     | logical canopy photolysis option (default: `.FALSE.`)                              |
+|                 | **Canopy biogenic emissions-specific options**                                     |
+| `ifcanbio`      | logical canopy biogenic emissions option (default: `.FALSE.`)                      |
 | `bio_cce`       | user-set real value of MEGAN biogenic emissions "canopy environment coefficient" used to tune emissions to model inputs/calculations (default: `0.21`, based on Silva et al. 2020) |
 | `biovert_opt`   | user set biogenic vertical summing option (`0`: no sum, full leaf-level biogenic emissions, units=kg/m3/s; `1`: MEGANv3-like summing of LAD weighted activity coefficients using the canopy-app plant distributions, caution-- units=kg m-2 s-1 and puts the total emissions in the topmost canopy-app model layer only; `2`: Same as in option 1, but instead uses Gaussian/normally weighted activity coefficients acoss all sub-canopy layers -- also units of kg m-2 s-1 in topmost model layer; `3`: Same as in option 1, but instead uses evenly weighted activity coefficients acoss all sub-canopy layers -- also units of kg m-2 s-1 in topmost model layer          |
-| `ssg_opt`       | integer for using either input data  (= `0`, default) or user set shrub/savanna/grass (SSG) vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data only provides canopy heights for forests and not SSG.  Warning: use of ssg_opt=1 will overide typically higher resolution input data (e.g., GEDI) forest canopy heights where the lower resolution vegtype data indicates SSG  |
-| `ssg_set`       | user-set real value of constant SSG vegetation type heights (m) (only used if `ssg_opt=1`) |
-| `crop_opt`      | integer for using either input data  (= `0`, default) or user set crop vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data only provides canopy heights for forests and not crops.  Warning: use of crop_opt=1 will overide typically higher resolution input data (e.g., GEDI) forest canopy heights where the lower resolution vegtype data indicates crops  |
-| `crop_set`      | user-set real value of constant crop vegetation type heights (m) (only used if `crop_opt=1`) |
 | `co2_opt`       | user-set options for applying a CO2 inhibition factor for biogenic isoprene-only emissions using either the [Possell & Hewitt (2011)](https://doi.org/10.1111/j.1365-2486.2010.02306.x) (= `0`, default) or [Wilkinson et al. (2009)](https://doi.org/10.1111/j.1365-2486.2008.01803.x) method (= `1`). Use of option = `1` (Possell & Hewitt 2011) is especially recommended for sub-ambient CO2 concentrations.  To turn off co2 inhibition factor set `co2_opt=2`  |
 | `co2_set`       | user-set real value of atmospheric co2 concentration (ppmv) (only used if `co2_opt=0` or `co2_opt=1`) |
 | `leafage_opt`   | user-set options for applying leaf-age response to biogenic VOC emissions based on [Guenther et al. 2006](https://doi.org/10.5194/acp-6-3181-2006) (default is off i.e., `leafage_opt=1`, the corresponding $\gamma$ is set to 1). If turned on (`leafage_opt=0`), leafage $\gamma$ is calculated and the lai_tstep option needs to be set to ensure correct interpolation in this leafage_opt calculation. |
 | `lai_tstep`     | user-defined options for the number of seconds in the interval at which LAI (Leaf Area Index) data is provided to the model. For instance, if LAI data is given on a daily basis, lai_tstep would be set to the number of seconds in a day (86,400 seconds). If LAI data is provided monthly, then lai_tstep would represent the total number of seconds in that month (e.g., 2,592,000 seconds for a 30-day month). This parameter helps in determining the frequency of LAI input and is crucial for interpolating LAI values to the model's hourly timesteps when the model's timestep (time_intvl) is smaller than the LAI input interval.  |
-| `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
-| `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
-| `fch_thresh`    | user-set real value of canopy height  threshold for contiguous canopy (m)          |
 
 **\*\*** If `modres` >> `flameh` then some error in WAF calculation will be incurred.  Suggestion is to use relative fine `modres` (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
 
