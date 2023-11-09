@@ -10,5 +10,5 @@
 #SBATCH --mem-per-cpu=12GB             # Request nGB RAM per core
 
 conda activate canopy-app
-python python/global_data_process.py 2020071512000,2020071612000,2020071712000
+python python/global_data_process.py 2022063012023,2022070112000,2022070112001
 srun canopy
