@@ -1,5 +1,5 @@
 
-SUBROUTINE canopy_calcs
+SUBROUTINE canopy_calcs(nn)
 
 !-------------------------------------------------------------------------------
 ! Name:     Contains main canopy calculations dependent on canopy conditions
@@ -26,8 +26,18 @@ SUBROUTINE canopy_calcs
 
     IMPLICIT NONE
 
+    INTEGER,     INTENT( IN )       :: nn         ! Input time step
+
     !Local variables
     integer i,j,k,loc
+    ! LAI variables for Leaf Age factor calculations
+    REAL(rk) :: pastlai       !Past LAI [cm2/cm2]
+    REAL(rk), save :: currentlai    ! Current LAI [cm2/cm2]  (saved from one timestep to the next)
+    REAL(rk) :: tsteplai  !Number of days between the past and current LAI
+    !REAL(rk) :: tabovecanopy  ! Above Canopy Temp (assigned = tmp2mref ), done in canopy_bioemi_mod.F90
+
+
+
 
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
@@ -235,6 +245,29 @@ SUBROUTINE canopy_calcs
                                 end if
                             end if
 
+!.......user option to calculate in-canopy leafage influence and assigning LAI as per timestep
+
+
+                            if (leafage_opt .eq. 0) then
+                                ! Initialize pastlai and currentlai based on current timestep
+                                if (nn .eq. 1) then
+                                    currentlai = lairef
+                                    pastlai = currentlai
+                                else
+                                    pastlai = currentlai
+                                    currentlai = lairef
+                                end if
+
+                                !!! Check if the lai_tstep is greater than time_intvl
+                                if (lai_tstep .ge. time_intvl) then
+                                    tsteplai = lai_tstep/86400.0_rk
+                                else
+                                    WRITE (*, *) "Error: Input LAI time step cannot be less than model time step...exiting!!!"
+                                    CALL EXIT(1)
+                                endif
+                            end if !leafage_opt = 0 end
+
+
 ! ... user option to calculate in-canopy biogenic emissions
                             if (ifcanbio) then
                                 if (cszref .ge. 0.0_rk .and. dswrfref .gt. 0.0_rk &
@@ -242,116 +275,135 @@ SUBROUTINE canopy_calcs
                                     !ISOP
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         1, emi_isop_3d(i,j,:))
                                     !MYRC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         2, emi_myrc_3d(i,j,:))
                                     !SABI
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         3, emi_sabi_3d(i,j,:))
                                     !LIMO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         4, emi_limo_3d(i,j,:))
                                     !CARE
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         5, emi_care_3d(i,j,:))
                                     !OCIM
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         6, emi_ocim_3d(i,j,:))
                                     !BPIN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         7, emi_bpin_3d(i,j,:))
                                     !APIN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         8, emi_apin_3d(i,j,:))
                                     !MONO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         9, emi_mono_3d(i,j,:))
                                     !FARN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         10, emi_farn_3d(i,j,:))
                                     !CARY
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         11, emi_cary_3d(i,j,:))
                                     !SESQ
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         12, emi_sesq_3d(i,j,:))
                                     !MBOL
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         13, emi_mbol_3d(i,j,:))
                                     !METH
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         14, emi_meth_3d(i,j,:))
                                     !ACET
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         15, emi_acet_3d(i,j,:))
                                     !CO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         16, emi_co_3d(i,j,:))
                                     !BIDI VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         17, emi_bvoc_3d(i,j,:))
                                     !Stress VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         18, emi_svoc_3d(i,j,:))
                                     !Other VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
                                         lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                        tleaf_ave, &
+                                        tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        leafage_opt, pastlai, currentlai, tsteplai,  &
                                         19, emi_ovoc_3d(i,j,:))
                                 end if
                             end if
@@ -555,116 +607,135 @@ SUBROUTINE canopy_calcs
                                 !ISOP
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     1, emi_isop(loc,:))
                                 !MYRC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     2, emi_myrc(loc,:))
                                 !SABI
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     3, emi_sabi(loc,:))
                                 !LIMO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     4, emi_limo(loc,:))
                                 !CARE
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     5, emi_care(loc,:))
                                 !OCIM
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     6, emi_ocim(loc,:))
                                 !BPIN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     7, emi_bpin(loc,:))
                                 !APIN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     8, emi_apin(loc,:))
                                 !MONO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     9, emi_mono(loc,:))
                                 !FARN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     10, emi_farn(loc,:))
                                 !CARY
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     11, emi_cary(loc,:))
                                 !SESQ
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     12, emi_sesq(loc,:))
                                 !MBOL
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     13, emi_mbol(loc,:))
                                 !METH
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     14, emi_meth(loc,:))
                                 !ACET
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     15, emi_acet(loc,:))
                                 !CO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     16, emi_co(loc,:))
                                 !BIDI VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     17, emi_bvoc(loc,:))
                                 !Stress VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     18, emi_svoc(loc,:))
                                 !Other VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
                                     lairef, fsun, ppfd_sun, ppfd_shade, tleaf_sun, tleaf_shade, &
-                                    tleaf_ave, &
+                                    tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                    leafage_opt, pastlai, currentlai, tsteplai,  &
                                     19, emi_ovoc(loc,:))
                             end if
                         end if
