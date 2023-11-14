@@ -148,7 +148,7 @@ SUBROUTINE canopy_calcs(nn)
 !                                    if (i .eq. 25 .and. j .eq. 25) then
 !                                        print*,'prescribed shape function =', fafraczInt
 !                                        print*,'zhc = ', zhc
-!                                    end if
+!                                    end if !test debug
                             else
 ! ... derive canopy/foliage distribution shape profile from interpolated GEDI PAVD profile - bottom up total in-canopy and fraction at z
 !                                           if (i .eq. 25 .and. j .eq. 25) then  !test debug
@@ -161,6 +161,11 @@ SUBROUTINE canopy_calcs(nn)
                                         variables_3d(i,j,:)%pavd, variables_1d%lev, fafraczInt)
 !                                           print*, 'fafraczInt(pavd) = ', fafraczInt
 !                                           print*,'zhc = ', zhc
+                                    !check if there is observed canopy height but no PAVD profile
+                                    if (hcmref .gt. 0.0 .and. maxval(fafraczInt) .le. 0.0) then !revert to prescribed shape profile
+                                        call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
+                                            fafraczInt)
+                                    end if
                                 else !revert back to using prescribed shape profile
                                     call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
                                         fafraczInt)
@@ -197,6 +202,12 @@ SUBROUTINE canopy_calcs(nn)
                                         call canopy_wind_most(hcmref, zk(k), fafraczInt(k), ubzref, &
                                             z0ghc, cdrag, pai, hgtref, d_h, zo_h, &
                                             lambdars, canBOT(k), canTOP(k), canWIND_3d(i,j,k))
+!                                    if (canWIND_3d(i,j,k) .gt. 10000000.) then  !test debug
+!                                      print*, 'zhc = ', hcmref, 'zk = ', zk(k)
+!                                      print*, 'lat = ',variables_2d(i,j)%lat
+!                                      print*, 'fafraczInt = ', fafraczInt(k), 'ws = ', canWIND_3d(i,j,k)
+!                                    end if !end test debug
+
                                     end do
                                 else
                                     write(*,*) 'wrong namelist option = ', rsl_opt, 'only option = 0 right now'

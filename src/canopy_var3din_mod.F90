@@ -51,7 +51,7 @@ contains
         PAVD_INTERP = 0.0_rk  !Initialize PAVD_INTERP = 0
         do lev=1, SIZE(PAVD_LEVS) - 1
             do i=2, SIZE(ZK)  !loop over only levels ABOVE ground
-                if (ZK(i) .le. FCH) then !constrain to less than the forest canopy height observed
+                if (ZK(i) .le. FCH) then !constrain to less than the forest canopy height observed (e.g., GEDI CH)
                     if (ZK(i) .le.  PAVD_LEVS(1)) then
                         PAVD_INTERP(i)   = PAVD_IN(1)
                     end if
@@ -69,7 +69,9 @@ contains
 !Convert the PAVD_INTERP to FAFRACZINT
         FAFRACZINT = PAVD_INTERP * 0.0_rk !Initialize FAFRACZINT = 0
         do i=2, SIZE(ZK)  !loop over only levels ABOVE ground
-            FAFRACZINT(i) = FAFRACZINT(i-1) + ((PAVD_INTERP(i)*MODRES)/PAI)
+            if (PAI .gt. 0.0_rk) then !check if PAI from GEDI PAVD > 0
+                FAFRACZINT(i) = FAFRACZINT(i-1) + ((PAVD_INTERP(i)*MODRES)/PAI)
+            end if
         end do
 
         !test debug prints...
