@@ -77,8 +77,12 @@ program canopy_app
 
 #ifdef NETCDF
         call canopy_check_input(file_vars(nn))
+        !TODO: if infmt_opt = 1 and i and j = 1 and var3d_opt=1 and pavd_opt=1 then ...
+        !call canopy_check_input(file_vars_3d(nn))...supporting 3D text file in canopy (e.g., PAVD)
 #else
         call canopy_read_txt(file_vars(nn))
+        !TODO: if infmt_opt = 1 and i and j = 1 and var3d_opt=1 and pavd_opt=1 then...
+        !call canopy_read_txt_3d(file_vars_3d(nn))...supporting 3D text file in canopy (e.g., PAVD)
 #endif
 
 !-------------------------------------------------------------------------------

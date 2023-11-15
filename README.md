@@ -198,10 +198,10 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `time_end`      | End time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs       |
 | `ntime`         | Number of time steps for simulation/observation inputs                             |
 | `time_intvl`    | Integer time interval for simulation/observation input time steps in seconds (e.g. 3600 for hourly time stpes and 24*3600 for daily time steps) |
-|                 | **Input model 3d variable/PAVD options (only used for 2D NetCDF)**                 |
-| `var3d_opt`     | integer for selecting to use 3D NetCDF variable inputs (= `0`, default, off) or (= `1`, on) with the number of levels defined by `var3d_set` below |
-| `var3d_set`     | integer for selecting number of 3D NetCDF input levels, only used when setting `var3d_set= `1`, default = 14  |
-| `pavd_opt`      | integer for choosing to use GEDI 3D input PAVD profiles instead of prescribed plant distribution functions (= `0`, default, off) or (= `1`, on);  Note: To use this option, must set `var3d_set= `1`, and the 3D pavd variable must be available in the input NetCDF file (i.e., `file_vars`) and `infmt_opt = `0` for NetCDF  |
+|                 | **Input model 3d variable/PAVD options (only NetCDF right now, `infmt_opt=0`**                 |
+| `var3d_opt`     | integer for selecting to use 3D variable (only NetCDF right now) inputs (= `0`, default, off) or (= `1`, on) with the number of levels defined by `var3d_set` below |
+| `var3d_set`     | integer for selecting number of 3D input levels (only NetCDF right now), only used when setting `var3d_set= `1`, default = 14  |
+| `pavd_opt`      | integer for choosing to use GEDI 3D input PAVD profiles instead of prescribed plant distribution functions (= `0`, default, off) or (= `1`, on);  Note: To use this option, must set `var3d_set= `1`, and the 3D pavd variable must be available in the input NetCDF file (i.e., `file_vars`) or in new auxilliary 3D PAVD text file (upcoming...only works for NetCDF now) |
 | `pavd_set`      | real value for +/- latitude threshold within to use observed GEDI 3D PAVD profiles instead of prescribed plant distribution functions.  Used only if `pavd_opt=1`.  Default  = 52.0 degrees latitude.   |
 |                 | **Canopy model vertical layers**                                                   |
 | `modlays`       | number of model (below and above canopy) layers                                    |

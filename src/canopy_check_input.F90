@@ -24,6 +24,8 @@ SUBROUTINE canopy_check_input(INFILE)
             call exit(2)
         else !read text file
             call canopy_read_txt(INFILE)
+            !TODO: if infmt_opt = 1 and i and j = 1 and var3d_opt=1 and pavd_opt=1 then...
+            !call canopy_read_txt_3d(INFILE)...supporting 3D text file in canopy (e.g., PAVD)
         end if
     else if (trim(INFILE(ppos:)).eq.".nc") then !NetCDF File
         call canopy_read_ncf(INFILE)

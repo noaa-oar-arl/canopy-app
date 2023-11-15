@@ -42,7 +42,7 @@ SUBROUTINE canopy_calcs(nn)
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
 
-    if (infmt_opt .eq. 0) then !Input format is 2D then output is then 2D
+    if (infmt_opt .eq. 0) then !Main input format is 2D NetCDF and output will be 2D NetCDf
 
         if (ifcanwind .or. ifcanwaf) then !only calculate if canopy wind or WAF option
             call canopy_calcdx_2d(dx_opt, dx_set, nlat, nlon, variables_2d%lat, &
@@ -428,7 +428,7 @@ SUBROUTINE canopy_calcs(nn)
 
 !----------------------------------------------------------->
 
-    else if (infmt_opt .eq. 1) then !Input format is 1D and output must be 1D
+    else if (infmt_opt .eq. 1) then !Main input format is 1D/2D text and output will be 1D/2D text
 
         if (ifcanwind .or. ifcanwaf) then !only calculate if canopy wind or WAF option
             call canopy_calcdx(dx_opt, dx_set, nlat, nlon, variables%lat, &
@@ -759,6 +759,6 @@ SUBROUTINE canopy_calcs(nn)
         write(*,*)  'Wrong INFMT_OPT choice of ', infmt_opt, ' in namelist...exiting'
         call exit(2)
 
-    end if !Input Format (1D or 2D)
+    end if !Input Format (1D or 2D text or NetCDF)
 
 END SUBROUTINE canopy_calcs
