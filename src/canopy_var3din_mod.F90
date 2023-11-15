@@ -75,16 +75,16 @@ contains
         end do
 
         !test debug prints...
-        print*, 'FCH = ', FCH
-        print*, 'pavd_orig = ', PAVD_IN
-        print*, 'pavd_levs = ', PAVD_LEVS
-        print*,'PAVD After Interpolation (canopy-app)-----'
-        print*,PAVD_INTERP
-        print*,'------------------------'
-        print*,'canopy-app levels-----'
-        print*,ZK
-        print*,'------------------------'
-        print*, 'PAI (Integrated PAVD) = ', PAI
+!        print*, 'FCH = ', FCH
+!        print*, 'pavd_orig = ', PAVD_IN
+!        print*, 'pavd_levs = ', PAVD_LEVS
+!        print*,'PAVD After Interpolation (canopy-app)-----'
+!        print*,PAVD_INTERP
+!        print*,'------------------------'
+!        print*,'canopy-app levels-----'
+!        print*,ZK
+!        print*,'------------------------'
+!        print*, 'PAI (Integrated PAVD) = ', PAI
 
     END SUBROUTINE CANOPY_PAVD2FAFRAC
 
