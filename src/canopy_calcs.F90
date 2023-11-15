@@ -575,6 +575,26 @@ SUBROUTINE canopy_calcs(nn)
                             end if
                         end if
 
+!.......user option to calculate in-canopy leafage influence and assigning LAI as per timestep
+                        if (leafage_opt .eq. 0) then
+                            ! Initialize pastlai and currentlai based on current timestep
+                            if (nn .eq. 1) then
+                                currentlai = lairef
+                                pastlai = currentlai
+                            else
+                                pastlai = currentlai
+                                currentlai = lairef
+                            end if
+
+                            !!! Check if the lai_tstep is greater than time_intvl
+                            if (lai_tstep .ge. time_intvl) then
+                                tsteplai = lai_tstep/86400.0_rk
+                            else
+                                WRITE (*, *) "Error: Input LAI time step cannot be less than model time step...exiting!!!"
+                                CALL EXIT(1)
+                            endif
+                        end if !leafage_opt = 0 end
+
 ! ... user option to calculate in-canopy biogenic emissions
                         if (ifcanbio) then
                             if (cszref .ge. 0.0_rk .and. dswrfref .gt. 0.0_rk &
