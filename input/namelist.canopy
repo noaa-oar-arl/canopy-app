@@ -22,7 +22,7 @@
   time_end    = '2022-07-01-13:00:00.0000'
   ntime       =  3
   time_intvl  =  3600
-!Input model 3d variable/PAVD options
+!Input model 3d variable and option to use PAVD profiles (only for 2D NetCDF inputs, i.e., infmt_opt=0)
   var3d_opt   =  0
   var3d_set   =  14
   pavd_opt    =  0
