@@ -1,10 +1,11 @@
 
-SUBROUTINE canopy_check_input(INFILE)
+SUBROUTINE canopy_check_input(INFILE,INFILE2)
 
 !-------------------------------------------------------------------------------
 ! Name:     Check Canopy Inputs (TXT or NETCDF)
 ! Purpose:  Check Canopy Inputs (TXT or NETCDF)
 ! Revised:  21 Dec 2022  Original version.  (P.C. Campbell)
+! Revised:  30 Nov 2023  Added supplementary canopy profile, INFILE2.  (P.C. Campbell)
 !-------------------------------------------------------------------------------
     use canopy_canopts_mod !main canopy option descriptions
     use canopy_ncf_io_mod, only: canopy_read_ncf
@@ -14,7 +15,7 @@ SUBROUTINE canopy_check_input(INFILE)
 
     !Local variables
     integer ppos
-    CHARACTER(LEN=*), INTENT( IN )  :: INFILE
+    CHARACTER(LEN=*), INTENT( IN )  :: INFILE,INFILE2
 
     ppos = scan(trim(INFILE),".", BACK= .true.)
     if (trim(INFILE(ppos:)).eq.".txt") then !TXT File
@@ -23,9 +24,7 @@ SUBROUTINE canopy_check_input(INFILE)
             write(*,*)  'Reading .txt file, change to INFMT_OPT = 1 '
             call exit(2)
         else !read text file
-            call canopy_read_txt(INFILE)
-            !TODO: if infmt_opt = 1 and i and j = 1 and var3d_opt=1 and pavd_opt=1 then...
-            !call canopy_read_txt_3d(INFILE)...supporting 3D text file in canopy (e.g., PAVD)
+            call canopy_read_txt(INFILE,INFILE2)
         end if
     else if (trim(INFILE(ppos:)).eq.".nc") then !NetCDF File
         call canopy_read_ncf(INFILE)

@@ -18,7 +18,7 @@ SUBROUTINE canopy_readnml
     INTEGER                            :: n,i
     CHARACTER(LEN=*),      PARAMETER   :: pname = 'CANOPY_READNML'
 
-    NAMELIST /filenames/ file_vars, file_out
+    NAMELIST /filenames/ file_vars, file_canvars, file_out
 
     NAMELIST /userdefs/  infmt_opt, time_start, time_end, time_intvl, ntime, &
         nlat, nlon, modlays, modres, href_opt, href_set, z0ghc, lambdars, &
@@ -65,8 +65,9 @@ SUBROUTINE canopy_readnml
 ! Initialize canopy file names.
 !-------------------------------------------------------------------------------
 
-    file_vars(:) = " "
-    file_out(:)  = " "
+    file_vars(:)    = " "
+    file_canvars(:) = " "
+    file_out(:)     = " "
 
 !-------------------------------------------------------------------------------
 
@@ -312,6 +313,10 @@ SUBROUTINE canopy_readnml
 
     DO n = 1, SIZE(file_vars)
         file_vars(n)= TRIM( ADJUSTL( file_vars(n) ) )
+    ENDDO
+
+    DO n = 1, SIZE(file_canvars)
+        file_canvars(n)= TRIM( ADJUSTL( file_canvars(n) ) )
     ENDDO
 
     DO n = 1, SIZE(file_out)

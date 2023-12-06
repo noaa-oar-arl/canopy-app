@@ -6,10 +6,12 @@ program canopy_app
 !    Prototype: Patrick C. Campbell, 06/2022
 !    Revised  : PCC (10/2022)
 !    21 Aug 2023 Adding multiple timesteps (P.C. Campbell)
+!    Revised:  30 Nov 2023  Added supplementary canopy profile, file_canvars.  (P.C. Campbell)
 !-------------------------------------------------------------
-    use canopy_date_mod   ! main canopy date module
-    use canopy_files_mod  ! main canopy input files
-    use canopy_coord_mod  ! main canopy coordinates
+    use canopy_date_mod    ! main canopy date module
+    use canopy_files_mod   ! main canopy input files
+    use canopy_coord_mod   ! main canopy coordinates
+
 #ifdef NETCDF
     use canopy_ncf_io_mod
 #endif
@@ -72,17 +74,13 @@ program canopy_app
 
         WRITE (*,f100) time_now
 !-------------------------------------------------------------------------------
-! Read met/sfc gridded model input file (currently 1D TXT or 1D/2D NETCDF).
+! Read met/sfc gridded model input file (currently point TXT or 2D NETCDF/TXT).
 !-------------------------------------------------------------------------------
 
 #ifdef NETCDF
-        call canopy_check_input(file_vars(nn))
-        !TODO: if infmt_opt = 1 and i and j = 1 and var3d_opt=1 and pavd_opt=1 then ...
-        !call canopy_check_input(file_vars_3d(nn))...supporting 3D text file in canopy (e.g., PAVD)
+        call canopy_check_input(file_vars(nn),file_canvars(nn))
 #else
-        call canopy_read_txt(file_vars(nn))
-        !TODO: if infmt_opt = 1 and i and j = 1 and var3d_opt=1 and pavd_opt=1 then...
-        !call canopy_read_txt_3d(file_vars_3d(nn))...supporting 3D text file in canopy (e.g., PAVD)
+        call canopy_read_txt(file_vars(nn),file_canvars(nn))
 #endif
 
 !-------------------------------------------------------------------------------

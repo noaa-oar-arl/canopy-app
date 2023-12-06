@@ -155,6 +155,7 @@ The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variab
 | `lai`                            | Leaf area index (m2/m2)                     | VIIRS-NPP. Data Period=2020. Data frequency=Daily, interpolated from original 8-day product. ([Myneni 2018](https://doi.org/10.5067/VIIRS/VNP15A2H.001)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
 | `ffrac`                          | Forest fraction (dimensionless)             | Based on [VIIRS GVF-NPP](https://www.star.nesdis.noaa.gov/jpss/gvf.php) and GriddingMachine/MODIS FFRAC/FVC from Terra.  Data Period=2020. Data frequency=Annual. ([DiMiceli et al., 2022](https://doi.org/10.5067/MODIS/MOD44B.061)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
 | `pavd`                           | Plant area volume density (m2/m3)           | [GEDI product from North Arizona University](https://goetzlab.rc.nau.edu/index.php/gedi/). Data Period=201904-202212 Climatology. Data frequency=Annual. Three dimensional structure of plant area volume density with 14 vertical layers from the surface (0 m) to 70 m above ground level. Data at each layer represents the average pavd within certain height range (e.g. 0 - 5 m for first layer). |
+| `lev`                            | Height AGL for levels associated with optional pavd (or other canopy profile) inputs (m)                                  | Same as for GEDI PAVD (or other canopy profile inputs) above                                    |
 | **Other External Variables**     | **Variable Description and Units**          | **Data Source/Reference (if necessary)**           |
 | `frp`                            | Total Fire Radiative Power (MW/grid cell area) | [NOAA/NESDIS GBBEPx](https://www.ospo.noaa.gov/Products/land/gbbepx/) |
 | `csz`                            | Cosine of the solar zenith angle (dimensionless) | [Based on Python Pysolar](https://pysolar.readthedocs.io/en/latest/) |
@@ -198,9 +199,12 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `time_end`      | End time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs       |
 | `ntime`         | Number of time steps for simulation/observation inputs                             |
 | `time_intvl`    | Integer time interval for simulation/observation input time steps in seconds (e.g. 3600 for hourly time stpes and 24*3600 for daily time steps) |
-|                 | **Input model 3d variable/PAVD options (only NetCDF right now, `infmt_opt=0`**                 |
-| `var3d_opt`     | integer for selecting to use 3D variable (only NetCDF right now) inputs (= `0`, default, off) or (= `1`, on) with the number of levels defined by `var3d_set` below |
-| `var3d_set`     | integer for selecting number of 3D input levels (only NetCDF right now), only used when setting `var3d_set= `1`, default = 14  |
+|                 | **Canopy model vegetation/land use input dataset options**                         |
+| `lu_opt`        | integer for input model land use type (`0`: VIIRS 17 Cat (default) or `1`: MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.) |
+|                 | **Input model 3d NetCDF variable options                 |
+| `var3d_opt`     | integer for selecting to use 3D variable in NetCDF file (e.g., 'PAVD') or to read supplementary canopy text file inputs (`file_canvars`).  (= `0`, default, off) or (= `1`, on). `file_canvars` read only when `infmt_opt` = 1 and `var3d_opt` = 1.  This is used with the number of levels defined by `var3d_set` below |
+| `var3d_set`     | integer for selecting number of 3D input levels, only used when setting `var3d_opt= `1`, default = 14 (Note:  For input text file the max current levels can only be 14, please input according to example data)  |
+|                 | **Options to use observed PAVD profiles and latitude threshold                 |
 | `pavd_opt`      | integer for choosing to use GEDI 3D input PAVD profiles instead of prescribed plant distribution functions (= `0`, default, off) or (= `1`, on);  Note: To use this option, must set `var3d_set= `1`, and the 3D pavd variable must be available in the input NetCDF file (i.e., `file_vars`) or in new auxilliary 3D PAVD text file (upcoming...only works for NetCDF now) |
 | `pavd_set`      | real value for +/- latitude threshold within to use observed GEDI 3D PAVD profiles instead of prescribed plant distribution functions.  Used only if `pavd_opt=1`.  Default  = 52.0 degrees latitude.   |
 |                 | **Canopy model vertical layers**                                                   |
@@ -210,8 +214,6 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
 | `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
 | `fch_thresh`    | user-set real value of canopy height  threshold for contiguous canopy (m)          |
-|                 | **Canopy model vegetation/land use input dataset options**                         |
-| `lu_opt`        | integer for input model land use type (`0`: VIIRS 17 Cat (default) or `1`: MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.) |
 |                 | **Canopy crop and shrub/savanna/grass extension options**                          |
 | `ssg_opt`       | integer for using either input data  (= `0`, default) or user set shrub/savanna/grass (SSG) vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data only provides canopy heights for forests and not SSG.  Warning: use of ssg_opt=1 will overide typically higher resolution input data (e.g., GEDI) forest canopy heights where the lower resolution vegtype data indicates SSG  |
 | `ssg_set`       | user-set real value of constant SSG vegetation type heights (m) (only used if `ssg_opt=1`) |
