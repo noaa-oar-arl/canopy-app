@@ -145,23 +145,12 @@ SUBROUTINE canopy_calcs(nn)
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
                                 call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
                                     fafraczInt)
-!                                if (i .eq. 26 .and. j .eq. 26) then
-!                                    print*,'prescribed shape function =', fafraczInt
-!                                    print*,'zhc = ', zhc
-!                                end if !test debug
                             else
 ! ... derive canopy/foliage distribution shape profile from interpolated GEDI PAVD profile - bottom up total in-canopy and fraction at z
-!                                if (i .eq. 26 .and. j .eq. 26) then  !test debug
-!                                    print*, 'Lat = ', variables_2d(i,j)%lat
-!                                    print*, 'Lon = ', variables_2d(i,j)%lon
-!                                    print*, 'VIIRS PAI = ', lairef+0.5
                                 if (variables_2d(i,j)%lat .gt. (-1.0_rk*pavd_set) .and. &
                                     variables_2d(i,j)%lat .lt. pavd_set) then !use GEDI PAVD
-                                    call canopy_pavd2fafrac(modres, hcmref, zhc, &
+                                    call canopy_pavd2fafrac(sigmau, sigma1, hcmref, zhc, &
                                         variables_3d(i,j,:)%pavd, variables_1d%lev, fafraczInt)
-!                                        print*, 'i = ', i, 'j = ', j
-!                                        print*, 'fafraczInt(pavd) = ', fafraczInt
-!                                        print*,'zhc = ', zhc
                                     !check if there is observed canopy height but no PAVD profile
                                     if (hcmref .gt. 0.0 .and. maxval(fafraczInt) .le. 0.0) then !revert to prescribed shape profile
                                         call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
@@ -171,7 +160,6 @@ SUBROUTINE canopy_calcs(nn)
                                     call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
                                         fafraczInt)
                                 end if
-!                                end if !test debug
                             end if
 
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
@@ -567,7 +555,7 @@ SUBROUTINE canopy_calcs(nn)
 ! ... derive canopy/foliage distribution shape profile from interpolated GEDI PAVD profile - bottom up total in-canopy and fraction at z
                             if (variables(loc)%lat .gt. (-1.0_rk*pavd_set) .and. &
                                 variables(loc)%lat .lt. pavd_set) then !use GEDI PAVD
-                                call canopy_pavd2fafrac(modres, hcmref, zhc, &
+                                call canopy_pavd2fafrac(sigmau, sigma1, hcmref, zhc, &
                                     pavd_arr, lev_arr, fafraczInt)
                                 !check if there is observed canopy height but no PAVD profile
                                 if (hcmref .gt. 0.0 .and. maxval(fafraczInt) .le. 0.0) then !revert to prescribed shape profile

@@ -207,6 +207,7 @@ contains
                 fainc(i) = exp((-1.0*((ZCANMAX-ZHC(i))**2.0))/SIGMA1**2.0)
             end if
         end do
+
         fatot = IntegrateTrapezoid(ZHC,fainc)
 
 ! ... calculate plant distribution function
