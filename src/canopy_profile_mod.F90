@@ -49,11 +49,11 @@ contains
 
             !approx/average vegtype mapping to Massman et al. forest types
             if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS/MODIS Cat 1-2/Evergreen Needleleaf & Broadleaf
-                !--> Use average Massman Aspen+Spruce+ScotsPine+JackPine+LoblollyPine Forest
+                !--> Use average Massman Spruce+ScotsPine+JackPine+LoblollyPine Forest
                 FIRETYPE=0
-                CDRAG=(0.20_rk + 0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk)/5.0_rk
+                CDRAG=(0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk)/4.0_rk
                 if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
-                    PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/5.0_rk
+                    PAI=(3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/4.0_rk
                 else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
                 else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
@@ -66,17 +66,17 @@ contains
                     write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
-                ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk)/5.0_rk
-                SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk)/5.0_rk
-                SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk)/5.0_rk
+                ZCANMAX=(0.60_rk + 0.60_rk + 0.58_rk + 0.60_rk)/4.0_rk
+                SIGMAU=(0.38_rk  + 0.30_rk + 0.20_rk + 0.10_rk)/4.0_rk
+                SIGMA1=(0.16_rk  + 0.10_rk + 0.20_rk + 0.27_rk)/4.0_rk
             end if
 
             if (VTYPE .ge. 3 .and. VTYPE .le. 4) then !VIIRS/MODIS Cat 3-4 Deciduous Needleleaf and  Broadleaf
-                !--> Use Massman Hardwood Forest
+                !--> Use Massman Hardwood Forest + Aspen
                 FIRETYPE=0
-                CDRAG=0.15_rk
+                CDRAG=(0.15_rk + 0.20_rk)/2.0_rk
                 if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
-                    PAI=4.93_rk
+                    PAI=(4.93_rk + 3.28)/2.0_rk
                 else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
                 else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
@@ -89,9 +89,9 @@ contains
                     write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
-                ZCANMAX=0.84_rk
-                SIGMAU=0.13_rk
-                SIGMA1=0.30_rk
+                ZCANMAX=(0.84_rk + 0.36_rk)/2.0_rk
+                SIGMAU=(0.13_rk + 0.60_rk)/2.0_rk
+                SIGMA1=(0.30_rk + 0.20_rk)/2.0_rk
             end if
 
             if (VTYPE .eq. 5) then !VIIRS/MODIS Cat 5 Mixed Forests
