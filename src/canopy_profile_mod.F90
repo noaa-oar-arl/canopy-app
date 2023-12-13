@@ -56,10 +56,10 @@ contains
                     PAI=(3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/4.0_rk
                 else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
-                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
-                    ! https://doi.org/10.1016/j.agrformet.2017.09.004
-                    ! Section 3.3
+                else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
+                    !and is vegetation type dependent from Fang et al. (2019),
+                    !https://doi.org/10.1029/2018RG000608:
+                    PAI=LAI/(1.0_rk - 0.2_rk) !Assume evergreen are more boreal/conifer softwoods
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
@@ -79,10 +79,10 @@ contains
                     PAI=(4.93_rk + 3.28)/2.0_rk
                 else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
-                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
-                    !https://doi.org/10.1016/j.agrformet.2017.09.004
-                    ! Section 3.3
+                else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
+                    !and is vegetation type dependent from Fang et al. (2019),
+                    !https://doi.org/10.1029/2018RG000608:
+                    PAI=LAI/(1.0_rk - 0.1_rk) !assume deciduous have more tropical hardwoods
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
@@ -102,10 +102,10 @@ contains
                     PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk + 4.93_rk)/6.0_rk
                 else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
-                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
-                    ! https://doi.org/10.1016/j.agrformet.2017.09.004
-                    ! Section 3.3
+                else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
+                    !and is vegetation type dependent from Fang et al. (2019),
+                    !https://doi.org/10.1029/2018RG000608:
+                    PAI=LAI/(1.0_rk - 0.15_rk)!assume avg. of evergreen and deciduous
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
@@ -125,10 +125,10 @@ contains
                     PAI=(2.94_rk + 3.10_rk)/2.0_rk
                 else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
-                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
-                    !https://doi.org/10.1016/j.agrformet.2017.09.004
-                    ! Section 3.3
+                else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
+                    !and is vegetation type dependent from Fang et al. (2019),
+                    !https://doi.org/10.1029/2018RG000608:
+                    PAI=LAI/(1.0_rk - 0.32_rk)!assume avg. of shrubs + savanna
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else

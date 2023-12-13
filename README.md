@@ -226,7 +226,7 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `z0ghc`         | ratio of ground roughness length to canopy top height (Massman et al., 2017)       |
 | `rsl_opt`       | user-set option for either MOST or unified Roughness SubLayer (RSL) effects above and at canopy top (Uc).(= `0`, default: uses MOST and a constant lambdars factor only), (= `1`, under development: will use a more unified RSL approach from Bonan et al. (2018) and Abolafia-Rosenzweig et al., 2021)   |
 | `lambdars`      | Value representing influence of RSL effects (with `rsl_opt=0`) (Massman et al., 2017)          |
-| `pai_opt`       | integer (`0`: PAI fixed from Katul et al. 2004 veg types-->default; `1`: PAI Massman et al. 2017 Eq. 19 calc; `2`: PAI from model LAI+WAI; `3`: user-set PAI value) |
+| `pai_opt`       | integer (`0`: PAI fixed from Katul et al. 2004 veg types-->default; `1`: PAI Massman et al. 2017 Eq. 19 calc; `2`: PAI from model LAI (based on PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio" and is vegetation type dependent from Fang et al. (2019), https://doi.org/10.1029/2018RG000608; `3`: user-set PAI value) |
 | `pai_set`       | user-set real value of PAI (default: `4.0`; only used if `pai_opt=3`)              |
 | `z0_opt`        | integer (`0`: use model input or `1`: vegtype dependent z0 for first estimate)     |
 |                 | **Canopy fire/WAF-specific options**                                               |
