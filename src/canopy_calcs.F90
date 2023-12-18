@@ -135,7 +135,7 @@ SUBROUTINE canopy_calcs(nn)
 
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
 
-                            call canopy_parm(vtyperef, hcmref, ffracref, lairef, &
+                            call canopy_parm(cluref, vtyperef, hcmref, ffracref, lairef, &
                                 pai_opt, pai_set, lu_opt, firetype, cdrag, &
                                 pai, zcanmax, sigmau, sigma1)
 
@@ -536,7 +536,7 @@ SUBROUTINE canopy_calcs(nn)
 
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
 
-                        call canopy_parm(vtyperef, hcmref, ffracref, lairef, &
+                        call canopy_parm(cluref, vtyperef, hcmref, ffracref, lairef, &
                             pai_opt, pai_set, lu_opt, firetype, cdrag, &
                             pai, zcanmax, sigmau, sigma1)
 
