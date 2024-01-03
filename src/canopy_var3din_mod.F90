@@ -5,8 +5,8 @@ module canopy_var3din_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_PAVD2FAFRAC ( SIGMAU, SIGMA1, FCH, ZHC, &
-        PAVD_IN, PAVD_LEVS, FAFRACZINT )
+    SUBROUTINE CANOPY_PAVD2FAFRAC ( ZCANMAX_IN, SIGMAU, SIGMA1, FCH, &
+        ZHC, PAVD_IN, PAVD_LEVS, FAFRACZINT )
 
 
 !-----------------------------------------------------------------------
@@ -31,6 +31,7 @@ contains
 ! Arguments:
 !     IN/OUT
         REAL(RK),    INTENT( IN )  :: FCH                   ! Grid cell canopy height (m)  !From GEDI
+        REAL(RK),    INTENT( IN )  :: ZCANMAX_IN            ! Input height of maximum foliage area density (z/h) (nondimensional)
         REAL(RK),    INTENT( IN )  :: SIGMAU                ! Standard deviation of shape function above zcanmax (z/h)
         REAL(RK),    INTENT( IN )  :: SIGMA1                ! Standard deviation of shape function below zcanmax (z/h)
         REAL(RK),    INTENT( IN )  :: ZHC(:)                ! z/h (dimensionless)
@@ -71,6 +72,9 @@ contains
         do i=2, SIZE(ZK)
             if (PAVD_INTERP(i) .ge. maxval(PAVD_INTERP) ) then
                 ZCANMAX = ZK(i)/FCH
+                if(ZCANMAX .gt. 1.0_rk) then !if ZK (at max GEDI PAVD height) > GEDI FCH (inconsistent!)
+                    ZCANMAX = ZCANMAX_IN       !override with Massman Input ZCANMAX
+                end if
                 exit
             end if
         end do
@@ -86,6 +90,7 @@ contains
 
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
         do i=1, SIZE(ZK)
+!            print*, 'ZK=',ZK(i), 'ZHC=',ZHC(i),'ZCANMAX=',ZCANMAX
             if (ZHC(i) >= ZCANMAX .and. ZHC(i) <= 1.0) then
                 fainc(i) = exp((-1.0*((ZHC(i)-ZCANMAX)**2.0))/SIGMAU**2.0)
             else if (ZHC(i) >= 0.0 .and. ZHC(i) <= ZCANMAX) then

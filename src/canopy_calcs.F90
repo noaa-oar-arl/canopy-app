@@ -140,7 +140,6 @@ SUBROUTINE canopy_calcs(nn)
                                 pai, zcanmax, sigmau, sigma1)
 
 ! ... Choose between prescribed canopy/foliate shape profile or observed GEDI PAVD profile
-
                             if (pavd_opt .eq. 0) then
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
                                 call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
@@ -149,7 +148,7 @@ SUBROUTINE canopy_calcs(nn)
 ! ... derive canopy/foliage distribution shape profile from interpolated GEDI PAVD profile - bottom up total in-canopy and fraction at z
                                 if (variables_2d(i,j)%lat .gt. (-1.0_rk*pavd_set) .and. &
                                     variables_2d(i,j)%lat .lt. pavd_set) then !use GEDI PAVD
-                                    call canopy_pavd2fafrac(sigmau, sigma1, hcmref, zhc, &
+                                    call canopy_pavd2fafrac(zcanmax, sigmau, sigma1, hcmref, zhc, &
                                         variables_3d(i,j,:)%pavd, variables_1d%lev, fafraczInt)
                                     !check if there is observed canopy height but no PAVD profile
                                     if (hcmref .gt. 0.0 .and. maxval(fafraczInt) .le. 0.0) then !revert to prescribed shape profile
@@ -555,7 +554,7 @@ SUBROUTINE canopy_calcs(nn)
 ! ... derive canopy/foliage distribution shape profile from interpolated GEDI PAVD profile - bottom up total in-canopy and fraction at z
                             if (variables(loc)%lat .gt. (-1.0_rk*pavd_set) .and. &
                                 variables(loc)%lat .lt. pavd_set) then !use GEDI PAVD
-                                call canopy_pavd2fafrac(sigmau, sigma1, hcmref, zhc, &
+                                call canopy_pavd2fafrac(zcanmax, sigmau, sigma1, hcmref, zhc, &
                                     pavd_arr, lev_arr, fafraczInt)
                                 !check if there is observed canopy height but no PAVD profile
                                 if (hcmref .gt. 0.0 .and. maxval(fafraczInt) .le. 0.0) then !revert to prescribed shape profile
