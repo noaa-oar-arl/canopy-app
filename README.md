@@ -16,7 +16,7 @@ Authors: Patrick Campbell, Zachary Moon, and Wei-Ting Hung
 
 ### Build
 
-Canopy-App requires NetCDF-Fortran Libraries (i.e., `-lnetcdf -lnetcdff`) when using the 2D NetCDF I/O Option (i.e., `infmt_opt=0`).
+Canopy-App requires NetCDF-Fortran Libraries (i.e., `-lnetcdf -lnetcdff`) when using the 1D/2D NetCDF I/O Option (i.e., `infmt_opt=0`).
 See [the included Makefile](./src/Makefile), which detects NetCDF using `nf-config`, for an example (on GMU Hopper, you can use the `netcdf-c/4.7.4-vh` and `netcdf-fortran/4.5.3-ff` modules).
 
 Compilation options can be controlled with environment variables:
@@ -118,7 +118,7 @@ Namelist Option : `file_out`  Prefix string (e.g., `'test'`) used to name output
 
 ## Inputs and Settings
 
-**Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy
+**Current Canopy-App Input:** Typical 1D or 2D (time=1,lat,lon) gridded atmospheric model input variables in 1st layer above canopy.  Some 3D inputs are supported (see `var3d_opt` in [Table 3](#table-3-current-user-namelist-options) and associated options).
 
 Namelist Option : `file_vars`  Full name of input file (Supports either text or NetCDF format with following formats: `.txt`, `.nc`, `.ncf`, or `.nc4`)
 
@@ -150,11 +150,12 @@ The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variab
 | `hpbl`                           | Height of the planetary boundary layer (m)  | UFS NOAA/GFSv16                                    |
 | `prate_ave`                      | Average mass precipitation rate (kg m-2 s-1) | UFS NOAA/GFSv16                                   |
 | **External Canopy Variables**    | **Variable Description and Units**          | **Data Source/Reference (if necessary)**           |
-| `fh`                             | Forest canopy height (m)                    | Fused GEDI/Landsat data. Data Period=2020. Data frequency=Annual. ([Potapov et al., 2020](https://doi.org/10.1016/j.rse.2020.112165)) |
+| `fh`                             | Canopy height (m)                    | Globally extended GEDI data. Data Period=2020. Data frequency=Annual. ([Lang et al., 2023](https://doi.org/10.1038/s41559-023-02206-6)) |
 | `clu`                            | Forest clumping index (dimensionless)       | GriddingMachine/MODIS. Data Period=2001-2017 Climatology. Data frequency=Monthly. ([Wei et al., 2019](https://doi.org/10.1016/j.rse.2019.111296)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
 | `lai`                            | Leaf area index (m2/m2)                     | VIIRS-NPP. Data Period=2020. Data frequency=Daily, interpolated from original 8-day product. ([Myneni 2018](https://doi.org/10.5067/VIIRS/VNP15A2H.001)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
 | `ffrac`                          | Forest fraction (dimensionless)             | Based on [VIIRS GVF-NPP](https://www.star.nesdis.noaa.gov/jpss/gvf.php) and GriddingMachine/MODIS FFRAC/FVC from Terra.  Data Period=2020. Data frequency=Annual. ([DiMiceli et al., 2022](https://doi.org/10.5067/MODIS/MOD44B.061)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
 | `pavd`                           | Plant area volume density (m2/m3)           | [GEDI product from North Arizona University](https://goetzlab.rc.nau.edu/index.php/gedi/). Data Period=201904-202212 Climatology. Data frequency=Annual. Three dimensional structure of plant area volume density with 14 vertical layers from the surface (0 m) to 70 m above ground level. Data at each layer represents the average pavd within certain height range (e.g. 0 - 5 m for first layer). |
+| `lev`                            | Height AGL for levels associated with optional pavd (or other canopy profile) inputs (m)                                  | Same as for GEDI PAVD (or other canopy profile inputs) above                                    |
 | **Other External Variables**     | **Variable Description and Units**          | **Data Source/Reference (if necessary)**           |
 | `frp`                            | Total Fire Radiative Power (MW/grid cell area) | [NOAA/NESDIS GBBEPx](https://www.ospo.noaa.gov/Products/land/gbbepx/) |
 | `csz`                            | Cosine of the solar zenith angle (dimensionless) | [Based on Python Pysolar](https://pysolar.readthedocs.io/en/latest/) |
@@ -178,7 +179,7 @@ Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day
 
 **Downloading Example Canopy Files from AWS:** Example monthly, global gridded files containing all GFSv16 met/land/soil data from 2022 combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:
 ```
-https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022MM01.sfcf000.nc
+https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022MMDD.sfcf000.nc
 ```
 
 You can also [generate global inputs using Python (see python/global_data_process.py)](./python/README.md).
@@ -189,7 +190,7 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | Namelist Option | Namelist Description and Units                                                     |
 | --------------- | ---------------------------------------------------------------------------------- |
 |                 | **Input model format options**                                                     |
-| `infmt_opt`     | integer for choosing 1D text (= `1`)  or 2D NetCDF input file format (= `0`, default) |
+| `infmt_opt`     | integer for choosing 1D or 2D text (= `1`)  or 2D NetCDF input file format (= `0`, default) |
 |                 | **Input model grid sizes**                                                         |
 | `nlat`          | number of latitude cells (must match # of LAT in `file_vars` above)                |
 | `nlon`          | number of longitude cells (must match # of LON in `file_vars` above)               |
@@ -198,6 +199,14 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `time_end`      | End time stamp in YYYY-MM-DD-HH:MM:SS.SSSS for simulation/observation inputs       |
 | `ntime`         | Number of time steps for simulation/observation inputs                             |
 | `time_intvl`    | Integer time interval for simulation/observation input time steps in seconds (e.g. 3600 for hourly time stpes and 24*3600 for daily time steps) |
+|                 | **Canopy model vegetation/land use input dataset options**                         |
+| `lu_opt`        | integer for input model land use type (`0`: VIIRS 17 Cat (default) or `1`: MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.) |
+|                 | **Input model 3d NetCDF variable options                 |
+| `var3d_opt`     | integer for selecting to use 3D variable in NetCDF file (e.g., 'PAVD') or to read supplementary canopy text file inputs (`file_canvars`).  (= `0`, default, off) or (= `1`, on). `file_canvars` read only when `infmt_opt` = 1 and `var3d_opt` = 1.  This is used with the number of levels defined by `var3d_set` below |
+| `var3d_set`     | integer for selecting number of 3D input levels, only used when setting `var3d_opt= `1`, default = 14 (Note:  For input text file the max current levels can only be 14, please input according to example data)  |
+|                 | **Options to use observed PAVD profiles and latitude threshold                 |
+| `pavd_opt`      | integer for choosing to use GEDI 3D input PAVD profiles instead of prescribed plant distribution functions (= `0`, default, off) or (= `1`, on);  Note: To use this option, must set `var3d_set= `1`, and the 3D pavd variable must be available in the input NetCDF file (i.e., `file_vars`) or in new auxilliary 3D PAVD text file  |
+| `pavd_set`      | real value for +/- latitude threshold within to use observed GEDI 3D PAVD profiles instead of prescribed plant distribution functions.  Used only if `pavd_opt=1`.  Default  = 52.0 degrees latitude.   |
 |                 | **Canopy model vertical layers**                                                   |
 | `modlays`       | number of model (below and above canopy) layers                                    |
 | `modres`        | above and below canopy model vertical resolution (m)                               |
@@ -205,8 +214,6 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
 | `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
 | `fch_thresh`    | user-set real value of canopy height  threshold for contiguous canopy (m)          |
-|                 | **Canopy model vegetation/land use input dataset options**                         |
-| `lu_opt`        | integer for input model land use type (`0`: VIIRS 17 Cat (default) or `1`: MODIS-IGBP 20 Cat (valid LU types 1-10 and 12); input mapped to Massman et al.) |
 |                 | **Canopy crop and shrub/savanna/grass extension options**                          |
 | `ssg_opt`       | integer for using either input data  (= `0`, default) or user set shrub/savanna/grass (SSG) vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data only provides canopy heights for forests and not SSG.  Warning: use of ssg_opt=1 will overide typically higher resolution input data (e.g., GEDI) forest canopy heights where the lower resolution vegtype data indicates SSG  |
 | `ssg_set`       | user-set real value of constant SSG vegetation type heights (m) (only used if `ssg_opt=1`) |

@@ -18,10 +18,11 @@ SUBROUTINE canopy_readnml
     INTEGER                            :: n,i
     CHARACTER(LEN=*),      PARAMETER   :: pname = 'CANOPY_READNML'
 
-    NAMELIST /filenames/ file_vars, file_out
+    NAMELIST /filenames/ file_vars, file_canvars, file_out
 
     NAMELIST /userdefs/  infmt_opt, time_start, time_end, time_intvl, ntime, &
         nlat, nlon, modlays, modres, href_opt, href_set, z0ghc, lambdars, &
+        var3d_opt, var3d_set, pavd_opt, pavd_set, &
         flameh_opt, flameh_cal, flameh_set, frp_fac, ifcanwind, &
         ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
         dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, &
@@ -64,8 +65,9 @@ SUBROUTINE canopy_readnml
 ! Initialize canopy file names.
 !-------------------------------------------------------------------------------
 
-    file_vars(:) = " "
-    file_out(:)  = " "
+    file_vars(:)    = " "
+    file_canvars(:) = " "
+    file_out(:)     = " "
 
 !-------------------------------------------------------------------------------
 
@@ -96,6 +98,26 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default real value for canopy vertical resolution (m) (Default = 0.5 m)
     modres = 0.5_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for using input 3D variables from file (default = 0)
+    var3d_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for number of input 3D levels in variables from file (Default = 14)
+    var3d_set = 14
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for using 3D GEDI PAVD inputs from file (default = 0)
+    pavd_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for latitude threshold when using 3D GEDI PAVD inputs from file (default = 52 degrees)
+    pavd_set = 52.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -291,6 +313,10 @@ SUBROUTINE canopy_readnml
 
     DO n = 1, SIZE(file_vars)
         file_vars(n)= TRIM( ADJUSTL( file_vars(n) ) )
+    ENDDO
+
+    DO n = 1, SIZE(file_canvars)
+        file_canvars(n)= TRIM( ADJUSTL( file_canvars(n) ) )
     ENDDO
 
     DO n = 1, SIZE(file_out)

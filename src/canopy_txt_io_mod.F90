@@ -22,7 +22,6 @@ CONTAINS
 
         !Local variables
         integer i0, loc
-
         ! ... read met/sfc input variables from text file
         open(8,  file=TXTFILE,  status='old')
         i0 = 0
@@ -33,6 +32,31 @@ CONTAINS
         close(8)
 
     END SUBROUTINE read_txt
+
+!-------------------------------------------------------------------------------
+!-------------------------------------------------------------------------------
+
+    SUBROUTINE read_can_txt(TXTFILE)
+
+        USE canopy_coord_mod
+        USE canopy_canmet_mod
+
+        IMPLICIT NONE
+
+        CHARACTER(LEN=*), INTENT( IN )  :: TXTFILE
+
+        !Local variables
+        integer i0, loc
+        ! ... read supplementary canopy variables from text file
+        open(9,  file=TXTFILE,  status='old')
+        i0 = 0
+        read(9,*,iostat=i0)  ! skip headline
+        do loc=1, nlat*nlon
+            read(9, *) variables_can(loc)
+        end do
+        close(9)
+
+    END SUBROUTINE read_can_txt
 
 !-------------------------------------------------------------------------------
 !-------------------------------------------------------------------------------

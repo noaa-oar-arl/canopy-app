@@ -15,6 +15,7 @@ SUBROUTINE canopy_calcs(nn)
     use canopy_utils_mod      !main canopy utilities
     use canopy_dxcalc_mod     !main canopy dx calculation
     use canopy_profile_mod    !main canopy foliage profile routines
+    use canopy_var3din_mod    !main canopy 3D variable in routines
     use canopy_rad_mod        !main canopy radiation sunlit/shaded routines
     use canopy_tleaf_mod      !main canopy leaf temperature sunlit/shaded routines
     use canopy_wind_mod       !main canopy components
@@ -41,7 +42,7 @@ SUBROUTINE canopy_calcs(nn)
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
 
-    if (infmt_opt .eq. 0) then !Input format is 2D then output is then 2D
+    if (infmt_opt .eq. 0) then !Main input format is 2D NetCDF and output will be 2D NetCDf
 
         if (ifcanwind .or. ifcanwaf) then !only calculate if canopy wind or WAF option
             call canopy_calcdx_2d(dx_opt, dx_set, nlat, nlon, variables_2d%lat, &
@@ -138,10 +139,27 @@ SUBROUTINE canopy_calcs(nn)
                                 pai_opt, pai_set, lu_opt, firetype, cdrag, &
                                 pai, zcanmax, sigmau, sigma1)
 
+! ... Choose between prescribed canopy/foliate shape profile or observed GEDI PAVD profile
+                            if (pavd_opt .eq. 0) then
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
-
-                            call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
-                                fafraczInt)
+                                call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
+                                    fafraczInt)
+                            else
+! ... derive canopy/foliage distribution shape profile from interpolated GEDI PAVD profile - bottom up total in-canopy and fraction at z
+                                if (variables_2d(i,j)%lat .gt. (-1.0_rk*pavd_set) .and. &
+                                    variables_2d(i,j)%lat .lt. pavd_set) then !use GEDI PAVD
+                                    call canopy_pavd2fafrac(zcanmax, sigmau, sigma1, hcmref, zhc, &
+                                        variables_3d(i,j,:)%pavd, variables_1d%lev, fafraczInt)
+                                    !check if there is observed canopy height but no PAVD profile
+                                    if (hcmref .gt. 0.0 .and. maxval(fafraczInt) .le. 0.0) then !revert to prescribed shape profile
+                                        call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
+                                            fafraczInt)
+                                    end if
+                                else !revert back to using prescribed shape profile
+                                    call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
+                                        fafraczInt)
+                                end if
+                            end if
 
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 
@@ -163,7 +181,6 @@ SUBROUTINE canopy_calcs(nn)
                             call canopy_ppfd_exp(zk, hcmref, dswrfref, lairef, fsun, &
                                 ppfd_sun, ppfd_shade, ppfd_ave)
 
-! ...                            **** User Canopy-App Options ***
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 
                             if (ifcanwind .or. ifcanwaf) then
@@ -174,7 +191,7 @@ SUBROUTINE canopy_calcs(nn)
                                             lambdars, canBOT(k), canTOP(k), canWIND_3d(i,j,k))
                                     end do
                                 else
-                                    write(*,*) 'wrong namelist option = ', rsl_opt, 'only option = 0 right now'
+                                    write(*,*) 'wrong RSL_OPT namelist option = ', rsl_opt, 'only option = 0 right now'
                                     call exit(2)
                                 end if
 
@@ -398,7 +415,7 @@ SUBROUTINE canopy_calcs(nn)
 
 !----------------------------------------------------------->
 
-    else if (infmt_opt .eq. 1) then !Input format is 1D and output must be 1D
+    else if (infmt_opt .eq. 1) then !Main input format is 1D/2D text and output will be 1D/2D text
 
         if (ifcanwind .or. ifcanwaf) then !only calculate if canopy wind or WAF option
             call canopy_calcdx(dx_opt, dx_set, nlat, nlon, variables%lat, &
@@ -438,6 +455,36 @@ SUBROUTINE canopy_calcs(nn)
             spfh2mref    = variables(loc)%spfh2m
             hpblref      = variables(loc)%hpbl
             prate_averef = variables(loc)%prate_ave
+            if (var3d_opt .eq. 1) then !allocated so set
+                pavd_arr     = (/variables_can(loc)%pavd01, &
+                    variables_can(loc)%pavd02, &
+                    variables_can(loc)%pavd03, &
+                    variables_can(loc)%pavd04, &
+                    variables_can(loc)%pavd05, &
+                    variables_can(loc)%pavd06, &
+                    variables_can(loc)%pavd07, &
+                    variables_can(loc)%pavd08, &
+                    variables_can(loc)%pavd09, &
+                    variables_can(loc)%pavd10, &
+                    variables_can(loc)%pavd11, &
+                    variables_can(loc)%pavd12, &
+                    variables_can(loc)%pavd13, &
+                    variables_can(loc)%pavd14/)
+                lev_arr      = (/variables_can(loc)%lev01, &
+                    variables_can(loc)%lev02, &
+                    variables_can(loc)%lev03, &
+                    variables_can(loc)%lev04, &
+                    variables_can(loc)%lev05, &
+                    variables_can(loc)%lev06, &
+                    variables_can(loc)%lev07, &
+                    variables_can(loc)%lev08, &
+                    variables_can(loc)%lev09, &
+                    variables_can(loc)%lev10, &
+                    variables_can(loc)%lev11, &
+                    variables_can(loc)%lev12, &
+                    variables_can(loc)%lev13, &
+                    variables_can(loc)%lev14/)
+            end if
 
 ! ... calculate wind speed from u and v
             ubzref   = sqrt((uref**2.0) + (vref**2.0))
@@ -492,10 +539,33 @@ SUBROUTINE canopy_calcs(nn)
                             pai_opt, pai_set, lu_opt, firetype, cdrag, &
                             pai, zcanmax, sigmau, sigma1)
 
-! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
+! ... Choose between prescribed canopy/foliate shape profile or observed GEDI PAVD profile
 
-                        call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
-                            fafraczInt)
+                        if (pavd_opt .eq. 0) then
+! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
+                            call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
+                                fafraczInt)
+                        else
+                            if (var3d_opt .ne. 1) then
+                                write(*,*) 'wrong VAR3D_OPT namelist option = ', var3d_opt, &
+                                    'change to 1 for supporting PAVD text read'
+                                call exit(2)
+                            end if
+! ... derive canopy/foliage distribution shape profile from interpolated GEDI PAVD profile - bottom up total in-canopy and fraction at z
+                            if (variables(loc)%lat .gt. (-1.0_rk*pavd_set) .and. &
+                                variables(loc)%lat .lt. pavd_set) then !use GEDI PAVD
+                                call canopy_pavd2fafrac(zcanmax, sigmau, sigma1, hcmref, zhc, &
+                                    pavd_arr, lev_arr, fafraczInt)
+                                !check if there is observed canopy height but no PAVD profile
+                                if (hcmref .gt. 0.0 .and. maxval(fafraczInt) .le. 0.0) then !revert to prescribed shape profile
+                                    call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
+                                        fafraczInt)
+                                end if
+                            else !revert back to using prescribed shape profile
+                                call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
+                                    fafraczInt)
+                            end if
+                        end if
 
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
 
@@ -517,8 +587,6 @@ SUBROUTINE canopy_calcs(nn)
                         call canopy_ppfd_exp(zk, hcmref, dswrfref, lairef, fsun, &
                             ppfd_sun, ppfd_shade, ppfd_ave)
 
-! ...                            **** User Canopy-App Options ***
-
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
 
                         if (ifcanwind .or. ifcanwaf) then
@@ -529,7 +597,7 @@ SUBROUTINE canopy_calcs(nn)
                                         lambdars, canBOT(k), canTOP(k), canWIND(loc,k))
                                 end do
                             else
-                                write(*,*) 'wrong namelist option = ', rsl_opt, 'only option = 0 right now'
+                                write(*,*) 'wrong RSL_OPT namelist option = ', rsl_opt, 'only option = 0 right now'
                                 call exit(2)
                             end if
 
@@ -751,6 +819,6 @@ SUBROUTINE canopy_calcs(nn)
         write(*,*)  'Wrong INFMT_OPT choice of ', infmt_opt, ' in namelist...exiting'
         call exit(2)
 
-    end if !Input Format (1D or 2D)
+    end if !Input Format (1D or 2D text or NetCDF)
 
 END SUBROUTINE canopy_calcs

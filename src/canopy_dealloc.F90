@@ -19,7 +19,10 @@ SUBROUTINE canopy_dealloc
 !-------------------------------------------------------------------------------
 
     if(allocated(variables))     deallocate(variables)
+    if(allocated(variables_1d))  deallocate(variables_1d)
     if(allocated(variables_2d))  deallocate(variables_2d)
+    if(allocated(variables_3d))  deallocate(variables_3d)
+    if(allocated(variables_can))     deallocate(variables_can)
 
 !-------------------------------------------------------------------------------
 ! Dellocate arrays for Canopy Distribution
