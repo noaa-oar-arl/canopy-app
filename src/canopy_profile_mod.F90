@@ -59,7 +59,7 @@ contains
                 else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
                     !and is vegetation type dependent from Fang et al. (2019),
                     !https://doi.org/10.1029/2018RG000608:
-                    PAI=(LAI/(1.0_rk - 0.2_rk)) !Assume alpha evergreen are more boreal/conifer softwoods
+                    PAI=(LAI/(1.0_rk - 0.1231_rk)) !Assume alpha evergreen are more boreal/conifer softwoods
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
@@ -82,7 +82,7 @@ contains
                 else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
                     !and is vegetation type dependent from Fang et al. (2019),
                     !https://doi.org/10.1029/2018RG000608:
-                    PAI=(LAI/(1.0_rk - 0.1_rk)) !assume alpha deciduous have more tropical hardwoods
+                    PAI=(LAI/(1.0_rk - 0.185_rk)) !assume alpha deciduous have more tropical hardwoods
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
@@ -105,7 +105,7 @@ contains
                 else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
                     !and is vegetation type dependent from Fang et al. (2019),
                     !https://doi.org/10.1029/2018RG000608:
-                    PAI=(LAI/(1.0_rk - 0.15_rk))!assume alpha is avg. of evergreen and deciduous
+                    PAI=(LAI/(1.0_rk - 0.14_rk))!assume alpha is avg. of evergreen and deciduous
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
@@ -128,7 +128,7 @@ contains
                 else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
                     !and is vegetation type dependent from Fang et al. (2019),
                     !https://doi.org/10.1029/2018RG000608:
-                    PAI=(LAI/(1.0_rk - 0.32_rk))!assume alpha is avg. of shrubs + savanna
+                    PAI=(LAI/(1.0_rk - 0.26_rk))!assume alpha is avg. of shrubs + savanna
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
