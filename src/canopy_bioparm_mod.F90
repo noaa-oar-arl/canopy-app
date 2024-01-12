@@ -998,6 +998,16 @@ contains
 
                 EF = EF15
 
+            else if (VTYPE .eq. 14 ) then !VIIRS/MODIS Cat 14 Croplands/Natural Mosaic
+                !--> Crop1
+
+                EF = EF15
+
+            else if (VTYPE .ge. 18 .and. VTYPE .le. 19) then !VIIRS/MODIS Cat 18-19 Wooded/Mixed Tundra
+                !--> Crop1
+
+                EF = (EF9+EF10+EF11)/3.0_rk  !Assume EF for wooded/mixed tundra = shrublands above
+
             else
 
                 EF = 0.0_rk  !set EF=0 for non-valid VTYPEs

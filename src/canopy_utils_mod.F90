@@ -289,8 +289,13 @@ contains
                         CalcFlameH_F00) / 5.0_rk
                 else if (vtype .ge. 8 .and. vtype .le. 10) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
                     CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_C83_H+CalcFlameH_C83_B) / 3.0_rk
-                else if (vtype .ge. 12) then !VIIRS/MODIS Cat 12 Croplands
+                else if (vtype .ge. 12 .and. vtype .lt. 13) then !VIIRS/MODIS Cat 12 Croplands
                     CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_C83_H+CalcFlameH_C83_B) / 3.0_rk
+                else if (vtype .ge. 14 .and. vtype .lt. 15) then !VIIRS/MODIS Cat 14 Cropland/Natural Mosaic
+                    CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_C83_H+CalcFlameH_C83_B) / 3.0_rk
+                else if (vtype .ge. 18 .and. vtype .le. 19) then !VIIRS/MODIS Cat 18-19 Wooded and Mixed Tundra
+                    CalcFlameH_set=(CalcFlameH_N86+CalcFlameH_V86+CalcFlameH_V98+CalcFlameH_C98+ &
+                        CalcFlameH_F00) / 5.0_rk
                 else
                     CalcFlameH_set=(CalcFlameH_B59+CalcFlameH_A66_L+CalcFlameH_A66_D+CalcFlameH_N80+ &
                         CalcFlameH_C83_H+CalcFlameH_C83_B+CalcFlameH_N86+CalcFlameH_V86+ &
@@ -437,7 +442,13 @@ contains
                 else if (vtype .ge. 8 .and. vtype .le. 10) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
                     CalcFlameS_set=CalcFlameS_W98
                     CalcFlameH_set=(CalcFlameS_set/5.232_rk)**(1.0_rk/0.756_rk)
-                else if (vtype .ge. 12) then !VIIRS/MODIS Cat 12 Croplands
+                else if (vtype .ge. 12 .and. vtype .lt. 13) then !VIIRS/MODIS Cat 12 Croplands
+                    CalcFlameS_set=CalcFlameS_W98
+                    CalcFlameH_set=(CalcFlameS_set/5.232_rk)**(1.0_rk/0.756_rk)
+                else if (vtype .ge. 14 .and. vtype .lt. 15) then !VIIRS/MODIS Cat 14 Cropland/Natural Mosaic
+                    CalcFlameS_set=CalcFlameS_W98
+                    CalcFlameH_set=(CalcFlameS_set/5.232_rk)**(1.0_rk/0.756_rk)
+                else if (vtype .ge. 18 .and. vtype .le. 19) then !VIIRS/MODIS Cat 18-19 Wooded and Mixed Tundra
                     CalcFlameS_set=CalcFlameS_W98
                     CalcFlameH_set=(CalcFlameS_set/5.232_rk)**(1.0_rk/0.756_rk)
                 else
