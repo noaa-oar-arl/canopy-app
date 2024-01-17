@@ -79,9 +79,9 @@ contains
             call exit(1)
         end if
 
-
         if (HREF > z0m) then ! input wind speed reference height is > roughness length
-            uc = UBZREF*log(LAMBDARS*(HCM-zpd+z0m)/z0m)/log(HREF/z0m)  !MOST From NoahMP (M. Barlarge) with user RSL influence term (LAMBDARS)
+            uc = (vonk/(0.38_rk - (0.38_rk + (vonk/log(Z0GHC)))*exp(-1.0_rk*(15.0_rk*drag)))) * &
+                (UBZREF/log((LAMBDARS*(HCM-zpd))/z0m))  !MOST Log Profile from combining M17 Eqs. 10 14
         else                 ! reference height is <= roughness length--at canopy top (used for observation comparison)
             uc = UBZREF
         end if
