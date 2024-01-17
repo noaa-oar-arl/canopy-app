@@ -24,7 +24,7 @@ timelist = np.array(timelist.split(",")).astype(str)
 
 
 """User Options"""
-path = "/scratch/pcampbe8/canopy-app/input"  # work directory
+path = "/scratch/pcampbe8/canopy-app/input/global"  # work directory
 ref_lev = 10  # reference height (m, a.g.l.)
 frp_src = 0  # frp data source (0: local source; 1: check local source first, switch to climatological file if no available data; 2: 12 month climatology; 3: all ones when ifcanwaf=.FALSE.)
 
@@ -219,6 +219,16 @@ for inputtime in timelist:
 
     """Data Download"""
     """Download from servers if required files do not exist."""
+
+    print("---- Checking if path exists...")
+    print("------------------------------------")
+    if not os.path.exists(path):
+        # Create the path
+        os.makedirs(path)
+        print("Path created successfully!")
+    else:
+        print("Path already exists!")
+
     print("---- Checking required files...")
     print("------------------------------------")
 
