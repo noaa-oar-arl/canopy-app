@@ -121,7 +121,7 @@ contains
             CANWIND = uc*canbot*cantop
         else                      !above canopy top       --> MOST or RSL profile
             if (uc < UBZREF) then !reference height is not small compared to z0m
-                CANWIND = UBZREF*log(LAMBDARS*(ZK-zpd+z0m)/z0m)/log(HREF/z0m)
+                CANWIND = (ustrmod/vonk)*log((LAMBDARS*(ZK-zpd))/z0m) !M17 Eq. 14, MOST log profile
             else                  !cannot calcualate above canopy wind, set constant to UBZREF
                 CANWIND = UBZREF
             end if
