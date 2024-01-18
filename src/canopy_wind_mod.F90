@@ -97,12 +97,16 @@ contains
         end if
 
         stab2 = stab1 * (z0m/(HCM - zpd))
-
 !Calculate Uc, wind at canopy top
         if (HREF > z0m) then ! input wind speed reference height is > roughness length
-            uc = (vonk/(0.38_rk - (0.38_rk + (vonk/log(Z0GHC)))*exp(-1.0_rk*(15.0_rk*drag)))) * &
-                (UBZREF/(log((LAMBDARS*(HCM-zpd+z0m))/z0m) - stab1 + stab2))  !MOST Log Profile from combining M17 Eqs. 10 14
-            !^and stability parameters from Bonan 2019, Eq. 6.40
+            if (zeta .ge. -2.0 .and. zeta .le. 1.0) then !similarity functions valid
+                uc = (vonk/(0.38_rk - (0.38_rk + (vonk/log(Z0GHC)))*exp(-1.0_rk*(15.0_rk*drag)))) * &
+                    (UBZREF/(log((LAMBDARS*(HCM-zpd+z0m))/z0m) - stab1 + stab2))  !MOST Log Profile from combining M17 Eqs. 10 14
+                !^and stability parameters from Bonan 2019, Eq. 6.40
+            else
+                uc = (vonk/(0.38_rk - (0.38_rk + (vonk/log(Z0GHC)))*exp(-1.0_rk*(15.0_rk*drag)))) * &
+                    (UBZREF/(log((LAMBDARS*(HCM-zpd+z0m))/z0m)))  !MOST Log Profile from combining M17 Eqs. 10 14
+            end if
         else                 ! reference height is <= roughness length--at canopy top (used for observation comparison)
             uc = UBZREF
         end if
@@ -153,8 +157,12 @@ contains
             CANWIND = uc*canbot*cantop
         else                      !above canopy top       --> MOST or RSL profile
             if (uc < UBZREF) then !reference height is not small compared to z0m
-                CANWIND = (ustrmod/vonk)*(log((LAMBDARS*(ZK-zpd+z0m))/z0m) - stab1 + stab2) !M17 Eq. 14, MOST log profile
-                !^and stability parameters from Bonan 2019, Eq. 6.40
+                if (zeta .ge. -2.0 .and. zeta .le. 1.0) then !similarity functions valid
+                    CANWIND = (ustrmod/vonk)*(log((LAMBDARS*(ZK-zpd+z0m))/z0m) - stab1 + stab2) !M17 Eq. 14, MOST log profile
+                    !^and stability parameters from Bonan 2019, Eq. 6.40
+                else
+                    CANWIND = (ustrmod/vonk)*(log((LAMBDARS*(ZK-zpd+z0m))/z0m)) !M17 Eq. 14, MOST log profile
+                end if
             else                  !cannot calcualate above canopy wind, set constant to UBZREF
                 CANWIND = UBZREF
             end if
