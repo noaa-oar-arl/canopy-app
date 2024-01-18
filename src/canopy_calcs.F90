@@ -190,7 +190,7 @@ SUBROUTINE canopy_calcs(nn)
                                     do k=1, modlays
                                         call canopy_wind_most(hcmref, zk(k), fafraczInt(k), ubzref, &
                                             z0ghc, cdrag, pai, hgtref, d_h, zo_h, &
-                                            lambdars, canBOT(k), canTOP(k), canWIND_3d(i,j,k))
+                                            lambdars, molref, canBOT(k), canTOP(k), canWIND_3d(i,j,k))
                                     end do
                                 else
                                     write(*,*) 'wrong RSL_OPT namelist option = ', rsl_opt, 'only option = 0 right now'
@@ -598,7 +598,7 @@ SUBROUTINE canopy_calcs(nn)
                                 do k=1, modlays
                                     call canopy_wind_most(hcmref, zk(k), fafraczInt(k), ubzref, &
                                         z0ghc, cdrag, pai, hgtref, d_h, zo_h, &
-                                        lambdars, canBOT(k), canTOP(k), canWIND(loc,k))
+                                        lambdars, molref, canBOT(k), canTOP(k), canWIND(loc,k))
                                 end do
                             else
                                 write(*,*) 'wrong RSL_OPT namelist option = ', rsl_opt, 'only option = 0 right now'

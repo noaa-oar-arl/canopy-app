@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_WIND_MOST( HCM, ZK, FAFRACK, UBZREF, Z0GHC, &
-        CDRAG, PAI, HREF, D_H, ZO_H, LAMBDARS, &
+        CDRAG, PAI, HREF, D_H, ZO_H, LAMBDARS, MOL, &
         CANBOT_OUT, CANTOP_OUT, CANWIND )
 
 !-----------------------------------------------------------------------
@@ -25,7 +25,7 @@ contains
 !     Jun 2022 P.C. Campbell: Initial standalone canopy wind model
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
-        use canopy_const_mod, ONLY: rk, vonk  !constants for canopy models
+        use canopy_const_mod, ONLY: rk, vonk, pi  !constants for canopy models
 
 ! Arguments:
 !       IN/OUT
@@ -41,6 +41,7 @@ contains
         REAL(RK),    INTENT( IN )  :: HREF             ! Reference Height above the canopy (ZREF = HCM + HREF; m)
         REAL(RK),    INTENT( IN )  :: D_H              ! Zero plane displacement heights (nondimensional)
         REAL(RK),    INTENT( IN )  :: ZO_H             ! Surface (soil+veg) roughness lengths (nondimensional)
+        REAL(RK),    INTENT( IN )  :: MOL              ! Monin-Obukhov Length (m)
         REAL(RK),    INTENT( OUT ) :: CANBOT_OUT       ! Canopy bottom wind reduction factor = canbot (nondimensional)
         REAL(RK),    INTENT( OUT ) :: CANTOP_OUT       ! Canopy top wind reduction factor = cantop    (nondimensional)
         REAL(RK),    INTENT( OUT ) :: CANWIND          ! Mean canopy wind speed at current z (m/s)
@@ -56,6 +57,10 @@ contains
         real(rk)                   :: zpd              ! Zero plane displacement heights MOST  (m)
         real(rk)                   :: z0m              ! Surface (soil+veg) roughness lengths with Massman LAMBDARS (m)
         real(rk)                   :: uc               ! Wind directly at canopy top (m/s)
+        real(rk)                   :: zeta             ! Dimensionless stability paramter
+        real(rk)                   :: x                ! Dimensionless stability paramter
+        real(rk)                   :: stab1            ! Stability parameter 1
+        real(rk)                   :: stab2            ! Stability parameter 2
 
 ! Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior
@@ -71,7 +76,7 @@ contains
         zpd = D_H*HCM  !zero-plane displacement height (not scaled to HCM)
         z0m = ZO_H*HCM !aerodynamic roughness length (not scaled to HCM)
 
-!First adjust reference wind down to canopy top to get u* from Massman closure equations (necessary) or
+!Adjust reference wind down to canopy top to get u* from Massman closure equations (necessary) or
 !from unified RSL approach.  This is needed to get accurate canopy stress terms for in-canopy winds later...
 
         if((HCM-zpd) <= 0.) then
@@ -79,9 +84,25 @@ contains
             call exit(1)
         end if
 
+!Calculate stablity parameters at canopy top following Bonan, Climate Change and Terrestrial Ecosystem Modeling, 2019
+!www.cambridge.org/9781107043787, DOI: 10.1017/9781107339217.
+!Eqs. 6.30 and 6.46
+        zeta = (HCM - zpd)/MOL
+        x = (1.0_rk - (16.0_rk*zeta))**(0.25_rk)
+        if(MOL < 0) then
+            stab1 = 2.0_rk*log((1.0_rk+x)/2.0_rk) + log((1.0_rk+(x**2.0_rk))/2.0_rk) - &
+                (2.0_rk*ATAN(x)) + (pi/2.0_rk)
+        else
+            stab1 = -5.0_rk*zeta
+        end if
+
+        stab2 = stab1 * (z0m/(HCM - zpd))
+
+!Calculate Uc, wind at canopy top
         if (HREF > z0m) then ! input wind speed reference height is > roughness length
             uc = (vonk/(0.38_rk - (0.38_rk + (vonk/log(Z0GHC)))*exp(-1.0_rk*(15.0_rk*drag)))) * &
-                (UBZREF/log((LAMBDARS*(HCM-zpd+z0m))/z0m))  !MOST Log Profile from combining M17 Eqs. 10 14
+                (UBZREF/(log((LAMBDARS*(HCM-zpd+z0m))/z0m) - stab1 + stab2))  !MOST Log Profile from combining M17 Eqs. 10 14
+            !^and stability parameters from Bonan 2019, Eq. 6.40
         else                 ! reference height is <= roughness length--at canopy top (used for observation comparison)
             uc = UBZREF
         end if
@@ -116,12 +137,24 @@ contains
         CANBOT_OUT = canbot
 
 !Calculate the canopy wind variable both above and below canopy top
+        !Recalculate stability paramters based on ZK profile not canopy top
+        zeta = (ZK - zpd)/MOL
+        x = (1.0_rk - (16.0_rk*zeta))**(0.25_rk)
+        if(MOL < 0) then
+            stab1 = 2.0_rk*log((1.0_rk+x)/2.0_rk) + log((1.0_rk+(x**2.0_rk))/2.0_rk) - &
+                (2.0_rk*ATAN(x)) + (pi/2.0_rk)
+        else
+            stab1 = -5.0_rk*zeta
+        end if
+
+        stab2 = stab1 * (z0m/(HCM - zpd))
 
         if (ZK <= HCM) then       !at or below canopy top --> Massman in-canopy profile
             CANWIND = uc*canbot*cantop
         else                      !above canopy top       --> MOST or RSL profile
             if (uc < UBZREF) then !reference height is not small compared to z0m
-                CANWIND = (ustrmod/vonk)*log((LAMBDARS*(ZK-zpd+z0m))/z0m) !M17 Eq. 14, MOST log profile
+                CANWIND = (ustrmod/vonk)*(log((LAMBDARS*(ZK-zpd+z0m))/z0m) - stab1 + stab2) !M17 Eq. 14, MOST log profile
+                !^and stability parameters from Bonan 2019, Eq. 6.40
             else                  !cannot calcualate above canopy wind, set constant to UBZREF
                 CANWIND = UBZREF
             end if
