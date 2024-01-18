@@ -91,7 +91,7 @@ SUBROUTINE canopy_calcs(nn)
 
 ! ... get scaled canopy model profile and sub-canopy layers
                 zhc         = zk/hcmref
-                cansublays  = floor(hcmref/modres)
+                cansublays  = min(floor(hcmref/modres),modlays)
 
 ! ... check for valid model vegetation types
                 if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
@@ -107,7 +107,7 @@ SUBROUTINE canopy_calcs(nn)
                                 hcmref = ssg_set
                                 !recalculate
                                 zhc         = zk/hcmref
-                                cansublays  = floor(hcmref/modres)
+                                cansublays  = min(floor(hcmref/modres),modlays)
                             else
                                 write(*,*)  'Wrong SSG_OPT choice of ', ssg_opt, &
                                     ' in namelist...exiting'
@@ -123,7 +123,7 @@ SUBROUTINE canopy_calcs(nn)
                                 hcmref = crop_set
                                 !recalculate
                                 zhc         = zk/hcmref
-                                cansublays  = floor(hcmref/modres)
+                                cansublays  = min(floor(hcmref/modres),modlays)
                             else
                                 write(*,*)  'Wrong CROP_OPT choice of ', crop_opt, &
                                     ' in namelist...exiting'
@@ -493,7 +493,7 @@ SUBROUTINE canopy_calcs(nn)
 
 ! ... get scaled canopy model profile and sub-canopy layers
             zhc         = zk/hcmref
-            cansublays  = floor(hcmref/modres)
+            cansublays  = min(floor(hcmref/modres),modlays)
 
 ! ... check for valid model vegetation types
             if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
@@ -509,7 +509,7 @@ SUBROUTINE canopy_calcs(nn)
                             hcmref = ssg_set
                             !recalculate
                             zhc         = zk/hcmref
-                            cansublays  = floor(hcmref/modres)
+                            cansublays  = min(floor(hcmref/modres),modlays)
                         else
                             write(*,*)  'Wrong SSG_OPT choice of ', ssg_opt, &
                                 ' in namelist...exiting'
@@ -525,7 +525,7 @@ SUBROUTINE canopy_calcs(nn)
                             hcmref = crop_set
                             !recalculate
                             zhc         = zk/hcmref
-                            cansublays  = floor(hcmref/modres)
+                            cansublays  = min(floor(hcmref/modres),modlays)
                         else
                             write(*,*)  'Wrong CROP_OPT choice of ', crop_opt, &
                                 ' in namelist...exiting'
