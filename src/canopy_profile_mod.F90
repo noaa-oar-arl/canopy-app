@@ -360,7 +360,8 @@ contains
 
         !Get wind speed at canopy top with first z0 and zpd=3/4*hc estimates:
         if (HREF > z0_set) then ! input wind speed reference height is > roughness length
-            uc = UBZREF*log((FCH-(0.75_rk*FCH)+z0_set)/z0_set)/log(HREF/z0_set)  !MOST
+            uc = (vonk/(0.38_rk - (0.38_rk + (vonk/log(Z0GHC)))*exp(-1.0_rk*(15.0_rk*drag)))) * &
+                (UBZREF/log((LAMBDARS*(FCH-(0.75_rk*FCH)+z0_set))/z0_set))  !MOST Log Profile from combining M17 Eqs. 10 14
         else                 ! reference height is <= roughness length--at canopy top
             uc = UBZREF
         end if

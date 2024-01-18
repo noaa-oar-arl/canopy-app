@@ -85,7 +85,7 @@ contains
         else                 ! reference height is <= roughness length--at canopy top (used for observation comparison)
             uc = UBZREF
         end if
-        print*, 'uc=',uc
+
         !Some checks on Uc calculation
         if (uc > UBZREF) then !reference height too small and close to roughness length
             uc = UBZREF
