@@ -147,7 +147,7 @@ contains
             stab1 = -5.0_rk*zeta
         end if
 
-        stab2 = stab1 * (z0m/(HCM - zpd))
+        stab2 = stab1 * (z0m/(ZK - zpd))
 
         if (ZK <= HCM) then       !at or below canopy top --> Massman in-canopy profile
             CANWIND = uc*canbot*cantop
