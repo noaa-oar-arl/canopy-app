@@ -81,11 +81,11 @@ contains
 
         if (HREF > z0m) then ! input wind speed reference height is > roughness length
             uc = (vonk/(0.38_rk - (0.38_rk + (vonk/log(Z0GHC)))*exp(-1.0_rk*(15.0_rk*drag)))) * &
-                (UBZREF/log((LAMBDARS*(HCM-zpd))/z0m))  !MOST Log Profile from combining M17 Eqs. 10 14
+                (UBZREF/log((LAMBDARS*(HCM-zpd+z0m))/z0m))  !MOST Log Profile from combining M17 Eqs. 10 14
         else                 ! reference height is <= roughness length--at canopy top (used for observation comparison)
             uc = UBZREF
         end if
-
+        print*, 'uc=',uc
         !Some checks on Uc calculation
         if (uc > UBZREF) then !reference height too small and close to roughness length
             uc = UBZREF
@@ -121,7 +121,7 @@ contains
             CANWIND = uc*canbot*cantop
         else                      !above canopy top       --> MOST or RSL profile
             if (uc < UBZREF) then !reference height is not small compared to z0m
-                CANWIND = (ustrmod/vonk)*log((LAMBDARS*(ZK-zpd))/z0m) !M17 Eq. 14, MOST log profile
+                CANWIND = (ustrmod/vonk)*log((LAMBDARS*(ZK-zpd+z0m))/z0m) !M17 Eq. 14, MOST log profile
             else                  !cannot calcualate above canopy wind, set constant to UBZREF
                 CANWIND = UBZREF
             end if
