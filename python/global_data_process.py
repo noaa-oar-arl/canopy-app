@@ -191,7 +191,7 @@ for inputtime in timelist:
         path + "/gfs.t" + HH + "z." + YY + MM + DD + ".sfcf" + FH + ".nc"
     )  # gfs met file
     f_can = (
-        path + "/gfs.canopy.t" + HH + "z." + YY + MM + DD + ".sfcf000.nc"
+        path + "/gfs.canopy.t" + HH + "z." + "2022" + MM + DD + ".sfcf000.nc"
     )  # canopy file
     f_output = (
         path + "/gfs.t" + HH + "z." + YY + MM + DD + ".sfcf" + FH + ".canopy.nc"
@@ -215,7 +215,7 @@ for inputtime in timelist:
                 + ".nc "
             )
     elif frp_src == 2:  # climatological frp
-        f_frp = path + "/gfs.canopy.t" + HH + "z." + YY + MM + DD + ".sfcf000.nc"
+        f_frp = path + "/gfs.canopy.t" + HH + "z." + "2022" + MM + DD + ".sfcf000.nc"
 
     """Data Download"""
     """Download from servers if required files do not exist."""
@@ -277,7 +277,7 @@ for inputtime in timelist:
                 "https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t"
                 + HH
                 + "z."
-                + YY
+                + "2022"
                 + MM
                 + DD
                 + ".sfcf000.nc",
@@ -316,7 +316,7 @@ for inputtime in timelist:
         else:
             print("---- No available FRP file. Switch to Climatology FRP...")
             frp_src = 2
-            f_frp = path + "/gfs.canopy.t" + HH + "z." + YY + MM + DD + ".sfcf000.nc"
+            f_frp = path + "/gfs.canopy.t" + HH + "z." + "2022" + MM + DD + ".sfcf000.nc"
 
     if frp_src == 2:  # 12 month climatology frp
         if os.path.isfile(f_frp) is True:
