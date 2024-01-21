@@ -9,7 +9,7 @@ contains
         PPFD_SHADE, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE, TEMP2, LU_OPT, &
         VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
         LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, &
-        EMI_IND, EMI_OUT)
+        MODLAYS, EMI_IND, EMI_OUT)
 
 !-----------------------------------------------------------------------
 
@@ -70,6 +70,7 @@ contains
         REAL(RK),    INTENT( IN )       :: CURRENTLAI           ! Current LAI [cm2/cm2]
         REAL(RK),    INTENT( IN )       :: TSTEPLAI           !Number of days between the past and current LAI
 
+        INTEGER,     INTENT( IN )       :: MODLAYS         ! Input total model layers
         INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
 
@@ -187,7 +188,7 @@ contains
             end do
         else if (VERT .eq. 1) then       !"MEGANv3-like": Use weighting factors normalized to plant distribution shape (FCLAI)
             !across canopy layers
-            LAYERS = floor(FCH/MODRES) + 1
+            LAYERS = min((floor(FCH/MODRES) + 1),MODLAYS)
             do i=1,  SIZE(ZK)
                 if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then
                     FLAI(i) = ((FCLAI(i+1) - FCLAI(i)) * LAI)/MODRES    !fractional LAI in each layer converted to LAD (m2 m-3)
@@ -205,7 +206,7 @@ contains
             !across canopy layers using 5 layer numbers directly from MEGANv3
             !--warning: weights are not consistent with FCLAI distribution
             !used for biomass distribution used for sunlit/shaded in Gamma TLEAF and GammaPPFD.
-            LAYERS = floor(FCH/MODRES) + 1
+            LAYERS = min((floor(FCH/MODRES) + 1),MODLAYS)
             do i=1, SIZE(ZK)
                 if (ZK(i) .gt. FCH) then
                     GAUSS(i) = 0.0
@@ -237,7 +238,7 @@ contains
             !across canopy layers
             !--warning: weights are not consistent with FCLAI distribution
             !used for biomass distribution used for sunlit/shaded in Gamma TLEAF and GammaPPFD.
-            LAYERS = floor(FCH/MODRES) + 1
+            LAYERS = min((floor(FCH/MODRES) + 1),MODLAYS)
             do i=1,  SIZE(ZK)
                 VPGWT(i) = 1.0_rk/LAYERS
             end do
