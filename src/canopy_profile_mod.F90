@@ -376,7 +376,11 @@ contains
         dha =  1.0 - (cosh(qstar*nrat*FCLAI(1))/cosh(qstar*nrat))
         fafraczInt_tota = IntegrateTrapezoid( ZHC,(cosh(qstar*nrat*FCLAI)*ZHC) )
         fafraczInt_totb = IntegrateTrapezoid( ZHC, cosh(qstar*nrat*FCLAI) )
-        dhb = fafraczInt_tota/fafraczInt_totb
+        if (fafraczInt_totb > 0) then
+            dhb = fafraczInt_tota/fafraczInt_totb
+        else
+            dhb = 0
+        end if
 
         ! Final zero-plane displacement (zpd) height
         d_h = dha * dhb

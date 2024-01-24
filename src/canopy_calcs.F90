@@ -90,7 +90,11 @@ SUBROUTINE canopy_calcs(nn)
                 ubzref   = sqrt((uref**2.0) + (vref**2.0))
 
 ! ... get scaled canopy model profile and sub-canopy layers
-                zhc         = zk/hcmref
+                if (hcmref > 0) then
+                    zhc = zk / hcmref
+                else
+                    zhc = 0
+                end if
                 cansublays  = min(floor(hcmref/modres),modlays)
 
 ! ... check for valid model vegetation types
@@ -164,7 +168,6 @@ SUBROUTINE canopy_calcs(nn)
                             end if
 
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
-
                             call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
                                 ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
                                 z0ref, vtyperef, lu_opt, z0_opt, d_h, zo_h)
