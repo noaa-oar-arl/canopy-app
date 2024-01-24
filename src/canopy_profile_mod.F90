@@ -89,9 +89,10 @@ contains
                     write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
-                ZCANMAX=(0.84_rk + 0.36_rk)/2.0_rk
-                SIGMAU=(0.13_rk + 0.60_rk)/2.0_rk
-                SIGMA1=(0.30_rk + 0.20_rk)/2.0_rk
+                !Do not use Aspen (ony Hardwood) for the distribution parameters
+                ZCANMAX=0.84_rk
+                SIGMAU=0.13_rk
+                SIGMA1=0.30_rk
             end if
 
             if (VTYPE .eq. 5) then !VIIRS/MODIS Cat 5 Mixed Forests
@@ -112,9 +113,10 @@ contains
                     write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
-                ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/6.0_rk
-                SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/6.0_rk
-                SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/6.0_rk
+                !Do not use Aspen for the distribution parameters
+                ZCANMAX=(0.60_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/5.0_rk
+                SIGMAU=(0.38_rk  + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/5.0_rk
+                SIGMA1=(0.16_rk  + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/5.0_rk
             end if
 
             if (VTYPE .ge. 6 .and. VTYPE .le. 7) then !VIIRS/MODIS Cat 6-7 for closed and open shrublands
@@ -136,9 +138,9 @@ contains
                 end if
                 !Personal communication (William Massman, US Forest Service)
                 !Typically clumps of shrublands act similar to forest distributions, use Mixed Forest as above
-                ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/6.0_rk
-                SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/6.0_rk
-                SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/6.0_rk
+                ZCANMAX=(0.60_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/5.0_rk
+                SIGMAU=(0.38_rk  + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/5.0_rk
+                SIGMA1=(0.16_rk  + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/5.0_rk
             end if
 
             if ((VTYPE .ge. 8 .and. VTYPE .le. 10)   & !VIIRS/MODIS Cat 8-10 for savannas, woody savannas, and grasslands
@@ -162,8 +164,8 @@ contains
                     call exit(2)
                 end if
                 ZCANMAX=(0.94_rk + 0.62_rk)/2.0_rk
-                SIGMAU=(0.03_rk + 0.50_rk)/2.0_rk
-                SIGMA1=(0.60_rk + 0.45_rk)/2.0_rk
+                SIGMAU=(0.03_rk  + 0.50_rk)/2.0_rk
+                SIGMA1=(0.60_rk  + 0.45_rk)/2.0_rk
             end if
 
             if (VTYPE .ge. 18 .and. VTYPE .le. 19) then !VIIRS/MODIS Cat 18 -19 for wooded and mixed tundra
@@ -183,10 +185,10 @@ contains
                     write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
-                !Assume tundra are similar to shrublands as above.
-                ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/6.0_rk
-                SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/6.0_rk
-                SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/6.0_rk
+                !Assume tundra are similar to shrublands (i.e., mixed forests) as above.
+                ZCANMAX=(0.60_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/5.0_rk
+                SIGMAU=(0.38_rk  + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/5.0_rk
+                SIGMA1=(0.16_rk  + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/5.0_rk
             end if
 
         else
@@ -255,7 +257,6 @@ contains
                 fainc(i) = exp((-1.0*((ZCANMAX-ZHC(i))**2.0))/SIGMA1**2.0)
             end if
         end do
-
         fatot = IntegrateTrapezoid(ZHC,fainc)
 
 ! ... calculate plant distribution function

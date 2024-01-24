@@ -495,7 +495,11 @@ SUBROUTINE canopy_calcs(nn)
             ubzref   = sqrt((uref**2.0) + (vref**2.0))
 
 ! ... get scaled canopy model profile and sub-canopy layers
-            zhc         = zk/hcmref
+            if (hcmref > 0) then
+                zhc = zk / hcmref
+            else
+                zhc = 0
+            end if
             cansublays  = min(floor(hcmref/modres),modlays)
 
 ! ... check for valid model vegetation types

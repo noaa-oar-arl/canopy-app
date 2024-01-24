@@ -90,7 +90,6 @@ contains
 
 ! ... calculate canopy/foliage distribution shape profile - bottom up total in-canopy and fraction at z
         do i=1, SIZE(ZK)
-!            print*, 'ZK=',ZK(i), 'ZHC=',ZHC(i),'ZCANMAX=',ZCANMAX
             if (ZHC(i) >= ZCANMAX .and. ZHC(i) <= 1.0) then
                 fainc(i) = exp((-1.0*((ZHC(i)-ZCANMAX)**2.0))/SIGMAU**2.0)
             else if (ZHC(i) >= 0.0 .and. ZHC(i) <= ZCANMAX) then
