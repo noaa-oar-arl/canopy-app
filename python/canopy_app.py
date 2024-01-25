@@ -238,7 +238,7 @@ def run(
             dfs_ifcan = []
             for cand in cands:
                 df_t = read_txt(cand)
-                df_t["time"] = df_t.attrs["time"]
+                df_t["time"] = np.datetime64(df_t.attrs["time"], "ns")
                 dfs_ifcan.append(df_t)
             df = pd.concat(dfs_ifcan, ignore_index=True)
             df.attrs.update(which=which)
