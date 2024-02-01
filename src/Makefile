@@ -63,37 +63,37 @@ $(info LIBS: '$(LIBS)')
 $(info INC:  '$(INC)')
 
 # Source objects
-OBJS :=\
- canopy_const_mod.o \
- canopy_date_mod.o \
- canopy_coord_mod.o \
- canopy_canopts_mod.o \
- canopy_canmet_mod.o \
- canopy_canvars_mod.o \
- canopy_utils_mod.o \
- canopy_files_mod.o \
- canopy_readnml.o \
- canopy_alloc.o \
- canopy_init.o \
- canopy_txt_io_mod.o \
- canopy_ncf_io_mod.o \
- canopy_check_input.o \
- canopy_read_txt.o \
- canopy_dxcalc_mod.o \
- canopy_profile_mod.o \
- canopy_var3din_mod.o \
- canopy_phot_mod.o \
- canopy_rad_mod.o \
- canopy_tleaf_mod.o \
- canopy_wind_mod.o \
- canopy_fire_mod.o \
- canopy_eddy_mod.o \
- canopy_bioparm_mod.o \
- canopy_bioemi_mod.o \
- canopy_calcs.o \
- canopy_write_txt.o \
- canopy_dealloc.o \
- canopy_app.o
+OBJS := \
+  canopy_const_mod.o \
+  canopy_date_mod.o \
+  canopy_coord_mod.o \
+  canopy_canopts_mod.o \
+  canopy_canmet_mod.o \
+  canopy_canvars_mod.o \
+  canopy_utils_mod.o \
+  canopy_files_mod.o \
+  canopy_readnml.o \
+  canopy_alloc.o \
+  canopy_init.o \
+  canopy_txt_io_mod.o \
+  canopy_ncf_io_mod.o \
+  canopy_check_input.o \
+  canopy_read_txt.o \
+  canopy_dxcalc_mod.o \
+  canopy_profile_mod.o \
+  canopy_var3din_mod.o \
+  canopy_phot_mod.o \
+  canopy_rad_mod.o \
+  canopy_tleaf_mod.o \
+  canopy_wind_mod.o \
+  canopy_fire_mod.o \
+  canopy_eddy_mod.o \
+  canopy_bioparm_mod.o \
+  canopy_bioemi_mod.o \
+  canopy_calcs.o \
+  canopy_write_txt.o \
+  canopy_dealloc.o \
+  canopy_app.o
 
 ifeq ($(NC), 0)
   _ncf_objs := canopy_check_input.o canopy_ncf_io_mod.o
