@@ -18,13 +18,17 @@ SUBROUTINE canopy_readnml
     INTEGER                            :: n,i
     CHARACTER(LEN=*),      PARAMETER   :: pname = 'CANOPY_READNML'
 
-    NAMELIST /filenames/ file_vars, file_out
+    NAMELIST /filenames/ file_vars, file_canvars, file_out
 
-    NAMELIST /userdefs/  infmt_opt, nlat, nlon, modlays, modres, href_opt, href_set, &
-        z0ghc, lambdars, flameh_opt, flameh_set, frp_fac, ifcanwind, ifcanwaf, &
-        ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, dx_opt, &
-        dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, biovert_opt, &
-        ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set
+    NAMELIST /userdefs/  infmt_opt, time_start, time_end, time_intvl, ntime, &
+        nlat, nlon, modlays, modres, href_opt, href_set, z0ghc, lambdars, &
+        var3d_opt, var3d_set, pavd_opt, pavd_set, &
+        flameh_opt, flameh_cal, flameh_set, frp_fac, ifcanwind, &
+        ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
+        dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, &
+        biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, &
+        leafage_opt, lai_tstep
+
 
 !-------------------------------------------------------------------------------
 ! Error, warning, and informational messages.
@@ -61,8 +65,9 @@ SUBROUTINE canopy_readnml
 ! Initialize canopy file names.
 !-------------------------------------------------------------------------------
 
-    file_vars(:) = " "
-    file_out(:)  = " "
+    file_vars(:)    = " "
+    file_canvars(:) = " "
+    file_out(:)     = " "
 
 !-------------------------------------------------------------------------------
 
@@ -70,6 +75,14 @@ SUBROUTINE canopy_readnml
 ! Set default integer for 1D (txt or ncf) or 2D (ncf only) input file format
 ! (default = 0, i.e., 2D)
     infmt_opt = 0
+!-------------------------------------------------------------------------------
+
+
+! Set default value for number of timesteps, start/end, and interval (seconds)
+    ntime      =  0
+    time_start = '0000-00-00-00:00:00.0000'
+    time_end   = '0000-00-00-00:00:00.0000'
+    time_intvl =  0
 !-------------------------------------------------------------------------------
 
 ! Set default value for number of latitude/longitude cells (default = 1D point)
@@ -85,6 +98,26 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default real value for canopy vertical resolution (m) (Default = 0.5 m)
     modres = 0.5_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for using input 3D variables from file (default = 0)
+    var3d_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for number of input 3D levels in variables from file (Default = 14)
+    var3d_set = 14
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for using 3D GEDI PAVD inputs from file (default = 0)
+    pavd_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for latitude threshold when using 3D GEDI PAVD inputs from file (default = 52 degrees)
+    pavd_set = 52.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -110,6 +143,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default integer for flame height set values or calculation (default = 0)
     flameh_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for FRP to flame height relationships used (default = 0)
+    flameh_cal = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -238,6 +276,19 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
+! Set default integer for Leaf Age response option for biogenic (all) emissions
+! (default is OFF i.e., leafage_opt=1 making GAMMA_LEAFAGE=1 i.e. leaf age response to Biogenic VOCs is off.)
+!  Otherwise swithced ON i.e., leafage_opt= 0 for which lai_tstep is defined to  enable GAMMA_LEAFAGE calculation
+    leafage_opt = 1
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default timestep for LAI input as daily = 24*3600 seconds, otherwise specified in namelist
+    lai_tstep = 86400 !Daily LAI inputs
+!-------------------------------------------------------------------------------
+
+
+!-------------------------------------------------------------------------------
 ! Read namelist to get user definitions.  Rewind namelist file after each
 ! read in case namelists are not in the correct order in the namelist.
 !-------------------------------------------------------------------------------
@@ -262,6 +313,10 @@ SUBROUTINE canopy_readnml
 
     DO n = 1, SIZE(file_vars)
         file_vars(n)= TRIM( ADJUSTL( file_vars(n) ) )
+    ENDDO
+
+    DO n = 1, SIZE(file_canvars)
+        file_canvars(n)= TRIM( ADJUSTL( file_canvars(n) ) )
     ENDDO
 
     DO n = 1, SIZE(file_out)

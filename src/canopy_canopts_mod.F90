@@ -10,6 +10,10 @@ MODULE canopy_canopts_mod
 
 !! .... defines canopy options (read from user namelist)
     integer             ::    infmt_opt   !Integer for choosing 1D or 2D input file format (default = 0, 2D)
+    integer             ::    var3d_opt   !Integer for choosing if 3D variables will be read from file (default = 0, off)
+    integer             ::    var3d_set   !Integer for number fo 3D levels in input file, if var3d_opt=1 (default = 14)
+    integer             ::    pavd_opt    !Integer for turning on 3D GEDI PAVD profiles read from input file (default = 0, off)
+    real(rk)            ::    pavd_set    !Real value for latitude +/- threshold when 3D GEDI PAVD profiles read from input file (default = 52.0)
     integer             ::    href_opt    !Integer for using set href in namelist (=0) or array from file(=1) (default = 0)
     real(rk)            ::    href_set    !Set reference Height above canopy @ 10 m  (m)
     logical             ::    ifcanwind   !logical canopy wind option (default = .FALSE.)
@@ -22,6 +26,7 @@ MODULE canopy_canopts_mod
     integer             ::    lu_opt      !integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
     integer             ::    z0_opt      !integer for setting first estimate of z0 (default = 0 for Z0_MOD)
     integer             ::    flameh_opt  !Integer for flameh values used or calculated (default = 0)
+    integer             ::    flameh_cal  !Integer for FRP to flame height relationships used (default = 0)
     real(rk)            ::    flameh_set  !User Set Flame Height (m)
     real(rk)            ::    frp_fac     !FRP tuning factor for flame height calculation (default = 1.0)
     integer             ::    dx_opt      !Integer for dx resolution values used or calculated (default = 0)
@@ -40,5 +45,7 @@ MODULE canopy_canopts_mod
     real(rk)            ::    crop_set    !Set default value for crop vegtype heights used in model (m) (Default = 3 m)
     integer             ::    co2_opt     !Set default integer for co2 inhibition option for biogenic isoprene emissions (default=0; Possell & Hewitt (2011))
     real(rk)            ::    co2_set     !Set default value for atmospheric co2 concentration for co2_opt (m) (Default = 400.0 ppmv)
+    integer             ::    leafage_opt !Set default = 1 for Leaf Age factor option for BVOCs, =1 give GAMMA_LEAFGAE =1
+    integer             ::    lai_tstep   !Set default = 24*3600 seconds (Daily timestep for LAI input, = 30*24*3600 for say Monthly time ste or other user-defined in seconds)
 
 END MODULE canopy_canopts_mod

@@ -18,17 +18,28 @@ NC ?= 1
 
 # Compile flags
 $(info DEBUG setting: '$(DEBUG)')
-ifeq ($(DEBUG), 1)
-  ifeq ($(findstring gfortran,$(notdir $(FC))),gfortran)
-    FCFLAGS := -g -Og -Wall -Wextra -pedantic -fcheck=all -fmax-errors=5 -std=f2003 \
-      -fall-intrinsics -fbacktrace -ffpe-trap=invalid,zero,overflow
-  else ifeq ($(FC),ifort)
-    FCFLAGS := -g -warn all -check bounds -implicitnone -O0 -error-limit 5
-  endif
-else ifeq ($(DEBUG), 0)
+ifeq ($(DEBUG), 0)
   FCFLAGS := -O3
+else ifeq ($(DEBUG), 1)
+  ifeq ($(findstring gfortran,$(notdir $(FC))),gfortran)
+    FCFLAGS := -g -Og -Wall -Wextra -Wconversion -pedantic \
+      -fcheck=bounds -fall-intrinsics -fmax-errors=5 \
+      -std=f2003
+  else ifeq ($(FC),ifort)
+    FCFLAGS := -g -O0 -warn all -check bounds -implicitnone -error-limit 5
+  endif
+else ifeq ($(DEBUG), 2)
+  ifeq ($(findstring gfortran,$(notdir $(FC))),gfortran)
+    FCFLAGS := -g -Og -Wall -Wextra -Wconversion -pedantic \
+      -fcheck=all -fall-intrinsics -fmax-errors=0 \
+      -fbacktrace -ffpe-trap=invalid,zero,overflow -finit-real=snan -finit-integer=-99999999 \
+      -std=f2003
+  else ifeq ($(FC),ifort)
+    FCFLAGS := -g  -O0 -warn all -check all -implicitnone -error-limit 0 \
+      -fpe0 -traceback
+  endif
 else
-  $(error invalid setting for DEBUG, should be 0 or 1 but is '$(DEBUG)')
+  $(error invalid setting for DEBUG, should be 0, 1 or 2 but is '$(DEBUG)')
 endif
 $(info FCFLAGS: '$(FCFLAGS)')
 
@@ -54,6 +65,7 @@ $(info INC:  '$(INC)')
 # Source objects
 OBJS :=\
  canopy_const_mod.o \
+ canopy_date_mod.o \
  canopy_coord_mod.o \
  canopy_canopts_mod.o \
  canopy_canmet_mod.o \
@@ -69,11 +81,12 @@ OBJS :=\
  canopy_read_txt.o \
  canopy_dxcalc_mod.o \
  canopy_profile_mod.o \
+ canopy_var3din_mod.o \
  canopy_phot_mod.o \
  canopy_rad_mod.o \
  canopy_tleaf_mod.o \
  canopy_wind_mod.o \
- canopy_waf_mod.o \
+ canopy_fire_mod.o \
  canopy_eddy_mod.o \
  canopy_bioparm_mod.o \
  canopy_bioemi_mod.o \
