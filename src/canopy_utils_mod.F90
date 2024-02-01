@@ -658,11 +658,6 @@ contains
         !------------------------------------------------------------------------------
         !BOC
 
-        !-----------------------
-        ! Compute GAMMA_LEAFAGE
-        !-----------------------
-
-
         !TABOVE (Tt in MEGAN code) -> Above Canopy TEMP (tmp2mref or temp2)
 
         ! Calculate foliage fraction
@@ -670,44 +665,44 @@ contains
         !Also, Compute ti and tm
         ! ti: number of days after budbreak required to induce emissions
         ! tm: number of days after budbreak required to reach peak emissions
-        IF (LAIcurrent - LAIpast > LAIdelta) THEN !(i.e. LAI has Increased)
-            IF (TABOVE .le. 303.0_rk) THEN
-                ti = 5.0_rk + 0.7_rk*(300.0_rk-TABOVE)
-            ELSE
-                ti = 2.9_rk
-            ENDIF
-            tm = 2.3_rk*ti
-            !Fnew calculated
-            IF (ti .ge. tsteplai) THEN
-                Fnew = 1.0_rk - (LAIpast/LAIcurrent)
-            ELSE
-                Fnew = (ti/tsteplai) * ( 1.0_rk-(LAIpast/LAIcurrent) )
-            ENDIF
-            !Fmat calculated
-            IF (tm .ge. tsteplai) THEN
-                Fmat = LAIpast/LAIcurrent
-            ELSE
-                Fmat = (LAIpast/LAIcurrent) + ( (tsteplai-tm)/tsteplai ) * ( 1.0_rk-(LAIpast/LAIcurrent) )
-            ENDIF
-
-            Fgro = 1.0_rk - Fnew - Fmat
-            Fold = 0.0_rk
-        ELSEIF (LAIpast - LAIcurrent > LAIdelta) THEN !(i.e. LAI has decreased)
-            Fnew = 0.0_rk
-            Fgro = 0.0_rk
-            Fold = ( LAIpast-LAIcurrent ) / LAIpast
-            Fmat = 1.0_rk-Fold
-        ELSE !(LAIpast == LAIcurrent) THEN !If LAI remains same
-            Fnew = 0.0_rk
-            Fgro = 0.1_rk
-            Fmat = 0.8_rk
-            Fold = 0.1_rk
-        ENDIF
 
         !-----------------------
         ! Compute GAMMA_AGE
         !-----------------------
         IF (leafage_opt .eq. 0) THEN
+            IF (LAIcurrent - LAIpast > LAIdelta) THEN !(i.e. LAI has Increased)
+                IF (TABOVE .le. 303.0_rk) THEN
+                    ti = 5.0_rk + 0.7_rk*(300.0_rk-TABOVE)
+                ELSE
+                    ti = 2.9_rk
+                ENDIF
+                tm = 2.3_rk*ti
+                !Fnew calculated
+                IF (ti .ge. tsteplai) THEN
+                    Fnew = 1.0_rk - (LAIpast/LAIcurrent)
+                ELSE
+                    Fnew = (ti/tsteplai) * ( 1.0_rk-(LAIpast/LAIcurrent) )
+                ENDIF
+                !Fmat calculated
+                IF (tm .ge. tsteplai) THEN
+                    Fmat = LAIpast/LAIcurrent
+                ELSE
+                    Fmat = (LAIpast/LAIcurrent) + ( (tsteplai-tm)/tsteplai ) * ( 1.0_rk-(LAIpast/LAIcurrent) )
+                ENDIF
+
+                Fgro = 1.0_rk - Fnew - Fmat
+                Fold = 0.0_rk
+            ELSEIF (LAIpast - LAIcurrent > LAIdelta) THEN !(i.e. LAI has decreased)
+                Fnew = 0.0_rk
+                Fgro = 0.0_rk
+                Fold = ( LAIpast-LAIcurrent ) / LAIpast
+                Fmat = 1.0_rk-Fold
+            ELSE !(LAIpast == LAIcurrent) THEN !If LAI remains same
+                Fnew = 0.0_rk
+                Fgro = 0.1_rk
+                Fmat = 0.8_rk
+                Fold = 0.1_rk
+            ENDIF
             ! Compute GAMMA_LEAFAGE
             GAMMA_LEAFAGE = Fnew*Anew + Fgro*Agro + Fmat*Amat + Fold*Aold
             ! Prevent negative values
