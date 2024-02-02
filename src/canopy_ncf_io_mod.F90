@@ -2066,6 +2066,7 @@ CONTAINS
         ! Revised:  19 Dec 2022  Original version.  (P.C. Campbell)
         !-------------------------------------------------------------------------------
         USE canopy_canopts_mod !main canopy option descriptions
+        use canopy_const_mod, ONLY: rk
         USE canopy_coord_mod
         USE canopy_canmet_mod
         USE netcdf
@@ -2078,6 +2079,12 @@ CONTAINS
         CHARACTER(LEN=32)                :: date_init
         INTEGER                          :: cdfid,rcode,varid,it
         double precision                 :: rdtime
+        REAL(rk)                         :: variables_3d_real(nlon,nlat,var3d_set)
+        REAL(rk)                         :: variables_2d_real(nlon,nlat)
+        INTEGER                          :: variables_2d_int(nlon,nlat)
+        REAL(rk)                         :: variables_1d_lev_real(var3d_set)
+!        REAL(rk)                         :: variables_real(nlon*nlat)
+!        INTEGER                          :: variables_int(nlon*nlat)
 
         !-------------------------------------------------------------------------------
         ! Error, warning, and informational messages.
@@ -2169,229 +2176,254 @@ CONTAINS
 
         if (infmt_opt .eq. 0) then !Input format is 2D
 
-            CALL get_var_2d_real_cdf (cdfid, 'lat', variables_2d%lat, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'lat', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'lon',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%lat = variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%lat=reshape(variables_2d%lat,[size(variables_2d%lat)])
-            CALL get_var_2d_real_cdf (cdfid, 'lon', variables_2d%lon, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'lon', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'lon',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%lon=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%lon=reshape(variables_2d%lon,[size(variables_2d%lon)])
             !Canopy input met/sfc variables
             !Clumping index
-            CALL get_var_2d_real_cdf (cdfid, 'clu', variables_2d%clu, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'clu', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'clu',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%clu=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%clu=reshape(variables_2d%clu,[size(variables_2d%clu)])
             !Cosine of solar zenith angle
-            CALL get_var_2d_real_cdf (cdfid, 'csz', variables_2d%csz, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'csz', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'csz',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%csz=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%csz=reshape(variables_2d%csz,[size(variables_2d%csz)])
             !Forest Fraction
-            CALL get_var_2d_real_cdf (cdfid, 'ffrac', variables_2d%ffrac, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'ffrac', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'ffrac',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%ffrac=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%ffrac=reshape(variables_2d%ffrac,[size(variables_2d%ffrac)])
             !Forest canopy height
-            CALL get_var_2d_real_cdf (cdfid, 'fh', variables_2d%fh, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'fh', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'fh',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%fh=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%fh=reshape(variables_2d%fh,[size(variables_2d%fh)])
             !Fire Radiative Power
-            CALL get_var_2d_real_cdf (cdfid, 'frp', variables_2d%frp, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'frp', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'frp',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%frp=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%frp=reshape(variables_2d%frp,[size(variables_2d%frp)])
             !Reference height above canopy
-            CALL get_var_2d_real_cdf (cdfid, 'href', variables_2d%href, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'href', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'href',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%href=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%href=reshape(variables_2d%href,[size(variables_2d%href)])
             !Leaf Area Index
-            CALL get_var_2d_real_cdf (cdfid, 'lai', variables_2d%lai, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'lai', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'lai',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%lai=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%lai=reshape(variables_2d%lai,[size(variables_2d%lai)])
             !Monin-Obukhov Length
-            CALL get_var_2d_real_cdf (cdfid, 'mol', variables_2d%mol, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'mol', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'mol',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%mol=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%mol=reshape(variables_2d%mol,[size(variables_2d%mol)])
             !Friction velocity
-            CALL get_var_2d_real_cdf (cdfid, 'fricv', variables_2d%fricv, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'fricv', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'fricv',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%fricv=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%fricv=reshape(variables_2d%fricv,[size(variables_2d%fricv)])
             !Reference U Wind Speed (at HREF)
-            CALL get_var_2d_real_cdf (cdfid, 'ugrd10m', variables_2d%ugrd10m, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'ugrd10m', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'ugrd10m',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%ugrd10m=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%ugrd10m=reshape(variables_2d%ugrd10m,[size(variables_2d%ugrd10m)])
             !Reference V Wind Speed (at HREF)
-            CALL get_var_2d_real_cdf (cdfid, 'vgrd10m', variables_2d%vgrd10m, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'vgrd10m', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'vgrd10m',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%vgrd10m=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%vgrd10m=reshape(variables_2d%vgrd10m,[size(variables_2d%vgrd10m)])
             !Surface (veg+soil) Roughness Length
-            CALL get_var_2d_real_cdf (cdfid, 'sfcr', variables_2d%sfcr, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'sfcr', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'sfcr',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%sfcr=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%sfcr=reshape(variables_2d%sfcr,[size(variables_2d%sfcr)])
             !Vegetation Type
-            CALL get_var_2d_int_cdf (cdfid, 'vtype', variables_2d%vtype, it, rcode)
+            CALL get_var_2d_int_cdf (cdfid, 'vtype', variables_2d_int, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'vtype',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%vtype=variables_2d_int
             !Also reshape to 1D array for 1D calculation and output
 !            variables%vtype=reshape(variables_2d%vtype,[size(variables_2d%vtype)])
             !Soil Type
-            CALL get_var_2d_int_cdf (cdfid, 'sotyp', variables_2d%sotyp, it, rcode)
+            CALL get_var_2d_int_cdf (cdfid, 'sotyp', variables_2d_int, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'sotyp',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%sotyp=variables_2d_int
             !Also reshape to 1D array for 1D calculation and output
 !            variables%sotyp=reshape(variables_2d%sotyp,[size(variables_2d%sotyp)])
             !Surface pressure
-            CALL get_var_2d_real_cdf (cdfid, 'pressfc', variables_2d%pressfc, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'pressfc', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'pressfc',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%pressfc=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%pressfc=reshape(variables_2d%pressfc,[size(variables_2d%pressfc)])
             !instantaneous surface downward shortwave flux
-            CALL get_var_2d_real_cdf (cdfid, 'dswrf', variables_2d%dswrf, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'dswrf', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'dswrf',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%dswrf=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%dswrf=reshape(variables_2d%dswrf,[size(variables_2d%dswrf)])
             !instantaneous surface sensible heat net flux
-            CALL get_var_2d_real_cdf (cdfid, 'shtfl', variables_2d%shtfl, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'shtfl', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'shtfl',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%shtfl=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%shtfl=reshape(variables_2d%shtfl,[size(variables_2d%shtfl)])
             !Surface temperature
-            CALL get_var_2d_real_cdf (cdfid, 'tmpsfc', variables_2d%tmpsfc, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'tmpsfc', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'tmpsfc',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%tmpsfc=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%tmpsfc=reshape(variables_2d%tmpsfc,[size(variables_2d%tmpsfc)])
             !2-meter temperature
-            CALL get_var_2d_real_cdf (cdfid, 'tmp2m', variables_2d%tmp2m, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'tmp2m', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'tmp2m',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%tmp2m=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%tmp2m=reshape(variables_2d%tmp2m,[size(variables_2d%tmp2m)])
             !2-meter specific humidity
-            CALL get_var_2d_real_cdf (cdfid, 'spfh2m', variables_2d%spfh2m, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'spfh2m', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'spfh2m',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%spfh2m=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%spfh2m=reshape(variables_2d%spfh2m,[size(variables_2d%spfh2m)])
             !Height of planetary boundary layer
-            CALL get_var_2d_real_cdf (cdfid, 'hpbl', variables_2d%hpbl, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'hpbl', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'hpbl',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%hpbl=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%hpbl=reshape(variables_2d%hpbl,[size(variables_2d%hpbl)])
             !Mass precipitation rate
-            CALL get_var_2d_real_cdf (cdfid, 'prate_ave', variables_2d%prate_ave, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'prate_ave', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
                 WRITE (*,f9410) TRIM(pname), 'prate_ave',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+            variables_2d%prate_ave=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%prate_ave=reshape(variables_2d%prate_ave,[size(variables_2d%prate_ave)])
             !3D Input Level Profile
             if (var3d_opt .eq. 1) then
-                CALL get_var_1d_real_cdf (cdfid, 'lev', variables_1d%lev, it, rcode)
+                CALL get_var_1d_real_cdf (cdfid, 'lev', variables_1d_lev_real, it, rcode)
                 IF ( rcode /= nf90_noerr ) THEN
                     WRITE (*,f9410) TRIM(pname), 'lev',  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
+                variables_1d%lev=variables_1d_lev_real
             end if
             !GEDI 3D PAVD Profile
             if (pavd_opt .eq. 1 ) then
@@ -2400,12 +2432,13 @@ CONTAINS
                     call exit(2)
                 else !read PAVD
                     !Forest Plant Area Volume Density (PAVD) Profile
-                    CALL get_var_3d_real_cdf (cdfid, 'pavd', variables_3d%pavd, it, rcode)
+                    CALL get_var_3d_real_cdf (cdfid, 'pavd', variables_3d_real, it, rcode)
                     IF ( rcode /= nf90_noerr ) THEN
                         WRITE (*,f9410) TRIM(pname), 'pavd',  &
                             TRIM(nf90_strerror(rcode))
                         CALL exit(2)
                     ENDIF
+                    variables_3d%pavd=variables_3d_real
                 end if
             end if
 

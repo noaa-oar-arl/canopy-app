@@ -24,6 +24,8 @@ SUBROUTINE canopy_alloc
         if(.not.allocated(variables_3d))  allocate(variables_3d(nlon,nlat,var3d_set))
         if(.not.allocated(variables_1d))  allocate(variables_1d(var3d_set))
         if(.not.allocated(variables_can)) allocate(variables_can(nlat*nlon))
+        if(.not.allocated(pavdref))      allocate(pavdref(var3d_set))
+        if(.not.allocated(levref))       allocate(levref(var3d_set))
         if(.not.allocated(pavd_arr))      allocate(pavd_arr(var3d_set))
         if(.not.allocated(lev_arr))       allocate(lev_arr(var3d_set))
     end if

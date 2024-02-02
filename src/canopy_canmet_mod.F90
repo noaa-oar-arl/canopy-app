@@ -123,7 +123,7 @@ MODULE canopy_canmet_mod
 !    real(rk)       ::    pavd01ref, pavd02ref, pavd03ref, pavd04ref, pavd05ref, & !Input canopy PAVD profile
 !                         pavd06ref, pavd07ref, pavd08ref, pavd09ref, pavd10ref, &
 !                         pavd11ref, pavd12ref, pavd13ref, pavd14ref
-    real(rk), allocatable   :: pavd_arr ( : )
-    real(rk), allocatable   :: lev_arr  ( : )
+    real(rk), allocatable   :: pavdref ( : ), pavd_arr ( : ) !plant area volume density (m2/m3)
+    real(rk), allocatable   :: levref ( : ), lev_arr  ( : ) !reference vertical levels with 3d input data
 
 END MODULE canopy_canmet_mod
