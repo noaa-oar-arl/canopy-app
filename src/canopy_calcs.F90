@@ -35,18 +35,23 @@ SUBROUTINE canopy_calcs(nn)
     REAL(rk), save :: currentlai    ! Current LAI [cm2/cm2]  (saved from one timestep to the next)
     REAL(rk) :: tsteplai  !Number of days between the past and current LAI
     !REAL(rk) :: tabovecanopy  ! Above Canopy Temp (assigned = tmp2mref ), done in canopy_bioemi_mod.F90
-
+    REAL(rk) :: lat2d(nlon,nlat), lon2d(nlon,nlat), lat1d(nlon*nlat), lon1d(nlon*nlat)
 
 
 
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'
 
+    lat2d = variables_2d%lat
+    lon2d = variables_2d%lon
+    lat1d = variables%lat
+    lon1d = variables%lon
+
     if (infmt_opt .eq. 0) then !Main input format is 2D NetCDF and output will be 2D NetCDf
 
         if (ifcanwind .or. ifcanwaf) then !only calculate if canopy wind or WAF option
-            call canopy_calcdx_2d(dx_opt, dx_set, nlat, nlon, variables_2d%lat, &
-                variables_2d%lon, dx_2d)
+            call canopy_calcdx_2d(dx_opt, dx_set, nlat, nlon, lat2d, &
+                lon2d, dx_2d)
         end if
 
         if (href_opt .eq. 0 ) then !setting entire array = href_set value from user NL
@@ -151,11 +156,13 @@ SUBROUTINE canopy_calcs(nn)
                                 call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
                                     fafraczInt)
                             else
+                                pavdref = variables_3d(i,j,:)%pavd
+                                levref  = variables_1d%lev
 ! ... derive canopy/foliage distribution shape profile from interpolated GEDI PAVD profile - bottom up total in-canopy and fraction at z
                                 if (variables_2d(i,j)%lat .gt. (-1.0_rk*pavd_set) .and. &
                                     variables_2d(i,j)%lat .lt. pavd_set) then !use GEDI PAVD
                                     call canopy_pavd2fafrac(zcanmax, sigmau, sigma1, hcmref, zhc, &
-                                        variables_3d(i,j,:)%pavd, variables_1d%lev, fafraczInt)
+                                        pavdref, levref, fafraczInt)
                                     !check if there is observed canopy height but no PAVD profile
                                     if (hcmref .gt. 0.0 .and. maxval(fafraczInt) .le. 0.0) then !revert to prescribed shape profile
                                         call canopy_foliage(modlays, zhc, zcanmax, sigmau, sigma1, &
@@ -423,8 +430,8 @@ SUBROUTINE canopy_calcs(nn)
     else if (infmt_opt .eq. 1) then !Main input format is 1D/2D text and output will be 1D/2D text
 
         if (ifcanwind .or. ifcanwaf) then !only calculate if canopy wind or WAF option
-            call canopy_calcdx(dx_opt, dx_set, nlat, nlon, variables%lat, &
-                variables%lon, dx)
+            call canopy_calcdx(dx_opt, dx_set, nlat, nlon, lat1d, &
+                lon1d, dx)
         end if
 
         if (href_opt .eq. 0 ) then !setting entire array = href_set value from user NL
