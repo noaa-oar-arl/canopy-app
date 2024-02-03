@@ -340,14 +340,18 @@ contains
             z0_set = Z0_MOD
         else if (Z0_OPT .eq. 1) then !Use veg-type dependent z0 first estimate
             if (LU_OPT .eq. 0 .or. LU_OPT .eq. 1) then !VIIRS/MODIS LU types
-                !approx/average vegtype mapping to Massman et al. forest types
+                !approximate Z0 based on vegetation types
                 if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS/MODIS Cat 1-2/Evergreen Needleleaf & Broadleaf
                     z0_set  = 1.0_rk
-                end if
-                if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS/MODIS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
+                else if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS/MODIS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
                     z0_set = 1.0_rk
-                end if
-                if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS/MODIS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
+                else if ((VTYPE .ge. 6 .and. VTYPE .le. 10)   & !VIIRS/MODIS Cat 8-10 for savannas, woody savannas, and grasslands
+                    .or. VTYPE .eq. 12             & !VIIRS/MODIS Cat 12 for croplands
+                    .or. VTYPE .eq. 14 ) then        !VIIRS/MODIS Cat 14 for cropland/natural mosaic
+                    z0_set = 0.1_rk
+                else if (VTYPE .ge. 18 .and. VTYPE .le. 19) then !VIIRS/MODIS Cat 18 -19 for wooded and mixed tundra
+                    z0_set = 0.3_rk
+                else
                     z0_set = 0.1_rk
                 end if
             else

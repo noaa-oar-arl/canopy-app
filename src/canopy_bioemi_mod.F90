@@ -197,6 +197,8 @@ contains
             do i=1,  SIZE(ZK)
                 if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then
                     VPGWT(i) = (FLAI(i))/sum(FLAI(1:LAYERS))
+                else
+                    VPGWT(i) = 0.0_rk !above canopy
                 end if
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
