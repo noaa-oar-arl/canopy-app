@@ -25,7 +25,7 @@ SUBROUTINE canopy_readnml
         var3d_opt, var3d_set, pavd_opt, pavd_set, &
         flameh_opt, flameh_cal, flameh_set, frp_fac, ifcanwind, &
         ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
-        dx_opt, dx_set, lai_thresh, frt_thresh, fch_thresh, rsl_opt, bio_cce, &
+        dx_opt, dx_set, lai_thresh, cf_thresh, ch_thresh, rsl_opt, bio_cce, &
         biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, &
         leafage_opt, lai_tstep
 
@@ -222,12 +222,12 @@ SUBROUTINE canopy_readnml
 
 !-------------------------------------------------------------------------------
 ! Set default real value for user FRT threshold value for canopy (default = 0.5)
-    frt_thresh = 0.5_rk
+    cf_thresh = 0.5_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default real value for user FCH threshold value for canopy (default = 0.5 m)
-    fch_thresh = 0.1_rk
+    ch_thresh = 0.1_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
