@@ -20,7 +20,7 @@ MODULE canopy_canmet_mod
         real(rk)   :: clu          !clumping index
         real(rk)   :: lai          !leaf area index
         integer    :: vtype        !vegetation type
-        real(rk)   :: ffrac        !forest fraction
+        real(rk)   :: canfrac      !canopy fraction
         real(rk)   :: fricv        !friction velocity (u*) (m/s)
         real(rk)   :: csz          !cosine of solar zenith angle
         real(rk)   :: sfcr         !surface roughness length (m)
@@ -101,7 +101,7 @@ MODULE canopy_canmet_mod
     real(rk)       ::    cluref          !Input canopy clumping index
     real(rk)       ::    lairef          !Input leaf area index
     integer        ::    vtyperef        !Input vegetation type (VIIRS)
-    real(rk)       ::    ffracref        !Input forest fraction of grid cell
+    real(rk)       ::    canfracref      !Input canopy fraction of grid cell
     real(rk)       ::    ustref          !Input friction velocity
     real(rk)       ::    cszref          !Input cosine of zenith angle
     real(rk)       ::    z0ref           !Input total/surface roughness length
