@@ -1897,7 +1897,7 @@ CONTAINS
             !-------------------------------------------------------------------------------
             ! Time-varying 2d fields at cell centers.
             !-------------------------------------------------------------------------------
-            c_canheight%fld = variables_2d%fh
+            c_canheight%fld = variables_2d%ch
             if (ifcanwind .or. ifcanwaf) then
                 c_waf%fld = waf_2d
                 c_flameh%fld = flameh_2d
@@ -2216,25 +2216,25 @@ CONTAINS
             !Also reshape to 1D array for 1D calculation and output
 !            variables%csz=reshape(variables_2d%csz,[size(variables_2d%csz)])
             !Forest Fraction
-            CALL get_var_2d_real_cdf (cdfid, 'ffrac', variables_2d_real, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'canfrac', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
-                WRITE (*,f9410) TRIM(pname), 'ffrac',  &
+                WRITE (*,f9410) TRIM(pname), 'canfrac',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
-            variables_2d%ffrac=variables_2d_real
+            variables_2d%canfrac=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
-!            variables%ffrac=reshape(variables_2d%ffrac,[size(variables_2d%ffrac)])
+!            variables%canfrac=reshape(variables_2d%canfrac,[size(variables_2d%canfrac)])
             !Forest canopy height
-            CALL get_var_2d_real_cdf (cdfid, 'fh', variables_2d_real, it, rcode)
+            CALL get_var_2d_real_cdf (cdfid, 'ch', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
-                WRITE (*,f9410) TRIM(pname), 'fh',  &
+                WRITE (*,f9410) TRIM(pname), 'ch',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
-            variables_2d%fh=variables_2d_real
+            variables_2d%ch=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
-!            variables%fh=reshape(variables_2d%fh,[size(variables_2d%fh)])
+!            variables%ch=reshape(variables_2d%ch,[size(variables_2d%ch)])
             !Fire Radiative Power
             CALL get_var_2d_real_cdf (cdfid, 'frp', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
@@ -2476,16 +2476,16 @@ CONTAINS
                 CALL exit(2)
             ENDIF
             !Forest Fraction
-            CALL get_var_1d_real_cdf (cdfid, 'ffrac', variables%ffrac, it, rcode)
+            CALL get_var_1d_real_cdf (cdfid, 'canfrac', variables%canfrac, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
-                WRITE (*,f9410) TRIM(pname), 'ffrac',  &
+                WRITE (*,f9410) TRIM(pname), 'canfrac',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
             !Forest canopy height
-            CALL get_var_1d_real_cdf (cdfid, 'fh', variables%fh, it, rcode)
+            CALL get_var_1d_real_cdf (cdfid, 'ch', variables%ch, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN
-                WRITE (*,f9410) TRIM(pname), 'fh',  &
+                WRITE (*,f9410) TRIM(pname), 'ch',  &
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
