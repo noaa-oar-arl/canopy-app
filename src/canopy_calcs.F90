@@ -74,7 +74,7 @@ SUBROUTINE canopy_calcs(nn)
                 cluref       = variables_2d(i,j)%clu
                 lairef       = variables_2d(i,j)%lai
                 vtyperef     = variables_2d(i,j)%vtype
-                ffracref     = variables_2d(i,j)%ffrac
+                canfracref   = variables_2d(i,j)%canfrac
                 ustref       = variables_2d(i,j)%fricv
                 cszref       = variables_2d(i,j)%csz
                 z0ref        = variables_2d(i,j)%sfcr
@@ -141,12 +141,12 @@ SUBROUTINE canopy_calcs(nn)
                         end if
 
 ! ... check for contiguous canopy conditions at each model grid cell
-                        if (hcmref .gt. fch_thresh .and. ffracref .gt. frt_thresh &
+                        if (hcmref .gt. fch_thresh .and. canfracref .gt. frt_thresh &
                             .and. lairef .gt. lai_thresh) then
 
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
 
-                            call canopy_parm(vtyperef, hcmref, ffracref, lairef, &
+                            call canopy_parm(vtyperef, hcmref, canfracref, lairef, &
                                 pai_opt, pai_set, lu_opt, firetype, cdrag, &
                                 pai, zcanmax, sigmau, sigma1)
 
@@ -451,7 +451,7 @@ SUBROUTINE canopy_calcs(nn)
             cluref       = variables(loc)%clu
             lairef       = variables(loc)%lai
             vtyperef     = variables(loc)%vtype
-            ffracref     = variables(loc)%ffrac
+            canfracref   = variables(loc)%canfrac
             ustref       = variables(loc)%fricv
             cszref       = variables(loc)%csz
             z0ref        = variables(loc)%sfcr
@@ -548,12 +548,12 @@ SUBROUTINE canopy_calcs(nn)
                     end if
 
 ! ... check for contiguous canopy conditions at each model grid cell
-                    if (hcmref .gt. fch_thresh .and. ffracref .gt. frt_thresh &
+                    if (hcmref .gt. fch_thresh .and. canfracref .gt. frt_thresh &
                         .and. lairef .gt. lai_thresh) then
 
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
 
-                        call canopy_parm(vtyperef, hcmref, ffracref, lairef, &
+                        call canopy_parm(vtyperef, hcmref, canfracref, lairef, &
                             pai_opt, pai_set, lu_opt, firetype, cdrag, &
                             pai, zcanmax, sigmau, sigma1)
 
