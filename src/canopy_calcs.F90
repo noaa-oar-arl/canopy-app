@@ -68,7 +68,7 @@ SUBROUTINE canopy_calcs(nn)
         do i=1, nlon
             do j=1, nlat
 
-                hcmref       = variables_2d(i,j)%fh
+                hcmref       = variables_2d(i,j)%ch
                 uref         = variables_2d(i,j)%ugrd10m
                 vref         = variables_2d(i,j)%vgrd10m
                 cluref       = variables_2d(i,j)%clu
@@ -445,7 +445,7 @@ SUBROUTINE canopy_calcs(nn)
 
 ! ... Main loop through model grid cells
         do loc=1, nlat*nlon
-            hcmref       = variables(loc)%fh
+            hcmref       = variables(loc)%ch
             uref         = variables(loc)%ugrd10m
             vref         = variables(loc)%vgrd10m
             cluref       = variables(loc)%clu
