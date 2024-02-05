@@ -141,7 +141,7 @@ SUBROUTINE canopy_calcs(nn)
                         end if
 
 ! ... check for contiguous canopy conditions at each model grid cell
-                        if (hcmref .gt. fch_thresh .and. canfracref .gt. frt_thresh &
+                        if (hcmref .gt. ch_thresh .and. canfracref .gt. cf_thresh &
                             .and. lairef .gt. lai_thresh) then
 
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
@@ -548,7 +548,7 @@ SUBROUTINE canopy_calcs(nn)
                     end if
 
 ! ... check for contiguous canopy conditions at each model grid cell
-                    if (hcmref .gt. fch_thresh .and. canfracref .gt. frt_thresh &
+                    if (hcmref .gt. ch_thresh .and. canfracref .gt. cf_thresh &
                         .and. lairef .gt. lai_thresh) then
 
 ! ... call canopy parameters to get canopy, fire info, and shape distribution parameters
