@@ -32,8 +32,8 @@ MODULE canopy_canopts_mod
     integer             ::    dx_opt      !Integer for dx resolution values used or calculated (default = 0)
     real(rk)            ::    dx_set      !User Set Grid Cell Resolution (m)
     real(rk)            ::    lai_thresh  !User set grid cell LAI threshold to apply canopy conditions (m2/m2)
-    real(rk)            ::    frt_thresh  !User set grid cell forest fraction threshold to apply canopy conditions ()
-    real(rk)            ::    fch_thresh  !User set grid cell canopy height threshold to apply canopy conditions (m)
+    real(rk)            ::    cf_thresh   !User set grid cell canopy fraction threshold to apply canopy conditions ()
+    real(rk)            ::    ch_thresh   !User set grid cell canopy height threshold to apply canopy conditions (m)
     integer             ::    rsl_opt     !RSL option used in model from Rosenzweig et al. 2021 (default = 0, off)
     real(rk)            ::    z0ghc       !ratio of ground roughness length to canopy top height
     real(rk)            ::    lambdars    !Value representing influence of roughness sublayer (nondimensional)
