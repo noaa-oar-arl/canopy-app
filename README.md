@@ -212,8 +212,8 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `modres`        | above and below canopy model vertical resolution (m)                               |
 |                 | **Contiguous canopy model thresholds**                                             |
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
-| `frt_thresh`    | user-set real value of forest fraction threshold for contiguous canopy             |
-| `fch_thresh`    | user-set real value of canopy height  threshold for contiguous canopy (m)          |
+| `cf_thresh`     | user-set real value of canopy fraction threshold for contiguous canopy             |
+| `ch_thresh`     | user-set real value of canopy height threshold for contiguous canopy (m)          |
 |                 | **Canopy crop and shrub/savanna/grass extension options**                          |
 | `ssg_opt`       | integer for using either input data  (= `0`, default) or user set shrub/savanna/grass (SSG) vegetation type heights from namelist (= `1`).  Currently, GEDI FCH input data may not provide canopy heights for very low-lying vegetation such as SSG, and thus FCH=0.  This is important for options such as biogenic emissions, as this would then not have any emissions for these areas.  Warning: use of ssg_opt=1 will overide potential observations of FCH from GEDI for low-lying SSG (at higher spatial resolution) and cover larger areas of lower resolution vegtype data indicating SSG.  |
 | `ssg_set`       | user-set real value of constant SSG vegetation type heights (m) (only used if `ssg_opt=1`).  We recommend setting this to a low value, e.g., ssg_set=0.5 or 1.0 (meters) when `ssg_opt=1` |
