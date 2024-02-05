@@ -14,7 +14,7 @@ MODULE canopy_canmet_mod
     TYPE :: variable_type
         real(rk)   :: lat          !latitude of cell/point
         real(rk)   :: lon          !longitude of cell/point
-        real(rk)   :: fh           !forest/canopy height (m)
+        real(rk)   :: ch           !canopy height (m)
         real(rk)   :: ugrd10m      !u wind speed at reference height above canopy (m/s)
         real(rk)   :: vgrd10m      !v wind speed at reference height above canopy (m/s)
         real(rk)   :: clu          !clumping index
