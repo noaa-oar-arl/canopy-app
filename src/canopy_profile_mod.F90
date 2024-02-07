@@ -49,46 +49,47 @@ contains
 
             !approx/average vegtype mapping to Massman et al. forest types
             if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS/MODIS Cat 1-2/Evergreen Needleleaf & Broadleaf
-                !--> Use average Massman Aspen+Spruce+ScotsPine+JackPine+LoblollyPine Forest
+                !--> Use average Massman Spruce+ScotsPine+JackPine+LoblollyPine Forest
                 FIRETYPE=0
-                CDRAG=(0.20_rk + 0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk)/5.0_rk
+                CDRAG=(0.25_rk + 0.20_rk + 0.20_rk + 0.20_rk)/4.0_rk
                 if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
-                    PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/5.0_rk
+                    PAI=(3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk)/4.0_rk
                 else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
-                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
-                    ! https://doi.org/10.1016/j.agrformet.2017.09.004
-                    ! Section 3.3
+                else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
+                    !and is vegetation type dependent from Fang et al. (2019),
+                    !https://doi.org/10.1029/2018RG000608:
+                    PAI=(LAI/(1.0_rk - 0.1231_rk)) !Assume alpha evergreen are more boreal/conifer softwoods
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
                     write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
-                ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk)/5.0_rk
-                SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk)/5.0_rk
-                SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk)/5.0_rk
+                ZCANMAX=(0.60_rk + 0.60_rk + 0.58_rk + 0.60_rk)/4.0_rk
+                SIGMAU=(0.38_rk  + 0.30_rk + 0.20_rk + 0.10_rk)/4.0_rk
+                SIGMA1=(0.16_rk  + 0.10_rk + 0.20_rk + 0.27_rk)/4.0_rk
             end if
 
             if (VTYPE .ge. 3 .and. VTYPE .le. 4) then !VIIRS/MODIS Cat 3-4 Deciduous Needleleaf and  Broadleaf
-                !--> Use Massman Hardwood Forest
+                !--> Use Massman Hardwood Forest + Aspen
                 FIRETYPE=0
-                CDRAG=0.15_rk
+                CDRAG=(0.15_rk + 0.20_rk)/2.0_rk
                 if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
-                    PAI=4.93_rk
+                    PAI=(4.93_rk + 3.28)/2.0_rk
                 else if (PAI_OPT .eq. 1) then !Massman PAI calculation (Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !need PAI function of model LAI
-                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
-                    !https://doi.org/10.1016/j.agrformet.2017.09.004
-                    ! Section 3.3
+                else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
+                    !and is vegetation type dependent from Fang et al. (2019),
+                    !https://doi.org/10.1029/2018RG000608:
+                    PAI=(LAI/(1.0_rk - 0.185_rk)) !assume alpha deciduous have more tropical hardwoods
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
                     write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
+                !Do not use Aspen (ony Hardwood) for the distribution parameters
                 ZCANMAX=0.84_rk
                 SIGMAU=0.13_rk
                 SIGMA1=0.30_rk
@@ -102,33 +103,60 @@ contains
                     PAI=(5.73_rk + 3.28_rk + 2.41_rk + 2.14_rk + 3.78_rk + 4.93_rk)/6.0_rk
                 else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
-                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
-                    ! https://doi.org/10.1016/j.agrformet.2017.09.004
-                    ! Section 3.3
+                else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
+                    !and is vegetation type dependent from Fang et al. (2019),
+                    !https://doi.org/10.1029/2018RG000608:
+                    PAI=(LAI/(1.0_rk - 0.14_rk))!assume alpha is avg. of evergreen and deciduous
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
                     write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
                     call exit(2)
                 end if
-                ZCANMAX=(0.60_rk + 0.36_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/6.0_rk
-                SIGMAU=(0.38_rk + 0.60_rk + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/6.0_rk
-                SIGMA1=(0.16_rk + 0.20_rk + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/6.0_rk
+                !Do not use Aspen for the distribution parameters
+                ZCANMAX=(0.60_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/5.0_rk
+                SIGMAU=(0.38_rk  + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/5.0_rk
+                SIGMA1=(0.16_rk  + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/5.0_rk
             end if
 
-            if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS/MODIS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
-                !--> Average of Massman Corn + Rice )
+            if (VTYPE .ge. 6 .and. VTYPE .le. 7) then !VIIRS/MODIS Cat 6-7 for closed and open shrublands
+                FIRETYPE=1
+                CDRAG=(0.30_rk + 0.30_rk)/2.0_rk  !TBD Needs update for shrublands instead of corn/rice
+                if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
+                    PAI=(2.94_rk + 3.10_rk)/2.0_rk!TBD Needs update for shrublands instead of corn/rice
+                else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
+                    PAI=CalcPAI(FCH,FFRAC)
+                else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
+                    !and is vegetation type dependent from Fang et al. (2019),
+                    !https://doi.org/10.1029/2018RG000608:
+                    PAI=(LAI/(1.0_rk - 0.26_rk))!assume alpha is avg. for low-lying vegetation
+                else if (PAI_OPT .eq. 3) then !PAI value from user
+                    PAI=PAI_SET
+                else
+                    write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
+                    call exit(2)
+                end if
+                !Personal communication (William Massman, US Forest Service)
+                !Typically clumps of shrublands act similar to forest distributions, use Mixed Forest as above
+                ZCANMAX=(0.60_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/5.0_rk
+                SIGMAU=(0.38_rk  + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/5.0_rk
+                SIGMA1=(0.16_rk  + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/5.0_rk
+            end if
+
+            if ((VTYPE .ge. 8 .and. VTYPE .le. 10)   & !VIIRS/MODIS Cat 8-10 for savannas, woody savannas, and grasslands
+                .or. VTYPE .eq. 12             & !VIIRS/MODIS Cat 12 for croplands
+                .or. VTYPE .eq. 14 ) then        !VIIRS/MODIS Cat 14 for cropland/natural mosaic
+                !--> Assume savannas and grasses act as average of Massman Corn + Rice )
                 FIRETYPE=1
                 CDRAG=(0.30_rk + 0.30_rk)/2.0_rk
                 if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
                     PAI=(2.94_rk + 3.10_rk)/2.0_rk
                 else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
                     PAI=CalcPAI(FCH,FFRAC)
-                else if (PAI_OPT .eq. 2) then !PAI = LAI + SAI (WAI)
-                    PAI=LAI + 0.52_rk  !WAI  = 0.52 from Toda and Richardson (2018):
-                    !https://doi.org/10.1016/j.agrformet.2017.09.004
-                    ! Section 3.3
+                else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
+                    !and is vegetation type dependent from Fang et al. (2019),
+                    !https://doi.org/10.1029/2018RG000608:
+                    PAI=(LAI/(1.0_rk - 0.26_rk))!assume alpha is avg. of low-lying vegetation
                 else if (PAI_OPT .eq. 3) then !PAI value from user
                     PAI=PAI_SET
                 else
@@ -136,15 +164,37 @@ contains
                     call exit(2)
                 end if
                 ZCANMAX=(0.94_rk + 0.62_rk)/2.0_rk
-                SIGMAU=(0.03_rk + 0.50_rk)/2.0_rk
-                SIGMA1=(0.60_rk + 0.45_rk)/2.0_rk
+                SIGMAU=(0.03_rk  + 0.50_rk)/2.0_rk
+                SIGMA1=(0.60_rk  + 0.45_rk)/2.0_rk
+            end if
+
+            if (VTYPE .ge. 18 .and. VTYPE .le. 19) then !VIIRS/MODIS Cat 18 -19 for wooded and mixed tundra
+                FIRETYPE=1
+                CDRAG=(0.30_rk + 0.30_rk)/2.0_rk  !TBD Needs update for tundra instead of corn/rice
+                if (PAI_OPT .eq. 0) then      !Katul et al. 2004 vegtype
+                    PAI=(2.94_rk + 3.10_rk)/2.0_rk!TBD Needs update for tundra instead of corn/rice
+                else if (PAI_OPT .eq. 1) then !PAI calculation (Massman et al., Eq. 19)
+                    PAI=CalcPAI(FCH,FFRAC)
+                else if (PAI_OPT .eq. 2) then !PAI=LAI/(1-alpha), where alpha is the "woody-to-total area ratio"
+                    !and is vegetation type dependent from Fang et al. (2019),
+                    !https://doi.org/10.1029/2018RG000608:
+                    PAI=(LAI/(1.0_rk - 0.26_rk))!assume alpha is avg. for low-lying vegetation
+                else if (PAI_OPT .eq. 3) then !PAI value from user
+                    PAI=PAI_SET
+                else
+                    write(*,*)  'Wrong PAI_OPT choice of ', PAI_OPT, 'in namelist...exiting'
+                    call exit(2)
+                end if
+                !Assume tundra are similar to shrublands (i.e., mixed forests) as above.
+                ZCANMAX=(0.60_rk + 0.60_rk + 0.58_rk + 0.60_rk + 0.84_rk)/5.0_rk
+                SIGMAU=(0.38_rk  + 0.30_rk + 0.20_rk + 0.10_rk + 0.13_rk)/5.0_rk
+                SIGMA1=(0.16_rk  + 0.10_rk + 0.20_rk + 0.27_rk + 0.30_rk)/5.0_rk
             end if
 
         else
             write(*,*)  'Wrong LU_OPT choice of ', LU_OPT, 'in namelist, only VIIRS/MODIS available right now...exiting'
             call exit(2)
         end if
-
 
     END SUBROUTINE CANOPY_PARM
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -290,14 +340,18 @@ contains
             z0_set = Z0_MOD
         else if (Z0_OPT .eq. 1) then !Use veg-type dependent z0 first estimate
             if (LU_OPT .eq. 0 .or. LU_OPT .eq. 1) then !VIIRS/MODIS LU types
-                !approx/average vegtype mapping to Massman et al. forest types
+                !approximate Z0 based on vegetation types
                 if (VTYPE .ge. 1 .and. VTYPE .le. 2) then !VIIRS/MODIS Cat 1-2/Evergreen Needleleaf & Broadleaf
                     z0_set  = 1.0_rk
-                end if
-                if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS/MODIS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
+                else if (VTYPE .ge. 3 .and. VTYPE .le. 5) then !VIIRS/MODIS Cat 3-5/Deciduous Needleleaf, Broadleaf, Mixed Forests
                     z0_set = 1.0_rk
-                end if
-                if ((VTYPE .ge. 6 .and. VTYPE .le. 10) .or. VTYPE .eq. 12 ) then !VIIRS/MODIS Cat 6-10 or 12/Shrubs, Croplands, and Grasses
+                else if ((VTYPE .ge. 6 .and. VTYPE .le. 10)   & !VIIRS/MODIS Cat 8-10 for savannas, woody savannas, and grasslands
+                    .or. VTYPE .eq. 12             & !VIIRS/MODIS Cat 12 for croplands
+                    .or. VTYPE .eq. 14 ) then        !VIIRS/MODIS Cat 14 for cropland/natural mosaic
+                    z0_set = 0.1_rk
+                else if (VTYPE .ge. 18 .and. VTYPE .le. 19) then !VIIRS/MODIS Cat 18 -19 for wooded and mixed tundra
+                    z0_set = 0.3_rk
+                else
                     z0_set = 0.1_rk
                 end if
             else
@@ -327,7 +381,11 @@ contains
         dha =  1.0 - (cosh(qstar*nrat*FCLAI(1))/cosh(qstar*nrat))
         fafraczInt_tota = IntegrateTrapezoid( ZHC,(cosh(qstar*nrat*FCLAI)*ZHC) )
         fafraczInt_totb = IntegrateTrapezoid( ZHC, cosh(qstar*nrat*FCLAI) )
-        dhb = fafraczInt_tota/fafraczInt_totb
+        if (fafraczInt_totb > 0) then
+            dhb = fafraczInt_tota/fafraczInt_totb
+        else
+            dhb = 0
+        end if
 
         ! Final zero-plane displacement (zpd) height
         d_h = dha * dhb

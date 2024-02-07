@@ -22,7 +22,7 @@ jobs:
         shell: bash -l {0}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
@@ -30,15 +30,19 @@ jobs:
           sudo apt-get install libnetcdff-dev
 
       - name: Set up Python (micromamba)
-        uses: mamba-org/provision-with-micromamba@v15
+        uses: mamba-org/setup-micromamba@v1
         with:
           environment-file: python/environment.yml
-          cache-env: true
-          extra-specs: |
+          cache-environment: true
+          create-args: |
             python=3.10
 
       - name: Check that default input is nc
         run: |
+          f90nml -g filenames -v file_vars="'input/gfs.t12z.20220701.sfcf000.canopy.nc'" \
+            input/namelist.canopy input/namelist.canopy
+          f90nml -g userdefs -v ntime=1 \
+            input/namelist.canopy input/namelist.canopy
           python -c '
           import f90nml
           with open("input/namelist.canopy") as f:

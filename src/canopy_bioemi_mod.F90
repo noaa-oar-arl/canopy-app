@@ -6,9 +6,10 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_BIO( ZK, FCLAI, FCH, LAI, FSUN, PPFD_SUN, &
-        PPFD_SHADE, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE, LU_OPT, &
+        PPFD_SHADE, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE, TEMP2, LU_OPT, &
         VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
-        EMI_IND, EMI_OUT)
+        LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, &
+        MODLAYS, EMI_IND, EMI_OUT)
 
 !-----------------------------------------------------------------------
 
@@ -33,11 +34,14 @@ contains
 !     Feb 2023 P.C. Campbell: Modified for multiple biogenic species
 !     Jul 2023 P.C. Campbell: Restructured to use FSUN, TLEAF, and PPFD
 !                             as inputs
+!     Sept 2023: QZ Rasool : Modifications for  LeafAge Response for multiple
+!     BVOCs
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
         use canopy_const_mod, ONLY: rk,rgasuniv   !constants for canopy models
-        use canopy_utils_mod,  ONLY: interp_linear1_internal, GET_GAMMA_CO2
+        use canopy_utils_mod,  ONLY: interp_linear1_internal,GET_GAMMA_CO2,GET_GAMMA_LEAFAGE
         use canopy_bioparm_mod
+        use canopy_tleaf_mod
 
 ! Arguments:
 !     IN/OUT
@@ -52,6 +56,7 @@ contains
         REAL(RK),    INTENT( IN )       :: TLEAF_SUN(:)    ! Leaf temp for sunlit leaves (K)
         REAL(RK),    INTENT( IN )       :: TLEAF_SHADE(:)  ! Leaf temp for shaded leaves (K)
         REAL(RK),    INTENT( IN )       :: TLEAF_AVE(:)    ! Average Leaf temp (K)
+        REAL(RK),    INTENT( IN )       :: TEMP2           ! Model input 2-m Temperature (K)
         INTEGER,     INTENT( IN )       :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
         REAL(RK),    INTENT( IN )       :: MODRES          ! Canopy model input vertical resolution (m)
@@ -59,6 +64,13 @@ contains
         INTEGER,     INTENT( IN )       :: VERT            ! MEGAN vertical integration option (default = 0/no integration)
         INTEGER,     INTENT( IN )       :: CO2OPT          ! Option for co2 inhibition calculation
         REAL(RK),    INTENT( IN )       :: CO2SET          ! User set atmospheric CO2 conc [ppmv]
+
+        INTEGER,    INTENT( IN )       :: LEAFAGEOPT      ! leafage_opt (0= ON, 1= off i.e. GAMMALEAFAGE =1, in canopy_readnml.F90)
+        REAL(RK),    INTENT( IN )       :: PASTLAI           ! Past LAI [cm2/cm2]
+        REAL(RK),    INTENT( IN )       :: CURRENTLAI           ! Current LAI [cm2/cm2]
+        REAL(RK),    INTENT( IN )       :: TSTEPLAI           !Number of days between the past and current LAI
+
+        INTEGER,     INTENT( IN )       :: MODLAYS         ! Input total model layers
         INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
 
@@ -91,7 +103,20 @@ contains
         REAL(RK) :: CT1                            ! Activation energy (kJ/mol)
         REAL(RK) :: CEO                            ! Empirical coefficient
         REAL(RK) :: EF                             ! Final Mapped Emission factor (EF) (ug/m2 hr)
+
+
+        REAL(RK) :: TABOVECANOPY !(SIZE(ZK))  ! Above Canopy Temp assigned = TEMP2 i.e., Model input 2-m Temperature (K for now)
+        ! Empirical coeff.'s for Leaf Age factor calculations (see
+        ! canopy_bioparm_mod or call canopy_biop)
+        REAL(RK) :: ANEW
+        REAL(RK) :: AGRO
+        REAL(RK) :: AMAT
+        REAL(RK) :: AOLD
+
         REAL(RK) :: GAMMACO2                       ! CO2 inhibition factor (isoprene only)
+
+        REAL(RK) :: GAMMALEAFAGE !(SIZE(ZK))                 ! LEAF AGE factor
+
         integer i, LAYERS
 
 ! Constant Canopy Parameters
@@ -105,7 +130,7 @@ contains
         TLEAF_OPT = 313.0_rk + (0.6_rk * (TLEAF240_AVE-297.0_rk)) !Guenther et al. (2012)
 
 ! Calculate emission species/plant-dependent mapped emission factors
-        call canopy_biop(EMI_IND, LU_OPT, VTYPE, EF, CT1, CEO)
+        call canopy_biop(EMI_IND, LU_OPT, VTYPE, EF, CT1, CEO, ANEW, AGRO, AMAT, AOLD)  !Update: Added leaf age empirical coeff's
 
         E_OPT = CEO * EXP(0.05_rk * (TLEAF24_AVE-297.0_rk)) * EXP(0.05_rk * (TLEAF240_AVE-297.0_rk))
 
@@ -143,6 +168,12 @@ contains
             GAMMACO2 = 1.0_rk
         end if
 
+! Get LEAF AGE factor
+        TABOVECANOPY  = TEMP2   !TEMP2 (above air temp) for TABOVECANOPY
+        !do i=1, SIZE(ZK)
+        GAMMALEAFAGE = GET_GAMMA_LEAFAGE(LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, TABOVECANOPY, ANEW, AGRO, AMAT, AOLD)
+        !end do
+
 ! Calculate emissions profile in the canopy
         EMI_OUT = 0.0_rk  ! set initial emissions profile to zero
         FLAI = 0.0_rk  ! set initial fractional FLAI (LAD) profile to zero
@@ -151,13 +182,13 @@ contains
             do i=1, SIZE(ZK)
                 if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then           ! above ground level and at/below canopy top
                     FLAI(i) = ((FCLAI(i+1) - FCLAI(i)) * LAI)/MODRES    !fractional LAI in each layer converted to LAD (m2 m-3)
-                    EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i) * GAMMACO2 * CCE  ! (ug m-3 hr-1)
+                    EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i) * GAMMACO2 * CCE * GAMMALEAFAGE  ! (ug m-3 hr-1)
                     EMI_OUT(i) = EMI_OUT(i) * 2.7777777777778E-13_rk    !convert emissions output to (kg m-3 s-1)
                 end if
             end do
         else if (VERT .eq. 1) then       !"MEGANv3-like": Use weighting factors normalized to plant distribution shape (FCLAI)
             !across canopy layers
-            LAYERS = floor(FCH/MODRES) + 1
+            LAYERS = min((floor(FCH/MODRES) + 1),MODLAYS)
             do i=1,  SIZE(ZK)
                 if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then
                     FLAI(i) = ((FCLAI(i+1) - FCLAI(i)) * LAI)/MODRES    !fractional LAI in each layer converted to LAD (m2 m-3)
@@ -166,16 +197,18 @@ contains
             do i=1,  SIZE(ZK)
                 if (ZK(i) .gt. 0.0 .and. ZK(i) .le. FCH) then
                     VPGWT(i) = (FLAI(i))/sum(FLAI(1:LAYERS))
+                else
+                    VPGWT(i) = 0.0_rk !above canopy
                 end if
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * GAMMACO2 * CCE   !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else if (VERT .eq. 2) then       !"MEGANv3-like": Add weighted sum of activity coefficients using normal distribution
             !across canopy layers using 5 layer numbers directly from MEGANv3
             !--warning: weights are not consistent with FCLAI distribution
             !used for biomass distribution used for sunlit/shaded in Gamma TLEAF and GammaPPFD.
-            LAYERS = floor(FCH/MODRES) + 1
+            LAYERS = min((floor(FCH/MODRES) + 1),MODLAYS)
             do i=1, SIZE(ZK)
                 if (ZK(i) .gt. FCH) then
                     GAUSS(i) = 0.0
@@ -201,18 +234,18 @@ contains
                 VPGWT(i) = GAUSS(i)/sum(GAUSS(1:LAYERS))
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * GAMMACO2 * CCE   !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE    !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else if (VERT .eq. 3) then       !"MEGANv3-like": Add weighted sum of activity coefficients equally
             !across canopy layers
             !--warning: weights are not consistent with FCLAI distribution
             !used for biomass distribution used for sunlit/shaded in Gamma TLEAF and GammaPPFD.
-            LAYERS = floor(FCH/MODRES) + 1
+            LAYERS = min((floor(FCH/MODRES) + 1),MODLAYS)
             do i=1,  SIZE(ZK)
                 VPGWT(i) = 1.0_rk/LAYERS
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * GAMMACO2 * CCE   !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE    !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else
             write(*,*)  'Wrong BIOVERT_OPT choice of ', VERT, ' in namelist...exiting'

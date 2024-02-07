@@ -1,43 +1,76 @@
 &FILENAMES
-  file_vars    = 'input/gfs.t12z.20220701.sfcf000.canopy.nc'
-!  file_vars    = 'input/gfs.t12z.20220701.sfcf000.canopy.txt'
-  file_out     = 'output/test_out_southeast_us'
+!Gridded Text and NCF Examples
+! Recommend set file_out prefix to initial 'YYYY-MM-DD-HH-MMSS_region_identifier'
+  file_vars    = 'input/gfs.t12z.20220630.sfcf023.canopy.nc' 'input/gfs.t12z.20220701.sfcf000.canopy.nc' 'input/gfs.t12z.20220701.sfcf001.canopy.nc'
+!  file_vars    = 'input/gfs.t12z.20220630.sfcf023.canopy.txt' 'input/gfs.t12z.20220701.sfcf000.canopy.txt' 'input/gfs.t12z.20220701.sfcf001.canopy.txt'
+  file_out     = 'output/2022-07-01-11-0000_southeast_us'
+
+!Single Point Example
+! Recommend set file_out prefix to initial 'YYYY-MM-DD-HH-MMSS_point_identifier'
+!   file_vars    = 'input/point_file_20220630.sfcf023.txt' 'input/point_file_20220701.sfcf000.txt' 'input/point_file_20220701.sfcf001.txt'
+!   file_canvars  = 'input/point_file_canvars_20220630.sfcf023.txt' 'input/point_file_canvars_20220701.sfcf000.txt' 'input/point_file_canvars_20220701.sfcf001.txt'
+!   file_out     = 'output/2022-07-01-11-0000_point'
 /
 
 &USERDEFS
+!Input model format options
   infmt_opt   =  0
+!Input model grid sizes
   nlat        =  43
   nlon        =  86
+!Input model run times and interval
+  time_start  = '2022-07-01-11:00:00.0000'
+  time_end    = '2022-07-01-13:00:00.0000'
+  ntime       =  3
+  time_intvl  =  3600
+!Input vegetation/land use data options
+  lu_opt      =  0
+!Input model 3D variables (e.g., pavd) inside netcdf file, or from supplementary text profile
+  var3d_opt   =  0
+  var3d_set   =  14
+!Input option to use observed PAVD profiles for foliage shape and latitude threshold
+  pavd_opt    =  0
+  pavd_set    =  52.0
+!Canopy model vertical layers
   modlays     =  100
   modres      =  0.5
+!Contiguous canopy model thresholds
+  lai_thresh  =  0.1
+  cf_thresh   =  0.1
+  ch_thresh   =  0.5
+!Canopy crop and shrub/savanna/grass extension options
+  crop_opt    =  0
+  crop_set    =  3.0
+  ssg_opt     =  0
+  ssg_set     =  1.0
+!Canopy physics and wind-specific options
   ifcanwind   = .TRUE.
-  ifcanwaf    = .TRUE.
-  ifcaneddy   = .TRUE.
-  ifcanphot   = .TRUE.
-  ifcanbio    = .TRUE.
   href_opt    =  0
   href_set    =  10.0
   z0ghc       =  0.0025
   rsl_opt     =  0
   lambdars    =  1.25
+  pai_opt     =  0
+  pai_set     =  4.0
+  z0_opt      =  0
+!Canopy fire/WAF-specific options
+  ifcanwaf    = .TRUE.
   dx_opt      =  0
   dx_set      =  12000.0
   flameh_opt  =  2
+  flameh_cal  =  0
   flameh_set  =  1.0
   frp_fac     =  1.0
-  pai_opt     =  0
-  pai_set     =  4.0
-  lu_opt      =  1
-  z0_opt      =  0
+!Canopy eddy diffusivity-specific options
+  ifcaneddy   = .TRUE.
+!Canopy radiation/photolysis-specific options
+  ifcanphot   = .TRUE.
+!Canopy biogenic emissions-specific options
+  ifcanbio    = .TRUE.
   bio_cce     =  0.21
   biovert_opt =  0
-  ssg_opt     =  0
-  ssg_set     =  1.0
-  crop_opt    =  0
-  crop_set    =  3.0
   co2_opt     =  0
   co2_set     =  400.0
-  lai_thresh  =  0.1
-  frt_thresh  =  0.1
-  fch_thresh  =  0.5
+  lai_tstep   =  86400
+  leafage_opt =  1
 /
