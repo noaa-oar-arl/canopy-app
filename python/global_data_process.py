@@ -70,7 +70,7 @@ metlist = [
     "hpbl",
     "prate_ave",
 ]
-canlist = ["lai", "clu", "ffrac", "fh", "pavd", "mol", "csz", "frp", "href"]
+canlist = ["lai", "clu", "canfrac", "ch", "pavd", "mol", "csz", "frp", "href"]
 
 
 # constants
@@ -394,15 +394,15 @@ for inputtime in timelist:
             ATT = ["Canopy clumping index", "none", fill_value]
             DATA = read_gfs_climatology(f_can, lat, lon, "clu")
 
-        elif varname == "ffrac":
+        elif varname == "canfrac":
             ATTNAME = ["long_name", "units", "missing_value"]
-            ATT = ["Forest fraction of grid cell", "none", fill_value]
-            DATA = read_gfs_climatology(f_can, lat, lon, "ffrac")
+            ATT = ["Canopy fraction of grid cell", "none", fill_value]
+            DATA = read_gfs_climatology(f_can, lat, lon, "canfrac")
 
-        elif varname == "fh":
+        elif varname == "ch":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Canopy height above the surface", "m", fill_value]
-            DATA = read_gfs_climatology(f_can, lat, lon, "fh")
+            DATA = read_gfs_climatology(f_can, lat, lon, "ch")
 
         elif varname == "pavd":
             ATTNAME = ["long_name", "units", "missing_value"]

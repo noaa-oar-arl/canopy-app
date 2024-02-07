@@ -36,8 +36,8 @@
   modres      =  0.5
 !Contiguous canopy model thresholds
   lai_thresh  =  0.1
-  frt_thresh  =  0.1
-  fch_thresh  =  0.5
+  cf_thresh   =  0.1
+  ch_thresh   =  0.5
 !Canopy crop and shrub/savanna/grass extension options
   crop_opt    =  0
   crop_set    =  3.0

@@ -14,13 +14,13 @@ MODULE canopy_canmet_mod
     TYPE :: variable_type
         real(rk)   :: lat          !latitude of cell/point
         real(rk)   :: lon          !longitude of cell/point
-        real(rk)   :: fh           !forest/canopy height (m)
+        real(rk)   :: ch           !canopy height (m)
         real(rk)   :: ugrd10m      !u wind speed at reference height above canopy (m/s)
         real(rk)   :: vgrd10m      !v wind speed at reference height above canopy (m/s)
         real(rk)   :: clu          !clumping index
         real(rk)   :: lai          !leaf area index
         integer    :: vtype        !vegetation type
-        real(rk)   :: ffrac        !forest fraction
+        real(rk)   :: canfrac      !canopy fraction
         real(rk)   :: fricv        !friction velocity (u*) (m/s)
         real(rk)   :: csz          !cosine of solar zenith angle
         real(rk)   :: sfcr         !surface roughness length (m)
@@ -101,7 +101,7 @@ MODULE canopy_canmet_mod
     real(rk)       ::    cluref          !Input canopy clumping index
     real(rk)       ::    lairef          !Input leaf area index
     integer        ::    vtyperef        !Input vegetation type (VIIRS)
-    real(rk)       ::    ffracref        !Input forest fraction of grid cell
+    real(rk)       ::    canfracref      !Input canopy fraction of grid cell
     real(rk)       ::    ustref          !Input friction velocity
     real(rk)       ::    cszref          !Input cosine of zenith angle
     real(rk)       ::    z0ref           !Input total/surface roughness length

@@ -110,7 +110,7 @@ CONTAINS
                 write(11, '(a8, a9, a19, a19, a11)') 'lat', 'lon', 'canheight (m)', 'flameh (m)', 'waf (1)'
                 do loc=1, nlat*nlon
                     write(11, '(f8.2, f9.2, f19.2, f19.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                        variables(loc)%fh, flameh(loc), waf(loc)
+                        variables(loc)%ch, flameh(loc), waf(loc)
                 end do
             end if
 
