@@ -7,7 +7,7 @@ SUBROUTINE canopy_init
 ! Revised:  03 Oct 2022  Original version.  (P.C. Campbell)
 !-------------------------------------------------------------------------------
 
-    USE canopy_const_mod, ONLY: fillreal
+    USE canopy_const_mod, ONLY: rk, fillreal
     USE canopy_canopts_mod
     USE canopy_coord_mod
     USE canopy_canmet_mod
@@ -19,15 +19,35 @@ SUBROUTINE canopy_init
 ! Initialize arrays for Canopy Distribution
 !-------------------------------------------------------------------------------
 
-    if(allocated(zhc))          zhc(:)         = fillreal
-    if(allocated(fafraczInt))   fafraczInt(:)  = fillreal
-    if(allocated(fsun))         fsun(:)        = fillreal
-    if(allocated(tleaf_sun))    tleaf_sun(:)   = fillreal
-    if(allocated(tleaf_shade))  tleaf_shade(:) = fillreal
-    if(allocated(tleaf_ave))    tleaf_ave(:)   = fillreal
-    if(allocated(ppfd_sun))     ppfd_sun(:)    = fillreal
-    if(allocated(ppfd_shade))   ppfd_shade(:)  = fillreal
-    if(allocated(ppfd_ave))   ppfd_ave(:)      = fillreal
+    if(allocated(zhc))                zhc(:)                 = fillreal
+    if(allocated(fafraczInt))         fafraczInt(:)          = fillreal
+    if(allocated(fsun))               fsun(:)                = fillreal
+    if(allocated(tleaf_sun))          tleaf_sun(:)           = fillreal
+    if(allocated(tleaf_shade))        tleaf_shade(:)         = fillreal
+    if(allocated(tleaf_ave))          tleaf_ave(:)           = fillreal
+    if(allocated(ppfd_sun))           ppfd_sun(:)            = fillreal
+    if(allocated(ppfd_shade))         ppfd_shade(:)          = fillreal
+    if(allocated(ppfd_ave))           ppfd_ave(:)            = fillreal
+    if(allocated(tleaf_sun24_tmp))    tleaf_sun24_tmp(:)     = 0.0_rk
+    if(allocated(tleaf_shade24_tmp))  tleaf_shade24_tmp(:)   =  0.0_rk
+    if(allocated(tleaf_ave24_tmp))    tleaf_ave24_tmp(:)     = 0.0_rk
+    if(allocated(ppfd_sun24_tmp))     ppfd_sun24_tmp(:)      = 0.0_rk
+    if(allocated(ppfd_shade24_tmp))   ppfd_shade24_tmp(:)    = 0.0_rk
+    if(allocated(tleaf_sun240_tmp))   tleaf_sun240_tmp(:)    = 0.0_rk
+    if(allocated(tleaf_shade240_tmp)) tleaf_shade240_tmp(:)  = 0.0_rk
+    if(allocated(tleaf_ave240_tmp))   tleaf_ave240_tmp(:)    = 0.0_rk
+    if(allocated(ppfd_sun240_tmp))    ppfd_sun240_tmp(:)     = 0.0_rk
+    if(allocated(ppfd_shade240_tmp))  ppfd_shade240_tmp(:)   = 0.0_rk
+    if(allocated(tleaf_sun24))        tleaf_sun24(:)         = fillreal
+    if(allocated(tleaf_shade24))      tleaf_shade24(:)       = fillreal
+    if(allocated(tleaf_ave24))        tleaf_ave24(:)         = fillreal
+    if(allocated(ppfd_sun24))         ppfd_sun24(:)          = fillreal
+    if(allocated(ppfd_shade24))       ppfd_shade24(:)        = fillreal
+    if(allocated(tleaf_sun240))       tleaf_sun240(:)        = fillreal
+    if(allocated(tleaf_shade240))     tleaf_shade240(:)      = fillreal
+    if(allocated(tleaf_ave240))       tleaf_ave240(:)        = fillreal
+    if(allocated(ppfd_sun240))        ppfd_sun240(:)         = fillreal
+    if(allocated(ppfd_shade240))      ppfd_shade240(:)       = fillreal
 
 !-------------------------------------------------------------------------------
 ! Initialize arrays for Canopy Wind

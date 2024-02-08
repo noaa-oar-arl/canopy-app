@@ -27,7 +27,7 @@ SUBROUTINE canopy_readnml
         ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
         dx_opt, dx_set, lai_thresh, cf_thresh, ch_thresh, rsl_opt, bio_cce, &
         biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, &
-        leafage_opt, lai_tstep
+        leafage_opt, lai_tstep, hist_opt
 
 
 !-------------------------------------------------------------------------------
@@ -285,6 +285,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default timestep for LAI input as daily = 24*3600 seconds, otherwise specified in namelist
     lai_tstep = 86400 !Daily LAI inputs
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for using historically averaged leaf temp and PAR for biogenic emissions (default=0; Off)
+    hist_opt = 0
 !-------------------------------------------------------------------------------
 
 

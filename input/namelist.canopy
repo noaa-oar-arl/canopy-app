@@ -73,4 +73,5 @@
   co2_set     =  400.0
   lai_tstep   =  86400
   leafage_opt =  1
+  hist_opt    =  1
 /
