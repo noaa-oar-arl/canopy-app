@@ -6,7 +6,8 @@ module canopy_utils_mod
 
     private
     public IntegrateTrapezoid,interp_linear1_internal,CalcPAI, &
-        CalcDX,CalcFlameH,GET_GAMMA_CO2,GET_GAMMA_LEAFAGE
+        CalcDX,CalcFlameH,GET_GAMMA_CO2,GET_GAMMA_LEAFAGE, &
+        GET_GAMMA_SOIM
 
 contains
 
@@ -629,22 +630,22 @@ contains
         ! 0=On;
         ! 1 or  >1 =off i.e. GAMMA_LEAFAGE =1
 
-        REAl(rk), INTENT(IN) :: tsteplai                      ! time step, number of days between Past and Current LAI inputs
+        REAl(rk), INTENT(IN) :: tsteplai    ! time step, number of days between Past and Current LAI inputs
         REAL(rk), INTENT(IN) :: TABOVE      ! Above canopy temperature (K), t2m or tmpsfc
-        REAL(rk), INTENT(IN) :: LAIpast         ! Past LAI [cm2/cm2]
-        REAL(rk), INTENT(IN) :: LAIcurrent         ! Current LAI [cm2/cm2]
+        REAL(rk), INTENT(IN) :: LAIpast     ! Past LAI [cm2/cm2]
+        REAL(rk), INTENT(IN) :: LAIcurrent  ! Current LAI [cm2/cm2]
         REAL(rk), INTENT(IN) :: Anew        ! Relative emiss factor (new leaves)
         REAL(rk), INTENT(IN) :: Agro        ! Relative emiss factor (growing leaves)
         REAL(rk), INTENT(IN) :: Amat        ! Relative emiss factor (mature leaves)
         REAL(rk), INTENT(IN) :: Aold        ! Relative emiss factor (old leaves)
         !
         ! !RETURN VALUE:
-        REAL(rk) :: GAMMA_LEAFAGE             ! Leaf age activity factor [unitless]
+        REAL(rk) :: GAMMA_LEAFAGE           ! Leaf age activity factor [unitless]
         !
         ! !LOCAL VARIABLES:
-        REAL(rk) :: LAIdelta = 1.0e-10_rk    ! Tolerance for LAI comparison
-        !INTEGER :: tsteplai                      ! time step
-        REAL(rk) :: Fnew, Fgro                ! foliage fractions
+        REAL(rk) :: LAIdelta = 1.0e-10_rk   ! Tolerance for LAI comparison
+        !INTEGER :: tsteplai                ! time step
+        REAL(rk) :: Fnew, Fgro              ! foliage fractions
         REAL(rk) :: Fmat, Fold
         REAL(rk) :: ti, tm
 
@@ -715,7 +716,115 @@ contains
 
     end function GET_GAMMA_LEAFAGE
 
+    function GET_GAMMA_SOIM(soim_opt,soim1,soim2,soim3,soim4, &
+        soid1,soid2,soid3,soid4,wilt,roota,rootb)  result( GAMMA_SOIM )
+        ! ROUTINE: GET_GAMMA_SOIM
+        !
+        ! !DESCRIPTION: Function GET_GAMMA_SOIM computes the soil moisture activity factor
+        !  associated with volumetric soil moisture and wilting point
+        !
+        !     Soil moisture response to Biogenic VOC Emissions
+        ! Revision: February 08, 2024:  Patrick C. Campbell
+        !----------------------------------------------------------------
+        ! Based on Guenther et al. (2006),
+        ! https://acp.copernicus.org/articles/6/3181/2006/
+        ! And uses Zeng (2001) for PFT dependent root depth fractions,
+        ! https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+        !------------------------------------------------------------------------------
+!        ! !INPUT PARAMETERS:
+        INTEGER,  INTENT(IN) :: soim_opt     ! Option for soil moisture emission factor calculation
+!        ! 0=On;
+!        ! 1 or  >1 =off i.e. GAMMA_SOIM =1
 
+        REAL(rk), INTENT(IN)  :: soim1     ! Volumetric soil moisture layer 1 [m3/m3]
+        REAL(rk), INTENT(IN)  :: soim2     ! Volumetric soil moisture layer 2 [m3/m3]
+        REAL(rk), INTENT(IN)  :: soim3     ! Volumetric soil moisture layer 3 [m3/m3]
+        REAL(rk), INTENT(IN)  :: soim4     ! Volumetric soil moisture layer 4 [m3/m3]
+        REAL(rk), INTENT(IN)  :: soid1     ! Soil depth layer 1 [cm]
+        REAL(rk), INTENT(IN)  :: soid2     ! Soil depth layer 2 [cm]
+        REAL(rk), INTENT(IN)  :: soid3     ! Soil depth layer 3 [cm]
+        REAL(rk), INTENT(IN)  :: soid4     ! Soil depth layer 4 [cm]
+        REAL(rk), INTENT(IN)  :: wilt      ! Wilting point [proportion]
+        REAL(rk), INTENT(IN)  :: roota     ! Coefficient A for PFT dependent cumulative root depth fraction [m-1]
+        REAL(rk), INTENT(IN)  :: rootb     ! Coefficient B for PFT dependent cumulative root depth fraction [m-1]
 
+        ! !RETURN VALUE:
+        REAL(rk) :: GAMMA_SOIM            ! Soil moisture activity factor [unitless]
+
+!        ! !LOCAL VARIABLES:
+        REAL(rk) :: delta_theta1 = 0.06_rk                  ! Empirical parameter based on Pegoraro et al. (2004)
+        ! https://www.publish.csiro.au/fp/FP04142
+        REAL(rk) :: theta1                                  ! wilt + delta_theta1
+
+        REAL(rk) :: gamma_soim1,gamma_soim2,gamma_soim3,gamma_soim4 ! gamma soil values for each soim1-4 [unitless]
+        REAL(rk) :: rootfrac1,rootfrac2,rootfrac3,rootfrac4 !cumulative root fraction from surface to depth [fraction]
+        REAL(rk) :: rootfrac_sum                            !sum of cumulative root fractions from each layer
+!        !
+!        ! !REMARKS:
+!        !  The function computes the soil moisture activity factor
+!        !
+!        !EOP
+!        !------------------------------------------------------------------------------
+!        !BOC
+!
+!        !-----------------------
+!        ! Compute GAMMA_SOIM for each layer and take weighted average across fraction of roots
+!        !-----------------------
+
+!Calculte the gamma soil values for each soim1-4
+        IF (soim_opt .eq. 0) THEN
+            theta1 = wilt + delta_theta1
+            !Soil Layer 1
+            if (soim1 .ge. theta1) then
+                gamma_soim1 = 1.0_rk
+            else if (soim1 .lt. theta1 .and. soim1 .gt. wilt ) then
+                gamma_soim1 = (soim1 - wilt)/delta_theta1
+            else
+                gamma_soim1 = 0.0_rk
+            end if
+            !Soil Layer 2
+            if (soim2 .ge. theta1) then
+                gamma_soim2 = 1.0_rk
+            else if (soim2 .lt. theta1 .and. soim2 .gt. wilt ) then
+                gamma_soim2 = (soim2 - wilt)/delta_theta1
+            else
+                gamma_soim2 = 0.0_rk
+            end if
+            !Soil Layer 3
+            if (soim3 .ge. theta1) then
+                gamma_soim3 = 1.0_rk
+            else if (soim3 .lt. theta1 .and. soim3 .gt. wilt ) then
+                gamma_soim3 = (soim3 - wilt)/delta_theta1
+            else
+                gamma_soim3 = 0.0_rk
+            end if
+            !Soil Layer 4
+            if (soim4 .ge. theta1) then
+                gamma_soim4 = 1.0_rk
+            else if (soim4 .lt. theta1 .and. soim4 .gt. wilt ) then
+                gamma_soim4 = (soim4 - wilt)/delta_theta1
+            else
+                gamma_soim4 = 0.0_rk
+            end if
+!Calculate the cumulative root fraction from surface to depth (Y), soild1-4
+            rootfrac1 = 1.0_rk - 0.5_rk*(exp(-1.0_rk*roota*(soid1/100.0_rk)) + &
+                exp(-1.0_rk*rootb*(soid1/100.0_rk)))
+            rootfrac2 = 1.0_rk - 0.5_rk*(exp(-1.0_rk*roota*(soid2/100.0_rk)) + &
+                exp(-1.0_rk*rootb*(soid2/100.0_rk)))
+            rootfrac3 = 1.0_rk - 0.5_rk*(exp(-1.0_rk*roota*(soid3/100.0_rk)) + &
+                exp(-1.0_rk*rootb*(soid3/100.0_rk)))
+            rootfrac4 = 1.0_rk - 0.5_rk*(exp(-1.0_rk*roota*(soid4/100.0_rk)) + &
+                exp(-1.0_rk*rootb*(soid4/100.0_rk)))
+            rootfrac_sum = rootfrac1+rootfrac2+rootfrac3+rootfrac4
+!Calculate the weighted average of gamma_soim based on the PFT-dependent cumulative root fraction for each soil layer
+            GAMMA_SOIM = ((rootfrac1*gamma_soim1) + (rootfrac2*gamma_soim2) + (rootfrac3*gamma_soim3) + &
+                (rootfrac4*gamma_soim4))/rootfrac_sum
+        ELSE IF (soim_opt .eq. 1) THEN
+            GAMMA_SOIM = 1.0_rk
+        ELSE
+            GAMMA_SOIM = 1.0_rk
+        END IF
+
+    end function GET_GAMMA_SOIM
 
 end module canopy_utils_mod

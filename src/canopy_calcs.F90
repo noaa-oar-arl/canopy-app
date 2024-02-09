@@ -90,6 +90,11 @@ SUBROUTINE canopy_calcs(nn)
                 spfh2mref    = variables_2d(i,j)%spfh2m
                 hpblref      = variables_2d(i,j)%hpbl
                 prate_averef = variables_2d(i,j)%prate_ave
+                soilw1ref    = variables_2d(i,j)%soilw1
+                soilw2ref    = variables_2d(i,j)%soilw2
+                soilw3ref    = variables_2d(i,j)%soilw3
+                soilw4ref    = variables_2d(i,j)%soilw4
+                wiltref      = variables_2d(i,j)%wilt
 
 ! ... calculate wind speed from u and v
                 ubzref   = sqrt((uref**2.0) + (vref**2.0))
@@ -282,6 +287,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 1, emi_isop_3d(i,j,:))
                                     !MYRC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -289,6 +296,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 2, emi_myrc_3d(i,j,:))
                                     !SABI
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -296,6 +305,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 3, emi_sabi_3d(i,j,:))
                                     !LIMO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -303,6 +314,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 4, emi_limo_3d(i,j,:))
                                     !CARE
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -310,6 +323,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 5, emi_care_3d(i,j,:))
                                     !OCIM
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -317,6 +332,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 6, emi_ocim_3d(i,j,:))
                                     !BPIN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -324,6 +341,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 7, emi_bpin_3d(i,j,:))
                                     !APIN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -331,6 +350,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 8, emi_apin_3d(i,j,:))
                                     !MONO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -338,6 +359,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 9, emi_mono_3d(i,j,:))
                                     !FARN
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -345,6 +368,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 10, emi_farn_3d(i,j,:))
                                     !CARY
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -352,6 +377,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 11, emi_cary_3d(i,j,:))
                                     !SESQ
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -359,6 +386,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 12, emi_sesq_3d(i,j,:))
                                     !MBOL
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -366,6 +395,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 13, emi_mbol_3d(i,j,:))
                                     !METH
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -373,6 +404,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 14, emi_meth_3d(i,j,:))
                                     !ACET
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -380,6 +413,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 15, emi_acet_3d(i,j,:))
                                     !CO
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -387,6 +422,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 16, emi_co_3d(i,j,:))
                                     !BIDI VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -394,6 +431,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 17, emi_bvoc_3d(i,j,:))
                                     !Stress VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -401,6 +440,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 18, emi_svoc_3d(i,j,:))
                                     !Other VOC
                                     call canopy_bio(zk, fafraczInt, hcmref, &
@@ -408,6 +449,8 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave, tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                        soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 19, emi_ovoc_3d(i,j,:))
                                 end if
                             end if
@@ -467,6 +510,12 @@ SUBROUTINE canopy_calcs(nn)
             spfh2mref    = variables(loc)%spfh2m
             hpblref      = variables(loc)%hpbl
             prate_averef = variables(loc)%prate_ave
+            soilw1ref    = variables(loc)%soilw1
+            soilw2ref    = variables(loc)%soilw2
+            soilw3ref    = variables(loc)%soilw3
+            soilw4ref    = variables(loc)%soilw4
+            wiltref      = variables(loc)%wilt
+
             if (var3d_opt .eq. 1) then !allocated so set
                 pavd_arr     = (/variables_can(loc)%pavd01, &
                     variables_can(loc)%pavd02, &
@@ -691,6 +740,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 1, emi_isop(loc,:))
                                 !MYRC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -698,6 +749,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 2, emi_myrc(loc,:))
                                 !SABI
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -705,6 +758,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 3, emi_sabi(loc,:))
                                 !LIMO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -712,6 +767,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 4, emi_limo(loc,:))
                                 !CARE
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -719,6 +776,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 5, emi_care(loc,:))
                                 !OCIM
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -726,6 +785,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 6, emi_ocim(loc,:))
                                 !BPIN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -733,6 +794,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 7, emi_bpin(loc,:))
                                 !APIN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -740,6 +803,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 8, emi_apin(loc,:))
                                 !MONO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -747,6 +812,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 9, emi_mono(loc,:))
                                 !FARN
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -754,6 +821,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 10, emi_farn(loc,:))
                                 !CARY
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -761,6 +830,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 11, emi_cary(loc,:))
                                 !SESQ
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -768,6 +839,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 12, emi_sesq(loc,:))
                                 !MBOL
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -775,6 +848,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 13, emi_mbol(loc,:))
                                 !METH
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -782,6 +857,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 14, emi_meth(loc,:))
                                 !ACET
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -789,6 +866,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 15, emi_acet(loc,:))
                                 !CO
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -796,6 +875,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 16, emi_co(loc,:))
                                 !BIDI VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -803,6 +884,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 17, emi_bvoc(loc,:))
                                 !Stress VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -810,6 +893,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 18, emi_svoc(loc,:))
                                 !Other VOC
                                 call canopy_bio(zk, fafraczInt, hcmref, &
@@ -817,6 +902,8 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave, tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
+                                    soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 19, emi_ovoc(loc,:))
                             end if
                         end if
