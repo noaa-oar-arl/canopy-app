@@ -42,6 +42,7 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: ppfd_ave      ( : )          ! Average PPFD for sunlit and shaded leaves (umol phot/m2 s)
     real(rk), allocatable :: canBOT        ( : )          ! Canopy bottom wind reduction factors
     real(rk), allocatable :: canTOP        ( : )          ! Canopy top wind reduction factors
+    real(rk), allocatable :: lad           ( : , : )      ! Leaf Area Density calculated from foliage shape function (m2/m3)
     real(rk), allocatable :: canWIND       ( : , : )      ! canopy wind speeds (m/s)
     real(rk), allocatable :: canWIND_3d    ( : , : , : )  ! canopy wind speeds -- 3D (m/s)
     real(rk), allocatable :: dx            ( : )          ! Model grid cell distance/resolution (m)

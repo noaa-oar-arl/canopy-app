@@ -90,11 +90,11 @@ CONTAINS
                 write(10, '(a15, a24)') 'time stamp: ', TIMENOW
                 write(10, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(10, '(a30, i6)') 'number of model layers: ', modlays
-                write(10, '(a8, a9, a12, a17)') 'lat', 'lon', 'height (m)', 'ws (m s-1)'
+                write(10, '(a8, a9, a12, a13, a17)') 'lat', 'lon', 'height (m)', 'LAD (m2 m-3)', 'ws (m s-1)'
                 do loc=1, nlat*nlon
                     do k=1, modlays
-                        write(10, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                            zk(k), canWIND(loc, k)
+                        write(10, '(f8.2, f9.2, f10.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
+                            zk(k), lad(loc,k),  canWIND(loc, k)
                     end do
                 end do
             end if
@@ -122,11 +122,11 @@ CONTAINS
                 write(12, '(a15, a24)') 'time stamp: ', TIMENOW
                 write(12, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(12, '(a30, i6)') 'number of model layers: ', modlays
-                write(12, '(a8, a9, a12, a15)') 'lat', 'lon', 'height (m)', 'kz (m2 s-1)'
+                write(12, '(a8, a9, a12, a13, a15)') 'lat', 'lon', 'height (m)', 'LAD (m2 m-3)', 'kz (m2 s-1)'
                 do loc=1, nlat*nlon
                     do k=1, modlays
-                        write(12, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                            zk(k), Kz(loc,k)
+                        write(12, '(f8.2, f9.2, f12.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
+                            zk(k), lad(loc,k), Kz(loc,k)
                     end do
                 end do
             end if
@@ -139,11 +139,11 @@ CONTAINS
                 write(13, '(a15, a24)') 'time stamp: ', TIMENOW
                 write(13, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(13, '(a30, i6)') 'number of model layers: ', modlays
-                write(13, '(a8, a9, a12, a15)') 'lat', 'lon', 'height (m)', 'rjcf (1)'
+                write(13, '(a8, a9, a12, a13, a15)') 'lat', 'lon', 'height (m)', 'LAD (m2 m-3)', 'rjcf (1)'
                 do loc=1, nlat*nlon
                     do k=1, modlays
-                        write(13, '(f8.2, f9.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
-                            zk(k), rjcf(loc,k)
+                        write(13, '(f8.2, f9.2, f12.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
+                            zk(k), lad(loc,k), rjcf(loc,k)
                     end do
                 end do
             end if
@@ -155,8 +155,8 @@ CONTAINS
                 write(14, '(a15, a24)') 'time stamp: ', TIMENOW
                 write(14, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(14, '(a30, i6)') 'number of model layers: ', modlays
-                write(14, '(a8, a9, a12, a28, a28, a28, a28, a28, a28, a28, a28, a28, a28, &
-                & a28, a28, a28, a28, a28, a28, a28, a28, a28)') 'lat', 'lon', 'height (m)', &
+                write(14, '(a8, a9, a12, a13, a28, a28, a28, a28, a28, a28, a28, a28, a28, a28, &
+                & a28, a28, a28, a28, a28, a28, a28, a28, a28)') 'lat', 'lon', 'height (m)', 'LAD (m2 m-3)', &
                     'emi_isop (kg m-3 s-1)', 'emi_myrc (kg m-3 s-1)', 'emi_sabi (kg m-3 s-1)', &
                     'emi_limo (kg m-3 s-1)', 'emi_care (kg m-3 s-1)', 'emi_ocim (kg m-3 s-1)', &
                     'emi_bpin (kg m-3 s-1)', 'emi_apin (kg m-3 s-1)', 'emi_mono (kg m-3 s-1)', &
@@ -166,11 +166,11 @@ CONTAINS
                     'emi_ovoc (kg m-3 s-1)'
                 do loc=1, nlat*nlon
                     do k=1, modlays
-                        write(14, '(f8.2, f9.2, f12.2, es15.7, es15.7, es15.7, es15.7, es15.7, es15.7, &
+                        write(14, '(f8.2, f9.2, f12.2, f12.2, es15.7, es15.7, es15.7, es15.7, es15.7, es15.7, &
                         &        es15.7, es15.7, es15.7, es15.7, es15.7, es15.7, es15.7, es15.7,    &
                         &        es15.7, es15.7, es15.7, es15.7, es15.7)')  &
-                            variables(loc)%lat, variables(loc)%lon, &
-                            zk(k), emi_isop(loc,k), emi_myrc(loc,k), emi_sabi(loc,k), emi_limo(loc,k), &
+                            variables(loc)%lat, variables(loc)%lon, zk(k), &
+                            lad(loc,k), emi_isop(loc,k), emi_myrc(loc,k), emi_sabi(loc,k), emi_limo(loc,k), &
                             emi_care(loc,k), emi_ocim(loc,k), emi_bpin(loc,k), emi_apin(loc,k),        &
                             emi_mono(loc,k), emi_farn(loc,k), emi_cary(loc,k), emi_sesq(loc,k),        &
                             emi_mbol(loc,k), emi_meth(loc,k), emi_acet(loc,k), emi_co(loc,k),          &

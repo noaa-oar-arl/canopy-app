@@ -27,7 +27,8 @@ SUBROUTINE canopy_init
     if(allocated(tleaf_ave))    tleaf_ave(:)   = fillreal
     if(allocated(ppfd_sun))     ppfd_sun(:)    = fillreal
     if(allocated(ppfd_shade))   ppfd_shade(:)  = fillreal
-    if(allocated(ppfd_ave))   ppfd_ave(:)      = fillreal
+    if(allocated(ppfd_ave))     ppfd_ave(:)    = fillreal
+    if(allocated(lad))          lad(:,:)       = fillreal
 
 !-------------------------------------------------------------------------------
 ! Initialize arrays for Canopy Wind

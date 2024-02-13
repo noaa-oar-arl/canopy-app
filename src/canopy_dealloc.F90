@@ -44,6 +44,7 @@ SUBROUTINE canopy_dealloc
     if(allocated(ppfd_sun))    deallocate(ppfd_sun)
     if(allocated(ppfd_shade))  deallocate(ppfd_shade)
     if(allocated(ppfd_ave))    deallocate(ppfd_ave)
+    if(allocated(lad))         deallocate(lad)
 
 !-------------------------------------------------------------------------------
 ! Deallocate arrays for Canopy Wind
