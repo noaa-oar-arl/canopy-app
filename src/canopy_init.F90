@@ -29,6 +29,7 @@ SUBROUTINE canopy_init
     if(allocated(ppfd_shade))   ppfd_shade(:)  = fillreal
     if(allocated(ppfd_ave))     ppfd_ave(:)    = fillreal
     if(allocated(lad))          lad(:,:)       = fillreal
+    if(allocated(lad_3d))       lad_3d(:,:,:)  = fillreal
 
 !-------------------------------------------------------------------------------
 ! Initialize arrays for Canopy Wind
@@ -41,6 +42,8 @@ SUBROUTINE canopy_init
         if(allocated(canWIND_3d))    canWIND_3d(:,:,:)    = fillreal
         if(allocated(dx))            dx(:)                = fillreal
         if(allocated(dx_2d))         dx_2d(:,:)           = fillreal
+        if(allocated(flameh))        flameh(:)            = fillreal
+        if(allocated(flameh_2d))     flameh_2d(:,:)       = fillreal
         if(allocated(waf))           waf(:)               = fillreal
         if(allocated(waf_2d))        waf_2d(:,:)          = fillreal
     end if

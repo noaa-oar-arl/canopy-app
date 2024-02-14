@@ -174,6 +174,19 @@ SUBROUTINE canopy_calcs(nn)
                                 end if
                             end if
 
+! ... calculate leaf area density profile from foliage shape function for output (m2/m3)
+                            do k=1, modlays
+                                if (zk(k) .gt. 0.0 .and. zk(k) .le. hcmref) then ! above ground level and at/below canopy top
+                                    if (k .lt. modlays)  then
+                                        lad_3d(i,j,k) = ((fafraczInt(k+1) - fafraczInt(k))*lairef)/modres
+                                    else
+                                        lad_3d(i,j,k) = lad_3d(i,j,modlays-1)
+                                    end if
+                                else
+                                    lad_3d(i,j,k) = 0.0_rk
+                                end if
+                            end do
+
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
                             call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
                                 ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
@@ -587,10 +600,14 @@ SUBROUTINE canopy_calcs(nn)
 
 ! ... calculate leaf area density profile from foliage shape function for output (m2/m3)
                         do k=1, modlays
-                            if (k .lt. modlays)  then
-                                lad(loc,k) = ((fafraczInt(k+1) - fafraczInt(k))*lairef)/modres
+                            if (zk(k) .gt. 0.0 .and. zk(k) .le. hcmref) then ! above ground level and at/below canopy top
+                                if (k .lt. modlays)  then
+                                    lad(loc,k) = ((fafraczInt(k+1) - fafraczInt(k))*lairef)/modres
+                                else
+                                    lad(loc,k) = lad(loc,modlays-1)
+                                end if
                             else
-                                lad(loc,k) = lad(loc,modlays-1)
+                                lad(loc,k) = 0.0_rk
                             end if
                         end do
 
