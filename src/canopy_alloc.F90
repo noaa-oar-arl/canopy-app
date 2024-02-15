@@ -43,6 +43,8 @@ SUBROUTINE canopy_alloc
     if(.not.allocated(ppfd_sun))    allocate(ppfd_sun(modlays))
     if(.not.allocated(ppfd_shade))  allocate(ppfd_shade(modlays))
     if(.not.allocated(ppfd_ave))    allocate(ppfd_ave(modlays))
+    if(.not.allocated(lad))         allocate(lad(nlat*nlon,modlays))
+    if(.not.allocated(lad_3d))      allocate(lad_3d(nlon,nlat,modlays))
 
 !-------------------------------------------------------------------------------
 ! Allocate arrays for Canopy Wind Outputs

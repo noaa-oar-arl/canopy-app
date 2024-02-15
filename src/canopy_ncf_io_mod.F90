@@ -397,6 +397,21 @@ CONTAINS
         !-------------------------------------------------------------------------------
         ! Time-varying 3d fields at cell centers.
         !-------------------------------------------------------------------------------
+        c_lad%fld = fillreal
+        c_lad%fldname = 'lad'
+        c_lad%long_name = 'leaf area density'
+        c_lad%units = 'm2 m-3'
+        c_lad%fillvalue = fillreal
+        c_lad%dimnames(1) = 'nlon'
+        c_lad%dimnames(2) = 'nlat'
+        c_lad%dimnames(3) = 'modlays'
+        c_lad%istart(1) = 1
+        c_lad%istart(2) = 1
+        c_lad%istart(3) = 1
+        c_lad%iend(1) = nlon
+        c_lad%iend(2) = nlat
+        c_lad%iend(3) = modlays
+
         if (ifcanwind .or. ifcanwaf) then
             c_canwind%fld = fillreal
             c_canwind%fldname = 'ws'
@@ -804,7 +819,9 @@ CONTAINS
         ! Time-varying 2d fields at cell centers.
         !-------------------------------------------------------------------------------
 
-        nfld2dxyt = 1  ! canopy height
+        nfld2dxyt = 0
+
+        nfld2dxyt = nfld2dxyt +1  ! canopy height
 
         if (ifcanwind .or. ifcanwaf) then
             nfld2dxyt = nfld2dxyt + 1  !WAF
@@ -831,6 +848,8 @@ CONTAINS
         !-------------------------------------------------------------------------------
 
         nfld3dxyzt = 0
+
+        nfld3dxyzt = nfld3dxyzt + 1 !LAD
 
         if (ifcanwind .or. ifcanwaf) then
             nfld3dxyzt = nfld3dxyzt + 1 !CANWIND
@@ -873,6 +892,10 @@ CONTAINS
         ENDDO
 
         set_index = 0
+
+        set_index = set_index + 1
+        c_lad    => fld3dxyzt( set_index )
+
         if (ifcanwind .or. ifcanwaf) then
             set_index = set_index + 1
             c_canwind    => fld3dxyzt( set_index )
@@ -1906,6 +1929,7 @@ CONTAINS
             !-------------------------------------------------------------------------------
             ! Time-varying 3d fields at cell centers.
             !-------------------------------------------------------------------------------
+            c_lad%fld  = lad_3d
             if (ifcanwind .or. ifcanwaf) then
                 c_canwind%fld  = canWIND_3d
             end if
