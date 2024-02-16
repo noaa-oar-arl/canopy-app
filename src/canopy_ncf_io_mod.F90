@@ -2442,7 +2442,7 @@ CONTAINS
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
-            variables_2d%soilw1=variables_2d_real
+            variables_2d%soilw3=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%soilw3=reshape(variables_2d%soilw3,[size(variables_2d%soilw3)])
             !Volumetric soil moisture level 4
