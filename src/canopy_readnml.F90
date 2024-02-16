@@ -27,7 +27,7 @@ SUBROUTINE canopy_readnml
         ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
         dx_opt, dx_set, lai_thresh, cf_thresh, ch_thresh, rsl_opt, bio_cce, &
         biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, &
-        leafage_opt, lai_tstep
+        leafage_opt, lai_tstep, loss_opt, lifetime
 
 
 !-------------------------------------------------------------------------------
@@ -287,6 +287,15 @@ SUBROUTINE canopy_readnml
     lai_tstep = 86400 !Daily LAI inputs
 !-------------------------------------------------------------------------------
 
+!-------------------------------------------------------------------------------
+! Set default integer for turning on canopy loss ratios for adjusting top of canopy net emissions (default = 0; Off)
+    loss_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for above-canopy BVOC lifetime (s) used with loss_opt=1 (Default = 3600 s)
+    lifetime = 3600.0_rk
+!-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Read namelist to get user definitions.  Rewind namelist file after each

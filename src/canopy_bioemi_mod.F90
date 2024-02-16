@@ -9,7 +9,7 @@ contains
         PPFD_SHADE, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE, TEMP2, LU_OPT, &
         VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
         LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, &
-        MODLAYS, EMI_IND, EMI_OUT)
+        MODLAYS, LOSSOPT, LIFETIME, USTAR, EMI_IND, EMI_OUT)
 
 !-----------------------------------------------------------------------
 
@@ -39,7 +39,8 @@ contains
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
         use canopy_const_mod, ONLY: rk,rgasuniv   !constants for canopy models
-        use canopy_utils_mod,  ONLY: interp_linear1_internal,GET_GAMMA_CO2,GET_GAMMA_LEAFAGE
+        use canopy_utils_mod,  ONLY: interp_linear1_internal,GET_GAMMA_CO2,GET_GAMMA_LEAFAGE, &
+            GET_CANLOSS_BIO
         use canopy_bioparm_mod
         use canopy_tleaf_mod
 
@@ -71,6 +72,9 @@ contains
         REAL(RK),    INTENT( IN )       :: TSTEPLAI           !Number of days between the past and current LAI
 
         INTEGER,     INTENT( IN )       :: MODLAYS         ! Input total model layers
+        INTEGER,     INTENT( IN )       :: LOSSOPT         ! Option for canopy loss factor when summing top of canopy emissions
+        REAL(RK),    INTENT( IN )       :: LIFETIME        ! Above canopy chemical lifetime of VOC (s)
+        REAL(RK),    INTENT( IN )       :: USTAR           ! Above canopy friction velocity (m/s)
         INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
 
@@ -116,7 +120,7 @@ contains
         REAL(RK) :: GAMMACO2                       ! CO2 inhibition factor (isoprene only)
 
         REAL(RK) :: GAMMALEAFAGE !(SIZE(ZK))                 ! LEAF AGE factor
-
+        REAL(RK) :: CANLOSS_FAC                    !Canopy loss factor for summing option
         integer i, LAYERS
 
 ! Constant Canopy Parameters
@@ -174,6 +178,11 @@ contains
         GAMMALEAFAGE = GET_GAMMA_LEAFAGE(LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, TABOVECANOPY, ANEW, AGRO, AMAT, AOLD)
         !end do
 
+! Get canopy loss factor (only used in vertical summing options and empirical formulation and parameters based on isoprene)
+! Note:  Allowed for other BVOCs but use caution when applying to compare with above canopy flux observations
+
+        CANLOSS_FAC = GET_CANLOSS_BIO(LOSSOPT,LIFETIME,USTAR,FCH)
+
 ! Calculate emissions profile in the canopy
         EMI_OUT = 0.0_rk  ! set initial emissions profile to zero
         FLAI = 0.0_rk  ! set initial fractional FLAI (LAD) profile to zero
@@ -210,7 +219,7 @@ contains
                 end if
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE * CANLOSS_FAC !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else if (VERT .eq. 2) then       !"MEGANv3-like": Add weighted sum of activity coefficients using normal distribution
             !across canopy layers using 5 layer numbers directly from MEGANv3
@@ -242,7 +251,7 @@ contains
                 VPGWT(i) = GAUSS(i)/sum(GAUSS(1:LAYERS))
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE    !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE * CANLOSS_FAC    !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else if (VERT .eq. 3) then       !"MEGANv3-like": Add weighted sum of activity coefficients equally
             !across canopy layers
@@ -253,7 +262,7 @@ contains
                 VPGWT(i) = 1.0_rk/LAYERS
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE    !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE * CANLOSS_FAC    !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else
             write(*,*)  'Wrong BIOVERT_OPT choice of ', VERT, ' in namelist...exiting'

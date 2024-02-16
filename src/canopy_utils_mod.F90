@@ -6,7 +6,8 @@ module canopy_utils_mod
 
     private
     public IntegrateTrapezoid,interp_linear1_internal,CalcPAI, &
-        CalcDX,CalcFlameH,GET_GAMMA_CO2,GET_GAMMA_LEAFAGE
+        CalcDX,CalcFlameH,GET_GAMMA_CO2,GET_GAMMA_LEAFAGE, &
+        GET_CANLOSS_BIO
 
 contains
 
@@ -715,7 +716,50 @@ contains
 
     end function GET_GAMMA_LEAFAGE
 
+    function GET_CANLOSS_BIO(loss_opt,lifetime,ustar,ch)  result( CANLOSS_BIO )
+        ! ROUTINE: CANLOSS_BIO
+        !
+        ! !DESCRIPTION: Function to calculate BVOC canopy loss ratio due to approximate chemistry and dep loss
+        !               Useful for comparing individual BVOC primary emissions to above canopy flux measurements
+        !
+        ! Based on Guenther et al. (2006) www.atmos-chem-phys.net/6/3181/2006/
+        ! Note:  Formulation and emprical parameters based on isoprene oxidation chemistry Only -- Exercise caution applying to other BVOCs
+        !
+        ! Revision: Feb 2024 Patrick C. Campbell GMU/NOAA-ARL
+        !----------------------------------------------------------------
+        !
+        !       LOSS RATIO = 1 -  D/(lambda*ustar*tau+D)
+        !       where D = Canopy Depth (Assumed 1/3 the canopy height) (m)
+        !             lambda = 0.3 (Assumed and usually PFT dependent)
+        !             ustar = above canopy friction velocity (m/s)
+        !             tau = above canopy chemical lifetime (default = 3600 s, isoprene) (s)
+        !------------------------------------------------------------------------------
+        ! !INTERFACE:
 
+        ! !INPUT PARAMETERS:
+        INTEGER,  INTENT(IN) :: loss_opt       ! Option for canopy loss function
+        ! 0=Off; CANLOSS_BIO = 1
+        ! 1 or  >1 =On i.e. CANLOSS_BIO < 1
 
+        REAl(rk), INTENT(IN) :: lifetime    ! Above canopy BVOC chemical lifetime [s]
+        REAL(rk), INTENT(IN) :: ustar       ! Above canopy friction velocity [m/s]
+        REAL(rk), INTENT(IN) :: ch          ! Canopy Height [m]
+        !
+        ! !RETURN VALUE:
+        REAL(rk) :: CANLOSS_BIO             ! Canopy loss factor [unitless]
+        !
+        ! !LOCAL VARIABLES:
+        REAL(rk) :: lambda   = 0.3_rk         ! Assumed value for empirical parameter (Guenther et al., 2006)
+
+        IF (loss_opt .eq. 0) THEN ! Off
+            CANLOSS_BIO = 1.0_rk
+        ELSE IF (loss_opt .eq. 1) THEN
+            CANLOSS_BIO = 1.0_rk - ((ch*0.3333_rk)/(lambda*ustar*lifetime+(ch*0.3333_rk)))
+        ELSE
+            write(*,*)  'Wrong LOSS_OPT choice of ', loss_opt, 'in namelist...exiting'
+            call exit(2)
+        END IF
+
+    end function GET_CANLOSS_BIO
 
 end module canopy_utils_mod
