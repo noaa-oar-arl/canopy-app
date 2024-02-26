@@ -44,6 +44,7 @@ SUBROUTINE canopy_dealloc
     if(allocated(ppfd_sun))              deallocate(ppfd_sun)
     if(allocated(ppfd_shade))            deallocate(ppfd_shade)
     if(allocated(ppfd_ave))              deallocate(ppfd_ave)
+
     if(allocated(tleaf_sun24_tmp))       deallocate(tleaf_sun24_tmp)
     if(allocated(tleaf_shade24_tmp))     deallocate(tleaf_shade24_tmp)
     if(allocated(tleaf_ave24_tmp))       deallocate(tleaf_ave24_tmp)
@@ -64,6 +65,28 @@ SUBROUTINE canopy_dealloc
     if(allocated(tleaf_ave240))          deallocate(tleaf_ave240)
     if(allocated(ppfd_sun240))           deallocate(ppfd_sun240)
     if(allocated(ppfd_shade240))         deallocate(ppfd_shade240)
+
+    if(allocated(tleaf_sun24_tmp_3d))       deallocate(tleaf_sun24_tmp_3d)
+    if(allocated(tleaf_shade24_tmp_3d))     deallocate(tleaf_shade24_tmp_3d)
+    if(allocated(tleaf_ave24_tmp_3d))       deallocate(tleaf_ave24_tmp_3d)
+    if(allocated(ppfd_sun24_tmp_3d))        deallocate(ppfd_sun24_tmp_3d)
+    if(allocated(ppfd_shade24_tmp_3d))      deallocate(ppfd_shade24_tmp_3d)
+    if(allocated(tleaf_sun240_tmp_3d))      deallocate(tleaf_sun240_tmp_3d)
+    if(allocated(tleaf_shade240_tmp_3d))    deallocate(tleaf_shade240_tmp_3d)
+    if(allocated(tleaf_ave240_tmp_3d))      deallocate(tleaf_ave240_tmp_3d)
+    if(allocated(ppfd_sun240_tmp_3d))       deallocate(ppfd_sun240_tmp_3d)
+    if(allocated(ppfd_shade240_tmp_3d))     deallocate(ppfd_shade240_tmp_3d)
+    if(allocated(tleaf_sun24_3d))           deallocate(tleaf_sun24_3d)
+    if(allocated(tleaf_shade24_3d))         deallocate(tleaf_shade24_3d)
+    if(allocated(tleaf_ave24_3d))           deallocate(tleaf_ave24_3d)
+    if(allocated(ppfd_sun24_3d))            deallocate(ppfd_sun24_3d)
+    if(allocated(ppfd_shade24_3d))          deallocate(ppfd_shade24_3d)
+    if(allocated(tleaf_sun240_3d))          deallocate(tleaf_sun240_3d)
+    if(allocated(tleaf_shade240_3d))        deallocate(tleaf_shade240_3d)
+    if(allocated(tleaf_ave240_3d))          deallocate(tleaf_ave240_3d)
+    if(allocated(ppfd_sun240_3d))           deallocate(ppfd_sun240_3d)
+    if(allocated(ppfd_shade240_3d))         deallocate(ppfd_shade240_3d)
+
 
 !-------------------------------------------------------------------------------
 ! Deallocate arrays for Canopy Wind
