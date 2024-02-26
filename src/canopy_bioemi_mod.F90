@@ -187,13 +187,9 @@ contains
             GAMMACO2 = 1.0_rk
         end if
 
-! Get Soil Moisture Factor for isoprene only
-        if (EMI_IND .eq. 1) then  !Isoprene
-            GAMMASOIM =  GET_GAMMA_SOIM(SOIMOPT,SOIM1,SOIM2,SOIM3,SOIM4,SOID1,SOID2,SOID3,SOID4,WILT, &
-                ROOTA,ROOTB)
-        else
-            GAMMASOIM = 1.0_rk
-        end if
+! Get Soil Moisture Factor
+        GAMMASOIM =  GET_GAMMA_SOIM(SOIMOPT,SOIM1,SOIM2,SOIM3,SOIM4,SOID1,SOID2,SOID3,SOID4,WILT, &
+            ROOTA,ROOTB)
 
 ! Get LEAF AGE factor
         TABOVECANOPY  = TEMP2   !TEMP2 (above air temp) for TABOVECANOPY
