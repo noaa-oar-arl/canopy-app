@@ -9,6 +9,8 @@ contains
         PPFD_SHADE, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE, TEMP2, LU_OPT, &
         VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
         LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, &
+        SOIMOPT, SOIM1, SOIM2, SOIM3, SOIM4, SOID1, SOID2, SOID3, &
+        SOID4, WILT, &
         MODLAYS, EMI_IND, EMI_OUT)
 
 !-----------------------------------------------------------------------
@@ -38,8 +40,10 @@ contains
 !     BVOCs
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
-        use canopy_const_mod, ONLY: rk,rgasuniv   !constants for canopy models
-        use canopy_utils_mod,  ONLY: interp_linear1_internal,GET_GAMMA_CO2,GET_GAMMA_LEAFAGE
+        use canopy_const_mod,  ONLY: rk,rgasuniv   !constants for canopy models
+        use canopy_utils_mod,  ONLY: interp_linear1_internal, &
+            GET_GAMMA_CO2,GET_GAMMA_LEAFAGE, &
+            GET_GAMMA_SOIM
         use canopy_bioparm_mod
         use canopy_tleaf_mod
 
@@ -64,6 +68,16 @@ contains
         INTEGER,     INTENT( IN )       :: VERT            ! MEGAN vertical integration option (default = 0/no integration)
         INTEGER,     INTENT( IN )       :: CO2OPT          ! Option for co2 inhibition calculation
         REAL(RK),    INTENT( IN )       :: CO2SET          ! User set atmospheric CO2 conc [ppmv]
+        INTEGER,     INTENT( IN )       :: SOIMOPT         ! Option for soil moisture factor
+        REAL(RK),    INTENT( IN )       :: SOIM1           ! Volumetric soil moisture layer 1 [m3/m3]
+        REAL(RK),    INTENT( IN )       :: SOIM2           ! Volumetric soil moisture layer 2 [m3/m3]
+        REAL(RK),    INTENT( IN )       :: SOIM3           ! Volumetric soil moisture layer 3 [m3/m3]
+        REAL(RK),    INTENT( IN )       :: SOIM4           ! Volumetric soil moisture layer 4 [m3/m3]
+        REAL(RK),    INTENT( IN )       :: SOID1           ! Soil depth layer 1 [cm]
+        REAL(RK),    INTENT( IN )       :: SOID2           ! Soil depth layer 2 [cm]
+        REAL(RK),    INTENT( IN )       :: SOID3           ! Soil depth layer 3 [cm]
+        REAL(RK),    INTENT( IN )       :: SOID4           ! Soil depth layer 4 [cm]
+        REAL(RK),    INTENT( IN )       :: WILT            ! Wilting point [proportion]
 
         INTEGER,    INTENT( IN )       :: LEAFAGEOPT      ! leafage_opt (0= ON, 1= off i.e. GAMMALEAFAGE =1, in canopy_readnml.F90)
         REAL(RK),    INTENT( IN )       :: PASTLAI           ! Past LAI [cm2/cm2]
@@ -113,6 +127,11 @@ contains
         REAL(RK) :: AMAT
         REAL(RK) :: AOLD
 
+        ! Coefficients A and B used for PFT dependent cumulative root depth fraction
+        REAL(RK) :: ROOTA ! [m-1]
+        REAL(RK) :: ROOTB ! [m-1]
+        REAL(RK) :: GAMMASOIM ! Soil moisture factor
+
         REAL(RK) :: GAMMACO2                       ! CO2 inhibition factor (isoprene only)
 
         REAL(RK) :: GAMMALEAFAGE !(SIZE(ZK))                 ! LEAF AGE factor
@@ -129,8 +148,8 @@ contains
         TLEAF24_AVE    = TLEAF_AVE
         TLEAF_OPT = 313.0_rk + (0.6_rk * (TLEAF240_AVE-297.0_rk)) !Guenther et al. (2012)
 
-! Calculate emission species/plant-dependent mapped emission factors
-        call canopy_biop(EMI_IND, LU_OPT, VTYPE, EF, CT1, CEO, ANEW, AGRO, AMAT, AOLD)  !Update: Added leaf age empirical coeff's
+! Calculate emission species/plant-dependent mapped emission factors and other important coefficients for gamma terms
+        call canopy_biop(EMI_IND, LU_OPT, VTYPE, EF, CT1, CEO, ANEW, AGRO, AMAT, AOLD, ROOTA, ROOTB)
 
         E_OPT = CEO * EXP(0.05_rk * (TLEAF24_AVE-297.0_rk)) * EXP(0.05_rk * (TLEAF240_AVE-297.0_rk))
 
@@ -168,6 +187,10 @@ contains
             GAMMACO2 = 1.0_rk
         end if
 
+! Get Soil Moisture Factor
+        GAMMASOIM =  GET_GAMMA_SOIM(SOIMOPT,SOIM1,SOIM2,SOIM3,SOIM4,SOID1,SOID2,SOID3,SOID4,WILT, &
+            ROOTA,ROOTB)
+
 ! Get LEAF AGE factor
         TABOVECANOPY  = TEMP2   !TEMP2 (above air temp) for TABOVECANOPY
         !do i=1, SIZE(ZK)
@@ -186,7 +209,8 @@ contains
                     else
                         FLAI(i) = FLAI(MODLAYS-1)
                     end if
-                    EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i) * GAMMACO2 * CCE * GAMMALEAFAGE  ! (ug m-3 hr-1)
+                    EMI_OUT(i) = FLAI(i) * EF * GammaTLEAF_AVE(i) * GammaPPFD_AVE(i) * GAMMACO2 * CCE * &
+                        GAMMALEAFAGE * GAMMASOIM  ! (ug m-3 hr-1)
                     EMI_OUT(i) = EMI_OUT(i) * 2.7777777777778E-13_rk    !convert emissions output to (kg m-3 s-1)
                 end if
             end do
@@ -210,7 +234,7 @@ contains
                 end if
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE * GAMMASOIM !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else if (VERT .eq. 2) then       !"MEGANv3-like": Add weighted sum of activity coefficients using normal distribution
             !across canopy layers using 5 layer numbers directly from MEGANv3
@@ -242,7 +266,7 @@ contains
                 VPGWT(i) = GAUSS(i)/sum(GAUSS(1:LAYERS))
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE    !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE * GAMMASOIM    !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else if (VERT .eq. 3) then       !"MEGANv3-like": Add weighted sum of activity coefficients equally
             !across canopy layers
@@ -253,7 +277,7 @@ contains
                 VPGWT(i) = 1.0_rk/LAYERS
             end do
             EMI_OUT(SIZE(ZK)) = LAI * EF * SUM(GammaTLEAF_AVE(1:LAYERS) * GammaPPFD_AVE(1:LAYERS) * &
-                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE    !put into top model layer (ug m-2 hr-1)
+                VPGWT(1:LAYERS)) * GAMMACO2 * CCE * GAMMALEAFAGE * GAMMASOIM    !put into top model layer (ug m-2 hr-1)
             EMI_OUT = EMI_OUT * 2.7777777777778E-13_rk    !convert emissions output to    (kg m-2 s-1)
         else
             write(*,*)  'Wrong BIOVERT_OPT choice of ', VERT, ' in namelist...exiting'

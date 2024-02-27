@@ -36,6 +36,11 @@ MODULE canopy_canmet_mod
         real(rk)   :: spfh2m       !2-meter specific humidity (kg/kg)
         real(rk)   :: hpbl         !height of planetary boundary layer (m)
         real(rk)   :: prate_ave    !mass precipitation rate (kg/m2 s)
+        real(rk)   :: soilw1       !volumetric soil moisture level 1 (m3/m3)
+        real(rk)   :: soilw2       !volumetric soil moisture level 2 (m3/m3)
+        real(rk)   :: soilw3       !volumetric soil moisture level 3 (m3/m3)
+        real(rk)   :: soilw4       !volumetric soil moisture level 4 (m3/m3)
+        real(rk)   :: wilt         !wilting point (proportion)
 
     end TYPE variable_type
 
@@ -117,6 +122,11 @@ MODULE canopy_canmet_mod
     real(rk)       ::    spfh2mref       !2-meter specific humidity (kg/kg)
     real(rk)       ::    hpblref         !height of planetary boundary layer (m)
     real(rk)       ::    prate_averef    !mass precipitation rate (kg/m2 s)
+    real(rk)       ::    soilw1ref       !volumetric soil moisture (m3/m3) Layer 1
+    real(rk)       ::    soilw2ref       !volumetric soil moisture (m3/m3) Layer 2
+    real(rk)       ::    soilw3ref       !volumetric soil moisture (m3/m3) Layer 3
+    real(rk)       ::    soilw4ref       !volumetric soil moisture (m3/m3) Layer 4
+    real(rk)       ::    wiltref         !wilting point (proportion)
 !    real(rk)       ::    lev01ref, lev02ref, lev03ref, lev04ref, lev05ref, & !Input canopy profile levels
 !                         lev06ref, lev07ref, lev08ref, lev09ref, lev10ref, &
 !                         lev11ref, lev12ref, lev13ref, lev14ref
