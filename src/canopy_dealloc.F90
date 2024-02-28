@@ -44,6 +44,8 @@ SUBROUTINE canopy_dealloc
     if(allocated(ppfd_sun))              deallocate(ppfd_sun)
     if(allocated(ppfd_shade))            deallocate(ppfd_shade)
     if(allocated(ppfd_ave))              deallocate(ppfd_ave)
+    if(allocated(lad))                   deallocate(lad)
+    if(allocated(lad_3d))                deallocate(lad_3d)
 
     if(allocated(tleaf_sun24_tmp))       deallocate(tleaf_sun24_tmp)
     if(allocated(tleaf_shade24_tmp))     deallocate(tleaf_shade24_tmp)
@@ -86,7 +88,6 @@ SUBROUTINE canopy_dealloc
     if(allocated(tleaf_ave240_3d))          deallocate(tleaf_ave240_3d)
     if(allocated(ppfd_sun240_3d))           deallocate(ppfd_sun240_3d)
     if(allocated(ppfd_shade240_3d))         deallocate(ppfd_shade240_3d)
-
 
 !-------------------------------------------------------------------------------
 ! Deallocate arrays for Canopy Wind

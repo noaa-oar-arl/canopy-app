@@ -80,10 +80,12 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: tleaf_ave240_3d        ( : , : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
     real(rk), allocatable :: ppfd_sun240_3d         ( : , : , : )          ! PPFD for sunlit leaves (umol phot/m2 s)
     real(rk), allocatable :: ppfd_shade240_3d       ( : , : , : )          ! PPFD for shaded leaves (umol phot/m2 s)
-    real(rk), allocatable :: canBOT              ( : )          ! Canopy bottom wind reduction factors
-    real(rk), allocatable :: canTOP              ( : )          ! Canopy top wind reduction factors
-    real(rk), allocatable :: canWIND             ( : , : )      ! canopy wind speeds (m/s)
-    real(rk), allocatable :: canWIND_3d          ( : , : , : )  ! canopy wind speeds -- 3D (m/s)
+    real(rk), allocatable :: canBOT                 ( : )                  ! Canopy bottom wind reduction factors
+    real(rk), allocatable :: canTOP                 ( : )                  ! Canopy top wind reduction factors
+    real(rk), allocatable :: canWIND                ( : , : )              ! canopy wind speeds (m/s)
+    real(rk), allocatable :: canWIND_3d             ( : , : , : )          ! canopy wind speeds -- 3D (m/s)
+    real(rk), allocatable :: lad                    ( : , : )              ! Leaf Area Density calculated from foliage shape function (m2/m3)
+    real(rk), allocatable :: lad_3d                 ( : , : , : )          ! Leaf Area Density calculated from foliage shape function (m2/m3)
     real(rk), allocatable :: dx                  ( : )          ! Model grid cell distance/resolution (m)
     real(rk), allocatable :: dx_2d               ( : , : )      ! Model grid cell distance/resolution -- 2D (m)
     real(rk), allocatable :: waf                 ( : )          ! Calculated Wind Adjustment Factor
@@ -239,6 +241,7 @@ MODULE canopy_canvars_mod
 !-------------------------------------------------------------------------------
 
     TYPE(fld3ddata), ALLOCATABLE, TARGET :: fld3dxyzt ( : )
+    TYPE(fld3ddata), POINTER     :: c_lad
     TYPE(fld3ddata), POINTER     :: c_canwind
     TYPE(fld3ddata), POINTER     :: c_Kz
     TYPE(fld3ddata), POINTER     :: c_rjcf
