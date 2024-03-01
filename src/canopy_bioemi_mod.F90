@@ -9,7 +9,8 @@ contains
         PPFD_SHADE, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE, TEMP2, LU_OPT, &
         VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
         LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, &
-        MODLAYS, LOSSOPT, LIFETIME, USTAR, EMI_IND, EMI_OUT)
+        MODLAYS, LOSSOPT, LOSSSET, LOSSIND, LIFETIME, USTAR, EMI_IND, &
+        EMI_OUT)
 
 !-----------------------------------------------------------------------
 
@@ -74,6 +75,9 @@ contains
         INTEGER,     INTENT( IN )       :: MODLAYS         ! Input total model layers
         INTEGER,     INTENT( IN )       :: LOSSOPT         ! Option for canopy loss factor when summing top of canopy emissions
         REAL(RK),    INTENT( IN )       :: LIFETIME        ! Above canopy chemical lifetime of VOC (s)
+        REAL(RK),    INTENT( IN )       :: LOSSSET         ! Input value for constant canopy loss factor applied used with loss_opt=2 (Default = 0.96)
+        INTEGER,     INTENT( IN )       :: LOSSIND         ! Input integer for applying canopy loss factor to all species (=0) or only specific biogenics specie indices (> 0)
+
         REAL(RK),    INTENT( IN )       :: USTAR           ! Above canopy friction velocity (m/s)
         INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
@@ -173,6 +177,7 @@ contains
         end if
 
 ! Get LEAF AGE factor
+
         TABOVECANOPY  = TEMP2   !TEMP2 (above air temp) for TABOVECANOPY
         !do i=1, SIZE(ZK)
         GAMMALEAFAGE = GET_GAMMA_LEAFAGE(LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, TABOVECANOPY, ANEW, AGRO, AMAT, AOLD)
@@ -181,7 +186,24 @@ contains
 ! Get canopy loss factor (only used in vertical summing options and empirical formulation and parameters based on isoprene)
 ! Note:  Allowed for other BVOCs but use caution when applying to compare with above canopy flux observations
 
-        CANLOSS_FAC = GET_CANLOSS_BIO(LOSSOPT,LIFETIME,USTAR,FCH)
+        CANLOSS_FAC = 1.0_rk  !Initialize
+        ! All species
+        if (LOSSIND .eq. 0) then
+            if (LOSSOPT .eq. 2) then !User set value from NL
+                CANLOSS_FAC = LOSSSET
+            else                !Try and calculate if turned on
+                CANLOSS_FAC = GET_CANLOSS_BIO(LOSSOPT,LIFETIME,USTAR,FCH)
+            end if
+        end if
+
+        !Only for a specific biogenic species/indice
+        if (LOSSIND .eq. EMI_IND) then
+            if (LOSSOPT .eq. 2) then !User set value from NL
+                CANLOSS_FAC = LOSSSET
+            else                !Try and calculate if turned on
+                CANLOSS_FAC = GET_CANLOSS_BIO(LOSSOPT,LIFETIME,USTAR,FCH)
+            end if
+        end if
 
 ! Calculate emissions profile in the canopy
         EMI_OUT = 0.0_rk  ! set initial emissions profile to zero

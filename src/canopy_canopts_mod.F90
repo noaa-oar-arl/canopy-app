@@ -49,5 +49,7 @@ MODULE canopy_canopts_mod
     integer             ::    lai_tstep   !Set default = 24*3600 seconds (Daily timestep for LAI input, = 30*24*3600 for say Monthly time ste or other user-defined in seconds)
     integer             ::    loss_opt    !Set default integer for turning on canopy loss ratios for adjusting top of canopy net emissions (default = 0; Off)
     real(rk)            ::    lifetime    !Set default value for above-canopy BVOC lifetime (s) used with loss_opt=1 (Default = 3600 s)
+    real(rk)            ::    loss_set    !Set default value for constant canopy loss factor applied used with loss_opt=2 (Default = 0.96)
+    integer             ::    loss_ind    !Set default integer for applying canopy loss factor to all species (=0) or only specific biogenics specie indices (> 0)
 
 END MODULE canopy_canopts_mod

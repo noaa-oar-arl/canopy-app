@@ -70,6 +70,8 @@
   bio_cce     =  0.21
   biovert_opt =  0
   loss_opt    =  0
+  loss_set    =  0.96
+  loss_ind    =  0
   lifetime    =  3600.0
   co2_opt     =  0
   co2_set     =  400.0

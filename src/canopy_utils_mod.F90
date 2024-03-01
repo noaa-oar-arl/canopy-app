@@ -738,8 +738,8 @@ contains
 
         ! !INPUT PARAMETERS:
         INTEGER,  INTENT(IN) :: loss_opt       ! Option for canopy loss function
-        ! 0=Off; CANLOSS_BIO = 1
-        ! 1 or  >1 =On i.e. CANLOSS_BIO < 1
+        ! 0 = Calculation Off; CANLOSS_BIO = 1
+        ! 1 = Calculation On i.e. CANLOSS_BIO < 1
 
         REAl(rk), INTENT(IN) :: lifetime    ! Above canopy BVOC chemical lifetime [s]
         REAL(rk), INTENT(IN) :: ustar       ! Above canopy friction velocity [m/s]
