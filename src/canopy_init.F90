@@ -52,16 +52,16 @@ SUBROUTINE canopy_init
     if(allocated(ppfd_sun240))        ppfd_sun240(:,:)         = fillreal
     if(allocated(ppfd_shade240))      ppfd_shade240(:,:)       = fillreal
 
-    if(allocated(tleaf_sun24_tmp_3d))    tleaf_sun24_tmp_3d(:,:,:)     = 0.0_rk
-    if(allocated(tleaf_shade24_tmp_3d))  tleaf_shade24_tmp_3d(:,:,:)   =  0.0_rk
-    if(allocated(tleaf_ave24_tmp_3d))    tleaf_ave24_tmp_3d(:,:,:)     = 0.0_rk
-    if(allocated(ppfd_sun24_tmp_3d))     ppfd_sun24_tmp_3d(:,:,:)      = 0.0_rk
-    if(allocated(ppfd_shade24_tmp_3d))   ppfd_shade24_tmp_3d(:,:,:)    = 0.0_rk
-    if(allocated(tleaf_sun240_tmp_3d))   tleaf_sun240_tmp_3d(:,:,:)    = 0.0_rk
-    if(allocated(tleaf_shade240_tmp_3d)) tleaf_shade240_tmp_3d(:,:,:)  = 0.0_rk
-    if(allocated(tleaf_ave240_tmp_3d))   tleaf_ave240_tmp_3d(:,:,:)    = 0.0_rk
-    if(allocated(ppfd_sun240_tmp_3d))    ppfd_sun240_tmp_3d(:,:,:)     = 0.0_rk
-    if(allocated(ppfd_shade240_tmp_3d))  ppfd_shade240_tmp_3d(:,:,:)   = 0.0_rk
+    if(allocated(tleaf_sun24_tmp_3d))    tleaf_sun24_tmp_3d(:,:,:,:)     = 0.0_rk
+    if(allocated(tleaf_shade24_tmp_3d))  tleaf_shade24_tmp_3d(:,:,:,:)   =  0.0_rk
+    if(allocated(tleaf_ave24_tmp_3d))    tleaf_ave24_tmp_3d(:,:,:,:)     = 0.0_rk
+    if(allocated(ppfd_sun24_tmp_3d))     ppfd_sun24_tmp_3d(:,:,:,:)      = 0.0_rk
+    if(allocated(ppfd_shade24_tmp_3d))   ppfd_shade24_tmp_3d(:,:,:,:)    = 0.0_rk
+    if(allocated(tleaf_sun240_tmp_3d))   tleaf_sun240_tmp_3d(:,:,:,:)    = 0.0_rk
+    if(allocated(tleaf_shade240_tmp_3d)) tleaf_shade240_tmp_3d(:,:,:,:)  = 0.0_rk
+    if(allocated(tleaf_ave240_tmp_3d))   tleaf_ave240_tmp_3d(:,:,:,:)    = 0.0_rk
+    if(allocated(ppfd_sun240_tmp_3d))    ppfd_sun240_tmp_3d(:,:,:,:)     = 0.0_rk
+    if(allocated(ppfd_shade240_tmp_3d))  ppfd_shade240_tmp_3d(:,:,:,:)   = 0.0_rk
     if(allocated(tleaf_sun24_3d))        tleaf_sun24_3d(:,:,:)         = fillreal
     if(allocated(tleaf_shade24_3d))      tleaf_shade24_3d(:,:,:)       = fillreal
     if(allocated(tleaf_ave24_3d))        tleaf_ave24_3d(:,:,:)         = fillreal
