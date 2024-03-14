@@ -126,9 +126,9 @@ Namelist Option : `file_vars`  Full name of input file (Supports either text or 
 - Canopy-App assumes the NetCDF input files are in CF-Convention and test file is based on UFS-GFSv16; recommend using double or float for real variables.  Input data must be valid values.
 - Canopy-App can also be run with a single point of 1D input data in a text file (e.g. `point_file_20220701.sfcf000.txt`).
 - The namelist can be modified with f90nml (included with the [Canopy-App Conda](https://github.com/noaa-oar-arl/canopy-app/blob/develop/python/environment.yml) environment) to insert multiple input filenames at once:
-```
-f90nml -g filenames -v file_vars="$(realpath *.txt | xargs -I {} echo "'{}'")" namelist.canopy namelist.canopy_copy
-```
+  ```
+  f90nml -g filenames -v file_vars="$(realpath *.txt | xargs -I {} echo "'{}'")" namelist.canopy namelist.canopy_copy
+  ```
 
 The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variables) below is based around NOAA's UFS operational Global Forecast System Version 16 (GFSv16) gridded met data, and is supplemented with external canopy data (from numerous sources) and other external and calculated input variables.  
 
