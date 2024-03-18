@@ -165,6 +165,8 @@ contains
 
         GammaTLEAF_AVE = (GammaTLEAF_SUN*FSUN) + (GammaTLEAF_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
 
+        GammaTLEAF_AVE = MAX( GammaTLEAF_AVE, 0.0_rk )
+
 ! Calculate gamma (activity) values for average PPFD (Clifton et al., 2022; based on Guenther et al. 2012)
         ALPHA_P_SUN = 0.004 - 0.0005*log(PPFD240_SUN)
         ALPHA_P_SHADE = 0.004 - 0.0005*log(PPFD240_SHADE)
@@ -174,6 +176,8 @@ contains
         GammaPPFD_SHADE = CP_SHADE*((ALPHA_P_SHADE*PPFD_SHADE)/SQRT(1.0 + (ALPHA_P_SHADE**2.0) * (PPFD_SHADE**2.0)))
 
         GammaPPFD_AVE = (GammaPPFD_SUN*FSUN) + (GammaPPFD_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
+
+        GammaPPFD_AVE = MAX( GammaPPFD_AVE, 0.0_rk )
 
 ! Get CO2 inhibition factor for isoprene only
 
