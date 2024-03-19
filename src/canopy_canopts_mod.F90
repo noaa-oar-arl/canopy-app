@@ -38,7 +38,7 @@ MODULE canopy_canopts_mod
     real(rk)            ::    z0ghc       !ratio of ground roughness length to canopy top height
     real(rk)            ::    lambdars    !Value representing influence of roughness sublayer (nondimensional)
     real(rk)            ::    bio_cce     !MEGAN biogenic emission canopy environment coefficient.
-    integer             ::    biovert_opt    !MEGAN vertical integration of emissions option (default = 0, off)
+    integer             ::    biovert_opt !MEGAN vertical integration of emissions option (default = 0, off)
     integer             ::    ssg_opt     !Set default integer for shrubs/savanna/grassland vegtype option from GEDI or user (default = 0)
     real(rk)            ::    ssg_set     !Set default value for shrubs/savanna/grassland vegtype heights used in model (m) (Default = 1 m)
     integer             ::    crop_opt    !Set default integer for crop vegtype option from GEDI or user (default = 0)
@@ -47,6 +47,7 @@ MODULE canopy_canopts_mod
     real(rk)            ::    co2_set     !Set default value for atmospheric co2 concentration for co2_opt (m) (Default = 400.0 ppmv)
     integer             ::    leafage_opt !Set default = 1 for Leaf Age factor option for BVOCs, =1 give GAMMA_LEAFGAE =1
     integer             ::    lai_tstep   !Set default = 24*3600 seconds (Daily timestep for LAI input, = 30*24*3600 for say Monthly time ste or other user-defined in seconds)
+    integer             ::    hist_opt    !Set default integer for using historically averaged leaf temp and PAR for biogenic emissions (default=0; Off)
     integer             ::    soim_opt    !Set default = 1 for Soil Moisture factor option for BVOCs, =1 give GAMMA_SOIM =1
     real(rk)            ::    soild1      !User set real value of depth of soil layer 1 (default = 5 cm @ centerpoint, based on Noah/Noah-MP)
     real(rk)            ::    soild2      !User set real value of depth of soil layer 2 (default = 25 cm @ centerpoint, based on Noah/Noah-MP)

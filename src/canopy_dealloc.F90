@@ -32,20 +32,62 @@ SUBROUTINE canopy_dealloc
 ! Dellocate arrays for Canopy Distribution
 !-------------------------------------------------------------------------------
 
-    if(allocated(zk))          deallocate(zk) !allocated in canopy_readnml
-    if(allocated(zhc))         deallocate(zhc)
-    if(allocated(fainc))       deallocate(fainc) !allocated in canopy_profile
-    if(allocated(fafracz))     deallocate(fafracz) !allocated in canopy_profile
-    if(allocated(fafraczInt))  deallocate(fafraczInt)
-    if(allocated(fsun))        deallocate(fsun)
-    if(allocated(tleaf_sun))   deallocate(tleaf_sun)
-    if(allocated(tleaf_shade)) deallocate(tleaf_shade)
-    if(allocated(tleaf_ave))   deallocate(tleaf_ave)
-    if(allocated(ppfd_sun))    deallocate(ppfd_sun)
-    if(allocated(ppfd_shade))  deallocate(ppfd_shade)
-    if(allocated(ppfd_ave))    deallocate(ppfd_ave)
-    if(allocated(lad))         deallocate(lad)
-    if(allocated(lad_3d))      deallocate(lad_3d)
+    if(allocated(zk))                    deallocate(zk) !allocated in canopy_readnml
+    if(allocated(zhc))                   deallocate(zhc)
+    if(allocated(fainc))                 deallocate(fainc) !allocated in canopy_profile
+    if(allocated(fafracz))               deallocate(fafracz) !allocated in canopy_profile
+    if(allocated(fafraczInt))            deallocate(fafraczInt)
+    if(allocated(fsun))                  deallocate(fsun)
+    if(allocated(tleaf_sun))             deallocate(tleaf_sun)
+    if(allocated(tleaf_shade))           deallocate(tleaf_shade)
+    if(allocated(tleaf_ave))             deallocate(tleaf_ave)
+    if(allocated(ppfd_sun))              deallocate(ppfd_sun)
+    if(allocated(ppfd_shade))            deallocate(ppfd_shade)
+    if(allocated(ppfd_ave))              deallocate(ppfd_ave)
+    if(allocated(lad))                   deallocate(lad)
+    if(allocated(lad_3d))                deallocate(lad_3d)
+
+    if(allocated(tleaf_sun24_tmp))       deallocate(tleaf_sun24_tmp)
+    if(allocated(tleaf_shade24_tmp))     deallocate(tleaf_shade24_tmp)
+    if(allocated(tleaf_ave24_tmp))       deallocate(tleaf_ave24_tmp)
+    if(allocated(ppfd_sun24_tmp))        deallocate(ppfd_sun24_tmp)
+    if(allocated(ppfd_shade24_tmp))      deallocate(ppfd_shade24_tmp)
+    if(allocated(tleaf_sun240_tmp))      deallocate(tleaf_sun240_tmp)
+    if(allocated(tleaf_shade240_tmp))    deallocate(tleaf_shade240_tmp)
+    if(allocated(tleaf_ave240_tmp))      deallocate(tleaf_ave240_tmp)
+    if(allocated(ppfd_sun240_tmp))       deallocate(ppfd_sun240_tmp)
+    if(allocated(ppfd_shade240_tmp))     deallocate(ppfd_shade240_tmp)
+    if(allocated(tleaf_sun24))           deallocate(tleaf_sun24)
+    if(allocated(tleaf_shade24))         deallocate(tleaf_shade24)
+    if(allocated(tleaf_ave24))           deallocate(tleaf_ave24)
+    if(allocated(ppfd_sun24))            deallocate(ppfd_sun24)
+    if(allocated(ppfd_shade24))          deallocate(ppfd_shade24)
+    if(allocated(tleaf_sun240))          deallocate(tleaf_sun240)
+    if(allocated(tleaf_shade240))        deallocate(tleaf_shade240)
+    if(allocated(tleaf_ave240))          deallocate(tleaf_ave240)
+    if(allocated(ppfd_sun240))           deallocate(ppfd_sun240)
+    if(allocated(ppfd_shade240))         deallocate(ppfd_shade240)
+
+    if(allocated(tleaf_sun24_tmp_3d))       deallocate(tleaf_sun24_tmp_3d)
+    if(allocated(tleaf_shade24_tmp_3d))     deallocate(tleaf_shade24_tmp_3d)
+    if(allocated(tleaf_ave24_tmp_3d))       deallocate(tleaf_ave24_tmp_3d)
+    if(allocated(ppfd_sun24_tmp_3d))        deallocate(ppfd_sun24_tmp_3d)
+    if(allocated(ppfd_shade24_tmp_3d))      deallocate(ppfd_shade24_tmp_3d)
+    if(allocated(tleaf_sun240_tmp_3d))      deallocate(tleaf_sun240_tmp_3d)
+    if(allocated(tleaf_shade240_tmp_3d))    deallocate(tleaf_shade240_tmp_3d)
+    if(allocated(tleaf_ave240_tmp_3d))      deallocate(tleaf_ave240_tmp_3d)
+    if(allocated(ppfd_sun240_tmp_3d))       deallocate(ppfd_sun240_tmp_3d)
+    if(allocated(ppfd_shade240_tmp_3d))     deallocate(ppfd_shade240_tmp_3d)
+    if(allocated(tleaf_sun24_3d))           deallocate(tleaf_sun24_3d)
+    if(allocated(tleaf_shade24_3d))         deallocate(tleaf_shade24_3d)
+    if(allocated(tleaf_ave24_3d))           deallocate(tleaf_ave24_3d)
+    if(allocated(ppfd_sun24_3d))            deallocate(ppfd_sun24_3d)
+    if(allocated(ppfd_shade24_3d))          deallocate(ppfd_shade24_3d)
+    if(allocated(tleaf_sun240_3d))          deallocate(tleaf_sun240_3d)
+    if(allocated(tleaf_shade240_3d))        deallocate(tleaf_shade240_3d)
+    if(allocated(tleaf_ave240_3d))          deallocate(tleaf_ave240_3d)
+    if(allocated(ppfd_sun240_3d))           deallocate(ppfd_sun240_3d)
+    if(allocated(ppfd_shade240_3d))         deallocate(ppfd_shade240_3d)
 
 !-------------------------------------------------------------------------------
 ! Deallocate arrays for Canopy Wind

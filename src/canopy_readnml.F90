@@ -27,7 +27,7 @@ SUBROUTINE canopy_readnml
         ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
         dx_opt, dx_set, lai_thresh, cf_thresh, ch_thresh, rsl_opt, bio_cce, &
         biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, &
-        leafage_opt, lai_tstep, soim_opt, soild1, soild2, soild3, soild4
+        leafage_opt, lai_tstep, soim_opt, soild1, soild2, soild3, soild4, hist_opt
 
 
 !-------------------------------------------------------------------------------
@@ -288,6 +288,10 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
+! Set default integer for using historically averaged leaf temp and PAR for biogenic emissions (default=0; Off)
+    hist_opt = 0
+!-------------------------------------------------------------------------------
+
 ! Set default integer for soil moisture response option for biogenic (isoprene only) emissions
 ! (default is OFF i.e., leafage_opt=1 making GAMMA_SOIM=1 i.e. soil moisture response to Biogenic Isoprene VOCs is OFF.)
 !  Otherwise switched ON i.e., soim_opt= 0 to  enable GAMMA_SOIM calculation

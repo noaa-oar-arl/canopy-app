@@ -5,8 +5,11 @@ module canopy_bioemi_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE CANOPY_BIO( ZK, FCLAI, FCH, LAI, FSUN, PPFD_SUN, &
-        PPFD_SHADE, TLEAF_SUN, TLEAF_SHADE, TLEAF_AVE, TEMP2, LU_OPT, &
+    SUBROUTINE CANOPY_BIO( ZK, FCLAI, FCH, LAI, FSUN, &
+        PPFD_SUN, PPFD_SHADE, TLEAF_SUN, TLEAF_SHADE, PPFD24_SUN, &
+        PPFD24_SHADE, TLEAF24_AVE,  &
+        PPFD240_SUN, PPFD240_SHADE, &
+        TLEAF240_AVE, TEMP2, LU_OPT, &
         VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
         LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, &
         SOIMOPT, SOIM1, SOIM2, SOIM3, SOIM4, SOID1, SOID2, SOID3, &
@@ -49,17 +52,23 @@ contains
 
 ! Arguments:
 !     IN/OUT
-        REAL(RK),    INTENT( IN )       :: ZK(:)           ! Model heights (m)
-        REAL(RK),    INTENT( IN )       :: FCLAI(:)        ! Fractional (z) shapes of the
+        REAL(RK),    INTENT( IN )       :: ZK(:)              ! Model heights (m)
+        REAL(RK),    INTENT( IN )       :: FCLAI(:)           ! Fractional (z) shapes of the
         ! plant surface distribution (nondimensional), i.e., a Fractional Culmulative LAI
-        REAL(RK),    INTENT( IN )       :: FCH             ! Canopy height (m)
-        REAL(RK),    INTENT( IN )       :: LAI             ! Total Leaf Area Index
-        REAL(RK),    INTENT( IN )       :: FSUN(:)         ! Sunlit/Shaded fraction from photolysis correction factor
-        REAL(RK),    INTENT( IN )       :: PPFD_SUN(:)     ! PPFD for sunlit leaves (umol phot/m2 s)
-        REAL(RK),    INTENT( IN )       :: PPFD_SHADE(:)   ! PPFD for shaded leaves (umol phot/m2 s)
-        REAL(RK),    INTENT( IN )       :: TLEAF_SUN(:)    ! Leaf temp for sunlit leaves (K)
-        REAL(RK),    INTENT( IN )       :: TLEAF_SHADE(:)  ! Leaf temp for shaded leaves (K)
-        REAL(RK),    INTENT( IN )       :: TLEAF_AVE(:)    ! Average Leaf temp (K)
+        REAL(RK),    INTENT( IN )       :: FCH                ! Canopy height (m)
+        REAL(RK),    INTENT( IN )       :: LAI                ! Total Leaf Area Index
+        REAL(RK),    INTENT( IN )       :: FSUN(:)            ! Sunlit/Shaded fraction from photolysis correction factor
+        REAL(RK),    INTENT( IN )       :: TLEAF_SUN(:)       ! Leaf temp for sunlit leaves (K)
+        REAL(RK),    INTENT( IN )       :: TLEAF_SHADE(:)     ! Leaf temp for shaded leaves (K)
+        REAL(RK),    INTENT( IN )       :: PPFD_SUN(:)        ! PPFD for sunlit leaves (umol phot/m2 s)
+        REAL(RK),    INTENT( IN )       :: PPFD_SHADE(:)      ! PPFD for shaded leaves (umol phot/m2 s)
+        REAL(RK),    INTENT( IN )       :: PPFD24_SUN(:)      ! PPFD for sunlit leaves (umol phot/m2 s) --24 hr ave
+        REAL(RK),    INTENT( IN )       :: PPFD24_SHADE(:)    ! PPFD for shaded leaves (umol phot/m2 s)
+        REAL(RK),    INTENT( IN )       :: TLEAF24_AVE(:)     ! Average Leaf temp (K)
+        REAL(RK),    INTENT( IN )       :: PPFD240_SUN(:)     ! PPFD for sunlit leaves (umol phot/m2 s) -- 240 hr ave
+        REAL(RK),    INTENT( IN )       :: PPFD240_SHADE(:)   ! PPFD for shaded leaves (umol phot/m2 s)
+        REAL(RK),    INTENT( IN )       :: TLEAF240_AVE(:)    ! Average Leaf temp (K)
+
         REAL(RK),    INTENT( IN )       :: TEMP2           ! Model input 2-m Temperature (K)
         INTEGER,     INTENT( IN )       :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
@@ -79,18 +88,16 @@ contains
         REAL(RK),    INTENT( IN )       :: SOID4           ! Soil depth layer 4 [cm]
         REAL(RK),    INTENT( IN )       :: WILT            ! Wilting point [proportion]
 
-        INTEGER,    INTENT( IN )       :: LEAFAGEOPT      ! leafage_opt (0= ON, 1= off i.e. GAMMALEAFAGE =1, in canopy_readnml.F90)
-        REAL(RK),    INTENT( IN )       :: PASTLAI           ! Past LAI [cm2/cm2]
-        REAL(RK),    INTENT( IN )       :: CURRENTLAI           ! Current LAI [cm2/cm2]
-        REAL(RK),    INTENT( IN )       :: TSTEPLAI           !Number of days between the past and current LAI
+        INTEGER,    INTENT( IN )        :: LEAFAGEOPT     ! leafage_opt (0= ON, 1= off i.e. GAMMALEAFAGE =1, in canopy_readnml.F90)
+        REAL(RK),    INTENT( IN )       :: PASTLAI        ! Past LAI [cm2/cm2]
+        REAL(RK),    INTENT( IN )       :: CURRENTLAI     ! Current LAI [cm2/cm2]
+        REAL(RK),    INTENT( IN )       :: TSTEPLAI       !Number of days between the past and current LAI
 
         INTEGER,     INTENT( IN )       :: MODLAYS         ! Input total model layers
         INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
         REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
 
 ! Local Variables
-        REAL(RK) :: TLEAF24_AVE(SIZE(ZK))          ! Average Leaf temp over the past 24 hours (K)
-        REAL(RK) :: TLEAF240_AVE(SIZE(ZK))         ! Average Leaf temp over the past 240 hours (K)
         REAL(RK) :: GammaTLEAF_SUN_NUM(SIZE(ZK))   ! Numerator in Tleaf sun activity factor
         REAL(RK) :: GammaTLEAF_SHADE_NUM(SIZE(ZK)) ! Numerator in Tleaf shade activity factor
         REAL(RK) :: GammaTLEAF_SUN_DEN(SIZE(ZK))   ! Denominator in Tleaf sun activity factor
@@ -98,10 +105,6 @@ contains
         REAL(RK) :: GammaTLEAF_SUN(SIZE(ZK))       ! Tleaf sun activity factor
         REAL(RK) :: GammaTLEAF_SHADE(SIZE(ZK))     ! Tleaf shade activity factor
         REAL(RK) :: GammaTLEAF_AVE(SIZE(ZK))       ! Average Tleaf activity factor
-        REAL(RK) :: PPFD24_SUN(SIZE(ZK))           ! Average PPFD sun over the past 24 hours
-        REAL(RK) :: PPFD24_SHADE(SIZE(ZK))         ! Average PPFD shade over the past 24 hours
-        REAL(RK) :: PPFD240_SUN(SIZE(ZK))          ! Average PPFD sun over the past 240 hours
-        REAL(RK) :: PPFD240_SHADE(SIZE(ZK))        ! Average PPFD shade over the past 240 hours
         REAL(RK) :: CP_SUN(SIZE(ZK))               ! Normalized emission capacity sun at PPFD = 1000 umol phot/m2 s
         REAL(RK) :: CP_SHADE(SIZE(ZK))             ! Normalized emission capacity shade at PPFD = 1000 umol phot/m2 s
         REAL(RK) :: ALPHA_P_SUN(SIZE(ZK))          ! Quantum yield of isoprene sunlit (mol/mol)
@@ -144,8 +147,6 @@ contains
         REAL(RK),          PARAMETER     :: CT2             =  230.0_rk   !Deactivation energy (kJ/mol) (Guenther et al., 2012)
 
 ! Calculate maximum normalized emission capacity (E_OPT) and Tleaf at E_OPT
-        TLEAF240_AVE   = TLEAF_AVE  !Assume instantaneous TLEAF estimate for TLEAF240 and TLEAF24 (could improve...)
-        TLEAF24_AVE    = TLEAF_AVE
         TLEAF_OPT = 313.0_rk + (0.6_rk * (TLEAF240_AVE-297.0_rk)) !Guenther et al. (2012)
 
 ! Calculate emission species/plant-dependent mapped emission factors and other important coefficients for gamma terms
@@ -153,7 +154,7 @@ contains
 
         E_OPT = CEO * EXP(0.05_rk * (TLEAF24_AVE-297.0_rk)) * EXP(0.05_rk * (TLEAF240_AVE-297.0_rk))
 
-! Calculate gamma (activity) values for average Tleaf (Clifton et al., 2022)
+! Calculate gamma (activity) values for average Tleaf (Clifton et al., 2022; based on Guenther et al. 2012)
         GammaTLEAF_SUN_NUM = CT2*exp((CT1/(rgasuniv/1000.0))*((1.0/TLEAF_OPT)-(1.0/TLEAF_SUN)))
         GammaTLEAF_SUN_DEN = (CT2-CT1)*(1.0-exp((CT2/(rgasuniv/1000.0))*((1.0/TLEAF_OPT)-(1.0/TLEAF_SUN))))
         GammaTLEAF_SUN     = E_OPT*(GammaTLEAF_SUN_NUM/GammaTLEAF_SUN_DEN)
@@ -164,12 +165,9 @@ contains
 
         GammaTLEAF_AVE = (GammaTLEAF_SUN*FSUN) + (GammaTLEAF_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
 
-! Calculate gamma (activity) values for average PPFD (Clifton et al., 2022)
-        PPFD240_SUN   = PPFD_SUN/2.0  !Clifton et al...halve the instantaneous PPFD estimate to get PPFD240 and PPFD24
-        PPFD240_SHADE = PPFD_SHADE/2.0
-        PPFD24_SUN    = PPFD_SUN/2.0
-        PPFD24_SHADE  = PPFD_SHADE/2.0
+        GammaTLEAF_AVE = MAX( GammaTLEAF_AVE, 0.0_rk )
 
+! Calculate gamma (activity) values for average PPFD (Clifton et al., 2022; based on Guenther et al. 2012)
         ALPHA_P_SUN = 0.004 - 0.0005*log(PPFD240_SUN)
         ALPHA_P_SHADE = 0.004 - 0.0005*log(PPFD240_SHADE)
         CP_SUN = 0.0468*(PPFD240_SUN**(0.6))*exp(0.005*(PPFD24_SUN-PPFD0_SUN))
@@ -178,6 +176,8 @@ contains
         GammaPPFD_SHADE = CP_SHADE*((ALPHA_P_SHADE*PPFD_SHADE)/SQRT(1.0 + (ALPHA_P_SHADE**2.0) * (PPFD_SHADE**2.0)))
 
         GammaPPFD_AVE = (GammaPPFD_SUN*FSUN) + (GammaPPFD_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
+
+        GammaPPFD_AVE = MAX( GammaPPFD_AVE, 0.0_rk )
 
 ! Get CO2 inhibition factor for isoprene only
 
