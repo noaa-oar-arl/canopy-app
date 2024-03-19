@@ -134,5 +134,10 @@ MODULE canopy_const_mod
     ! https://doi.org/10.5194/gmd-11-1467-2018
     REAL(RK),          PARAMETER     :: beta_n = 0.35_rk
 
+    ! e-folding time to be applied to long-term past conditions for biogenic emissions (in days)
+    REAL(RK), PARAMETER  :: tau_days  = 5.0_rk
+
+    ! e-folding time to be applied to short-term past conditions for biogenic emissions (in hours)
+    REAL(RK), PARAMETER  :: tau_hours = 12.0_rk
 
 END MODULE canopy_const_mod

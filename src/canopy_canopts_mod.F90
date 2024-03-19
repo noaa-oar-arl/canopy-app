@@ -51,5 +51,10 @@ MODULE canopy_canopts_mod
     real(rk)            ::    lifetime    !Set default value for above-canopy BVOC lifetime (s) used with loss_opt=1 (Default = 3600 s)
     real(rk)            ::    loss_set    !Set default value for constant canopy loss factor applied used with loss_opt=2 (Default = 0.96)
     integer             ::    loss_ind    !Set default integer for applying canopy loss factor to all species (=0) or only specific biogenics specie indices (> 0)
-
+    integer             ::    hist_opt    !Set default integer for using historically averaged leaf temp and PAR for biogenic emissions (default=0; Off)
+    integer             ::    soim_opt    !Set default = 1 for Soil Moisture factor option for BVOCs, =1 give GAMMA_SOIM =1
+    real(rk)            ::    soild1      !User set real value of depth of soil layer 1 (default = 5 cm @ centerpoint, based on Noah/Noah-MP)
+    real(rk)            ::    soild2      !User set real value of depth of soil layer 2 (default = 25 cm @ centerpoint, based on Noah/Noah-MP)
+    real(rk)            ::    soild3      !User set real value of depth of soil layer 3 (default = 70 cm @ centerpoint, based on Noah/Noah-MP)
+    real(rk)            ::    soild4      !User set real value of depth of soil layer 4 (default = 150 cm @ centerpoint, based on Noah/Noah-MP)
 END MODULE canopy_canopts_mod

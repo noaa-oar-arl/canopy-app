@@ -2439,6 +2439,56 @@ CONTAINS
             variables_2d%prate_ave=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%prate_ave=reshape(variables_2d%prate_ave,[size(variables_2d%prate_ave)])
+            !Volumetric soil moisture level 1
+            CALL get_var_2d_real_cdf (cdfid, 'soilw1', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilw1',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilw1=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilw1=reshape(variables_2d%soilw1,[size(variables_2d%soilw1)])
+            !Volumetric soil moisture level 2
+            CALL get_var_2d_real_cdf (cdfid, 'soilw2', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilw2',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilw2=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilw2=reshape(variables_2d%soilw2,[size(variables_2d%soilw2)])
+            !Volumetric soil moisture level 3
+            CALL get_var_2d_real_cdf (cdfid, 'soilw3', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilw3',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilw3=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilw3=reshape(variables_2d%soilw3,[size(variables_2d%soilw3)])
+            !Volumetric soil moisture level 4
+            CALL get_var_2d_real_cdf (cdfid, 'soilw4', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilw4',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilw4=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilw4=reshape(variables_2d%soilw4,[size(variables_2d%soilw4)])
+            !Wilting point
+            CALL get_var_2d_real_cdf (cdfid, 'wilt', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'wilt',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%wilt=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%wilt=reshape(variables_2d%wilt,[size(variables_2d%wilt)])
             !3D Input Level Profile
             if (var3d_opt .eq. 1) then
                 CALL get_var_1d_real_cdf (cdfid, 'lev', variables_1d_lev_real, it, rcode)

@@ -28,72 +28,112 @@ MODULE canopy_canvars_mod
 ! Allocatable canopy variable arrays
 !-------------------------------------------------------------------------------
 
-    real(rk), allocatable :: zk            ( : )          ! in-canopy heights (m)
-    real(rk), allocatable :: zhc           ( : )          ! z/h
-    real(rk), allocatable :: fainc         ( : )          ! incremental foliage shape function
-    real(rk), allocatable :: fafracz       ( : )          ! incremental fractional foliage shape function
-    real(rk), allocatable :: fafraczInt    ( : )          ! integral of incremental fractional foliage shape function
-    real(rk), allocatable :: fsun          ( : )          ! Sunlit/Shaded fraction from photolysis correction factor
-    real(rk), allocatable :: tleaf_sun     ( : )          ! Leaf temp for sunlit leaves (K)
-    real(rk), allocatable :: tleaf_shade   ( : )          ! Leaf temp for shaded leaves (K)
-    real(rk), allocatable :: tleaf_ave     ( : )          ! Average Leaf temp for sunlit and shaded leaves (K)
-    real(rk), allocatable :: ppfd_sun      ( : )          ! PPFD for sunlit leaves (umol phot/m2 s)
-    real(rk), allocatable :: ppfd_shade    ( : )          ! PPFD for shaded leaves (umol phot/m2 s)
-    real(rk), allocatable :: ppfd_ave      ( : )          ! Average PPFD for sunlit and shaded leaves (umol phot/m2 s)
-    real(rk), allocatable :: canBOT        ( : )          ! Canopy bottom wind reduction factors
-    real(rk), allocatable :: canTOP        ( : )          ! Canopy top wind reduction factors
-    real(rk), allocatable :: lad           ( : , : )      ! Leaf Area Density calculated from foliage shape function (m2/m3)
-    real(rk), allocatable :: lad_3d        ( : , : , : )  ! Leaf Area Density calculated from foliage shape function (m2/m3)
-    real(rk), allocatable :: canWIND       ( : , : )      ! canopy wind speeds (m/s)
-    real(rk), allocatable :: canWIND_3d    ( : , : , : )  ! canopy wind speeds -- 3D (m/s)
-    real(rk), allocatable :: dx            ( : )          ! Model grid cell distance/resolution (m)
-    real(rk), allocatable :: dx_2d         ( : , : )      ! Model grid cell distance/resolution -- 2D (m)
-    real(rk), allocatable :: waf           ( : )          ! Calculated Wind Adjustment Factor
-    real(rk), allocatable :: waf_2d        ( : , : )      ! Calculated Wind Adjustment Factor -- 2D
-    real(rk), allocatable :: Kz            ( :, : )       ! Eddy Diffusivities (m2/s)
-    real(rk), allocatable :: Kz_3d         ( : , : , : )  ! Eddy Diffusivities -- 3D (m2/s)
-    real(rk), allocatable :: rjcf          ( :, : )       ! Photolysis Attenuation Correction Factors
-    real(rk), allocatable :: rjcf_3d       ( : , : , : )  ! Photolysis Attenuation Correction Factors -- 3D
-    real(rk), allocatable :: flameh        ( : )          ! Flame Height (m)
-    real(rk), allocatable :: flameh_2d     ( : , : )      ! Flame Height -- 2D (m)
-    real(rk), allocatable :: emi_isop      ( :, : )       ! Isoprene biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_isop_3d   ( : , : , : )  ! Isoprene biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_myrc      ( :, : )       ! Myrcene biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_myrc_3d   ( : , : , : )  ! Myrcene biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_sabi      ( :, : )       ! Sabinene biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_sabi_3d   ( : , : , : )  ! Sabinene biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_limo      ( :, : )       ! Limonene biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_limo_3d   ( : , : , : )  ! Limonene biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_care      ( :, : )       ! Carene biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_care_3d   ( : , : , : )  ! Carene biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_ocim      ( :, : )       ! Ocimene biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_ocim_3d   ( : , : , : )  ! Ocimene biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_bpin      ( :, : )       ! Beta-Pinene biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_bpin_3d   ( : , : , : )  ! Beta-Pinene biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_apin      ( :, : )       ! Alpha-Pinene biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_apin_3d   ( : , : , : )  ! Alpha-Pinene biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_mono      ( :, : )       ! Other Monoterpenes biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_mono_3d   ( : , : , : )  ! Other Mononterpenes biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_farn      ( :, : )       ! Farnesene biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_farn_3d   ( : , : , : )  ! Farnesene biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_cary      ( :, : )       ! Caryophyllene biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_cary_3d   ( : , : , : )  ! Caryophyllene biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_sesq      ( :, : )       ! Other Sesquiterpenes biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_sesq_3d   ( : , : , : )  ! Other Sesquiterpenes biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_mbol      ( :, : )       ! 232-MBO biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_mbol_3d   ( : , : , : )  ! 232-MBO biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_meth      ( :, : )       ! Methanol biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_meth_3d   ( : , : , : )  ! Methanol biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_acet      ( :, : )       ! Acetone biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_acet_3d   ( : , : , : )  ! Acetone biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_co        ( :, : )       ! CO biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_co_3d     ( : , : , : )  ! CO biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_bvoc      ( :, : )       ! BIDI VOC biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_bvoc_3d   ( : , : , : )  ! BIDI VOC biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_svoc      ( :, : )       ! Stress VOC biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_svoc_3d   ( : , : , : )  ! Stress VOC biogenic emissions (kg/m2 s) -- 3D
-    real(rk), allocatable :: emi_ovoc      ( :, : )       ! Other VOC biogenic emissions (kg/m2 s)
-    real(rk), allocatable :: emi_ovoc_3d   ( : , : , : )  ! Other VOC biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: zk                  ( : )          ! in-canopy heights (m)
+    real(rk), allocatable :: zhc                 ( : )          ! z/h
+    real(rk), allocatable :: fainc               ( : )          ! incremental foliage shape function
+    real(rk), allocatable :: fafracz             ( : )          ! incremental fractional foliage shape function
+    real(rk), allocatable :: fafraczInt          ( : )          ! integral of incremental fractional foliage shape function
+    real(rk), allocatable :: fsun                ( : )          ! Sunlit/Shaded fraction from photolysis correction factor
+    real(rk), allocatable :: tleaf_sun           ( : )          ! Leaf temp for sunlit leaves (K)
+    real(rk), allocatable :: tleaf_shade         ( : )          ! Leaf temp for shaded leaves (K)
+    real(rk), allocatable :: tleaf_ave           ( : )          ! Average Leaf temp for sunlit and shaded leaves (K)
+    real(rk), allocatable :: ppfd_sun            ( : )          ! PPFD for sunlit leaves (umol phot/m2 s)
+    real(rk), allocatable :: ppfd_shade          ( : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: ppfd_ave            ( : )          ! Average PPFD for sunlit and shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: tleaf_sun24_tmp     ( : , :, : )          ! Leaf temp for sunlit leaves (K)
+    real(rk), allocatable :: tleaf_shade24_tmp   ( : , :, : )          ! Leaf temp for shaded leaves (K)
+    real(rk), allocatable :: tleaf_ave24_tmp     ( : , :, : )          ! Average Leaf temp for sunlit and shaded leaves (K)
+    real(rk), allocatable :: ppfd_sun24_tmp      ( : , :, : )          ! PPFD for sunlit leaves (umol phot/m2 s)
+    real(rk), allocatable :: ppfd_shade24_tmp    ( : , :, : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: tleaf_sun240_tmp    ( : , :, : )          ! Leaf temp for sunlit leaves (K)
+    real(rk), allocatable :: tleaf_shade240_tmp  ( : , :, : )          ! Leaf temp for shaded leaves (K)
+    real(rk), allocatable :: tleaf_ave240_tmp    ( : , :, : )          ! Average Leaf temp for sunlit and shaded leaves (K)
+    real(rk), allocatable :: ppfd_sun240_tmp     ( : , :, : )          ! PPFD for sunlit leaves (umol phot/m2 s)
+    real(rk), allocatable :: ppfd_shade240_tmp   ( : , :, : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: tleaf_sun24         ( : , : )          ! Leaf temp for sunlit leaves (K)
+    real(rk), allocatable :: tleaf_shade24       ( : , : )          ! Leaf temp for shaded leaves (K)
+    real(rk), allocatable :: tleaf_ave24         ( : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
+    real(rk), allocatable :: ppfd_sun24          ( : , : )          ! PPFD for sunlit leaves (umol phot/m2 s)
+    real(rk), allocatable :: ppfd_shade24        ( : , : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: tleaf_sun240        ( : , : )          ! Leaf temp for sunlit leaves (K)
+    real(rk), allocatable :: tleaf_shade240      ( : , : )          ! Leaf temp for shaded leaves (K)
+    real(rk), allocatable :: tleaf_ave240        ( : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
+    real(rk), allocatable :: ppfd_sun240         ( : , : )          ! PPFD for sunlit leaves (umol phot/m2 s)
+    real(rk), allocatable :: ppfd_shade240       ( : , : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: tleaf_sun24_tmp_3d     ( : , : , : , : )          ! Leaf temp for sunlit leaves (K)
+    real(rk), allocatable :: tleaf_shade24_tmp_3d   ( : , : , : , : )          ! Leaf temp for shaded leaves (K)
+    real(rk), allocatable :: tleaf_ave24_tmp_3d     ( : , : , : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
+    real(rk), allocatable :: ppfd_sun24_tmp_3d      ( : , : , : , : )          ! PPFD for sunlit leaves (umol phot/m2 s)
+    real(rk), allocatable :: ppfd_shade24_tmp_3d    ( : , : , : , : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: tleaf_sun240_tmp_3d    ( : , : , : , : )          ! Leaf temp for sunlit leaves (K)
+    real(rk), allocatable :: tleaf_shade240_tmp_3d  ( : , : , : , : )          ! Leaf temp for shaded leaves (K)
+    real(rk), allocatable :: tleaf_ave240_tmp_3d    ( : , : , : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
+    real(rk), allocatable :: ppfd_sun240_tmp_3d     ( : , : , : , : )          ! PPFD for sunlit leaves (umol phot/m2 s)
+    real(rk), allocatable :: ppfd_shade240_tmp_3d   ( : , : , : , : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: tleaf_sun24_3d         ( : , : , : )          ! Leaf temp for sunlit leaves (K)
+    real(rk), allocatable :: tleaf_shade24_3d       ( : , : , : )          ! Leaf temp for shaded leaves (K)
+    real(rk), allocatable :: tleaf_ave24_3d         ( : , : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
+    real(rk), allocatable :: ppfd_sun24_3d          ( : , : , : )          ! PPFD for sunlit leaves (umol phot/m2 s)
+    real(rk), allocatable :: ppfd_shade24_3d        ( : , : , : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: tleaf_sun240_3d        ( : , : , : )          ! Leaf temp for sunlit leaves (K)
+    real(rk), allocatable :: tleaf_shade240_3d      ( : , : , : )          ! Leaf temp for shaded leaves (K)
+    real(rk), allocatable :: tleaf_ave240_3d        ( : , : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
+    real(rk), allocatable :: ppfd_sun240_3d         ( : , : , : )          ! PPFD for sunlit leaves (umol phot/m2 s)
+    real(rk), allocatable :: ppfd_shade240_3d       ( : , : , : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: canBOT                 ( : )                  ! Canopy bottom wind reduction factors
+    real(rk), allocatable :: canTOP                 ( : )                  ! Canopy top wind reduction factors
+    real(rk), allocatable :: canWIND                ( : , : )              ! canopy wind speeds (m/s)
+    real(rk), allocatable :: canWIND_3d             ( : , : , : )          ! canopy wind speeds -- 3D (m/s)
+    real(rk), allocatable :: lad                    ( : , : )              ! Leaf Area Density calculated from foliage shape function (m2/m3)
+    real(rk), allocatable :: lad_3d                 ( : , : , : )          ! Leaf Area Density calculated from foliage shape function (m2/m3)
+    real(rk), allocatable :: dx                  ( : )          ! Model grid cell distance/resolution (m)
+    real(rk), allocatable :: dx_2d               ( : , : )      ! Model grid cell distance/resolution -- 2D (m)
+    real(rk), allocatable :: waf                 ( : )          ! Calculated Wind Adjustment Factor
+    real(rk), allocatable :: waf_2d              ( : , : )      ! Calculated Wind Adjustment Factor -- 2D
+    real(rk), allocatable :: Kz                  ( :, : )       ! Eddy Diffusivities (m2/s)
+    real(rk), allocatable :: Kz_3d               ( : , : , : )  ! Eddy Diffusivities -- 3D (m2/s)
+    real(rk), allocatable :: rjcf                ( :, : )       ! Photolysis Attenuation Correction Factors
+    real(rk), allocatable :: rjcf_3d             ( : , : , : )  ! Photolysis Attenuation Correction Factors -- 3D
+    real(rk), allocatable :: flameh              ( : )          ! Flame Height (m)
+    real(rk), allocatable :: flameh_2d           ( : , : )      ! Flame Height -- 2D (m)
+    real(rk), allocatable :: emi_isop            ( :, : )       ! Isoprene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_isop_3d         ( : , : , : )  ! Isoprene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_myrc            ( :, : )       ! Myrcene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_myrc_3d         ( : , : , : )  ! Myrcene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_sabi            ( :, : )       ! Sabinene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_sabi_3d         ( : , : , : )  ! Sabinene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_limo            ( :, : )       ! Limonene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_limo_3d         ( : , : , : )  ! Limonene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_care            ( :, : )       ! Carene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_care_3d         ( : , : , : )  ! Carene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_ocim            ( :, : )       ! Ocimene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_ocim_3d         ( : , : , : )  ! Ocimene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_bpin            ( :, : )       ! Beta-Pinene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_bpin_3d         ( : , : , : )  ! Beta-Pinene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_apin            ( :, : )       ! Alpha-Pinene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_apin_3d         ( : , : , : )  ! Alpha-Pinene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_mono            ( :, : )       ! Other Monoterpenes biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_mono_3d         ( : , : , : )  ! Other Mononterpenes biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_farn            ( :, : )       ! Farnesene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_farn_3d         ( : , : , : )  ! Farnesene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_cary            ( :, : )       ! Caryophyllene biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_cary_3d         ( : , : , : )  ! Caryophyllene biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_sesq            ( :, : )       ! Other Sesquiterpenes biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_sesq_3d         ( : , : , : )  ! Other Sesquiterpenes biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_mbol            ( :, : )       ! 232-MBO biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_mbol_3d         ( : , : , : )  ! 232-MBO biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_meth            ( :, : )       ! Methanol biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_meth_3d         ( : , : , : )  ! Methanol biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_acet            ( :, : )       ! Acetone biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_acet_3d         ( : , : , : )  ! Acetone biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_co              ( :, : )       ! CO biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_co_3d           ( : , : , : )  ! CO biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_bvoc            ( :, : )       ! BIDI VOC biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_bvoc_3d         ( : , : , : )  ! BIDI VOC biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_svoc            ( :, : )       ! Stress VOC biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_svoc_3d         ( : , : , : )  ! Stress VOC biogenic emissions (kg/m2 s) -- 3D
+    real(rk), allocatable :: emi_ovoc            ( :, : )       ! Other VOC biogenic emissions (kg/m2 s)
+    real(rk), allocatable :: emi_ovoc_3d         ( : , : , : )  ! Other VOC biogenic emissions (kg/m2 s) -- 3D
 
 !-------------------------------------------------------------------------------
 ! Canopy-App Program and version descriptors.

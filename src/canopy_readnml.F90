@@ -27,7 +27,8 @@ SUBROUTINE canopy_readnml
         ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
         dx_opt, dx_set, lai_thresh, cf_thresh, ch_thresh, rsl_opt, bio_cce, &
         biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, &
-        leafage_opt, lai_tstep, loss_opt, loss_set, loss_ind, lifetime
+        leafage_opt, lai_tstep, soim_opt, soild1, soild2, soild3, soild4, hist_opt, &
+        loss_opt, loss_set, loss_ind, lifetime
 
 
 !-------------------------------------------------------------------------------
@@ -271,14 +272,14 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
-! Set default value for atmospheric co2 concentration for co2_opt (m) (Default = 400.0 ppmv)
+! Set default value for atmospheric co2 concentration for co2_opt (Default = 400.0 ppmv)
     co2_set = 400.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default integer for Leaf Age response option for biogenic (all) emissions
 ! (default is OFF i.e., leafage_opt=1 making GAMMA_LEAFAGE=1 i.e. leaf age response to Biogenic VOCs is off.)
-!  Otherwise swithced ON i.e., leafage_opt= 0 for which lai_tstep is defined to  enable GAMMA_LEAFAGE calculation
+!  Otherwise switched ON i.e., leafage_opt= 0 for which lai_tstep is defined to  enable GAMMA_LEAFAGE calculation
     leafage_opt = 1
 !-------------------------------------------------------------------------------
 
@@ -306,6 +307,35 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default integer for applying loss factor to all species (default = 0) or specific biogenic indices only (> 0 )
     loss_ind = 0
+
+! Set default integer for using historically averaged leaf temp and PAR for biogenic emissions (default=0; Off)
+    hist_opt = 0
+!-------------------------------------------------------------------------------
+
+! Set default integer for soil moisture response option for biogenic (isoprene only) emissions
+! (default is OFF i.e., leafage_opt=1 making GAMMA_SOIM=1 i.e. soil moisture response to Biogenic Isoprene VOCs is OFF.)
+!  Otherwise switched ON i.e., soim_opt= 0 to  enable GAMMA_SOIM calculation
+    soim_opt = 1
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for depth of soil layer 1 (Default = 5.0 cm)
+    soild1 = 5.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for depth of soil layer 2 (Default = 25.0 cm)
+    soild2 = 25.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for depth of soil layer 3 (Default = 70.0 cm)
+    soild3 = 70.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for depth of soil layer 4 (Default = 150.0 cm)
+    soild4 = 150.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
