@@ -31,16 +31,16 @@ SUBROUTINE canopy_init
     if(allocated(lad))                lad(:,:)               = fillreal
     if(allocated(lad_3d))             lad_3d(:,:,:)          = fillreal
 
-    if(allocated(tleaf_sun24_tmp))    tleaf_sun24_tmp(:,:)     = 0.0_rk
-    if(allocated(tleaf_shade24_tmp))  tleaf_shade24_tmp(:,:)   =  0.0_rk
-    if(allocated(tleaf_ave24_tmp))    tleaf_ave24_tmp(:,:)     = 0.0_rk
-    if(allocated(ppfd_sun24_tmp))     ppfd_sun24_tmp(:,:)      = 0.0_rk
-    if(allocated(ppfd_shade24_tmp))   ppfd_shade24_tmp(:,:)    = 0.0_rk
-    if(allocated(tleaf_sun240_tmp))   tleaf_sun240_tmp(:,:)    = 0.0_rk
-    if(allocated(tleaf_shade240_tmp)) tleaf_shade240_tmp(:,:)  = 0.0_rk
-    if(allocated(tleaf_ave240_tmp))   tleaf_ave240_tmp(:,:)    = 0.0_rk
-    if(allocated(ppfd_sun240_tmp))    ppfd_sun240_tmp(:,:)     = 0.0_rk
-    if(allocated(ppfd_shade240_tmp))  ppfd_shade240_tmp(:,:)   = 0.0_rk
+    if(allocated(tleaf_sun24_tmp))    tleaf_sun24_tmp(:,:,:)     = 0.0_rk
+    if(allocated(tleaf_shade24_tmp))  tleaf_shade24_tmp(:,:,:)   =  0.0_rk
+    if(allocated(tleaf_ave24_tmp))    tleaf_ave24_tmp(:,:,:)     = 0.0_rk
+    if(allocated(ppfd_sun24_tmp))     ppfd_sun24_tmp(:,:,:)      = 0.0_rk
+    if(allocated(ppfd_shade24_tmp))   ppfd_shade24_tmp(:,:,:)    = 0.0_rk
+    if(allocated(tleaf_sun240_tmp))   tleaf_sun240_tmp(:,:,:)    = 0.0_rk
+    if(allocated(tleaf_shade240_tmp)) tleaf_shade240_tmp(:,:,:)  = 0.0_rk
+    if(allocated(tleaf_ave240_tmp))   tleaf_ave240_tmp(:,:,:)    = 0.0_rk
+    if(allocated(ppfd_sun240_tmp))    ppfd_sun240_tmp(:,:,:)     = 0.0_rk
+    if(allocated(ppfd_shade240_tmp))  ppfd_shade240_tmp(:,:,:)   = 0.0_rk
     if(allocated(tleaf_sun24))        tleaf_sun24(:,:)         = fillreal
     if(allocated(tleaf_shade24))      tleaf_shade24(:,:)       = fillreal
     if(allocated(tleaf_ave24))        tleaf_ave24(:,:)         = fillreal

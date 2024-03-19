@@ -313,18 +313,6 @@ SUBROUTINE canopy_calcs(nn)
                                 doldfrac = 1.0_rk - dnewfrac
                                 hnewfrac = time_intvl / ( tau_hours * 3600.0_rk )
                                 holdfrac = 1.0_rk - hnewfrac
-                                !Track sum for initial 24 hour average
-!                                ppfd_sun24_tmp_3d(i,j,:)     = ppfd_sun24_tmp_3d(i,j,:) + ppfd_sun
-!                                ppfd_shade24_tmp_3d(i,j,:)   = ppfd_shade24_tmp_3d(i,j,:) + ppfd_shade
-!                                tleaf_sun24_tmp_3d(i,j,:)    = tleaf_sun24_tmp_3d(i,j,:) + tleaf_sun
-!                                tleaf_shade24_tmp_3d(i,j,:)  = tleaf_shade24_tmp_3d(i,j,:) + tleaf_shade
-!                                tleaf_ave24_tmp_3d(i,j,:)    = tleaf_ave24_tmp_3d(i,j,:) + tleaf_ave
-!                                ppfd_sun240_tmp_3d(i,j,:)    = ppfd_sun240_tmp_3d(i,j,:) + ppfd_sun
-!                                ppfd_shade240_tmp_3d(i,j,:)  = ppfd_shade240_tmp_3d(i,j,:) + ppfd_shade
-!                                tleaf_sun240_tmp_3d(i,j,:)   = tleaf_sun240_tmp_3d(i,j,:) + tleaf_sun
-!                                tleaf_shade240_tmp_3d(i,j,:) = tleaf_shade240_tmp_3d(i,j,:) + tleaf_shade
-!                                tleaf_ave240_tmp_3d(i,j,:)   = tleaf_ave240_tmp_3d(i,j,:) + tleaf_ave
-
                                 !Track times for moving time window (running) average below
                                 ppfd_sun24_tmp_3d(nn,i,j,:)     = ppfd_sun
                                 ppfd_shade24_tmp_3d(nn,i,j,:)   = ppfd_shade
@@ -336,9 +324,8 @@ SUBROUTINE canopy_calcs(nn)
                                 tleaf_sun240_tmp_3d(nn,i,j,:)   = tleaf_sun
                                 tleaf_shade240_tmp_3d(nn,i,j,:) = tleaf_shade
                                 tleaf_ave240_tmp_3d(nn,i,j,:)   = tleaf_ave
-
                                 if (nn .le. 24) then !TODO:  Restart capability needed to get past leaf temp and PAR if avaialble
-                                    !For now, if =< 24 hours then only option is to use current instantaneous values
+                                    !For now, if <= 24 hours then only option is to use current instantaneous values
                                     ppfd_sun24_3d(i,j,:)     = ppfd_sun
                                     ppfd_shade24_3d(i,j,:)   = ppfd_shade
                                     tleaf_sun24_3d(i,j,:)    = tleaf_sun
@@ -349,50 +336,6 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_sun240_3d(i,j,:)   = tleaf_sun
                                     tleaf_shade240_3d(i,j,:) = tleaf_shade
                                     tleaf_ave240_3d(i,j,:)   = tleaf_ave
-!                                else if (nn .eq. 24) then  !Take initial 24-hr average and assume 240-hr = 24-hr
-!                                    ppfd_sun24_3d(i,j,:)     = ppfd_sun24_tmp_3d(i,j,:)/24.0_rk
-!                                    ppfd_shade24_3d(i,j,:)   = ppfd_shade24_tmp_3d(i,j,:)/24.0_rk
-!                                    tleaf_sun24_3d(i,j,:)    = tleaf_sun24_tmp_3d(i,j,:)/24.0_rk
-!                                    tleaf_shade24_3d(i,j,:)  = tleaf_shade24_tmp_3d(i,j,:)/24.0_rk
-!                                    tleaf_ave24_3d(i,j,:)    = tleaf_ave24_tmp_3d(i,j,:)/24.0_rk
-!                                    ppfd_sun240_3d(i,j,:)    = ppfd_sun240_tmp_3d(i,j,:)/24.0_rk
-!                                    ppfd_shade240_3d(i,j,:)  = ppfd_shade240_tmp_3d(i,j,:)/24.0_rk
-!                                    tleaf_sun240_3d(i,j,:)   = tleaf_sun240_tmp_3d(i,j,:)/24.0_rk
-!                                    tleaf_shade240_3d(i,j,:) = tleaf_shade240_tmp_3d(i,j,:)/24.0_rk
-!                                    tleaf_ave240_3d(i,j,:)   = tleaf_ave240_tmp_3d(i,j,:)/24.0_rk
-!                                    ppfd_sun24_3d(i,j,:)     = 0.0_rk
-!                                    ppfd_shade24_3d(i,j,:)   = 0.0_rk
-!                                    tleaf_sun24_3d(i,j,:)    = 0.0_rk
-!                                    tleaf_shade24_3d(i,j,:)  = 0.0_rk
-!                                    tleaf_ave24_3d(i,j,:)    = 0.0_rk
-!                                    ppfd_sun240_3d(i,j,:)    = 0.0_rk
-!                                    ppfd_shade240_3d(i,j,:)  = 0.0_rk
-!                                    tleaf_sun240_3d(i,j,:)   = 0.0_rk
-!                                    tleaf_shade240_3d(i,j,:) = 0.0_rk
-!                                    tleaf_ave240_3d(i,j,:)   = 0.0_rk
-!                                    do t = 1, nn !sum 24 hours
-!                                        ppfd_sun24_3d(i,j,:)     = ppfd_sun24_tmp_3d(t,i,j,:) + ppfd_sun24_3d(i,j,:)
-!                                        ppfd_shade24_3d(i,j,:)   = ppfd_shade24_tmp_3d(t,i,j,:) + ppfd_shade24_3d(i,j,:)
-!                                        tleaf_sun24_3d(i,j,:)    = tleaf_sun24_tmp_3d(t,i,j,:) + tleaf_sun24_3d(i,j,:)
-!                                        tleaf_shade24_3d(i,j,:)  = tleaf_shade24_tmp_3d(t,i,j,:) + tleaf_shade24_3d(i,j,:)
-!                                        tleaf_ave24_3d(i,j,:)    = tleaf_ave24_tmp_3d(t,i,j,:) + tleaf_ave24_3d(i,j,:)
-!                                        ppfd_sun240_3d(i,j,:)    = ppfd_sun240_tmp_3d(t,i,j,:) + ppfd_sun240_3d(i,j,:)
-!                                        ppfd_shade240_3d(i,j,:)  = ppfd_shade240_tmp_3d(t,i,j,:) + ppfd_shade240_3d(i,j,:)
-!                                        tleaf_sun240_3d(i,j,:)   = tleaf_sun240_tmp_3d(t,i,j,:) + tleaf_sun240_3d(i,j,:)
-!                                        tleaf_shade240_3d(i,j,:) = tleaf_shade240_tmp_3d(t,i,j,:) + tleaf_sun240_3d(i,j,:)
-!                                        tleaf_ave240_3d(i,j,:)   = tleaf_ave240_tmp_3d(t,i,j,:) + tleaf_ave240_3d(i,j,:)
-!                                    end do
-!                                    !average hours
-!                                    ppfd_sun24_3d(i,j,:)     =  ppfd_sun24_3d(i,j,:)/24.0_rk
-!                                    ppfd_shade24_3d(i,j,:)   =  ppfd_shade24_3d(i,j,:)/24.0_rk
-!                                    tleaf_sun24_3d(i,j,:)    =  tleaf_sun24_3d(i,j,:)/24.0_rk
-!                                    tleaf_shade24_3d(i,j,:)  =  tleaf_shade24_3d(i,j,:)/24.0_rk
-!                                    tleaf_ave24_3d(i,j,:)    =  tleaf_ave24_3d(i,j,:)/24.0_rk
-!                                    ppfd_sun240_3d(i,j,:)    =  ppfd_sun240_3d(i,j,:)/24.0_rk
-!                                    ppfd_shade240_3d(i,j,:)  =  ppfd_shade240_3d(i,j,:)/24.0_rk
-!                                    tleaf_sun240_3d(i,j,:)   =  tleaf_sun240_3d(i,j,:)/24.0_rk
-!                                    tleaf_shade240_3d(i,j,:) =  tleaf_shade240_3d(i,j,:)/24.0_rk
-!                                    tleaf_ave240_3d(i,j,:)   =  tleaf_ave240_3d(i,j,:)/24.0_rk
                                 else  !Updated running 24 hour (hourly, short term) and 240 hour (daily, long-term) averages
                                     ppfd_sun24_3d(i,j,:)     = 0.0_rk
                                     ppfd_shade24_3d(i,j,:)   = 0.0_rk
@@ -455,6 +398,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 1, emi_isop_3d(i,j,:))
@@ -466,6 +410,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 2, emi_myrc_3d(i,j,:))
@@ -477,6 +422,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 3, emi_sabi_3d(i,j,:))
@@ -488,6 +434,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 4, emi_limo_3d(i,j,:))
@@ -499,6 +446,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 5, emi_care_3d(i,j,:))
@@ -510,6 +458,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 6, emi_ocim_3d(i,j,:))
@@ -521,6 +470,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 7, emi_bpin_3d(i,j,:))
@@ -532,6 +482,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 8, emi_apin_3d(i,j,:))
@@ -543,6 +494,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 9, emi_mono_3d(i,j,:))
@@ -554,6 +506,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 10, emi_farn_3d(i,j,:))
@@ -565,6 +518,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 11, emi_cary_3d(i,j,:))
@@ -576,6 +530,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 12, emi_sesq_3d(i,j,:))
@@ -587,6 +542,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 13, emi_mbol_3d(i,j,:))
@@ -598,6 +554,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 14, emi_meth_3d(i,j,:))
@@ -609,6 +566,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 15, emi_acet_3d(i,j,:))
@@ -620,6 +578,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 16, emi_co_3d(i,j,:))
@@ -631,6 +590,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 17, emi_bvoc_3d(i,j,:))
@@ -642,6 +602,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 18, emi_svoc_3d(i,j,:))
@@ -653,6 +614,7 @@ SUBROUTINE canopy_calcs(nn)
                                         tleaf_ave240_3d(i,j,:), tmp2mref, &
                                         lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
+                                        loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                         soild1, soild2, soild3, soild4, wiltref, &
                                         modlays, 19, emi_ovoc_3d(i,j,:))
@@ -970,20 +932,19 @@ SUBROUTINE canopy_calcs(nn)
                             doldfrac = 1.0_rk - dnewfrac
                             hnewfrac = time_intvl / ( tau_hours * 3600.0_rk )
                             holdfrac = 1.0_rk - hnewfrac
-                            !Track sum for initial 24 hour average
-                            ppfd_sun24_tmp(loc,:)     = ppfd_sun24_tmp(loc,:) + ppfd_sun
-                            ppfd_shade24_tmp(loc,:)   = ppfd_shade24_tmp(loc,:) + ppfd_shade
-                            tleaf_sun24_tmp(loc,:)    = tleaf_sun24_tmp(loc,:) + tleaf_sun
-                            tleaf_shade24_tmp(loc,:)  = tleaf_shade24_tmp(loc,:) + tleaf_shade
-                            tleaf_ave24_tmp(loc,:)    = tleaf_ave24_tmp(loc,:) + tleaf_ave
-                            ppfd_sun240_tmp(loc,:)    = ppfd_sun240_tmp(loc,:) + ppfd_sun
-                            ppfd_shade240_tmp(loc,:)  = ppfd_shade240_tmp(loc,:) + ppfd_shade
-                            tleaf_sun240_tmp(loc,:)   = tleaf_sun240_tmp(loc,:) + tleaf_sun
-                            tleaf_shade240_tmp(loc,:) = tleaf_shade240_tmp(loc,:) + tleaf_shade
-                            tleaf_ave240_tmp(loc,:)   = tleaf_ave240_tmp(loc,:) + tleaf_ave
-                            print*,tleaf_sun24_tmp(loc,:)
-                            if (nn .ge. 1 .and. nn .lt. 24) then !TODO:  Restart capability needed to get past leaf temp and PAR if avaialble
-                                !For now, if < 24 hours then use current instantaneous
+                            !Track times for moving time window (running) average below
+                            ppfd_sun24_tmp(nn,loc,:)     = ppfd_sun
+                            ppfd_shade24_tmp(nn,loc,:)   = ppfd_shade
+                            tleaf_sun24_tmp(nn,loc,:)    = tleaf_sun
+                            tleaf_shade24_tmp(nn,loc,:)  = tleaf_shade
+                            tleaf_ave24_tmp(nn,loc,:)    = tleaf_ave
+                            ppfd_sun240_tmp(nn,loc,:)    = ppfd_sun
+                            ppfd_shade240_tmp(nn,loc,:)  = ppfd_shade
+                            tleaf_sun240_tmp(nn,loc,:)   = tleaf_sun
+                            tleaf_shade240_tmp(nn,loc,:) = tleaf_shade
+                            tleaf_ave240_tmp(nn,loc,:)   = tleaf_ave
+                            if (nn .le. 24) then !TODO:  Restart capability needed to get past leaf temp and PAR if avaialble
+                                !For now, if <= 24 hours then use current instantaneous
                                 ppfd_sun24(loc,:)     = ppfd_sun
                                 ppfd_shade24(loc,:)   = ppfd_shade
                                 tleaf_sun24(loc,:)    = tleaf_sun
@@ -994,18 +955,41 @@ SUBROUTINE canopy_calcs(nn)
                                 tleaf_sun240(loc,:)   = tleaf_sun
                                 tleaf_shade240(loc,:) = tleaf_shade
                                 tleaf_ave240(loc,:)   = tleaf_ave
-                            else if (nn .eq. 24) then  !Take initial 24-hr average and assume 240-hr = 24-hr
-                                ppfd_sun24(loc,:)     = ppfd_sun24_tmp(loc,:)/24.0_rk
-                                ppfd_shade24(loc,:)   = ppfd_shade24_tmp(loc,:)/24.0_rk
-                                tleaf_sun24(loc,:)    = tleaf_sun24_tmp(loc,:)/24.0_rk
-                                tleaf_shade24(loc,:)  = tleaf_shade24_tmp(loc,:)/24.0_rk
-                                tleaf_ave24(loc,:)    = tleaf_ave24_tmp(loc,:)/24.0_rk
-                                ppfd_sun240(loc,:)    = ppfd_sun240_tmp(loc,:)/24.0_rk
-                                ppfd_shade240(loc,:)  = ppfd_shade240_tmp(loc,:)/24.0_rk
-                                tleaf_sun240(loc,:)   = tleaf_sun240_tmp(loc,:)/24.0_rk
-                                tleaf_shade240(loc,:) = tleaf_shade240_tmp(loc,:)/24.0_rk
-                                tleaf_ave240(loc,:)   = tleaf_ave240_tmp(loc,:)/24.0_rk
-                            else  !Updated rolling 24 hour (hourly, short term) and 240 hour (daily, long-term) averages
+                            else
+                                ppfd_sun24(loc,:)     = 0.0_rk
+                                ppfd_shade24(loc,:)   = 0.0_rk
+                                tleaf_sun24(loc,:)    = 0.0_rk
+                                tleaf_shade24(loc,:)  = 0.0_rk
+                                tleaf_ave24(loc,:)    = 0.0_rk
+                                ppfd_sun240(loc,:)    = 0.0_rk
+                                ppfd_shade240(loc,:)  = 0.0_rk
+                                tleaf_sun240(loc,:)   = 0.0_rk
+                                tleaf_shade240(loc,:) = 0.0_rk
+                                tleaf_ave240(loc,:)   = 0.0_rk
+                                do t = nn-24, nn-1 !>24 hours sum previous 24 hour moving time window (i.e., running)
+                                    ppfd_sun24(loc,:)     = ppfd_sun24_tmp(t,loc,:) + ppfd_sun24(loc,:)
+                                    ppfd_shade24(loc,:)   = ppfd_shade24_tmp(t,loc,:) + ppfd_shade24(loc,:)
+                                    tleaf_sun24(loc,:)    = tleaf_sun24_tmp(t,loc,:) + tleaf_sun24(loc,:)
+                                    tleaf_shade24(loc,:)  = tleaf_shade24_tmp(t,loc,:) + tleaf_shade24(loc,:)
+                                    tleaf_ave24(loc,:)    = tleaf_ave24_tmp(t,loc,:) + tleaf_ave24(loc,:)
+                                    ppfd_sun240(loc,:)    = ppfd_sun240_tmp(t,loc,:) + ppfd_sun240(loc,:)
+                                    ppfd_shade240(loc,:)  = ppfd_shade240_tmp(t,loc,:) + ppfd_shade240(loc,:)
+                                    tleaf_sun240(loc,:)   = tleaf_sun240_tmp(t,loc,:) + tleaf_sun240(loc,:)
+                                    tleaf_shade240(loc,:) = tleaf_shade240_tmp(t,loc,:) + tleaf_sun240(loc,:)
+                                    tleaf_ave240(loc,:)   = tleaf_ave240_tmp(t,loc,:) + tleaf_ave240(loc,:)
+                                end do
+                                !average hours
+                                ppfd_sun24(loc,:)     = ppfd_sun24(loc,:)/24.0_rk
+                                ppfd_shade24(loc,:)   = ppfd_shade24(loc,:)/24.0_rk
+                                tleaf_sun24(loc,:)    = tleaf_sun24(loc,:)/24.0_rk
+                                tleaf_shade24(loc,:)  = tleaf_shade24(loc,:)/24.0_rk
+                                tleaf_ave24(loc,:)    = tleaf_ave24(loc,:)/24.0_rk
+                                ppfd_sun240(loc,:)    = ppfd_sun240(loc,:)/24.0_rk
+                                ppfd_shade240(loc,:)  = ppfd_shade240(loc,:)/24.0_rk
+                                tleaf_sun240(loc,:)   = tleaf_sun240(loc,:)/24.0_rk
+                                tleaf_shade240(loc,:) = tleaf_shade240(loc,:)/24.0_rk
+                                tleaf_ave240(loc,:)   = tleaf_ave240(loc,:)/24.0_rk
+                                !Updated rolling 24 hour (hourly, short term) and 240 hour (daily, long-term) averages
                                 ppfd_sun24(loc,:)     = ( holdfrac * ppfd_sun24(loc,:) )     + ( hnewfrac * ppfd_sun )
                                 ppfd_shade24(loc,:)   = ( holdfrac * ppfd_shade24(loc,:) )   + ( hnewfrac * ppfd_shade )
                                 tleaf_sun24(loc,:)    = ( holdfrac * tleaf_sun24(loc,:) )    + ( hnewfrac * tleaf_sun )
@@ -1033,6 +1017,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 1, emi_isop(loc,:))
@@ -1044,6 +1029,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 2, emi_myrc(loc,:))
@@ -1055,6 +1041,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 3, emi_sabi(loc,:))
@@ -1066,6 +1053,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 4, emi_limo(loc,:))
@@ -1077,6 +1065,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 5, emi_care(loc,:))
@@ -1088,6 +1077,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 6, emi_ocim(loc,:))
@@ -1099,6 +1089,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 7, emi_bpin(loc,:))
@@ -1110,6 +1101,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 8, emi_apin(loc,:))
@@ -1121,6 +1113,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 9, emi_mono(loc,:))
@@ -1132,6 +1125,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 10, emi_farn(loc,:))
@@ -1143,6 +1137,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 11, emi_cary(loc,:))
@@ -1154,6 +1149,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 12, emi_sesq(loc,:))
@@ -1165,6 +1161,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 13, emi_mbol(loc,:))
@@ -1176,6 +1173,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 14, emi_meth(loc,:))
@@ -1187,6 +1185,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 15, emi_acet(loc,:))
@@ -1198,6 +1197,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 16, emi_co(loc,:))
@@ -1209,6 +1209,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 17, emi_bvoc(loc,:))
@@ -1220,6 +1221,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 18, emi_svoc(loc,:))
@@ -1231,6 +1233,7 @@ SUBROUTINE canopy_calcs(nn)
                                     tleaf_ave240(loc,:), tmp2mref, &
                                     lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                     leafage_opt, pastlai, currentlai, tsteplai,  &
+                                    loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                     soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
                                     soild1, soild2, soild3, soild4, wiltref, &
                                     modlays, 19, emi_ovoc(loc,:))

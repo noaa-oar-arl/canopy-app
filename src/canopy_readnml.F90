@@ -27,7 +27,8 @@ SUBROUTINE canopy_readnml
         ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
         dx_opt, dx_set, lai_thresh, cf_thresh, ch_thresh, rsl_opt, bio_cce, &
         biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, &
-        leafage_opt, lai_tstep, soim_opt, soild1, soild2, soild3, soild4, hist_opt
+        leafage_opt, lai_tstep, soim_opt, soild1, soild2, soild3, soild4, hist_opt, &
+        loss_opt, loss_set, loss_ind, lifetime
 
 
 !-------------------------------------------------------------------------------
@@ -288,6 +289,25 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
+! Set default integer for turning on canopy loss ratios calculation or constant value for
+! adjusting top of canopy net emissions (default = 0; Off)
+    loss_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default real value for constant loss factor (used only when loss_opt=2)
+    loss_set = 0.96_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for above-canopy BVOC lifetime (s) used only with loss_opt=1 (Default = 3600 s)
+    lifetime = 3600.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer for applying loss factor to all species (default = 0) or specific biogenic indices only (> 0 )
+    loss_ind = 0
+
 ! Set default integer for using historically averaged leaf temp and PAR for biogenic emissions (default=0; Off)
     hist_opt = 0
 !-------------------------------------------------------------------------------
