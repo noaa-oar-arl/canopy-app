@@ -217,7 +217,7 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `pavd_opt`      | integer for choosing to use GEDI 3D input PAVD profiles instead of prescribed plant distribution functions (= `0`, default, off) or (= `1`, on);  Note: To use this option, must set `var3d_set= `1`, and the 3D pavd variable must be available in the input NetCDF file (i.e., `file_vars`) or in new auxilliary 3D PAVD text file  |
 | `pavd_set`      | real value for +/- latitude threshold within to use observed GEDI 3D PAVD profiles instead of prescribed plant distribution functions.  Used only if `pavd_opt=1`.  Default  = 52.0 degrees latitude.   |
 |                 | **Canopy model vertical layers**                                                   |
-| `modlays`       | number of model (below and above canopy) layers                                    |
+| `modlays`       | number of model (below and above canopy) layers. Strongly recommend adjusting this in accordance with `modres` option below to maintain canopy model column extension above tallest canopies in simulation domain (e.g.,for a 50 meter column simulation, a user could use 1000 modlays @ 0.05 m resolution,  100 modlays @ 0.5 m resolution, 50 modlays @ 1.0 m resolution, etc.                                     |
 | `modres`        | above and below canopy model vertical resolution (m)                               |
 |                 | **Contiguous canopy model thresholds**                                             |
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |

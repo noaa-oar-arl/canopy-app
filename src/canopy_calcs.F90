@@ -106,7 +106,9 @@ SUBROUTINE canopy_calcs(nn)
                     zhc = 0
                 end if
                 cansublays  = min(floor(hcmref/modres),modlays)
-
+                if (cansublays .lt. 1) then !case where model resolution >= canopy height
+                    cansublays=1            !only one layer allowed
+                end if
 ! ... check for valid model vegetation types
                 if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
                     if (vtyperef .gt. 0 .and. vtyperef .le. 10 .or. vtyperef .eq. 12 &
@@ -122,6 +124,9 @@ SUBROUTINE canopy_calcs(nn)
                                 !recalculate
                                 zhc         = zk/hcmref
                                 cansublays  = min(floor(hcmref/modres),modlays)
+                                if (cansublays .lt. 1) then !case where model resolution >= canopy height
+                                    cansublays=1            !only one layer allowed
+                                end if
                             else
                                 write(*,*)  'Wrong SSG_OPT choice of ', ssg_opt, &
                                     ' in namelist...exiting'
@@ -138,6 +143,9 @@ SUBROUTINE canopy_calcs(nn)
                                 !recalculate
                                 zhc         = zk/hcmref
                                 cansublays  = min(floor(hcmref/modres),modlays)
+                                if (cansublays .lt. 1) then !case where model resolution >= canopy height
+                                    cansublays=1            !only one layer allowed
+                                end if
                             else
                                 write(*,*)  'Wrong CROP_OPT choice of ', crop_opt, &
                                     ' in namelist...exiting'
@@ -191,7 +199,6 @@ SUBROUTINE canopy_calcs(nn)
                                     lad_3d(i,j,k) = 0.0_rk
                                 end if
                             end do
-
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
                             call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
                                 ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
@@ -723,6 +730,9 @@ SUBROUTINE canopy_calcs(nn)
                 zhc = 0
             end if
             cansublays  = min(floor(hcmref/modres),modlays)
+            if (cansublays .lt. 1) then !case where model resolution >= canopy height
+                cansublays=1            !only one layer allowed
+            end if
 
 ! ... check for valid model vegetation types
             if (lu_opt .eq. 0 .or. lu_opt .eq. 1 ) then !VIIRS or MODIS
@@ -739,6 +749,9 @@ SUBROUTINE canopy_calcs(nn)
                             !recalculate
                             zhc         = zk/hcmref
                             cansublays  = min(floor(hcmref/modres),modlays)
+                            if (cansublays .lt. 1) then !case where model resolution >= canopy height
+                                cansublays=1            !only one layer allowed
+                            end if
                         else
                             write(*,*)  'Wrong SSG_OPT choice of ', ssg_opt, &
                                 ' in namelist...exiting'
@@ -755,6 +768,9 @@ SUBROUTINE canopy_calcs(nn)
                             !recalculate
                             zhc         = zk/hcmref
                             cansublays  = min(floor(hcmref/modres),modlays)
+                            if (cansublays .lt. 1) then !case where model resolution >= canopy height
+                                cansublays=1            !only one layer allowed
+                            end if
                         else
                             write(*,*)  'Wrong CROP_OPT choice of ', crop_opt, &
                                 ' in namelist...exiting'
