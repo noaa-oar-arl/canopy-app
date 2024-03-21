@@ -3,7 +3,7 @@
 ! Recommend set file_out prefix to initial 'YYYY-MM-DD-HH-MMSS_region_identifier'
   file_vars    = 'input/gfs.t12z.20220630.sfcf023.canopy.nc' 'input/gfs.t12z.20220701.sfcf000.canopy.nc' 'input/gfs.t12z.20220701.sfcf001.canopy.nc'
 !  file_vars    = 'input/gfs.t12z.20220630.sfcf023.canopy.txt' 'input/gfs.t12z.20220701.sfcf000.canopy.txt' 'input/gfs.t12z.20220701.sfcf001.canopy.txt'
-  file_out     = 'output/2022-07-01-11-0000_southeast_us'
+  file_out     = 'output/2022-07-01-11-0000_southeast_us_ALL'
 
 !Single Point Example
 ! Recommend set file_out prefix to initial 'YYYY-MM-DD-HH-MMSS_point_identifier'
@@ -68,6 +68,7 @@
 !Canopy biogenic emissions-specific options
   ifcanbio    = .TRUE.
   bio_cce     =  0.21
+  biospec_opt =  0
   biovert_opt =  0
   loss_opt    =  0
   loss_set    =  0.96

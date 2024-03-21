@@ -38,6 +38,7 @@ MODULE canopy_canopts_mod
     real(rk)            ::    z0ghc       !ratio of ground roughness length to canopy top height
     real(rk)            ::    lambdars    !Value representing influence of roughness sublayer (nondimensional)
     real(rk)            ::    bio_cce     !MEGAN biogenic emission canopy environment coefficient.
+    integer             ::    biospec_opt !Set default integer for species output option (default = 0, all)
     integer             ::    biovert_opt !MEGAN vertical integration of emissions option (default = 0, off)
     integer             ::    ssg_opt     !Set default integer for shrubs/savanna/grassland vegtype option from GEDI or user (default = 0)
     real(rk)            ::    ssg_set     !Set default value for shrubs/savanna/grassland vegtype heights used in model (m) (Default = 1 m)
