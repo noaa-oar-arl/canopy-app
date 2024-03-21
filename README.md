@@ -89,27 +89,27 @@ Current Canopy-App components:
 
 ### Table 1. Canopy-App Biogenic Emissions Output Variables
 
-| Variable Name | Variable Description (Units: kg m-3 s-1)  |
-| ------------- | ----------------------------------------- |
-| `emi_isop`    | Isoprene                                  |
-| `emi_myrc`    | Myrcene                                   |
-| `emi_sabi`    | Sabinene                                  |
-| `emi_limo`    | Limonene                                  |
-| `emi_care`    | 3-Carene                                  |
-| `emi_ocim`    | t-beta-Ocimene                            |
-| `emi_bpin`    | beta-Pinene                               |
-| `emi_apin`    | alpha-Pinene                              |
-| `emi_mono`    | Other Monoterpenes (34 compounds, Table 1 Guenther et al. (2012) |
-| `emi_farn`    | alpha-Farnesene                           |
-| `emi_cary`    | beta-Caryophyllene                        |
-| `emi_sesq`    | Other Sesquiterpene (30 compounds, Table 1 Guenther et al. (2012) |
-| `emi_mbol`    | 232-MBO emissions                         |
-| `emi_meth`    | Methanol emissions                        |
-| `emi_acet`    | Acetone emissions                         |
-| `emi_co`      | Carbon Monoxide emissions                 |
-| `emi_bvoc`    | Bi-Directional VOC emissions (5 compounds, Table 1 Guenther et al. (2012) |
-| `emi_svoc`    | Stress VOC emissions (15 compounds, Table 1 Guenther et al. (2012) |
-| `emi_ovoc`    | Other VOC emissions (49 compounds, Table 1 Guenther et al. (2012) |
+| ID Number | Variable Name | Variable Description (Units: kg m-3 s-1)  |
+| --------- | ------------- | ----------------------------------------- |
+| 1         | `emi_isop`    | Isoprene                                  |
+| 2         | `emi_myrc`    | Myrcene                                   |
+| 3         | `emi_sabi`    | Sabinene                                  |
+| 4         | `emi_limo`    | Limonene                                  |
+| 5         | `emi_care`    | 3-Carene                                  |
+| 6         | `emi_ocim`    | t-beta-Ocimene                            |
+| 7         | `emi_bpin`    | beta-Pinene                               |
+| 8         | `emi_apin`    | alpha-Pinene                              |
+| 9         | `emi_mono`    | Other Monoterpenes (34 compounds, Table 1 Guenther et al. (2012) |
+| 10        | `emi_farn`    | alpha-Farnesene                           |
+| 11        | `emi_cary`    | beta-Caryophyllene                        |
+| 12        | `emi_sesq`    | Other Sesquiterpene (30 compounds, Table 1 Guenther et al. (2012) |
+| 13        | `emi_mbol`    | 232-MBO emissions                         |
+| 14        | `emi_meth`    | Methanol emissions                        |
+| 15        | `emi_acet`    | Acetone emissions                         |
+| 16        | `emi_co`      | Carbon Monoxide emissions                 |
+| 17        | `emi_bvoc`    | Bi-Directional VOC emissions (5 compounds, Table 1 Guenther et al. (2012) |
+| 18        | `emi_svoc`    | Stress VOC emissions (15 compounds, Table 1 Guenther et al. (2012) |
+| 19        | `emi_ovoc`    | Other VOC emissions (49 compounds, Table 1 Guenther et al. (2012) |
 
 **Current Canopy-App Output:** As discussed above, the current Canopy-App optional outputs includes 3D canopy winds (`canwind`), canopy vertical/eddy diffusivity values `kz`), biogenic emissions (see Table 1), and
 canopy photolysis attenuation correction factors (`rjcf`), and derived Leaf Area Density (`lad`) from the foliage shape function.  Current 2D fields includes the Wind Adjustment Factor (`waf`), flame heights (`flameh`), and canopy heights (`canheight`). Current 1D fields include the canopy model interface levels (`z`).
@@ -253,6 +253,7 @@ You can also [generate global inputs using Python (see python/global_data_proces
 |                 | **Canopy biogenic emissions-specific options**                                     |
 | `ifcanbio`      | logical canopy biogenic emissions option (default: `.FALSE.`)                      |
 | `bio_cce`       | user-set real value of MEGAN biogenic emissions "canopy environment coefficient" used to tune emissions to model inputs/calculations (default: `0.21`, based on Silva et al. 2020) |
+| `biospec_opt`   | user set option to select species for NetCDF biogenic emissions output (`0`: all species; `1-19`: one species selected according to ID number - Table 1) (default: 0; ID number for single species selection only used if `infmt_opt=0`)        |
 | `biovert_opt`   | user set biogenic vertical summing option (`0`: no sum, full leaf-level biogenic emissions, units=kg/m3/s; `1`: MEGANv3-like summing of LAD weighted activity coefficients using the canopy-app plant distributions, caution-- units=kg m-2 s-1 and puts the total emissions in the topmost canopy-app model layer only; `2`: Same as in option 1, but instead uses Gaussian/normally weighted activity coefficients acoss all sub-canopy layers -- also units of kg m-2 s-1 in topmost model layer; `3`: Same as in option 1, but instead uses evenly weighted activity coefficients acoss all sub-canopy layers -- also units of kg m-2 s-1 in topmost model layer          |
 | `loss_opt`      | user set option to apply a canopy loss factor when the vertical summing option is used (`biovert_opt >= 1`) to facilitate comparison of top-of-canopy BVOC emissions with ground flux observations.  (`0`: no loss factor applied, `1`: loss factor calculated based on Eq. 21 of [Guenther et al. (2006)](www.atmos-chem-phys.net/6/3181/2006/) based on the formulation and empirical parameters for isoprene, `2`: constant user set factor applied with `loss_set` below, Note:  The loss factor can be applied to all or any single biogenic species (using `loss_ind` below), and caution must be used for other BVOC species besides isoprene.  User may adjust the variable chemical lifetime (`lifetime`, default = 3600 s taken for approximate isoprene lifetime) below and re-run to target other specific BVOC species flux observation comparisons.   |
 | `loss_set`      | Set default value for constant canopy loss factor applied used when `loss_opt=2` (Default = 0.96 based on Guenther et al. (2006)  |
