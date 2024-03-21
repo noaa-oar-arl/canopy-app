@@ -89,27 +89,27 @@ Current Canopy-App components:
 
 ### Table 1. Canopy-App Biogenic Emissions Output Variables
 
-| ID Number | Variable Name | Variable Description (Units: kg m-3 s-1)  |
-| --------- | ------------- | ----------------------------------------- |
-| 1         | `emi_isop`    | Isoprene                                  |
-| 2         | `emi_myrc`    | Myrcene                                   |
-| 3         | `emi_sabi`    | Sabinene                                  |
-| 4         | `emi_limo`    | Limonene                                  |
-| 5         | `emi_care`    | 3-Carene                                  |
-| 6         | `emi_ocim`    | t-beta-Ocimene                            |
-| 7         | `emi_bpin`    | beta-Pinene                               |
-| 8         | `emi_apin`    | alpha-Pinene                              |
-| 9         | `emi_mono`    | Other Monoterpenes (34 compounds, Table 1 Guenther et al. (2012) |
-| 10        | `emi_farn`    | alpha-Farnesene                           |
-| 11        | `emi_cary`    | beta-Caryophyllene                        |
-| 12        | `emi_sesq`    | Other Sesquiterpene (30 compounds, Table 1 Guenther et al. (2012) |
-| 13        | `emi_mbol`    | 232-MBO emissions                         |
-| 14        | `emi_meth`    | Methanol emissions                        |
-| 15        | `emi_acet`    | Acetone emissions                         |
-| 16        | `emi_co`      | Carbon Monoxide emissions                 |
-| 17        | `emi_bvoc`    | Bi-Directional VOC emissions (5 compounds, Table 1 Guenther et al. (2012) |
-| 18        | `emi_svoc`    | Stress VOC emissions (15 compounds, Table 1 Guenther et al. (2012) |
-| 19        | `emi_ovoc`    | Other VOC emissions (49 compounds, Table 1 Guenther et al. (2012) |
+| Variable Name | Variable Description (Units: kg m-3 s-1)  | ID Number |
+| ------------- | ----------------------------------------- | --------- |
+| `emi_isop`    | Isoprene                                  | 1         |
+| `emi_myrc`    | Myrcene                                   | 2         |
+| `emi_sabi`    | Sabinene                                  | 3         |
+| `emi_limo`    | Limonene                                  | 4         |
+| `emi_care`    | 3-Carene                                  | 5         |
+| `emi_ocim`    | t-beta-Ocimene                            | 6         |
+| `emi_bpin`    | beta-Pinene                               | 7         |
+| `emi_apin`    | alpha-Pinene                              | 8         |
+| `emi_mono`    | Other Monoterpenes (34 compounds, Table 1 Guenther et al. (2012) |  9         |
+| `emi_farn`    | alpha-Farnesene                           | 10        |
+| `emi_cary`    | beta-Caryophyllene                        | 11        |
+| `emi_sesq`    | Other Sesquiterpene (30 compounds, Table 1 Guenther et al. (2012) | 12        |
+| `emi_mbol`    | 232-MBO emissions                         | 13        |
+| `emi_meth`    | Methanol emissions                        | 14        |
+| `emi_acet`    | Acetone emissions                         | 15        |
+| `emi_co`      | Carbon Monoxide emissions                 | 16        |
+| `emi_bvoc`    | Bi-Directional VOC emissions (5 compounds, Table 1 Guenther et al. (2012) | 17        |
+| `emi_svoc`    | Stress VOC emissions (15 compounds, Table 1 Guenther et al. (2012) | 18        |
+| `emi_ovoc`    | Other VOC emissions (49 compounds, Table 1 Guenther et al. (2012) | 19        |
 
 **Current Canopy-App Output:** As discussed above, the current Canopy-App optional outputs includes 3D canopy winds (`canwind`), canopy vertical/eddy diffusivity values `kz`), biogenic emissions (see Table 1), and
 canopy photolysis attenuation correction factors (`rjcf`), and derived Leaf Area Density (`lad`) from the foliage shape function.  Current 2D fields includes the Wind Adjustment Factor (`waf`), flame heights (`flameh`), and canopy heights (`canheight`). Current 1D fields include the canopy model interface levels (`z`).
