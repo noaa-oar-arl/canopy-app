@@ -107,7 +107,14 @@ program canopy_app
 
 #ifdef NETCDF
         !only output if 2D input NCF is used
-        call canopy_write_ncf(trim(file_out(1)))
+!        call canopy_write_ncf(trim(file_out(1)))
+        if (nn.lt.10) then
+            call canopy_write_ncf(trim(file_out(1)) // '_t00' // ADJUSTL(nn_string))
+        else if (nn.ge.10.and.nn.lt.100) then
+            call canopy_write_ncf(trim(file_out(1)) // '_t0' // ADJUSTL(nn_string))
+        else
+            call canopy_write_ncf(trim(file_out(1)) // '_t' // ADJUSTL(nn_string))
+        end if
 #endif
 
 ! Update new date and time

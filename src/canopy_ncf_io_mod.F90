@@ -351,7 +351,8 @@ CONTAINS
         g_time%fillvalue = fillreal
         g_time%dimnames(1) = 'ntime'
         g_time%istart(1) = 1
-        g_time%iend(1) = ntime
+!        g_time%iend(1) = ntime
+        g_time%iend(1) = 1
 
         !-------------------------------------------------------------------------------
         ! Time-varying 2d fields at cell centers.
@@ -777,7 +778,8 @@ CONTAINS
         if(.not.allocated(fld1dt)) ALLOCATE ( fld1dt ( nfld1dt ) )
 
         DO nn = 1, nfld1dt
-            ALLOCATE ( fld1dt(nn)%fld(ntime) )
+!            ALLOCATE ( fld1dt(nn)%fld(ntime) )
+            ALLOCATE ( fld1dt(nn)%fld(1) )
         ENDDO
 
         g_time  => fld1dt( 1)
@@ -1503,7 +1505,7 @@ CONTAINS
         INTEGER                         :: dim_nz
         INTEGER                         :: dim_time
         INTEGER                         :: dim_timestr
-        LOGICAL,            SAVE        :: first      = .TRUE.
+!        LOGICAL,            SAVE        :: first      = .TRUE.
         INTEGER,  SAVE,     ALLOCATABLE :: id_fld     ( : )
         INTEGER,  SAVE                  :: it         = 0
         INTEGER,            PARAMETER   :: len_time   = 19
@@ -1576,323 +1578,320 @@ CONTAINS
             ! If first time calling this routine, set up the netCDF output file.
             !-------------------------------------------------------------------------------
 
-            IF ( first ) THEN
+!            IF ( first ) THEN
 
-                !-----------------------------------------------------------------------------
-                ! Create netCDF file.
-                !-----------------------------------------------------------------------------
-                fl = TRIM(OUTPREFX)//trim('.nc')
+            !-----------------------------------------------------------------------------
+            ! Create netCDF file.
+            !-----------------------------------------------------------------------------
+            fl = TRIM(OUTPREFX)//trim('.nc')
 
-                rcode = nf90_create (fl, nf90_hdf5, cdfid_m)
+            rcode = nf90_create (fl, nf90_hdf5, cdfid_m)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9500) TRIM(pname), TRIM(fl), TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+
+            !-----------------------------------------------------------------------------
+            ! Set up dimensions.
+            !-----------------------------------------------------------------------------
+            var = "time"
+            rcode = nf90_def_dim (cdfid_m, TRIM(var), nf90_unlimited, dim_time)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            var = "timestr"
+            rcode = nf90_def_dim (cdfid_m, TRIM(var), len_time, dim_timestr)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+
+            var = "grid_xt"
+            rcode = nf90_def_dim (cdfid_m, TRIM(var), nlon, dim_nx)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+
+            var = "grid_yt"
+            rcode = nf90_def_dim (cdfid_m, TRIM(var), nlat, dim_ny)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+
+            var = "level"
+            rcode = nf90_def_dim (cdfid_m, TRIM(var), modlays, dim_nz)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+
+            !-----------------------------------------------------------------------------
+            ! Define variables that will populate the file.
+            !-----------------------------------------------------------------------------
+
+            !-------------------------------------------------------------------------------
+            ! Time field.
+            !-------------------------------------------------------------------------------
+            DO n = 1, nfld1dt
+                var = TRIM(fld1dt(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_time /), id_fld(n))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9500) TRIM(pname), TRIM(fl), TRIM(nf90_strerror(rcode))
-                    CALL exit(2)
-                ENDIF
-
-                !-----------------------------------------------------------------------------
-                ! Set up dimensions.
-                !-----------------------------------------------------------------------------
-
-                var = "time"
-                rcode = nf90_def_dim (cdfid_m, TRIM(var), nf90_unlimited, dim_time)
-                IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
+            ENDDO
+            ntot = nfld1dt
 
-                var = "timestr"
-                rcode = nf90_def_dim (cdfid_m, TRIM(var), len_time, dim_timestr)
+            !-------------------------------------------------------------------------------
+            ! Time-independent 1d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld1dz
+                nn = ntot + n
+                var = TRIM(fld1dz(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_nz /), id_fld(nn))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
+            ENDDO
+            ntot = ntot + nfld1dz
 
-                var = "grid_xt"
-                rcode = nf90_def_dim (cdfid_m, TRIM(var), nlon, dim_nx)
+            !-------------------------------------------------------------------------------
+            ! Time-independent 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld2dxy
+                nn = ntot + n
+                var = TRIM(fld2dxy(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_nx, dim_ny /), id_fld(nn))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
+            ENDDO
+            ntot = ntot + nfld2dxy
 
-                var = "grid_yt"
-                rcode = nf90_def_dim (cdfid_m, TRIM(var), nlat, dim_ny)
+            !-------------------------------------------------------------------------------
+            ! Time-varying 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld2dxyt
+                nn = ntot + n
+                var = TRIM(fld2dxyt(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_nx, dim_ny, dim_time /), id_fld(nn))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
+            ENDDO
+            ntot = ntot + nfld2dxyt
 
-                var = "level"
-                rcode = nf90_def_dim (cdfid_m, TRIM(var), modlays, dim_nz)
+            !-------------------------------------------------------------------------------
+            ! Time-varying 3d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld3dxyzt
+                nn = ntot + n
+                var = TRIM(fld3dxyzt(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_nx, dim_ny, dim_nz, dim_time /), id_fld(nn))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
+            ENDDO
+            ntot = ntot + nfld3dxyzt
 
-                !-----------------------------------------------------------------------------
-                ! Define variables that will populate the file.
-                !-----------------------------------------------------------------------------
+            !-----------------------------------------------------------------------------
+            ! Define global attributes.
+            !-----------------------------------------------------------------------------
 
-                !-------------------------------------------------------------------------------
-                ! Time field.
-                !-------------------------------------------------------------------------------
+            CALL canopy_outncfglobal (cdfid_m, fl)
 
-                DO n = 1, nfld1dt
-                    var = TRIM(fld1dt(n)%fldname)
-                    rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
-                        (/ dim_time /), id_fld(n))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit(2)
-                    ENDIF
-                ENDDO
-                ntot = nfld1dt
+            !-----------------------------------------------------------------------------
+            ! Define attributes for the variables.
+            !-----------------------------------------------------------------------------
 
-                !-------------------------------------------------------------------------------
-                ! Time-independent 1d fields at cell centers.
-                !-------------------------------------------------------------------------------
+            !-------------------------------------------------------------------------------
+            ! Time field.
+            !-------------------------------------------------------------------------------
 
-                DO n = 1, nfld1dz
-                    nn = ntot + n
-                    var = TRIM(fld1dz(n)%fldname)
-                    rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
-                        (/ dim_nz /), id_fld(nn))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit(2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld1dz
-
-                !-------------------------------------------------------------------------------
-                ! Time-independent 2d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld2dxy
-                    nn = ntot + n
-                    var = TRIM(fld2dxy(n)%fldname)
-                    rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
-                        (/ dim_nx, dim_ny /), id_fld(nn))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit(2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld2dxy
-
-                !-------------------------------------------------------------------------------
-                ! Time-varying 2d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld2dxyt
-                    nn = ntot + n
-                    var = TRIM(fld2dxyt(n)%fldname)
-                    rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
-                        (/ dim_nx, dim_ny, dim_time /), id_fld(nn))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit(2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld2dxyt
-
-                !-------------------------------------------------------------------------------
-                ! Time-varying 3d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld3dxyzt
-                    nn = ntot + n
-                    var = TRIM(fld3dxyzt(n)%fldname)
-                    rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
-                        (/ dim_nx, dim_ny, dim_nz, dim_time /), id_fld(nn))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit(2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld3dxyzt
-
-                !-----------------------------------------------------------------------------
-                ! Define global attributes.
-                !-----------------------------------------------------------------------------
-
-                CALL canopy_outncfglobal (cdfid_m, fl)
-
-                !-----------------------------------------------------------------------------
-                ! Define attributes for the variables.
-                !-----------------------------------------------------------------------------
-
-                !-------------------------------------------------------------------------------
-                ! Time field.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld1dt
-                    var = TRIM(fld1dt(n)%fldname)
-                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'calendar',  &
-                        TRIM(fld1dt(n)%calendar))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'calendar_type',  &
-                        TRIM(fld1dt(n)%calendar_type))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'cartesian_axis',  &
-                        TRIM(fld1dt(n)%cartesian_axis))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'long_name',  &
-                        TRIM(fld1dt(n)%long_name))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'units', TRIM(fld1dt(n)%units))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDDO
-                ntot = nfld1dt
-
-                !-------------------------------------------------------------------------------
-                ! Time-independent 1d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld1dz
-                    nn = ntot + n
-                    var = TRIM(fld1dz(n)%fldname)
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
-                        TRIM(fld1dz(n)%long_name))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units', TRIM(fld1dz(n)%units))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld1dz
-
-                !-------------------------------------------------------------------------------
-                ! Time-independent 2d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld2dxy
-                    nn = ntot + n
-                    var = TRIM(fld2dxy(n)%fldname)
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
-                        TRIM(fld2dxy(n)%long_name))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units', TRIM(fld2dxy(n)%units))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld2dxy
-
-                !-------------------------------------------------------------------------------
-                ! Time-varying 2d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld2dxyt
-                    nn = ntot + n
-                    var = TRIM(fld2dxyt(n)%fldname)
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
-                        TRIM(fld2dxyt(n)%long_name))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units',  &
-                        TRIM(fld2dxyt(n)%units))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), '_FillValue',  &
-                        fld2dxyt(n)%fillvalue)
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld2dxyt
-
-                !-------------------------------------------------------------------------------
-                ! Time-varying 3d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld3dxyzt
-                    nn = ntot + n
-                    var = TRIM(fld3dxyzt(n)%fldname)
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
-                        TRIM(fld3dxyzt(n)%long_name))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units',  &
-                        TRIM(fld3dxyzt(n)%units))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), '_FillValue',  &
-                        fld3dxyzt(n)%fillvalue)
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld3dxyzt
-
-                !-------------------------------------------------------------------------------
-                ! Take file out of "define mode" so that variables may be written to it.
-                !-------------------------------------------------------------------------------
-
-                rcode = nf90_enddef (cdfid_m)
+            DO n = 1, nfld1dt
+                var = TRIM(fld1dt(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(n), 'calendar',  &
+                    TRIM(fld1dt(n)%calendar))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9350) TRIM(pname), TRIM(fl), TRIM(nf90_strerror(rcode))
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
                     CALL exit (2)
                 ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(n), 'calendar_type',  &
+                    TRIM(fld1dt(n)%calendar_type))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(n), 'cartesian_axis',  &
+                    TRIM(fld1dt(n)%cartesian_axis))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(n), 'long_name',  &
+                    TRIM(fld1dt(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(n), 'units', TRIM(fld1dt(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = nfld1dt
 
-            ENDIF  ! first = .TRUE.
+            !-------------------------------------------------------------------------------
+            ! Time-independent 1d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld1dz
+                nn = ntot + n
+                var = TRIM(fld1dz(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
+                    TRIM(fld1dz(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units', TRIM(fld1dz(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = ntot + nfld1dz
+
+            !-------------------------------------------------------------------------------
+            ! Time-independent 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld2dxy
+                nn = ntot + n
+                var = TRIM(fld2dxy(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
+                    TRIM(fld2dxy(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units', TRIM(fld2dxy(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = ntot + nfld2dxy
+
+            !-------------------------------------------------------------------------------
+            ! Time-varying 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld2dxyt
+                nn = ntot + n
+                var = TRIM(fld2dxyt(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
+                    TRIM(fld2dxyt(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units',  &
+                    TRIM(fld2dxyt(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), '_FillValue',  &
+                    fld2dxyt(n)%fillvalue)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = ntot + nfld2dxyt
+
+            !-------------------------------------------------------------------------------
+            ! Time-varying 3d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld3dxyzt
+                nn = ntot + n
+                var = TRIM(fld3dxyzt(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
+                    TRIM(fld3dxyzt(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units',  &
+                    TRIM(fld3dxyzt(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), '_FillValue',  &
+                    fld3dxyzt(n)%fillvalue)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = ntot + nfld3dxyzt
+
+            !-------------------------------------------------------------------------------
+            ! Take file out of "define mode" so that variables may be written to it.
+            !-------------------------------------------------------------------------------
+
+            rcode = nf90_enddef (cdfid_m)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9350) TRIM(pname), TRIM(fl), TRIM(nf90_strerror(rcode))
+                CALL exit (2)
+            ENDIF
+
+!            ENDIF  ! first = .TRUE.
 
             !-------------------------------------------------------------------------------
             ! Assign pointer variables to the respective arrays from canopy-app.
@@ -1977,7 +1976,7 @@ CONTAINS
             DO n = 1, nfld1dt
                 var = TRIM(fld1dt(n)%fldname)
                 rcode = nf90_put_var (cdfid_m, id_fld(n), fld1dt(n)%fld,  &
-                    start = (/ it /),  &
+                    start = (/ 1 /),  &
                     count = (/ 1 /) )
                 IF ( rcode /= nf90_noerr ) THEN
                     WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
@@ -1987,26 +1986,26 @@ CONTAINS
             ENDDO
             ntot = nfld1dt
 
-            IF ( first ) THEN  ! write time-independent fields
+!            IF ( first ) THEN  ! write time-independent fields
 
-                !-------------------------------------------------------------------------------
-                ! Time-independent 1d fields at cell centers.
-                !-------------------------------------------------------------------------------
-                write(*,*)  'Writing Time-independent 1d fields'
-                write(*,*)  '-------------------------------'
-            ENDIF  ! first
+            !-------------------------------------------------------------------------------
+            ! Time-independent 1d fields at cell centers.
+            !-------------------------------------------------------------------------------
+            write(*,*)  'Writing Time-independent 1d fields'
+            write(*,*)  '-------------------------------'
+!            ENDIF  ! first
 
             DO n = 1, nfld1dz
                 nn = ntot + n
                 var = TRIM(fld1dz(n)%fldname)
-                IF ( first ) THEN  ! write time-independent fields
-                    rcode = nf90_put_var (cdfid_m, id_fld(nn), fld1dz(n)%fld)
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDIF  ! first
+!                IF ( first ) THEN  ! write time-independent fields
+                rcode = nf90_put_var (cdfid_m, id_fld(nn), fld1dz(n)%fld)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+!                ENDIF  ! first
             ENDDO
 
             ntot = ntot + nfld1dz
@@ -2014,21 +2013,21 @@ CONTAINS
             !-------------------------------------------------------------------------------
             ! Time-independent 2d fields at cell centers.
             !-------------------------------------------------------------------------------
-            IF ( first ) THEN  ! write time-independent fields
-                write(*,*)  'Writing Time-independent 2d fields'
-                write(*,*)  '-------------------------------'
-            ENDIF  ! first
+!            IF ( first ) THEN  ! write time-independent fields
+            write(*,*)  'Writing Time-independent 2d fields'
+            write(*,*)  '-------------------------------'
+!            ENDIF  ! first
             DO n = 1, nfld2dxy
                 nn = ntot + n
                 var = TRIM(fld2dxy(n)%fldname)
-                IF ( first ) THEN  ! write time-independent fields
-                    rcode = nf90_put_var (cdfid_m, id_fld(nn), fld2dxy(n)%fld)
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDIF  ! first
+!                IF ( first ) THEN  ! write time-independent fields
+                rcode = nf90_put_var (cdfid_m, id_fld(nn), fld2dxy(n)%fld)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+!                ENDIF  ! first
             ENDDO
 
             ntot = ntot + nfld2dxy
@@ -2038,12 +2037,11 @@ CONTAINS
             !-------------------------------------------------------------------------------
             write(*,*)  'Writing Time-varying 2d fields'
             write(*,*)  '-------------------------------'
-
             DO n = 1, nfld2dxyt
                 nn = ntot + n
                 var = TRIM(fld2dxyt(n)%fldname)
                 rcode = nf90_put_var (cdfid_m, id_fld(nn), fld2dxyt(n)%fld,  &
-                    start = (/ 1, 1, it /),  &
+                    start = (/ 1, 1, 1 /),  &
                     count = (/ fld2dxyt(n)%iend(1), &
                     fld2dxyt(n)%iend(2), 1 /) )
                 IF ( rcode /= nf90_noerr ) THEN
@@ -2064,7 +2062,7 @@ CONTAINS
                 nn = ntot + n
                 var = TRIM(fld3dxyzt(n)%fldname)
                 rcode = nf90_put_var (cdfid_m, id_fld(nn), fld3dxyzt(n)%fld,  &
-                    start = (/ 1, 1, 1, it /),  &
+                    start = (/ 1, 1, 1, 1 /),  &
                     count = (/ fld3dxyzt(n)%iend(1), &
                     fld3dxyzt(n)%iend(2), &
                     fld3dxyzt(n)%iend(3), 1 /) )
@@ -2078,7 +2076,7 @@ CONTAINS
 
         end if !infmt_opt
 
-        first = .FALSE.
+!        first = .FALSE.
     END SUBROUTINE canopy_write_ncf
 
 
