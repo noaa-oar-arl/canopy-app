@@ -26,7 +26,7 @@ SUBROUTINE canopy_readnml
         flameh_opt, flameh_cal, flameh_set, frp_fac, ifcanwind, &
         ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
         dx_opt, dx_set, lai_thresh, cf_thresh, ch_thresh, rsl_opt, bio_cce, &
-        biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, &
+        biospec_opt, biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, &
         leafage_opt, lai_tstep, soim_opt, soild1, soild2, soild3, soild4, hist_opt, &
         loss_opt, loss_set, loss_ind, lifetime
 
@@ -239,6 +239,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default real value for MEGAN biogenic canopy environment coeficient (default = 0.21; Silva et al. (2020)
     bio_cce = 0.21_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer value to select species for biogenic emissions output (0, all)
+    biospec_opt = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

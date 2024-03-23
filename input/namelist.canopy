@@ -68,6 +68,7 @@
 !Canopy biogenic emissions-specific options
   ifcanbio    = .TRUE.
   bio_cce     =  0.21
+  biospec_opt =  0
   biovert_opt =  0
   loss_opt    =  0
   loss_set    =  0.96

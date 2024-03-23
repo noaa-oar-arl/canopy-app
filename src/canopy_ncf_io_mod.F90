@@ -462,290 +462,328 @@ CONTAINS
             c_rjcf%iend(3) = modlays
         end if
         if (ifcanbio) then
-            c_emi_isop%fld = fillreal
-            c_emi_isop%fldname = 'emi_isop'
-            c_emi_isop%long_name = 'biogenic isoprene emissions'
-            c_emi_isop%units = 'kg m-3 s-1'
-            c_emi_isop%fillvalue = fillreal
-            c_emi_isop%dimnames(1) = 'nlon'
-            c_emi_isop%dimnames(2) = 'nlat'
-            c_emi_isop%dimnames(3) = 'nlays'
-            c_emi_isop%istart(1) = 1
-            c_emi_isop%istart(2) = 1
-            c_emi_isop%istart(3) = 1
-            c_emi_isop%iend(1) = nlon
-            c_emi_isop%iend(2) = nlat
-            c_emi_isop%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 1) then
+                c_emi_isop%fld = fillreal
+                c_emi_isop%fldname = 'emi_isop'
+                c_emi_isop%long_name = 'biogenic isoprene emissions'
+                c_emi_isop%units = 'kg m-3 s-1'
+                c_emi_isop%fillvalue = fillreal
+                c_emi_isop%dimnames(1) = 'nlon'
+                c_emi_isop%dimnames(2) = 'nlat'
+                c_emi_isop%dimnames(3) = 'nlays'
+                c_emi_isop%istart(1) = 1
+                c_emi_isop%istart(2) = 1
+                c_emi_isop%istart(3) = 1
+                c_emi_isop%iend(1) = nlon
+                c_emi_isop%iend(2) = nlat
+                c_emi_isop%iend(3) = modlays
+            end if
 
-            c_emi_myrc%fld = fillreal
-            c_emi_myrc%fldname = 'emi_myrc'
-            c_emi_myrc%long_name = 'biogenic myrcene emissions'
-            c_emi_myrc%units = 'kg m-3 s-1'
-            c_emi_myrc%fillvalue = fillreal
-            c_emi_myrc%dimnames(1) = 'nlon'
-            c_emi_myrc%dimnames(2) = 'nlat'
-            c_emi_myrc%dimnames(3) = 'nlays'
-            c_emi_myrc%istart(1) = 1
-            c_emi_myrc%istart(2) = 1
-            c_emi_myrc%istart(3) = 1
-            c_emi_myrc%iend(1) = nlon
-            c_emi_myrc%iend(2) = nlat
-            c_emi_myrc%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 2) then
+                c_emi_myrc%fld = fillreal
+                c_emi_myrc%fldname = 'emi_myrc'
+                c_emi_myrc%long_name = 'biogenic myrcene emissions'
+                c_emi_myrc%units = 'kg m-3 s-1'
+                c_emi_myrc%fillvalue = fillreal
+                c_emi_myrc%dimnames(1) = 'nlon'
+                c_emi_myrc%dimnames(2) = 'nlat'
+                c_emi_myrc%dimnames(3) = 'nlays'
+                c_emi_myrc%istart(1) = 1
+                c_emi_myrc%istart(2) = 1
+                c_emi_myrc%istart(3) = 1
+                c_emi_myrc%iend(1) = nlon
+                c_emi_myrc%iend(2) = nlat
+                c_emi_myrc%iend(3) = modlays
+            end if
 
-            c_emi_sabi%fld = fillreal
-            c_emi_sabi%fldname = 'emi_sabi'
-            c_emi_sabi%long_name = 'biogenic sabinene emissions'
-            c_emi_sabi%units = 'kg m-3 s-1'
-            c_emi_sabi%fillvalue = fillreal
-            c_emi_sabi%dimnames(1) = 'nlon'
-            c_emi_sabi%dimnames(2) = 'nlat'
-            c_emi_sabi%dimnames(3) = 'nlays'
-            c_emi_sabi%istart(1) = 1
-            c_emi_sabi%istart(2) = 1
-            c_emi_sabi%istart(3) = 1
-            c_emi_sabi%iend(1) = nlon
-            c_emi_sabi%iend(2) = nlat
-            c_emi_sabi%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 3) then
+                c_emi_sabi%fld = fillreal
+                c_emi_sabi%fldname = 'emi_sabi'
+                c_emi_sabi%long_name = 'biogenic sabinene emissions'
+                c_emi_sabi%units = 'kg m-3 s-1'
+                c_emi_sabi%fillvalue = fillreal
+                c_emi_sabi%dimnames(1) = 'nlon'
+                c_emi_sabi%dimnames(2) = 'nlat'
+                c_emi_sabi%dimnames(3) = 'nlays'
+                c_emi_sabi%istart(1) = 1
+                c_emi_sabi%istart(2) = 1
+                c_emi_sabi%istart(3) = 1
+                c_emi_sabi%iend(1) = nlon
+                c_emi_sabi%iend(2) = nlat
+                c_emi_sabi%iend(3) = modlays
+            end if
 
-            c_emi_limo%fld = fillreal
-            c_emi_limo%fldname = 'emi_limo'
-            c_emi_limo%long_name = 'biogenic limonene emissions'
-            c_emi_limo%units = 'kg m-3 s-1'
-            c_emi_limo%fillvalue = fillreal
-            c_emi_limo%dimnames(1) = 'nlon'
-            c_emi_limo%dimnames(2) = 'nlat'
-            c_emi_limo%dimnames(3) = 'nlays'
-            c_emi_limo%istart(1) = 1
-            c_emi_limo%istart(2) = 1
-            c_emi_limo%istart(3) = 1
-            c_emi_limo%iend(1) = nlon
-            c_emi_limo%iend(2) = nlat
-            c_emi_limo%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 4) then
+                c_emi_limo%fld = fillreal
+                c_emi_limo%fldname = 'emi_limo'
+                c_emi_limo%long_name = 'biogenic limonene emissions'
+                c_emi_limo%units = 'kg m-3 s-1'
+                c_emi_limo%fillvalue = fillreal
+                c_emi_limo%dimnames(1) = 'nlon'
+                c_emi_limo%dimnames(2) = 'nlat'
+                c_emi_limo%dimnames(3) = 'nlays'
+                c_emi_limo%istart(1) = 1
+                c_emi_limo%istart(2) = 1
+                c_emi_limo%istart(3) = 1
+                c_emi_limo%iend(1) = nlon
+                c_emi_limo%iend(2) = nlat
+                c_emi_limo%iend(3) = modlays
+            end if
 
-            c_emi_care%fld = fillreal
-            c_emi_care%fldname = 'emi_care'
-            c_emi_care%long_name = 'biogenic 3-carene emissions'
-            c_emi_care%units = 'kg m-3 s-1'
-            c_emi_care%fillvalue = fillreal
-            c_emi_care%dimnames(1) = 'nlon'
-            c_emi_care%dimnames(2) = 'nlat'
-            c_emi_care%dimnames(3) = 'nlays'
-            c_emi_care%istart(1) = 1
-            c_emi_care%istart(2) = 1
-            c_emi_care%istart(3) = 1
-            c_emi_care%iend(1) = nlon
-            c_emi_care%iend(2) = nlat
-            c_emi_care%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 5) then
+                c_emi_care%fld = fillreal
+                c_emi_care%fldname = 'emi_care'
+                c_emi_care%long_name = 'biogenic 3-carene emissions'
+                c_emi_care%units = 'kg m-3 s-1'
+                c_emi_care%fillvalue = fillreal
+                c_emi_care%dimnames(1) = 'nlon'
+                c_emi_care%dimnames(2) = 'nlat'
+                c_emi_care%dimnames(3) = 'nlays'
+                c_emi_care%istart(1) = 1
+                c_emi_care%istart(2) = 1
+                c_emi_care%istart(3) = 1
+                c_emi_care%iend(1) = nlon
+                c_emi_care%iend(2) = nlat
+                c_emi_care%iend(3) = modlays
+            end if
 
-            c_emi_ocim%fld = fillreal
-            c_emi_ocim%fldname = 'emi_ocim'
-            c_emi_ocim%long_name = 'biogenic t-beta-ocimene emissions'
-            c_emi_ocim%units = 'kg m-3 s-1'
-            c_emi_ocim%fillvalue = fillreal
-            c_emi_ocim%dimnames(1) = 'nlon'
-            c_emi_ocim%dimnames(2) = 'nlat'
-            c_emi_ocim%dimnames(3) = 'nlays'
-            c_emi_ocim%istart(1) = 1
-            c_emi_ocim%istart(2) = 1
-            c_emi_ocim%istart(3) = 1
-            c_emi_ocim%iend(1) = nlon
-            c_emi_ocim%iend(2) = nlat
-            c_emi_ocim%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 6) then
+                c_emi_ocim%fld = fillreal
+                c_emi_ocim%fldname = 'emi_ocim'
+                c_emi_ocim%long_name = 'biogenic t-beta-ocimene emissions'
+                c_emi_ocim%units = 'kg m-3 s-1'
+                c_emi_ocim%fillvalue = fillreal
+                c_emi_ocim%dimnames(1) = 'nlon'
+                c_emi_ocim%dimnames(2) = 'nlat'
+                c_emi_ocim%dimnames(3) = 'nlays'
+                c_emi_ocim%istart(1) = 1
+                c_emi_ocim%istart(2) = 1
+                c_emi_ocim%istart(3) = 1
+                c_emi_ocim%iend(1) = nlon
+                c_emi_ocim%iend(2) = nlat
+                c_emi_ocim%iend(3) = modlays
+            end if
 
-            c_emi_bpin%fld = fillreal
-            c_emi_bpin%fldname = 'emi_bpin'
-            c_emi_bpin%long_name = 'biogenic beta-pinene emissions'
-            c_emi_bpin%units = 'kg m-3 s-1'
-            c_emi_bpin%fillvalue = fillreal
-            c_emi_bpin%dimnames(1) = 'nlon'
-            c_emi_bpin%dimnames(2) = 'nlat'
-            c_emi_bpin%dimnames(3) = 'nlays'
-            c_emi_bpin%istart(1) = 1
-            c_emi_bpin%istart(2) = 1
-            c_emi_bpin%istart(3) = 1
-            c_emi_bpin%iend(1) = nlon
-            c_emi_bpin%iend(2) = nlat
-            c_emi_bpin%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 7) then
+                c_emi_bpin%fld = fillreal
+                c_emi_bpin%fldname = 'emi_bpin'
+                c_emi_bpin%long_name = 'biogenic beta-pinene emissions'
+                c_emi_bpin%units = 'kg m-3 s-1'
+                c_emi_bpin%fillvalue = fillreal
+                c_emi_bpin%dimnames(1) = 'nlon'
+                c_emi_bpin%dimnames(2) = 'nlat'
+                c_emi_bpin%dimnames(3) = 'nlays'
+                c_emi_bpin%istart(1) = 1
+                c_emi_bpin%istart(2) = 1
+                c_emi_bpin%istart(3) = 1
+                c_emi_bpin%iend(1) = nlon
+                c_emi_bpin%iend(2) = nlat
+                c_emi_bpin%iend(3) = modlays
+            end if
 
-            c_emi_apin%fld = fillreal
-            c_emi_apin%fldname = 'emi_apin'
-            c_emi_apin%long_name = 'biogenic alpha-pinene emissions'
-            c_emi_apin%units = 'kg m-3 s-1'
-            c_emi_apin%fillvalue = fillreal
-            c_emi_apin%dimnames(1) = 'nlon'
-            c_emi_apin%dimnames(2) = 'nlat'
-            c_emi_apin%dimnames(3) = 'nlays'
-            c_emi_apin%istart(1) = 1
-            c_emi_apin%istart(2) = 1
-            c_emi_apin%istart(3) = 1
-            c_emi_apin%iend(1) = nlon
-            c_emi_apin%iend(2) = nlat
-            c_emi_apin%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 8) then
+                c_emi_apin%fld = fillreal
+                c_emi_apin%fldname = 'emi_apin'
+                c_emi_apin%long_name = 'biogenic alpha-pinene emissions'
+                c_emi_apin%units = 'kg m-3 s-1'
+                c_emi_apin%fillvalue = fillreal
+                c_emi_apin%dimnames(1) = 'nlon'
+                c_emi_apin%dimnames(2) = 'nlat'
+                c_emi_apin%dimnames(3) = 'nlays'
+                c_emi_apin%istart(1) = 1
+                c_emi_apin%istart(2) = 1
+                c_emi_apin%istart(3) = 1
+                c_emi_apin%iend(1) = nlon
+                c_emi_apin%iend(2) = nlat
+                c_emi_apin%iend(3) = modlays
+            end if
 
-            c_emi_mono%fld = fillreal
-            c_emi_mono%fldname = 'emi_mono'
-            c_emi_mono%long_name = 'biogenic other monoterpene emissions'
-            c_emi_mono%units = 'kg m-3 s-1'
-            c_emi_mono%fillvalue = fillreal
-            c_emi_mono%dimnames(1) = 'nlon'
-            c_emi_mono%dimnames(2) = 'nlat'
-            c_emi_mono%dimnames(3) = 'nlays'
-            c_emi_mono%istart(1) = 1
-            c_emi_mono%istart(2) = 1
-            c_emi_mono%istart(3) = 1
-            c_emi_mono%iend(1) = nlon
-            c_emi_mono%iend(2) = nlat
-            c_emi_mono%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 9) then
+                c_emi_mono%fld = fillreal
+                c_emi_mono%fldname = 'emi_mono'
+                c_emi_mono%long_name = 'biogenic other monoterpene emissions'
+                c_emi_mono%units = 'kg m-3 s-1'
+                c_emi_mono%fillvalue = fillreal
+                c_emi_mono%dimnames(1) = 'nlon'
+                c_emi_mono%dimnames(2) = 'nlat'
+                c_emi_mono%dimnames(3) = 'nlays'
+                c_emi_mono%istart(1) = 1
+                c_emi_mono%istart(2) = 1
+                c_emi_mono%istart(3) = 1
+                c_emi_mono%iend(1) = nlon
+                c_emi_mono%iend(2) = nlat
+                c_emi_mono%iend(3) = modlays
+            end if
 
-            c_emi_farn%fld = fillreal
-            c_emi_farn%fldname = 'emi_farn'
-            c_emi_farn%long_name = 'biogenic alpha-farnesene emissions'
-            c_emi_farn%units = 'kg m-3 s-1'
-            c_emi_farn%fillvalue = fillreal
-            c_emi_farn%dimnames(1) = 'nlon'
-            c_emi_farn%dimnames(2) = 'nlat'
-            c_emi_farn%dimnames(3) = 'nlays'
-            c_emi_farn%istart(1) = 1
-            c_emi_farn%istart(2) = 1
-            c_emi_farn%istart(3) = 1
-            c_emi_farn%iend(1) = nlon
-            c_emi_farn%iend(2) = nlat
-            c_emi_farn%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 10) then
+                c_emi_farn%fld = fillreal
+                c_emi_farn%fldname = 'emi_farn'
+                c_emi_farn%long_name = 'biogenic alpha-farnesene emissions'
+                c_emi_farn%units = 'kg m-3 s-1'
+                c_emi_farn%fillvalue = fillreal
+                c_emi_farn%dimnames(1) = 'nlon'
+                c_emi_farn%dimnames(2) = 'nlat'
+                c_emi_farn%dimnames(3) = 'nlays'
+                c_emi_farn%istart(1) = 1
+                c_emi_farn%istart(2) = 1
+                c_emi_farn%istart(3) = 1
+                c_emi_farn%iend(1) = nlon
+                c_emi_farn%iend(2) = nlat
+                c_emi_farn%iend(3) = modlays
+            end if
 
-            c_emi_cary%fld = fillreal
-            c_emi_cary%fldname = 'emi_cary'
-            c_emi_cary%long_name = 'biogenic beta-caryophyllene emissions'
-            c_emi_cary%units = 'kg m-3 s-1'
-            c_emi_cary%fillvalue = fillreal
-            c_emi_cary%dimnames(1) = 'nlon'
-            c_emi_cary%dimnames(2) = 'nlat'
-            c_emi_cary%dimnames(3) = 'nlays'
-            c_emi_cary%istart(1) = 1
-            c_emi_cary%istart(2) = 1
-            c_emi_cary%istart(3) = 1
-            c_emi_cary%iend(1) = nlon
-            c_emi_cary%iend(2) = nlat
-            c_emi_cary%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 11) then
+                c_emi_cary%fld = fillreal
+                c_emi_cary%fldname = 'emi_cary'
+                c_emi_cary%long_name = 'biogenic beta-caryophyllene emissions'
+                c_emi_cary%units = 'kg m-3 s-1'
+                c_emi_cary%fillvalue = fillreal
+                c_emi_cary%dimnames(1) = 'nlon'
+                c_emi_cary%dimnames(2) = 'nlat'
+                c_emi_cary%dimnames(3) = 'nlays'
+                c_emi_cary%istart(1) = 1
+                c_emi_cary%istart(2) = 1
+                c_emi_cary%istart(3) = 1
+                c_emi_cary%iend(1) = nlon
+                c_emi_cary%iend(2) = nlat
+                c_emi_cary%iend(3) = modlays
+            end if
 
-            c_emi_sesq%fld = fillreal
-            c_emi_sesq%fldname = 'emi_sesq'
-            c_emi_sesq%long_name = 'biogenic other sesquiterpene emissions'
-            c_emi_sesq%units = 'kg m-3 s-1'
-            c_emi_sesq%fillvalue = fillreal
-            c_emi_sesq%dimnames(1) = 'nlon'
-            c_emi_sesq%dimnames(2) = 'nlat'
-            c_emi_sesq%dimnames(3) = 'nlays'
-            c_emi_sesq%istart(1) = 1
-            c_emi_sesq%istart(2) = 1
-            c_emi_sesq%istart(3) = 1
-            c_emi_sesq%iend(1) = nlon
-            c_emi_sesq%iend(2) = nlat
-            c_emi_sesq%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 12) then
+                c_emi_sesq%fld = fillreal
+                c_emi_sesq%fldname = 'emi_sesq'
+                c_emi_sesq%long_name = 'biogenic other sesquiterpene emissions'
+                c_emi_sesq%units = 'kg m-3 s-1'
+                c_emi_sesq%fillvalue = fillreal
+                c_emi_sesq%dimnames(1) = 'nlon'
+                c_emi_sesq%dimnames(2) = 'nlat'
+                c_emi_sesq%dimnames(3) = 'nlays'
+                c_emi_sesq%istart(1) = 1
+                c_emi_sesq%istart(2) = 1
+                c_emi_sesq%istart(3) = 1
+                c_emi_sesq%iend(1) = nlon
+                c_emi_sesq%iend(2) = nlat
+                c_emi_sesq%iend(3) = modlays
+            end if
 
-            c_emi_mbol%fld = fillreal
-            c_emi_mbol%fldname = 'emi_mbol'
-            c_emi_mbol%long_name = 'biogenic 232-MBO emissions'
-            c_emi_mbol%units = 'kg m-3 s-1'
-            c_emi_mbol%fillvalue = fillreal
-            c_emi_mbol%dimnames(1) = 'nlon'
-            c_emi_mbol%dimnames(2) = 'nlat'
-            c_emi_mbol%dimnames(3) = 'nlays'
-            c_emi_mbol%istart(1) = 1
-            c_emi_mbol%istart(2) = 1
-            c_emi_mbol%istart(3) = 1
-            c_emi_mbol%iend(1) = nlon
-            c_emi_mbol%iend(2) = nlat
-            c_emi_mbol%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 13) then
+                c_emi_mbol%fld = fillreal
+                c_emi_mbol%fldname = 'emi_mbol'
+                c_emi_mbol%long_name = 'biogenic 232-MBO emissions'
+                c_emi_mbol%units = 'kg m-3 s-1'
+                c_emi_mbol%fillvalue = fillreal
+                c_emi_mbol%dimnames(1) = 'nlon'
+                c_emi_mbol%dimnames(2) = 'nlat'
+                c_emi_mbol%dimnames(3) = 'nlays'
+                c_emi_mbol%istart(1) = 1
+                c_emi_mbol%istart(2) = 1
+                c_emi_mbol%istart(3) = 1
+                c_emi_mbol%iend(1) = nlon
+                c_emi_mbol%iend(2) = nlat
+                c_emi_mbol%iend(3) = modlays
+            end if
 
-            c_emi_meth%fld = fillreal
-            c_emi_meth%fldname = 'emi_meth'
-            c_emi_meth%long_name = 'biogenic methanol emissions'
-            c_emi_meth%units = 'kg m-3 s-1'
-            c_emi_meth%fillvalue = fillreal
-            c_emi_meth%dimnames(1) = 'nlon'
-            c_emi_meth%dimnames(2) = 'nlat'
-            c_emi_meth%dimnames(3) = 'nlays'
-            c_emi_meth%istart(1) = 1
-            c_emi_meth%istart(2) = 1
-            c_emi_meth%istart(3) = 1
-            c_emi_meth%iend(1) = nlon
-            c_emi_meth%iend(2) = nlat
-            c_emi_meth%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 14) then
+                c_emi_meth%fld = fillreal
+                c_emi_meth%fldname = 'emi_meth'
+                c_emi_meth%long_name = 'biogenic methanol emissions'
+                c_emi_meth%units = 'kg m-3 s-1'
+                c_emi_meth%fillvalue = fillreal
+                c_emi_meth%dimnames(1) = 'nlon'
+                c_emi_meth%dimnames(2) = 'nlat'
+                c_emi_meth%dimnames(3) = 'nlays'
+                c_emi_meth%istart(1) = 1
+                c_emi_meth%istart(2) = 1
+                c_emi_meth%istart(3) = 1
+                c_emi_meth%iend(1) = nlon
+                c_emi_meth%iend(2) = nlat
+                c_emi_meth%iend(3) = modlays
+            end if
 
-            c_emi_acet%fld = fillreal
-            c_emi_acet%fldname = 'emi_acet'
-            c_emi_acet%long_name = 'biogenic acetone emissions'
-            c_emi_acet%units = 'kg m-3 s-1'
-            c_emi_acet%fillvalue = fillreal
-            c_emi_acet%dimnames(1) = 'nlon'
-            c_emi_acet%dimnames(2) = 'nlat'
-            c_emi_acet%dimnames(3) = 'nlays'
-            c_emi_acet%istart(1) = 1
-            c_emi_acet%istart(2) = 1
-            c_emi_acet%istart(3) = 1
-            c_emi_acet%iend(1) = nlon
-            c_emi_acet%iend(2) = nlat
-            c_emi_acet%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 15) then
+                c_emi_acet%fld = fillreal
+                c_emi_acet%fldname = 'emi_acet'
+                c_emi_acet%long_name = 'biogenic acetone emissions'
+                c_emi_acet%units = 'kg m-3 s-1'
+                c_emi_acet%fillvalue = fillreal
+                c_emi_acet%dimnames(1) = 'nlon'
+                c_emi_acet%dimnames(2) = 'nlat'
+                c_emi_acet%dimnames(3) = 'nlays'
+                c_emi_acet%istart(1) = 1
+                c_emi_acet%istart(2) = 1
+                c_emi_acet%istart(3) = 1
+                c_emi_acet%iend(1) = nlon
+                c_emi_acet%iend(2) = nlat
+                c_emi_acet%iend(3) = modlays
+            end if
 
-            c_emi_co%fld = fillreal
-            c_emi_co%fldname = 'emi_co'
-            c_emi_co%long_name = 'biogenic carbon monoxide emissions'
-            c_emi_co%units = 'kg m-3 s-1'
-            c_emi_co%fillvalue = fillreal
-            c_emi_co%dimnames(1) = 'nlon'
-            c_emi_co%dimnames(2) = 'nlat'
-            c_emi_co%dimnames(3) = 'nlays'
-            c_emi_co%istart(1) = 1
-            c_emi_co%istart(2) = 1
-            c_emi_co%istart(3) = 1
-            c_emi_co%iend(1) = nlon
-            c_emi_co%iend(2) = nlat
-            c_emi_co%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 16) then
+                c_emi_co%fld = fillreal
+                c_emi_co%fldname = 'emi_co'
+                c_emi_co%long_name = 'biogenic carbon monoxide emissions'
+                c_emi_co%units = 'kg m-3 s-1'
+                c_emi_co%fillvalue = fillreal
+                c_emi_co%dimnames(1) = 'nlon'
+                c_emi_co%dimnames(2) = 'nlat'
+                c_emi_co%dimnames(3) = 'nlays'
+                c_emi_co%istart(1) = 1
+                c_emi_co%istart(2) = 1
+                c_emi_co%istart(3) = 1
+                c_emi_co%iend(1) = nlon
+                c_emi_co%iend(2) = nlat
+                c_emi_co%iend(3) = modlays
+            end if
 
-            c_emi_bvoc%fld = fillreal
-            c_emi_bvoc%fldname = 'emi_bvoc'
-            c_emi_bvoc%long_name = 'biogenic bidi voc emissions'
-            c_emi_bvoc%units = 'kg m-3 s-1'
-            c_emi_bvoc%fillvalue = fillreal
-            c_emi_bvoc%dimnames(1) = 'nlon'
-            c_emi_bvoc%dimnames(2) = 'nlat'
-            c_emi_bvoc%dimnames(3) = 'nlays'
-            c_emi_bvoc%istart(1) = 1
-            c_emi_bvoc%istart(2) = 1
-            c_emi_bvoc%istart(3) = 1
-            c_emi_bvoc%iend(1) = nlon
-            c_emi_bvoc%iend(2) = nlat
-            c_emi_bvoc%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 17) then
+                c_emi_bvoc%fld = fillreal
+                c_emi_bvoc%fldname = 'emi_bvoc'
+                c_emi_bvoc%long_name = 'biogenic bidi voc emissions'
+                c_emi_bvoc%units = 'kg m-3 s-1'
+                c_emi_bvoc%fillvalue = fillreal
+                c_emi_bvoc%dimnames(1) = 'nlon'
+                c_emi_bvoc%dimnames(2) = 'nlat'
+                c_emi_bvoc%dimnames(3) = 'nlays'
+                c_emi_bvoc%istart(1) = 1
+                c_emi_bvoc%istart(2) = 1
+                c_emi_bvoc%istart(3) = 1
+                c_emi_bvoc%iend(1) = nlon
+                c_emi_bvoc%iend(2) = nlat
+                c_emi_bvoc%iend(3) = modlays
+            end if
 
-            c_emi_svoc%fld = fillreal
-            c_emi_svoc%fldname = 'emi_svoc'
-            c_emi_svoc%long_name = 'biogenic stress voc emissions'
-            c_emi_svoc%units = 'kg m-3 s-1'
-            c_emi_svoc%fillvalue = fillreal
-            c_emi_svoc%dimnames(1) = 'nlon'
-            c_emi_svoc%dimnames(2) = 'nlat'
-            c_emi_svoc%dimnames(3) = 'nlays'
-            c_emi_svoc%istart(1) = 1
-            c_emi_svoc%istart(2) = 1
-            c_emi_svoc%istart(3) = 1
-            c_emi_svoc%iend(1) = nlon
-            c_emi_svoc%iend(2) = nlat
-            c_emi_svoc%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 18) then
+                c_emi_svoc%fld = fillreal
+                c_emi_svoc%fldname = 'emi_svoc'
+                c_emi_svoc%long_name = 'biogenic stress voc emissions'
+                c_emi_svoc%units = 'kg m-3 s-1'
+                c_emi_svoc%fillvalue = fillreal
+                c_emi_svoc%dimnames(1) = 'nlon'
+                c_emi_svoc%dimnames(2) = 'nlat'
+                c_emi_svoc%dimnames(3) = 'nlays'
+                c_emi_svoc%istart(1) = 1
+                c_emi_svoc%istart(2) = 1
+                c_emi_svoc%istart(3) = 1
+                c_emi_svoc%iend(1) = nlon
+                c_emi_svoc%iend(2) = nlat
+                c_emi_svoc%iend(3) = modlays
+            end if
 
-            c_emi_ovoc%fld = fillreal
-            c_emi_ovoc%fldname = 'emi_ovoc'
-            c_emi_ovoc%long_name = 'biogenic other voc emissions'
-            c_emi_ovoc%units = 'kg m-3 s-1'
-            c_emi_ovoc%fillvalue = fillreal
-            c_emi_ovoc%dimnames(1) = 'nlon'
-            c_emi_ovoc%dimnames(2) = 'nlat'
-            c_emi_ovoc%dimnames(3) = 'nlays'
-            c_emi_ovoc%istart(1) = 1
-            c_emi_ovoc%istart(2) = 1
-            c_emi_ovoc%istart(3) = 1
-            c_emi_ovoc%iend(1) = nlon
-            c_emi_ovoc%iend(2) = nlat
-            c_emi_ovoc%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 19) then
+                c_emi_ovoc%fld = fillreal
+                c_emi_ovoc%fldname = 'emi_ovoc'
+                c_emi_ovoc%long_name = 'biogenic other voc emissions'
+                c_emi_ovoc%units = 'kg m-3 s-1'
+                c_emi_ovoc%fillvalue = fillreal
+                c_emi_ovoc%dimnames(1) = 'nlon'
+                c_emi_ovoc%dimnames(2) = 'nlat'
+                c_emi_ovoc%dimnames(3) = 'nlays'
+                c_emi_ovoc%istart(1) = 1
+                c_emi_ovoc%istart(2) = 1
+                c_emi_ovoc%istart(3) = 1
+                c_emi_ovoc%iend(1) = nlon
+                c_emi_ovoc%iend(2) = nlat
+                c_emi_ovoc%iend(3) = modlays
+            end if
 
         end if
 
@@ -866,25 +904,29 @@ CONTAINS
         end if
 
         if (ifcanbio) then
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_ISOP
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_MYRC
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_SABI
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_LIMO
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_CARE
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_OCIM
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_BPIN
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_APIN
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_MONO
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_FARN
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_CARY
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_SESQ
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_MBOL
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_METH
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_ACET
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_CO
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_BVOC
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_SVOC
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_OVOC
+            if (biospec_opt == 0) then
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_ISOP
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_MYRC
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_SABI
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_LIMO
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_CARE
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_OCIM
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_BPIN
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_APIN
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_MONO
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_FARN
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_CARY
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_SESQ
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_MBOL
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_METH
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_ACET
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_CO
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_BVOC
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_SVOC
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_OVOC
+            else
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_SPEC
+            end if
         end if
 
         if(.not.allocated(fld3dxyzt)) ALLOCATE ( fld3dxyzt ( nfld3dxyzt ) )
@@ -914,44 +956,82 @@ CONTAINS
         end if
 
         if (ifcanbio) then
-            set_index = set_index + 1
-            c_emi_isop   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_myrc   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_sabi   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_limo   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_care   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_ocim   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_bpin   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_apin   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_mono   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_farn   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_cary   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_sesq   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_mbol   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_meth   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_acet   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_co   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_bvoc   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_svoc   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_ovoc   => fld3dxyzt( set_index )
+            if (biospec_opt == 0 .or. biospec_opt == 1) then
+                set_index = set_index + 1
+                c_emi_isop   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 2) then
+                set_index = set_index + 1
+                c_emi_myrc   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 3) then
+                set_index = set_index + 1
+                c_emi_sabi   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 4) then
+                set_index = set_index + 1
+                c_emi_limo   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 5) then
+                set_index = set_index + 1
+                c_emi_care   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 6) then
+                set_index = set_index + 1
+                c_emi_ocim   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 7) then
+                set_index = set_index + 1
+                c_emi_bpin   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 8) then
+                set_index = set_index + 1
+                c_emi_apin   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 9) then
+                set_index = set_index + 1
+                c_emi_mono   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 10) then
+                set_index = set_index + 1
+                c_emi_farn   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 11) then
+                set_index = set_index + 1
+                c_emi_cary   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 12) then
+                set_index = set_index + 1
+                c_emi_sesq   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 13) then
+                set_index = set_index + 1
+                c_emi_mbol   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 14) then
+                set_index = set_index + 1
+                c_emi_meth   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 15) then
+                set_index = set_index + 1
+                c_emi_acet   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 16) then
+                set_index = set_index + 1
+                c_emi_co   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 17) then
+                set_index = set_index + 1
+                c_emi_bvoc   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 18) then
+                set_index = set_index + 1
+                c_emi_svoc   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 19) then
+                set_index = set_index + 1
+                c_emi_ovoc   => fld3dxyzt( set_index )
+            end if
         end if
 
     END SUBROUTINE canopy_outncf_alloc
@@ -1939,25 +2019,63 @@ CONTAINS
                 c_rjcf%fld     = rjcf_3d
             end if
             if (ifcanbio) then
-                c_emi_isop%fld = emi_isop_3d
-                c_emi_myrc%fld = emi_myrc_3d
-                c_emi_sabi%fld = emi_sabi_3d
-                c_emi_limo%fld = emi_limo_3d
-                c_emi_care%fld = emi_care_3d
-                c_emi_ocim%fld = emi_ocim_3d
-                c_emi_bpin%fld = emi_bpin_3d
-                c_emi_apin%fld = emi_apin_3d
-                c_emi_mono%fld = emi_mono_3d
-                c_emi_farn%fld = emi_farn_3d
-                c_emi_cary%fld = emi_cary_3d
-                c_emi_sesq%fld = emi_sesq_3d
-                c_emi_mbol%fld = emi_mbol_3d
-                c_emi_meth%fld = emi_meth_3d
-                c_emi_acet%fld = emi_acet_3d
-                c_emi_co%fld   = emi_co_3d
-                c_emi_bvoc%fld = emi_bvoc_3d
-                c_emi_svoc%fld = emi_svoc_3d
-                c_emi_ovoc%fld = emi_ovoc_3d
+                if (biospec_opt == 0 .or. biospec_opt == 1) then
+                    c_emi_isop%fld = emi_isop_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 2) then
+                    c_emi_myrc%fld = emi_myrc_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 3) then
+                    c_emi_sabi%fld = emi_sabi_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 4) then
+                    c_emi_limo%fld = emi_limo_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 5) then
+                    c_emi_care%fld = emi_care_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 6) then
+                    c_emi_ocim%fld = emi_ocim_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 7) then
+                    c_emi_bpin%fld = emi_bpin_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 8) then
+                    c_emi_apin%fld = emi_apin_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 9) then
+                    c_emi_mono%fld = emi_mono_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 10) then
+                    c_emi_farn%fld = emi_farn_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 11) then
+                    c_emi_cary%fld = emi_cary_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 12) then
+                    c_emi_sesq%fld = emi_sesq_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 13) then
+                    c_emi_mbol%fld = emi_mbol_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 14) then
+                    c_emi_meth%fld = emi_meth_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 15) then
+                    c_emi_acet%fld = emi_acet_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 16) then
+                    c_emi_co%fld   = emi_co_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 17) then
+                    c_emi_bvoc%fld = emi_bvoc_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 18) then
+                    c_emi_svoc%fld = emi_svoc_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 19) then
+                    c_emi_ovoc%fld = emi_ovoc_3d
+                end if
             end if
 
             !-------------------------------------------------------------------------------
