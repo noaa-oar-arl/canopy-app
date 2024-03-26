@@ -172,10 +172,10 @@ The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variab
 | `href`                           | Reference height above canopy (m) - 10 m    | Assumed constant (i.e., 10 m).  Can be taken from NL. |
 
 **More Information on Data Sources from [Table 2](#table-2-canopy-app-required-input-variables):**
-Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day.
 
 **Global GFS meteorological and canopy files may be provided by request: `Patrick.C.Campbell@noaa.gov`**
-Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day.
+
+Hourly gridded GFSv16 data is available from March 23, 2021 - Current Day and is supplemented by calculated and canopy parameters shown in Table 2.
 
 **GriddingMachine:** GriddingMachine is open source database and software for Earth system modeling at global and regional scales.  Data is easily accessible in consistent formats for ease of downloading/processing.  All available datasets may be found at:  https://github.com/CliMA/GriddingMachine.jl. ([Wang et al., 2022](https://doi.org/10.1038/s41597-022-01346-x)).
 
