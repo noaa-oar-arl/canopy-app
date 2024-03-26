@@ -89,30 +89,30 @@ Current Canopy-App components:
 
 ### Table 1. Canopy-App Biogenic Emissions Output Variables
 
-| Variable Name | Variable Description (Units: kg m-3 s-1)  |
-| ------------- | ----------------------------------------- |
-| `emi_isop`    | Isoprene                                  |
-| `emi_myrc`    | Myrcene                                   |
-| `emi_sabi`    | Sabinene                                  |
-| `emi_limo`    | Limonene                                  |
-| `emi_care`    | 3-Carene                                  |
-| `emi_ocim`    | t-beta-Ocimene                            |
-| `emi_bpin`    | beta-Pinene                               |
-| `emi_apin`    | alpha-Pinene                              |
-| `emi_mono`    | Other Monoterpenes (34 compounds, Table 1 Guenther et al. (2012) |
-| `emi_farn`    | alpha-Farnesene                           |
-| `emi_cary`    | beta-Caryophyllene                        |
-| `emi_sesq`    | Other Sesquiterpene (30 compounds, Table 1 Guenther et al. (2012) |
-| `emi_mbol`    | 232-MBO emissions                         |
-| `emi_meth`    | Methanol emissions                        |
-| `emi_acet`    | Acetone emissions                         |
-| `emi_co`      | Carbon Monoxide emissions                 |
-| `emi_bvoc`    | Bi-Directional VOC emissions (5 compounds, Table 1 Guenther et al. (2012) |
-| `emi_svoc`    | Stress VOC emissions (15 compounds, Table 1 Guenther et al. (2012) |
-| `emi_ovoc`    | Other VOC emissions (49 compounds, Table 1 Guenther et al. (2012) |
+| Variable Name | Variable Description (Units: kg m-3 s-1)  | ID Number |
+| ------------- | ----------------------------------------- | --------- |
+| `emi_isop`    | Isoprene                                  | 1         |
+| `emi_myrc`    | Myrcene                                   | 2         |
+| `emi_sabi`    | Sabinene                                  | 3         |
+| `emi_limo`    | Limonene                                  | 4         |
+| `emi_care`    | 3-Carene                                  | 5         |
+| `emi_ocim`    | t-beta-Ocimene                            | 6         |
+| `emi_bpin`    | beta-Pinene                               | 7         |
+| `emi_apin`    | alpha-Pinene                              | 8         |
+| `emi_mono`    | Other Monoterpenes (34 compounds, Table 1 Guenther et al. (2012) |  9         |
+| `emi_farn`    | alpha-Farnesene                           | 10        |
+| `emi_cary`    | beta-Caryophyllene                        | 11        |
+| `emi_sesq`    | Other Sesquiterpene (30 compounds, Table 1 Guenther et al. (2012) | 12        |
+| `emi_mbol`    | 232-MBO emissions                         | 13        |
+| `emi_meth`    | Methanol emissions                        | 14        |
+| `emi_acet`    | Acetone emissions                         | 15        |
+| `emi_co`      | Carbon Monoxide emissions                 | 16        |
+| `emi_bvoc`    | Bi-Directional VOC emissions (5 compounds, Table 1 Guenther et al. (2012) | 17        |
+| `emi_svoc`    | Stress VOC emissions (15 compounds, Table 1 Guenther et al. (2012) | 18        |
+| `emi_ovoc`    | Other VOC emissions (49 compounds, Table 1 Guenther et al. (2012) | 19        |
 
 **Current Canopy-App Output:** As discussed above, the current Canopy-App optional outputs includes 3D canopy winds (`canwind`), canopy vertical/eddy diffusivity values `kz`), biogenic emissions (see Table 1), and
-canopy photolysis attenuation correction factors (`rjcf`).  Current 2D fields includes the Wind Adjustment Factor (`waf`).
+canopy photolysis attenuation correction factors (`rjcf`), and derived Leaf Area Density (`lad`) from the foliage shape function.  Current 2D fields includes the Wind Adjustment Factor (`waf`), flame heights (`flameh`), and canopy heights (`canheight`). Current 1D fields include the canopy model interface levels (`z`).
 
 Namelist Option : `file_out`  Prefix string (e.g., `'test'`) used to name output file (Output is 1D txt when using input 1D data (i.e., `infmt_opt=1`), or is 2D NetCDF output when 2D NetCDF input is used (i.e., `infmt_opt=0`)).
 
@@ -125,6 +125,10 @@ Namelist Option : `file_vars`  Full name of input file (Supports either text or 
 - See example file inputs for variables and format (`gfs.t12z.20220701.sfcf000.canopy.txt` or `gfs.t12z.20220701.sfcf000.canopy.nc`).  Example surface met/land/soil inputs are based on NOAA's UFS-GFSv16 inputs initialized on July 01, 2022 @ 12 UTC (forecast at hour 000). Other external inputs for canopy related and other calculated variables are from numerous sources.  See [Table 2](#table-2-canopy-app-required-input-variables) below for more information.  **Note:** The example GFSv16 domain has been cut to the southeast U.S. region only in this example for size/time constraints here.
 - Canopy-App assumes the NetCDF input files are in CF-Convention and test file is based on UFS-GFSv16; recommend using double or float for real variables.  Input data must be valid values.
 - Canopy-App can also be run with a single point of 1D input data in a text file (e.g. `point_file_20220701.sfcf000.txt`).
+- The namelist can be modified with [f90nml](https://f90nml.readthedocs.io/en/latest/cli.html) (included with the [Canopy-App Conda](https://github.com/noaa-oar-arl/canopy-app/blob/develop/python/environment.yml) environment) to insert multiple input filenames at once:
+  ```
+  f90nml -g filenames -v file_vars="$(realpath *.txt | xargs -I {} echo "'{}'")" namelist.canopy namelist.canopy_copy
+  ```
 
 The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variables) below is based around NOAA's UFS operational Global Forecast System Version 16 (GFSv16) gridded met data, and is supplemented with external canopy data (from numerous sources) and other external and calculated input variables.  
 
@@ -149,11 +153,16 @@ The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variab
 | `spfh2m`                         | 2-meter specific humidity (kg/kg)           | UFS NOAA/GFSv16                                    |
 | `hpbl`                           | Height of the planetary boundary layer (m)  | UFS NOAA/GFSv16                                    |
 | `prate_ave`                      | Average mass precipitation rate (kg m-2 s-1) | UFS NOAA/GFSv16                                   |
+| `soilw1`                         | Volumetric soil moisture in layer 1 (m3 m-3) | UFS NOAA/GFSv16                                   |
+| `soilw2`                         | Volumetric soil moisture in layer 2 (m3 m-3) | UFS NOAA/GFSv16                                   |
+| `soilw3`                         | Volumetric soil moisture in layer 3 (m3 m-3) | UFS NOAA/GFSv16                                   |
+| `soilw4`                         | Volumetric soil moisture in layer 4 (m3 m-3) | UFS NOAA/GFSv16                                   |
+| `wilt`                           | Wilting point (proportion)                  | UFS NOAA/GFSv16                                    |
 | **External Canopy Variables**    | **Variable Description and Units**          | **Data Source/Reference (if necessary)**           |
 | `ch`                             | Canopy height (m)                    | Globally extended GEDI data. Data Period=2020. Data frequency=Annual. ([Lang et al., 2023](https://doi.org/10.1038/s41559-023-02206-6)) |
 | `clu`                            | Canopy clumping index (dimensionless)       | GriddingMachine/MODIS. Data Period=2001-2017 Climatology. Data frequency=Monthly. ([Wei et al., 2019](https://doi.org/10.1016/j.rse.2019.111296)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
 | `lai`                            | Leaf area index (m2/m2)                     | VIIRS-NPP. Data Period=2020. Data frequency=Daily, interpolated from original 8-day product. ([Myneni 2018](https://doi.org/10.5067/VIIRS/VNP15A2H.001)). Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
-| `canfrac`                          | Canopy fraction (dimensionless)             | Based on [VIIRS GVF-NPP](https://www.star.nesdis.noaa.gov/jpss/gvf.php). Data Period=2020. Data frequency=Monthly. |
+| `canfrac`                          | Canopy fraction (dimensionless)             | Based on [MODIS VCF](https://doi.org/10.5067/MODIS/MOD44B.061). Data Period=2020. Data frequency=Annual. Extended globally for high latitudes using methods described [here](https://gmuedu-my.sharepoint.com/:w:/g/personal/whung_gmu_edu/EdglXmW2kzBDtDj1xV0alGcB1Yo2I8hzdyWGVGB2YOTfgw). |
 | `pavd`                           | Plant area volume density (m2/m3)           | [GEDI product from North Arizona University](https://goetzlab.rc.nau.edu/index.php/gedi/). Data Period=201904-202212 Climatology. Data frequency=Annual. Three dimensional structure of plant area volume density with 14 vertical layers from the surface (0 m) to 70 m above ground level. Data at each layer represents the average pavd within certain height range (e.g. 0 - 5 m for first layer). |
 | `lev`                            | Height AGL for levels associated with optional pavd (or other canopy profile) inputs (m)                                  | Same as for GEDI PAVD (or other canopy profile inputs) above                                    |
 | **Other External Variables**     | **Variable Description and Units**          | **Data Source/Reference (if necessary)**           |
@@ -164,26 +173,11 @@ The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variab
 
 **More Information on Data Sources from [Table 2](#table-2-canopy-app-required-input-variables):**
 
-**Downloading GFS Files from AWS:** NOAA's hourly global GFS, gridded (at ~13x13 km resolution) data may be downloaded publicly from the following Amazon Web Service (AWS) S3 location:
-```
-https://nacc-in-the-cloud.s3.amazonaws.com/inputs/YYYYMMDD/gfs.t12z.sfcfHHH.nc
-```
-Where HHH pertains to the hour of the 24-hr forecast (e.g., f000 is initialization).  
-Example download command using wget:
-```
-wget --no-check-certificate --no-proxy https://nacc-in-the-cloud.s3.amazonaws.com/inputs/20230215/gfs.t12z.sfcf000.nc
-```
-Hourly gridded GFSv16 data is available on AWS from March 23, 2021 - Current Day.
+**Global GFS meteorological and canopy files may be provided by request: `Patrick.C.Campbell@noaa.gov`**
+
+Hourly gridded GFSv16 data is available from March 23, 2021 - Current Day and is supplemented by calculated and canopy parameters shown in Table 2.
 
 **GriddingMachine:** GriddingMachine is open source database and software for Earth system modeling at global and regional scales.  Data is easily accessible in consistent formats for ease of downloading/processing.  All available datasets may be found at:  https://github.com/CliMA/GriddingMachine.jl. ([Wang et al., 2022](https://doi.org/10.1038/s41597-022-01346-x)).
-
-**Downloading Example Canopy Files from AWS:** Example monthly, global gridded files containing all GFSv16 met/land/soil data from 2022 combined with external canopy and other external variables (regridded to GFSv16 13 km resolution) described above may also be downloaded via AWS S3 location:
-```
-https://nacc-in-the-cloud.s3.amazonaws.com/inputs/geo-files/gfs.canopy.t12z.2022MMDD.sfcf000.nc
-```
-
-You can also [generate global inputs using Python (see python/global_data_process.py)](./python/README.md).
-
 
 ### Table 3. Current User Namelist Options
 
@@ -208,7 +202,7 @@ You can also [generate global inputs using Python (see python/global_data_proces
 | `pavd_opt`      | integer for choosing to use GEDI 3D input PAVD profiles instead of prescribed plant distribution functions (= `0`, default, off) or (= `1`, on);  Note: To use this option, must set `var3d_set= `1`, and the 3D pavd variable must be available in the input NetCDF file (i.e., `file_vars`) or in new auxilliary 3D PAVD text file  |
 | `pavd_set`      | real value for +/- latitude threshold within to use observed GEDI 3D PAVD profiles instead of prescribed plant distribution functions.  Used only if `pavd_opt=1`.  Default  = 52.0 degrees latitude.   |
 |                 | **Canopy model vertical layers**                                                   |
-| `modlays`       | number of model (below and above canopy) layers                                    |
+| `modlays`       | number of model (below and above canopy) layers. Strongly recommend adjusting this in accordance with `modres` option below to maintain canopy model column extension above tallest canopies in simulation domain (e.g.,for a 50 meter column simulation, a user could use 1000 modlays @ 0.05 m resolution,  100 modlays @ 0.5 m resolution, 50 modlays @ 1.0 m resolution, etc.                                     |
 | `modres`        | above and below canopy model vertical resolution (m)                               |
 |                 | **Contiguous canopy model thresholds**                                             |
 | `lai_thresh`    | user-set real value of LAI threshold for contiguous canopy (m2/m2)                 |
@@ -244,11 +238,19 @@ You can also [generate global inputs using Python (see python/global_data_proces
 |                 | **Canopy biogenic emissions-specific options**                                     |
 | `ifcanbio`      | logical canopy biogenic emissions option (default: `.FALSE.`)                      |
 | `bio_cce`       | user-set real value of MEGAN biogenic emissions "canopy environment coefficient" used to tune emissions to model inputs/calculations (default: `0.21`, based on Silva et al. 2020) |
+| `biospec_opt`   | user set option to select species for NetCDF biogenic emissions output (`0`: all species; `1-19`: one species selected according to ID number - Table 1) (default: 0; ID number for single species selection only used if `infmt_opt=0`)        |
 | `biovert_opt`   | user set biogenic vertical summing option (`0`: no sum, full leaf-level biogenic emissions, units=kg/m3/s; `1`: MEGANv3-like summing of LAD weighted activity coefficients using the canopy-app plant distributions, caution-- units=kg m-2 s-1 and puts the total emissions in the topmost canopy-app model layer only; `2`: Same as in option 1, but instead uses Gaussian/normally weighted activity coefficients acoss all sub-canopy layers -- also units of kg m-2 s-1 in topmost model layer; `3`: Same as in option 1, but instead uses evenly weighted activity coefficients acoss all sub-canopy layers -- also units of kg m-2 s-1 in topmost model layer          |
+| `loss_opt`      | user set option to apply a canopy loss factor when the vertical summing option is used (`biovert_opt >= 1`) to facilitate comparison of top-of-canopy BVOC emissions with ground flux observations.  (`0`: no loss factor applied, `1`: loss factor calculated based on Eq. 21 of [Guenther et al. (2006)](www.atmos-chem-phys.net/6/3181/2006/) based on the formulation and empirical parameters for isoprene, `2`: constant user set factor applied with `loss_set` below, Note:  The loss factor can be applied to all or any single biogenic species (using `loss_ind` below), and caution must be used for other BVOC species besides isoprene.  User may adjust the variable chemical lifetime (`lifetime`, default = 3600 s taken for approximate isoprene lifetime) below and re-run to target other specific BVOC species flux observation comparisons.   |
+| `loss_set`      | Set default value for constant canopy loss factor applied used when `loss_opt=2` (Default = 0.96 based on Guenther et al. (2006)  |
+| `loss_ind`      | Set default integer for applying canopy loss factor to all species (=0) or only specific biogenics species specific indice (> 0) based on Table 1 above (e.g., 1 = Isoprene, 2 = Myrcene, etc.)   |
+| `lifetime`      | user-set real value of chemical lifetime (in seconds) used when `loss_opt=1`.  Default = 3600 s based on approximate above canopy isoprene lifeftime of 1 hour.   |
 | `co2_opt`       | user-set options for applying a CO2 inhibition factor for biogenic isoprene-only emissions using either the [Possell & Hewitt (2011)](https://doi.org/10.1111/j.1365-2486.2010.02306.x) (= `0`, default) or [Wilkinson et al. (2009)](https://doi.org/10.1111/j.1365-2486.2008.01803.x) method (= `1`). Use of option = `1` (Possell & Hewitt 2011) is especially recommended for sub-ambient CO2 concentrations.  To turn off co2 inhibition factor set `co2_opt=2`  |
 | `co2_set`       | user-set real value of atmospheric co2 concentration (ppmv) (only used if `co2_opt=0` or `co2_opt=1`) |
 | `leafage_opt`   | user-set options for applying leaf-age response to biogenic VOC emissions based on [Guenther et al. 2006](https://doi.org/10.5194/acp-6-3181-2006) (default is off i.e., `leafage_opt=1`, the corresponding $\gamma$ is set to 1). If turned on (`leafage_opt=0`), leafage $\gamma$ is calculated and the lai_tstep option needs to be set to ensure correct interpolation in this leafage_opt calculation. |
 | `lai_tstep`     | user-defined options for the number of seconds in the interval at which LAI (Leaf Area Index) data is provided to the model. For instance, if LAI data is given on a daily basis, lai_tstep would be set to the number of seconds in a day (86,400 seconds). If LAI data is provided monthly, then lai_tstep would represent the total number of seconds in that month (e.g., 2,592,000 seconds for a 30-day month). This parameter helps in determining the frequency of LAI input and is crucial for interpolating LAI values to the model's hourly timesteps when the model's timestep (time_intvl) is smaller than the LAI input interval.  |
+| `hist_opt`      | user-set option to use historically averaged short-term (24-hr) and long-term (240-hr) rolling averages for leaf temperature and PAR for biogenic emissions  (default is off i.e., `hist_opt=0`)  Note: If simulation is </= 24 hours, instantaneous values for leaf temperature and PAR will be used even if historical averaging is turned on (i.e., `hist_opt=1`).  Recommend turning on `hist_opt=1` and running at least for 25 hours to create a model spin-up, and use subsequent simulation hours for analysis. Overall a 10-day (240 hr) spinup is optimal for best analysis of biogenic emissions. |
+| `soim_opt`   | user-set options for applying soil moisture response to biogenic VOC emissions based on [Guenther et al. 2006](https://doi.org/10.5194/acp-6-3181-2006), which depends on input soil moisture at depth and the wilting point.  This includes additional PFT dependent approach for cumulative root fraction within each soil layer from [Zeng (2001)](https://doi.org/10.1175/1525-7541(2001)002<0525:GVRDFL>2.0.CO;2). (default is off i.e., `soim_opt=1`, the corresponding $\gamma$ is set to 1). If turned on (`soim_opt=0`), which is recommended, soim $\gamma$ is calculated and the prescribed 4-layer soil depths (`soild[1-4]` below) are used.  Four layers are assumed, and are based on GFS Noah and Noah-MP LSM. |
+| `soild[1-4]` | user-set real values of four level soil depths at centerpoint (cm).  Four layers are based on the GFS Noah and Noah-MP LSM, default values are `soild1=5.0`, `soild2=25.0`, `soild3=70.0`, and  `soild4=150.0`. |
 
 **\*\*** If `modres` >> `flameh` then some error in WAF calculation will be incurred.  Suggestion is to use relative fine `modres` (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
 

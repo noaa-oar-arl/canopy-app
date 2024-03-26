@@ -6,7 +6,7 @@ contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     SUBROUTINE CANOPY_BIOP( EMI_IND, LU_OPT, VTYPE, &
-        EF, CT1, CEO, ANEW, AGRO, AMAT, AOLD)
+        EF, CT1, CEO, ANEW, AGRO, AMAT, AOLD, ROOTA, ROOTB)
 
 !-----------------------------------------------------------------------
 
@@ -42,6 +42,7 @@ contains
         REAL(RK),    INTENT( OUT )      :: CT1             ! Out Activation energy (kJ/mol)
         REAL(RK),    INTENT( OUT )      :: CEO             ! Out Empirical coefficient
         REAL(RK),    INTENT( OUT )      :: ANEW, AGRO, AMAT, AOLD   !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, as per Table 4 of Guenther et al., 2012
+        REAL(RK),    INTENT( OUT )      :: ROOTA, ROOTB    ! Coefficients A and B used for PFT dependent cumulative root depth fraction [m-1]
 
 !  LOCAL
         REAL(RK) :: EF1,EF2,EF3,EF4,EF5,EF6,EF7    ! Plant Emission factors (EF) (ug/m2 hr)
@@ -532,6 +533,9 @@ contains
         REAL(RK),          PARAMETER     :: CT1_OVOC         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_OVOC         =  1.83_rk    !Empirical coefficient
 
+
+
+
 ! Set tree and species dependent coefficients
         if (EMI_IND .eq. 1 ) then
             CT1  = CT1_ISOP
@@ -960,53 +964,93 @@ contains
                 !--> Average Needleleaf Evergreen Temperate Tree and Needleleaf Evergreen Boreal Tree
 
                 EF = (EF1+EF2)/2.0_rk
+                !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
+                !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+                ROOTA = 6.706_rk
+                ROOTB = 2.175_rk
 
             else if (VTYPE .eq. 2) then !VIIRS/MODIS Cat 2 Evergreen Broadleaf
                 !--> Average Broadleaf Evergreen Tropical Tree and Broadleaf Evergreen Temperate Tree
 
                 EF = (EF4+EF5)/2.0_rk
+                !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
+                !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+                ROOTA = 7.344_rk
+                ROOTB = 1.303_rk
 
             else if (VTYPE .eq. 3) then !VIIRS/MODIS Cat 3 Deciduous Needleaf
                 !--> Average Needleleaf Deciduous Boreal Tree
 
                 EF = EF3
+                !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
+                !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+                ROOTA = 7.066_rk
+                ROOTB = 1.953_rk
 
             else if (VTYPE .eq. 4) then !VIIRS/MODIS Cat 4 Deciduous Broadleaf
                 !--> Average Broadleaf Deciduous Tropical Tree, Broadleaf Deciduous Temperate Tree,
                 ! and Broadleaf Deciduous Boreal Tree
 
                 EF = (EF6+EF7+EF8)/3.0_rk
+                !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
+                !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+                ROOTA = 5.990_rk
+                ROOTB = 1.955_rk
 
             else if (VTYPE .eq. 5) then !VIIRS/MODIS Cat 5 Mixed forests
                 !--> Avearge of all above EF1-EF8 PFTs.
 
                 EF = (EF1+EF2+EF3+EF4+EF5+EF6+EF7+EF8)/8.0_rk
+                !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
+                !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+                ROOTA = 4.453_rk
+                ROOTB = 1.631_rk
 
             else if (VTYPE .ge. 6 .and. VTYPE .le. 7) then !VIIRS/MODIS Cat 6-7 Closed/Open Shrublands
                 !--> Avearge Broadleaf Evergreen Temperate Shrub, Broadleaf Deciduous Temperate Shrub,
                 ! and Broadleaf Deciduous Boreal Shrub
 
                 EF = (EF9+EF10+EF11)/3.0_rk
+                !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
+                !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+                ROOTA = (6.326_rk + 7.718_rk)/2.0_rk
+                ROOTB = (1.567_rk + 1.262_rk)/2.0_rk
 
             else if (VTYPE .ge. 8 .and. VTYPE .le. 10) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
                 !--> Avearge Arctic C3 Grass, Cool C3 Grass, Warm C4 Grass)
 
                 EF = (EF12+EF13+EF14)/3.0_rk
+                !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
+                !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+                ROOTA = (7.604_rk + 8.235_rk + 10.74_rk)/3.0_rk
+                ROOTB = (2.300_rk + 1.627_rk + 2.608_rk)/3.0_rk
 
             else if (VTYPE .eq. 12 ) then !VIIRS/MODIS Cat 12 Croplands
                 !--> Crop1
 
                 EF = EF15
+                !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
+                !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+                ROOTA = 5.558_rk
+                ROOTB = 2.614_rk
 
             else if (VTYPE .eq. 14 ) then !VIIRS/MODIS Cat 14 Croplands/Natural Mosaic
                 !--> Crop1
 
                 EF = EF15
+                !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
+                !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+                ROOTA = 5.558_rk
+                ROOTB = 2.614_rk
 
             else if (VTYPE .ge. 18 .and. VTYPE .le. 19) then !VIIRS/MODIS Cat 18-19 Wooded/Mixed Tundra
                 !--> Crop1
 
                 EF = (EF9+EF10+EF11)/3.0_rk  !Assume EF for wooded/mixed tundra = shrublands above
+                !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
+                !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+                ROOTA = (6.326_rk + 7.718_rk)/2.0_rk
+                ROOTB = (1.567_rk + 1.262_rk)/2.0_rk
 
             else
 

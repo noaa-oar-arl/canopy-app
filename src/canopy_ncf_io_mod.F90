@@ -351,7 +351,8 @@ CONTAINS
         g_time%fillvalue = fillreal
         g_time%dimnames(1) = 'ntime'
         g_time%istart(1) = 1
-        g_time%iend(1) = ntime
+!        g_time%iend(1) = ntime
+        g_time%iend(1) = 1
 
         !-------------------------------------------------------------------------------
         ! Time-varying 2d fields at cell centers.
@@ -397,6 +398,21 @@ CONTAINS
         !-------------------------------------------------------------------------------
         ! Time-varying 3d fields at cell centers.
         !-------------------------------------------------------------------------------
+        c_lad%fld = fillreal
+        c_lad%fldname = 'lad'
+        c_lad%long_name = 'leaf area density'
+        c_lad%units = 'm2 m-3'
+        c_lad%fillvalue = fillreal
+        c_lad%dimnames(1) = 'nlon'
+        c_lad%dimnames(2) = 'nlat'
+        c_lad%dimnames(3) = 'modlays'
+        c_lad%istart(1) = 1
+        c_lad%istart(2) = 1
+        c_lad%istart(3) = 1
+        c_lad%iend(1) = nlon
+        c_lad%iend(2) = nlat
+        c_lad%iend(3) = modlays
+
         if (ifcanwind .or. ifcanwaf) then
             c_canwind%fld = fillreal
             c_canwind%fldname = 'ws'
@@ -446,290 +462,328 @@ CONTAINS
             c_rjcf%iend(3) = modlays
         end if
         if (ifcanbio) then
-            c_emi_isop%fld = fillreal
-            c_emi_isop%fldname = 'emi_isop'
-            c_emi_isop%long_name = 'biogenic isoprene emissions'
-            c_emi_isop%units = 'kg m-3 s-1'
-            c_emi_isop%fillvalue = fillreal
-            c_emi_isop%dimnames(1) = 'nlon'
-            c_emi_isop%dimnames(2) = 'nlat'
-            c_emi_isop%dimnames(3) = 'nlays'
-            c_emi_isop%istart(1) = 1
-            c_emi_isop%istart(2) = 1
-            c_emi_isop%istart(3) = 1
-            c_emi_isop%iend(1) = nlon
-            c_emi_isop%iend(2) = nlat
-            c_emi_isop%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 1) then
+                c_emi_isop%fld = fillreal
+                c_emi_isop%fldname = 'emi_isop'
+                c_emi_isop%long_name = 'biogenic isoprene emissions'
+                c_emi_isop%units = 'kg m-3 s-1'
+                c_emi_isop%fillvalue = fillreal
+                c_emi_isop%dimnames(1) = 'nlon'
+                c_emi_isop%dimnames(2) = 'nlat'
+                c_emi_isop%dimnames(3) = 'nlays'
+                c_emi_isop%istart(1) = 1
+                c_emi_isop%istart(2) = 1
+                c_emi_isop%istart(3) = 1
+                c_emi_isop%iend(1) = nlon
+                c_emi_isop%iend(2) = nlat
+                c_emi_isop%iend(3) = modlays
+            end if
 
-            c_emi_myrc%fld = fillreal
-            c_emi_myrc%fldname = 'emi_myrc'
-            c_emi_myrc%long_name = 'biogenic myrcene emissions'
-            c_emi_myrc%units = 'kg m-3 s-1'
-            c_emi_myrc%fillvalue = fillreal
-            c_emi_myrc%dimnames(1) = 'nlon'
-            c_emi_myrc%dimnames(2) = 'nlat'
-            c_emi_myrc%dimnames(3) = 'nlays'
-            c_emi_myrc%istart(1) = 1
-            c_emi_myrc%istart(2) = 1
-            c_emi_myrc%istart(3) = 1
-            c_emi_myrc%iend(1) = nlon
-            c_emi_myrc%iend(2) = nlat
-            c_emi_myrc%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 2) then
+                c_emi_myrc%fld = fillreal
+                c_emi_myrc%fldname = 'emi_myrc'
+                c_emi_myrc%long_name = 'biogenic myrcene emissions'
+                c_emi_myrc%units = 'kg m-3 s-1'
+                c_emi_myrc%fillvalue = fillreal
+                c_emi_myrc%dimnames(1) = 'nlon'
+                c_emi_myrc%dimnames(2) = 'nlat'
+                c_emi_myrc%dimnames(3) = 'nlays'
+                c_emi_myrc%istart(1) = 1
+                c_emi_myrc%istart(2) = 1
+                c_emi_myrc%istart(3) = 1
+                c_emi_myrc%iend(1) = nlon
+                c_emi_myrc%iend(2) = nlat
+                c_emi_myrc%iend(3) = modlays
+            end if
 
-            c_emi_sabi%fld = fillreal
-            c_emi_sabi%fldname = 'emi_sabi'
-            c_emi_sabi%long_name = 'biogenic sabinene emissions'
-            c_emi_sabi%units = 'kg m-3 s-1'
-            c_emi_sabi%fillvalue = fillreal
-            c_emi_sabi%dimnames(1) = 'nlon'
-            c_emi_sabi%dimnames(2) = 'nlat'
-            c_emi_sabi%dimnames(3) = 'nlays'
-            c_emi_sabi%istart(1) = 1
-            c_emi_sabi%istart(2) = 1
-            c_emi_sabi%istart(3) = 1
-            c_emi_sabi%iend(1) = nlon
-            c_emi_sabi%iend(2) = nlat
-            c_emi_sabi%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 3) then
+                c_emi_sabi%fld = fillreal
+                c_emi_sabi%fldname = 'emi_sabi'
+                c_emi_sabi%long_name = 'biogenic sabinene emissions'
+                c_emi_sabi%units = 'kg m-3 s-1'
+                c_emi_sabi%fillvalue = fillreal
+                c_emi_sabi%dimnames(1) = 'nlon'
+                c_emi_sabi%dimnames(2) = 'nlat'
+                c_emi_sabi%dimnames(3) = 'nlays'
+                c_emi_sabi%istart(1) = 1
+                c_emi_sabi%istart(2) = 1
+                c_emi_sabi%istart(3) = 1
+                c_emi_sabi%iend(1) = nlon
+                c_emi_sabi%iend(2) = nlat
+                c_emi_sabi%iend(3) = modlays
+            end if
 
-            c_emi_limo%fld = fillreal
-            c_emi_limo%fldname = 'emi_limo'
-            c_emi_limo%long_name = 'biogenic limonene emissions'
-            c_emi_limo%units = 'kg m-3 s-1'
-            c_emi_limo%fillvalue = fillreal
-            c_emi_limo%dimnames(1) = 'nlon'
-            c_emi_limo%dimnames(2) = 'nlat'
-            c_emi_limo%dimnames(3) = 'nlays'
-            c_emi_limo%istart(1) = 1
-            c_emi_limo%istart(2) = 1
-            c_emi_limo%istart(3) = 1
-            c_emi_limo%iend(1) = nlon
-            c_emi_limo%iend(2) = nlat
-            c_emi_limo%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 4) then
+                c_emi_limo%fld = fillreal
+                c_emi_limo%fldname = 'emi_limo'
+                c_emi_limo%long_name = 'biogenic limonene emissions'
+                c_emi_limo%units = 'kg m-3 s-1'
+                c_emi_limo%fillvalue = fillreal
+                c_emi_limo%dimnames(1) = 'nlon'
+                c_emi_limo%dimnames(2) = 'nlat'
+                c_emi_limo%dimnames(3) = 'nlays'
+                c_emi_limo%istart(1) = 1
+                c_emi_limo%istart(2) = 1
+                c_emi_limo%istart(3) = 1
+                c_emi_limo%iend(1) = nlon
+                c_emi_limo%iend(2) = nlat
+                c_emi_limo%iend(3) = modlays
+            end if
 
-            c_emi_care%fld = fillreal
-            c_emi_care%fldname = 'emi_care'
-            c_emi_care%long_name = 'biogenic 3-carene emissions'
-            c_emi_care%units = 'kg m-3 s-1'
-            c_emi_care%fillvalue = fillreal
-            c_emi_care%dimnames(1) = 'nlon'
-            c_emi_care%dimnames(2) = 'nlat'
-            c_emi_care%dimnames(3) = 'nlays'
-            c_emi_care%istart(1) = 1
-            c_emi_care%istart(2) = 1
-            c_emi_care%istart(3) = 1
-            c_emi_care%iend(1) = nlon
-            c_emi_care%iend(2) = nlat
-            c_emi_care%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 5) then
+                c_emi_care%fld = fillreal
+                c_emi_care%fldname = 'emi_care'
+                c_emi_care%long_name = 'biogenic 3-carene emissions'
+                c_emi_care%units = 'kg m-3 s-1'
+                c_emi_care%fillvalue = fillreal
+                c_emi_care%dimnames(1) = 'nlon'
+                c_emi_care%dimnames(2) = 'nlat'
+                c_emi_care%dimnames(3) = 'nlays'
+                c_emi_care%istart(1) = 1
+                c_emi_care%istart(2) = 1
+                c_emi_care%istart(3) = 1
+                c_emi_care%iend(1) = nlon
+                c_emi_care%iend(2) = nlat
+                c_emi_care%iend(3) = modlays
+            end if
 
-            c_emi_ocim%fld = fillreal
-            c_emi_ocim%fldname = 'emi_ocim'
-            c_emi_ocim%long_name = 'biogenic t-beta-ocimene emissions'
-            c_emi_ocim%units = 'kg m-3 s-1'
-            c_emi_ocim%fillvalue = fillreal
-            c_emi_ocim%dimnames(1) = 'nlon'
-            c_emi_ocim%dimnames(2) = 'nlat'
-            c_emi_ocim%dimnames(3) = 'nlays'
-            c_emi_ocim%istart(1) = 1
-            c_emi_ocim%istart(2) = 1
-            c_emi_ocim%istart(3) = 1
-            c_emi_ocim%iend(1) = nlon
-            c_emi_ocim%iend(2) = nlat
-            c_emi_ocim%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 6) then
+                c_emi_ocim%fld = fillreal
+                c_emi_ocim%fldname = 'emi_ocim'
+                c_emi_ocim%long_name = 'biogenic t-beta-ocimene emissions'
+                c_emi_ocim%units = 'kg m-3 s-1'
+                c_emi_ocim%fillvalue = fillreal
+                c_emi_ocim%dimnames(1) = 'nlon'
+                c_emi_ocim%dimnames(2) = 'nlat'
+                c_emi_ocim%dimnames(3) = 'nlays'
+                c_emi_ocim%istart(1) = 1
+                c_emi_ocim%istart(2) = 1
+                c_emi_ocim%istart(3) = 1
+                c_emi_ocim%iend(1) = nlon
+                c_emi_ocim%iend(2) = nlat
+                c_emi_ocim%iend(3) = modlays
+            end if
 
-            c_emi_bpin%fld = fillreal
-            c_emi_bpin%fldname = 'emi_bpin'
-            c_emi_bpin%long_name = 'biogenic beta-pinene emissions'
-            c_emi_bpin%units = 'kg m-3 s-1'
-            c_emi_bpin%fillvalue = fillreal
-            c_emi_bpin%dimnames(1) = 'nlon'
-            c_emi_bpin%dimnames(2) = 'nlat'
-            c_emi_bpin%dimnames(3) = 'nlays'
-            c_emi_bpin%istart(1) = 1
-            c_emi_bpin%istart(2) = 1
-            c_emi_bpin%istart(3) = 1
-            c_emi_bpin%iend(1) = nlon
-            c_emi_bpin%iend(2) = nlat
-            c_emi_bpin%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 7) then
+                c_emi_bpin%fld = fillreal
+                c_emi_bpin%fldname = 'emi_bpin'
+                c_emi_bpin%long_name = 'biogenic beta-pinene emissions'
+                c_emi_bpin%units = 'kg m-3 s-1'
+                c_emi_bpin%fillvalue = fillreal
+                c_emi_bpin%dimnames(1) = 'nlon'
+                c_emi_bpin%dimnames(2) = 'nlat'
+                c_emi_bpin%dimnames(3) = 'nlays'
+                c_emi_bpin%istart(1) = 1
+                c_emi_bpin%istart(2) = 1
+                c_emi_bpin%istart(3) = 1
+                c_emi_bpin%iend(1) = nlon
+                c_emi_bpin%iend(2) = nlat
+                c_emi_bpin%iend(3) = modlays
+            end if
 
-            c_emi_apin%fld = fillreal
-            c_emi_apin%fldname = 'emi_apin'
-            c_emi_apin%long_name = 'biogenic alpha-pinene emissions'
-            c_emi_apin%units = 'kg m-3 s-1'
-            c_emi_apin%fillvalue = fillreal
-            c_emi_apin%dimnames(1) = 'nlon'
-            c_emi_apin%dimnames(2) = 'nlat'
-            c_emi_apin%dimnames(3) = 'nlays'
-            c_emi_apin%istart(1) = 1
-            c_emi_apin%istart(2) = 1
-            c_emi_apin%istart(3) = 1
-            c_emi_apin%iend(1) = nlon
-            c_emi_apin%iend(2) = nlat
-            c_emi_apin%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 8) then
+                c_emi_apin%fld = fillreal
+                c_emi_apin%fldname = 'emi_apin'
+                c_emi_apin%long_name = 'biogenic alpha-pinene emissions'
+                c_emi_apin%units = 'kg m-3 s-1'
+                c_emi_apin%fillvalue = fillreal
+                c_emi_apin%dimnames(1) = 'nlon'
+                c_emi_apin%dimnames(2) = 'nlat'
+                c_emi_apin%dimnames(3) = 'nlays'
+                c_emi_apin%istart(1) = 1
+                c_emi_apin%istart(2) = 1
+                c_emi_apin%istart(3) = 1
+                c_emi_apin%iend(1) = nlon
+                c_emi_apin%iend(2) = nlat
+                c_emi_apin%iend(3) = modlays
+            end if
 
-            c_emi_mono%fld = fillreal
-            c_emi_mono%fldname = 'emi_mono'
-            c_emi_mono%long_name = 'biogenic other monoterpene emissions'
-            c_emi_mono%units = 'kg m-3 s-1'
-            c_emi_mono%fillvalue = fillreal
-            c_emi_mono%dimnames(1) = 'nlon'
-            c_emi_mono%dimnames(2) = 'nlat'
-            c_emi_mono%dimnames(3) = 'nlays'
-            c_emi_mono%istart(1) = 1
-            c_emi_mono%istart(2) = 1
-            c_emi_mono%istart(3) = 1
-            c_emi_mono%iend(1) = nlon
-            c_emi_mono%iend(2) = nlat
-            c_emi_mono%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 9) then
+                c_emi_mono%fld = fillreal
+                c_emi_mono%fldname = 'emi_mono'
+                c_emi_mono%long_name = 'biogenic other monoterpene emissions'
+                c_emi_mono%units = 'kg m-3 s-1'
+                c_emi_mono%fillvalue = fillreal
+                c_emi_mono%dimnames(1) = 'nlon'
+                c_emi_mono%dimnames(2) = 'nlat'
+                c_emi_mono%dimnames(3) = 'nlays'
+                c_emi_mono%istart(1) = 1
+                c_emi_mono%istart(2) = 1
+                c_emi_mono%istart(3) = 1
+                c_emi_mono%iend(1) = nlon
+                c_emi_mono%iend(2) = nlat
+                c_emi_mono%iend(3) = modlays
+            end if
 
-            c_emi_farn%fld = fillreal
-            c_emi_farn%fldname = 'emi_farn'
-            c_emi_farn%long_name = 'biogenic alpha-farnesene emissions'
-            c_emi_farn%units = 'kg m-3 s-1'
-            c_emi_farn%fillvalue = fillreal
-            c_emi_farn%dimnames(1) = 'nlon'
-            c_emi_farn%dimnames(2) = 'nlat'
-            c_emi_farn%dimnames(3) = 'nlays'
-            c_emi_farn%istart(1) = 1
-            c_emi_farn%istart(2) = 1
-            c_emi_farn%istart(3) = 1
-            c_emi_farn%iend(1) = nlon
-            c_emi_farn%iend(2) = nlat
-            c_emi_farn%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 10) then
+                c_emi_farn%fld = fillreal
+                c_emi_farn%fldname = 'emi_farn'
+                c_emi_farn%long_name = 'biogenic alpha-farnesene emissions'
+                c_emi_farn%units = 'kg m-3 s-1'
+                c_emi_farn%fillvalue = fillreal
+                c_emi_farn%dimnames(1) = 'nlon'
+                c_emi_farn%dimnames(2) = 'nlat'
+                c_emi_farn%dimnames(3) = 'nlays'
+                c_emi_farn%istart(1) = 1
+                c_emi_farn%istart(2) = 1
+                c_emi_farn%istart(3) = 1
+                c_emi_farn%iend(1) = nlon
+                c_emi_farn%iend(2) = nlat
+                c_emi_farn%iend(3) = modlays
+            end if
 
-            c_emi_cary%fld = fillreal
-            c_emi_cary%fldname = 'emi_cary'
-            c_emi_cary%long_name = 'biogenic beta-caryophyllene emissions'
-            c_emi_cary%units = 'kg m-3 s-1'
-            c_emi_cary%fillvalue = fillreal
-            c_emi_cary%dimnames(1) = 'nlon'
-            c_emi_cary%dimnames(2) = 'nlat'
-            c_emi_cary%dimnames(3) = 'nlays'
-            c_emi_cary%istart(1) = 1
-            c_emi_cary%istart(2) = 1
-            c_emi_cary%istart(3) = 1
-            c_emi_cary%iend(1) = nlon
-            c_emi_cary%iend(2) = nlat
-            c_emi_cary%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 11) then
+                c_emi_cary%fld = fillreal
+                c_emi_cary%fldname = 'emi_cary'
+                c_emi_cary%long_name = 'biogenic beta-caryophyllene emissions'
+                c_emi_cary%units = 'kg m-3 s-1'
+                c_emi_cary%fillvalue = fillreal
+                c_emi_cary%dimnames(1) = 'nlon'
+                c_emi_cary%dimnames(2) = 'nlat'
+                c_emi_cary%dimnames(3) = 'nlays'
+                c_emi_cary%istart(1) = 1
+                c_emi_cary%istart(2) = 1
+                c_emi_cary%istart(3) = 1
+                c_emi_cary%iend(1) = nlon
+                c_emi_cary%iend(2) = nlat
+                c_emi_cary%iend(3) = modlays
+            end if
 
-            c_emi_sesq%fld = fillreal
-            c_emi_sesq%fldname = 'emi_sesq'
-            c_emi_sesq%long_name = 'biogenic other sesquiterpene emissions'
-            c_emi_sesq%units = 'kg m-3 s-1'
-            c_emi_sesq%fillvalue = fillreal
-            c_emi_sesq%dimnames(1) = 'nlon'
-            c_emi_sesq%dimnames(2) = 'nlat'
-            c_emi_sesq%dimnames(3) = 'nlays'
-            c_emi_sesq%istart(1) = 1
-            c_emi_sesq%istart(2) = 1
-            c_emi_sesq%istart(3) = 1
-            c_emi_sesq%iend(1) = nlon
-            c_emi_sesq%iend(2) = nlat
-            c_emi_sesq%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 12) then
+                c_emi_sesq%fld = fillreal
+                c_emi_sesq%fldname = 'emi_sesq'
+                c_emi_sesq%long_name = 'biogenic other sesquiterpene emissions'
+                c_emi_sesq%units = 'kg m-3 s-1'
+                c_emi_sesq%fillvalue = fillreal
+                c_emi_sesq%dimnames(1) = 'nlon'
+                c_emi_sesq%dimnames(2) = 'nlat'
+                c_emi_sesq%dimnames(3) = 'nlays'
+                c_emi_sesq%istart(1) = 1
+                c_emi_sesq%istart(2) = 1
+                c_emi_sesq%istart(3) = 1
+                c_emi_sesq%iend(1) = nlon
+                c_emi_sesq%iend(2) = nlat
+                c_emi_sesq%iend(3) = modlays
+            end if
 
-            c_emi_mbol%fld = fillreal
-            c_emi_mbol%fldname = 'emi_mbol'
-            c_emi_mbol%long_name = 'biogenic 232-MBO emissions'
-            c_emi_mbol%units = 'kg m-3 s-1'
-            c_emi_mbol%fillvalue = fillreal
-            c_emi_mbol%dimnames(1) = 'nlon'
-            c_emi_mbol%dimnames(2) = 'nlat'
-            c_emi_mbol%dimnames(3) = 'nlays'
-            c_emi_mbol%istart(1) = 1
-            c_emi_mbol%istart(2) = 1
-            c_emi_mbol%istart(3) = 1
-            c_emi_mbol%iend(1) = nlon
-            c_emi_mbol%iend(2) = nlat
-            c_emi_mbol%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 13) then
+                c_emi_mbol%fld = fillreal
+                c_emi_mbol%fldname = 'emi_mbol'
+                c_emi_mbol%long_name = 'biogenic 232-MBO emissions'
+                c_emi_mbol%units = 'kg m-3 s-1'
+                c_emi_mbol%fillvalue = fillreal
+                c_emi_mbol%dimnames(1) = 'nlon'
+                c_emi_mbol%dimnames(2) = 'nlat'
+                c_emi_mbol%dimnames(3) = 'nlays'
+                c_emi_mbol%istart(1) = 1
+                c_emi_mbol%istart(2) = 1
+                c_emi_mbol%istart(3) = 1
+                c_emi_mbol%iend(1) = nlon
+                c_emi_mbol%iend(2) = nlat
+                c_emi_mbol%iend(3) = modlays
+            end if
 
-            c_emi_meth%fld = fillreal
-            c_emi_meth%fldname = 'emi_meth'
-            c_emi_meth%long_name = 'biogenic methanol emissions'
-            c_emi_meth%units = 'kg m-3 s-1'
-            c_emi_meth%fillvalue = fillreal
-            c_emi_meth%dimnames(1) = 'nlon'
-            c_emi_meth%dimnames(2) = 'nlat'
-            c_emi_meth%dimnames(3) = 'nlays'
-            c_emi_meth%istart(1) = 1
-            c_emi_meth%istart(2) = 1
-            c_emi_meth%istart(3) = 1
-            c_emi_meth%iend(1) = nlon
-            c_emi_meth%iend(2) = nlat
-            c_emi_meth%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 14) then
+                c_emi_meth%fld = fillreal
+                c_emi_meth%fldname = 'emi_meth'
+                c_emi_meth%long_name = 'biogenic methanol emissions'
+                c_emi_meth%units = 'kg m-3 s-1'
+                c_emi_meth%fillvalue = fillreal
+                c_emi_meth%dimnames(1) = 'nlon'
+                c_emi_meth%dimnames(2) = 'nlat'
+                c_emi_meth%dimnames(3) = 'nlays'
+                c_emi_meth%istart(1) = 1
+                c_emi_meth%istart(2) = 1
+                c_emi_meth%istart(3) = 1
+                c_emi_meth%iend(1) = nlon
+                c_emi_meth%iend(2) = nlat
+                c_emi_meth%iend(3) = modlays
+            end if
 
-            c_emi_acet%fld = fillreal
-            c_emi_acet%fldname = 'emi_acet'
-            c_emi_acet%long_name = 'biogenic acetone emissions'
-            c_emi_acet%units = 'kg m-3 s-1'
-            c_emi_acet%fillvalue = fillreal
-            c_emi_acet%dimnames(1) = 'nlon'
-            c_emi_acet%dimnames(2) = 'nlat'
-            c_emi_acet%dimnames(3) = 'nlays'
-            c_emi_acet%istart(1) = 1
-            c_emi_acet%istart(2) = 1
-            c_emi_acet%istart(3) = 1
-            c_emi_acet%iend(1) = nlon
-            c_emi_acet%iend(2) = nlat
-            c_emi_acet%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 15) then
+                c_emi_acet%fld = fillreal
+                c_emi_acet%fldname = 'emi_acet'
+                c_emi_acet%long_name = 'biogenic acetone emissions'
+                c_emi_acet%units = 'kg m-3 s-1'
+                c_emi_acet%fillvalue = fillreal
+                c_emi_acet%dimnames(1) = 'nlon'
+                c_emi_acet%dimnames(2) = 'nlat'
+                c_emi_acet%dimnames(3) = 'nlays'
+                c_emi_acet%istart(1) = 1
+                c_emi_acet%istart(2) = 1
+                c_emi_acet%istart(3) = 1
+                c_emi_acet%iend(1) = nlon
+                c_emi_acet%iend(2) = nlat
+                c_emi_acet%iend(3) = modlays
+            end if
 
-            c_emi_co%fld = fillreal
-            c_emi_co%fldname = 'emi_co'
-            c_emi_co%long_name = 'biogenic carbon monoxide emissions'
-            c_emi_co%units = 'kg m-3 s-1'
-            c_emi_co%fillvalue = fillreal
-            c_emi_co%dimnames(1) = 'nlon'
-            c_emi_co%dimnames(2) = 'nlat'
-            c_emi_co%dimnames(3) = 'nlays'
-            c_emi_co%istart(1) = 1
-            c_emi_co%istart(2) = 1
-            c_emi_co%istart(3) = 1
-            c_emi_co%iend(1) = nlon
-            c_emi_co%iend(2) = nlat
-            c_emi_co%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 16) then
+                c_emi_co%fld = fillreal
+                c_emi_co%fldname = 'emi_co'
+                c_emi_co%long_name = 'biogenic carbon monoxide emissions'
+                c_emi_co%units = 'kg m-3 s-1'
+                c_emi_co%fillvalue = fillreal
+                c_emi_co%dimnames(1) = 'nlon'
+                c_emi_co%dimnames(2) = 'nlat'
+                c_emi_co%dimnames(3) = 'nlays'
+                c_emi_co%istart(1) = 1
+                c_emi_co%istart(2) = 1
+                c_emi_co%istart(3) = 1
+                c_emi_co%iend(1) = nlon
+                c_emi_co%iend(2) = nlat
+                c_emi_co%iend(3) = modlays
+            end if
 
-            c_emi_bvoc%fld = fillreal
-            c_emi_bvoc%fldname = 'emi_bvoc'
-            c_emi_bvoc%long_name = 'biogenic bidi voc emissions'
-            c_emi_bvoc%units = 'kg m-3 s-1'
-            c_emi_bvoc%fillvalue = fillreal
-            c_emi_bvoc%dimnames(1) = 'nlon'
-            c_emi_bvoc%dimnames(2) = 'nlat'
-            c_emi_bvoc%dimnames(3) = 'nlays'
-            c_emi_bvoc%istart(1) = 1
-            c_emi_bvoc%istart(2) = 1
-            c_emi_bvoc%istart(3) = 1
-            c_emi_bvoc%iend(1) = nlon
-            c_emi_bvoc%iend(2) = nlat
-            c_emi_bvoc%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 17) then
+                c_emi_bvoc%fld = fillreal
+                c_emi_bvoc%fldname = 'emi_bvoc'
+                c_emi_bvoc%long_name = 'biogenic bidi voc emissions'
+                c_emi_bvoc%units = 'kg m-3 s-1'
+                c_emi_bvoc%fillvalue = fillreal
+                c_emi_bvoc%dimnames(1) = 'nlon'
+                c_emi_bvoc%dimnames(2) = 'nlat'
+                c_emi_bvoc%dimnames(3) = 'nlays'
+                c_emi_bvoc%istart(1) = 1
+                c_emi_bvoc%istart(2) = 1
+                c_emi_bvoc%istart(3) = 1
+                c_emi_bvoc%iend(1) = nlon
+                c_emi_bvoc%iend(2) = nlat
+                c_emi_bvoc%iend(3) = modlays
+            end if
 
-            c_emi_svoc%fld = fillreal
-            c_emi_svoc%fldname = 'emi_svoc'
-            c_emi_svoc%long_name = 'biogenic stress voc emissions'
-            c_emi_svoc%units = 'kg m-3 s-1'
-            c_emi_svoc%fillvalue = fillreal
-            c_emi_svoc%dimnames(1) = 'nlon'
-            c_emi_svoc%dimnames(2) = 'nlat'
-            c_emi_svoc%dimnames(3) = 'nlays'
-            c_emi_svoc%istart(1) = 1
-            c_emi_svoc%istart(2) = 1
-            c_emi_svoc%istart(3) = 1
-            c_emi_svoc%iend(1) = nlon
-            c_emi_svoc%iend(2) = nlat
-            c_emi_svoc%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 18) then
+                c_emi_svoc%fld = fillreal
+                c_emi_svoc%fldname = 'emi_svoc'
+                c_emi_svoc%long_name = 'biogenic stress voc emissions'
+                c_emi_svoc%units = 'kg m-3 s-1'
+                c_emi_svoc%fillvalue = fillreal
+                c_emi_svoc%dimnames(1) = 'nlon'
+                c_emi_svoc%dimnames(2) = 'nlat'
+                c_emi_svoc%dimnames(3) = 'nlays'
+                c_emi_svoc%istart(1) = 1
+                c_emi_svoc%istart(2) = 1
+                c_emi_svoc%istart(3) = 1
+                c_emi_svoc%iend(1) = nlon
+                c_emi_svoc%iend(2) = nlat
+                c_emi_svoc%iend(3) = modlays
+            end if
 
-            c_emi_ovoc%fld = fillreal
-            c_emi_ovoc%fldname = 'emi_ovoc'
-            c_emi_ovoc%long_name = 'biogenic other voc emissions'
-            c_emi_ovoc%units = 'kg m-3 s-1'
-            c_emi_ovoc%fillvalue = fillreal
-            c_emi_ovoc%dimnames(1) = 'nlon'
-            c_emi_ovoc%dimnames(2) = 'nlat'
-            c_emi_ovoc%dimnames(3) = 'nlays'
-            c_emi_ovoc%istart(1) = 1
-            c_emi_ovoc%istart(2) = 1
-            c_emi_ovoc%istart(3) = 1
-            c_emi_ovoc%iend(1) = nlon
-            c_emi_ovoc%iend(2) = nlat
-            c_emi_ovoc%iend(3) = modlays
+            if (biospec_opt == 0 .or. biospec_opt == 19) then
+                c_emi_ovoc%fld = fillreal
+                c_emi_ovoc%fldname = 'emi_ovoc'
+                c_emi_ovoc%long_name = 'biogenic other voc emissions'
+                c_emi_ovoc%units = 'kg m-3 s-1'
+                c_emi_ovoc%fillvalue = fillreal
+                c_emi_ovoc%dimnames(1) = 'nlon'
+                c_emi_ovoc%dimnames(2) = 'nlat'
+                c_emi_ovoc%dimnames(3) = 'nlays'
+                c_emi_ovoc%istart(1) = 1
+                c_emi_ovoc%istart(2) = 1
+                c_emi_ovoc%istart(3) = 1
+                c_emi_ovoc%iend(1) = nlon
+                c_emi_ovoc%iend(2) = nlat
+                c_emi_ovoc%iend(3) = modlays
+            end if
 
         end if
 
@@ -762,7 +816,8 @@ CONTAINS
         if(.not.allocated(fld1dt)) ALLOCATE ( fld1dt ( nfld1dt ) )
 
         DO nn = 1, nfld1dt
-            ALLOCATE ( fld1dt(nn)%fld(ntime) )
+!            ALLOCATE ( fld1dt(nn)%fld(ntime) )
+            ALLOCATE ( fld1dt(nn)%fld(1) )
         ENDDO
 
         g_time  => fld1dt( 1)
@@ -804,7 +859,9 @@ CONTAINS
         ! Time-varying 2d fields at cell centers.
         !-------------------------------------------------------------------------------
 
-        nfld2dxyt = 1  ! canopy height
+        nfld2dxyt = 0
+
+        nfld2dxyt = nfld2dxyt +1  ! canopy height
 
         if (ifcanwind .or. ifcanwaf) then
             nfld2dxyt = nfld2dxyt + 1  !WAF
@@ -832,6 +889,8 @@ CONTAINS
 
         nfld3dxyzt = 0
 
+        nfld3dxyzt = nfld3dxyzt + 1 !LAD
+
         if (ifcanwind .or. ifcanwaf) then
             nfld3dxyzt = nfld3dxyzt + 1 !CANWIND
         end if
@@ -845,25 +904,29 @@ CONTAINS
         end if
 
         if (ifcanbio) then
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_ISOP
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_MYRC
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_SABI
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_LIMO
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_CARE
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_OCIM
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_BPIN
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_APIN
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_MONO
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_FARN
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_CARY
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_SESQ
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_MBOL
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_METH
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_ACET
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_CO
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_BVOC
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_SVOC
-            nfld3dxyzt = nfld3dxyzt + 1 !EMI_OVOC
+            if (biospec_opt == 0) then
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_ISOP
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_MYRC
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_SABI
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_LIMO
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_CARE
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_OCIM
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_BPIN
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_APIN
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_MONO
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_FARN
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_CARY
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_SESQ
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_MBOL
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_METH
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_ACET
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_CO
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_BVOC
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_SVOC
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_OVOC
+            else
+                nfld3dxyzt = nfld3dxyzt + 1 !EMI_SPEC
+            end if
         end if
 
         if(.not.allocated(fld3dxyzt)) ALLOCATE ( fld3dxyzt ( nfld3dxyzt ) )
@@ -873,6 +936,10 @@ CONTAINS
         ENDDO
 
         set_index = 0
+
+        set_index = set_index + 1
+        c_lad    => fld3dxyzt( set_index )
+
         if (ifcanwind .or. ifcanwaf) then
             set_index = set_index + 1
             c_canwind    => fld3dxyzt( set_index )
@@ -889,44 +956,82 @@ CONTAINS
         end if
 
         if (ifcanbio) then
-            set_index = set_index + 1
-            c_emi_isop   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_myrc   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_sabi   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_limo   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_care   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_ocim   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_bpin   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_apin   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_mono   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_farn   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_cary   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_sesq   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_mbol   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_meth   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_acet   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_co   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_bvoc   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_svoc   => fld3dxyzt( set_index )
-            set_index = set_index + 1
-            c_emi_ovoc   => fld3dxyzt( set_index )
+            if (biospec_opt == 0 .or. biospec_opt == 1) then
+                set_index = set_index + 1
+                c_emi_isop   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 2) then
+                set_index = set_index + 1
+                c_emi_myrc   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 3) then
+                set_index = set_index + 1
+                c_emi_sabi   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 4) then
+                set_index = set_index + 1
+                c_emi_limo   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 5) then
+                set_index = set_index + 1
+                c_emi_care   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 6) then
+                set_index = set_index + 1
+                c_emi_ocim   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 7) then
+                set_index = set_index + 1
+                c_emi_bpin   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 8) then
+                set_index = set_index + 1
+                c_emi_apin   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 9) then
+                set_index = set_index + 1
+                c_emi_mono   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 10) then
+                set_index = set_index + 1
+                c_emi_farn   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 11) then
+                set_index = set_index + 1
+                c_emi_cary   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 12) then
+                set_index = set_index + 1
+                c_emi_sesq   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 13) then
+                set_index = set_index + 1
+                c_emi_mbol   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 14) then
+                set_index = set_index + 1
+                c_emi_meth   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 15) then
+                set_index = set_index + 1
+                c_emi_acet   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 16) then
+                set_index = set_index + 1
+                c_emi_co   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 17) then
+                set_index = set_index + 1
+                c_emi_bvoc   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 18) then
+                set_index = set_index + 1
+                c_emi_svoc   => fld3dxyzt( set_index )
+            end if
+            if (biospec_opt == 0 .or. biospec_opt == 19) then
+                set_index = set_index + 1
+                c_emi_ovoc   => fld3dxyzt( set_index )
+            end if
         end if
 
     END SUBROUTINE canopy_outncf_alloc
@@ -1480,7 +1585,7 @@ CONTAINS
         INTEGER                         :: dim_nz
         INTEGER                         :: dim_time
         INTEGER                         :: dim_timestr
-        LOGICAL,            SAVE        :: first      = .TRUE.
+!        LOGICAL,            SAVE        :: first      = .TRUE.
         INTEGER,  SAVE,     ALLOCATABLE :: id_fld     ( : )
         INTEGER,  SAVE                  :: it         = 0
         INTEGER,            PARAMETER   :: len_time   = 19
@@ -1553,323 +1658,320 @@ CONTAINS
             ! If first time calling this routine, set up the netCDF output file.
             !-------------------------------------------------------------------------------
 
-            IF ( first ) THEN
+!            IF ( first ) THEN
 
-                !-----------------------------------------------------------------------------
-                ! Create netCDF file.
-                !-----------------------------------------------------------------------------
-                fl = TRIM(OUTPREFX)//trim('.nc')
+            !-----------------------------------------------------------------------------
+            ! Create netCDF file.
+            !-----------------------------------------------------------------------------
+            fl = TRIM(OUTPREFX)//trim('.nc')
 
-                rcode = nf90_create (fl, nf90_hdf5, cdfid_m)
+            rcode = nf90_create (fl, nf90_hdf5, cdfid_m)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9500) TRIM(pname), TRIM(fl), TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+
+            !-----------------------------------------------------------------------------
+            ! Set up dimensions.
+            !-----------------------------------------------------------------------------
+            var = "time"
+            rcode = nf90_def_dim (cdfid_m, TRIM(var), nf90_unlimited, dim_time)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            var = "timestr"
+            rcode = nf90_def_dim (cdfid_m, TRIM(var), len_time, dim_timestr)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+
+            var = "grid_xt"
+            rcode = nf90_def_dim (cdfid_m, TRIM(var), nlon, dim_nx)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+
+            var = "grid_yt"
+            rcode = nf90_def_dim (cdfid_m, TRIM(var), nlat, dim_ny)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+
+            var = "level"
+            rcode = nf90_def_dim (cdfid_m, TRIM(var), modlays, dim_nz)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+
+            !-----------------------------------------------------------------------------
+            ! Define variables that will populate the file.
+            !-----------------------------------------------------------------------------
+
+            !-------------------------------------------------------------------------------
+            ! Time field.
+            !-------------------------------------------------------------------------------
+            DO n = 1, nfld1dt
+                var = TRIM(fld1dt(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_time /), id_fld(n))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9500) TRIM(pname), TRIM(fl), TRIM(nf90_strerror(rcode))
-                    CALL exit(2)
-                ENDIF
-
-                !-----------------------------------------------------------------------------
-                ! Set up dimensions.
-                !-----------------------------------------------------------------------------
-
-                var = "time"
-                rcode = nf90_def_dim (cdfid_m, TRIM(var), nf90_unlimited, dim_time)
-                IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
+            ENDDO
+            ntot = nfld1dt
 
-                var = "timestr"
-                rcode = nf90_def_dim (cdfid_m, TRIM(var), len_time, dim_timestr)
+            !-------------------------------------------------------------------------------
+            ! Time-independent 1d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld1dz
+                nn = ntot + n
+                var = TRIM(fld1dz(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_nz /), id_fld(nn))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
+            ENDDO
+            ntot = ntot + nfld1dz
 
-                var = "grid_xt"
-                rcode = nf90_def_dim (cdfid_m, TRIM(var), nlon, dim_nx)
+            !-------------------------------------------------------------------------------
+            ! Time-independent 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld2dxy
+                nn = ntot + n
+                var = TRIM(fld2dxy(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_nx, dim_ny /), id_fld(nn))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
+            ENDDO
+            ntot = ntot + nfld2dxy
 
-                var = "grid_yt"
-                rcode = nf90_def_dim (cdfid_m, TRIM(var), nlat, dim_ny)
+            !-------------------------------------------------------------------------------
+            ! Time-varying 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld2dxyt
+                nn = ntot + n
+                var = TRIM(fld2dxyt(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_nx, dim_ny, dim_time /), id_fld(nn))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
+            ENDDO
+            ntot = ntot + nfld2dxyt
 
-                var = "level"
-                rcode = nf90_def_dim (cdfid_m, TRIM(var), modlays, dim_nz)
+            !-------------------------------------------------------------------------------
+            ! Time-varying 3d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld3dxyzt
+                nn = ntot + n
+                var = TRIM(fld3dxyzt(n)%fldname)
+                rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
+                    (/ dim_nx, dim_ny, dim_nz, dim_time /), id_fld(nn))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9100) TRIM(pname), TRIM(var), TRIM(fl),  &
+                    WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
                         TRIM(nf90_strerror(rcode))
                     CALL exit(2)
                 ENDIF
+            ENDDO
+            ntot = ntot + nfld3dxyzt
 
-                !-----------------------------------------------------------------------------
-                ! Define variables that will populate the file.
-                !-----------------------------------------------------------------------------
+            !-----------------------------------------------------------------------------
+            ! Define global attributes.
+            !-----------------------------------------------------------------------------
 
-                !-------------------------------------------------------------------------------
-                ! Time field.
-                !-------------------------------------------------------------------------------
+            CALL canopy_outncfglobal (cdfid_m, fl)
 
-                DO n = 1, nfld1dt
-                    var = TRIM(fld1dt(n)%fldname)
-                    rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
-                        (/ dim_time /), id_fld(n))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit(2)
-                    ENDIF
-                ENDDO
-                ntot = nfld1dt
+            !-----------------------------------------------------------------------------
+            ! Define attributes for the variables.
+            !-----------------------------------------------------------------------------
 
-                !-------------------------------------------------------------------------------
-                ! Time-independent 1d fields at cell centers.
-                !-------------------------------------------------------------------------------
+            !-------------------------------------------------------------------------------
+            ! Time field.
+            !-------------------------------------------------------------------------------
 
-                DO n = 1, nfld1dz
-                    nn = ntot + n
-                    var = TRIM(fld1dz(n)%fldname)
-                    rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
-                        (/ dim_nz /), id_fld(nn))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit(2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld1dz
-
-                !-------------------------------------------------------------------------------
-                ! Time-independent 2d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld2dxy
-                    nn = ntot + n
-                    var = TRIM(fld2dxy(n)%fldname)
-                    rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
-                        (/ dim_nx, dim_ny /), id_fld(nn))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit(2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld2dxy
-
-                !-------------------------------------------------------------------------------
-                ! Time-varying 2d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld2dxyt
-                    nn = ntot + n
-                    var = TRIM(fld2dxyt(n)%fldname)
-                    rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
-                        (/ dim_nx, dim_ny, dim_time /), id_fld(nn))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit(2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld2dxyt
-
-                !-------------------------------------------------------------------------------
-                ! Time-varying 3d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld3dxyzt
-                    nn = ntot + n
-                    var = TRIM(fld3dxyzt(n)%fldname)
-                    rcode = nf90_def_var (cdfid_m, TRIM(var), nf90_float,  &
-                        (/ dim_nx, dim_ny, dim_nz, dim_time /), id_fld(nn))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9200) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit(2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld3dxyzt
-
-                !-----------------------------------------------------------------------------
-                ! Define global attributes.
-                !-----------------------------------------------------------------------------
-
-                CALL canopy_outncfglobal (cdfid_m, fl)
-
-                !-----------------------------------------------------------------------------
-                ! Define attributes for the variables.
-                !-----------------------------------------------------------------------------
-
-                !-------------------------------------------------------------------------------
-                ! Time field.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld1dt
-                    var = TRIM(fld1dt(n)%fldname)
-                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'calendar',  &
-                        TRIM(fld1dt(n)%calendar))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'calendar_type',  &
-                        TRIM(fld1dt(n)%calendar_type))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'cartesian_axis',  &
-                        TRIM(fld1dt(n)%cartesian_axis))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'long_name',  &
-                        TRIM(fld1dt(n)%long_name))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(n), 'units', TRIM(fld1dt(n)%units))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDDO
-                ntot = nfld1dt
-
-                !-------------------------------------------------------------------------------
-                ! Time-independent 1d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld1dz
-                    nn = ntot + n
-                    var = TRIM(fld1dz(n)%fldname)
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
-                        TRIM(fld1dz(n)%long_name))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units', TRIM(fld1dz(n)%units))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld1dz
-
-                !-------------------------------------------------------------------------------
-                ! Time-independent 2d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld2dxy
-                    nn = ntot + n
-                    var = TRIM(fld2dxy(n)%fldname)
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
-                        TRIM(fld2dxy(n)%long_name))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units', TRIM(fld2dxy(n)%units))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld2dxy
-
-                !-------------------------------------------------------------------------------
-                ! Time-varying 2d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld2dxyt
-                    nn = ntot + n
-                    var = TRIM(fld2dxyt(n)%fldname)
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
-                        TRIM(fld2dxyt(n)%long_name))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units',  &
-                        TRIM(fld2dxyt(n)%units))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), '_FillValue',  &
-                        fld2dxyt(n)%fillvalue)
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld2dxyt
-
-                !-------------------------------------------------------------------------------
-                ! Time-varying 3d fields at cell centers.
-                !-------------------------------------------------------------------------------
-
-                DO n = 1, nfld3dxyzt
-                    nn = ntot + n
-                    var = TRIM(fld3dxyzt(n)%fldname)
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
-                        TRIM(fld3dxyzt(n)%long_name))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units',  &
-                        TRIM(fld3dxyzt(n)%units))
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                    rcode = nf90_put_att (cdfid_m, id_fld(nn), '_FillValue',  &
-                        fld3dxyzt(n)%fillvalue)
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDDO
-                ntot = ntot + nfld3dxyzt
-
-                !-------------------------------------------------------------------------------
-                ! Take file out of "define mode" so that variables may be written to it.
-                !-------------------------------------------------------------------------------
-
-                rcode = nf90_enddef (cdfid_m)
+            DO n = 1, nfld1dt
+                var = TRIM(fld1dt(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(n), 'calendar',  &
+                    TRIM(fld1dt(n)%calendar))
                 IF ( rcode /= nf90_noerr ) THEN
-                    WRITE (6,f9350) TRIM(pname), TRIM(fl), TRIM(nf90_strerror(rcode))
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
                     CALL exit (2)
                 ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(n), 'calendar_type',  &
+                    TRIM(fld1dt(n)%calendar_type))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(n), 'cartesian_axis',  &
+                    TRIM(fld1dt(n)%cartesian_axis))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(n), 'long_name',  &
+                    TRIM(fld1dt(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(n), 'units', TRIM(fld1dt(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = nfld1dt
 
-            ENDIF  ! first = .TRUE.
+            !-------------------------------------------------------------------------------
+            ! Time-independent 1d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld1dz
+                nn = ntot + n
+                var = TRIM(fld1dz(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
+                    TRIM(fld1dz(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units', TRIM(fld1dz(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = ntot + nfld1dz
+
+            !-------------------------------------------------------------------------------
+            ! Time-independent 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld2dxy
+                nn = ntot + n
+                var = TRIM(fld2dxy(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
+                    TRIM(fld2dxy(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units', TRIM(fld2dxy(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = ntot + nfld2dxy
+
+            !-------------------------------------------------------------------------------
+            ! Time-varying 2d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld2dxyt
+                nn = ntot + n
+                var = TRIM(fld2dxyt(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
+                    TRIM(fld2dxyt(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units',  &
+                    TRIM(fld2dxyt(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), '_FillValue',  &
+                    fld2dxyt(n)%fillvalue)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = ntot + nfld2dxyt
+
+            !-------------------------------------------------------------------------------
+            ! Time-varying 3d fields at cell centers.
+            !-------------------------------------------------------------------------------
+
+            DO n = 1, nfld3dxyzt
+                nn = ntot + n
+                var = TRIM(fld3dxyzt(n)%fldname)
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'long_name',  &
+                    TRIM(fld3dxyzt(n)%long_name))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), 'units',  &
+                    TRIM(fld3dxyzt(n)%units))
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+                rcode = nf90_put_att (cdfid_m, id_fld(nn), '_FillValue',  &
+                    fld3dxyzt(n)%fillvalue)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9300) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+            ENDDO
+            ntot = ntot + nfld3dxyzt
+
+            !-------------------------------------------------------------------------------
+            ! Take file out of "define mode" so that variables may be written to it.
+            !-------------------------------------------------------------------------------
+
+            rcode = nf90_enddef (cdfid_m)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (6,f9350) TRIM(pname), TRIM(fl), TRIM(nf90_strerror(rcode))
+                CALL exit (2)
+            ENDIF
+
+!            ENDIF  ! first = .TRUE.
 
             !-------------------------------------------------------------------------------
             ! Assign pointer variables to the respective arrays from canopy-app.
@@ -1906,6 +2008,7 @@ CONTAINS
             !-------------------------------------------------------------------------------
             ! Time-varying 3d fields at cell centers.
             !-------------------------------------------------------------------------------
+            c_lad%fld  = lad_3d
             if (ifcanwind .or. ifcanwaf) then
                 c_canwind%fld  = canWIND_3d
             end if
@@ -1916,25 +2019,63 @@ CONTAINS
                 c_rjcf%fld     = rjcf_3d
             end if
             if (ifcanbio) then
-                c_emi_isop%fld = emi_isop_3d
-                c_emi_myrc%fld = emi_myrc_3d
-                c_emi_sabi%fld = emi_sabi_3d
-                c_emi_limo%fld = emi_limo_3d
-                c_emi_care%fld = emi_care_3d
-                c_emi_ocim%fld = emi_ocim_3d
-                c_emi_bpin%fld = emi_bpin_3d
-                c_emi_apin%fld = emi_apin_3d
-                c_emi_mono%fld = emi_mono_3d
-                c_emi_farn%fld = emi_farn_3d
-                c_emi_cary%fld = emi_cary_3d
-                c_emi_sesq%fld = emi_sesq_3d
-                c_emi_mbol%fld = emi_mbol_3d
-                c_emi_meth%fld = emi_meth_3d
-                c_emi_acet%fld = emi_acet_3d
-                c_emi_co%fld   = emi_co_3d
-                c_emi_bvoc%fld = emi_bvoc_3d
-                c_emi_svoc%fld = emi_svoc_3d
-                c_emi_ovoc%fld = emi_ovoc_3d
+                if (biospec_opt == 0 .or. biospec_opt == 1) then
+                    c_emi_isop%fld = emi_isop_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 2) then
+                    c_emi_myrc%fld = emi_myrc_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 3) then
+                    c_emi_sabi%fld = emi_sabi_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 4) then
+                    c_emi_limo%fld = emi_limo_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 5) then
+                    c_emi_care%fld = emi_care_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 6) then
+                    c_emi_ocim%fld = emi_ocim_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 7) then
+                    c_emi_bpin%fld = emi_bpin_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 8) then
+                    c_emi_apin%fld = emi_apin_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 9) then
+                    c_emi_mono%fld = emi_mono_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 10) then
+                    c_emi_farn%fld = emi_farn_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 11) then
+                    c_emi_cary%fld = emi_cary_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 12) then
+                    c_emi_sesq%fld = emi_sesq_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 13) then
+                    c_emi_mbol%fld = emi_mbol_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 14) then
+                    c_emi_meth%fld = emi_meth_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 15) then
+                    c_emi_acet%fld = emi_acet_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 16) then
+                    c_emi_co%fld   = emi_co_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 17) then
+                    c_emi_bvoc%fld = emi_bvoc_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 18) then
+                    c_emi_svoc%fld = emi_svoc_3d
+                end if
+                if (biospec_opt == 0 .or. biospec_opt == 19) then
+                    c_emi_ovoc%fld = emi_ovoc_3d
+                end if
             end if
 
             !-------------------------------------------------------------------------------
@@ -1953,7 +2094,7 @@ CONTAINS
             DO n = 1, nfld1dt
                 var = TRIM(fld1dt(n)%fldname)
                 rcode = nf90_put_var (cdfid_m, id_fld(n), fld1dt(n)%fld,  &
-                    start = (/ it /),  &
+                    start = (/ 1 /),  &
                     count = (/ 1 /) )
                 IF ( rcode /= nf90_noerr ) THEN
                     WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
@@ -1963,26 +2104,26 @@ CONTAINS
             ENDDO
             ntot = nfld1dt
 
-            IF ( first ) THEN  ! write time-independent fields
+!            IF ( first ) THEN  ! write time-independent fields
 
-                !-------------------------------------------------------------------------------
-                ! Time-independent 1d fields at cell centers.
-                !-------------------------------------------------------------------------------
-                write(*,*)  'Writing Time-independent 1d fields'
-                write(*,*)  '-------------------------------'
-            ENDIF  ! first
+            !-------------------------------------------------------------------------------
+            ! Time-independent 1d fields at cell centers.
+            !-------------------------------------------------------------------------------
+            write(*,*)  'Writing Time-independent 1d fields'
+            write(*,*)  '-------------------------------'
+!            ENDIF  ! first
 
             DO n = 1, nfld1dz
                 nn = ntot + n
                 var = TRIM(fld1dz(n)%fldname)
-                IF ( first ) THEN  ! write time-independent fields
-                    rcode = nf90_put_var (cdfid_m, id_fld(nn), fld1dz(n)%fld)
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDIF  ! first
+!                IF ( first ) THEN  ! write time-independent fields
+                rcode = nf90_put_var (cdfid_m, id_fld(nn), fld1dz(n)%fld)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+!                ENDIF  ! first
             ENDDO
 
             ntot = ntot + nfld1dz
@@ -1990,21 +2131,21 @@ CONTAINS
             !-------------------------------------------------------------------------------
             ! Time-independent 2d fields at cell centers.
             !-------------------------------------------------------------------------------
-            IF ( first ) THEN  ! write time-independent fields
-                write(*,*)  'Writing Time-independent 2d fields'
-                write(*,*)  '-------------------------------'
-            ENDIF  ! first
+!            IF ( first ) THEN  ! write time-independent fields
+            write(*,*)  'Writing Time-independent 2d fields'
+            write(*,*)  '-------------------------------'
+!            ENDIF  ! first
             DO n = 1, nfld2dxy
                 nn = ntot + n
                 var = TRIM(fld2dxy(n)%fldname)
-                IF ( first ) THEN  ! write time-independent fields
-                    rcode = nf90_put_var (cdfid_m, id_fld(nn), fld2dxy(n)%fld)
-                    IF ( rcode /= nf90_noerr ) THEN
-                        WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
-                            TRIM(nf90_strerror(rcode))
-                        CALL exit (2)
-                    ENDIF
-                ENDIF  ! first
+!                IF ( first ) THEN  ! write time-independent fields
+                rcode = nf90_put_var (cdfid_m, id_fld(nn), fld2dxy(n)%fld)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (6,f9400) TRIM(pname), TRIM(var), TRIM(fl),  &
+                        TRIM(nf90_strerror(rcode))
+                    CALL exit (2)
+                ENDIF
+!                ENDIF  ! first
             ENDDO
 
             ntot = ntot + nfld2dxy
@@ -2014,12 +2155,11 @@ CONTAINS
             !-------------------------------------------------------------------------------
             write(*,*)  'Writing Time-varying 2d fields'
             write(*,*)  '-------------------------------'
-
             DO n = 1, nfld2dxyt
                 nn = ntot + n
                 var = TRIM(fld2dxyt(n)%fldname)
                 rcode = nf90_put_var (cdfid_m, id_fld(nn), fld2dxyt(n)%fld,  &
-                    start = (/ 1, 1, it /),  &
+                    start = (/ 1, 1, 1 /),  &
                     count = (/ fld2dxyt(n)%iend(1), &
                     fld2dxyt(n)%iend(2), 1 /) )
                 IF ( rcode /= nf90_noerr ) THEN
@@ -2040,7 +2180,7 @@ CONTAINS
                 nn = ntot + n
                 var = TRIM(fld3dxyzt(n)%fldname)
                 rcode = nf90_put_var (cdfid_m, id_fld(nn), fld3dxyzt(n)%fld,  &
-                    start = (/ 1, 1, 1, it /),  &
+                    start = (/ 1, 1, 1, 1 /),  &
                     count = (/ fld3dxyzt(n)%iend(1), &
                     fld3dxyzt(n)%iend(2), &
                     fld3dxyzt(n)%iend(3), 1 /) )
@@ -2054,7 +2194,7 @@ CONTAINS
 
         end if !infmt_opt
 
-        first = .FALSE.
+!        first = .FALSE.
     END SUBROUTINE canopy_write_ncf
 
 
@@ -2415,6 +2555,56 @@ CONTAINS
             variables_2d%prate_ave=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%prate_ave=reshape(variables_2d%prate_ave,[size(variables_2d%prate_ave)])
+            !Volumetric soil moisture level 1
+            CALL get_var_2d_real_cdf (cdfid, 'soilw1', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilw1',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilw1=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilw1=reshape(variables_2d%soilw1,[size(variables_2d%soilw1)])
+            !Volumetric soil moisture level 2
+            CALL get_var_2d_real_cdf (cdfid, 'soilw2', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilw2',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilw2=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilw2=reshape(variables_2d%soilw2,[size(variables_2d%soilw2)])
+            !Volumetric soil moisture level 3
+            CALL get_var_2d_real_cdf (cdfid, 'soilw3', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilw3',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilw3=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilw3=reshape(variables_2d%soilw3,[size(variables_2d%soilw3)])
+            !Volumetric soil moisture level 4
+            CALL get_var_2d_real_cdf (cdfid, 'soilw4', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilw4',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilw4=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilw4=reshape(variables_2d%soilw4,[size(variables_2d%soilw4)])
+            !Wilting point
+            CALL get_var_2d_real_cdf (cdfid, 'wilt', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'wilt',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%wilt=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%wilt=reshape(variables_2d%wilt,[size(variables_2d%wilt)])
             !3D Input Level Profile
             if (var3d_opt .eq. 1) then
                 CALL get_var_1d_real_cdf (cdfid, 'lev', variables_1d_lev_real, it, rcode)
