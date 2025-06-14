@@ -1,0 +1,280 @@
+name: Documentation
+
+on:
+  push:
+    branches: 
+      - main
+      - develop
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'requirements-docs.txt'
+      - 'src/**'  # Rebuild docs when source code changes
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'requirements-docs.txt'
+      - 'src/**'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Documentation version to deploy'
+        required: false
+        default: 'latest'
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Build documentation
+  build-docs:
+    name: Build Documentation
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for versioning
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install documentation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-docs.txt
+
+      - name: Install system dependencies for doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
+
+      - name: Configure Git for mike versioning
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Build documentation
+        run: |
+          # Build the documentation
+          mkdocs build --verbose --clean
+          
+          # Create a tarball of the built site for artifacts
+          tar -czf documentation-site.tar.gz -C site .
+
+      - name: Upload documentation artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation-site
+          path: documentation-site.tar.gz
+          retention-days: 30
+
+      - name: Check documentation links
+        run: |
+          # Install link checker
+          pip install linkchecker
+          
+          # Check internal links in built documentation
+          linkchecker site/ --check-extern --ignore-url="^mailto:" --ignore-url="^tel:" || true
+
+  # Deploy to GitHub Pages (for main branch)
+  deploy-github-pages:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-22.04
+    needs: build-docs
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install documentation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-docs.txt
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Deploy with mike (versioned documentation)
+        run: |
+          # Determine version
+          if [ "${{ github.event.inputs.version }}" != "" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="latest"
+          fi
+          
+          # Deploy to gh-pages branch with versioning
+          mike deploy --push --update-aliases $VERSION
+          
+          # Set latest as default if deploying latest
+          if [ "$VERSION" == "latest" ]; then
+            mike set-default --push latest
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Build final site for Pages
+        run: |
+          # Check out gh-pages branch to get the versioned site
+          git fetch origin gh-pages:gh-pages
+          git checkout gh-pages
+          
+          # Create artifact directory
+          mkdir -p _site
+          cp -r * _site/ || true
+          
+          # Return to main branch
+          git checkout main
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: '_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+  # Optional: Still support ReadTheDocs webhook if configured
+  trigger-readthedocs:
+    name: Trigger ReadTheDocs Build (Optional)
+    runs-on: ubuntu-22.04
+    needs: build-docs
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && vars.ENABLE_READTHEDOCS == 'true'
+    steps:
+      - name: Trigger ReadTheDocs build
+        run: |
+          if [ "${{ secrets.READTHEDOCS_WEBHOOK_URL }}" != "" ]; then
+            curl -X POST -d "branches=main" -d "token=${{ secrets.READTHEDOCS_WEBHOOK_TOKEN }}" \
+              ${{ secrets.READTHEDOCS_WEBHOOK_URL }}
+            echo "ReadTheDocs build triggered"
+          else
+            echo "ReadTheDocs webhook not configured - skipping"
+          fi
+
+  # Preview documentation for PRs
+  preview-docs:
+    name: Preview Documentation
+    runs-on: ubuntu-22.04
+    needs: build-docs
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Download documentation artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: documentation-site
+
+      - name: Extract documentation
+        run: |
+          mkdir -p preview
+          tar -xzf documentation-site.tar.gz -C preview
+
+      - name: Upload preview to GitHub Pages (PR)
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./preview
+          destination_dir: pr-${{ github.event.number }}
+          enable_jekyll: false
+
+      - name: Comment PR with preview link
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const repo = context.repo;
+            const previewUrl = `https://noaa-oar-arl.github.io/canopy-app/pr-${prNumber}/`;
+            
+            const comment = `## 📖 Documentation Preview
+            
+            The documentation for this PR has been built and is available at:
+            
+            🔗 **[Preview Documentation](${previewUrl})**
+            
+            This preview will be updated automatically when you push new commits to this PR.
+            
+            ---
+            *This comment was automatically generated by the Documentation workflow.*`;
+            
+            // Check if comment already exists
+            const comments = await github.rest.issues.listComments({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: prNumber,
+            });
+            
+            const botComment = comments.data.find(comment => 
+              comment.user.type === 'Bot' && comment.body.includes('Documentation Preview')
+            );
+            
+            if (botComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: repo.owner,
+                repo: repo.repo,
+                comment_id: botComment.id,
+                body: comment
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: repo.owner,
+                repo: repo.repo,
+                issue_number: prNumber,
+                body: comment
+              });
+            }
+
+  # Cleanup PR previews when PR is closed
+  cleanup-preview:
+    name: Cleanup Preview
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Remove PR preview
+        run: |
+          if [ -d "pr-${{ github.event.number }}" ]; then
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git rm -rf "pr-${{ github.event.number }}"
+            git commit -m "Remove preview for PR #${{ github.event.number }}"
+            git push
+            echo "Removed preview for PR #${{ github.event.number }}"
+          else
+            echo "No preview found for PR #${{ github.event.number }}"
+          fi

@@ -1,10 +1,10 @@
 site_name: "Canopy-App Documentation"
 site_description: "Comprehensive documentation for the Canopy-App atmospheric modeling system"
 site_author: "P.C. Campbell and contributors"
-site_url: "https://canopy-app.github.io/"
+site_url: "https://noaa-oar-arl.github.io/canopy-app/"
 
-repo_name: "canopy-app/canopy-app"
-repo_url: "https://github.com/canopy-app/canopy-app"
+repo_name: "noaa-oar-arl/canopy-app"
+repo_url: "https://github.com/noaa-oar-arl/canopy-app"
 
 copyright: "Copyright &copy; 2024 P.C. Campbell and contributors"
 

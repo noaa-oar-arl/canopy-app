@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Documentation
+    url: https://canopy-app.readthedocs.io
+    about: Read the comprehensive documentation for Canopy-App
+  - name: 💬 Discussions
+    url: https://github.com/noaa-oar-arl/canopy-app/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 🔬 Scientific Questions
+    url: https://github.com/noaa-oar-arl/canopy-app/discussions/categories/science
+    about: Discuss scientific aspects and methodologies

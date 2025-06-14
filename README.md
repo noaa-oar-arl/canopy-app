@@ -1,22 +1,85 @@
 <h1>
-  <a href="https://github.com/noaa-oar-arl/canopy-app">
+ [![License](https://img.shields.io/github/license/noaa-oar-arl/canopy-app.svg)](https://github.com/noaa-oar-arl/canopy-app/blob/main/LICENSE)
+[![CI status](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/ci.yml)
+[![Documentation](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/docs.yml/badge.svg)](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/docs.yml)
+[![GitHub Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://noaa-oar-arl.github.io/canopy-app/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8403649.svg)](https://doi.org/10.5281/zenodo.8403649)ref="https://github.com/noaa-oar-arl/canopy-app">
     <img src="docs/canopy-app-logo_no-bg.png" alt="canopy-app logo" height="125" valign="bottom">
   </a>
 </h1>
 
 [![License](https://img.shields.io/github/license/noaa-oar-arl/canopy-app.svg)](https://github.com/noaa-oar-arl/canopy-app/blob/main/LICENSE)
 [![CI status](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/ci.yml)
+[![Documentation](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/pages.yml/badge.svg)](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/pages.yml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8403649.svg)](https://doi.org/10.5281/zenodo.8403649)
 
 Repository for low-level, stand-alone/column canopy parameterizations for testing and application to gridded atmospheric composition/air quality models.
 
 Authors: Patrick Campbell, Zachary Moon, Wei-Ting Hung, Margaret Marvin, Quazi Rasool, and other NOAA research team members.
 
-##  Coming Soon
+##  Documentation
 
-### ReadTheDocs Documentation
+📚 **[View Documentation](https://noaa-oar-arl.github.io/canopy-app/)** - Complete user guide, API reference, and examples
 
-https://canopy-app.readthedocs.io/en/latest/
+## Documentation
+
+The Canopy-App documentation is built with MkDocs and automatically deployed to GitHub Pages.
+
+### Online Documentation
+
+- **📚 [Main Documentation](https://noaa-oar-arl.github.io/canopy-app/)** - Complete user guide, API reference, and examples hosted on GitHub Pages
+- **🔧 [ReadTheDocs](https://canopy-app.readthedocs.io/en/latest/)** - Alternative documentation mirror (optional)
+
+### Building Documentation Locally
+
+For first-time setup, you can use the automated setup:
+```bash
+# First-time setup (installs dependencies and validates configuration)
+./scripts/docs.sh setup
+```
+
+Or manually install and build:
+```bash
+# Install documentation dependencies
+pip install -r requirements-docs.txt
+
+# Build documentation
+mkdocs build
+
+# Serve documentation locally (with hot reload)
+mkdocs serve
+```
+
+The documentation will be available at `http://127.0.0.1:8000`.
+
+### Documentation Deployment
+
+The documentation is automatically built and deployed when:
+- **Main branch**: Deploys to GitHub Pages as the primary documentation site
+- **Pull requests**: Creates preview documentation for review (via separate workflow)
+- **Manual trigger**: Can specify custom version for deployment
+
+For manual deployment:
+```bash
+# Deploy latest version to GitHub Pages
+./scripts/deploy-docs.sh
+
+# Deploy specific version with versioning
+./scripts/deploy-docs.sh v1.0.0
+
+# Build only (no deployment)
+./scripts/deploy-docs.sh latest build
+
+# Serve locally
+./scripts/deploy-docs.sh latest serve
+```
+
+### GitHub Pages Setup
+
+To enable GitHub Pages for your fork:
+1. Go to your repository's **Settings** > **Pages**
+2. Set **Source** to "GitHub Actions"
+3. The documentation will be automatically deployed on the next push to main
 
 ## Getting Started
 

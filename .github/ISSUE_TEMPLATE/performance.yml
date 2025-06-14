@@ -1,0 +1,170 @@
+name: ⚡ Performance Issue
+description: Report performance problems or suggest optimizations
+title: "[Performance]: "
+labels: ["performance", "needs-investigation"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a performance issue! Performance is critical for atmospheric modeling applications.
+
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Performance Issue Type
+      description: What type of performance issue is this?
+      options:
+        - Slow Execution - Code runs slower than expected
+        - Memory Usage - Excessive memory consumption
+        - Scalability - Performance degrades with larger domains/longer runs
+        - Compilation Time - Slow build times
+        - I/O Performance - Slow file reading/writing
+        - Optimization Opportunity - Suggestion for performance improvement
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Performance Issue Description
+      description: Describe the performance problem in detail
+      placeholder: |
+        Describe the performance issue:
+        - What is running slower than expected?
+        - How much slower is it?
+        - When does the issue occur?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected Component
+      description: Which component is experiencing performance issues?
+      options:
+        - Wind Profile Calculations
+        - Biogenic Emissions
+        - Dry Deposition
+        - Photolysis Calculations
+        - Radiation Calculations
+        - Leaf Temperature Calculations
+        - NetCDF I/O
+        - Text File I/O
+        - Memory Allocation/Deallocation
+        - Overall Application
+        - Build System
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: benchmarks
+    attributes:
+      label: Performance Measurements
+      description: Provide specific performance measurements if available
+      placeholder: |
+        Performance data:
+        - Execution time: X seconds/minutes
+        - Memory usage: X MB/GB
+        - Comparison with previous versions
+        - Profiling results (if available)
+        - Hardware specifications
+    validations:
+      required: false
+
+  - type: textarea
+    id: test_case
+    attributes:
+      label: Test Case
+      description: Describe the test case that demonstrates the performance issue
+      placeholder: |
+        Test case details:
+        - Domain size (nx, ny, nz)
+        - Time period (number of time steps)
+        - Input data characteristics
+        - Configuration settings
+        - Commands used to run the test
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: System and compilation environment
+      placeholder: |
+        Environment details:
+        - OS: (e.g., Ubuntu 22.04, CentOS 7)
+        - Compiler: (e.g., gfortran 11.2.0, ifort 2021.4)
+        - Optimization flags: (e.g., -O3, -march=native)
+        - Hardware: (CPU, memory, storage type)
+        - Parallel environment: (OpenMP, MPI if applicable)
+    validations:
+      required: true
+
+  - type: textarea
+    id: profiling
+    attributes:
+      label: Profiling Results
+      description: Include profiling data if available (gprof, valgrind, etc.)
+      placeholder: |
+        Profiling results:
+        ```
+        [Paste profiling output here]
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected_performance
+    attributes:
+      label: Expected Performance
+      description: What performance would you expect for this test case?
+      placeholder: |
+        Expected performance:
+        - Based on similar atmospheric models
+        - Based on theoretical complexity
+        - Based on previous versions
+        - Based on hardware capabilities
+    validations:
+      required: false
+
+  - type: textarea
+    id: suggested_optimization
+    attributes:
+      label: Suggested Optimization
+      description: Do you have suggestions for improving performance?
+      placeholder: |
+        Optimization suggestions:
+        - Algorithmic improvements
+        - Compiler optimizations
+        - Data structure changes
+        - Parallelization opportunities
+        - I/O optimizations
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How critical is this performance issue?
+      options:
+        - Low - Minor performance improvement
+        - Medium - Noticeable impact on productivity
+        - High - Significantly impacts usability
+        - Critical - Prevents practical use
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to help with performance improvements?
+      options:
+        - label: I can help with profiling and benchmarking
+        - label: I can test proposed optimizations
+        - label: I can contribute code improvements
+        - label: I can provide additional test cases

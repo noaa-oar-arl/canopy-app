@@ -25,7 +25,9 @@ sudo yum install gcc-gfortran
 brew install gcc
 ```
 
-#### NetCDF Library (Optional but recommended)
+#### NetCDF Library (Required for NetCDF I/O)
+Canopy-App requires NetCDF-Fortran Libraries (`-lnetcdf -lnetcdff`) when using the 1D/2D NetCDF I/O Option (`infmt_opt=0`).
+
 ```bash
 # On Ubuntu/Debian
 sudo apt-get install libnetcdf-dev libnetcdff-dev
@@ -35,6 +37,9 @@ sudo yum install netcdf-devel netcdf-fortran-devel
 
 # On macOS with Homebrew
 brew install netcdf netcdf-fortran
+
+# On GMU Hopper (example module environment)
+module load netcdf-c/4.7.4-vh netcdf-fortran/4.5.3-ff
 ```
 
 ## Installation Methods
@@ -43,11 +48,174 @@ brew install netcdf netcdf-fortran
 
 ```bash
 # Clone the repository
-git clone https://github.com/canopy-app/canopy-app.git
+git clone https://github.com/noaa-oar-arl/canopy-app.git
 cd canopy-app
 
-# Navigate to source directory
-cd src
+# Build with default settings (gfortran, NetCDF enabled)
+make -C src
+```
+
+### Method 2: Download Release Archive
+
+```bash
+# Download and extract latest release
+wget https://github.com/noaa-oar-arl/canopy-app/archive/main.zip
+unzip main.zip
+cd canopy-app-main
+
+# Build
+make -C src
+```
+
+## Build Configuration
+
+Compilation options can be controlled with environment variables:
+
+### Compiler Selection
+- `FC=gfortran` (default) - GNU Fortran compiler
+- `FC=ifort` - Intel Fortran compiler  
+- `FC=gfortran-11` - Specific GNU Fortran version
+- `FC=/usr/bin/gfortran-11` - Full path to compiler
+
+### Debug Options
+- `DEBUG=0` (default) - No debug flags, optimized build
+- `DEBUG=1` - Basic debug flags enabled
+- `DEBUG=2` - Extensive debug flags including FPE traps and traceback
+
+### NetCDF Options
+- `NC=1` (default) - NetCDF support enabled
+- `NC=0` - NetCDF support disabled (text I/O only)
+
+## Build Examples
+
+### Standard Build
+```bash
+# Default build (gfortran, optimized, NetCDF enabled)
+make -C src
+```
+
+### Development Build with Debug
+```bash
+# Debug build with gfortran
+DEBUG=1 NC=1 make -C src
+
+# If FC is already set in environment, explicitly use gfortran
+DEBUG=1 NC=1 FC=gfortran make -C src
+```
+
+### Intel Fortran Build
+```bash
+# Production build with Intel Fortran
+FC=ifort make -C src
+
+# Debug build with Intel Fortran
+DEBUG=1 NC=1 FC=ifort make -C src
+```
+
+### Text-Only Build (No NetCDF)
+```bash
+# Build without NetCDF support
+NC=0 make -C src
+```
+
+## Verification
+
+After successful compilation, verify the installation:
+
+```bash
+# Check if executable was created
+ls -la canopy
+
+# Check executable permissions
+./canopy --help  # (if help option is implemented)
+
+# Or run with default settings
+./canopy
+```
+
+## Troubleshooting
+
+### Common Issues
+
+#### NetCDF Not Found
+```bash
+# Check if nf-config is available
+which nf-config
+nf-config --fflags
+nf-config --flibs
+
+# If not found, install NetCDF development packages
+# or set proper environment variables
+```
+
+#### Compiler Issues
+```bash
+# Check compiler version
+gfortran --version
+ifort --version
+
+# Verify compiler can build simple Fortran programs
+echo 'program test; print *, "Hello"; end program' > test.f90
+gfortran test.f90 -o test
+./test
+rm test test.f90
+```
+
+#### Permission Issues
+```bash
+# Make sure you have write permissions
+chmod +x canopy
+
+# If building in a shared directory, check permissions
+ls -la src/
+```
+
+### Environment Module Systems
+
+For HPC systems using environment modules:
+
+```bash
+# Example for systems with NetCDF modules
+module load netcdf-c/4.7.4
+module load netcdf-fortran/4.5.3
+module load compiler/gcc/9.3.0
+
+# Build with loaded modules
+make -C src
+```
+
+### Advanced Build Options
+
+#### Custom Makefile Variables
+```bash
+# Override specific compiler flags
+FCFLAGS="-O3 -march=native" make -C src
+
+# Use custom NetCDF paths
+NETCDF_INCDIR=/opt/netcdf/include \
+NETCDF_LIBDIR=/opt/netcdf/lib \
+make -C src
+```
+
+#### Parallel Build
+```bash
+# Use multiple cores for compilation
+make -j4 -C src
+```
+
+## Next Steps
+
+After successful installation:
+
+1. **Configure the model**: Edit [`input/namelist.canopy`](configuration.md)
+2. **Run test case**: Follow the [Quickstart Guide](quickstart.md)
+3. **Explore examples**: Check out the [Examples](../examples/basic.md)
+
+## Additional Resources
+
+- **Build System**: See [`src/Makefile`](https://github.com/noaa-oar-arl/canopy-app/blob/main/src/Makefile) for detailed build options
+- **Dependencies**: NetCDF detection uses `nf-config` utility
+- **Support**: Report build issues on [GitHub Issues](https://github.com/noaa-oar-arl/canopy-app/issues)
 
 # Compile the model
 make

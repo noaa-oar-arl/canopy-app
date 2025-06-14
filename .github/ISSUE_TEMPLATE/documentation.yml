@@ -1,0 +1,127 @@
+name: 📖 Documentation Issue
+description: Report an issue with documentation or request documentation improvements
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve our documentation! Please provide details about the documentation issue or improvement.
+
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Documentation Issue Type
+      description: What type of documentation issue is this?
+      options:
+        - Error/Typo - Incorrect information or typos
+        - Missing Information - Information that should be included but isn't
+        - Unclear/Confusing - Information that exists but is hard to understand
+        - Outdated Information - Information that is no longer current
+        - Missing Examples - Need for more examples or tutorials
+        - API Documentation - Issues with API reference documentation
+        - Installation/Setup - Issues with getting started documentation
+        - New Documentation - Request for entirely new documentation
+    validations:
+      required: true
+
+  - type: input
+    id: page_url
+    attributes:
+      label: Documentation Page URL
+      description: Link to the specific documentation page (if applicable)
+      placeholder: https://canopy-app.readthedocs.io/en/latest/...
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: Describe the documentation issue in detail
+      placeholder: |
+        Describe the issue with the documentation:
+        - What is incorrect, missing, or unclear?
+        - What did you expect to find?
+        - How could it be improved?
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_content
+    attributes:
+      label: Current Content (if applicable)
+      description: Copy/paste the current documentation content that has issues
+      placeholder: |
+        Current documentation content:
+        ```
+        [Paste current content here]
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: suggested_improvement
+    attributes:
+      label: Suggested Improvement
+      description: How would you improve this documentation?
+      placeholder: |
+        Suggested changes:
+        - Corrected information
+        - Additional content to include
+        - Better organization or structure
+        - Examples or tutorials needed
+    validations:
+      required: false
+
+  - type: dropdown
+    id: audience
+    attributes:
+      label: Target Audience
+      description: Who would benefit from this documentation improvement?
+      options:
+        - New Users - Getting started with Canopy-App
+        - Regular Users - Day-to-day usage and configuration
+        - Developers - Contributing to or extending Canopy-App
+        - Scientists - Understanding the science and parameterizations
+        - System Administrators - Installation and deployment
+        - All Users - General improvement
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this documentation improvement?
+      options:
+        - Low - Minor improvement
+        - Medium - Would help many users
+        - High - Critical information missing or incorrect
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other context about this documentation issue
+      placeholder: |
+        Additional information:
+        - Related documentation pages
+        - Screenshots (if helpful)
+        - Context about why this is important
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to help improve the documentation?
+      options:
+        - label: I'm willing to write or edit the documentation
+        - label: I can provide examples or use cases
+        - label: I can review proposed changes
+        - label: I can provide feedback on drafts
