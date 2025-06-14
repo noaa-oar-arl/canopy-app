@@ -33,20 +33,20 @@ Here's a basic example of `input/namelist.canopy`:
 &userdefs
     ! Input format: 0=2D NetCDF, 1=1D text
     infmt_opt = 0
-    
+
     ! Grid dimensions
     nlat = 361
     nlon = 720
-    
+
     ! Time settings
     time_start = '2022-07-01-00:00:00.0000'
     ntime = 1
     time_intvl = 3600
-    
+
     ! Canopy model vertical resolution
     modlays = 100
     modres = 0.5
-    
+
     ! Physics components
     ifcanwind = .true.
     ifcanbio = .true.
@@ -228,7 +228,7 @@ Here's a basic example of `input/namelist.canopy`:
     ifcanphot = .true.
     ifcanbio = .true.
     ifcanddepgas = .true.
-    
+
     ! Biogenic emissions with historical averaging
     hist_opt = 1
     soim_opt = 0  ! Enable soil moisture effects

@@ -73,7 +73,7 @@ Compilation options can be controlled with environment variables:
 
 ### Compiler Selection
 - `FC=gfortran` (default) - GNU Fortran compiler
-- `FC=ifort` - Intel Fortran compiler  
+- `FC=ifort` - Intel Fortran compiler
 - `FC=gfortran-11` - Specific GNU Fortran version
 - `FC=/usr/bin/gfortran-11` - Full path to compiler
 
@@ -208,8 +208,9 @@ make -j4 -C src
 After successful installation:
 
 1. **Configure the model**: Edit [`input/namelist.canopy`](configuration.md)
-2. **Run test case**: Follow the [Quickstart Guide](quickstart.md)
-3. **Explore examples**: Check out the [Examples](../examples/basic.md)
+2. **Setup documentation**: Run `./scripts/docs.sh setup` (optional)
+3. **Run test case**: Follow the [Quickstart Guide](quickstart.md)
+4. **Explore examples**: Check out the [Examples](../examples/basic.md)
 
 ## Additional Resources
 

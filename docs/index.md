@@ -1,29 +1,50 @@
 # Canopy-App Documentation
 
-Welcome to the comprehensive documentation for **Canopy-App**, an advanced atmospheric canopy modeling system for meteorology and air quality applications.
-
-![Canopy-App Logo](canopy-app-logo_no-bg.png)
+<div class="hero-section">
+  <img src="canopy-app-logo_no-bg.png" alt="Canopy-App Logo" style="max-height: 120px; margin-bottom: 1rem;">
+  <p>Advanced atmospheric canopy modeling system for meteorology and air quality applications</p>
+</div>
 
 ## Overview
 
 The Canopy-App is a repository for low-level, stand-alone/column canopy parameterizations for testing and application to gridded atmospheric composition/air quality models. It provides detailed calculations for:
 
-- **Canopy meteorology** - Wind profiles, temperature, humidity, and wind adjustment factors
-- **Radiation transfer** - Solar radiation attenuation and photolysis calculations
-- **Biogenic emissions** - Volatile organic compound emissions from vegetation (MEGAN-based)
-- **Dry deposition** - Gas and particle removal by vegetation surfaces
-- **Vertical diffusion** - In-canopy eddy diffusivities
+- **🌬️ Canopy meteorology** - Wind profiles, temperature, humidity, and wind adjustment factors
+- **☀️ Radiation transfer** - Solar radiation attenuation and photolysis calculations
+- **🌱 Biogenic emissions** - Volatile organic compound emissions from vegetation (MEGAN-based)
+- **🍃 Dry deposition** - Gas and particle removal by vegetation surfaces
+- **🌪️ Vertical diffusion** - In-canopy eddy diffusivities
 
 **Authors:** Patrick Campbell, Zachary Moon, Wei-Ting Hung, Margaret Marvin, Quazi Rasool, and other NOAA research team members.
 
 ## Key Features
 
-✅ **Comprehensive Physics** - Implements state-of-the-art parameterizations for canopy processes  
-✅ **Multiple Input Formats** - Supports both NetCDF and text input/output  
-✅ **Flexible Configuration** - Extensive namelist options for customization  
-✅ **Well Documented** - Complete Doxygen API documentation and user guides  
-✅ **Modern Fortran** - Efficient Fortran 90+ implementation  
-✅ **Research Proven** - Based on peer-reviewed scientific algorithms  
+<div class="quick-links">
+  <div class="quick-link-card">
+    <h3>🔬 Comprehensive Physics</h3>
+    <p>State-of-the-art parameterizations for canopy processes</p>
+  </div>
+  <div class="quick-link-card">
+    <h3>📁 Multiple Formats</h3>
+    <p>Supports both NetCDF and text input/output</p>
+  </div>
+  <div class="quick-link-card">
+    <h3>⚙️ Flexible Configuration</h3>
+    <p>Extensive namelist options for customization</p>
+  </div>
+  <div class="quick-link-card">
+    <h3>📚 Well Documented</h3>
+    <p>Complete API documentation and user guides</p>
+  </div>
+  <div class="quick-link-card">
+    <h3>💻 Modern Fortran</h3>
+    <p>Efficient Fortran 90+ implementation</p>
+  </div>
+  <div class="quick-link-card">
+    <h3>🏆 Research Proven</h3>
+    <p>Based on peer-reviewed scientific algorithms</p>
+  </div>
+</div>
 
 ## Quick Links
 
@@ -32,7 +53,8 @@ The Canopy-App is a repository for low-level, stand-alone/column canopy paramete
 - [⚙️ **Configuration Guide**](getting-started/configuration.md) - Setup and namelist options
 - [🔬 **Science Documentation**](science/model-description.md) - Detailed model descriptions
 - [💻 **API Reference**](api/overview.md) - Complete code documentation
-- [📁 **Examples**](examples/basic.md) - Practical usage examples
+- [📁 **Examples & Tutorials**](user-guide/examples.md) - Practical usage examples
+- [📋 **Namelist Reference**](user-guide/namelist-reference.md) - Complete configuration options
 
 ## Current Components
 
@@ -101,7 +123,7 @@ DEBUG=1 NC=1 FC=ifort make -C src
 
 ### Configuration
 
-Modify settings in the Fortran namelist file [`input/namelist.canopy`](../input/namelist.canopy) before running.
+Modify settings in the Fortran namelist file [`input/namelist.canopy`](https://github.com/noaa-oar-arl/canopy-app/blob/main/input/namelist.canopy) before running.
 
 ### Documentation Structure
 

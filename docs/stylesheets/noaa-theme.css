@@ -1,0 +1,342 @@
+/* NOAA Canopy-App Custom Styling */
+
+/* NOAA Color Palette */
+:root {
+  /* NOAA Official Colors */
+  --noaa-navy-blue: #003087;
+  --noaa-light-blue: #0085ca;
+  --noaa-medium-blue: #4a90c2;
+  --noaa-gray: #5d6d7e;
+  --noaa-light-gray: #f5f7fa;
+  --noaa-white: #ffffff;
+  --noaa-accent: #00a9ce;
+
+  /* Additional atmospheric/weather colors */
+  --sky-blue: #87ceeb;
+  --forest-green: #228b22;
+  --earth-brown: #8b4513;
+}
+
+/* Override Material Design colors for NOAA theme */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: var(--noaa-navy-blue);
+  --md-primary-fg-color--light: var(--noaa-light-blue);
+  --md-primary-fg-color--dark: #002066;
+  --md-accent-fg-color: var(--noaa-accent);
+  --md-accent-fg-color--transparent: rgba(0, 169, 206, 0.1);
+
+  /* Header and navigation */
+  --md-header-bg-color: var(--noaa-navy-blue);
+  --md-header-fg-color: var(--noaa-white);
+
+  /* Links */
+  --md-typeset-a-color: var(--noaa-light-blue);
+
+  /* Code blocks */
+  --md-code-bg-color: var(--noaa-light-gray);
+  --md-code-fg-color: var(--noaa-navy-blue);
+
+  /* Admonitions */
+  --md-admonition-bg-color: rgba(0, 169, 206, 0.05);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: var(--noaa-light-blue);
+  --md-primary-fg-color--light: var(--noaa-medium-blue);
+  --md-primary-fg-color--dark: var(--noaa-navy-blue);
+  --md-accent-fg-color: var(--noaa-accent);
+  --md-accent-fg-color--transparent: rgba(0, 169, 206, 0.1);
+
+  /* Header for dark mode */
+  --md-header-bg-color: #1a1a1a;
+  --md-header-fg-color: var(--noaa-light-blue);
+}
+
+/* Custom styling for NOAA branding */
+.md-header {
+  background: linear-gradient(135deg, var(--noaa-navy-blue) 0%, var(--noaa-light-blue) 100%);
+  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1), 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
+}
+
+.md-header__title {
+  font-weight: 500;
+  color: var(--noaa-white) !important;
+}
+
+.md-header-nav__button {
+  color: var(--noaa-white) !important;
+}
+
+.md-search__input {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--noaa-white);
+}
+
+.md-search__input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Navigation tabs */
+.md-tabs {
+  background: linear-gradient(to right, var(--noaa-navy-blue), var(--noaa-medium-blue));
+  border-bottom: 1px solid rgba(0, 169, 206, 0.2);
+}
+
+.md-tabs__link {
+  color: rgba(255, 255, 255, 0.9) !important;
+  transition: color 0.3s ease;
+}
+
+.md-tabs__link:hover,
+.md-tabs__link--active {
+  color: var(--noaa-white) !important;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Navigation sidebar */
+.md-nav__title {
+  color: var(--noaa-navy-blue);
+  font-weight: 600;
+}
+
+.md-nav__link--active {
+  color: var(--noaa-light-blue) !important;
+  font-weight: 500;
+}
+
+.md-nav__link:hover {
+  color: var(--noaa-medium-blue) !important;
+}
+
+/* Content area enhancements */
+.md-content__inner {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/* Code blocks with NOAA styling */
+.highlight .hll { background-color: rgba(0, 169, 206, 0.1); }
+.highlight .c { color: var(--noaa-gray); font-style: italic; }
+.highlight .k { color: var(--noaa-navy-blue); font-weight: bold; }
+.highlight .s { color: var(--forest-green); }
+.highlight .nb { color: var(--noaa-light-blue); }
+
+/* Buttons and badges */
+.md-button {
+  background-color: var(--noaa-light-blue);
+  border-color: var(--noaa-light-blue);
+  color: var(--noaa-white);
+  transition: all 0.3s ease;
+}
+
+.md-button:hover {
+  background-color: var(--noaa-navy-blue);
+  border-color: var(--noaa-navy-blue);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 48, 135, 0.2);
+}
+
+.md-button--primary {
+  background-color: var(--noaa-navy-blue);
+  border-color: var(--noaa-navy-blue);
+}
+
+.md-button--primary:hover {
+  background-color: var(--noaa-light-blue);
+  border-color: var(--noaa-light-blue);
+}
+
+/* Admonitions with NOAA colors */
+.md-typeset .admonition.info,
+.md-typeset details.info {
+  border-color: var(--noaa-light-blue);
+}
+
+.md-typeset .info > .admonition-title,
+.md-typeset .info > summary {
+  background-color: rgba(0, 133, 202, 0.1);
+  border-color: var(--noaa-light-blue);
+}
+
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+  border-color: #ffa726;
+}
+
+.md-typeset .admonition.success,
+.md-typeset details.success {
+  border-color: var(--forest-green);
+}
+
+/* Tables */
+.md-typeset table:not([class]) {
+  border: 1px solid rgba(0, 169, 206, 0.2);
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--noaa-light-gray);
+  color: var(--noaa-navy-blue);
+  border-bottom: 2px solid var(--noaa-light-blue);
+}
+
+.md-typeset table:not([class]) tr:hover {
+  background-color: rgba(0, 169, 206, 0.05);
+}
+
+/* Footer */
+.md-footer {
+  background: linear-gradient(135deg, var(--noaa-navy-blue) 0%, #002066 100%);
+  color: var(--noaa-white);
+}
+
+.md-footer-meta {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.md-footer__link {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.md-footer__link:hover {
+  color: var(--noaa-white) !important;
+}
+
+/* Logo and branding */
+.md-header__button img,
+.md-logo,
+.md-logo img {
+  display: none !important;
+}
+
+/* Ensure logo is completely hidden from header */
+.md-header .md-logo {
+  display: none !important;
+}
+
+/* Footer logo styling */
+.md-footer .md-logo img {
+  display: block !important;
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+[data-md-color-scheme="default"] .md-footer .md-logo img {
+  filter: brightness(0) invert(1);
+}
+
+[data-md-color-scheme="slate"] .md-footer .md-logo img {
+  filter: none;
+}
+
+/* Hero section for homepage */
+.hero-section {
+  background: linear-gradient(135deg, var(--noaa-navy-blue) 0%, var(--noaa-light-blue) 50%, var(--sky-blue) 100%);
+  color: var(--noaa-white);
+  padding: 3rem 1rem;
+  margin: -1.5rem -1.5rem 2rem -1.5rem;
+  text-align: center;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.hero-section h1 {
+  color: var(--noaa-white) !important;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Badge styling */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  margin: 0.25rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: var(--noaa-light-blue);
+  color: var(--noaa-white);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.badge:hover {
+  background-color: var(--noaa-navy-blue);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 48, 135, 0.3);
+}
+
+/* Quick links grid */
+.quick-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.quick-link-card {
+  border: 1px solid rgba(0, 169, 206, 0.2);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(0, 169, 206, 0.05) 0%, rgba(0, 48, 135, 0.05) 100%);
+}
+
+.quick-link-card:hover {
+  border-color: var(--noaa-light-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 169, 206, 0.15);
+}
+
+.quick-link-card h3 {
+  color: var(--noaa-navy-blue) !important;
+  margin-bottom: 0.5rem;
+}
+
+.quick-link-card a {
+  color: var(--noaa-light-blue) !important;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.quick-link-card a:hover {
+  color: var(--noaa-navy-blue) !important;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .hero-section {
+    padding: 2rem 1rem;
+  }
+
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .quick-links {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Print styles */
+@media print {
+  .md-header,
+  .md-tabs,
+  .md-sidebar,
+  .md-footer {
+    display: none !important;
+  }
+
+  .md-content {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

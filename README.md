@@ -62,16 +62,19 @@ The documentation is automatically built and deployed when:
 For manual deployment:
 ```bash
 # Deploy latest version to GitHub Pages
-./scripts/deploy-docs.sh
+./scripts/docs.sh deploy
 
 # Deploy specific version with versioning
-./scripts/deploy-docs.sh v1.0.0
+./scripts/docs.sh deploy v1.0.0
 
 # Build only (no deployment)
-./scripts/deploy-docs.sh latest build
+./scripts/docs.sh build
 
-# Serve locally
-./scripts/deploy-docs.sh latest serve
+# Serve locally with hot reload
+./scripts/docs.sh serve
+
+# First-time setup and validation
+./scripts/docs.sh setup
 ```
 
 ### GitHub Pages Setup
@@ -138,7 +141,7 @@ Current Canopy-App components:
 
     - `canopy_eddyx_mod.F90`
 
-3.  In-Canopy photolysis attenuation (i.e., used to scale resolved model layer 1 photolysis).  Based on Massman et al. (2017) and Markar et al. (2017).  
+3.  In-Canopy photolysis attenuation (i.e., used to scale resolved model layer 1 photolysis).  Based on Massman et al. (2017) and Markar et al. (2017).
 
     Namelist Option : `ifcanphot`  Output Variables: `rjcf` (fraction)
 
@@ -164,7 +167,7 @@ Namelist Option : `ifcanddepgas`   Output Variables: see [Table 2](#table-2-cano
 Namelist Option : `file_out`  Prefix string (e.g., `'test'`) used to name output file (Output is 1D txt when using input 1D data (i.e., `infmt_opt=1`), or is 2D NetCDF output when 2D NetCDF input is used (i.e., `infmt_opt=0`)).
 
 Current 3D fields include canopy winds (`canwind`), canopy vertical/eddy diffusivity values `kz`), biogenic emissions (see Table 1 below),
-canopy photolysis attenuation correction factors (`rjcf`), and derived Leaf Area Density (`lad`) from the foliage shape function.  
+canopy photolysis attenuation correction factors (`rjcf`), and derived Leaf Area Density (`lad`) from the foliage shape function.
 
 Current 2D fields includes the Wind Adjustment Factor (`waf`), flame heights (`flameh`), and canopy heights (`canheight`). Current 1D fields include the canopy model interface levels (`z`).
 
@@ -245,7 +248,7 @@ Namelist Option : `file_vars`  Full name of input file (Supports either text or 
   f90nml -g filenames -v file_vars="$(realpath *.txt | xargs -I {} echo "'{}'")" namelist.canopy namelist.canopy_copy
   ```
 
-The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variables) below is based around NOAA's UFS operational Global Forecast System Version 16 (GFSv16) gridded met data, and is supplemented with external canopy data (from numerous sources) and other external and calculated input variables.  
+The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variables) below is based around NOAA's UFS operational Global Forecast System Version 16 (GFSv16) gridded met data, and is supplemented with external canopy data (from numerous sources) and other external and calculated input variables.
 
 ### Table 2. Canopy-App Required Input Variables
 
@@ -440,7 +443,7 @@ Otherwise, please contact Patrick.C.Campbell@noaa.gov for other GFSv16 data peri
 
 **\*\*** If `modres` >> `flameh` then some error in WAF calculation will be incurred.  Suggestion is to use relative fine `modres` (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
 
-**\*\*\*** If `href_set` becomes small and approaches z0 (or as `href_set` --> 0), only the sub-canopy wind profile is calculated, recommend `href_set` = 10 m.  
+**\*\*\*** If `href_set` becomes small and approaches z0 (or as `href_set` --> 0), only the sub-canopy wind profile is calculated, recommend `href_set` = 10 m.
 
 **Note:** Canopy is parameterized by foliage distribution shape functions and parameters for different vegetation types.
 

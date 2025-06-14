@@ -79,13 +79,13 @@ check_directory() {
 # Check requirements and dependencies
 check_requirements() {
     log_info "Checking requirements..."
-    
+
     # Check if we're in a git repository
     if ! git rev-parse --git-dir > /dev/null 2>&1; then
         log_error "This script must be run from within a git repository"
         exit 1
     fi
-    
+
     # Check if we're in the right repository
     REPO_URL=$(git config --get remote.origin.url 2>/dev/null || echo "")
     if [[ ! "$REPO_URL" =~ "noaa-oar-arl/canopy-app" ]]; then
@@ -97,26 +97,26 @@ check_requirements() {
             exit 1
         fi
     fi
-    
+
     # Check if Python is available
     if ! command -v python3 &> /dev/null; then
         log_error "Python 3 is required but not installed"
         exit 1
     fi
-    
+
     # Check if pip is available
     if ! command -v pip &> /dev/null; then
         log_error "pip is required but not installed"
         exit 1
     fi
-    
+
     log_success "Requirements check passed"
 }
 
 # Install documentation dependencies
 install_dependencies() {
     log_info "Installing documentation dependencies..."
-    
+
     if [ -f "$REQUIREMENTS_FILE" ]; then
         pip install -r "$REQUIREMENTS_FILE"
         log_success "Documentation dependencies installed"
@@ -129,11 +129,11 @@ install_dependencies() {
 # Check GitHub Pages configuration
 check_github_pages() {
     log_info "Checking GitHub Pages configuration..."
-    
+
     # Check if GitHub CLI is available
     if command -v gh &> /dev/null; then
         log_info "GitHub CLI detected, checking repository settings..."
-        
+
         # Try to get repository info
         if gh repo view noaa-oar-arl/canopy-app &> /dev/null; then
             log_success "Repository accessible via GitHub CLI"
@@ -147,7 +147,7 @@ check_github_pages() {
         log_warning "GitHub CLI not installed"
         log_info "Consider installing it for easier repository management: https://cli.github.com/"
     fi
-    
+
     log_info "Manual GitHub Pages setup:"
     echo "  1. Go to: https://github.com/noaa-oar-arl/canopy-app/settings/pages"
     echo "  2. Set Source to 'GitHub Actions'"
@@ -157,17 +157,17 @@ check_github_pages() {
 # Build documentation
 build_docs() {
     log_info "Building documentation..."
-    
+
     # Clean previous build
     if [ -d "$SITE_DIR" ]; then
         rm -rf "$SITE_DIR"
         log_info "Cleaned previous build"
     fi
-    
+
     # Build with MkDocs
     mkdocs build --verbose --clean
     log_success "Documentation built successfully"
-    
+
     # Show build stats
     if [ -d "$SITE_DIR" ]; then
         SITE_SIZE=$(du -sh "$SITE_DIR" | cut -f1)
@@ -182,7 +182,7 @@ serve_docs() {
     log_info "Starting local documentation server..."
     log_info "Documentation will be available at: http://127.0.0.1:8000"
     log_info "Press Ctrl+C to stop the server"
-    
+
     mkdocs serve
 }
 
@@ -190,24 +190,24 @@ serve_docs() {
 deploy_docs() {
     local VERSION=${1:-$DEFAULT_VERSION}
     log_info "Deploying documentation to GitHub Pages (version: $VERSION)..."
-    
+
     # Check if git is configured
     if ! git config user.name &> /dev/null || ! git config user.email &> /dev/null; then
         log_warning "Git user not configured. Setting default values..."
         git config --local user.email "docs@noaa-oar-arl.github.io"
         git config --local user.name "Documentation Bot"
     fi
-    
+
     # Deploy with mike for versioning
     if command -v mike &> /dev/null; then
         log_info "Deploying version '$VERSION' with mike..."
         mike deploy --push --update-aliases "$VERSION"
-        
+
         if [ "$VERSION" == "latest" ] || [ "$VERSION" == "main" ]; then
             mike set-default --push "$VERSION"
             log_info "Set '$VERSION' as default version"
         fi
-        
+
         log_success "Documentation deployed successfully with versioning"
         log_info "Available at: https://noaa-oar-arl.github.io/canopy-app/"
     else
@@ -221,7 +221,7 @@ deploy_docs() {
 # List available documentation versions
 list_versions() {
     log_info "Available documentation versions:"
-    
+
     if command -v mike &> /dev/null; then
         mike list
     else
@@ -233,32 +233,32 @@ list_versions() {
 # Clean build artifacts
 clean_docs() {
     log_info "Cleaning documentation build artifacts..."
-    
+
     if [ -d "$SITE_DIR" ]; then
         rm -rf "$SITE_DIR"
         log_success "Removed $SITE_DIR directory"
     fi
-    
+
     # Clean any Python cache
     find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
     find . -name "*.pyc" -delete 2>/dev/null || true
-    
+
     log_success "Cleanup completed"
 }
 
 # Test documentation build
 test_docs() {
     log_info "Testing documentation build..."
-    
+
     # Test MkDocs build
     if mkdocs build --clean --quiet; then
         log_success "Documentation builds successfully"
-        
+
         # Check if site directory was created
         if [ -d "$SITE_DIR" ]; then
             SITE_SIZE=$(du -sh "$SITE_DIR" | cut -f1)
             log_info "Generated site size: $SITE_SIZE"
-            
+
             # Count pages
             PAGE_COUNT=$(find "$SITE_DIR" -name "*.html" | wc -l)
             log_info "Generated pages: $PAGE_COUNT"
@@ -277,7 +277,7 @@ setup_command() {
     install_dependencies
     check_github_pages
     test_docs
-    
+
     echo
     log_success "Documentation setup completed successfully!"
     echo
@@ -299,10 +299,10 @@ setup_command() {
 # Main execution
 main() {
     check_directory
-    
+
     local COMMAND=${1:-"help"}
     local VERSION=${2:-$DEFAULT_VERSION}
-    
+
     case $COMMAND in
         "setup")
             setup_command

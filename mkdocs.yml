@@ -6,7 +6,7 @@ site_url: "https://noaa-oar-arl.github.io/canopy-app/"
 repo_name: "noaa-oar-arl/canopy-app"
 repo_url: "https://github.com/noaa-oar-arl/canopy-app"
 
-copyright: "Copyright &copy; 2024 P.C. Campbell and contributors"
+copyright: "Copyright &copy; 2024 NOAA Air Resources Laboratory - P.C. Campbell and contributors"
 
 theme:
   name: material
@@ -14,16 +14,16 @@ theme:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: green
-      accent: light green
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: green
-      accent: light green
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
@@ -32,12 +32,22 @@ theme:
     - navigation.sections
     - navigation.expand
     - navigation.top
+    - navigation.prune
+    - navigation.indexes
     - search.suggest
     - search.highlight
+    - search.share
     - content.code.copy
     - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+  # No logo in header to prevent white logo in menu bar
   icon:
     repo: fontawesome/brands/github
+  favicon: canopy-app-logo_no-bg.png
+  font:
+    text: Roboto
+    code: Roboto Mono
 
 plugins:
   - search
@@ -132,8 +142,41 @@ markdown_extensions:
 
 extra_javascript:
   - javascripts/mathjax.js
+  - javascripts/noaa-enhancements.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/noaa-theme.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/noaa-oar-arl/canopy-app
+      name: GitHub Repository
+    - icon: fontawesome/solid/globe
+      link: https://www.noaa.gov/
+      name: NOAA Website
+    - icon: fontawesome/solid/envelope
+      link: mailto:patrick.campbell@noaa.gov
+      name: Contact
+  version:
+    provider: mike
+    default: latest
+  analytics:
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >-
+            Thanks for your feedback! Help us improve this page by
+            <a href="https://github.com/noaa-oar-arl/canopy-app/issues/new/?title=[Docs]+{title}+-+{url}" target="_blank" rel="noopener">telling us what you found lacking</a>.
 
 nav:
   - Home: index.md
@@ -146,6 +189,9 @@ nav:
     - Input Files: user-guide/input-files.md
     - Running the Model: user-guide/running.md
     - Output Files: user-guide/output-files.md
+    - Examples & Tutorials: user-guide/examples.md
+    - Namelist Reference: user-guide/namelist-reference.md
+    - Troubleshooting: user-guide/troubleshooting.md
   - Science Documentation:
     - Model Description: science/model-description.md
     - Physical Processes: science/physical-processes.md
@@ -156,19 +202,9 @@ nav:
     - Modules: api/modules.md
     - Functions: api/functions.md
     - Variables: api/variables.md
-  - Examples:
-    - Basic Examples: examples/basic.md
-    - Advanced Examples: examples/advanced.md
   - Development:
     - Contributing: development/contributing.md
     - Code Style: development/code-style.md
     - Testing: development/testing.md
   - Doxygen API:
     - canopy/links.md
-
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/canopy-app/canopy-app
-  version:
-    provider: mike

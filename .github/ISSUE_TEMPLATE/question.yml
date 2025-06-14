@@ -8,7 +8,7 @@ body:
     attributes:
       value: |
         Thank you for reaching out! We're here to help you use Canopy-App effectively.
-        
+
         **Before submitting:** Please check the [documentation](https://canopy-app.readthedocs.io) and [existing issues](https://github.com/noaa-oar-arl/canopy-app/issues) first.
 
   - type: dropdown
