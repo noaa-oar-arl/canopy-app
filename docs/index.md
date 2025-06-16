@@ -55,6 +55,7 @@ The Canopy-App is a repository for low-level, stand-alone/column canopy paramete
 - [💻 **API Reference**](api/overview.md) - Complete code documentation
 - [📁 **Examples & Tutorials**](user-guide/examples.md) - Practical usage examples
 - [📋 **Namelist Reference**](user-guide/namelist-reference.md) - Complete configuration options
+- [📚 **References & Bibliography**](references.md) - Scientific references and citations
 
 ## Current Components
 

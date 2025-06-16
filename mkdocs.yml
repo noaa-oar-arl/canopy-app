@@ -206,5 +206,6 @@ nav:
     - Contributing: development/contributing.md
     - Code Style: development/code-style.md
     - Testing: development/testing.md
+  - References: references.md
   - Doxygen API:
     - canopy/links.md

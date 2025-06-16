@@ -1,17 +1,20 @@
-<h1>
- [![License](https://img.shields.io/github/license/noaa-oar-arl/canopy-app.svg)](https://github.com/noaa-oar-arl/canopy-app/blob/main/LICENSE)
-[![CI status](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/ci.yml)
-[![Documentation](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/docs.yml/badge.svg)](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/docs.yml)
-[![GitHub Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://noaa-oar-arl.github.io/canopy-app/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8403649.svg)](https://doi.org/10.5281/zenodo.8403649)ref="https://github.com/noaa-oar-arl/canopy-app">
-    <img src="docs/canopy-app-logo_no-bg.png" alt="canopy-app logo" height="125" valign="bottom">
+# Canopy-App
+
+<div align="center">
+  <a href="https://github.com/noaa-oar-arl/canopy-app">
+    <img src="docs/canopy-app-logo_no-bg.png" alt="Canopy-App Logo" height="125">
   </a>
-</h1>
+</div>
+
+<div align="center">
 
 [![License](https://img.shields.io/github/license/noaa-oar-arl/canopy-app.svg)](https://github.com/noaa-oar-arl/canopy-app/blob/main/LICENSE)
 [![CI status](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/ci.yml)
-[![Documentation](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/pages.yml/badge.svg)](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/pages.yml)
+[![Documentation](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/docs.yml/badge.svg)](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/docs.yml)
+[![GitHub Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://noaa-oar-arl.github.io/canopy-app/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8403649.svg)](https://doi.org/10.5281/zenodo.8403649)
+
+</div>
 
 Repository for low-level, stand-alone/column canopy parameterizations for testing and application to gridded atmospheric composition/air quality models.
 

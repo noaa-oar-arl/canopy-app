@@ -233,7 +233,7 @@ def run(
                     f"Files present are: {[p.as_posix() for p in output_dir.glob('*')]}."
                 )
             if verbose:
-                print(f"detected output files for {ifcan}:")
+                print(f"detected output files for {ifcan}: ")
                 print("\n".join(f"- {p.as_posix()}" for p in cands))
             dfs_ifcan = []
             for cand in cands:
@@ -399,7 +399,7 @@ def run_config_sens(
             print(f"Running case {i+1}/{len(cases)}")
         ds = run(
             config=case,
-            case_dir=base_dir / f"case_{i:0{len(str(len(cases) - 1))}}",
+            case_dir=base_dir / f"case_{i: 0{len(str(len(cases) - 1))}}",
             cleanup=False,
             verbose=verbose,
         )

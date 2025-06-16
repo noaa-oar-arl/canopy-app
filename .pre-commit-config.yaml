@@ -8,12 +8,11 @@ repos:
       - id: check-yaml
 
   - repo: https://github.com/zmoon/findent-pre-commit
-    rev: "65627b82c4103aa12dd0fb6b3267bfb1abd858c7"
+    rev: "17b1b0712a7752cc77758aa9ae770edf45ea89e4"
     hooks:
       # NOTE: doesn't work on Windows currently
       - id: wfindent-pypi
         args: ['-i4']
-        additional_dependencies: ['findent<4.2.6']
 
   - repo: https://github.com/asottile/pyupgrade
     rev: "v3.3.1"
