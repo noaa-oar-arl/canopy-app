@@ -44,6 +44,7 @@ jobs:
         with:
           python-version: '3.11'
           cache: 'pip'
+          cache-dependency-path: 'requirements-docs.txt'
 
       - name: Install documentation dependencies
         run: |
@@ -106,6 +107,7 @@ jobs:
         with:
           python-version: '3.11'
           cache: 'pip'
+          cache-dependency-path: 'requirements-docs.txt'
 
       - name: Install documentation dependencies
         run: |
