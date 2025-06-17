@@ -7,17 +7,13 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
 
-  # Fortran formatting disabled due to findent compatibility issues
-  # Alternative approaches for Fortran formatting:
-  # 1. Manual formatting: findent -i4 <file>
-  # 2. Use fprettify (more reliable): pip install fprettify
-  # 3. Uncomment the fprettify section below (recommended)
-  # - repo: https://github.com/zmoon/findent-pre-commit
-  #   rev: "v4.2.5"
-  #   hooks:
-  #     - id: findent
-  #       args: ['-i4', '--input-format=free']
-  #       files: \.(f90|F90|f95|F95|f03|F03|f08|F08)$
+  - repo: https://github.com/zmoon/findent-pre-commit
+    rev: "v4.2.5"
+    hooks:
+      - id: wfindent-pypi
+        args: ['-i4', '--input-format=free']
+        files: \.(f90|F90|f95|F95|f03|F03|f08|F08)$
+        additional_dependencies: ['findent<4.2.6']
 
   # Recommended: fprettify for Fortran formatting (uncomment to enable)
   # - repo: https://github.com/pseewald/fprettify
