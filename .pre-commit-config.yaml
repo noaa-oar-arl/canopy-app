@@ -11,9 +11,9 @@ repos:
     rev: "65627b82c4103aa12dd0fb6b3267bfb1abd858c7"
     hooks:
       - id: wfindent-pypi
-        args: ['-i4', '--input-format=free']
+        args: ['-i4']
         files: \.(f90|F90|f95|F95|f03|F03|f08|F08)$
-        additional_dependencies: ['findent<4.2.6']
+        additional_dependencies: ['findent<4.3.0']
 
   # Recommended: fprettify for Fortran formatting (uncomment to enable)
   # - repo: https://github.com/pseewald/fprettify
