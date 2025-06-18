@@ -13,7 +13,7 @@ repos:
       # NOTE: doesn't work on Windows currently
       - id: wfindent-pypi
         args: ['-i4']
-        additional_dependencies: ['findent']
+        additional_dependencies: ['findent<4.2.6']
 
   # Recommended: fprettify for Fortran formatting (uncomment to enable)
   # - repo: https://github.com/pseewald/fprettify
