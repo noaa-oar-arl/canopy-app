@@ -7,10 +7,10 @@
 
 !> \defgroup MemoryManagement Memory Management
 !! \brief Routines    !> \defgroup Daily3DAverages Daily Average 3D Arrays
- !! \brief 3D versions of daily average arrays
- !! \ingroup MemoryManagement
- !! \{
- !> \brief 24-hour average sunlit leaf temperature 3D (K)locating and deallocating memory for canopy model arrays
+!! \brief 3D versions of daily average arrays
+!! \ingroup MemoryManagement
+!! \{
+!> \brief 24-hour average sunlit leaf temperature 3D (K)locating and deallocating memory for canopy model arrays
 !! \{
 
 !> \brief Allocate all necessary arrays for canopy model inputs and outputs
