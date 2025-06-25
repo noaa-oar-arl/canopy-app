@@ -1,0 +1,89 @@
+name: Weekly Modulefile Sync
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'  # Every Monday at 3:00 AM UTC
+  workflow_dispatch:
+
+jobs:
+  update-and-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout current repo
+      uses: actions/checkout@v4
+
+    - name: Set up Git user
+      run: |
+        git config --global user.name "GitHub Action"
+        git config --global user.email "action@github.com"
+
+    - name: Clone ufs-weather-model and copy modulefiles
+      run: |
+        git clone https://github.com/ufs-community/ufs-weather-model.git
+        cp -r ufs-weather-model/modulefiles/* modulefiles/
+        rm -rf ufs-weather-model
+
+    - name: Remove specific lines from ufs_common.lua
+      run: |
+        sed -i '/mapl/d' modulefiles/ufs_common.lua
+        sed -i '/scotch/d' modulefiles/ufs_common.lua
+        sed -i '/gftl-shared/d' modulefiles/ufs_common.lua
+        sed -i '/w3emc/d' modulefiles/ufs_common.lua
+        sed -i '/ip/d' modulefiles/ufs_common.lua
+        sed -i '/sp/d' modulefiles/ufs_common.lua
+        sed -i '/g2tmpl/d' modulefiles/ufs_common.lua
+        sed -i '/g2/d' modulefiles/ufs_common.lua
+        sed -i '/crtm/d' modulefiles/ufs_common.lua
+        sed -i '/bacio/d' modulefiles/ufs_common.lua
+        sed -i '/fms/d' modulefiles/ufs_common.lua
+        sed -i '/esmf/d' modulefiles/ufs_common.lua
+        sed -i '/parallelio/d' modulefiles/ufs_common.lua
+        find modulefiles/ -type f -exec sed -i 's/UFS Weather Model/NEXUS Model/g' {} +
+        find modulefiles/ -type f -exec sed -i 's/UFS Model/NEXUS Model/g' {} +
+
+    - name: Set up Python and install pre-commit
+      run: |
+        python3 -m venv venv
+        source venv/bin/activate
+        pip install pre-commit
+
+    - name: Run pre-commit hooks on modulefiles
+      run: |
+        source venv/bin/activate
+        pre-commit run --files $(find modulefiles/ -type f) || true
+
+    - name: Commit pre-commit fixes (if any)
+      run: |
+        git add modulefiles
+        git commit -m "Apply pre-commit fixes to modulefiles" || echo "No pre-commit changes to commit"
+
+    - name: Check for changes
+      id: changes
+      run: |
+        if git diff --quiet; then
+          echo "no_changes=true" >> $GITHUB_OUTPUT
+        else
+          echo "no_changes=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Commit changes
+      if: steps.changes.outputs.no_changes == 'false'
+      run: |
+        git add modulefiles
+        git commit -m "Update modulefiles from ufs-weather-model and replace references"
+
+    - name: Create Pull Request
+      if: steps.changes.outputs.no_changes == 'false'
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: "Automated update: Sync modulefiles and clean up references"
+        branch: update-modulefiles
+        title: "Automated PR: Sync modulefiles from ufs-weather-model"
+        body: |
+          This weekly automated PR:
+          - Syncs modulefiles from ufs-weather-model
+          - Removes deprecated or unused dependencies from ufs_common.lua
+          - Replaces model references with 'NEXUS Model'
+          - Runs pre-commit formatting
