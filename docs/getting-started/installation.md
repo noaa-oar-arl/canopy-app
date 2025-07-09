@@ -279,9 +279,9 @@ Run the basic test to verify your installation:
 # Run with example data
 ./canopy_app
 
-# Check version information
-./canopy_app --version
-```
+# # Check version information
+# ./canopy_app --version
+# ```
 
 ### Expected Output
 
