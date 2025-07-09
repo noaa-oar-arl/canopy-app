@@ -209,8 +209,8 @@ After successful installation:
 
 1. **Configure the model**: Edit [`input/namelist.canopy`](configuration.md)
 2. **Setup documentation**: Run `./scripts/docs.sh setup` (optional)
-3. **Run test case**: Follow the [Quickstart Guide](quickstart.md)
-4. **Explore examples**: Check out the [Examples](../examples/basic.md)
+<!-- 3. **Run test case**: Follow the [Quickstart Guide](quickstart.md)
+4. **Explore examples**: Check out the [Examples](../examples/basic.md) -->
 
 ## Additional Resources
 
