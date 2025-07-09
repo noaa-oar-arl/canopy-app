@@ -66,7 +66,7 @@ TEMP_2M    QV_2M      PRES_SFC   USTAR     WSPD_10M  WDIR_10M  SRAD_TOA
 
 ## Vegetation Parameters
 
-Vegetation Parameters are assumed to come through input or configuration at the moment 
+Vegetation Parameters are assumed to come through input or configuration at the moment
 
 <!-- ## File Validation
 

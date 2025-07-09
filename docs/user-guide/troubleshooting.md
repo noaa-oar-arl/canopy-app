@@ -321,7 +321,7 @@ validate_namelist('namelist.canopy')
 
 ## Debugging Techniques
 
-<!-- TODO: Fix this section 
+<!-- TODO: Fix this section
 ### Enable Debug Output
 
 ```fortran
