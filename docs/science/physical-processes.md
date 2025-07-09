@@ -83,7 +83,7 @@ See module `canopy_canmet_mod.F90`:
 - `calc_heat_flux()` - Sensible heat flux
 - `calc_eddy_diffusivity()` - Turbulent mixing
 
-### Humidity and Latent Heat
+<!-- ### Humidity and Latent Heat
 
 #### Evapotranspiration
 
@@ -96,9 +96,9 @@ Total latent heat flux includes:
 ```fortran
 ! Total latent heat flux
 LE_total = LE_transpiration + LE_evaporation + LE_soil
-```
+``` -->
 
-#### Stomatal Conductance
+<!-- #### Stomatal Conductance
 
 Based on environmental controls:
 
@@ -111,7 +111,7 @@ gs = gs_max * f_light * f_temp * f_humidity * f_co2
 - `f_light`: Light response function
 - `f_temp`: Temperature response function
 - `f_humidity`: Humidity stress function
-- `f_co2`: CO₂ response function
+- `f_co2`: CO₂ response function -->
 
 ## Radiation Transfer
 
@@ -144,7 +144,7 @@ See module `canopy_rad_mod.F90`:
 - `calc_par_profile()` - PAR calculations
 - `calc_extinction_coeff()` - Light extinction
 
-### Longwave Radiation
+<!-- ### Longwave Radiation
 
 #### Net Longwave Exchange
 
@@ -156,7 +156,7 @@ Rn_lw = Rn_lw_down - Rn_lw_up
 **Components:**
 - Atmospheric longwave down
 - Canopy longwave emission up
-- Multiple scattering within canopy
+- Multiple scattering within canopy -->
 
 #### Sky View Factor
 
@@ -222,7 +222,7 @@ d = 0.7 * h
 
 **Where h is canopy height.**
 
-#### Heat and Moisture Fluxes
+<!-- #### Heat and Moisture Fluxes
 
 Surface layer fluxes using bulk transfer:
 
@@ -239,7 +239,7 @@ LE = rho * lv * CE * U * (qs - qa)
 - `CE`: Moisture transfer coefficient
 - `U`: Wind speed
 - `Ts, Ta`: Surface and air temperature
-- `qs, qa`: Surface and air specific humidity
+- `qs, qa`: Surface and air specific humidity -->
 
 ### Canopy-Atmosphere Coupling
 
@@ -256,7 +256,7 @@ See modules:
 - `canopy_profile_mod.F90` - Vertical profile calculations
 - `canopy_utils_mod.F90` - Interpolation and utilities
 
-## Soil-Canopy Interactions
+<!-- ## Soil-Canopy Interactions
 
 ### Ground Surface Processes
 
@@ -284,9 +284,9 @@ E_soil = (e_sat - e_air) / (r_soil + r_aero)
 
 **Resistances:**
 - `r_soil`: Soil surface resistance
-- `r_aero`: Aerodynamic resistance to soil
+- `r_aero`: Aerodynamic resistance to soil -->
 
-### Root Zone Processes
+<!-- ### Root Zone Processes
 
 #### Water Uptake
 
@@ -300,7 +300,7 @@ S_root = alpha_root * LAI * (theta - theta_wp)
 **Where:**
 - `alpha_root`: Root efficiency parameter
 - `theta`: Soil moisture content
-- `theta_wp`: Wilting point
+- `theta_wp`: Wilting point -->
 
 ## Model Numerics
 
@@ -328,14 +328,14 @@ end do
 
 ### Time Integration
 
-#### Explicit Schemes
+<!-- #### Explicit Schemes
 
 Most variables use explicit time stepping:
 
 ```fortran
 ! Forward Euler
 var_new = var_old + dt * tendency
-```
+``` -->
 
 #### Stability Criteria
 
