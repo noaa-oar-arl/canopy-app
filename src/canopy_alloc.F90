@@ -341,117 +341,117 @@ SUBROUTINE canopy_alloc
         write(*,*)  'Canopy biogenic emissions option selected'
         write(*,*)  '-------------------------------'
         if (biospec_opt == 0 .or. biospec_opt == 1) then
-            !> \brief Isoprene emission rate (µg m⁻² s⁻¹)
+            !> \brief Isoprene emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_isop))         allocate(emi_isop(nlat*nlon,modlays))
-            !> \brief Isoprene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Isoprene emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_isop_3d))      allocate(emi_isop_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 2) then
-            !> \brief Myrcene emission rate (µg m⁻² s⁻¹)
+            !> \brief Myrcene emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_myrc))         allocate(emi_myrc(nlat*nlon,modlays))
-            !> \brief Myrcene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Myrcene emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_myrc_3d))      allocate(emi_myrc_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 3) then
-            !> \brief Sabinene emission rate (µg m⁻² s⁻¹)
+            !> \brief Sabinene emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_sabi))         allocate(emi_sabi(nlat*nlon,modlays))
-            !> \brief Sabinene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Sabinene emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_sabi_3d))      allocate(emi_sabi_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 4) then
-            !> \brief Limonene emission rate (µg m⁻² s⁻¹)
+            !> \brief Limonene emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_limo))         allocate(emi_limo(nlat*nlon,modlays))
-            !> \brief Limonene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Limonene emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_limo_3d))      allocate(emi_limo_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 5) then
-            !> \brief 3-Carene emission rate (µg m⁻² s⁻¹)
+            !> \brief 3-Carene emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_care))         allocate(emi_care(nlat*nlon,modlays))
-            !> \brief 3-Carene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief 3-Carene emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_care_3d))      allocate(emi_care_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 6) then
-            !> \brief Ocimene emission rate (µg m⁻² s⁻¹)
+            !> \brief Ocimene emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_ocim))         allocate(emi_ocim(nlat*nlon,modlays))
-            !> \brief Ocimene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Ocimene emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_ocim_3d))      allocate(emi_ocim_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 7) then
-            !> \brief Beta-pinene emission rate (µg m⁻² s⁻¹)
+            !> \brief Beta-pinene emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_bpin))         allocate(emi_bpin(nlat*nlon,modlays))
-            !> \brief Beta-pinene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Beta-pinene emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_bpin_3d))      allocate(emi_bpin_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 8) then
-            !> \brief Alpha-pinene emission rate (µg m⁻² s⁻¹)
+            !> \brief Alpha-pinene emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_apin))         allocate(emi_apin(nlat*nlon,modlays))
-            !> \brief Alpha-pinene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Alpha-pinene emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_apin_3d))      allocate(emi_apin_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 9) then
-            !> \brief Other monoterpenes emission rate (µg m⁻² s⁻¹)
+            !> \brief Other monoterpenes emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_mono))         allocate(emi_mono(nlat*nlon,modlays))
-            !> \brief Other monoterpenes emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Other monoterpenes emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_mono_3d))      allocate(emi_mono_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 10) then
-            !> \brief Farnesene emission rate (µg m⁻² s⁻¹)
+            !> \brief Farnesene emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_farn))         allocate(emi_farn(nlat*nlon,modlays))
-            !> \brief Farnesene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Farnesene emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_farn_3d))      allocate(emi_farn_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 11) then
-            !> \brief Caryophyllene emission rate (µg m⁻² s⁻¹)
+            !> \brief Caryophyllene emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_cary))         allocate(emi_cary(nlat*nlon,modlays))
-            !> \brief Caryophyllene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Caryophyllene emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_cary_3d))      allocate(emi_cary_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 12) then
-            !> \brief Other sesquiterpenes emission rate (µg m⁻² s⁻¹)
+            !> \brief Other sesquiterpenes emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_sesq))         allocate(emi_sesq(nlat*nlon,modlays))
-            !> \brief Other sesquiterpenes emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Other sesquiterpenes emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_sesq_3d))      allocate(emi_sesq_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 13) then
-            !> \brief 2-methyl-3-buten-2-ol emission rate (µg m⁻² s⁻¹)
+            !> \brief 2-methyl-3-buten-2-ol emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_mbol))         allocate(emi_mbol(nlat*nlon,modlays))
-            !> \brief 2-methyl-3-buten-2-ol emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief 2-methyl-3-buten-2-ol emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_mbol_3d))      allocate(emi_mbol_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 14) then
-            !> \brief Methanol emission rate (µg m⁻² s⁻¹)
+            !> \brief Methanol emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_meth))         allocate(emi_meth(nlat*nlon,modlays))
-            !> \brief Methanol emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Methanol emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_meth_3d))      allocate(emi_meth_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 15) then
-            !> \brief Acetone emission rate (µg m⁻² s⁻¹)
+            !> \brief Acetone emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_acet))         allocate(emi_acet(nlat*nlon,modlays))
-            !> \brief Acetone emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Acetone emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_acet_3d))      allocate(emi_acet_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 16) then
-            !> \brief Carbon monoxide emission rate (µg m⁻² s⁻¹)
+            !> \brief Carbon monoxide emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_co))           allocate(emi_co(nlat*nlon,modlays))
-            !> \brief Carbon monoxide emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Carbon monoxide emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_co_3d))        allocate(emi_co_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 17) then
-            !> \brief Bidirectional VOC emission rate (µg m⁻² s⁻¹)
+            !> \brief Bidirectional VOC emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_bvoc))         allocate(emi_bvoc(nlat*nlon,modlays))
-            !> \brief Bidirectional VOC emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Bidirectional VOC emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_bvoc_3d))      allocate(emi_bvoc_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 18) then
-            !> \brief Stress VOC emission rate (µg m⁻² s⁻¹)
+            !> \brief Stress VOC emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_svoc))         allocate(emi_svoc(nlat*nlon,modlays))
-            !> \brief Stress VOC emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Stress VOC emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_svoc_3d))      allocate(emi_svoc_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 19) then
-            !> \brief Other VOC emission rate (µg m⁻² s⁻¹)
+            !> \brief Other VOC emission rate (kg m⁻² s⁻¹)
             if(.not.allocated(emi_ovoc))         allocate(emi_ovoc(nlat*nlon,modlays))
-            !> \brief Other VOC emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Other VOC emission rate 3D (kg m⁻² s⁻¹)
             if(.not.allocated(emi_ovoc_3d))      allocate(emi_ovoc_3d(nlon,nlat,modlays))
         end if
     end if
