@@ -85,7 +85,6 @@ Parameters:
 - $\alpha$: extinction coefficient (typically 0.5-2.0)
 - $\beta$: shape parameter (typically 0.5-2.0)
 
-
 ## Biogenic Emissions
 
 ### Isoprene Emissions
@@ -175,21 +174,6 @@ where:
 | $H_a$ | 72000 | J/mol | Activation energy |
 | $H_d$ | 200000 | J/mol | Deactivation energy |
 | $\Delta S$ | 650 | J/mol/K | Entropy term |
-
-## Model Validation
-
-### Flux Tower Comparisons
-
-The parameterizations have been validated against:
-
-- **FLUXNET** sites (global network)
-- **AmeriFlux** sites (North American network)
-- **Long-term ecological research** sites
-
-Typical model performance:
-- Sensible heat flux: R² = 0.85, RMSE = 50 W/m²
-- Latent heat flux: R² = 0.80, RMSE = 60 W/m²
-- CO₂ flux: R² = 0.75, RMSE = 5 μmol/m²/s
 
 ### Sensitivity Analysis
 
