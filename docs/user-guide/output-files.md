@@ -178,7 +178,7 @@ Control output through namelist parameters:
 
 ```fortran
 &CANOPY_OPTIONS
- ! Output format (1=netCDF, 2=text, 3=both)
+ ! Output format (1=netCDF, 2=text)
  outfmt_opt = 1
 
  ! Output frequency (hours)
