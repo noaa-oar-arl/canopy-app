@@ -6,7 +6,7 @@ This guide will help you install and set up the Canopy-App modeling system.
 
 ### System Requirements
 
-- **Operating System**: Linux, macOS, or Windows (WSL recommended)
+- **Operating System**: Linux, macOS
 - **Compiler**: Modern Fortran compiler (gfortran, ifort, or similar)
 - **Memory**: Minimum 4 GB RAM, 8 GB+ recommended
 - **Storage**: At least 1 GB free disk space
