@@ -28,7 +28,7 @@ brew install gcc
 #### NetCDF Library (Required for NetCDF I/O)
 Canopy-App requires NetCDF-Fortran Libraries (`-lnetcdf -lnetcdff`) when using the 1D/2D NetCDF I/O Option (`infmt_opt=0`).
 
-```bash
+<!-- ```bash
 # On Ubuntu/Debian
 sudo apt-get install libnetcdf-dev libnetcdff-dev
 
@@ -40,7 +40,7 @@ brew install netcdf netcdf-fortran
 
 # On GMU Hopper (example module environment)
 module load netcdf-c/4.7.4-vh netcdf-fortran/4.5.3-ff
-```
+``` -->
 
 ## Installation Methods
 
