@@ -21,7 +21,7 @@ cd src
 make
 
 # Check compilation was successful
-ls -la canopy_app
+ls -la canopy
 ```
 
 ## 2. Prepare Input Files
