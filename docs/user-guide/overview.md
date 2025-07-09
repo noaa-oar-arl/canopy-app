@@ -76,7 +76,7 @@ graph TD
 
 **Key Features:**
 - Big-leaf and multi-layer approaches
-- Gaseous and particulate deposition
+- Gaseous and particulate (future) deposition
 - Season and species dependencies
 
 ### 5. Photolysis Rates (`canopy_phot_mod`)
@@ -174,10 +174,6 @@ graph TD
 ✅ **Open Source**: Freely available with complete documentation
 
 ## Limitations
-
-⚠️ **1D Limitation**: No horizontal spatial variability
-⚠️ **Steady-state**: Instantaneous equilibrium assumptions
-⚠️ **Canopy Uniformity**: Assumes horizontally uniform canopy properties
 ⚠️ **Chemical Simplification**: Limited in-canopy chemistry representation
 
 ## Model Validation
@@ -191,8 +187,6 @@ The model has been validated against:
 **Key Validation Studies:**
 - Forest canopy wind profiles
 - Biogenic emission flux measurements
-- Dry deposition velocity observations
-- Radiation attenuation measurements
 
 ## Next Steps
 
