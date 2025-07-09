@@ -112,46 +112,6 @@ Contains biogenic emission rates:
 | `sesq_emis` | Sesquiterpene emission rate | μg/m²/s | (time,lat,lon) |
 | `ovoc_emis` | Other VOC emission rate | μg/m²/s | (time,lat,lon) |
 
-## Diagnostic Files
-
-### Model Performance
-
-#### `canopy_timing.txt`
-
-Contains timing information:
-
-```
-Canopy-App Performance Report
-=============================
-Total Runtime:        00:02:35.123
-Initialization:       00:00:05.234
-Main Loop:           00:02:25.456
-  - Meteorology:     00:00:45.123
-  - Canopy Physics:  00:01:15.234
-  - Chemistry:       00:00:20.456
-  - I/O:            00:00:04.643
-Finalization:        00:00:04.433
-
-Memory Usage:
-Peak Memory:         1.23 GB
-Average Memory:      0.89 GB
-```
-
-#### `canopy_log.txt`
-
-Contains detailed runtime information:
-
-```
-2022-06-30 12:00:00 [INFO] Starting Canopy-App simulation
-2022-06-30 12:00:05 [INFO] Configuration loaded successfully
-2022-06-30 12:00:10 [INFO] Input files validated
-2022-06-30 12:00:15 [INFO] Beginning time integration
-2022-06-30 12:01:00 [INFO] Time step 1/24 completed
-2022-06-30 12:01:45 [INFO] Time step 2/24 completed
-...
-2022-06-30 12:02:30 [INFO] Simulation completed successfully
-```
-
 ## Reading Output Files
 
 ### Python
