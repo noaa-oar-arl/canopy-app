@@ -181,17 +181,6 @@ Control output through namelist parameters:
  ! Output format (1=netCDF, 2=text)
  outfmt_opt = 1
 
- ! Output frequency (hours)
- output_freq = 1.0
-
- ! Variables to output
- output_vars = 'temp', 'qv', 'u', 'v', 'tke'
-
- ! Enable chemistry output
- output_chem = .true.
-
- ! Enable diagnostic output
- output_diag = .true.
 /
 ```
 
