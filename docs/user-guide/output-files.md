@@ -8,7 +8,7 @@ The Canopy-App model generates various output files containing simulation result
 
 The model generates netCDF files with comprehensive simulation results:
 
-#### Primary Output File: `canopy_output.nc`
+<!-- #### Primary Output File: `canopy_output.nc`
 
 Contains the main simulation variables:
 
@@ -78,7 +78,7 @@ TLEAF_SUN:   298.45
 TLEAF_SHADE: 296.20
 GSW_SUN:     0.185
 GSW_SHADE:   0.045
-```
+``` -->
 
 ## Chemical Output (if enabled)
 
