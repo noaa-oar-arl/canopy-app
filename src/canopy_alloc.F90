@@ -470,7 +470,7 @@ SUBROUTINE canopy_alloc
         write(*,*)  '-------------------------------'
         if (chemmechgas_opt == 0) then !RACM2 --> 31 species
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 1) then
-                !> \brief Nitric oxide dry deposition velocity (m s⁻¹)
+                !> \brief Nitric oxide dry deposition velocity (cm s⁻¹)
                 if(.not.allocated(ddep_no))              allocate(ddep_no(nlat*nlon,modlays))
                 !> \brief Nitric oxide dry deposition velocity 3D (m s⁻¹)
                 if(.not.allocated(ddep_no_3d))           allocate(ddep_no_3d(nlon,nlat,modlays))
