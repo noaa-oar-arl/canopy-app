@@ -68,14 +68,14 @@ TEMP_2M    QV_2M      PRES_SFC   USTAR     WSPD_10M  WDIR_10M  SRAD_TOA
 
 Vegetation Parameters are assumed to come through input or configuration at the moment 
 
-## File Validation
+<!-- ## File Validation
 
 The model performs input validation checks:
 
 1. **Format validation**: Ensures files match expected format
 2. **Range validation**: Checks that values are within physical limits
 3. **Consistency validation**: Verifies compatibility between different inputs
-4. **Time validation**: Ensures time stamps are consistent
+4. **Time validation**: Ensures time stamps are consistent -->
 
 ## Troubleshooting Input Files
 
