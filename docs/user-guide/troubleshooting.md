@@ -415,7 +415,7 @@ When reporting issues, include:
 
 ### Community Resources
 
-- **GitHub Issues**: Report bugs and feature requests 
+- **GitHub Issues**: Report bugs and feature requests
 - **Documentation**: Check latest online documentation
 
 ## Quick Reference
