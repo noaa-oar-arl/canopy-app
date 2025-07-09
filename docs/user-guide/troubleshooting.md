@@ -108,14 +108,7 @@ Error: NaN values detected in output
 
 **Solutions:**
 
-1. **Reduce time step**
-   ```fortran
-   &CANOPY_OPTIONS
-    dt = 30.0  ! Use smaller time step (seconds)
-   /
-   ```
-
-2. **Check input data quality**
+1. **Check input data quality**
    ```python
    import netCDF4 as nc
    ds = nc.Dataset('input.nc')
@@ -124,14 +117,6 @@ Error: NaN values detected in output
    print(f"NaN count: {np.isnan(temp).sum()}")
    ```
 
-3. **Adjust solver parameters**
-   ```fortran
-   &SOLVER_OPTIONS
-    max_iterations = 100
-    tolerance = 1.0e-6
-    relaxation_factor = 0.8
-   /
-   ```
 
 ## Performance Issues
 
@@ -155,8 +140,7 @@ gprof canopy_app.exe gmon.out > profile.txt
 1. **I/O Performance**
    ```fortran
    ! Use netCDF instead of text files
-   infmt_opt = 1  ! netCDF input
-   outfmt_opt = 1 ! netCDF output
+   infmt_opt = 0  ! netCDF input
    ```
 
 2. **Memory Access Patterns**
@@ -337,13 +321,14 @@ validate_namelist('namelist.canopy')
 
 ## Debugging Techniques
 
+<!-- TODO: Fix this section 
 ### Enable Debug Output
 
 ```fortran
 &CANOPY_OPTIONS
  debug_level = 2  ! 0=none, 1=basic, 2=detailed, 3=verbose
 /
-```
+``` -->
 
 ### Add Debug Prints
 
@@ -430,10 +415,8 @@ When reporting issues, include:
 
 ### Community Resources
 
-- **GitHub Issues**: Report bugs and feature requests
-- **User Forums**: Community discussions and help
+- **GitHub Issues**: Report bugs and feature requests 
 - **Documentation**: Check latest online documentation
-- **Email Support**: Contact development team for urgent issues
 
 ## Quick Reference
 
