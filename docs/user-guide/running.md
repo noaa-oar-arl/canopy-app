@@ -37,7 +37,7 @@ For simulations over multiple grid points, modify the namelist parameters:
 
 ```fortran
 &CANOPY_OPTIONS
- infmt_opt = 1
+ infmt_opt = 0
  file_vars = 'namelist.canopy'
  ! NetCDF files will be read automatically
 /
@@ -47,7 +47,7 @@ For simulations over multiple grid points, modify the namelist parameters:
 
 ```fortran
 &CANOPY_OPTIONS
- infmt_opt = 2
+ infmt_opt = 1
  file_vars = 'namelist.canopy'
  ! Text files will be read automatically
 /
@@ -65,15 +65,6 @@ export OMP_NUM_THREADS=4
 
 # Run the model
 ./canopy_app.exe
-```
-
-### MPI (if available)
-
-For distributed memory systems:
-
-```bash
-# Run with 4 MPI processes
-mpirun -np 4 ./canopy_app.exe
 ```
 
 ## SLURM Job Submission
@@ -126,38 +117,6 @@ results = model.run()
 
 # Process results
 print(f"Simulation completed with {len(results)} time steps")
-```
-
-## Runtime Options
-
-### Verbosity Control
-
-Control output verbosity through environment variables:
-
-```bash
-# Minimal output
-export CANOPY_VERBOSE=0
-
-# Standard output (default)
-export CANOPY_VERBOSE=1
-
-# Detailed output
-export CANOPY_VERBOSE=2
-
-# Debug output
-export CANOPY_VERBOSE=3
-```
-
-### Memory Management
-
-For large simulations, control memory usage:
-
-```bash
-# Limit memory usage (in MB)
-export CANOPY_MAX_MEMORY=2048
-
-# Enable memory profiling
-export CANOPY_PROFILE_MEMORY=1
 ```
 
 ## Performance Optimization
