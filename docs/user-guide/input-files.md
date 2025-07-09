@@ -66,32 +66,7 @@ TEMP_2M    QV_2M      PRES_SFC   USTAR     WSPD_10M  WDIR_10M  SRAD_TOA
 
 ## Vegetation Parameters
 
-The model includes built-in vegetation parameters for different land use categories. Custom vegetation parameters can be specified through the namelist file.
-
-### Land Use Categories
-
-| Category | Description | LAI Range | Height Range (m) |
-|----------|-------------|-----------|------------------|
-| 1 | Evergreen needleleaf forest | 2.0-8.0 | 10-30 |
-| 2 | Evergreen broadleaf forest | 3.0-10.0 | 15-35 |
-| 3 | Deciduous needleleaf forest | 1.0-6.0 | 8-25 |
-| 4 | Deciduous broadleaf forest | 2.0-8.0 | 12-30 |
-| 5 | Mixed forest | 2.0-7.0 | 10-28 |
-| 6 | Closed shrublands | 1.0-4.0 | 1-5 |
-| 7 | Open shrublands | 0.5-2.0 | 0.5-3 |
-| 8 | Woody savannas | 1.0-5.0 | 3-15 |
-| 9 | Savannas | 0.5-3.0 | 0.5-8 |
-| 10 | Grasslands | 0.5-2.0 | 0.1-1 |
-| 11 | Wetlands | 1.0-4.0 | 0.5-3 |
-| 12 | Croplands | 1.0-6.0 | 0.5-3 |
-
-## Chemical Species Input
-
-For chemistry simulations, additional input files may be required:
-
-- **Emission files**: Biogenic emission factors by species
-- **Deposition files**: Dry deposition velocities
-- **Photolysis files**: Photolysis rate constants
+Vegetation Parameters are assumed to come through input or configuration at the moment 
 
 ## File Validation
 
