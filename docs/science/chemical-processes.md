@@ -178,15 +178,6 @@ R_c(NO2) = 1 / (1/R_s + 1/R_cut)
 R_c(SO2) = R_s × f_0 / (1 + (D_s/D_0))
 ```
 
-#### Operator Splitting
-
-```fortran
-! Sequence for each time step:
-! 1. Emissions
-! 3. Deposition
-! 4. Vertical mixing
-```
-
 ## Model Validation
 
 ### Chamber Studies
