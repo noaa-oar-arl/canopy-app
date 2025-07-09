@@ -91,7 +91,7 @@ contains
         !> Average PPFD = sum sun and shade weighted by sunlit fraction
         PPFD = (PPFD_SUN*FSUN) + (PPFD_SHADE*(1.0-FSUN))
 
-        !> Calculate molecular diffusivity (cm^2/s) and resistances (cm/s) of species l using from DEP_IND
+        !> Calculate molecular diffusivity (cm^2/s) and resistances (s/cm) of species l using from DEP_IND
         hstarl  = EffHenrysLawCoeff(CHEMMECHGAS_OPT,CHEMMECHGAS_TOT,DEP_IND)
         f01     = ReactivityParam(CHEMMECHGAS_OPT,CHEMMECHGAS_TOT,DEP_IND)
         do i=1, SIZE(ZK)
@@ -221,7 +221,7 @@ contains
         !> \{
         real(rk), parameter             :: ar_0   = 8.0       !< Used to scale other species to HNO3 (dimensionless)
         real(rk)                        :: ar_l               !< Reactivity denominator relative to HNO3 for each species (dimensionless)
-        real(rk), parameter             :: rsnow0 = 100.0     !< Resistance to deposition to snow (cm/s) based on Helmig et al.
+        real(rk), parameter             :: rsnow0 = 100.0     !< Resistance to deposition to snow (s/cm) based on Helmig et al.
         real(rk)                        :: rsnowl             !< Resistance to diffusion thru snow space for chemical species (s/cm)
         real(rk)                        :: rbg                !< Ground boundary layer resistance (s/cm)
         !> \}
