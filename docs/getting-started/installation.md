@@ -126,12 +126,12 @@ After successful compilation, verify the installation:
 # Check if executable was created
 ls -la canopy
 
-# Check executable permissions
-./canopy --help  # (if help option is implemented)
+# # Check executable permissions
+# ./canopy --help  # (if help option is implemented)
 
-# Or run with default settings
-./canopy
-```
+# # Or run with default settings
+# ./canopy
+# ```
 
 ## Troubleshooting
 
