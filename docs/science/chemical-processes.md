@@ -140,127 +140,7 @@ f_diffuse(λ,z) = f_sky × exp(-k_diffuse(λ) × LAI_cumulative(z)) +
                  f_scattered(λ,z)
 ```
 
-### Photolysis Rate Constants
-
-#### J-Value Calculation
-
-```fortran
-! Photolysis rate constant
-J(z) = ∫ σ(λ,T) × φ(λ,T) × F(λ,z) dλ
-```
-
-**Where:**
-- `σ(λ,T)`: Absorption cross-section (cm²)
-- `φ(λ,T)`: Quantum yield
-- `F(λ,z)`: Actinic flux (photons cm⁻² s⁻¹ nm⁻¹)
-
-#### Key Photolysis Reactions
-
-**Ozone photolysis:**
-```fortran
-! O₃ + hν → O₂ + O(¹D)    (λ < 320 nm)
-J_O3_O1D = ∫₂₈₀³²⁰ σ_O3(λ,T) × φ_O1D(λ,T) × F(λ,z) dλ
-```
-
-**NO₂ photolysis:**
-```fortran
-! NO₂ + hν → NO + O(³P)   (λ < 420 nm)
-J_NO2 = ∫₂₈₀⁴²⁰ σ_NO2(λ,T) × φ_NO2(λ,T) × F(λ,z) dλ
-```
-
-**Formaldehyde photolysis:**
-```fortran
-! HCHO + hν → H₂ + CO     (λ < 370 nm)
-! HCHO + hν → H + HCO     (λ < 370 nm)
-J_HCHO_H2 = ∫₂₈₀³⁷⁰ σ_HCHO(λ,T) × φ_H2(λ,T) × F(λ,z) dλ
-J_HCHO_H = ∫₂₈₀³⁷⁰ σ_HCHO(λ,T) × φ_H(λ,T) × F(λ,z) dλ
-```
-
-#### Implementation
-
-See module `canopy_phot_mod.F90`:
-- `calc_photolysis_rates()` - Main photolysis routine
-- `actinic_flux_profile()` - Actinic flux calculations
-- `read_cross_sections()` - Spectroscopic data
-
-## Gas-Phase Chemical Reactions
-
-### Chemical Mechanisms
-
-#### Simplified Hydrocarbon Chemistry
-
-**Isoprene oxidation initiation:**
-```fortran
-! OH-initiated
-C5H8 + OH → RO2 + H2O                    ! k = 1.0×10⁻¹⁰ cm³ s⁻¹
-
-! O₃-initiated
-C5H8 + O3 → products                     ! k = 1.3×10⁻¹⁷ cm³ s⁻¹
-
-! NO₃-initiated (nighttime)
-C5H8 + NO3 → RO2 + HNO3                 ! k = 3.2×10⁻¹³ cm³ s⁻¹
-```
-
-**Monoterpene oxidation:**
-```fortran
-! α-Pinene + OH
-C10H16 + OH → RO2                       ! k = 5.3×10⁻¹¹ cm³ s⁻¹
-
-! α-Pinene + O₃
-C10H16 + O3 → products                  ! k = 8.7×10⁻¹⁷ cm³ s⁻¹
-```
-
-#### Secondary Organic Aerosol (SOA) Formation
-
-```fortran
-! Low-volatility products
-RO2 + NO → RONO2 + LV_products          ! Nitrate pathway
-RO2 + HO2 → ROOH + LV_products          ! Peroxide pathway
-RO2 + RO2 → products + LV_products      ! Self-reaction
-```
-
-### Nitrogen Oxide Chemistry
-
-#### NOₓ Cycle
-
-```fortran
-! Basic NOₓ reactions
-NO + O3 → NO2 + O2                      ! k = 1.9×10⁻¹⁴ cm³ s⁻¹
-NO2 + hν → NO + O(³P)                   ! J_NO2
-O(³P) + O2 + M → O3 + M                 ! k = 6.0×10⁻³⁴ cm⁶ s⁻¹
-```
-
-#### Organic Nitrate Formation
-
-```fortran
-! RO₂ + NO reactions
-RO2 + NO → RO + NO2                     ! (1-α) pathway
-RO2 + NO → RONO2                        ! α pathway (branching ratio)
-```
-
-### Radical Chemistry
-
-#### HOₓ Reactions
-
-```fortran
-! OH production
-O(¹D) + H2O → 2OH                       ! k = 1.6×10⁻¹⁰ cm³ s⁻¹
-HO2 + NO → OH + NO2                     ! k = 3.3×10⁻¹² cm³ s⁻¹
-
-! OH consumption
-OH + CO → H + CO2                       ! k = 2.3×10⁻¹³ cm³ s⁻¹
-OH + VOC → RO2 + H2O                    ! Variable rates
-```
-
-#### Peroxy Radical Reactions
-
-```fortran
-! HO₂ formation and loss
-H + O2 + M → HO2 + M                    ! k = 4.4×10⁻³² cm⁶ s⁻¹
-HO2 + HO2 → H2O2 + O2                   ! k = 1.9×10⁻¹² cm³ s⁻¹
-```
-
-## Dry Deposition Chemistry
+## Dry Deposition
 
 ### Species-Specific Deposition
 
@@ -298,68 +178,11 @@ R_c(NO2) = 1 / (1/R_s + 1/R_cut)
 R_c(SO2) = R_s × f_0 / (1 + (D_s/D_0))
 ```
 
-#### NH₃ Bidirectional Exchange
-
-```fortran
-! NH₃ can have emission or deposition
-F_NH3 = v_d × (C_atm - C_comp)
-```
-
-**Where:**
-- `C_comp`: Compensation point concentration
-- Positive flux = emission, negative = deposition
-
-### Henry's Law Constants
-
-Aqueous-phase partitioning:
-
-```fortran
-! Dimensionless Henry's law constant
-H_cc = H_cp × R × T
-```
-
-**Species values:**
-- SO₂: H_cp = 1.2 M atm⁻¹
-- NH₃: H_cp = 58 M atm⁻¹
-- HNO₃: H_cp = 2.1×10⁵ M atm⁻¹
-
-## Chemical Kinetics Implementation
-
-### Rate Constant Calculations
-
-#### Temperature Dependence
-
-```fortran
-! Arrhenius equation
-k(T) = A × exp(-E_a / (R × T))
-```
-
-#### Pressure Dependence
-
-```fortran
-! Three-body reactions
-k(T,P) = k_0 × [M] / (1 + k_0 × [M] / k_∞) × F_c^x
-
-! Where x = {1 + [log₁₀(k_0×[M]/k_∞)]²}⁻¹
-```
-
-### Numerical Integration
-
-#### Stiff Solver
-
-For chemical ODEs:
-
-```fortran
-! Implicit Euler method
-C(t+dt) = C(t) + dt × P(C(t+dt)) - dt × L(C(t+dt)) × C(t+dt)
-```
-
 #### Operator Splitting
 
 ```fortran
 ! Sequence for each time step:
 ! 1. Emissions
-! 2. Chemistry
 ! 3. Deposition
 ! 4. Vertical mixing
 ```
@@ -380,32 +203,11 @@ Validation against flux tower and aircraft data:
 - **Concentration profiles**: R² > 0.8
 - **Photolysis rates**: ±30% of measured values
 
-## Future Developments
-
-### Enhanced Chemistry
-
-- **Detailed SOA mechanisms** (VBS framework)
-- **Aqueous-phase chemistry** in cloud droplets
-- **Heterogeneous reactions** on aerosol surfaces
-- **Halogen chemistry** in coastal regions
-
-### Numerical Improvements
-
-- **Adaptive time stepping** for stiff chemistry
-- **Higher-order integration** schemes
-- **Vectorized chemistry** for computational efficiency
-
 ## References
 
 ### Key Chemical Papers
 
 1. **Guenther, A.B., et al. (2012)**. "MEGAN2.1: Model of Emissions of Gases and Aerosols from Nature." *Geosci. Model Dev.*, 5, 1471-1492.
-
-2. **Sander, S.P., et al. (2011)**. "Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies." *JPL Publication 10-6*.
-
-3. **Wild, O., et al. (2000)**. "Fast-J: Accurate simulation of in- and below-cloud photolysis in tropospheric chemical models." *J. Atmos. Chem.*, 37, 245-282.
-
-4. **Atkinson, R., and J. Arey (2003)**. "Atmospheric degradation of volatile organic compounds." *Chem. Rev.*, 103, 4605-4638.
 
 ## Navigation
 
