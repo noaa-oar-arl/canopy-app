@@ -255,7 +255,7 @@ subroutine validate_inputs()
 end subroutine validate_inputs
 ```
 
-## Testing Guidelines
+<!-- ## Testing Guidelines
 
 ### Unit Testing Framework
 
@@ -294,9 +294,9 @@ contains
   end subroutine test_exponential_profile
 
 end program test_canopy_wind
-```
+``` -->
 
-#### Running Tests
+<!-- #### Running Tests
 
 ```bash
 # Compile and run tests
@@ -370,7 +370,7 @@ contains
   end subroutine end_timer
 
 end module performance_timer
-```
+``` -->
 
 ## Adding New Features
 
@@ -617,66 +617,12 @@ git push origin v1.2.3
 # 6. Create GitHub release with binaries
 ```
 
-## Development Tools
-
-### Debugging
-
-#### GDB Usage
-
-```bash
-# Compile with debug symbols
-make FFLAGS="-g -O0 -fbacktrace"
-
-# Run in debugger
-gdb ./canopy_app
-(gdb) run
-(gdb) bt          # Backtrace after crash
-(gdb) print var   # Print variable values
-(gdb) step        # Step through code
-```
-
-#### Valgrind for Memory Issues
-
-```bash
-# Check for memory leaks
-valgrind --leak-check=full --track-origins=yes ./canopy_app
-
-# Check for array bounds violations
-valgrind --tool=memcheck ./canopy_app
-```
-
-### Profiling
-
-#### gprof Profiling
-
-```bash
-# Compile with profiling
-make FFLAGS="-pg -O2"
-
-# Run and generate profile
-./canopy_app
-gprof ./canopy_app gmon.out > profile.txt
-
-# Analyze hotspots
-head -20 profile.txt
-```
-
-#### Intel VTune (if available)
-
-```bash
-# Profile with VTune
-vtune -collect hotspots ./canopy_app
-vtune -report summary
-```
-
 ## Getting Help
 
 ### Communication Channels
 
 - **GitHub Issues**: Bug reports and feature requests
 - **GitHub Discussions**: General questions and ideas
-- **Developer Slack**: Real-time collaboration (link in README)
-- **Mailing List**: Announcements and major discussions
 
 ### Mentoring Program
 
@@ -689,6 +635,6 @@ New contributors can request mentoring:
 ## Next Steps
 
 - **[Code Style Guide](code-style.md)** - Detailed style requirements
-- **[Testing Guide](testing.md)** - Comprehensive testing procedures
+<!-- - **[Testing Guide](testing.md)** - Comprehensive testing procedures -->
 - **[Architecture Overview](architecture.md)** - System design details
 - **[API Reference](../api/overview.md)** - Code documentation
