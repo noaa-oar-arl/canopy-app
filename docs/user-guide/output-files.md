@@ -184,7 +184,6 @@ Control output through namelist parameters:
 /
 ```
 
-### Variable Selection
 
 Choose specific variables for output:
 
@@ -203,32 +202,6 @@ Choose specific variables for output:
 
  ! Chemical variables
  out_chem = .false.
-/
-```
-
-## File Management
-
-### Compression
-
-Enable compression for large files:
-
-```fortran
-&CANOPY_OPTIONS
- compress_output = .true.
- compression_level = 6
-/
-```
-
-### Chunking
-
-Optimize file access patterns:
-
-```fortran
-&CANOPY_OPTIONS
- chunk_time = 24
- chunk_lev = 10
- chunk_lat = 32
- chunk_lon = 32
 /
 ```
 
