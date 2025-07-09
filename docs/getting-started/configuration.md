@@ -371,13 +371,11 @@ After configuring your namelist:
 /
 
 &canopy_physics
-    z_cantop = 15.0   ! Lower canopy height
     ncanlevs = 8      ! Fewer levels for speed
-    bioem_opt = 1     ! Basic emission algorithm
 /
 ```
 
-## Validation and Testing
+<!-- ## Validation and Testing
 
 ### Configuration Validation
 
@@ -399,7 +397,7 @@ The model performs several validation checks:
 
 # Dry run (parse inputs only)
 ./canopy_app --dry-run
-```
+``` -->
 
 ## Common Configuration Issues
 
