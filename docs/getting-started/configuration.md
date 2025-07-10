@@ -251,7 +251,7 @@ After configuring your namelist:
 - **[Science Guide](../science/model-description.md)**: Understand the physics behind the options
 |--------|-------|-------------|
 | `infmt_opt` | 0 | NetCDF input format |
-| `infmt_opt` | 2 | Text input format |
+| `infmt_opt` | 1 | Text input format |
 | `outfmt_opt` | 1 | NetCDF output format |
 | `outfmt_opt` | 2 | Text output format |
 
