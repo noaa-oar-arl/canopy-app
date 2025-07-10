@@ -252,7 +252,6 @@ After configuring your namelist:
 |--------|-------|-------------|
 | `infmt_opt` | 0 | NetCDF input format |
 | `infmt_opt` | 1 | Text input format |
-| `outfmt_opt` | 2 | Text output format |
 
 ## Model Options
 
