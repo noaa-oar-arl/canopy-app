@@ -253,7 +253,7 @@ After configuring your namelist:
 | `infmt_opt` | 0 | NetCDF input format |
 | `infmt_opt` | 1 | Text input format |
 
-## Model Options
+<!--## Model Options
 
 ### Physics Switches
 
