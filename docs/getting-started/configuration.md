@@ -250,7 +250,7 @@ After configuring your namelist:
 - **[Examples](../examples/basic.md)**: See practical configuration examples
 - **[Science Guide](../science/model-description.md)**: Understand the physics behind the options
 |--------|-------|-------------|
-| `infmt_opt` | 1 | NetCDF input format |
+| `infmt_opt` | 0 | NetCDF input format |
 | `infmt_opt` | 2 | Text input format |
 | `outfmt_opt` | 1 | NetCDF output format |
 | `outfmt_opt` | 2 | Text output format |
