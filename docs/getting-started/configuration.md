@@ -294,7 +294,7 @@ After configuring your namelist:
     drydep_opt  = 1             ! Dry deposition algorithm
     stom_opt    = 1             ! Stomatal resistance option
 /
-```
+```-->
 
 ## Configuration Examples
 
