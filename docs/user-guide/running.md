@@ -53,7 +53,7 @@ For simulations over multiple grid points, modify the namelist parameters:
 /
 ```
 
-## Parallel Execution
+<!--## Parallel Execution
 
 ### OpenMP
 
@@ -65,7 +65,7 @@ export OMP_NUM_THREADS=4
 
 # Run the model
 ./canopy_app.exe
-```
+``` -->
 
 ## SLURM Job Submission
 
@@ -85,8 +85,6 @@ For running on HPC systems with SLURM:
 module load intel/2021.2
 module load netcdf/4.8.1
 
-# Set OpenMP threads
-export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 # Run the model
 cd $SLURM_SUBMIT_DIR

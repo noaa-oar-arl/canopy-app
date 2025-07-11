@@ -41,47 +41,43 @@ u(z) = u_h * exp(alpha * (z/h - 1.0))
 #### Implementation
 
 See module `canopy_wind_mod.F90`:
-- `calc_wind_profile()` - Main wind calculation routine
-- `calc_friction_velocity()` - Friction velocity from above-canopy conditions
-- `calc_displacement_height()` - Displacement height estimation
+- `calc_wind_most()` - Main wind calculation routine
 
 ### Temperature Profiles
 
 #### Energy Balance
 
-Each canopy layer satisfies energy conservation:
+<!--#### Energy Balance
 
 ```fortran
 ! Layer energy balance
 Rn(z) = H(z) + LE(z) + storage_term(z)
-```
-
-**Components:**
+```-->
 - `Rn`: Net radiation (W/m²)
-- `H`: Sensible heat flux (W/m²)
-- `LE`: Latent heat flux (W/m²)
+<!--**Components:**
+- `LE`: Latent heat flux (W/m²) -->
 
 #### Sensible Heat Flux
 
-Calculated using gradient-diffusion:
+- `LE`: Latent heat flux (W/m²) -->
 
-```fortran
+<!--#### Sensible Heat Flux
 ! Sensible heat flux
 H(z) = -rho * cp * Kh(z) * dT/dz
 ```
 
 **Where:**
 - `Kh`: Eddy diffusivity for heat (m²/s)
-- `dT/dz`: Temperature gradient (K/m)
+- `dT/dz`: Temperature gradient (K/m) -->
 - `rho`: Air density (kg/m³)
-- `cp`: Specific heat of air (J/kg/K)
+<!-- - `cp`: Specific heat of air (J/kg/K) -->
 
-#### Implementation
+<!-- #### Implementation
 
 See module `canopy_canmet_mod.F90`:
 - `calc_temperature_profile()` - Temperature calculations
 - `calc_heat_flux()` - Sensible heat flux
-- `calc_eddy_diffusivity()` - Turbulent mixing
+- `calc_eddy_diffusivity()` - Turbulent mixing -->
 
 <!-- ### Humidity and Latent Heat
 
@@ -115,14 +111,14 @@ gs = gs_max * f_light * f_temp * f_humidity * f_co2
 
 ## Radiation Transfer
 
-### Solar Radiation Components
+<!-- ### Solar Radiation Components -->
 
-#### Direct and Diffuse Radiation
+<!-- #### Direct and Diffuse Radiation
 
 Solar radiation is separated into:
 - **Direct beam radiation**: `I_direct`
 - **Diffuse radiation**: `I_diffuse`
-- **Scattered radiation**: `I_scattered`
+- **Scattered radiation**: `I_scattered` -->
 
 #### Photosynthetically Active Radiation (PAR)
 
@@ -140,32 +136,30 @@ PAR(z) = PAR_top * exp(-K_par * LAI_cumulative(z))
 #### Implementation
 
 See module `canopy_rad_mod.F90`:
-- `calc_solar_radiation()` - Main radiation routine
+<!-- - `canopy_fsun_clu()` - Main radiation routine -->
 - `calc_par_profile()` - PAR calculations
 - `calc_extinction_coeff()` - Light extinction
+- `canopy_fsun_clu()` - Main radiation routine
+<!-- - `canopy_ppfd_exp()` - PPFD calculations -->
 
-<!-- ### Longwave Radiation
-
-#### Net Longwave Exchange
-
-```fortran
+<!--```fortran
 ! Net longwave radiation
 Rn_lw = Rn_lw_down - Rn_lw_up
-```
+``` -->
 
-**Components:**
+<!-- **Components:**
 - Atmospheric longwave down
 - Canopy longwave emission up
 - Multiple scattering within canopy -->
 
-#### Sky View Factor
+<!-- =#### Sky View Factor
 
 Calculated for each canopy layer:
 
 ```fortran
 ! Sky view factor
 svf(z) = exp(-K_lw * LAI_above(z))
-```
+``` -->
 
 ## Turbulent Transport
 
@@ -199,14 +193,13 @@ psi_h = 2.0*log((1.0+x*x)/2.0)
 
 #### Implementation
 
-See module `canopy_eddy_mod.F90`:
+<!-- See module `canopy_eddy_mod.F90`:
 - `calc_eddy_diffusivity()` - Main turbulence routine
 - `calc_mixing_length()` - Mixing length calculation
-- `stability_functions()` - Stability corrections
+- `stability_functions()` - Stability corrections -->
 
 ## Boundary Layer Processes
-
-### Surface Layer
+- `canopy_eddyx()` - Main turbulence routine
 
 #### Roughness Parameters
 

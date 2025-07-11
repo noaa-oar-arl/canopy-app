@@ -296,7 +296,7 @@ After configuring your namelist:
 /
 ```-->
 
-## Configuration Examples
+<!--## Configuration Examples
 
 ### Basic Research Setup
 
@@ -317,9 +317,9 @@ After configuring your namelist:
     opt_phot = 1
     opt_rad = 1
 /
-```
+```-->
 
-### Production Run Setup
+<!--### Production Run Setup
 
 ```fortran
 &canopy_inputs
@@ -348,9 +348,9 @@ After configuring your namelist:
     bioem_opt = 2
     drydep_opt = 2
 /
-```
+```-->
 
-### Sensitivity Study Setup
+<!--### Sensitivity Study Setup
 
 ```fortran
 &canopy_inputs
@@ -371,7 +371,7 @@ After configuring your namelist:
 &canopy_physics
     ncanlevs = 8      ! Fewer levels for speed
 /
-```
+```-->
 
 <!-- ## Validation and Testing
 

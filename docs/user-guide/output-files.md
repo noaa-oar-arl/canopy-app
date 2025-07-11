@@ -8,7 +8,7 @@ The Canopy-App model generates various output files containing simulation result
 
 The model generates netCDF files with comprehensive simulation results:
 
-<!-- #### Primary Output File: `canopy_output.nc`
+#### Primary Output File: `canopy_output.nc`
 
 Contains the main simulation variables:
 
@@ -18,31 +18,27 @@ Contains the main simulation variables:
 - `lat`: Number of latitude points
 - `lon`: Number of longitude points
 
-**Variables:**
+**Example Canopy-Process Variables:**
 
 | Variable | Description | Units | Dimensions |
-|----------|-------------|-------|------------|
-| `time` | Time coordinate | hours since start | (time) |
-| `lev` | Vertical level coordinate | m | (lev) |
-| `lat` | Latitude coordinate | degrees_north | (lat) |
-| `lon` | Longitude coordinate | degrees_east | (lon) |
-| `temp` | Air temperature profile | K | (time,lev,lat,lon) |
-| `qv` | Water vapor mixing ratio | kg/kg | (time,lev,lat,lon) |
-| `u` | U-component wind speed | m/s | (time,lev,lat,lon) |
-| `v` | V-component wind speed | m/s | (time,lev,lat,lon) |
-| `tke` | Turbulent kinetic energy | m²/s² | (time,lev,lat,lon) |
+|-----------|---------------------------------------|-------------------|--------------------|
+| `time`    | Time coordinate                       | hours since start | (time)             |
+| `lev`     | Vertical level coordinate             | m                 | (lev)              |
+| `lat`     | Latitude coordinate                   | degrees_north     | (lat)              |
+| `lon`     | Longitude coordinate                  | degrees_east      | (lon)              |
+| `canwind` | Canopy winds                          | m/s               | (time,lev,lat,lon) |
+| `kz`      | Canopy eddy diffusivities             | kg/kg             | (time,lev,lat,lon) |
+| `rjcf`    | Canopy photolysis attenuation factors |                   | (time,lev,lat,lon) |
+| `emi_isop`| Biogenic emissions                    | kg/m3 s           | (time,lev,lat,lon) |
+| `ddep_o3` | Ozone dry deposition                  | cm/s              | (time,lev,lat,lon) |
+|---------------------------------------------------------------------------------------------
 
-#### Canopy-Specific Variables
+#### Example Canopy-Specific Variables
 
 | Variable | Description | Units | Dimensions |
-|----------|-------------|-------|------------|
-| `lai` | Leaf area index | m²/m² | (time,lat,lon) |
-| `canht` | Canopy height | m | (time,lat,lon) |
-| `ppfd_sun` | PPFD for sunlit leaves | μmol/m²/s | (time,lev,lat,lon) |
-| `ppfd_shade` | PPFD for shaded leaves | μmol/m²/s | (time,lev,lat,lon) |
-| `tleaf_sun` | Sunlit leaf temperature | K | (time,lev,lat,lon) |
-| `tleaf_shade` | Shaded leaf temperature | K | (time,lev,lat,lon) |
-| `gsw_sun` | Sunlit stomatal conductance | mol/m²/s | (time,lev,lat,lon) |
+| `canheight` | Canopy height | m | (time,lat,lon) |
+| `lad` | Leaf area density | m²/m3 | (time,lev,lat,lon) |
+| `z0_h` | Ratio of surface roughness length to canheight |  | (time,lev,lat,lon) |
 | `gsw_shade` | Shaded stomatal conductance | mol/m²/s | (time,lev,lat,lon) |
 
 ### Text Output Files
@@ -54,20 +50,20 @@ For simple analysis, the model can output text files:
 Contains time series data for single points:
 
 ```
-# Canopy-App Point Output
-# Time: 2022-06-30_12:00:00, Lat: 40.0, Lon: -80.0
-# Level(m)  Temp(K)  QV(kg/kg)  U(m/s)  V(m/s)  TKE(m2/s2)
-    0.5     295.15    0.0120     2.1     0.8      0.45
-    1.5     294.98    0.0118     2.3     1.0      0.52
-    2.5     294.82    0.0116     2.6     1.2      0.58
+# Example Canopy-App Point Output for Canopy Winds
+#    time stamp: 2022-07-01-11:00:00.0000
+#    reference height, h:   10.0 m
+#    number of model layers:    100
+#    lat      lon  height (m)  LAD (m2 m-3)       ws (m s-1)
+      34.97   270.00      0.00        0.00  0.0000000E+00
+      34.97   270.00      0.50        0.08  5.9679881E-02
+      34.97   270.00      1.00        0.13  7.8142006E-02
     ...
 ```
 
-#### Canopy Variables: `point_file_canvars_YYYYMMDD.sfcfXXX.txt`
+#### Example 3D Canopy Variables for Input PAVD: `point_file_canvars_YYYYMMDD.sfcfXXX.txt`
 
-Contains canopy-specific variables:
-
-```
+<!-- ```
 # Canopy Variables Output
 # Time: 2022-06-30_12:00:00, Lat: 40.0, Lon: -80.0
 LAI:          4.50
@@ -80,7 +76,7 @@ GSW_SUN:     0.185
 GSW_SHADE:   0.045
 ``` -->
 
-## Chemical Output (if enabled)
+<!-- ## Chemical Output (if enabled)
 
 ### Species Concentrations
 
@@ -97,26 +93,18 @@ Contains chemical species profiles:
 | `o3` | O₃ concentration | ppb | (time,lev,lat,lon) |
 | `no` | NO concentration | ppb | (time,lev,lat,lon) |
 | `no2` | NO₂ concentration | ppb | (time,lev,lat,lon) |
-| `so2` | SO₂ concentration | ppb | (time,lev,lat,lon) |
+| `so2` | SO₂ concentration | ppb | (time,lev,lat,lon) | -->
 
 ### Emission Rates
 
-#### `canopy_emis.nc`
-
-Contains biogenic emission rates:
+Example biogenic emission rates:
 
 | Variable | Description | Units | Dimensions |
 |----------|-------------|-------|------------|
-| `isop_emis` | Isoprene emission rate | μg/m²/s | (time,lat,lon) |
-| `mono_emis` | Monoterpene emission rate | μg/m²/s | (time,lat,lon) |
-| `sesq_emis` | Sesquiterpene emission rate | μg/m²/s | (time,lat,lon) |
-| `ovoc_emis` | Other VOC emission rate | μg/m²/s | (time,lat,lon) |
-
-## Reading Output Files
-
-### Python
-
-Using netCDF4-python:
+| `emi_isop` | Isoprene emission rate | kg/m²/s | (time,lev,lat,lon) |
+| `emi_mono` | Monoterpene emission rate | kg/m²/s | (time,lev,lat,lon) |
+| `emi_sesq` | Sesquiterpene emission rate | kg/m²/s | (time,lev,lat,lon) |
+| `emi_ovoc` | Other VOC emission rate | kg/m²/s | (time,lev,lat,lon) |
 
 ```python
 import netCDF4 as nc

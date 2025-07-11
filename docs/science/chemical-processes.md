@@ -199,6 +199,10 @@ Validation against flux tower and aircraft data:
 ### Key Chemical Papers
 
 1. **Guenther, A.B., et al. (2012)**. "MEGAN2.1: Model of Emissions of Gases and Aerosols from Nature." *Geosci. Model Dev.*, 5, 1471-1492.
+2. **Saylor, R. D. (2013)**. "The Atmospheric Chemistry and Canopy Exchange Simulation System (ACCESS): model description and application to a temperate deciduous forest canopy" *Atmos. Chem. Phys.*, 13, 693–715, https://doi.org/10.5194/acp-13-693-2013, 2013.
+3. **Makar, P., Staebler, R., Akingunola, A. et al. (2017)**. "The effects of forest canopy shading and turbulence on boundary layer ozone." *Nat. Commun.* 8, 15243 (2017). https://doi.org/10.1038/ncomms15243
+2. **Saylor, R. D. (2013)**. "The Atmospheric Chemistry and Canopy Exchange Simulation System (ACCESS): model description and application to a temperate deciduous forest canopy" *Atmos. Chem. Phys.*, 13, 693–715, https://doi.org/10.5194/acp-13-693-2013, 2013.
+3. **Makar, P., Staebler, R., Akingunola, A. et al. (2017)**. "The effects of forest canopy shading and turbulence on boundary layer ozone." *Nat. Commun.* 8, 15243 (2017). https://doi.org/10.1038/ncomms15243
 
 ## Navigation
 

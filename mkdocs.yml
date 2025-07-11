@@ -158,7 +158,7 @@ extra:
       link: https://www.noaa.gov/
       name: NOAA Website
     - icon: fontawesome/solid/envelope
-      link: mailto:patrick.campbell@noaa.gov
+      link: mailto:patrick.c.campbell@noaa.gov
       name: Contact
   version:
     provider: mike

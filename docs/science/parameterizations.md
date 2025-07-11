@@ -54,7 +54,7 @@ where:
 
 ## Radiation Parameterization
 
-### Two-Stream Approximation
+<!-- ### Two-Stream Approximation
 
 Solar radiation transfer uses the two-stream approximation:
 
@@ -71,7 +71,7 @@ where:
 - $\tau$ is optical depth
 - $\omega$ is single scattering albedo
 - $\beta_0, \beta_1$ are phase function parameters
-- $\mu = \cos(\theta)$ for solar zenith angle $\theta$
+- $\mu = \cos(\theta)$ for solar zenith angle $\theta$ -->
 
 ### Leaf Area Distribution
 

@@ -308,7 +308,7 @@ validate_namelist('namelist.canopy')
 
 ### Physics Parameter Issues
 
-#### Unrealistic Vegetation Parameters
+<!--#### Unrealistic Vegetation Parameters
 
 ```fortran
 ! Check vegetation parameters in namelist
@@ -317,7 +317,7 @@ validate_namelist('namelist.canopy')
  canht = 20.0   ! Reasonable height in meters (0.1-50.0)
  z0 = 2.0       ! Should be ~10% of canht
 /
-```
+``` -->
 
 ## Debugging Techniques
 

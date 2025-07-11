@@ -12,15 +12,13 @@ The namelist file uses Fortran namelist format with the following structure:
 
 ```fortran
 &CANOPY_OPTIONS
- file_vars = 'namelist.canopy'
+ file_vars = 'input/gfs.t12z.20220630.sfcf023.canopy.nc'
  infmt_opt = 1
  nlat = 1
  nlon = 1
  ntime = 1
- time_start = '2022-06-30_12:00:00'
- dx = 100.0
- dy = 100.0
- dz_top = 3.0
+ time_start = '2022-07-01-11:00:00.0000'
+
 /
 ```
 
@@ -28,40 +26,38 @@ The namelist file uses Fortran namelist format with the following structure:
 
 | Parameter | Description | Units | Default |
 |-----------|-------------|-------|---------|
-| `infmt_opt` | Input format option (1=netCDF, 2=text) | - | 1 |
+| `infmt_opt` | Input format option (0=netCDF, 1=text) | - | 1 |
 | `nlat` | Number of latitude points | - | 1 |
 | `nlon` | Number of longitude points | - | 1 |
 | `ntime` | Number of time steps | - | 1 |
 | `time_start` | Start time (YYYY-MM-DD_HH:MM:SS) | - | - |
-| `dx` | Grid spacing in x-direction | m | 100.0 |
-| `dy` | Grid spacing in y-direction | m | 100.0 |
-| `dz_top` | Top layer thickness | m | 3.0 |
+
 
 ## Meteorological Input Files
 
 ### NetCDF Format
 
-When using `infmt_opt = 1`, the model expects netCDF files containing meteorological variables:
+When using `infmt_opt = 0`, the model expects netCDF files containing meteorological variables:
 
 - **File naming**: `gfs.tXXz.YYYYMMDD.sfcfXXX.canopy.nc`
-- **Required variables**:
-  - `TEMP_2M`: 2-meter temperature (K)
-  - `QV_2M`: 2-meter specific humidity (kg/kg)
-  - `PRES_SFC`: Surface pressure (Pa)
-  - `USTAR`: Friction velocity (m/s)
-  - `WSPD_10M`: 10-meter wind speed (m/s)
-  - `WDIR_10M`: 10-meter wind direction (degrees)
-  - `SRAD_TOA`: Top-of-atmosphere solar radiation (W/m²)
+- **Example required variables**:
+  - `tmp2m`: 2-meter temperature (K)
+  - `spfh2m`: 2-meter specific humidity (kg/kg)
+  - `pressfc`: Surface pressure (Pa)
+  - `fricv`: Friction velocity (m/s)
+  - `ugrd10m`: U-component of 10-meter wind speed (m/s)
+  - `vgrd10m`: V-component of 10-meter wind speed (m/s)
+  - `dswrf`: Instantaneous downward shortwave radiation at surface (W/m²)
 
 ### Text Format
 
-When using `infmt_opt = 2`, the model reads text files with the following format:
+When using `infmt_opt = 1`, the model reads text files with the following format:
 
 ```
 # Time: 2022-06-30_12:00:00
 # Lat: 40.0, Lon: -80.0
-TEMP_2M    QV_2M      PRES_SFC   USTAR     WSPD_10M  WDIR_10M  SRAD_TOA
-295.15     0.012      101325.0   0.45      5.2       270.0     850.0
+lat      lon      ch          ugrd10m  vgrd10m
+34.0   272.1   20.9      -0.75          0.33
 ```
 
 ## Vegetation Parameters
