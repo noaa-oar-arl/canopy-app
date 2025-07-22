@@ -1,4 +1,25 @@
 
+!> \file canopy_dealloc.F90
+!> \brief Deallocation subroutine for canopy model arrays
+!> \details This subroutine deallocates all allocated arrays used in the
+!!          canopy model to free memory at the end of model execution.
+!> \author P.C. Campbell
+!> \date October 2022
+!> \version 1.0
+
+!> \ingroup utils_group
+!> \brief Deallocate arrays for canopy model
+!> \details Deallocates all allocated arrays including:
+!!          - Input variable arrays
+!!          - Canopy distribution arrays
+!!          - Meteorological arrays
+!!          - Leaf temperature and PPFD arrays
+!!          - 24-hour and 240-hour temporary arrays
+!!          - Biogenic emission arrays
+!!          - Chemical species arrays
+!> \author P.C. Campbell
+!> \date October 2022
+
 SUBROUTINE canopy_dealloc
 
 !-------------------------------------------------------------------------------

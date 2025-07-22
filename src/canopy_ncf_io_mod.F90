@@ -1,3 +1,19 @@
+!> \file canopy_ncf_io_mod.F90
+!> \brief NetCDF file input/output routines for canopy model
+!> \details This module contains comprehensive routines for reading and writing
+!!          NetCDF format files for the canopy model, including meteorological
+!!          input data and model output data.
+!> \author S.-B. Kim, T. Otte, T. Spero, P.C. Campbell
+!> \date Originally 2004, adapted for Canopy-App December 2022
+!> \version 3.0
+
+!> \defgroup ncfio_group NetCDF File I/O Operations
+!> \brief Routines for reading and writing NetCDF format data files
+!> \details This group contains subroutines for comprehensive NetCDF file
+!!          operations including reading meteorological input, writing model
+!!          output, and handling NetCDF attributes and dimensions.
+!> \{
+
 MODULE canopy_ncf_io_mod
 
     public canopy_outncf_alloc, canopy_outncf_init, canopy_outncfglobal, &
@@ -3798,5 +3814,7 @@ CONTAINS
         ENDIF
 
     END SUBROUTINE canopy_close_files
+
+!> \}
 
 END MODULE canopy_ncf_io_mod

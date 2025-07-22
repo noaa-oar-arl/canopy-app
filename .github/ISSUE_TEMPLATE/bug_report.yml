@@ -1,0 +1,154 @@
+name: 🐛 Bug Report
+description: Report a bug or unexpected behavior in Canopy-App
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug! Please fill out the information below to help us understand and reproduce the issue.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please check the following before submitting
+      options:
+        - label: I have searched existing issues to ensure this is not a duplicate
+          required: true
+        - label: I have read the [documentation](https://canopy-app.readthedocs.io)
+          required: true
+        - label: I have tried the latest version of Canopy-App
+          required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: Describe the bug...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Step-by-step instructions to reproduce the behavior
+      placeholder: |
+        1. Compile with '...'
+        2. Run with configuration '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen
+      placeholder: Describe what should have happened...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened (include error messages, output, etc.)
+      placeholder: Describe what actually happened...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected Component
+      description: Which component of Canopy-App is affected?
+      options:
+        - Wind Profile Calculations (canopy_wind_mod)
+        - Biogenic Emissions (canopy_bioemi_mod)
+        - Dry Deposition (canopy_drydep_mod)
+        - Photolysis (canopy_phot_mod)
+        - Radiation (canopy_rad_mod)
+        - Leaf Temperature (canopy_tleaf_mod)
+        - I/O Operations (NetCDF/Text)
+        - Configuration/Namelist
+        - Build System (Makefile)
+        - Python Interface
+        - Documentation
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Canopy-App Version
+      description: What version of Canopy-App are you using?
+      placeholder: e.g., commit hash, branch name, or release version
+    validations:
+      required: true
+
+  - type: dropdown
+    id: compiler
+    attributes:
+      label: Compiler
+      description: Which Fortran compiler are you using?
+      options:
+        - gfortran (default)
+        - ifort (Intel)
+        - Other (specify in environment section)
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Information
+      description: Information about your computing environment
+      placeholder: |
+        OS: (e.g., Ubuntu 22.04, macOS 13.0, CentOS 7)
+        Compiler version: (e.g., gfortran 11.2.0)
+        NetCDF version: (if applicable)
+        Python version: (if using Python interface)
+        MPI implementation: (if applicable)
+    validations:
+      required: true
+
+  - type: textarea
+    id: configuration
+    attributes:
+      label: Configuration Files
+      description: Relevant configuration files (namelist, environment variables, etc.)
+      placeholder: |
+        Please paste your namelist.canopy or other relevant configuration:
+        ```fortran
+        &filenames
+          file_vars = '...'
+        /
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Messages/Logs
+      description: Complete error messages, compilation output, or runtime logs
+      placeholder: |
+        ```
+        Paste error messages or logs here...
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other context about the problem (screenshots, related issues, etc.)
+      placeholder: Add any other context about the problem here...
+    validations:
+      required: false

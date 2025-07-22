@@ -1,3 +1,14 @@
+!> \file canopy_eddy_mod.F90
+!> \brief Canopy eddy diffusivity calculations
+!> \details This module contains routines for calculating eddy diffusivity (Kz)
+!>          within and just above forest canopies using parameterizations
+!>          based on Makar et al. (2017) and Raupach (1989).
+!> \author P. C. Campbell
+!> \date Jun 2022
+
+!> \defgroup canopy_eddy Canopy Eddy Diffusivity
+!> \brief Eddy diffusivity calculations within and above canopy
+
 module canopy_eddy_mod
 
     implicit none
@@ -5,6 +16,24 @@ module canopy_eddy_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    !> \brief Calculate canopy eddy diffusivity
+    !> \details Computes Eddy Diffusivity, Kz, within and just above canopy using
+    !!          stability-dependent parameterizations for different atmospheric conditions
+    !> \ingroup canopy_eddy
+    !> \param[in] HCM Height of canopy top (m)
+    !> \param[in] ZK Above/Below canopy height, z (m)
+    !> \param[in] USTAR Model input friction velocity (m/s)
+    !> \param[in] MOL Model input Monin-Obukhov Length (m)
+    !> \param[out] KZ Estimated Eddy Diffusivity with canopy turbulence (m²/s)
+    !> \author P. C. Campbell
+    !> \date Jun 2022
+    !> \note Based on Makar et al. (2017) algorithms for canopy turbulence
+    !> \cite Makar, P., Staebler, R., Akingunola, A. et al. (2017).
+    !!       The effects of forest canopy shading and turbulence on boundary layer ozone.
+    !!       Nature Communications, 8, 15243. https://doi.org/10.1038/ncomms15243
+    !> \cite Raupach, M. R. (1989). A Practical Lagrangian method for relating scalar
+    !!       concentrations to source distributions in vegetation canopies.
+    !!       Quarterly Journal of the Royal Meteorological Society, 115, 609-632.
     SUBROUTINE CANOPY_EDDYX( HCM, ZK, USTAR, MOL, KZ )
 
 !-----------------------------------------------------------------------
@@ -33,12 +62,35 @@ contains
         REAL(RK),    INTENT( OUT ) :: KZ              ! Estimated Eddy Diffusivity with canopy turbulence
 
 !     Local variables
-        real(rk)                   :: hol             ! local canopy stability parameter (hc/MOL)
-        real(rk)                   :: tlc             ! turbulence length scale in canopy (m)
-        real(rk)                   :: rr              ! sigma parameter R (Makar et al., 2017)
-        real(rk)                   :: aa              ! sigma parameter A (Makar et al., 2017)
-        real(rk)                   :: bb              ! sigma parameter B (Makar et al., 2017)
-        real(rk)                   :: sigma           ! eulerian vertical velocity (m/s)
+        !> \brief Local canopy stability parameter
+        !> \details Canopy stability parameter (hc/MOL)
+        !! \param units dimensionless
+        real(rk)                   :: hol
+
+        !> \brief Turbulence length scale in canopy
+        !> \details Turbulence length scale in canopy from Raupach (1989)
+        !! \param units meters (m)
+        real(rk)                   :: tlc
+
+        !> \brief Sigma parameter R
+        !> \details Sigma parameter R from Makar et al. (2017)
+        !! \param units dimensionless
+        real(rk)                   :: rr
+
+        !> \brief Sigma parameter A
+        !> \details Sigma parameter A from Makar et al. (2017)
+        !! \param units dimensionless
+        real(rk)                   :: aa
+
+        !> \brief Sigma parameter B
+        !> \details Sigma parameter B from Makar et al. (2017)
+        !! \param units dimensionless
+        real(rk)                   :: bb
+
+        !> \brief Eulerian vertical velocity
+        !> \details Eulerian vertical velocity variance
+        !! \param units m/s
+        real(rk)                   :: sigma
 
 ! Citation:
 !Makar, P., Staebler, R., Akingunola, A. et al. The effects of forest canopy shading and turbulence on boundary layer ozone.

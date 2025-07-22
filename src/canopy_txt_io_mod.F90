@@ -1,3 +1,17 @@
+!> \file canopy_txt_io_mod.F90
+!> \brief Text file input/output routines for canopy model
+!> \details This module contains routines to read meteorological/surface model
+!!          text input and write canopy model text output files.
+!> \author P.C. Campbell
+!> \date October 2022
+!> \version 1.0
+
+!> \defgroup txtio_group Text File I/O Operations
+!> \brief Routines for reading and writing text format data files
+!> \details This group contains subroutines for reading meteorological and
+!!          canopy variable text files and writing model output to text format.
+!> \{
+
 MODULE canopy_txt_io_mod
 
 !-------------------------------------------------------------------------------
@@ -8,24 +22,31 @@ MODULE canopy_txt_io_mod
 
 CONTAINS
 
-!-------------------------------------------------------------------------------
-!-------------------------------------------------------------------------------
-
+!> \brief Read meteorological/surface variables from text file
+!> \details Reads meteorological and surface input variables from a text file
+!!          into the variables array. Skips header line and reads data for
+!!          all grid locations.
+!> \param TXTFILE Path to input text file containing meteorological data
+!> \author P.C. Campbell
+!> \date October 2022
     SUBROUTINE read_txt(TXTFILE)
 
-        USE canopy_coord_mod
-        USE canopy_canmet_mod
+        USE canopy_coord_mod !< Coordinate system module
+        USE canopy_canmet_mod !< Canopy meteorology module
 
         IMPLICIT NONE
 
-        CHARACTER(LEN=*), INTENT( IN )  :: TXTFILE
+        CHARACTER(LEN=*), INTENT( IN )  :: TXTFILE !< Path to input text file
 
-        !Local variables
-        integer i0, loc
-        ! ... read met/sfc input variables from text file
+        !> \name Local Variables
+        !> \{
+        integer i0, loc !< I/O status and location counter
+        !> \}
+
+        !> Read met/sfc input variables from text file
         open(8,  file=TXTFILE,  status='old')
         i0 = 0
-        read(8,*,iostat=i0)  ! skip headline
+        read(8,*,iostat=i0)  !< Skip headline
         do loc=1, nlat*nlon
             read(8, *) variables(loc)
         end do
@@ -33,24 +54,30 @@ CONTAINS
 
     END SUBROUTINE read_txt
 
-!-------------------------------------------------------------------------------
-!-------------------------------------------------------------------------------
-
+!> \brief Read supplementary canopy variables from text file
+!> \details Reads supplementary canopy variables from a text file into the
+!!          canopy variables array. Used for additional canopy-specific inputs.
+!> \param TXTFILE Path to input text file containing canopy variables
+!> \author P.C. Campbell
+!> \date October 2022
     SUBROUTINE read_can_txt(TXTFILE)
 
-        USE canopy_coord_mod
-        USE canopy_canmet_mod
+        USE canopy_coord_mod !< Coordinate system module
+        USE canopy_canmet_mod !< Canopy meteorology module
 
         IMPLICIT NONE
 
-        CHARACTER(LEN=*), INTENT( IN )  :: TXTFILE
+        CHARACTER(LEN=*), INTENT( IN )  :: TXTFILE !< Path to input text file
 
-        !Local variables
-        integer i0, loc
-        ! ... read supplementary canopy variables from text file
+        !> \name Local Variables
+        !> \{
+        integer i0, loc !< I/O status and location counter
+        !> \}
+
+        !> Read supplementary canopy variables from text file
         open(9,  file=TXTFILE,  status='old')
         i0 = 0
-        read(9,*,iostat=i0)  ! skip headline
+        read(9,*,iostat=i0)  !< Skip headline
         do loc=1, nlat*nlon
             read(9, *) variables_can(loc)
         end do
@@ -58,10 +85,14 @@ CONTAINS
 
     END SUBROUTINE read_can_txt
 
-!-------------------------------------------------------------------------------
-!-------------------------------------------------------------------------------
-
-
+!> \brief Write canopy model output to text file
+!> \details Writes comprehensive canopy model output variables to a text file
+!!          with proper formatting and headers. Includes meteorological, canopy,
+!!          and calculated variables for the specified time.
+!> \param TXTPREFX Prefix for output text filename
+!> \param TIMENOW Current simulation time string
+!> \author P.C. Campbell
+!> \date October 2022
     SUBROUTINE write_txt(TXTPREFX,TIMENOW)
 
         USE canopy_coord_mod
@@ -241,7 +272,6 @@ CONTAINS
 
     END SUBROUTINE write_txt
 
-!-------------------------------------------------------------------------------
-!-------------------------------------------------------------------------------
+!> \}
 
 END MODULE canopy_txt_io_mod

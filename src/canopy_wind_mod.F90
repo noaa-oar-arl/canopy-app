@@ -1,3 +1,14 @@
+!> \file canopy_wind_mod.F90
+!> \brief Canopy wind speed profile calculations
+!> \details This module contains routines for calculating wind speed profiles
+!>          within and above forest canopies using Monin-Obukhov Similarity Theory (MOST)
+!>          and in-canopy parameterizations based on Massman et al. (2017).
+!> \author P. C. Campbell
+!> \date 06/22 (Prototype)
+
+!> \defgroup canopy_wind Canopy Wind Calculations
+!> \brief Wind speed profile calculations within and above canopy
+
 module canopy_wind_mod
 
     implicit none
@@ -5,6 +16,31 @@ module canopy_wind_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    !> \brief Calculate canopy wind speed profile using MOST
+    !> \details Computes mean wind speed for given height (z) below the canopy top
+    !!          using Monin-Obukhov Similarity Theory above canopy and Massman et al. (2017)
+    !!          parameterization within canopy
+    !> \ingroup canopy_wind
+    !> \param[in] HCM Height of canopy top (m)
+    !> \param[in] ZK Above/Below canopy height, z (m)
+    !> \param[in] FAFRACK Fractional (z) shapes of the plant surface distribution (dimensionless)
+    !> \param[in] UBZREF Mean wind speed at reference height (ZREF) (m/s)
+    !> \param[in] Z0GHC Ratio of ground roughness length to canopy top height (dimensionless)
+    !> \param[in] CDRAG Drag coefficient (dimensionless)
+    !> \param[in] PAI Total plant/foliage area index (dimensionless)
+    !> \param[in] HREF Reference Height above the canopy (ZREF = HCM + HREF; m)
+    !> \param[in] D_H Zero plane displacement heights (dimensionless)
+    !> \param[in] ZO_H Surface (soil+veg) roughness lengths (dimensionless)
+    !> \param[in] LAMBDARS Value representing influence of roughness sublayer (dimensionless)
+    !> \param[out] CANBOT_OUT Canopy bottom wind reduction factor = canbot (dimensionless)
+    !> \param[out] CANTOP_OUT Canopy top wind reduction factor = cantop (dimensionless)
+    !> \param[out] CANWIND Mean canopy wind speed at current z (m/s)
+    !> \author P. C. Campbell
+    !> \date Jun 2022
+    !> \note Based on Massman et al. (2017) algorithms below the canopy and use of MOST above canopy
+    !> \cite Massman, W.J., J.M. Forthofer, M.A. Finney (2017). An improved canopy wind model
+    !!       for predicting wind adjustment factors and wildland fire behavior.
+    !!       Canadian Journal of Forest Research, 47(5), 594-599. https://doi.org/10.1139/cjfr-2016-0354
     SUBROUTINE CANOPY_WIND_MOST( HCM, ZK, FAFRACK, UBZREF, Z0GHC, &
         CDRAG, PAI, HREF, D_H, ZO_H, LAMBDARS, &
         CANBOT_OUT, CANTOP_OUT, CANWIND )
@@ -44,18 +80,61 @@ contains
         REAL(RK),    INTENT( OUT ) :: CANBOT_OUT       ! Canopy bottom wind reduction factor = canbot (nondimensional)
         REAL(RK),    INTENT( OUT ) :: CANTOP_OUT       ! Canopy top wind reduction factor = cantop    (nondimensional)
         REAL(RK),    INTENT( OUT ) :: CANWIND          ! Mean canopy wind speed at current z (m/s)
+
 !       Local variables
-        real(rk)                   :: ustrmod          ! Friction Velocity parameterization based on Massman 2017 (m/s)
-        real(rk)                   :: z0g              ! Ground roughness length based on z0g/HCCM ratio (m)
-        real(rk)                   :: zkhcm            ! Current zk/hcm ratio (nondimensional)
-        real(rk)                   :: cstress          ! Surface stress at/above canopy height (nondimensional)
-        real(rk)                   :: drag             ! Drag area index (i.e., wind speed attenuation) (nondimensional)
-        real(rk)                   :: nrat             ! Ratio of drag/cstress (nondimensional)
-        real(rk)                   :: canbot           ! Logarithmic wind speed that is dominant near the ground (nondimensional)
-        real(rk)                   :: cantop           ! Hyperbolic cosine wind speed that is dominant near the top of canopy (nondimensional)
-        real(rk)                   :: zpd              ! Zero plane displacement heights MOST  (m)
-        real(rk)                   :: z0m              ! Surface (soil+veg) roughness lengths with Massman LAMBDARS (m)
-        real(rk)                   :: uc               ! Wind directly at canopy top (m/s)
+        !> \brief Friction velocity parameterization
+        !> \details Friction Velocity parameterization based on Massman 2017
+        !! \param units m/s
+        real(rk)                   :: ustrmod
+
+        !> \brief Ground roughness length
+        !> \details Ground roughness length based on z0g/HCCM ratio
+        !! \param units meters (m)
+        real(rk)                   :: z0g
+
+        !> \brief Normalized height ratio
+        !> \details Current zk/hcm ratio
+        !! \param units dimensionless
+        real(rk)                   :: zkhcm
+        !> \brief Surface stress coefficient
+        !> \details Surface stress at/above canopy height
+        !! \param units dimensionless
+        real(rk)                   :: cstress
+
+        !> \brief Drag area index
+        !> \details Drag area index (i.e., wind speed attenuation)
+        !! \param units dimensionless
+        real(rk)                   :: drag
+
+        !> \brief Drag to stress ratio
+        !> \details Ratio of drag/cstress
+        !! \param units dimensionless
+        real(rk)                   :: nrat
+
+        !> \brief Canopy bottom wind component
+        !> \details Logarithmic wind speed that is dominant near the ground
+        !! \param units dimensionless
+        real(rk)                   :: canbot
+
+        !> \brief Canopy top wind component
+        !> \details Hyperbolic cosine wind speed that is dominant near the top of canopy
+        !! \param units dimensionless
+        real(rk)                   :: cantop
+
+        !> \brief Zero plane displacement height
+        !> \details Zero plane displacement heights MOST
+        !! \param units meters (m)
+        real(rk)                   :: zpd
+
+        !> \brief Aerodynamic roughness length
+        !> \details Surface (soil+veg) roughness lengths with Massman LAMBDARS
+        !! \param units meters (m)
+        real(rk)                   :: z0m
+
+        !> \brief Wind speed at canopy top
+        !> \details Wind directly at canopy top
+        !! \param units m/s
+        real(rk)                   :: uc
 
 ! Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior

@@ -15,6 +15,14 @@ repos:
         args: ['-i4']
         additional_dependencies: ['findent<4.2.6']
 
+  # Recommended: fprettify for Fortran formatting (uncomment to enable)
+  # - repo: https://github.com/pseewald/fprettify
+  #   rev: "v0.3.7"
+  #   hooks:
+  #     - id: fprettify
+  #       args: ['--indent=4', '--line-length=120']
+  #       files: \.(f90|F90|f95|F95|f03|F03|f08|F08)$
+
   - repo: https://github.com/asottile/pyupgrade
     rev: "v3.3.1"
     hooks:

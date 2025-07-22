@@ -1,3 +1,14 @@
+!> \file canopy_dxcalc_mod.F90
+!> \brief Grid cell distance calculations for canopy model
+!> \details This module contains routines for calculating grid cell distances
+!>          using the Haversine formula for great circle distance computation
+!>          or using user-specified grid resolution values.
+!> \author P. C. Campbell
+!> \date Oct 2022
+
+!> \defgroup canopy_dx Grid Distance Calculations
+!> \brief Grid cell distance calculations using Haversine formula
+
 module canopy_dxcalc_mod
 
     implicit none
@@ -5,6 +16,20 @@ module canopy_dxcalc_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    !> \brief Calculate grid cell distances for 1D arrays
+    !> \details Computes great circle distance or the orthodromic distance using Haversine
+    !!          formula for 1D latitude/longitude arrays
+    !> \ingroup canopy_dx
+    !> \param[in] DXOPT User DX calculation option (0=calculate, 1=use set value)
+    !> \param[in] DXSET User DX set value if cannot calculate (m)
+    !> \param[in] NLAT Number of latitude grid cells/points
+    !> \param[in] NLON Number of longitude grid cells/points
+    !> \param[in] LAT Model latitudes array (degrees)
+    !> \param[in] LON Model longitudes array (degrees)
+    !> \param[out] DX Distance between two points (m)
+    !> \author P. C. Campbell
+    !> \date Oct 2022
+    !> \note Uses Haversine formula for great circle distance calculations
     SUBROUTINE CANOPY_CALCDX(DXOPT, DXSET, NLAT, NLON, LAT, LON, DX )
 
 !-----------------------------------------------------------------------
@@ -37,7 +62,9 @@ contains
         REAL(RK),   INTENT( OUT ) :: DX(:)           ! Distance between two points (m)
 
 !     Local variables
-        integer  ::    loc                           ! NLAT*NLON
+        !> \brief Location index
+        !> \details Loop index for NLAT*NLON locations
+        integer  ::    loc
 
         do loc=1, NLAT*NLON
 
@@ -62,6 +89,20 @@ contains
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    !> \brief Calculate grid cell distances for 2D arrays
+    !> \details Computes great circle distance or the orthodromic distance using Haversine
+    !!          formula for 2D latitude/longitude arrays
+    !> \ingroup canopy_dx
+    !> \param[in] DXOPT User DX calculation option (0=calculate, 1=use set value)
+    !> \param[in] DXSET User DX set value if cannot calculate (m)
+    !> \param[in] NLAT Number of latitude grid cells/points
+    !> \param[in] NLON Number of longitude grid cells/points
+    !> \param[in] LAT Model latitudes 2D array (degrees)
+    !> \param[in] LON Model longitudes 2D array (degrees)
+    !> \param[out] DX Distance between two points 2D array (m)
+    !> \author P. C. Campbell
+    !> \date Oct 2022
+    !> \note Uses Haversine formula for great circle distance calculations
     SUBROUTINE CANOPY_CALCDX_2D(DXOPT, DXSET, NLAT, NLON, LAT, LON, DX )
 
 !-----------------------------------------------------------------------
@@ -94,7 +135,9 @@ contains
         REAL(RK),   INTENT( OUT ) :: DX(:,:)           ! Distance between two points (m)
 
 !     Local variables
-        integer  ::    i,j                           ! NLON,NLAT
+        !> \brief Longitude and latitude loop indices
+        !> \details Loop indices for NLON,NLAT grid dimensions
+        integer  ::    i,j
 
         do i=1, NLON
             do j=1, NLAT

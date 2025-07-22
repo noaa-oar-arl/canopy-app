@@ -1,4 +1,24 @@
 
+!> \file canopy_init.F90
+!> \brief Initialization subroutine for canopy model arrays
+!> \details This subroutine initializes all arrays for canopy model inputs
+!!          and outputs, setting them to appropriate fill values or zeros.
+!> \author P.C. Campbell
+!> \date October 2022
+!> \version 1.0
+
+!> \ingroup utils_group
+!> \brief Initialize arrays for canopy model inputs and outputs
+!> \details Initializes all arrays for canopy model including:
+!!          - Canopy distribution variables
+!!          - Meteorological arrays
+!!          - Leaf temperature and PPFD arrays
+!!          - 24-hour and 240-hour temporary arrays
+!!          - Biogenic emission arrays
+!!          - Chemical species arrays
+!> \author P.C. Campbell
+!> \date October 2022
+
 SUBROUTINE canopy_init
 
 !-------------------------------------------------------------------------------

@@ -1,7 +1,27 @@
+!> \file canopy_utils_mod.F90
+!> \brief Utility functions and calculations for canopy model
+!> \details This module contains a comprehensive collection of utility functions
+!!          for the canopy model including mathematical operations, environmental
+!!          calculations, biogenic emission factors, molecular properties,
+!!          and various physical parameterizations.
+!> \author P.C. Campbell and others
+!> \date Various dates
+!> \version 1.0
+
+!> \defgroup utils_group Utility Functions
+!> \brief Collection of utility and calculation functions for canopy modeling
+!> \details This group contains various utility functions including:
+!!          - Mathematical operations (integration, interpolation)
+!!          - Environmental calculations (temperature, pressure, humidity)
+!!          - Biogenic emission factors and corrections
+!!          - Molecular property calculations
+!!          - Physical parameterizations for deposition and resistance
+!> \{
+
 module canopy_utils_mod
 
 !    use canopy_const_mod, ONLY: ntotal, pi, rk, rearth    !constants for canopy models
-    use canopy_const_mod, ONLY: pi, rk, rearth
+    use canopy_const_mod, ONLY: pi, rk, rearth !< Constants for canopy models
 
     implicit none
 
@@ -19,28 +39,37 @@ module canopy_utils_mod
 
 contains
 
+    !> \brief Numerical integration using trapezoidal rule
+    !> \details Calculates the integral of an array y with respect to x using the trapezoid
+    !!          approximation. Note that the mesh spacing of x does not have to be uniform.
+    !> \param x Variable x array
+    !> \param y Function y(x) array
+    !> \return IntegrateTrapezoid Integral ∫y(x)·dx
     function IntegrateTrapezoid(x, y)
-        !! Calculates the integral of an array y with respect to x using the trapezoid
-        !! approximation. Note that the mesh spacing of x does not have to be uniform.
-        real(rk), intent(in)  :: x(:)                !! Variable x
-        real(rk), intent(in)  :: y(size(x))          !! Function y(x)
-        real(rk)              :: IntegrateTrapezoid  !! Integral ∫y(x)·dx
-        ! Integrate using the trapezoidal rule
+        real(rk), intent(in)  :: x(:)                !< Variable x
+        real(rk), intent(in)  :: y(size(x))          !< Function y(x)
+        real(rk)              :: IntegrateTrapezoid  !< Integral ∫y(x)·dx
+        !> Integrate using the trapezoidal rule
         associate(n => size(x))
             IntegrateTrapezoid = sum((y(1+1:n-0) + y(1+0:n-1))*(x(1+1:n-0) - x(1+0:n-1)))/2
         end associate
     end function
 !-------------------------------------------------------------------------------------
 
+    !> \brief Linear interpolation function
+    !> \details Interpolates for the y value at the desired x value,
+    !!          given x and y values around the desired point.
+    !> \param x Two x-values surrounding the interpolation point
+    !> \param y Two y-values corresponding to the x-values
+    !> \param xout Desired x-value for interpolation
+    !> \return yout Interpolated y-value at xout
     function interp_linear1_internal(x,y,xout) result(yout)
-        !! Interpolates for the y value at the desired x value,
-        !! given x and y values around the desired point.
 
         implicit none
 
-        real(rk), intent(IN)  :: x(2), y(2), xout
-        real(rk) :: yout
-        real(rk) :: alph
+        real(rk), intent(IN)  :: x(2), y(2), xout !< Input arrays and target value
+        real(rk) :: yout                           !< Interpolated result
+        real(rk) :: alph                           !< Interpolation coefficient
 
         if ( xout .lt. x(1) .or. xout .gt. x(2) ) then
             write(*,*) "interp1: xout < x0 or xout > x1 !"
@@ -73,8 +102,8 @@ contains
         !!  for Rothermel’s surface fire spread model. USDA For. Serv. Gen. Tech. Rep. RMRS-GTR-266.
 
 
-        real(rk), intent(in)  :: ch           !! Input Grid cell canopy height (m
-        real(rk), intent(in)  :: canfrac      !! Input Grid cell canopy fraction
+        real(rk), intent(in)  :: ch           !< Input Grid cell canopy height (m)
+        real(rk), intent(in)  :: canfrac      !< Input Grid cell canopy fraction
         real(rk)              :: CalcPAI      !! Calculated Plant area index (PAI)
 
         CalcPAI=( (ch*(canfrac/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * canfrac !Massman PAI calculation (Eq. 19)
@@ -1896,5 +1925,7 @@ contains
         CalcRiB = ((zref-d)*g*(tak-tsk))/(ubari*ubari*tak)
         return
     end function CalcRiB
+
+!> \}
 
 end module canopy_utils_mod

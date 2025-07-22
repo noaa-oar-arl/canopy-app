@@ -1,3 +1,15 @@
+!> \file canopy_canvars_mod.F90
+!> \brief Canopy model variables and data structures
+!> \details This module contains all variable definitions, arrays, and data structures
+!>          used by the canopy model for storing calculated results, intermediate
+!>          variables, and output fields including wind profiles, temperature profiles,
+!>          biogenic emissions, and dry deposition variables.
+!> \author P. C. Campbell
+!> \date 03 Oct 2022
+
+!> \defgroup canopy_variables Canopy Model Variables
+!> \brief All variable definitions and data structures for canopy model
+
 MODULE canopy_canvars_mod
 
 !-------------------------------------------------------------------------------
@@ -13,41 +25,159 @@ MODULE canopy_canvars_mod
 ! Canopy scalars in the model
 !-------------------------------------------------------------------------------
 
-    integer        ::    firetype      !1 = Above Canopy Fire; 0 = Below Canopy Fire
-    integer        ::    cansublays    !Number of sub-canopy layers
-    integer        ::    midflamepoint !Indice of the mid-flame point
-    real(rk)       ::    cdrag         !Drag coefficient (nondimensional)
-    real(rk)       ::    pai           !Plant/foliage area index (nondimensional)
-    real(rk)       ::    zcanmax       !Height of maximum foliage area density (z/h) (nondimensional)
-    real(rk)       ::    sigmau        !Standard deviation of shape function above zcanmax (z/h)
-    real(rk)       ::    sigma1        !Standard deviation of shape function below zcanmax (z/h)
+    !> \ingroup canopy_variables
+    !> \{
+
+    !> \brief Fire type indicator
+    !> \details Fire type: 1 = Above Canopy Fire; 0 = Below Canopy Fire
+    integer        ::    firetype
+
+    !> \brief Number of sub-canopy layers
+    !> \details Number of sub-canopy layers for vertical discretization
+    integer        ::    cansublays
+
+    !> \brief Mid-flame point index
+    !> \details Index of the mid-flame point in the vertical grid
+    integer        ::    midflamepoint
+
+    !> \brief Drag coefficient
+    !> \details Drag coefficient
+    !! \param units dimensionless
+    real(rk)       ::    cdrag
+
+    !> \brief Plant/foliage area index
+    !> \details Plant/foliage area index
+    !! \param units dimensionless
+    real(rk)       ::    pai
+
+    !> \brief Height of maximum foliage area density
+    !> \details Height of maximum foliage area density (z/h)
+    !! \param units dimensionless (z/h)
+    real(rk)       ::    zcanmax
+
+    !> \brief Standard deviation above zcanmax
+    !> \details Standard deviation of shape function above zcanmax (z/h)
+    !! \param units dimensionless (z/h)
+    real(rk)       ::    sigmau
+
+    !> \brief Standard deviation below zcanmax
+    !> \details Standard deviation of shape function below zcanmax (z/h)
+    !! \param units dimensionless (z/h)
+    real(rk)       ::    sigma1
 
 !-------------------------------------------------------------------------------
 ! Allocatable canopy variable arrays
 !-------------------------------------------------------------------------------
 
-    real(rk), allocatable :: zk                  ( : )          ! in-canopy heights (m)
-    real(rk), allocatable :: zhc                 ( : )          ! z/h
-    real(rk), allocatable :: fainc               ( : )          ! incremental foliage shape function
-    real(rk), allocatable :: fafracz             ( : )          ! incremental fractional foliage shape function
-    real(rk), allocatable :: fafraczInt          ( : )          ! integral of incremental fractional foliage shape function
-    real(rk), allocatable :: fsun                ( : )          ! Sunlit/Shaded fraction from photolysis correction factor
-    real(rk), allocatable :: tleaf_sun           ( : )          ! Leaf temp for sunlit leaves (K)
-    real(rk), allocatable :: tleaf_shade         ( : )          ! Leaf temp for shaded leaves (K)
-    real(rk), allocatable :: tleaf_ave           ( : )          ! Average Leaf temp for sunlit and shaded leaves (K)
-    real(rk), allocatable :: ppfd_sun            ( : )          ! PPFD for sunlit leaves (umol phot/m2 s)
-    real(rk), allocatable :: ppfd_shade          ( : )          ! PPFD for shaded leaves (umol phot/m2 s)
-    real(rk), allocatable :: ppfd_ave            ( : )          ! Average PPFD for sunlit and shaded leaves (umol phot/m2 s)
-    real(rk), allocatable :: tleaf_sun24_tmp     ( : , :, : )          ! Leaf temp for sunlit leaves (K)
-    real(rk), allocatable :: tleaf_shade24_tmp   ( : , :, : )          ! Leaf temp for shaded leaves (K)
-    real(rk), allocatable :: tleaf_ave24_tmp     ( : , :, : )          ! Average Leaf temp for sunlit and shaded leaves (K)
-    real(rk), allocatable :: ppfd_sun24_tmp      ( : , :, : )          ! PPFD for sunlit leaves (umol phot/m2 s)
-    real(rk), allocatable :: ppfd_shade24_tmp    ( : , :, : )          ! PPFD for shaded leaves (umol phot/m2 s)
-    real(rk), allocatable :: tleaf_sun240_tmp    ( : , :, : )          ! Leaf temp for sunlit leaves (K)
-    real(rk), allocatable :: tleaf_shade240_tmp  ( : , :, : )          ! Leaf temp for shaded leaves (K)
-    real(rk), allocatable :: tleaf_ave240_tmp    ( : , :, : )          ! Average Leaf temp for sunlit and shaded leaves (K)
-    real(rk), allocatable :: ppfd_sun240_tmp     ( : , :, : )          ! PPFD for sunlit leaves (umol phot/m2 s)
-    real(rk), allocatable :: ppfd_shade240_tmp   ( : , :, : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    !> \brief In-canopy heights
+    !> \details In-canopy heights
+    !! \param units meters (m)
+    real(rk), allocatable :: zk                  ( : )
+
+    !> \brief Normalized height (z/h)
+    !> \details Normalized height relative to canopy height (z/h)
+    !! \param units dimensionless
+    real(rk), allocatable :: zhc                 ( : )
+
+    !> \brief Incremental foliage shape function
+    !> \details Incremental foliage shape function
+    !! \param units dimensionless
+    real(rk), allocatable :: fainc               ( : )
+
+    !> \brief Incremental fractional foliage shape function
+    !> \details Incremental fractional foliage shape function
+    !! \param units dimensionless
+    real(rk), allocatable :: fafracz             ( : )
+
+    !> \brief Integral of incremental fractional foliage shape function
+    !> \details Integral of incremental fractional foliage shape function
+    !! \param units dimensionless
+    real(rk), allocatable :: fafraczInt          ( : )
+
+    !> \brief Sunlit/Shaded fraction from photolysis
+    !> \details Sunlit/Shaded fraction from photolysis correction factor
+    !! \param units dimensionless fraction
+    real(rk), allocatable :: fsun                ( : )
+
+    !> \brief Leaf temperature for sunlit leaves
+    !> \details Leaf temperature for sunlit leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_sun           ( : )
+
+    !> \brief Leaf temperature for shaded leaves
+    !> \details Leaf temperature for shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_shade         ( : )
+
+    !> \brief Average leaf temperature
+    !> \details Average leaf temperature for sunlit and shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_ave           ( : )
+
+    !> \brief PPFD for sunlit leaves
+    !> \details Photosynthetic Photon Flux Density for sunlit leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_sun            ( : )
+
+    !> \brief PPFD for shaded leaves
+    !> \details Photosynthetic Photon Flux Density for shaded leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_shade          ( : )
+
+    !> \brief Average PPFD
+    !> \details Average Photosynthetic Photon Flux Density for sunlit and shaded leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_ave            ( : )
+
+    !> \brief 24-hour temporary leaf temperature for sunlit leaves
+    !> \details Temporary storage for 24-hour leaf temperature for sunlit leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_sun24_tmp     ( : , :, : )
+
+    !> \brief 24-hour temporary leaf temperature for shaded leaves
+    !> \details Temporary storage for 24-hour leaf temperature for shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_shade24_tmp   ( : , :, : )
+
+    !> \brief 24-hour temporary average leaf temperature
+    !> \details Temporary storage for 24-hour average leaf temperature for sunlit and shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_ave24_tmp     ( : , :, : )
+
+    !> \brief 24-hour temporary PPFD for sunlit leaves
+    !> \details Temporary storage for 24-hour PPFD for sunlit leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_sun24_tmp      ( : , :, : )
+
+    !> \brief 24-hour temporary PPFD for shaded leaves
+    !> \details Temporary storage for 24-hour PPFD for shaded leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_shade24_tmp    ( : , :, : )
+
+    !> \brief 240-hour temporary leaf temperature for sunlit leaves
+    !> \details Temporary storage for 240-hour leaf temperature for sunlit leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_sun240_tmp    ( : , :, : )
+
+    !> \brief 240-hour temporary leaf temperature for shaded leaves
+    !> \details Temporary storage for 240-hour leaf temperature for shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_shade240_tmp  ( : , :, : )
+
+    !> \brief 240-hour temporary average leaf temperature
+    !> \details Temporary storage for 240-hour average leaf temperature for sunlit and shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_ave240_tmp    ( : , :, : )
+
+    !> \brief 240-hour temporary PPFD for sunlit leaves
+    !> \details Temporary storage for 240-hour PPFD for sunlit leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_sun240_tmp     ( : , :, : )
+
+    !> \brief 240-hour temporary PPFD for shaded leaves
+    !> \details Temporary storage for 240-hour PPFD for shaded leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_shade240_tmp   ( : , :, : )
     real(rk), allocatable :: tmp2mref_tmp        ( : , : )          ! 2-meter (AGL) input reference air temperature (K)
     real(rk), allocatable :: ubzref_tmp          ( : , : )          ! 10-meter (AGL) input reference wind speed (m/s)
     real(rk), allocatable :: tleaf_sun24         ( : , : )          ! Leaf temp for sunlit leaves (K)
@@ -227,56 +357,105 @@ MODULE canopy_canvars_mod
 
     CHARACTER(LEN=16),  PARAMETER     :: progname   = 'Canopy-App'
     CHARACTER(LEN=10),  PARAMETER     :: vdate      = '02/13/2022'
+    !> \brief Model version
+    !> \details Version identifier for the canopy model
     CHARACTER(LEN=8),   PARAMETER     :: ver        = 'V1.0.0'
 
 !-------------------------------------------------------------------------------
 ! Define output NETCDF data structures.
 !-------------------------------------------------------------------------------
 
+    !> \brief 1D time-dependent data structure
+    !> \details Data structure for 1D time-dependent NETCDF output fields
     TYPE fld1dtdata
+        !> \brief Field data pointer
+        !> \details Pointer to 1D time field data
         REAL(rk),        POINTER   :: fld        ( : )
+        !> \brief Field name
         CHARACTER(LEN=16)          :: fldname
+        !> \brief Long descriptive name
         CHARACTER(LEN=80)          :: long_name
+        !> \brief Units string
         CHARACTER(LEN=80)          :: units
+        !> \brief Cartesian axis designation
         CHARACTER(LEN=80)          :: cartesian_axis = "T"
+        !> \brief Calendar type
         CHARACTER(LEN=80)          :: calendar_type = "JULIAN"
+        !> \brief Calendar designation
         CHARACTER(LEN=80)          :: calendar = "JULIAN"
+        !> \brief Fill value for missing data
         REAL                       :: fillvalue
+        !> \brief Dimension names array
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        !> \brief Start indices for each dimension
         INTEGER                    :: istart     ( 4 )
+        !> \brief End indices for each dimension
         INTEGER                    :: iend       ( 4 )
     END TYPE fld1dtdata
 
+    !> \brief 1D data structure
+    !> \details Data structure for 1D NETCDF output fields
     TYPE fld1ddata
+        !> \brief Field data pointer
+        !> \details Pointer to 1D field data
         REAL(rk),        POINTER   :: fld        ( : )
+        !> \brief Field name
         CHARACTER(LEN=16)          :: fldname
+        !> \brief Long descriptive name
         CHARACTER(LEN=80)          :: long_name
+        !> \brief Units string
         CHARACTER(LEN=80)          :: units
+        !> \brief Fill value for missing data
         REAL                       :: fillvalue
+        !> \brief Dimension names array
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        !> \brief Start indices for each dimension
         INTEGER                    :: istart     ( 4 )
+        !> \brief End indices for each dimension
         INTEGER                    :: iend       ( 4 )
     END TYPE fld1ddata
 
+    !> \brief 2D data structure
+    !> \details Data structure for 2D NETCDF output fields
     TYPE fld2ddata
+        !> \brief Field data pointer
+        !> \details Pointer to 2D field data
         REAL(rk),        POINTER   :: fld        ( : , : )
+        !> \brief Field name
         CHARACTER(LEN=16)          :: fldname
+        !> \brief Long descriptive name
         CHARACTER(LEN=80)          :: long_name
+        !> \brief Units string
         CHARACTER(LEN=16)          :: units
+        !> \brief Fill value for missing data
         REAL                       :: fillvalue
+        !> \brief Dimension names array
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        !> \brief Start indices for each dimension
         INTEGER                    :: istart     ( 4 )
+        !> \brief End indices for each dimension
         INTEGER                    :: iend       ( 4 )
     END TYPE fld2ddata
 
+    !> \brief 3D data structure
+    !> \details Data structure for 3D NETCDF output fields
     TYPE fld3ddata
+        !> \brief Field data pointer
+        !> \details Pointer to 3D field data
         REAL(rk),        POINTER   :: fld        ( : , : , : )
+        !> \brief Field name
         CHARACTER(LEN=16)          :: fldname
+        !> \brief Long descriptive name
         CHARACTER(LEN=80)          :: long_name
+        !> \brief Units string
         CHARACTER(LEN=16)          :: units
+        !> \brief Fill value for missing data
         REAL                       :: fillvalue
+        !> \brief Dimension names array
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        !> \brief Start indices for each dimension
         INTEGER                    :: istart     ( 4 )
+        !> \brief End indices for each dimension
         INTEGER                    :: iend       ( 4 )
     END TYPE fld3ddata
 
@@ -284,10 +463,21 @@ MODULE canopy_canvars_mod
 ! Assign number of time independent and varying 2D/3D fields at cell centers.
 !-------------------------------------------------------------------------------
 
-    INTEGER           :: nfld1dt        ! time field
-    INTEGER           :: nfld1dz        ! time-independent 1d cell centers
-    INTEGER           :: nfld2dxy       ! time-independent 2d cell centers
-    INTEGER           :: nfld2dxyt      ! time-varying 2d cell centers
+    !> \brief Number of time fields
+    !> \details Number of time field variables
+    INTEGER           :: nfld1dt
+
+    !> \brief Number of time-independent 1D fields
+    !> \details Number of time-independent 1D cell center fields
+    INTEGER           :: nfld1dz
+
+    !> \brief Number of time-independent 2D fields
+    !> \details Number of time-independent 2D cell center fields
+    INTEGER           :: nfld2dxy
+
+    !> \brief Number of time-varying 2D fields
+    !> \details Number of time-varying 2D cell center fields
+    INTEGER           :: nfld2dxyt
     INTEGER           :: nfld3dxyzt     ! time-varying 3d cell centers
 
 
@@ -383,5 +573,7 @@ MODULE canopy_canvars_mod
     TYPE(fld3ddata), POINTER     :: c_ddep_macrn
     TYPE(fld3ddata), POINTER     :: c_ddep_mvkn
     TYPE(fld3ddata), POINTER     :: c_ddep_isnp
+
+    !> \}
 
 END MODULE canopy_canvars_mod

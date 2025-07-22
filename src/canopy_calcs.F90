@@ -1,49 +1,76 @@
 
+!> \file canopy_calcs.F90
+!! \brief Main Canopy Calculations Subroutine
+!! \details This file contains the main calculation subroutine that orchestrates
+!! all canopy model computations including radiation, wind, biogenic emissions,
+!! dry deposition, and other canopy processes.
+!!
+!! \author Patrick C. Campbell
+!! \date October 2022
+
+!> \defgroup canopy_calcs Main Canopy Calculations
+!! \brief Core computational routines for canopy model calculations
+!! \{
+
+!> \brief Main canopy calculations dependent on canopy conditions
+!! \details This subroutine contains the main computational workflow for the canopy model.
+!! It processes meteorological inputs, performs canopy parameter calculations, and
+!! computes various canopy processes including:
+!! - Grid distance calculations for 2D domains
+!! - Reference height assignments
+!! - Canopy geometry and morphology calculations
+!! - Wind profile calculations within and above canopy
+!! - Radiation transfer and photosynthesis computations
+!! - Leaf temperature calculations for sun and shade conditions
+!! - Biogenic emission calculations
+!! - Dry deposition velocity computations
+!! - Fire-related wind adjustment factors
+!! - Photolysis attenuation factors
+!! - Eddy diffusivity profiles
+!!
+!! The subroutine handles both 1D point calculations and 2D gridded computations
+!! depending on the input format option specified in the namelist.
+!!
+!! \param[in] nn Input time step index
 SUBROUTINE canopy_calcs(nn)
 
-!-------------------------------------------------------------------------------
-! Name:     Contains main canopy calculations dependent on canopy conditions
-! Purpose:  Contains main canopy calculations dependent on canopy conditions
-! Revised:  06 Oct 2022  Original version.  (P.C. Campbell)
-!-------------------------------------------------------------------------------
-
-    use canopy_const_mod      !constants for canopy models
-    use canopy_coord_mod      !main canopy coordinate descriptions
-    use canopy_canopts_mod    !main canopy option descriptions
-    use canopy_canmet_mod     !main canopy met/sfc input descriptions
-    use canopy_canvars_mod    !main canopy variables descriptions
-    use canopy_utils_mod      !main canopy utilities
-    use canopy_dxcalc_mod     !main canopy dx calculation
-    use canopy_profile_mod    !main canopy foliage profile routines
-    use canopy_var3din_mod    !main canopy 3D variable in routines
-    use canopy_rad_mod        !main canopy radiation sunlit/shaded routines
-    use canopy_tleaf_mod      !main canopy leaf temperature sunlit/shaded routines
-    use canopy_wind_mod       !main canopy components
-    use canopy_fire_mod
-    use canopy_phot_mod
-    use canopy_eddy_mod
-    use canopy_bioemi_mod
-    use canopy_drydep_mod
+    use canopy_const_mod      !> constants for canopy models
+    use canopy_coord_mod      !> main canopy coordinate descriptions
+    use canopy_canopts_mod    !> main canopy option descriptions
+    use canopy_canmet_mod     !> main canopy met/sfc input descriptions
+    use canopy_canvars_mod    !> main canopy variables descriptions
+    use canopy_utils_mod      !> main canopy utilities
+    use canopy_dxcalc_mod     !> main canopy dx calculation
+    use canopy_profile_mod    !> main canopy foliage profile routines
+    use canopy_var3din_mod    !> main canopy 3D variable in routines
+    use canopy_rad_mod        !> main canopy radiation sunlit/shaded routines
+    use canopy_tleaf_mod      !> main canopy leaf temperature sunlit/shaded routines
+    use canopy_wind_mod       !> main canopy wind components
+    use canopy_fire_mod       !> fire-related canopy calculations
+    use canopy_phot_mod       !> photolysis attenuation calculations
+    use canopy_eddy_mod       !> eddy diffusivity calculations
+    use canopy_bioemi_mod     !> biogenic emission calculations
+    use canopy_drydep_mod     !> dry deposition calculations
 
     IMPLICIT NONE
 
-    INTEGER,     INTENT( IN )       :: nn         ! Input time step
+    INTEGER,     INTENT( IN )       :: nn         !> Input time step
 
-    !Local variables
-    integer i,j,k,loc
-    ! LAI variables for Leaf Age factor calculations
-    INTEGER  :: int_nlaic           !Int number of LAI timesteps elapsed in the current model timestep
-    INTEGER,  save :: int_nlaip     !Int number of LAI timesteps elapsed in the past model timestep
-    REAL(rk) :: nlaic, nlaip        !Number of LAI timesteps elapsed in past and current model timesteps
-    REAL(rk), save :: pastlai       !Past LAI [cm2/cm2]
-    REAL(rk), save :: currentlai    ! Current LAI [cm2/cm2]  (saved from one timestep to the next)
-    REAL(rk) :: tsteplai            !Number of days between the past and current LAI
-    !Historical Averaging variables for biogenics
-    REAL(rk) :: dnewfrac,doldfrac,hnewfrac,holdfrac
-    !For aerodynamic resistance and gas dry dep
-    REAL(rk) :: RiB,Ra
-    !Other
-    REAL(rk) :: lat2d(nlon,nlat), lon2d(nlon,nlat), lat1d(nlon*nlat), lon1d(nlon*nlat)
+!> \defgroup calcs_local_vars Local Variables
+!! \brief Local variables for canopy calculations
+!! \{
+    integer i,j,k,loc                       !> Loop counters and location index
+    INTEGER  :: int_nlaic                   !> Int number of LAI timesteps elapsed in the current model timestep
+    INTEGER,  save :: int_nlaip             !> Int number of LAI timesteps elapsed in the past model timestep
+    REAL(rk) :: nlaic, nlaip                !> Number of LAI timesteps elapsed in past and current model timesteps
+    REAL(rk), save :: pastlai               !> Past LAI [cm2/cm2]
+    REAL(rk), save :: currentlai            !> Current LAI [cm2/cm2]  (saved from one timestep to the next)
+    REAL(rk) :: tsteplai                    !> Number of days between the past and current LAI
+    REAL(rk) :: dnewfrac,doldfrac,hnewfrac,holdfrac !> Historical averaging variables for biogenics
+    REAL(rk) :: RiB,Ra                      !> For aerodynamic resistance and gas dry dep
+    REAL(rk) :: lat2d(nlon,nlat), lon2d(nlon,nlat) !> 2D latitude and longitude arrays
+    REAL(rk) :: lat1d(nlon*nlat), lon1d(nlon*nlat)  !> 1D latitude and longitude arrays
+!> \}
 
     write(*,*)  'Calculating Canopy Parameters'
     write(*,*)  '-------------------------------'

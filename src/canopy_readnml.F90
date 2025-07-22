@@ -1,3 +1,21 @@
+!> \file canopy_readnml.F90
+!> \brief Namelist reading subroutine for canopy model
+!> \details This subroutine reads the input namelist file to get user control
+!!          variables including file paths, model options, and parameter settings.
+!> \author P.C. Campbell
+!> \date July 2022
+!> \version 1.0
+
+!> \ingroup utils_group
+!> \brief Read canopy model namelist configuration
+!> \details Reads input namelist to get user control variables including:
+!!          - File names and paths
+!!          - Model configuration options
+!!          - Physical and chemical parameters
+!!          - Time and grid settings
+!!          - Output options
+!> \author P.C. Campbell
+!> \date July 2022
 SUBROUTINE canopy_readnml
 
 !-------------------------------------------------------------------------------

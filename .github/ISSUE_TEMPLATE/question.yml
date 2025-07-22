@@ -1,0 +1,122 @@
+name: ❓ Question/Help
+description: Ask a question or get help using Canopy-App
+title: "[Question]: "
+labels: ["question", "help-wanted"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reaching out! We're here to help you use Canopy-App effectively.
+
+        **Before submitting:** Please check the [documentation](https://canopy-app.readthedocs.io) and [existing issues](https://github.com/noaa-oar-arl/canopy-app/issues) first.
+
+  - type: dropdown
+    id: question_type
+    attributes:
+      label: Question Type
+      description: What type of help do you need?
+      options:
+        - Installation/Setup - Getting Canopy-App installed and running
+        - Configuration - Setting up namelist and input files
+        - Usage - How to use specific features
+        - Science/Physics - Understanding the model physics
+        - Input Data - Preparing or obtaining input data
+        - Output Interpretation - Understanding model results
+        - Performance - Making Canopy-App run faster
+        - Integration - Coupling with other models
+        - Troubleshooting - Diagnosing problems
+        - Best Practices - Recommended workflows
+        - Other - General questions
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: |
+        Please describe your question in detail:
+        - What are you trying to accomplish?
+        - What specific help do you need?
+        - What have you already tried?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context and Background
+      description: Provide context about your use case
+      placeholder: |
+        Context about your situation:
+        - What is your research/application focus?
+        - What domain/region are you modeling?
+        - What time scales are you interested in?
+        - Any specific requirements or constraints?
+    validations:
+      required: false
+
+  - type: textarea
+    id: what_tried
+    attributes:
+      label: What You've Tried
+      description: What have you already attempted?
+      placeholder: |
+        What you've already tried:
+        - Documentation sections you've read
+        - Commands or configurations you've tested
+        - Error messages you've encountered
+        - Other resources you've consulted
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Information
+      description: Information about your setup (if relevant)
+      placeholder: |
+        Environment details (if relevant):
+        - OS: (e.g., Ubuntu 22.04, macOS 13.0)
+        - Compiler: (e.g., gfortran 11.2.0)
+        - Canopy-App version: (commit hash or branch)
+        - Python version: (if using Python interface)
+    validations:
+      required: false
+
+  - type: textarea
+    id: configuration
+    attributes:
+      label: Configuration Files
+      description: Relevant configuration or input files (if applicable)
+      placeholder: |
+        Configuration details (if relevant):
+        ```fortran
+        ! Paste relevant namelist sections or other config
+        ```
+    validations:
+      required: false
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How urgent is this question?
+      options:
+        - Low - General interest/learning
+        - Medium - Would help with current work
+        - High - Blocking current research/project
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: help_others
+    attributes:
+      label: Community Contribution
+      description: Would you be willing to help others with similar questions?
+      options:
+        - label: I'd be willing to document the solution for others
+        - label: I'd be happy to help others with similar questions
+        - label: I could contribute to improving documentation on this topic

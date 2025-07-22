@@ -1,93 +1,168 @@
+!> \file canopy_bioparm_mod.F90
+!! \brief Biogenic Parameters Module
+!! \details This module contains the CANOPY_BIOP subroutine which provides biogenic
+!! emission factors and parameters from MEGAN2.1 (Model of Emissions of Gases and
+!! Aerosols from Nature). The module contains extensive parameter tables for different
+!! biogenic volatile organic compounds (BVOCs) and vegetation types.
+!!
+!! \author Patrick C. Campbell
+!! \date February 2023
+!!
+!! \references
+!! Guenther, A. B., et al.: The Model of Emissions of Gases and Aerosols from
+!! Nature version 2.1 (MEGAN2.1): an extended and updated framework for
+!! modeling biogenic emissions, Geosci. Model Dev., 5, 1471–1492,
+!! https://doi.org/10.5194/gmd-5-1471-2012, 2012.
+
+!> \defgroup bioparm_mod Biogenic Parameters Module
+!! \brief Module for biogenic emission factors and parameters
+!! \{
+
 module canopy_bioparm_mod
 
     implicit none
 
 contains
 
-!:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+!> \brief Get biogenic emission factors and parameters from MEGAN2.1
+!! \details This subroutine retrieves biogenic emission factors and parameters
+!! based on the MEGAN2.1 framework. It provides plant-dependent emission capacities
+!! for various biogenic volatile organic compounds including:
+!! - Isoprene
+!! - Myrcene
+!! - Sabinene
+!! - Limonene
+!! - 3-Carene
+!! - T-β-Ocimene
+!! - β-Pinene
+!! - α-Pinene
+!! - 2-Methyl-3-buten-2-ol (MBO)
+!! - Methanol
+!! - Acetone
+!! - Other monoterpenes and sesquiterpenes
+!!
+!! The parameters are provided for different vegetation functional types
+!! and include emission factors, light-dependent fractions, temperature
+!! coefficients, leaf age factors, and stress response parameters.
+!!
+!! \param[in] EMI_IND Input biogenic emissions index
+!! \param[in] LU_OPT Land use type option (0=VIIRS, 1=MODIS)
+!! \param[in] VTYPE Grid cell dominant vegetation type
+!! \param[out] EF Mapped emission factor (μg/m²/hr)
+!! \param[out] LDF Light-dependent fraction
+!! \param[out] BETA Empirical coefficient for temperature dependence of light-independent fraction
+!! \param[out] CT1 Activation energy (kJ/mol)
+!! \param[out] CEO Empirical coefficient
+!! \param[out] ANEW Empirical factor for new foliage
+!! \param[out] AGRO Empirical factor for growing foliage
+!! \param[out] AMAT Empirical factor for mature foliage
+!! \param[out] AOLD Empirical factor for old/senescing foliage
+!! \param[out] ROOTA Coefficient A for PFT dependent cumulative root depth fraction (m⁻¹)
+!! \param[out] ROOTB Coefficient B for PFT dependent cumulative root depth fraction (m⁻¹)
+!! \param[out] CAQ Coefficient for poor air quality stress
+!! \param[out] TAQ Threshold for poor air quality stress (ppm-hours)
+!! \param[out] DTAQ Delta threshold for poor air quality stress (ppm-hours)
+!! \param[out] CHT Coefficient for high temperature stress
+!! \param[out] THT Threshold for high temperature stress (K)
+!! \param[out] DTHT Delta threshold for high temperature stress (K)
+!! \param[out] CLT Coefficient for low temperature stress
+!! \param[out] TLT Threshold for low temperature stress (K)
+!! \param[out] DTLT Delta threshold for low temperature stress (K)
+!! \param[out] CHW Coefficient for high wind stress
+!! \param[out] THW Threshold for high wind stress (m/s)
+!! \param[out] DTHW Delta threshold for high wind stress (m/s)
     SUBROUTINE CANOPY_BIOP( EMI_IND, LU_OPT, VTYPE, &
         EF, LDF, BETA, CT1, CEO, ANEW, AGRO, AMAT, AOLD, &
         ROOTA, ROOTB, CAQ, TAQ, DTAQ, CHT, THT, DTHT, &
         CLT, TLT, DTLT, CHW, THW, DTHW)
 
-!-----------------------------------------------------------------------
-
-! Description:
-!     gets biogenic emissions factors and parameters from MEGAN2.1
-
-! Preconditions:
-!     emissions index, lu option, and vegtype
-
-! Subroutines and Functions Called:
-
-! Revision History:
-!     Prototype 02/23 by PCC, based on Guenther et al. (2012)
-! Citation:
-!Guenther, A. B., et al.,: The Model of Emissions of Gases and Aerosols from
-!Nature version 2.1 (MEGAN2.1): an extended and updated framework for
-!modeling biogenic emissions, Geosci. Model Dev., 5, 1471–1492,
-!https://doi.org/10.5194/gmd-5-1471-2012, 2012.
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
-!     Feb 2023 P.C. Campbell: Initial version
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
-
         use canopy_const_mod, ONLY: rk
 
-! Arguments:
-!     IN/OUT
-        INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
-        INTEGER,     INTENT( IN )       :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
-        INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
-        REAL(RK),    INTENT( OUT )      :: EF              ! Out Mapped EF ((ug/m2 hr)
-        REAL(RK),    INTENT( OUT )      :: LDF             ! Light-dependent fraction
-        REAL(RK),    INTENT( OUT )      :: BETA            ! Empirical coefficient for temperature dependence of light-independent fraction
-        REAL(RK),    INTENT( OUT )      :: CT1             ! Out Activation energy (kJ/mol)
-        REAL(RK),    INTENT( OUT )      :: CEO             ! Out Empirical coefficient
-        REAL(RK),    INTENT( OUT )      :: ANEW, AGRO, AMAT, AOLD   !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, as per Table 4 of Guenther et al., 2012
-        REAL(RK),    INTENT( OUT )      :: ROOTA, ROOTB    ! Coefficients A and B used for PFT dependent cumulative root depth fraction [m-1]
-        REAL(RK),    INTENT( OUT )      :: CAQ             ! coefficient for poor Air Quality stress
-        REAL(RK),    INTENT( OUT )      :: TAQ             ! threshold for poor Air Quality stress (ppm-hours)
-        REAL(RK),    INTENT( OUT )      :: DTAQ            ! delta threshold for poor Air Quality stress (ppm-hours)
-        REAL(RK),    INTENT( OUT )      :: CHT             ! coefficient for high temperature stress
-        REAL(RK),    INTENT( OUT )      :: THT             ! threshold for high temperature stress (K)
-        REAL(RK),    INTENT( OUT )      :: DTHT            ! delta threshold high temperature stress (K)
-        REAL(RK),    INTENT( OUT )      :: CLT             ! coefficient for low temperature stress
-        REAL(RK),    INTENT( OUT )      :: TLT             ! threshold for low temperature stress (K)
-        REAL(RK),    INTENT( OUT )      :: DTLT            ! delta threshold low temperature stress (K)
-        REAL(RK),    INTENT( OUT )      :: CHW             ! coefficient for high wind stress
-        REAL(RK),    INTENT( OUT )      :: THW             ! threshold for high wind stress (m/s)
-        REAL(RK),    INTENT( OUT )      :: DTHW            ! delta threshold high wind stress (m/s)
+!> \defgroup bioparm_inputs Input Variables
+!! \brief Input parameters for biogenic parameter retrieval
+!! \{
+        INTEGER,     INTENT( IN )       :: EMI_IND         !> Input biogenic emissions index
+        INTEGER,     INTENT( IN )       :: LU_OPT          !> integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
+        INTEGER,     INTENT( IN )       :: VTYPE           !> Grid cell dominant vegetation type
+!> \}
 
-!  LOCAL
-        REAL(RK) :: EF1,EF2,EF3,EF4,EF5,EF6,EF7    ! Plant Emission factors (EF) (ug/m2 hr)
-        REAL(RK) :: EF8,EF9,EF10,EF11,EF12,EF13    !
-        REAL(RK) :: EF14,EF15                      !
+!> \defgroup bioparm_outputs Output Variables
+!! \brief Output parameters for biogenic emission calculations
+!! \{
+        REAL(RK),    INTENT( OUT )      :: EF              !> Out Mapped EF ((ug/m2 hr)
+        REAL(RK),    INTENT( OUT )      :: LDF             !> Light-dependent fraction
+        REAL(RK),    INTENT( OUT )      :: BETA            !> Empirical coefficient for temperature dependence of light-independent fraction
+        REAL(RK),    INTENT( OUT )      :: CT1             !> Out Activation energy (kJ/mol)
+        REAL(RK),    INTENT( OUT )      :: CEO             !> Out Empirical coefficient
+        REAL(RK),    INTENT( OUT )      :: ANEW, AGRO, AMAT, AOLD   !> Empirical factors or coefficients for: growing, mature, and old/senescing foliage, as per Table 4 of Guenther et al., 2012
+        REAL(RK),    INTENT( OUT )      :: ROOTA, ROOTB    !> Coefficients A and B used for PFT dependent cumulative root depth fraction [m-1]
+        REAL(RK),    INTENT( OUT )      :: CAQ             !> coefficient for poor Air Quality stress
+        REAL(RK),    INTENT( OUT )      :: TAQ             !> threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),    INTENT( OUT )      :: DTAQ            !> delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),    INTENT( OUT )      :: CHT             !> coefficient for high temperature stress
+        REAL(RK),    INTENT( OUT )      :: THT             !> threshold for high temperature stress (K)
+        REAL(RK),    INTENT( OUT )      :: DTHT            !> delta threshold high temperature stress (K)
+        REAL(RK),    INTENT( OUT )      :: CLT             !> coefficient for low temperature stress
+        REAL(RK),    INTENT( OUT )      :: TLT             !> threshold for low temperature stress (K)
+        REAL(RK),    INTENT( OUT )      :: DTLT            !> delta threshold low temperature stress (K)
+        REAL(RK),    INTENT( OUT )      :: CHW             !> coefficient for high wind stress
+        REAL(RK),    INTENT( OUT )      :: THW             !> threshold for high wind stress (m/s)
+        REAL(RK),    INTENT( OUT )      :: DTHW            !> delta threshold high wind stress (m/s)
+!> \}
 
+!> \defgroup bioparm_local_vars Local Variables
+!! \brief Local variables for parameter assignment
+!! \{
+        REAL(RK) :: EF1,EF2,EF3,EF4,EF5,EF6,EF7    !> Plant Emission factors (EF) (ug/m2 hr)
+        REAL(RK) :: EF8,EF9,EF10,EF11,EF12,EF13    !> Plant Emission factors (EF) (ug/m2 hr)
+        REAL(RK) :: EF14,EF15                      !> Plant Emission factors (EF) (ug/m2 hr)
+!> \}
 
-! Plant-Dependent emissions capacity/factors (EFs) for Isoprene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
-        REAL(RK),          PARAMETER     :: EF1_ISOP    =  600.0_rk     ! Needleleaf Evergreen Temperate Tree
-        REAL(RK),          PARAMETER     :: EF2_ISOP    =  3000.0_rk    ! Needleleaf Evergreen Boreal Tree
-        REAL(RK),          PARAMETER     :: EF3_ISOP    =  1.0_rk       ! Needleleaf Deciduous Boreal Tree
-        REAL(RK),          PARAMETER     :: EF4_ISOP    =  7000.0_rk    ! Broadleaf Evergreen Tropical Tree
-        REAL(RK),          PARAMETER     :: EF5_ISOP    =  10000.0_rk   ! Broadleaf Evergreen Temperate Tree
-        REAL(RK),          PARAMETER     :: EF6_ISOP    =  7000.0_rk    ! Broadleaf Deciduous Tropical Tree
-        REAL(RK),          PARAMETER     :: EF7_ISOP    =  10000.0_rk   ! Broadleaf Deciduous Temperate Tree
-        REAL(RK),          PARAMETER     :: EF8_ISOP    =  11000.0_rk   ! Broadleaf Deciduous Boreal Tree
-        REAL(RK),          PARAMETER     :: EF9_ISOP    =  2000.0_rk    ! Broadleaf Evergreen Temperate Shrub
-        REAL(RK),          PARAMETER     :: EF10_ISOP   =  4000.0_rk    ! Broadleaf Deciduous Temperate Shrub
-        REAL(RK),          PARAMETER     :: EF11_ISOP   =  4000.0_rk    ! Broadleaf Deciduous Boreal Shrub
-        REAL(RK),          PARAMETER     :: EF12_ISOP   =  1600.0_rk    ! Arctic C3 Grass
-        REAL(RK),          PARAMETER     :: EF13_ISOP   =  800.0_rk     ! Cool C3 Grass
-        REAL(RK),          PARAMETER     :: EF14_ISOP   =  200.0_rk     ! Warm C4 Grass
-        REAL(RK),          PARAMETER     :: EF15_ISOP   =  1.0_rk       ! Crop1
+!> \defgroup bioparm_isop_params Isoprene Parameters
+!! \brief Plant-dependent emission capacity factors for Isoprene from Tables 2-3 of Guenther et al. (2012)
+!! \{
 
-!Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Isoprene as per Table 4 of Guenther et al., 2012
+        !> \brief Needleleaf Evergreen Temperate Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF1_ISOP    =  600.0_rk
+        !> \brief Needleleaf Evergreen Boreal Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF2_ISOP    =  3000.0_rk
+        !> \brief Needleleaf Deciduous Boreal Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF3_ISOP    =  1.0_rk
+        !> \brief Broadleaf Evergreen Tropical Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF4_ISOP    =  7000.0_rk
+        !> \brief Broadleaf Evergreen Temperate Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF5_ISOP    =  10000.0_rk
+        !> \brief Broadleaf Deciduous Tropical Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF6_ISOP    =  7000.0_rk
+        !> \brief Broadleaf Deciduous Temperate Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF7_ISOP    =  10000.0_rk
+        !> \brief Broadleaf Deciduous Boreal Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF8_ISOP    =  11000.0_rk
+        !> \brief Broadleaf Evergreen Temperate Shrub isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF9_ISOP    =  2000.0_rk
+        !> \brief Broadleaf Deciduous Temperate Shrub isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF10_ISOP   =  4000.0_rk
+        !> \brief Broadleaf Deciduous Boreal Shrub isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF11_ISOP   =  4000.0_rk
+        !> \brief Arctic C3 Grass isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF12_ISOP   =  1600.0_rk
+        !> \brief Cool C3 Grass isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF13_ISOP   =  800.0_rk
+        !> \brief Warm C4 Grass isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF14_ISOP   =  200.0_rk
+        !> \brief Crop1 isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF15_ISOP   =  1.0_rk
+
+        !> \brief Isoprene leaf age factor for new foliage (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: ANEW_ISOP  = 0.05_rk
+        !> \brief Isoprene leaf age factor for growing foliage (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: AGRO_ISOP  = 0.6_rk
+        !> \brief Isoprene leaf age factor for mature foliage (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: AMAT_ISOP  = 1.0_rk
+        !> \brief Isoprene leaf age factor for old/senescing foliage (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: AOLD_ISOP  = 0.9_rk
+
+!> \}
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Myrcene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_MYRC    =  70.0_rk      ! Needleleaf Evergreen Temperate Tree
@@ -1627,5 +1702,7 @@ contains
         end if
 
     END SUBROUTINE CANOPY_BIOP
+
+!> \}
 
 end module canopy_bioparm_mod

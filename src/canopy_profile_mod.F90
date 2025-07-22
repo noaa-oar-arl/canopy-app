@@ -1,49 +1,72 @@
+!> \file canopy_profile_mod.F90
+!> \brief Canopy profile and foliage distribution calculations
+!> \details This module implements canopy profile calculations including
+!!          canopy parameters, foliage distribution, and zero-plane
+!!          displacement calculations based on vegetation characteristics.
+!> \author P.C. Campbell
+!> \date June 2022
+!> \version 1.0
+
+!> \defgroup profile_group Canopy Profile Calculations
+!> \brief Routines for calculating canopy profiles and foliage distributions
+!> \details This group contains subroutines for calculating canopy parameters,
+!!          foliage area density distributions, and zero-plane displacement
+!!          based on Massman et al. (2017) algorithms and vegetation characteristics.
+!> \{
+
 module canopy_profile_mod
 
     implicit none
 
 contains
 
-!:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+!> \brief Determine canopy, fire, and foliage shape distribution parameters
+!> \details Determines the canopy, fire, and foliage shape distribution parameters
+!!          based on vegetation type, canopy characteristics, and forest fraction.
+!!          Maps vegetation types to Massman et al. (2017) forest classifications.
+!> \param VTYPE Grid cell dominant vegetation type
+!> \param FCH Grid cell canopy height (m)
+!> \param FFRAC Grid cell forest fraction
+!> \param LAI Grid cell leaf area index
+!> \param PAI_OPT Integer for PAI values used or calculated (default = 0)
+!> \param PAI_SET Real value for PAI set values used (default = 4.0)
+!> \param LU_OPT Integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
+!> \param FIRETYPE 1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy [output]
+!> \param CDRAG Drag coefficient (nondimensional) [output]
+!> \param PAI Plant/foliage area index (nondimensional) [output]
+!> \param ZCANMAX Height of maximum foliage area density (z/h) (nondimensional) [output]
+!> \param SIGMAU Standard deviation of shape function above zcanmax (z/h) [output]
+!> \param SIGMA1 Standard deviation of shape function below zcanmax (z/h) [output]
+!> \author P.C. Campbell
+!> \date June 2022
+!> \note Based on Massman et al. (2017) algorithms
     SUBROUTINE CANOPY_PARM( VTYPE, FCH, FFRAC, LAI, &
         PAI_OPT, PAI_SET, LU_OPT, FIRETYPE, CDRAG, &
         PAI, ZCANMAX, SIGMAU, SIGMA1 )
 
-!-----------------------------------------------------------------------
+        use canopy_const_mod, ONLY: rk      !< Constants for canopy models
+        use canopy_utils_mod, ONLY: CalcPAI !< Canopy utilities/functions
 
-! Description:
-!     determines the canopy, fire, and foliage shape distribution parameters
+        !> \name Input Parameters
+        !> \{
+        INTEGER,     INTENT( IN )  :: VTYPE           !< Grid cell dominant vegetation type
+        REAL(RK),    INTENT( IN )  :: FCH             !< Grid cell canopy height (m)
+        REAL(RK),    INTENT( IN )  :: FFRAC           !< Grid cell forest fraction
+        REAL(RK),    INTENT( IN )  :: LAI             !< Grid cell leaf area index
+        INTEGER,     INTENT( IN )  :: PAI_OPT         !< Integer for PAI values used or calculated (default = 0)
+        REAL(RK),    INTENT( IN )  :: PAI_SET         !< Real value for PAI set values used (default = 4.0)
+        INTEGER,     INTENT( IN )  :: LU_OPT          !< Integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
+        !> \}
 
-! Preconditions:
-!     lat, lon, and vegetation type
-
-! Subroutines and Functions Called:
-
-! Revision History:
-!     Prototype 06/22 by PCC, based on Massman et al. (2017) algorithms
-!     Jun 2022 P.C. Campbell: Initial canopy parameter model
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
-
-        use canopy_const_mod, ONLY: rk      !constants for canopy models
-        use canopy_utils_mod, ONLY: CalcPAI !canopy utilities/functions
-
-! Arguments:
-!     IN/OUT
-        INTEGER,     INTENT( IN )  :: VTYPE           ! Grid cell dominant vegetation type
-        REAL(RK),    INTENT( IN )  :: FCH             ! Grid cell canopy height (m)
-        REAL(RK),    INTENT( IN )  :: FFRAC           ! Grid cell forest fraction
-        REAL(RK),    INTENT( IN )  :: LAI             ! Grid cell leaf area index
-        INTEGER,     INTENT( IN )  :: PAI_OPT         ! integer for PAI values used or calculated (default = 0)
-        REAL(RK),    INTENT( IN )  :: PAI_SET         ! real value for PAI set values used (default = 4.0)
-        INTEGER,     INTENT( IN )  :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
-
-        INTEGER,     INTENT( OUT ) :: FIRETYPE        ! 1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy
-        REAL(RK),    INTENT( OUT ) :: CDRAG           ! Drag coefficient (nondimensional)
-        REAL(RK),    INTENT( OUT ) :: PAI             ! Plant/foliage area index (nondimensional)
-        REAL(RK),    INTENT( OUT ) :: ZCANMAX         ! Height of maximum foliage area density (z/h) (nondimensional)
-        REAL(RK),    INTENT( OUT ) :: SIGMAU          ! Standard deviation of shape function above zcanmax (z/h)
-        REAL(RK),    INTENT( OUT ) :: SIGMA1          ! Standard deviation of shape function below zcanmax (z/h)
+        !> \name Output Parameters
+        !> \{
+        INTEGER,     INTENT( OUT ) :: FIRETYPE        !< 1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy
+        REAL(RK),    INTENT( OUT ) :: CDRAG           !< Drag coefficient (nondimensional)
+        REAL(RK),    INTENT( OUT ) :: PAI             !< Plant/foliage area index (nondimensional)
+        REAL(RK),    INTENT( OUT ) :: ZCANMAX         !< Height of maximum foliage area density (z/h) (nondimensional)
+        REAL(RK),    INTENT( OUT ) :: SIGMAU          !< Standard deviation of shape function above zcanmax (z/h)
+        REAL(RK),    INTENT( OUT ) :: SIGMA1          !< Standard deviation of shape function below zcanmax (z/h)
+        !> \}
 
         if (LU_OPT .eq. 0 .or. LU_OPT .eq. 1) then !VIIRS or MODIS LU types
 
@@ -197,7 +220,20 @@ contains
         end if
 
     END SUBROUTINE CANOPY_PARM
-!:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+!> \brief Compute canopy foliage and plant distribution functions
+!> \details Computes canopy foliage and plant distribution functions based on
+!!          Massman et al. (2017) algorithms. Calculates foliage area fraction
+!!          distribution throughout the canopy layers.
+!> \param MODLAYS Number of model layers
+!> \param ZHC Height of each canopy model layer (z/h)
+!> \param ZCANMAX Height of maximum foliage area density (z/h)
+!> \param SIGMAU Standard deviation of shape function above zcanmax (z/h)
+!> \param SIGMA1 Standard deviation of shape function below zcanmax (z/h)
+!> \param FAFRACZINT Foliage area fraction at each canopy model layer [output]
+!> \author P.C. Campbell
+!> \date October 2022
+!> \note Based on Massman et al. (2017) algorithms
     SUBROUTINE CANOPY_FOLIAGE( MODLAYS, ZHC, ZCANMAX, SIGMAU, SIGMA1, &
         FAFRACZINT )
 
@@ -267,7 +303,28 @@ contains
 
     END SUBROUTINE CANOPY_FOLIAGE
 
-!:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+!> \brief Compute zero plane displacement height and surface roughness length
+!> \details Computes zero plane displacement height and total surface roughness length
+!!          based on Massman et al. (2017) algorithms. Uses foliage characteristics,
+!!          drag coefficient, and in-canopy plant distribution functions.
+!> \param ZHC Height of each canopy model layer (z/h)
+!> \param FCLAI Foliage area fraction at each canopy model layer
+!> \param UBZREF Mean wind speed at reference height (m/s)
+!> \param Z0GHC Ground roughness length to canopy height ratio
+!> \param LAMBDARS Leaf-scale resistance adjustment factor
+!> \param CDRAG Drag coefficient (nondimensional)
+!> \param PAI Plant/foliage area index (nondimensional)
+!> \param FCH Grid cell canopy height (m)
+!> \param HREF Reference height (m)
+!> \param Z0_MOD Surface roughness length modifier
+!> \param VTYPE Grid cell dominant vegetation type
+!> \param LU_OPT Integer for LU type from model
+!> \param Z0_OPT Integer for roughness length option
+!> \param d_h Zero plane displacement height normalized by canopy height [output]
+!> \param zo_h Surface roughness length normalized by canopy height [output]
+!> \author P.C. Campbell
+!> \date June 2022
+!> \note Based on Massman et al. (2017) algorithms
     SUBROUTINE CANOPY_ZPD( ZHC, FCLAI, UBZREF, Z0GHC, &
         LAMBDARS, CDRAG, PAI, FCH, HREF, Z0_MOD, &
         VTYPE, LU_OPT, Z0_OPT, d_h, zo_h )
@@ -396,5 +453,7 @@ contains
         zo_h  = lambda_rs * (1.0 - d_h) * exp (-vonk*sqrt(2.0/cstress))
 
     END SUBROUTINE CANOPY_ZPD
+
+!> \}
 
 end module canopy_profile_mod

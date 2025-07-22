@@ -1,10 +1,101 @@
+!> \file canopy_bioemi_mod.F90
+!! \brief Biogenic Emissions Module
+!! \details This module contains subroutines for calculating parameterized canopy
+!! biogenic emissions based on the algorithms described in Clifton et al. (2022).
+!! The module handles various biogenic volatile organic compounds (BVOCs) including
+!! isoprene, monoterpenes, and other biogenic species.
+!!
+!! \author Patrick C. Campbell
+!! \date January 2023
+!!
+!! \version
+!! - Jan 2023 P.C. Campbell: Initial canopy isoprene only version
+!! - Feb 2023 P.C. Campbell: Modified for multiple biogenic species
+!! - Jul 2023 P.C. Campbell: Restructured to use FSUN, TLEAF, and PPFD as inputs
+!! - Sept 2023 QZ Rasool: Modifications for LeafAge Response for multiple BVOCs
+!!
+!! \references
+!! Clifton, O. E. et al. (2022). Large eddy simulation for investigating
+!! coupled forest canopy and turbulence influences on atmospheric chemistry.
+!! Journal of Advances in Modeling Earth Systems, 14, e2022MS003078.
+!! https://doi.org/10.1029/2022MS003078
+
+!> \defgroup bioemi_mod Biogenic Emissions Module
+!! \brief Module for calculating canopy biogenic emissions
+!! \{
+
 module canopy_bioemi_mod
 
     implicit none
 
 contains
 
-!:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+!> \brief Calculate parameterized canopy biogenic emissions
+!! \details This subroutine computes biogenic volatile organic compound (BVOC) emissions
+!! from forest canopies using the algorithms described in Clifton et al. (2022) based on
+!! Guenther et al. (2012). The calculations include:
+!! - Light-dependent and light-independent emission fractions
+!! - Temperature and light activity factors for sunlit and shaded leaves
+!! - CO2 inhibition effects (for isoprene)
+!! - Soil moisture, leaf age, and stress factor influences
+!! - Multiple vertical integration options (full 3D vs. integrated approaches)
+!!
+!! \param[in] ZK Model heights (m)
+!! \param[in] FCLAI Fractional cumulative LAI shapes of plant surface distribution (nondimensional)
+!! \param[in] FCH Canopy height (m)
+!! \param[in] LAI Total Leaf Area Index (m²/m²)
+!! \param[in] FSUN Sunlit fraction from photolysis correction factor
+!! \param[in] PPFD_SUN PPFD for sunlit leaves (μmol photons/m²/s)
+!! \param[in] PPFD_SHADE PPFD for shaded leaves (μmol photons/m²/s)
+!! \param[in] TLEAF_SUN Leaf temperature for sunlit leaves (K)
+!! \param[in] TLEAF_SHADE Leaf temperature for shaded leaves (K)
+!! \param[in] PPFD24_SUN 24-hour average PPFD for sunlit leaves (μmol photons/m²/s)
+!! \param[in] PPFD24_SHADE 24-hour average PPFD for shaded leaves (μmol photons/m²/s)
+!! \param[in] TLEAF24_AVE 24-hour average leaf temperature (K)
+!! \param[in] PPFD240_SUN 240-hour average PPFD for sunlit leaves (μmol photons/m²/s)
+!! \param[in] PPFD240_SHADE 240-hour average PPFD for shaded leaves (μmol photons/m²/s)
+!! \param[in] TLEAF240_AVE 240-hour average leaf temperature (K)
+!! \param[in] TKA Interpolated air temperature (K)
+!! \param[in] DSWRF Model input downward shortwave radiation (W/m²)
+!! \param[in] TEMP2 Model input 2-m temperature (K)
+!! \param[in] LU_OPT Land use type option from model mapped to Massman et al.
+!! \param[in] VTYPE Grid cell dominant vegetation type
+!! \param[in] MODRES Canopy model input vertical resolution (m)
+!! \param[in] CCE MEGAN Canopy environment coefficient
+!! \param[in] VERT MEGAN vertical integration option
+!! \param[in] CO2OPT Option for CO2 inhibition calculation
+!! \param[in] CO2SET User set atmospheric CO2 concentration (ppmv)
+!! \param[in] LEAFAGEOPT Leaf age response option
+!! \param[in] PASTLAI Past LAI (cm²/cm²)
+!! \param[in] CURRENTLAI Current LAI (cm²/cm²)
+!! \param[in] TSTEPLAI Number of days between past and current LAI
+!! \param[in] LOSSOPT Option for canopy loss factor when summing emissions
+!! \param[in] LOSSSET Input value for constant canopy loss factor
+!! \param[in] LOSSIND Integer for applying loss factor to all or specific species
+!! \param[in] LIFETIME Above canopy chemical lifetime of VOC (s)
+!! \param[in] USTAR Above canopy friction velocity (m/s)
+!! \param[in] SOIMOPT Option for soil moisture factor
+!! \param[in] SOIM1 Volumetric soil moisture layer 1 (m³/m³)
+!! \param[in] SOIM2 Volumetric soil moisture layer 2 (m³/m³)
+!! \param[in] SOIM3 Volumetric soil moisture layer 3 (m³/m³)
+!! \param[in] SOIM4 Volumetric soil moisture layer 4 (m³/m³)
+!! \param[in] SOID1 Soil depth layer 1 (cm)
+!! \param[in] SOID2 Soil depth layer 2 (cm)
+!! \param[in] SOID3 Soil depth layer 3 (cm)
+!! \param[in] SOID4 Soil depth layer 4 (cm)
+!! \param[in] WILT Wilting point (proportion)
+!! \param[in] AQOPT Option for air quality stress calculation
+!! \param[in] W126_SET User set ozone W126 (ppm-hours)
+!! \param[in] W126_REF GFS calculated ozone W126 (ppm-hours)
+!! \param[in] HTOPT Option for high temperature stress calculation
+!! \param[in] LTOPT Option for low temperature stress calculation
+!! \param[in] HWOPT Option for high wind speed stress calculation
+!! \param[in] DAILY_MAXT2 Daily maximum 2-m temperature (K)
+!! \param[in] DAILY_MINT2 Daily minimum 2-m temperature (K)
+!! \param[in] DAILY_MAXWS10 Daily maximum 10-m wind speed (m/s)
+!! \param[in] MODLAYS Input total model layers
+!! \param[in] EMI_IND Input biogenic emissions index
+!! \param[out] EMI_OUT Output canopy layer volume emissions (kg/m³/s)
     SUBROUTINE CANOPY_BIO( ZK, FCLAI, FCH, LAI, FSUN, &
         PPFD_SUN, PPFD_SHADE, TLEAF_SUN, TLEAF_SHADE, PPFD24_SUN, &
         PPFD24_SHADE, TLEAF24_AVE,  &
@@ -18,35 +109,7 @@ contains
         HTOPT, LTOPT, HWOPT, DAILY_MAXT2, DAILY_MINT2, &
         DAILY_MAXWS10, &
         MODLAYS, EMI_IND, EMI_OUT)
-
-!-----------------------------------------------------------------------
-
-! Description:
-!     computes parameterized canopy biogenic emissions
-
-! Preconditions:
-!     in-canopy FCLAI, model LAI, etc.
-
-! Subroutines and Functions Called:
-
-! Revision History:
-!     Prototype 06/22 by PCC, based on Clifton et al. (2022) algorithms
-! Citation:
-! Clifton, O. E. et al. (2022). Large eddy simulation for investigating
-! coupled forest canopy and turbulence influences on atmospheric chemistry.
-! Journal of Advances in Modeling Earth Systems, 14, e2022MS003078.
-! https://doi.org/10.1029/2022MS003078
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
-!     Jan 2023 P.C. Campbell: Initial canopy isoprene only version
-!     Feb 2023 P.C. Campbell: Modified for multiple biogenic species
-!     Jul 2023 P.C. Campbell: Restructured to use FSUN, TLEAF, and PPFD
-!                             as inputs
-!     Sept 2023: QZ Rasool : Modifications for  LeafAge Response for multiple
-!     BVOCs
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
-        use canopy_const_mod,  ONLY: rk,rgasuniv   !constants for canopy models
+        use canopy_const_mod,  ONLY: rk,rgasuniv   !> constants for canopy models
         use canopy_utils_mod,  ONLY: interp_linear1_internal, &
             GET_GAMMA_CO2,GET_GAMMA_LEAFAGE, &
             GET_GAMMA_SOIM, GET_GAMMA_AQ, GET_GAMMA_HT, &
@@ -54,151 +117,194 @@ contains
         use canopy_bioparm_mod
         use canopy_tleaf_mod
 
-! Arguments:
-!     IN/OUT
-        REAL(RK),    INTENT( IN )       :: ZK(:)              ! Model heights (m)
-        REAL(RK),    INTENT( IN )       :: FCLAI(:)           ! Fractional (z) shapes of the
-        ! plant surface distribution (nondimensional), i.e., a Fractional Culmulative LAI
-        REAL(RK),    INTENT( IN )       :: FCH                ! Canopy height (m)
-        REAL(RK),    INTENT( IN )       :: LAI                ! Total Leaf Area Index
-        REAL(RK),    INTENT( IN )       :: FSUN(:)            ! Sunlit/Shaded fraction from photolysis correction factor
-        REAL(RK),    INTENT( IN )       :: TLEAF_SUN(:)       ! Leaf temp for sunlit leaves (K)
-        REAL(RK),    INTENT( IN )       :: TLEAF_SHADE(:)     ! Leaf temp for shaded leaves (K)
-        REAL(RK),    INTENT( IN )       :: PPFD_SUN(:)        ! PPFD for sunlit leaves (umol phot/m2 s)
-        REAL(RK),    INTENT( IN )       :: PPFD_SHADE(:)      ! PPFD for shaded leaves (umol phot/m2 s)
-        REAL(RK),    INTENT( IN )       :: PPFD24_SUN(:)      ! PPFD for sunlit leaves (umol phot/m2 s) --24 hr ave
-        REAL(RK),    INTENT( IN )       :: PPFD24_SHADE(:)    ! PPFD for shaded leaves (umol phot/m2 s)
-        REAL(RK),    INTENT( IN )       :: TLEAF24_AVE(:)     ! Average Leaf temp (K)
-        REAL(RK),    INTENT( IN )       :: PPFD240_SUN(:)     ! PPFD for sunlit leaves (umol phot/m2 s) -- 240 hr ave
-        REAL(RK),    INTENT( IN )       :: PPFD240_SHADE(:)   ! PPFD for shaded leaves (umol phot/m2 s)
-        REAL(RK),    INTENT( IN )       :: TLEAF240_AVE(:)    ! Average Leaf temp (K)
-        REAL(RK),    INTENT( IN )       :: TKA(:)          ! Interpolated air temp (K)
+!> \defgroup bioemi_inputs Input Variables
+!! \brief Input parameters for biogenic emission calculations
+!! \{
+        REAL(RK),    INTENT( IN )       :: ZK(:)              !> Model heights (m)
+        REAL(RK),    INTENT( IN )       :: FCLAI(:)           !>
+        !! Fractional (z) shapes of the plant surface distribution (nondimensional),
+        !! i.e., a Fractional Cumulative LAI
+        REAL(RK),    INTENT( IN )       :: FCH                !> Canopy height (m)
+        REAL(RK),    INTENT( IN )       :: LAI                !> Total Leaf Area Index
+        REAL(RK),    INTENT( IN )       :: FSUN(:)            !> Sunlit/Shaded fraction from photolysis correction factor
+        REAL(RK),    INTENT( IN )       :: TLEAF_SUN(:)       !> Leaf temp for sunlit leaves (K)
+        REAL(RK),    INTENT( IN )       :: TLEAF_SHADE(:)     !> Leaf temp for shaded leaves (K)
+        REAL(RK),    INTENT( IN )       :: PPFD_SUN(:)        !> PPFD for sunlit leaves (umol phot/m2 s)
+        REAL(RK),    INTENT( IN )       :: PPFD_SHADE(:)      !> PPFD for shaded leaves (umol phot/m2 s)
+        REAL(RK),    INTENT( IN )       :: PPFD24_SUN(:)      !> PPFD for sunlit leaves (umol phot/m2 s) --24 hr ave
+        REAL(RK),    INTENT( IN )       :: PPFD24_SHADE(:)    !> PPFD for shaded leaves (umol phot/m2 s)
+        REAL(RK),    INTENT( IN )       :: TLEAF24_AVE(:)     !> Average Leaf temp (K)
+        REAL(RK),    INTENT( IN )       :: PPFD240_SUN(:)     !> PPFD for sunlit leaves (umol phot/m2 s) -- 240 hr ave
+        REAL(RK),    INTENT( IN )       :: PPFD240_SHADE(:)   !> PPFD for shaded leaves (umol phot/m2 s)
+        REAL(RK),    INTENT( IN )       :: TLEAF240_AVE(:)    !> Average Leaf temp (K)
+        REAL(RK),    INTENT( IN )       :: TKA(:)             !> Interpolated air temp (K)
 
-        REAL(RK),    INTENT( IN )       :: DSWRF           ! Model input downward shortwave radiation (W/m2)
-        REAL(RK),    INTENT( IN )       :: TEMP2           ! Model input 2-m Temperature (K)
-        INTEGER,     INTENT( IN )       :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
-        INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
-        REAL(RK),    INTENT( IN )       :: MODRES          ! Canopy model input vertical resolution (m)
-        REAL(RK),    INTENT( IN )       :: CCE             ! MEGAN Canopy environment coefficient.
-        INTEGER,     INTENT( IN )       :: VERT            ! MEGAN vertical integration option (default = 0/no integration)
-        INTEGER,     INTENT( IN )       :: CO2OPT          ! Option for co2 inhibition calculation
-        REAL(RK),    INTENT( IN )       :: CO2SET          ! User set atmospheric CO2 conc [ppmv]
-        INTEGER,     INTENT( IN )       :: SOIMOPT         ! Option for soil moisture factor
-        REAL(RK),    INTENT( IN )       :: SOIM1           ! Volumetric soil moisture layer 1 [m3/m3]
-        REAL(RK),    INTENT( IN )       :: SOIM2           ! Volumetric soil moisture layer 2 [m3/m3]
-        REAL(RK),    INTENT( IN )       :: SOIM3           ! Volumetric soil moisture layer 3 [m3/m3]
-        REAL(RK),    INTENT( IN )       :: SOIM4           ! Volumetric soil moisture layer 4 [m3/m3]
-        REAL(RK),    INTENT( IN )       :: SOID1           ! Soil depth layer 1 [cm]
-        REAL(RK),    INTENT( IN )       :: SOID2           ! Soil depth layer 2 [cm]
-        REAL(RK),    INTENT( IN )       :: SOID3           ! Soil depth layer 3 [cm]
-        REAL(RK),    INTENT( IN )       :: SOID4           ! Soil depth layer 4 [cm]
-        REAL(RK),    INTENT( IN )       :: WILT            ! Wilting point [proportion]
-        INTEGER,     INTENT( IN )       :: AQOPT           ! Option for aq stress calculation
-        REAL(RK),    INTENT( IN )       :: W126_SET        ! User set ozone W126 [ppm-hours]
-        REAL(RK),    INTENT( IN )       :: W126_REF        ! GFS calculated, ozone W126 [ppm-hours]
-        INTEGER,     INTENT( IN )       :: HTOPT           ! Option for high temperature stress calculation
-        INTEGER,     INTENT( IN )       :: LTOPT           ! Option for low temperature stress calculation
-        INTEGER,     INTENT( IN )       :: HWOPT           ! Option for high wind speed stress calculation
-        REAL(RK),    INTENT( IN )       :: DAILY_MAXT2     ! Daily maximum model input 2-m temperature (K)
-        REAL(RK),    INTENT( IN )       :: DAILY_MINT2     ! Daily minimum model input 2-m temperature (K)
-        REAL(RK),    INTENT( IN )       :: DAILY_MAXWS10   ! Daily maximum model input 10-m wind speed temperature (m/s)
+        REAL(RK),    INTENT( IN )       :: DSWRF           !> Model input downward shortwave radiation (W/m2)
+        REAL(RK),    INTENT( IN )       :: TEMP2           !> Model input 2-m Temperature (K)
+        INTEGER,     INTENT( IN )       :: LU_OPT          !> integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
+        INTEGER,     INTENT( IN )       :: VTYPE           !> Grid cell dominant vegetation type
+        REAL(RK),    INTENT( IN )       :: MODRES          !> Canopy model input vertical resolution (m)
+        REAL(RK),    INTENT( IN )       :: CCE             !> MEGAN Canopy environment coefficient.
+        INTEGER,     INTENT( IN )       :: VERT            !> MEGAN vertical integration option (default = 0/no integration)
+        INTEGER,     INTENT( IN )       :: CO2OPT          !> Option for co2 inhibition calculation
+        REAL(RK),    INTENT( IN )       :: CO2SET          !> User set atmospheric CO2 conc [ppmv]
+        INTEGER,     INTENT( IN )       :: SOIMOPT         !> Option for soil moisture factor
+        REAL(RK),    INTENT( IN )       :: SOIM1           !> Volumetric soil moisture layer 1 [m3/m3]
+        REAL(RK),    INTENT( IN )       :: SOIM2           !> Volumetric soil moisture layer 2 [m3/m3]
+        REAL(RK),    INTENT( IN )       :: SOIM3           !> Volumetric soil moisture layer 3 [m3/m3]
+        REAL(RK),    INTENT( IN )       :: SOIM4           !> Volumetric soil moisture layer 4 [m3/m3]
+        REAL(RK),    INTENT( IN )       :: SOID1           !> Soil depth layer 1 [cm]
+        REAL(RK),    INTENT( IN )       :: SOID2           !> Soil depth layer 2 [cm]
+        REAL(RK),    INTENT( IN )       :: SOID3           !> Soil depth layer 3 [cm]
+        REAL(RK),    INTENT( IN )       :: SOID4           !> Soil depth layer 4 [cm]
+        REAL(RK),    INTENT( IN )       :: WILT            !> Wilting point [proportion]
+        INTEGER,     INTENT( IN )       :: AQOPT           !> Option for aq stress calculation
+        REAL(RK),    INTENT( IN )       :: W126_SET        !> User set ozone W126 [ppm-hours]
+        REAL(RK),    INTENT( IN )       :: W126_REF        !> GFS calculated, ozone W126 [ppm-hours]
+        INTEGER,     INTENT( IN )       :: HTOPT           !> Option for high temperature stress calculation
+        INTEGER,     INTENT( IN )       :: LTOPT           !> Option for low temperature stress calculation
+        INTEGER,     INTENT( IN )       :: HWOPT           !> Option for high wind speed stress calculation
+        REAL(RK),    INTENT( IN )       :: DAILY_MAXT2     !> Daily maximum model input 2-m temperature (K)
+        REAL(RK),    INTENT( IN )       :: DAILY_MINT2     !> Daily minimum model input 2-m temperature (K)
+        REAL(RK),    INTENT( IN )       :: DAILY_MAXWS10   !> Daily maximum model input 10-m wind speed temperature (m/s)
 
-        INTEGER,    INTENT( IN )        :: LEAFAGEOPT     ! leafage_opt (0= ON, 1= off i.e. GAMMALEAFAGE =1, in canopy_readnml.F90)
-        REAL(RK),    INTENT( IN )       :: PASTLAI        ! Past LAI [cm2/cm2]
-        REAL(RK),    INTENT( IN )       :: CURRENTLAI     ! Current LAI [cm2/cm2]
-        REAL(RK),    INTENT( IN )       :: TSTEPLAI       !Number of days between the past and current LAI
+        INTEGER,    INTENT( IN )        :: LEAFAGEOPT     !> leafage_opt (0= ON, 1= off i.e. GAMMALEAFAGE =1, in canopy_readnml.F90)
+        REAL(RK),    INTENT( IN )       :: PASTLAI        !> Past LAI [cm2/cm2]
+        REAL(RK),    INTENT( IN )       :: CURRENTLAI     !> Current LAI [cm2/cm2]
+        REAL(RK),    INTENT( IN )       :: TSTEPLAI       !> Number of days between the past and current LAI
 
-        INTEGER,     INTENT( IN )       :: MODLAYS         ! Input total model layers
-        INTEGER,     INTENT( IN )       :: LOSSOPT         ! Option for canopy loss factor when summing top of canopy emissions
-        REAL(RK),    INTENT( IN )       :: LIFETIME        ! Above canopy chemical lifetime of VOC (s)
-        REAL(RK),    INTENT( IN )       :: LOSSSET         ! Input value for constant canopy loss factor applied used with loss_opt=2 (Default = 0.96)
-        INTEGER,     INTENT( IN )       :: LOSSIND         ! Input integer for applying canopy loss factor to all species (=0) or only specific biogenics specie indices (> 0)
+        INTEGER,     INTENT( IN )       :: MODLAYS         !> Input total model layers
+        INTEGER,     INTENT( IN )       :: LOSSOPT         !> Option for canopy loss factor when summing top of canopy emissions
+        REAL(RK),    INTENT( IN )       :: LIFETIME        !> Above canopy chemical lifetime of VOC (s)
+        REAL(RK),    INTENT( IN )       :: LOSSSET         !> Input value for constant canopy loss factor applied used with loss_opt=2 (Default = 0.96)
+        INTEGER,     INTENT( IN )       :: LOSSIND         !> Input integer for applying canopy loss factor to all species (=0) or only specific biogenics specie indices (> 0)
 
-        REAL(RK),    INTENT( IN )       :: USTAR           ! Above canopy friction velocity (m/s)
-        INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
-        REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      ! Output canopy layer volume emissions (kg m-3 s-1)
+        REAL(RK),    INTENT( IN )       :: USTAR           !> Above canopy friction velocity (m/s)
+        INTEGER,     INTENT( IN )       :: EMI_IND         !> Input biogenic emissions index
+!> \}
 
-! Local Variables
-        REAL(RK) :: GammaTLEAF_SUN_LDF_NUM(SIZE(ZK))   ! Numerator in Tleaf sun activity factor for light-dependent fraction
-        REAL(RK) :: GammaTLEAF_SHADE_LDF_NUM(SIZE(ZK)) ! Numerator in Tleaf shade activity factor for light-dependent fraction
-        REAL(RK) :: GammaTLEAF_SUN_LDF_DEN(SIZE(ZK))   ! Denominator in Tleaf sun activity factor for light-dependent fraction
-        REAL(RK) :: GammaTLEAF_SHADE_LDF_DEN(SIZE(ZK)) ! Denominator in Tleaf shade activity factor for light-dependent fraction
-        REAL(RK) :: GammaTLEAF_SUN_LDF(SIZE(ZK))   ! Tleaf sun activity factor for light-dependent fraction
-        REAL(RK) :: GammaTLEAF_SHADE_LDF(SIZE(ZK)) ! Tleaf shade activity factor for light-dependent fraction
-        REAL(RK) :: GammaTLEAF_SUN_LIF(SIZE(ZK))   ! Tleaf sun activity factor for light-independent fraction
-        REAL(RK) :: GammaTLEAF_SHADE_LIF(SIZE(ZK)) ! Tleaf shade activity factor for light-independent fraction
-        REAL(RK) :: CP_SUN(SIZE(ZK))               ! Normalized emission capacity sun at PPFD = 1000 umol phot/m2 s
-        REAL(RK) :: CP_SHADE(SIZE(ZK))             ! Normalized emission capacity shade at PPFD = 1000 umol phot/m2 s
-        REAL(RK) :: ALPHA_P_SUN(SIZE(ZK))          ! Quantum yield of isoprene sunlit (mol/mol)
-        REAL(RK) :: ALPHA_P_SHADE(SIZE(ZK))        ! Quantum yield of isoprene shade (mol/mol)
-        REAL(RK) :: GammaPPFD_SUN_LDF(SIZE(ZK))    ! PPFD activity factor sun of light-dependent fraction (unitless)
-        REAL(RK) :: GammaPPFD_SHADE_LDF(SIZE(ZK))  ! PPFD activity factor shade of light-dependent fraction (unitless)
-        REAL(RK) :: GammaTLEAF_PPFD_LDF(SIZE(ZK))      ! Combined TLEAF and PPFD activity factor ave sun and shade
-        REAL(RK) :: GammaTLEAF_PPFD_LIF(SIZE(ZK))      ! Combined TLEAF and PPFD activity factor ave sun and shade
-        REAL(RK) :: GammaTLEAF_PPFD_AVE(SIZE(ZK))      ! Combined TLEAF and PPFD activity factor ave sun and shade
-        REAL(RK) :: E_OPT(SIZE(ZK))                ! maximum normalized emission capacity
-        REAL(RK) :: TLEAF_OPT(SIZE(ZK))            ! Tleaf at which E_OPT occurs (K)
-        REAL(RK) :: FLAI(SIZE(ZK))                 ! Fractional LAI in layer
-        REAL(RK) :: VPGWT(SIZE(ZK))                ! MEGANv3-like in-canopy weighting factor
-        REAL(RK) :: GAUSS(SIZE(ZK))                ! MEGANv3-like in-canopy gaussian
-        REAL(RK) :: LDF                            ! Light-dependent fraction
-        REAL(RK) :: BETA                           ! Empirical coefficient for temperature dependence of light-independent fraction
-        REAL(RK) :: CT1                            ! Activation energy (kJ/mol)
-        REAL(RK) :: CEO                            ! Empirical coefficient
-        REAL(RK) :: EF                             ! Final Mapped Emission factor (EF) (ug/m2 hr)
+!> \defgroup bioemi_outputs Output Variables
+!! \brief Output parameters for biogenic emission calculations
+!! \{
+        REAL(RK),    INTENT( OUT )      :: EMI_OUT(:)      !> Output canopy layer volume emissions (kg m-3 s-1)
+!> \}
 
+!> \defgroup bioemi_local_vars Local Variables
+!! \brief Local variables for biogenic emission calculations
+!! \{
 
-        REAL(RK) :: TABOVECANOPY !(SIZE(ZK))  ! Above Canopy Temp assigned = TEMP2 i.e., Model input 2-m Temperature (K for now)
-        ! Empirical coeff.'s for Leaf Age factor calculations (see
-        ! canopy_bioparm_mod or call canopy_biop)
-        REAL(RK) :: ANEW
-        REAL(RK) :: AGRO
-        REAL(RK) :: AMAT
-        REAL(RK) :: AOLD
+        !> \brief Numerator in Tleaf sun activity factor for light-dependent fraction
+        REAL(RK) :: GammaTLEAF_SUN_LDF_NUM(SIZE(ZK))
+        !> \brief Numerator in Tleaf shade activity factor for light-dependent fraction
+        REAL(RK) :: GammaTLEAF_SHADE_LDF_NUM(SIZE(ZK))
+        !> \brief Denominator in Tleaf sun activity factor for light-dependent fraction
+        REAL(RK) :: GammaTLEAF_SUN_LDF_DEN(SIZE(ZK))
+        !> \brief Denominator in Tleaf shade activity factor for light-dependent fraction
+        REAL(RK) :: GammaTLEAF_SHADE_LDF_DEN(SIZE(ZK))
+        !> \brief Tleaf sun activity factor for light-dependent fraction
+        REAL(RK) :: GammaTLEAF_SUN_LDF(SIZE(ZK))
+        !> \brief Tleaf shade activity factor for light-dependent fraction
+        REAL(RK) :: GammaTLEAF_SHADE_LDF(SIZE(ZK))
+        !> \brief Tleaf sun activity factor for light-independent fraction
+        REAL(RK) :: GammaTLEAF_SUN_LIF(SIZE(ZK))
+        !> \brief Tleaf shade activity factor for light-independent fraction
+        REAL(RK) :: GammaTLEAF_SHADE_LIF(SIZE(ZK))
+        !> \brief Normalized emission capacity sun at PPFD = 1000 μmol photons/m²/s
+        REAL(RK) :: CP_SUN(SIZE(ZK))
+        !> \brief Normalized emission capacity shade at PPFD = 1000 μmol photons/m²/s
+        REAL(RK) :: CP_SHADE(SIZE(ZK))
+        !> \brief Quantum yield of isoprene sunlit (mol/mol)
+        REAL(RK) :: ALPHA_P_SUN(SIZE(ZK))
+        !> \brief Quantum yield of isoprene shade (mol/mol)
+        REAL(RK) :: ALPHA_P_SHADE(SIZE(ZK))
+        !> \brief PPFD activity factor sun of light-dependent fraction (unitless)
+        REAL(RK) :: GammaPPFD_SUN_LDF(SIZE(ZK))
+        !> \brief PPFD activity factor shade of light-dependent fraction (unitless)
+        REAL(RK) :: GammaPPFD_SHADE_LDF(SIZE(ZK))
+        !> \brief Combined TLEAF and PPFD activity factor for light-dependent fraction
+        REAL(RK) :: GammaTLEAF_PPFD_LDF(SIZE(ZK))
+        !> \brief Combined TLEAF and PPFD activity factor for light-independent fraction
+        REAL(RK) :: GammaTLEAF_PPFD_LIF(SIZE(ZK))
+        !> \brief Combined TLEAF and PPFD activity factor averaged sun and shade
+        REAL(RK) :: GammaTLEAF_PPFD_AVE(SIZE(ZK))
+        !> \brief Maximum normalized emission capacity
+        REAL(RK) :: E_OPT(SIZE(ZK))
+        !> \brief Tleaf at which E_OPT occurs (K)
+        REAL(RK) :: TLEAF_OPT(SIZE(ZK))
+        !> \brief Fractional LAI in layer
+        REAL(RK) :: FLAI(SIZE(ZK))
+        !> \brief MEGANv3-like in-canopy weighting factor
+        REAL(RK) :: VPGWT(SIZE(ZK))
+        !> \brief MEGANv3-like in-canopy gaussian distribution
+        REAL(RK) :: GAUSS(SIZE(ZK))
+        !> \brief Light-dependent fraction
+        REAL(RK) :: LDF
+        !> \brief Empirical coefficient for temperature dependence of light-independent fraction
+        REAL(RK) :: BETA
+        !> \brief Activation energy (kJ/mol)
+        REAL(RK) :: CT1
+        !> \brief Empirical coefficient
+        REAL(RK) :: CEO
+        !> \brief Final Mapped Emission factor (EF) (μg/m²/hr)
+        REAL(RK) :: EF
+        !> \brief Above Canopy Temperature assigned = TEMP2 (K for now)
+        REAL(RK) :: TABOVECANOPY
 
-        !Coeff.'s and threshold/delta threshold for air quality stress factors from canopy_biop
-        REAL(RK) :: CAQ
-        REAL(RK) :: TAQ  ![ppm-hours]
-        REAL(RK) :: DTAQ ![ppm-hours]
+        !> \brief Empirical coefficients for Leaf Age factor calculations
+        REAL(RK) :: ANEW, AGRO, AMAT, AOLD
 
-        !Coeff.'s and threshold/delta threshold for high temperature stress factors from canopy_biop
-        REAL(RK) :: CHT
-        REAL(RK) :: THT  ![K]
-        REAL(RK) :: DTHT ![K]
+        !> \brief Coefficients and thresholds for air quality stress factors
+        REAL(RK) :: CAQ, TAQ, DTAQ
 
-        !Coeff.'s and threshold/delta threshold for low temperature stress factors from canopy_biop
-        REAL(RK) :: CLT
-        REAL(RK) :: TLT  ![K]
-        REAL(RK) :: DTLT ![K]
+        !> \brief Coefficients and thresholds for high temperature stress factors
+        REAL(RK) :: CHT, THT, DTHT
 
-        !Coeff.'s and threshold/delta threshold for high wind stress factors from canopy_biop
-        REAL(RK) :: CHW
-        REAL(RK) :: THW  ![m/s]
-        REAL(RK) :: DTHW ![m/s]
+        !> \brief Coefficients and thresholds for low temperature stress factors
+        REAL(RK) :: CLT, TLT, DTLT
 
+        !> \brief Coefficients and thresholds for high wind stress factors
+        REAL(RK) :: CHW, THW, DTHW
 
-        ! Coefficients A and B used for PFT dependent cumulative root depth fraction
-        REAL(RK) :: ROOTA ! [m-1]
-        REAL(RK) :: ROOTB ! [m-1]
-        REAL(RK) :: GAMMASOIM ! Soil moisture factor
+        !> \brief Coefficients A and B used for PFT dependent cumulative root depth fraction
+        REAL(RK) :: ROOTA, ROOTB
+        !> \brief Soil moisture factor
+        REAL(RK) :: GAMMASOIM
 
-        REAL(RK) :: GAMMAAQ                        !Air quality stress factor
-        REAL(RK) :: GAMMAHT                        !High temperature stress factor
-        REAL(RK) :: GAMMALT                        !Low temperature stress factor
-        REAL(RK) :: GAMMAHW                        !High wind speed stress factor
+        !> \brief Air quality stress factor
+        REAL(RK) :: GAMMAAQ
+        !> \brief High temperature stress factor
+        REAL(RK) :: GAMMAHT
+        !> \brief Low temperature stress factor
+        REAL(RK) :: GAMMALT
+        !> \brief High wind speed stress factor
+        REAL(RK) :: GAMMAHW
 
-        REAL(RK) :: GAMMACO2                       ! CO2 inhibition factor (isoprene only)
+        !> \brief CO2 inhibition factor (isoprene only)
+        REAL(RK) :: GAMMACO2
 
-        REAL(RK) :: GAMMALEAFAGE !(SIZE(ZK))                 ! LEAF AGE factor
+        !> \brief Leaf age factor
+        REAL(RK) :: GAMMALEAFAGE
 
-        REAL(RK) :: CANLOSS_FAC                    !Canopy loss factor for summing option
+        !> \brief Canopy loss factor for summing option
+        REAL(RK) :: CANLOSS_FAC
 
+        !> \brief Loop counters and layer index
         integer i, LAYERS
 
-! Constant Canopy Parameters
-        REAL(RK),          PARAMETER     :: PPFD0_SUN       =  200.0      !Constant PPFDo sunlit (umol/m2 s) (Guenther et al.,2012)
-        REAL(RK),          PARAMETER     :: PPFD0_SHADE     =  50.0       !Constant PPFDo shaded (umol/m2 s) (Guenther et al.,2012)
-        REAL(RK),          PARAMETER     :: CT2             =  230.0_rk   !Deactivation energy (kJ/mol) (Guenther et al., 2012)
+!> \}
+
+!> \defgroup bioemi_constants Constants
+!! \brief Constants used in biogenic emission calculations
+!! \{
+
+        !> \brief Constant PPFD_0 sunlit (μmol/m²/s) (Guenther et al., 2012)
+        REAL(RK),          PARAMETER     :: PPFD0_SUN       =  200.0
+        !> \brief Constant PPFD_0 shaded (μmol/m²/s) (Guenther et al., 2012)
+        REAL(RK),          PARAMETER     :: PPFD0_SHADE     =  50.0
+        !> \brief Deactivation energy (kJ/mol) (Guenther et al., 2012)
+        REAL(RK),          PARAMETER     :: CT2             =  230.0_rk
+
+!> \}
 
 ! Calculate maximum normalized emission capacity (E_OPT) and Tleaf at E_OPT
         TLEAF_OPT = 313.0_rk + (0.6_rk * (TLEAF240_AVE-297.0_rk)) !Guenther et al. (2012)
@@ -388,5 +494,7 @@ contains
         end if
 
     END SUBROUTINE CANOPY_BIO
+
+!> \}
 
 end module canopy_bioemi_mod

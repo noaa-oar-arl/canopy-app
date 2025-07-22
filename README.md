@@ -1,22 +1,91 @@
-<h1>
+# Canopy-App
+
+<div align="center">
   <a href="https://github.com/noaa-oar-arl/canopy-app">
-    <img src="docs/canopy-app-logo_no-bg.png" alt="canopy-app logo" height="125" valign="bottom">
+    <img src="docs/canopy-app-logo_no-bg.png" alt="Canopy-App Logo" height="125">
   </a>
-</h1>
+</div>
+
+<div align="center">
 
 [![License](https://img.shields.io/github/license/noaa-oar-arl/canopy-app.svg)](https://github.com/noaa-oar-arl/canopy-app/blob/main/LICENSE)
 [![CI status](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/ci.yml)
+[![Documentation](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/docs.yml/badge.svg)](https://github.com/noaa-oar-arl/canopy-app/actions/workflows/docs.yml)
+[![GitHub Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://noaa-oar-arl.github.io/canopy-app/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8403649.svg)](https://doi.org/10.5281/zenodo.8403649)
+
+</div>
 
 Repository for low-level, stand-alone/column canopy parameterizations for testing and application to gridded atmospheric composition/air quality models.
 
 Authors: Patrick Campbell, Zachary Moon, Wei-Ting Hung, Margaret Marvin, Quazi Rasool, and other NOAA research team members.
 
-##  Coming Soon
+##  Documentation
 
-### ReadTheDocs Documentation
+📚 **[View Documentation](https://noaa-oar-arl.github.io/canopy-app/)** - Complete user guide, API reference, and examples
 
-https://canopy-app.readthedocs.io/en/latest/
+## Documentation
+
+The Canopy-App documentation is built with MkDocs and automatically deployed to GitHub Pages.
+
+### Online Documentation
+
+- **📚 [Main Documentation](https://noaa-oar-arl.github.io/canopy-app/)** - Complete user guide, API reference, and examples hosted on GitHub Pages
+- **🔧 [ReadTheDocs](https://canopy-app.readthedocs.io/en/latest/)** - Alternative documentation mirror (optional)
+
+### Building Documentation Locally
+
+For first-time setup, you can use the automated setup:
+```bash
+# First-time setup (installs dependencies and validates configuration)
+./scripts/docs.sh setup
+```
+
+Or manually install and build:
+```bash
+# Install documentation dependencies
+pip install -r requirements-docs.txt
+
+# Build documentation
+mkdocs build
+
+# Serve documentation locally (with hot reload)
+mkdocs serve
+```
+
+The documentation will be available at `http://127.0.0.1:8000`.
+
+### Documentation Deployment
+
+The documentation is automatically built and deployed when:
+- **Main branch**: Deploys to GitHub Pages as the primary documentation site
+- **Pull requests**: Creates preview documentation for review (via separate workflow)
+- **Manual trigger**: Can specify custom version for deployment
+
+For manual deployment:
+```bash
+# Deploy latest version to GitHub Pages
+./scripts/docs.sh deploy
+
+# Deploy specific version with versioning
+./scripts/docs.sh deploy v1.0.0
+
+# Build only (no deployment)
+./scripts/docs.sh build
+
+# Serve locally with hot reload
+./scripts/docs.sh serve
+
+# First-time setup and validation
+./scripts/docs.sh setup
+```
+
+### GitHub Pages Setup
+
+To enable GitHub Pages for your fork:
+1. Go to your repository's **Settings** > **Pages**
+2. Set **Source** to "GitHub Actions"
+3. The documentation will be automatically deployed on the next push to main
 
 ## Getting Started
 
@@ -75,7 +144,7 @@ Current Canopy-App components:
 
     - `canopy_eddyx_mod.F90`
 
-3.  In-Canopy photolysis attenuation (i.e., used to scale resolved model layer 1 photolysis).  Based on Massman et al. (2017) and Markar et al. (2017).  
+3.  In-Canopy photolysis attenuation (i.e., used to scale resolved model layer 1 photolysis).  Based on Massman et al. (2017) and Markar et al. (2017).
 
     Namelist Option : `ifcanphot`  Output Variables: `rjcf` (fraction)
 
@@ -101,7 +170,7 @@ Namelist Option : `ifcanddepgas`   Output Variables: see [Table 2](#table-2-cano
 Namelist Option : `file_out`  Prefix string (e.g., `'test'`) used to name output file (Output is 1D txt when using input 1D data (i.e., `infmt_opt=1`), or is 2D NetCDF output when 2D NetCDF input is used (i.e., `infmt_opt=0`)).
 
 Current 3D fields include canopy winds (`canwind`), canopy vertical/eddy diffusivity values `kz`), biogenic emissions (see Table 1 below),
-canopy photolysis attenuation correction factors (`rjcf`), and derived Leaf Area Density (`lad`) from the foliage shape function.  
+canopy photolysis attenuation correction factors (`rjcf`), and derived Leaf Area Density (`lad`) from the foliage shape function.
 
 Current 2D fields includes the Wind Adjustment Factor (`waf`), flame heights (`flameh`), and canopy heights (`canheight`). Current 1D fields include the canopy model interface levels (`z`).
 
@@ -182,7 +251,7 @@ Namelist Option : `file_vars`  Full name of input file (Supports either text or 
   f90nml -g filenames -v file_vars="$(realpath *.txt | xargs -I {} echo "'{}'")" namelist.canopy namelist.canopy_copy
   ```
 
-The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variables) below is based around NOAA's UFS operational Global Forecast System Version 16 (GFSv16) gridded met data, and is supplemented with external canopy data (from numerous sources) and other external and calculated input variables.  
+The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variables) below is based around NOAA's UFS operational Global Forecast System Version 16 (GFSv16) gridded met data, and is supplemented with external canopy data (from numerous sources) and other external and calculated input variables.
 
 ### Table 2. Canopy-App Required Input Variables
 
@@ -377,7 +446,7 @@ Otherwise, please contact Patrick.C.Campbell@noaa.gov for other GFSv16 data peri
 
 **\*\*** If `modres` >> `flameh` then some error in WAF calculation will be incurred.  Suggestion is to use relative fine `modres` (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
 
-**\*\*\*** If `href_set` becomes small and approaches z0 (or as `href_set` --> 0), only the sub-canopy wind profile is calculated, recommend `href_set` = 10 m.  
+**\*\*\*** If `href_set` becomes small and approaches z0 (or as `href_set` --> 0), only the sub-canopy wind profile is calculated, recommend `href_set` = 10 m.
 
 **Note:** Canopy is parameterized by foliage distribution shape functions and parameters for different vegetation types.
 

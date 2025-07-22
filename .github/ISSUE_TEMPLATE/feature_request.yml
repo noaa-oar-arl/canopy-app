@@ -1,0 +1,166 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement for Canopy-App
+title: "[Feature]: "
+labels: ["enhancement", "needs-discussion"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a new feature! Please provide as much detail as possible to help us understand your request.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please check the following before submitting
+      options:
+        - label: I have searched existing issues to ensure this feature hasn't been requested
+          required: true
+        - label: I have read the [roadmap](https://github.com/noaa-oar-arl/canopy-app/issues?q=label%3Aroadmap) to see if this is already planned
+          required: true
+        - label: This feature would benefit the broader Canopy-App community
+          required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Feature Summary
+      description: A brief, clear description of the feature you'd like to see
+      placeholder: Summarize the feature in 1-2 sentences...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feature Category
+      description: What category does this feature fall into?
+      options:
+        - Physics/Science Enhancement
+        - Performance Optimization
+        - I/O and Data Handling
+        - User Interface/Configuration
+        - Documentation
+        - Testing and Validation
+        - Build System and Packaging
+        - External Model Coupling
+        - Visualization and Analysis
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation and Use Case
+      description: Why is this feature needed? What problem does it solve?
+      placeholder: |
+        Describe the scientific or technical motivation for this feature:
+        - What problem are you trying to solve?
+        - How would this feature help your research or applications?
+        - Are there similar features in other atmospheric models?
+    validations:
+      required: true
+
+  - type: textarea
+    id: detailed_description
+    attributes:
+      label: Detailed Description
+      description: Provide a detailed description of the feature
+      placeholder: |
+        Describe the feature in detail:
+        - What should it do?
+        - How should it work?
+        - What inputs/outputs are involved?
+        - Any specific algorithms or methods to consider?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Implementation
+      description: If you have ideas about how this could be implemented, please share them
+      placeholder: |
+        Optional: Describe how you think this feature could be implemented:
+        - Which modules would be affected?
+        - New data structures needed?
+        - Configuration options required?
+        - Dependencies or external libraries?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature to you?
+      options:
+        - Low - Nice to have
+        - Medium - Would significantly improve my workflow
+        - High - Critical for my research/application
+        - Urgent - Blocking current work
+    validations:
+      required: true
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Estimated Complexity
+      description: How complex do you think this feature would be to implement?
+      options:
+        - Simple - Minor addition or modification
+        - Moderate - New functionality but straightforward
+        - Complex - Significant changes or new algorithms
+        - Major - Substantial architectural changes
+        - Unknown - Not sure about implementation complexity
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Have you considered any alternative solutions or workarounds?
+      placeholder: |
+        Describe any alternative approaches you've considered:
+        - Workarounds you're currently using
+        - Other tools or methods that provide similar functionality
+        - Why those alternatives are not sufficient
+    validations:
+      required: false
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples and References
+      description: Provide examples, references, or similar implementations
+      placeholder: |
+        Optional: Provide relevant examples or references:
+        - Similar features in other atmospheric models (WRF, CESM, etc.)
+        - Scientific papers describing the methods
+        - Code examples or pseudocode
+        - Links to relevant documentation
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to contribute to implementing this feature?
+      options:
+        - label: I'm willing to help implement this feature
+        - label: I can provide testing and validation
+        - label: I can contribute documentation
+        - label: I can provide scientific guidance/review
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other context, screenshots, diagrams, or information
+      placeholder: Add any other context about the feature request here...
+    validations:
+      required: false
