@@ -194,7 +194,7 @@ psi_h = 2.0*log((1.0+x*x)/2.0)
 #### Implementation
 
 <!-- See module `canopy_eddy_mod.F90`:
-- `calc_eddy_diffusivity()` - Main turbulence routine
+- `canopy_eddyx()` - Main turbulence routine
 - `calc_mixing_length()` - Mixing length calculation
 - `stability_functions()` - Stability corrections -->
 
