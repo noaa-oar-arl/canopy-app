@@ -273,7 +273,7 @@ SUBROUTINE canopy_alloc
         if(.not.allocated(canBOT))        allocate(canBOT(modlays))
         !> \brief Top height of canopy layers (m)
         if(.not.allocated(canTOP))        allocate(canTOP(modlays))
-        !> \brief Wind speed within canopy layers (cm s-1)
+        !> \brief Wind speed within canopy layers (m s-1)
         if(.not.allocated(canWIND))       allocate(canWIND(nlat*nlon,modlays))
         !> \brief Wind speed within canopy layers 3D (cm s-1)
         if(.not.allocated(canWIND_3d))    allocate(canWIND_3d(nlon,nlat,modlays))
