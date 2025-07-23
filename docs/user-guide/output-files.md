@@ -18,31 +18,27 @@ Contains the main simulation variables:
 - `lat`: Number of latitude points
 - `lon`: Number of longitude points
 
-**Variables:**
+**Example Canopy-Process Variables:**
 
 | Variable | Description | Units | Dimensions |
-|----------|-------------|-------|------------|
-| `time` | Time coordinate | hours since start | (time) |
-| `lev` | Vertical level coordinate | m | (lev) |
-| `lat` | Latitude coordinate | degrees_north | (lat) |
-| `lon` | Longitude coordinate | degrees_east | (lon) |
-| `temp` | Air temperature profile | K | (time,lev,lat,lon) |
-| `qv` | Water vapor mixing ratio | kg/kg | (time,lev,lat,lon) |
-| `u` | U-component wind speed | m/s | (time,lev,lat,lon) |
-| `v` | V-component wind speed | m/s | (time,lev,lat,lon) |
-| `tke` | Turbulent kinetic energy | m²/s² | (time,lev,lat,lon) |
+|-----------|---------------------------------------|-------------------|--------------------|
+| `time`    | Time coordinate                       | hours since start | (time)             |
+| `lev`     | Vertical level coordinate             | m                 | (lev)              |
+| `lat`     | Latitude coordinate                   | degrees_north     | (lat)              |
+| `lon`     | Longitude coordinate                  | degrees_east      | (lon)              |
+| `canwind` | Canopy winds                          | m/s               | (time,lev,lat,lon) |
+| `kz`      | Canopy eddy diffusivities             | kg/kg             | (time,lev,lat,lon) |
+| `rjcf`    | Canopy photolysis attenuation factors |                   | (time,lev,lat,lon) |
+| `emi_isop`| Biogenic emissions                    | kg/m3 s           | (time,lev,lat,lon) |
+| `ddep_o3` | Ozone dry deposition                  | cm/s              | (time,lev,lat,lon) |
+|---------------------------------------------------------------------------------------------
 
-#### Canopy-Specific Variables
+#### Example Canopy-Specific Variables
 
 | Variable | Description | Units | Dimensions |
-|----------|-------------|-------|------------|
-| `lai` | Leaf area index | m²/m² | (time,lat,lon) |
-| `canht` | Canopy height | m | (time,lat,lon) |
-| `ppfd_sun` | PPFD for sunlit leaves | μmol/m²/s | (time,lev,lat,lon) |
-| `ppfd_shade` | PPFD for shaded leaves | μmol/m²/s | (time,lev,lat,lon) |
-| `tleaf_sun` | Sunlit leaf temperature | K | (time,lev,lat,lon) |
-| `tleaf_shade` | Shaded leaf temperature | K | (time,lev,lat,lon) |
-| `gsw_sun` | Sunlit stomatal conductance | mol/m²/s | (time,lev,lat,lon) |
+| `canheight` | Canopy height | m | (time,lat,lon) |
+| `lad` | Leaf area density | m²/m3 | (time,lev,lat,lon) |
+| `z0_h` | Ratio of surface roughness length to canheight |  | (time,lev,lat,lon) |
 | `gsw_shade` | Shaded stomatal conductance | mol/m²/s | (time,lev,lat,lon) |
 
 ### Text Output Files
@@ -54,20 +50,20 @@ For simple analysis, the model can output text files:
 Contains time series data for single points:
 
 ```
-# Canopy-App Point Output
-# Time: 2022-06-30_12:00:00, Lat: 40.0, Lon: -80.0
-# Level(m)  Temp(K)  QV(kg/kg)  U(m/s)  V(m/s)  TKE(m2/s2)
-    0.5     295.15    0.0120     2.1     0.8      0.45
-    1.5     294.98    0.0118     2.3     1.0      0.52
-    2.5     294.82    0.0116     2.6     1.2      0.58
+# Example Canopy-App Point Output for Canopy Winds
+#    time stamp: 2022-07-01-11:00:00.0000
+#    reference height, h:   10.0 m
+#    number of model layers:    100
+#    lat      lon  height (m)  LAD (m2 m-3)       ws (m s-1)
+      34.97   270.00      0.00        0.00  0.0000000E+00
+      34.97   270.00      0.50        0.08  5.9679881E-02
+      34.97   270.00      1.00        0.13  7.8142006E-02
     ...
 ```
 
-#### Canopy Variables: `point_file_canvars_YYYYMMDD.sfcfXXX.txt`
+#### Example 3D Canopy Variables for Input PAVD: `point_file_canvars_YYYYMMDD.sfcfXXX.txt`
 
-Contains canopy-specific variables:
-
-```
+<!-- ```
 # Canopy Variables Output
 # Time: 2022-06-30_12:00:00, Lat: 40.0, Lon: -80.0
 LAI:          4.50
@@ -78,9 +74,9 @@ TLEAF_SUN:   298.45
 TLEAF_SHADE: 296.20
 GSW_SUN:     0.185
 GSW_SHADE:   0.045
-```
+``` -->
 
-## Chemical Output (if enabled)
+<!-- ## Chemical Output (if enabled)
 
 ### Species Concentrations
 
@@ -97,66 +93,18 @@ Contains chemical species profiles:
 | `o3` | O₃ concentration | ppb | (time,lev,lat,lon) |
 | `no` | NO concentration | ppb | (time,lev,lat,lon) |
 | `no2` | NO₂ concentration | ppb | (time,lev,lat,lon) |
-| `so2` | SO₂ concentration | ppb | (time,lev,lat,lon) |
+| `so2` | SO₂ concentration | ppb | (time,lev,lat,lon) | -->
 
 ### Emission Rates
 
-#### `canopy_emis.nc`
-
-Contains biogenic emission rates:
+Example biogenic emission rates:
 
 | Variable | Description | Units | Dimensions |
 |----------|-------------|-------|------------|
-| `isop_emis` | Isoprene emission rate | μg/m²/s | (time,lat,lon) |
-| `mono_emis` | Monoterpene emission rate | μg/m²/s | (time,lat,lon) |
-| `sesq_emis` | Sesquiterpene emission rate | μg/m²/s | (time,lat,lon) |
-| `ovoc_emis` | Other VOC emission rate | μg/m²/s | (time,lat,lon) |
-
-## Diagnostic Files
-
-### Model Performance
-
-#### `canopy_timing.txt`
-
-Contains timing information:
-
-```
-Canopy-App Performance Report
-=============================
-Total Runtime:        00:02:35.123
-Initialization:       00:00:05.234
-Main Loop:           00:02:25.456
-  - Meteorology:     00:00:45.123
-  - Canopy Physics:  00:01:15.234
-  - Chemistry:       00:00:20.456
-  - I/O:            00:00:04.643
-Finalization:        00:00:04.433
-
-Memory Usage:
-Peak Memory:         1.23 GB
-Average Memory:      0.89 GB
-```
-
-#### `canopy_log.txt`
-
-Contains detailed runtime information:
-
-```
-2022-06-30 12:00:00 [INFO] Starting Canopy-App simulation
-2022-06-30 12:00:05 [INFO] Configuration loaded successfully
-2022-06-30 12:00:10 [INFO] Input files validated
-2022-06-30 12:00:15 [INFO] Beginning time integration
-2022-06-30 12:01:00 [INFO] Time step 1/24 completed
-2022-06-30 12:01:45 [INFO] Time step 2/24 completed
-...
-2022-06-30 12:02:30 [INFO] Simulation completed successfully
-```
-
-## Reading Output Files
-
-### Python
-
-Using netCDF4-python:
+| `emi_isop` | Isoprene emission rate | kg/m²/s | (time,lev,lat,lon) |
+| `emi_mono` | Monoterpene emission rate | kg/m²/s | (time,lev,lat,lon) |
+| `emi_sesq` | Sesquiterpene emission rate | kg/m²/s | (time,lev,lat,lon) |
+| `emi_ovoc` | Other VOC emission rate | kg/m²/s | (time,lev,lat,lon) |
 
 ```python
 import netCDF4 as nc
@@ -218,24 +166,12 @@ Control output through namelist parameters:
 
 ```fortran
 &CANOPY_OPTIONS
- ! Output format (1=netCDF, 2=text, 3=both)
+ ! Output format (1=netCDF, 2=text)
  outfmt_opt = 1
 
- ! Output frequency (hours)
- output_freq = 1.0
-
- ! Variables to output
- output_vars = 'temp', 'qv', 'u', 'v', 'tke'
-
- ! Enable chemistry output
- output_chem = .true.
-
- ! Enable diagnostic output
- output_diag = .true.
 /
 ```
 
-### Variable Selection
 
 Choose specific variables for output:
 
@@ -254,32 +190,6 @@ Choose specific variables for output:
 
  ! Chemical variables
  out_chem = .false.
-/
-```
-
-## File Management
-
-### Compression
-
-Enable compression for large files:
-
-```fortran
-&CANOPY_OPTIONS
- compress_output = .true.
- compression_level = 6
-/
-```
-
-### Chunking
-
-Optimize file access patterns:
-
-```fortran
-&CANOPY_OPTIONS
- chunk_time = 24
- chunk_lev = 10
- chunk_lat = 32
- chunk_lon = 32
 /
 ```
 

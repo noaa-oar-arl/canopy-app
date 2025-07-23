@@ -250,12 +250,10 @@ After configuring your namelist:
 - **[Examples](../examples/basic.md)**: See practical configuration examples
 - **[Science Guide](../science/model-description.md)**: Understand the physics behind the options
 |--------|-------|-------------|
-| `infmt_opt` | 1 | NetCDF input format |
-| `infmt_opt` | 2 | Text input format |
-| `outfmt_opt` | 1 | NetCDF output format |
-| `outfmt_opt` | 2 | Text output format |
+| `infmt_opt` | 0 | NetCDF input format |
+| `infmt_opt` | 1 | Text input format |
 
-## Model Options
+<!--## Model Options
 
 ### Physics Switches
 
@@ -296,9 +294,9 @@ After configuring your namelist:
     drydep_opt  = 1             ! Dry deposition algorithm
     stom_opt    = 1             ! Stomatal resistance option
 /
-```
+```-->
 
-## Configuration Examples
+<!--## Configuration Examples
 
 ### Basic Research Setup
 
@@ -319,9 +317,9 @@ After configuring your namelist:
     opt_phot = 1
     opt_rad = 1
 /
-```
+```-->
 
-### Production Run Setup
+<!--### Production Run Setup
 
 ```fortran
 &canopy_inputs
@@ -350,9 +348,9 @@ After configuring your namelist:
     bioem_opt = 2
     drydep_opt = 2
 /
-```
+```-->
 
-### Sensitivity Study Setup
+<!--### Sensitivity Study Setup
 
 ```fortran
 &canopy_inputs
@@ -371,13 +369,11 @@ After configuring your namelist:
 /
 
 &canopy_physics
-    z_cantop = 15.0   ! Lower canopy height
     ncanlevs = 8      ! Fewer levels for speed
-    bioem_opt = 1     ! Basic emission algorithm
 /
-```
+```-->
 
-## Validation and Testing
+<!-- ## Validation and Testing
 
 ### Configuration Validation
 
@@ -399,7 +395,7 @@ The model performs several validation checks:
 
 # Dry run (parse inputs only)
 ./canopy_app --dry-run
-```
+``` -->
 
 ## Common Configuration Issues
 

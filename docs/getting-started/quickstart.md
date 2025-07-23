@@ -21,7 +21,7 @@ cd src
 make
 
 # Check compilation was successful
-ls -la canopy_app
+ls -la canopy
 ```
 
 ## 2. Prepare Input Files
@@ -46,22 +46,18 @@ Edit the namelist file to match your setup:
 
 ```fortran
 &canopy_inputs
-    in_date = '20220701'
-    in_time = '00'
-    file_in = 'gfs.t12z.20220701.sfcf000.canopy.nc'
-    file_out = 'canopy_output.nc'
+    file_vars = 'gfs.t12z.20220701.sfcf000.canopy.nc'
+    file_out = 'output/canopy_output'
 /
 ```
 
 ## 4. Run the Model
 
 ```bash
-# Run with default settings
+# Run with modified namelist file
 ./canopy_app
 
-# Run with custom namelist
-./canopy_app -n my_namelist.canopy
-```
+
 
 ## 5. Check Output
 

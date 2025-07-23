@@ -186,7 +186,7 @@ SUBROUTINE canopy_alloc
     if(.not.allocated(daily_maxt2m))       allocate(daily_maxt2m(nlat*nlon))
     !> \brief Daily minimum 2m temperature (K)
     if(.not.allocated(daily_mint2m))       allocate(daily_mint2m(nlat*nlon))
-    !> \brief Daily maximum 10m wind speed (m s⁻¹)
+    !> \brief Daily maximum 10m wind speed (cm s-1)
     if(.not.allocated(daily_maxws10m))     allocate(daily_maxws10m(nlat*nlon))
 
     !> \defgroup Temporal3DArrays Temporal History 3D Arrays
@@ -252,7 +252,7 @@ SUBROUTINE canopy_alloc
     if(.not.allocated(daily_maxt2m_2d))       allocate(daily_maxt2m_2d(nlon,nlat))
     !> \brief Daily minimum 2m temperature 3D (K)
     if(.not.allocated(daily_mint2m_2d))       allocate(daily_mint2m_2d(nlon,nlat))
-    !> \brief Daily maximum 10m wind speed 3D (m s⁻¹)
+    !> \brief Daily maximum 10m wind speed 3D (cm s-1)
     if(.not.allocated(daily_maxws10m_2d))     allocate(daily_maxws10m_2d(nlon,nlat))
     !> \}
 
@@ -273,9 +273,9 @@ SUBROUTINE canopy_alloc
         if(.not.allocated(canBOT))        allocate(canBOT(modlays))
         !> \brief Top height of canopy layers (m)
         if(.not.allocated(canTOP))        allocate(canTOP(modlays))
-        !> \brief Wind speed within canopy layers (m s⁻¹)
+        !> \brief Wind speed within canopy layers (m s-1)
         if(.not.allocated(canWIND))       allocate(canWIND(nlat*nlon,modlays))
-        !> \brief Wind speed within canopy layers 3D (m s⁻¹)
+        !> \brief Wind speed within canopy layers 3D (m s-1)
         if(.not.allocated(canWIND_3d))    allocate(canWIND_3d(nlon,nlat,modlays))
         !> \brief Grid cell resolution (m)
         if(.not.allocated(dx))            allocate(dx(nlat*nlon))
@@ -341,117 +341,117 @@ SUBROUTINE canopy_alloc
         write(*,*)  'Canopy biogenic emissions option selected'
         write(*,*)  '-------------------------------'
         if (biospec_opt == 0 .or. biospec_opt == 1) then
-            !> \brief Isoprene emission rate (µg m⁻² s⁻¹)
+            !> \brief Isoprene emission rate (kg m-3 s-1)
             if(.not.allocated(emi_isop))         allocate(emi_isop(nlat*nlon,modlays))
-            !> \brief Isoprene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Isoprene emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_isop_3d))      allocate(emi_isop_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 2) then
-            !> \brief Myrcene emission rate (µg m⁻² s⁻¹)
+            !> \brief Myrcene emission rate (kg m-3 s-1)
             if(.not.allocated(emi_myrc))         allocate(emi_myrc(nlat*nlon,modlays))
-            !> \brief Myrcene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Myrcene emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_myrc_3d))      allocate(emi_myrc_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 3) then
-            !> \brief Sabinene emission rate (µg m⁻² s⁻¹)
+            !> \brief Sabinene emission rate (kg m-3 s-1)
             if(.not.allocated(emi_sabi))         allocate(emi_sabi(nlat*nlon,modlays))
-            !> \brief Sabinene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Sabinene emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_sabi_3d))      allocate(emi_sabi_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 4) then
-            !> \brief Limonene emission rate (µg m⁻² s⁻¹)
+            !> \brief Limonene emission rate (kg m-3 s-1)
             if(.not.allocated(emi_limo))         allocate(emi_limo(nlat*nlon,modlays))
-            !> \brief Limonene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Limonene emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_limo_3d))      allocate(emi_limo_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 5) then
-            !> \brief 3-Carene emission rate (µg m⁻² s⁻¹)
+            !> \brief 3-Carene emission rate (kg m-3 s-1)
             if(.not.allocated(emi_care))         allocate(emi_care(nlat*nlon,modlays))
-            !> \brief 3-Carene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief 3-Carene emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_care_3d))      allocate(emi_care_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 6) then
-            !> \brief Ocimene emission rate (µg m⁻² s⁻¹)
+            !> \brief Ocimene emission rate (kg m-3 s-1)
             if(.not.allocated(emi_ocim))         allocate(emi_ocim(nlat*nlon,modlays))
-            !> \brief Ocimene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Ocimene emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_ocim_3d))      allocate(emi_ocim_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 7) then
-            !> \brief Beta-pinene emission rate (µg m⁻² s⁻¹)
+            !> \brief Beta-pinene emission rate (kg m-3 s-1)
             if(.not.allocated(emi_bpin))         allocate(emi_bpin(nlat*nlon,modlays))
-            !> \brief Beta-pinene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Beta-pinene emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_bpin_3d))      allocate(emi_bpin_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 8) then
-            !> \brief Alpha-pinene emission rate (µg m⁻² s⁻¹)
+            !> \brief Alpha-pinene emission rate (kg m-3 s-1)
             if(.not.allocated(emi_apin))         allocate(emi_apin(nlat*nlon,modlays))
-            !> \brief Alpha-pinene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Alpha-pinene emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_apin_3d))      allocate(emi_apin_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 9) then
-            !> \brief Other monoterpenes emission rate (µg m⁻² s⁻¹)
+            !> \brief Other monoterpenes emission rate (kg m-3 s-1)
             if(.not.allocated(emi_mono))         allocate(emi_mono(nlat*nlon,modlays))
-            !> \brief Other monoterpenes emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Other monoterpenes emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_mono_3d))      allocate(emi_mono_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 10) then
-            !> \brief Farnesene emission rate (µg m⁻² s⁻¹)
+            !> \brief Farnesene emission rate (kg m-3 s-1)
             if(.not.allocated(emi_farn))         allocate(emi_farn(nlat*nlon,modlays))
-            !> \brief Farnesene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Farnesene emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_farn_3d))      allocate(emi_farn_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 11) then
-            !> \brief Caryophyllene emission rate (µg m⁻² s⁻¹)
+            !> \brief Caryophyllene emission rate (kg m-3 s-1)
             if(.not.allocated(emi_cary))         allocate(emi_cary(nlat*nlon,modlays))
-            !> \brief Caryophyllene emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Caryophyllene emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_cary_3d))      allocate(emi_cary_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 12) then
-            !> \brief Other sesquiterpenes emission rate (µg m⁻² s⁻¹)
+            !> \brief Other sesquiterpenes emission rate (kg m-3 s-1)
             if(.not.allocated(emi_sesq))         allocate(emi_sesq(nlat*nlon,modlays))
-            !> \brief Other sesquiterpenes emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Other sesquiterpenes emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_sesq_3d))      allocate(emi_sesq_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 13) then
-            !> \brief 2-methyl-3-buten-2-ol emission rate (µg m⁻² s⁻¹)
+            !> \brief 2-methyl-3-buten-2-ol emission rate (kg m-3 s-1)
             if(.not.allocated(emi_mbol))         allocate(emi_mbol(nlat*nlon,modlays))
-            !> \brief 2-methyl-3-buten-2-ol emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief 2-methyl-3-buten-2-ol emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_mbol_3d))      allocate(emi_mbol_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 14) then
-            !> \brief Methanol emission rate (µg m⁻² s⁻¹)
+            !> \brief Methanol emission rate (kg m-3 s-1)
             if(.not.allocated(emi_meth))         allocate(emi_meth(nlat*nlon,modlays))
-            !> \brief Methanol emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Methanol emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_meth_3d))      allocate(emi_meth_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 15) then
-            !> \brief Acetone emission rate (µg m⁻² s⁻¹)
+            !> \brief Acetone emission rate (kg m-3 s-1)
             if(.not.allocated(emi_acet))         allocate(emi_acet(nlat*nlon,modlays))
-            !> \brief Acetone emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Acetone emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_acet_3d))      allocate(emi_acet_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 16) then
-            !> \brief Carbon monoxide emission rate (µg m⁻² s⁻¹)
+            !> \brief Carbon monoxide emission rate (kg m-3 s-1)
             if(.not.allocated(emi_co))           allocate(emi_co(nlat*nlon,modlays))
-            !> \brief Carbon monoxide emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Carbon monoxide emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_co_3d))        allocate(emi_co_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 17) then
-            !> \brief Bidirectional VOC emission rate (µg m⁻² s⁻¹)
+            !> \brief Bidirectional VOC emission rate (kg m-3 s-1)
             if(.not.allocated(emi_bvoc))         allocate(emi_bvoc(nlat*nlon,modlays))
-            !> \brief Bidirectional VOC emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Bidirectional VOC emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_bvoc_3d))      allocate(emi_bvoc_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 18) then
-            !> \brief Stress VOC emission rate (µg m⁻² s⁻¹)
+            !> \brief Stress VOC emission rate (kg m-3 s-1)
             if(.not.allocated(emi_svoc))         allocate(emi_svoc(nlat*nlon,modlays))
-            !> \brief Stress VOC emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Stress VOC emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_svoc_3d))      allocate(emi_svoc_3d(nlon,nlat,modlays))
         end if
         if (biospec_opt == 0 .or. biospec_opt == 19) then
-            !> \brief Other VOC emission rate (µg m⁻² s⁻¹)
+            !> \brief Other VOC emission rate (kg m-3 s-1)
             if(.not.allocated(emi_ovoc))         allocate(emi_ovoc(nlat*nlon,modlays))
-            !> \brief Other VOC emission rate 3D (µg m⁻² s⁻¹)
+            !> \brief Other VOC emission rate 3D (kg m-3 s-1)
             if(.not.allocated(emi_ovoc_3d))      allocate(emi_ovoc_3d(nlon,nlat,modlays))
         end if
     end if
@@ -470,189 +470,189 @@ SUBROUTINE canopy_alloc
         write(*,*)  '-------------------------------'
         if (chemmechgas_opt == 0) then !RACM2 --> 31 species
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 1) then
-                !> \brief Nitric oxide dry deposition velocity (m s⁻¹)
+                !> \brief Nitric oxide dry deposition velocity (cm s⁻¹)
                 if(.not.allocated(ddep_no))              allocate(ddep_no(nlat*nlon,modlays))
-                !> \brief Nitric oxide dry deposition velocity 3D (m s⁻¹)
+                !> \brief Nitric oxide dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_no_3d))           allocate(ddep_no_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 2) then
-                !> \brief Nitrogen dioxide dry deposition velocity (m s⁻¹)
+                !> \brief Nitrogen dioxide dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_no2))              allocate(ddep_no2(nlat*nlon,modlays))
-                !> \brief Nitrogen dioxide dry deposition velocity 3D (m s⁻¹)
+                !> \brief Nitrogen dioxide dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_no2_3d))           allocate(ddep_no2_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 3) then
-                !> \brief Ozone dry deposition velocity (m s⁻¹)
+                !> \brief Ozone dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_o3))              allocate(ddep_o3(nlat*nlon,modlays))
-                !> \brief Ozone dry deposition velocity 3D (m s⁻¹)
+                !> \brief Ozone dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_o3_3d))           allocate(ddep_o3_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 4) then
-                !> \brief Nitrous acid dry deposition velocity (m s⁻¹)
+                !> \brief Nitrous acid dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_hono))              allocate(ddep_hono(nlat*nlon,modlays))
-                !> \brief Nitrous acid dry deposition velocity 3D (m s⁻¹)
+                !> \brief Nitrous acid dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_hono_3d))           allocate(ddep_hono_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 5) then
-                !> \brief Peroxynitric acid dry deposition velocity (m s⁻¹)
+                !> \brief Peroxynitric acid dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_hno4))              allocate(ddep_hno4(nlat*nlon,modlays))
-                !> \brief Peroxynitric acid dry deposition velocity 3D (m s⁻¹)
+                !> \brief Peroxynitric acid dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_hno4_3d))           allocate(ddep_hno4_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 6) then
-                !> \brief Nitric acid dry deposition velocity (m s⁻¹)
+                !> \brief Nitric acid dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_hno3))              allocate(ddep_hno3(nlat*nlon,modlays))
-                !> \brief Nitric acid dry deposition velocity 3D (m s⁻¹)
+                !> \brief Nitric acid dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_hno3_3d))           allocate(ddep_hno3_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 7) then
-                !> \brief Dinitrogen pentoxide dry deposition velocity (m s⁻¹)
+                !> \brief Dinitrogen pentoxide dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_n2o5))              allocate(ddep_n2o5(nlat*nlon,modlays))
-                !> \brief Dinitrogen pentoxide dry deposition velocity 3D (m s⁻¹)
+                !> \brief Dinitrogen pentoxide dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_n2o5_3d))           allocate(ddep_n2o5_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 8) then
-                !> \brief Carbon monoxide dry deposition velocity (m s⁻¹)
+                !> \brief Carbon monoxide dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_co))              allocate(ddep_co(nlat*nlon,modlays))
-                !> \brief Carbon monoxide dry deposition velocity 3D (m s⁻¹)
+                !> \brief Carbon monoxide dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_co_3d))           allocate(ddep_co_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 9) then
-                !> \brief Hydrogen peroxide dry deposition velocity (m s⁻¹)
+                !> \brief Hydrogen peroxide dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_h2o2))              allocate(ddep_h2o2(nlat*nlon,modlays))
-                !> \brief Hydrogen peroxide dry deposition velocity 3D (m s⁻¹)
+                !> \brief Hydrogen peroxide dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_h2o2_3d))           allocate(ddep_h2o2_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 10) then
-                !> \brief Methane dry deposition velocity (m s⁻¹)
+                !> \brief Methane dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_ch4))              allocate(ddep_ch4(nlat*nlon,modlays))
-                !> \brief Methane dry deposition velocity 3D (m s⁻¹)
+                !> \brief Methane dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_ch4_3d))           allocate(ddep_ch4_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 11) then
-                !> \brief Methyl peroxy radical dry deposition velocity (m s⁻¹)
+                !> \brief Methyl peroxy radical dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_mo2))              allocate(ddep_mo2(nlat*nlon,modlays))
-                !> \brief Methyl peroxy radical dry deposition velocity 3D (m s⁻¹)
+                !> \brief Methyl peroxy radical dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_mo2_3d))           allocate(ddep_mo2_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 12) then
-                !> \brief Methyl hydroperoxide dry deposition velocity (m s⁻¹)
+                !> \brief Methyl hydroperoxide dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_op1))              allocate(ddep_op1(nlat*nlon,modlays))
-                !> \brief Methyl hydroperoxide dry deposition velocity 3D (m s⁻¹)
+                !> \brief Methyl hydroperoxide dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_op1_3d))           allocate(ddep_op1_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 13) then
-                !> \brief Methanol dry deposition velocity (m s⁻¹)
+                !> \brief Methanol dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_moh))              allocate(ddep_moh(nlat*nlon,modlays))
-                !> \brief Methanol dry deposition velocity 3D (m s⁻¹)
+                !> \brief Methanol dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_moh_3d))           allocate(ddep_moh_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 14) then
-                !> \brief Nitrate radical dry deposition velocity (m s⁻¹)
+                !> \brief Nitrate radical dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_no3))              allocate(ddep_no3(nlat*nlon,modlays))
-                !> \brief Nitrate radical dry deposition velocity 3D (m s⁻¹)
+                !> \brief Nitrate radical dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_no3_3d))           allocate(ddep_no3_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 15) then
-                !> \brief Oxygen atom triplet dry deposition velocity (m s⁻¹)
+                !> \brief Oxygen atom triplet dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_o3p))              allocate(ddep_o3p(nlat*nlon,modlays))
-                !> \brief Oxygen atom triplet dry deposition velocity 3D (m s⁻¹)
+                !> \brief Oxygen atom triplet dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_o3p_3d))           allocate(ddep_o3p_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 16) then
-                !> \brief Oxygen atom singlet dry deposition velocity (m s⁻¹)
+                !> \brief Oxygen atom singlet dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_o1d))              allocate(ddep_o1d(nlat*nlon,modlays))
-                !> \brief Oxygen atom singlet dry deposition velocity 3D (m s⁻¹)
+                !> \brief Oxygen atom singlet dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_o1d_3d))           allocate(ddep_o1d_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 17) then
-                !> \brief Hydroxyl radical dry deposition velocity (m s⁻¹)
+                !> \brief Hydroxyl radical dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_ho))              allocate(ddep_ho(nlat*nlon,modlays))
-                !> \brief Hydroxyl radical dry deposition velocity 3D (m s⁻¹)
+                !> \brief Hydroxyl radical dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_ho_3d))           allocate(ddep_ho_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 18) then
-                !> \brief Hydroperoxy radical dry deposition velocity (m s⁻¹)
+                !> \brief Hydroperoxy radical dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_ho2))              allocate(ddep_ho2(nlat*nlon,modlays))
-                !> \brief Hydroperoxy radical dry deposition velocity 3D (m s⁻¹)
+                !> \brief Hydroperoxy radical dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_ho2_3d))           allocate(ddep_ho2_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 19) then
-                !> \brief Formic acid dry deposition velocity (m s⁻¹)
+                !> \brief Formic acid dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_ora1))              allocate(ddep_ora1(nlat*nlon,modlays))
-                !> \brief Formic acid dry deposition velocity 3D (m s⁻¹)
+                !> \brief Formic acid dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_ora1_3d))           allocate(ddep_ora1_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 20) then
-                !> \brief Hydroxyacetone dry deposition velocity (m s⁻¹)
+                !> \brief Hydroxyacetone dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_hac))              allocate(ddep_hac(nlat*nlon,modlays))
-                !> \brief Hydroxyacetone dry deposition velocity 3D (m s⁻¹)
+                !> \brief Hydroxyacetone dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_hac_3d))           allocate(ddep_hac_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 21) then
-                !> \brief Peroxyacetic acid dry deposition velocity (m s⁻¹)
+                !> \brief Peroxyacetic acid dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_paa))              allocate(ddep_paa(nlat*nlon,modlays))
-                !> \brief Peroxyacetic acid dry deposition velocity 3D (m s⁻¹)
+                !> \brief Peroxyacetic acid dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_paa_3d))           allocate(ddep_paa_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 22) then
-                !> \brief Dihydroxymethyl butenone dry deposition velocity (m s⁻¹)
+                !> \brief Dihydroxymethyl butenone dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_dhmob))              allocate(ddep_dhmob(nlat*nlon,modlays))
-                !> \brief Dihydroxymethyl butenone dry deposition velocity 3D (m s⁻¹)
+                !> \brief Dihydroxymethyl butenone dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_dhmob_3d))           allocate(ddep_dhmob_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 23) then
-                !> \brief Hydroxyperoxy aldehyde dry deposition velocity (m s⁻¹)
+                !> \brief Hydroxyperoxy aldehyde dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_hpald))              allocate(ddep_hpald(nlat*nlon,modlays))
-                !> \brief Hydroxyperoxy aldehyde dry deposition velocity 3D (m s⁻¹)
+                !> \brief Hydroxyperoxy aldehyde dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_hpald_3d))           allocate(ddep_hpald_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 24) then
-                !> \brief Isoprene hydroxy hydroperoxide dry deposition velocity (m s⁻¹)
+                !> \brief Isoprene hydroxy hydroperoxide dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_ishp))              allocate(ddep_ishp(nlat*nlon,modlays))
-                !> \brief Isoprene hydroxy hydroperoxide dry deposition velocity 3D (m s⁻¹)
+                !> \brief Isoprene hydroxy hydroperoxide dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_ishp_3d))           allocate(ddep_ishp_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 25) then
-                !> \brief Isoprene epoxydiol dry deposition velocity (m s⁻¹)
+                !> \brief Isoprene epoxydiol dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_iepox))              allocate(ddep_iepox(nlat*nlon,modlays))
-                !> \brief Isoprene epoxydiol dry deposition velocity 3D (m s⁻¹)
+                !> \brief Isoprene epoxydiol dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_iepox_3d))           allocate(ddep_iepox_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 26) then
-                !> \brief Propanone nitrate dry deposition velocity (m s⁻¹)
+                !> \brief Propanone nitrate dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_propnn))              allocate(ddep_propnn(nlat*nlon,modlays))
-                !> \brief Propanone nitrate dry deposition velocity 3D (m s⁻¹)
+                !> \brief Propanone nitrate dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_propnn_3d))           allocate(ddep_propnn_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 27) then
-                !> \brief Isoprene nitrate beta dry deposition velocity (m s⁻¹)
+                !> \brief Isoprene nitrate beta dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_isopnb))              allocate(ddep_isopnb(nlat*nlon,modlays))
-                !> \brief Isoprene nitrate beta dry deposition velocity 3D (m s⁻¹)
+                !> \brief Isoprene nitrate beta dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_isopnb_3d))           allocate(ddep_isopnb_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 28) then
-                !> \brief Isoprene nitrate delta dry deposition velocity (m s⁻¹)
+                !> \brief Isoprene nitrate delta dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_isopnd))              allocate(ddep_isopnd(nlat*nlon,modlays))
-                !> \brief Isoprene nitrate delta dry deposition velocity 3D (m s⁻¹)
+                !> \brief Isoprene nitrate delta dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_isopnd_3d))           allocate(ddep_isopnd_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 29) then
-                !> \brief Methacrolein nitrate dry deposition velocity (m s⁻¹)
+                !> \brief Methacrolein nitrate dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_macrn))              allocate(ddep_macrn(nlat*nlon,modlays))
-                !> \brief Methacrolein nitrate dry deposition velocity 3D (m s⁻¹)
+                !> \brief Methacrolein nitrate dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_macrn_3d))           allocate(ddep_macrn_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 30) then
-                !> \brief Methyl vinyl ketone nitrate dry deposition velocity (m s⁻¹)
+                !> \brief Methyl vinyl ketone nitrate dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_mvkn))              allocate(ddep_mvkn(nlat*nlon,modlays))
-                !> \brief Methyl vinyl ketone nitrate dry deposition velocity 3D (m s⁻¹)
+                !> \brief Methyl vinyl ketone nitrate dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_mvkn_3d))           allocate(ddep_mvkn_3d(nlon,nlat,modlays))
             end if
             if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 31) then
-                !> \brief Isoprene nitrate peroxy dry deposition velocity (m s⁻¹)
+                !> \brief Isoprene nitrate peroxy dry deposition velocity (cm s-1)
                 if(.not.allocated(ddep_isnp))              allocate(ddep_isnp(nlat*nlon,modlays))
-                !> \brief Isoprene nitrate peroxy dry deposition velocity 3D (m s⁻¹)
+                !> \brief Isoprene nitrate peroxy dry deposition velocity 3D (cm s-1)
                 if(.not.allocated(ddep_isnp_3d))           allocate(ddep_isnp_3d(nlon,nlat,modlays))
             end if
         else

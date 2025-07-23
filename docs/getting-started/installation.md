@@ -6,7 +6,7 @@ This guide will help you install and set up the Canopy-App modeling system.
 
 ### System Requirements
 
-- **Operating System**: Linux, macOS, or Windows (WSL recommended)
+- **Operating System**: Linux, macOS
 - **Compiler**: Modern Fortran compiler (gfortran, ifort, or similar)
 - **Memory**: Minimum 4 GB RAM, 8 GB+ recommended
 - **Storage**: At least 1 GB free disk space
@@ -28,7 +28,7 @@ brew install gcc
 #### NetCDF Library (Required for NetCDF I/O)
 Canopy-App requires NetCDF-Fortran Libraries (`-lnetcdf -lnetcdff`) when using the 1D/2D NetCDF I/O Option (`infmt_opt=0`).
 
-```bash
+<!-- ```bash
 # On Ubuntu/Debian
 sudo apt-get install libnetcdf-dev libnetcdff-dev
 
@@ -40,7 +40,7 @@ brew install netcdf netcdf-fortran
 
 # On GMU Hopper (example module environment)
 module load netcdf-c/4.7.4-vh netcdf-fortran/4.5.3-ff
-```
+``` -->
 
 ## Installation Methods
 
@@ -126,12 +126,12 @@ After successful compilation, verify the installation:
 # Check if executable was created
 ls -la canopy
 
-# Check executable permissions
-./canopy --help  # (if help option is implemented)
+# # Check executable permissions
+# ./canopy --help  # (if help option is implemented)
 
-# Or run with default settings
-./canopy
-```
+# # Or run with default settings
+# ./canopy
+# ```
 
 ## Troubleshooting
 
@@ -319,9 +319,9 @@ Run the basic test to verify your installation:
 # Run with example data
 ./canopy_app
 
-# Check version information
-./canopy_app --version
-```
+# # Check version information
+# ./canopy_app --version
+# ```
 
 ### Expected Output
 

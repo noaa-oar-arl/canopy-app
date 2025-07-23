@@ -54,7 +54,7 @@ where:
 
 ## Radiation Parameterization
 
-### Two-Stream Approximation
+<!-- ### Two-Stream Approximation
 
 Solar radiation transfer uses the two-stream approximation:
 
@@ -71,7 +71,7 @@ where:
 - $\tau$ is optical depth
 - $\omega$ is single scattering albedo
 - $\beta_0, \beta_1$ are phase function parameters
-- $\mu = \cos(\theta)$ for solar zenith angle $\theta$
+- $\mu = \cos(\theta)$ for solar zenith angle $\theta$ -->
 
 ### Leaf Area Distribution
 
@@ -84,137 +84,6 @@ $$
 Parameters:
 - $\alpha$: extinction coefficient (typically 0.5-2.0)
 - $\beta$: shape parameter (typically 0.5-2.0)
-
-## Photosynthesis Parameterization
-
-### Farquhar-von Caemmerer-Berry Model
-
-Net photosynthesis rate:
-
-$$
-A_n = \min(A_c, A_j) - R_d
-$$
-
-where:
-- $A_c$: Rubisco-limited rate
-- $A_j$: RuBP-regeneration limited rate
-- $R_d$: dark respiration rate
-
-### Rubisco-Limited Rate
-
-$$
-A_c = \frac{V_{c,max}(C_i - \Gamma^*)}{C_i + K_c(1 + O_i/K_o)}
-$$
-
-where:
-- $V_{c,max}$: maximum carboxylation rate
-- $C_i$: internal CO₂ concentration
-- $\Gamma^*$: CO₂ compensation point
-- $K_c, K_o$: Michaelis constants for CO₂ and O₂
-- $O_i$: internal O₂ concentration
-
-### Light-Limited Rate
-
-$$
-A_j = \frac{J(C_i - \Gamma^*)}{4(C_i + 2\Gamma^*)}
-$$
-
-$$
-J = \frac{\alpha I + J_{max} - \sqrt{(\alpha I + J_{max})^2 - 4\theta \alpha I J_{max}}}{2\theta}
-$$
-
-where:
-- $J$: electron transport rate
-- $J_{max}$: maximum electron transport rate
-- $\alpha$: quantum efficiency
-- $I$: incident PPFD
-- $\theta$: curvature parameter
-
-## Stomatal Conductance
-
-### Ball-Berry Model
-
-$$
-g_s = g_{s0} + \frac{m A_n h_s}{C_s}
-$$
-
-where:
-- $g_s$: stomatal conductance
-- $g_{s0}$: minimum conductance
-- $m$: slope parameter (species-dependent)
-- $A_n$: net photosynthesis rate
-- $h_s$: relative humidity at leaf surface
-- $C_s$: CO₂ concentration at leaf surface
-
-### Medlyn Model (Alternative)
-
-$$
-g_s = g_{s0} + 1.6\left(1 + \frac{g_1}{\sqrt{D}}\right)\frac{A_n}{C_s}
-$$
-
-where:
-- $g_1$: slope parameter
-- $D$: vapor pressure deficit
-
-## Energy Balance
-
-### Leaf Energy Balance
-
-For sunlit and shaded leaves:
-
-$$
-R_n = H + \lambda E + S
-$$
-
-where:
-- $R_n$: net radiation
-- $H$: sensible heat flux
-- $\lambda E$: latent heat flux
-- $S$: heat storage (usually neglected)
-
-### Sensible Heat Flux
-
-$$
-H = \rho c_p g_{bh}(T_l - T_a)
-$$
-
-where:
-- $\rho$: air density
-- $c_p$: specific heat of air
-- $g_{bh}$: boundary layer conductance for heat
-- $T_l$: leaf temperature
-- $T_a$: air temperature
-
-### Latent Heat Flux
-
-$$
-\lambda E = \frac{\lambda \rho}{P} g_{bw} (e_l - e_a)
-$$
-
-where:
-- $\lambda$: latent heat of vaporization
-- $P$: atmospheric pressure
-- $g_{bw}$: boundary layer conductance for water vapor
-- $e_l$: vapor pressure at leaf temperature
-- $e_a$: ambient vapor pressure
-
-## Canopy Drag Parameterization
-
-### Momentum Absorption
-
-$$
-F_u = -c_d a(z) U(z) \sqrt{U(z)^2 + V(z)^2}
-$$
-
-$$
-F_v = -c_d a(z) V(z) \sqrt{U(z)^2 + V(z)^2}
-$$
-
-where:
-- $F_u, F_v$: drag forces per unit volume
-- $c_d$: drag coefficient (typically 0.1-0.3)
-- $a(z)$: leaf area density
-- $U(z), V(z)$: wind speed components
 
 ## Biogenic Emissions
 
@@ -305,21 +174,6 @@ where:
 | $H_a$ | 72000 | J/mol | Activation energy |
 | $H_d$ | 200000 | J/mol | Deactivation energy |
 | $\Delta S$ | 650 | J/mol/K | Entropy term |
-
-## Model Validation
-
-### Flux Tower Comparisons
-
-The parameterizations have been validated against:
-
-- **FLUXNET** sites (global network)
-- **AmeriFlux** sites (North American network)
-- **Long-term ecological research** sites
-
-Typical model performance:
-- Sensible heat flux: R² = 0.85, RMSE = 50 W/m²
-- Latent heat flux: R² = 0.80, RMSE = 60 W/m²
-- CO₂ flux: R² = 0.75, RMSE = 5 μmol/m²/s
 
 ### Sensitivity Analysis
 
