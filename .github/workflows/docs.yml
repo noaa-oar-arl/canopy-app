@@ -3,7 +3,7 @@ name: Documentation
 on:
   push:
     branches:
-      - main
+      - stable
       - develop
     paths:
       - 'docs/**'
@@ -92,12 +92,12 @@ jobs:
           # Check internal links in built documentation
           linkchecker site/ --check-extern --ignore-url="^mailto:" --ignore-url="^tel:" || true
 
-  # Deploy to GitHub Pages (for main branch)
+  # Deploy to GitHub Pages (for stable branch)
   deploy-github-pages:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-22.04
     needs: build-docs
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: (github.ref == 'refs/heads/stable' || github.ref == 'refs/heads/develop') && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     permissions:
       contents: read
       pages: write
@@ -162,8 +162,8 @@ jobs:
           mkdir -p _site
           cp -r * _site/ || true
 
-          # Return to main branch
-          git checkout main
+          # Return to stable branch
+          git checkout stable
 
       - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
@@ -179,12 +179,12 @@ jobs:
     name: Trigger ReadTheDocs Build (Optional)
     runs-on: ubuntu-22.04
     needs: build-docs
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && vars.ENABLE_READTHEDOCS == 'true'
+    if: github.ref == 'refs/heads/stable' && github.event_name == 'push' && vars.ENABLE_READTHEDOCS == 'true'
     steps:
       - name: Trigger ReadTheDocs build
         run: |
           if [ "${{ secrets.READTHEDOCS_WEBHOOK_URL }}" != "" ]; then
-            curl -X POST -d "branches=main" -d "token=${{ secrets.READTHEDOCS_WEBHOOK_TOKEN }}" \
+            curl -X POST -d "branches=stable" -d "token=${{ secrets.READTHEDOCS_WEBHOOK_TOKEN }}" \
               ${{ secrets.READTHEDOCS_WEBHOOK_URL }}
             echo "ReadTheDocs build triggered"
           else
