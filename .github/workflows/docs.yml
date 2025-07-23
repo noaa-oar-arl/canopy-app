@@ -97,7 +97,7 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-22.04
     needs: build-docs
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop') && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     permissions:
       contents: read
       pages: write
