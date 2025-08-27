@@ -203,70 +203,110 @@ make -C src
 make -j4 -C src
 ```
 
-## Next Steps
+## CMake Build (Recommended)
 
-After successful installation:
+The new CMake-based build system supports cross-platform builds and advanced configuration. Use the provided `build.sh` script for a streamlined experience.
 
-1. **Configure the model**: Edit [`input/namelist.canopy`](configuration.md)
-2. **Setup documentation**: Run `./scripts/docs.sh setup` (optional)
-<!-- 3. **Run test case**: Follow the [Quickstart Guide](quickstart.md)
-4. **Explore examples**: Check out the [Examples](../examples/basic.md) -->
-
-## Additional Resources
-
-- **Build System**: See [`src/Makefile`](https://github.com/noaa-oar-arl/canopy-app/blob/main/src/Makefile) for detailed build options
-- **Dependencies**: NetCDF detection uses `nf-config` utility
-- **Support**: Report build issues on [GitHub Issues](https://github.com/noaa-oar-arl/canopy-app/issues)
-
-# Compile the model
-make
-```
-
-### Method 2: Download Release
-
-1. Go to the [releases page](https://github.com/canopy-app/canopy-app/releases)
-2. Download the latest release archive
-3. Extract and compile:
+### Method 1: Build with `build.sh` (Recommended)
 
 ```bash
-tar -xzf canopy-app-v1.0.tar.gz
-cd canopy-app-v1.0/src
-make
+# From the project root
+git clone https://github.com/noaa-oar-arl/canopy-app.git
+cd canopy-app
+
+# Build with default settings (gfortran, NetCDF enabled)
+./build.sh
 ```
 
-## Compilation
+#### Common `build.sh` Options
 
-### Using the Makefile
+- `--clean`         : Clean the build directory
+- `--install`       : Run `make install` after build (installs to `install/` by default)
+- `--no-modules`    : Skip environment module setup (for local/macOS/Linux builds)
+- `-c <CMake opt>`  : Pass additional CMake options (can be used multiple times)
+- `-t <target>`     : Specify build target (e.g., hera, macos, linux)
 
-The project includes a Makefile for easy compilation:
+**Examples:**
+```bash
+# Clean and rebuild
+./build.sh --clean && ./build.sh
+
+# Build with NetCDF disabled
+./build.sh -c "-DUSE_NETCDF=OFF"
+
+# Build with debug flags
+./build.sh -c "-DCANOPY_DEBUG_LEVEL=1"
+
+# Install after build
+./build.sh --install
+```
+
+### Method 2: Manual CMake Build
 
 ```bash
-# Standard compilation
-make
+# From the project root
+mkdir build
+cd build
+cmake ..
+make -j4
+make install  # Optional: install to ../install by default
+```
 
-# Clean build files
-make clean
+## CMake Build Options
 
-# Debug build
-make debug
+The CMake-based build system supports flexible configuration, including debug/release modes and NetCDF support.
 
-# Parallel compilation (faster)
+### Common Build Customizations
+
+- **Debug/Release Mode:**
+  - `-DCANOPY_DEBUG_LEVEL=0` (Release, optimized, default)
+  - `-DCANOPY_DEBUG_LEVEL=1` (Basic debug flags)
+  - `-DCANOPY_DEBUG_LEVEL=2` (Extensive debug flags, FPE traps, traceback)
+- **NetCDF Support:**
+  - `-DUSE_NETCDF=ON` (default, enables NetCDF I/O)
+  - `-DUSE_NETCDF=OFF` (disables NetCDF, text I/O only)
+
+You can pass these options to `build.sh` using `-c` or directly to CMake:
+
+**Examples:**
+
+```bash
+# Debug build with NetCDF enabled
+./build.sh -c "-DCANOPY_DEBUG_LEVEL=1"
+
+# Release build with NetCDF disabled
+./build.sh -c "-DCANOPY_DEBUG_LEVEL=0" -c "-DUSE_NETCDF=OFF"
+
+# Manual CMake build, debug, no NetCDF
+mkdir build && cd build
+cmake -DCANOPY_DEBUG_LEVEL=2 -DUSE_NETCDF=OFF ..
 make -j4
 ```
 
-### Manual Compilation
+You can combine these options as needed for your development or production workflow.
 
-If you prefer manual compilation or need custom settings:
+## Legacy Makefile Build (Deprecated)
+
+> **Note:** The Makefile-based build is deprecated. Please use the new CMake-based build system and `./build.sh` for all new installations and development. The following instructions are for legacy users only and may be removed in a future release.
 
 ```bash
-# Basic compilation command
-gfortran -O2 -o canopy_app *.F90
+# Default build (gfortran, optimized, NetCDF enabled)
+make -C src
 
-# With NetCDF support
-gfortran -O2 -I/usr/include -L/usr/lib -lnetcdff -lnetcdf -o canopy_app *.F90
+# Debug build with gfortran
+DEBUG=1 NC=1 make -C src
 
-# Debug version
-gfortran -g -O0 -fcheck=all -Wall -o canopy_app *.F90
+# If FC is already set in environment, explicitly use gfortran
+DEBUG=1 NC=1 FC=gfortran make -C src
+
+# Production build with Intel Fortran
+FC=ifort make -C src
+
+# Debug build with Intel Fortran
+DEBUG=1 NC=1 FC=ifort make -C src
+
+# Build without NetCDF support
+NC=0 make -C src
 ```
 
 ## Verification
