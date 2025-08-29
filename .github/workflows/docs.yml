@@ -174,6 +174,9 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+      - name: Push to gh-pages
+        run: git push https://x-access-token:${{ secrets.GH_PAT }} HEAD:gh-pages
+
   # Optional: Still support ReadTheDocs webhook if configured
   trigger-readthedocs:
     name: Trigger ReadTheDocs Build (Optional)
