@@ -138,6 +138,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
         run: |
+          # Set GH_PAGES_TOKEN
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAGES_TOKEN }}@github.com/${{ github.repository }}.git
+
           # Determine version
           if [ "${{ github.event.inputs.version }}" != "" ]; then
             VERSION="${{ github.event.inputs.version }}"
