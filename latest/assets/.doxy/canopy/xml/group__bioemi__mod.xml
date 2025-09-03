@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__bioemi__mod" kind="group">
+    <compoundname>bioemi_mod</compoundname>
+    <title>Biogenic Emissions Module</title>
+    <innergroup refid="group__bioemi__inputs">Input Variables</innergroup>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__bioemi__mod_1gac12962641ac7aa370d2bbb4173a1e85d" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), dimension(:), intent(out) emi_out</definition>
+        <argsstring></argsstring>
+        <name>emi_out</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="189" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="189" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__mod_1ga65430e486ef52dadf8ccefa11cfd147c" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) output</definition>
+        <argsstring></argsstring>
+        <name>output</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="189" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__mod_1ga85f95f0068fb483e57fb490e47f5a27d" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) volume</definition>
+        <argsstring></argsstring>
+        <name>volume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="189" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Module for calculating canopy biogenic emissions. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,2298 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the Canopy-App atmospheric modeling system">
+      
+      
+        <meta name="author" content="P.C. Campbell and contributors">
+      
+      
+        <link rel="canonical" href="https://noaa-oar-arl.github.io/canopy-app/latest/canopy/canopy__drydep__mod_8F90/">
+      
+      
+      
+      
+      <link rel="icon" href="../../canopy-app-logo_no-bg.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>File canopy_drydep_mod.F90 - Canopy-App Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/noaa-theme.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#file-canopy_drydep_modf90" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Canopy-App Documentation" class="md-header__button md-logo" aria-label="Canopy-App Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Canopy-App Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              File canopy_drydep_mod.F90
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/noaa-oar-arl/canopy-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    noaa-oar-arl/canopy-app
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../user-guide/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../science/model-description/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Science Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../development/contributing/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../references/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  References
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../links/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Doxygen API
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Canopy-App Documentation" class="md-nav__button md-logo" aria-label="Canopy-App Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Canopy-App Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/noaa-oar-arl/canopy-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    noaa-oar-arl/canopy-app
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../getting-started/installation/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../user-guide/overview/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../science/model-description/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Science Documentation
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../api/overview/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../development/contributing/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../links/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Doxygen API
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespaces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Attributes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-attributes-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Attributes Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Attributes Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variable-ar_0" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ar_0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ar_l" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ar_l
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-cave_l" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable cave_l
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-chemmechgas_opt" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable chemmechgas_opt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-chemmechgas_tot" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable chemmechgas_tot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-cp_air" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable cp_air
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ctemp2" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ctemp2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-d3" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable d3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-dep_ind" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable dep_ind
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-dep_out" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable dep_out
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-dsoil" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable dsoil
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-dw" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable dw
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-dw25" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable dw25
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-f01" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable f01
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-fch" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable fch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-fsun" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable fsun
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-gamma_build" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable gamma_build
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-hstarl" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable hstarl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable i
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-kvisw" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable kvisw
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-lebas_l" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable lebas_l
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-lv" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable lv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-mdiffl" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable mdiffl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-mmg_l" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable mmg_l
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ppfd" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ppfd
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ppfd_shade" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ppfd_shade
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ppfd_sun" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ppfd_sun
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable pr
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-pressa" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable pressa
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-qv2" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable qv2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ra" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rb" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rbg" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rbg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rbw" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rbw
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rc" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rden" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rden
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-relhuma" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable relhuma
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rlx" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rlx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rm" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rnum" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rnum
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rs" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rsnow0" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rsnow0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rsnowl" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rsnowl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rsoill" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rsoill
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rt25ink" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rt25ink
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rurbanl" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rurbanl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rwaterl" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rwaterl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-scw_pr_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable scw_pr_23
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-socat" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable socat
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-sotyp" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable sotyp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-srad" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable srad
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-stheta" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable stheta
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-temp" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable temp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-temp2" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable temp2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-tempa" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable tempa
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-tempsoil" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable tempsoil
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-tw" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable tw
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-twothirds" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable twothirds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ubar" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ubar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ustar" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ustar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-vdlx" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable vdlx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-zk" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable zk
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="file-canopy_drydep_modf90">File canopy_drydep_mod.F90</h1>
+<p><a href="../files/"><strong>FileList</strong></a> <strong>&gt;</strong> <a href="../dir_68267d1309a1af8e8297ef4c3efbcdba/"><strong>src</strong></a> <strong>&gt;</strong> <a href="./"><strong>canopy_drydep_mod.F90</strong></a></p>
+<p><a href="../canopy__drydep__mod_8F90_source/">Go to the source code of this file</a></p>
+<p><em>Gas dry deposition calculations for canopy model.</em> <a href="#detailed-description">More...</a></p>
+<h2 id="namespaces">Namespaces</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">namespace</td>
+<td style="text-align: left;"><a href="../namespacecanopy__drydep__mod/"><strong>canopy_drydep_mod</strong></a> <br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-attributes">Public Attributes</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">real(rk), parameter</td>
+<td style="text-align: left;"><a href="#variable-ar_0"><strong>ar_0</strong></a>   = <code>8.0</code><br><em>Used to scale other species to HNO3 (dimensionless)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-ar_l"><strong>ar_l</strong></a>  <br><em>Reactivity denominator relative to HNO3 for each species (dimensionless)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-cave_l"><strong>cave_l</strong></a>  <br><em>Maxwell-Boltzmann average speed of gas distribution (m/s)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../canopy__bioparm__mod_8F90/#variable-integer"><strong>integer</strong></a>, intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a>  <br><em>Select chemical mechanism.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../canopy__bioparm__mod_8F90/#variable-integer"><strong>integer</strong></a>, intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a>  <br><em>Select chemical mechanism gas species list.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-cp_air"><strong>cp_air</strong></a>  <br><em>Specific heat of moist air (J/kg-K)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-ctemp2"><strong>ctemp2</strong></a>  <br><em>Mean temperature just above surface (C)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), parameter</td>
+<td style="text-align: left;"><a href="#variable-d3"><strong>d3</strong></a>   = <code>1.38564e-2</code><br><em>Scaling parameter used to estimate the friction velocity in surface waters from the atmospheric friction velocity to a value following Slinn et al.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../canopy__bioparm__mod_8F90/#variable-integer"><strong>integer</strong></a>, intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-dep_ind"><strong>dep_ind</strong></a>  <br><em>Gas deposition species index (depends on gas mech, set in constants)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(:), intent(<a href="../canopy__bioparm__mod_8F90/#variable-out"><strong>out</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-dep_out"><strong>dep_out</strong></a>  <br><em>Output canopy layer gas dry deposition rate for each DEP_IND (cm/s)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-dsoil"><strong>dsoil</strong></a>  <br><em>Depth of topsoil (cm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-dw"><strong>dw</strong></a>  <br><em>Diffusivity of water.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-dw25"><strong>dw25</strong></a>  <br><em>Diffusivity of water at 298.15 K.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-f01"><strong>f01</strong></a>  <br><em>Reactivity parameter based on DEP_IND (0-1)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-fch"><strong>fch</strong></a>  <br><em>Canopy height (m)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(:), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-fsun"><strong>fsun</strong></a>  <br><em>Sunlit/Shaded fraction from photolysis correction factor.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-gamma_build"><strong>gamma_build</strong></a>  <br><em>Reaction probability with building type (dimensionless) Default NL is average of range in gamma from as low as 10−8 for glass and metal to 10−4 for activated carbon and brick.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-hstarl"><strong>hstarl</strong></a>  <br><em>Effective Henry's law coefficient based on DEP_IND (M/atm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../canopy__bioparm__mod_8F90/#variable-integer"><strong>integer</strong></a></td>
+<td style="text-align: left;"><a href="#variable-i"><strong>i</strong></a>  <br><em>Loop index.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-kvisw"><strong>kvisw</strong></a>  <br><em>Kinematic viscosity of water (cm^2/s)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-lebas_l"><strong>lebas_l</strong></a>  <br><em>Le Bas molar volumes are from the Schroeder additive method (cm3/mol)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-lv"><strong>lv</strong></a>  <br><em>Latent heat of vaporization (J/kg)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(size(<a href="../canopy__var3din__mod_8F90/#variable-zk"><strong>zk</strong></a>))</td>
+<td style="text-align: left;"><a href="#variable-mdiffl"><strong>mdiffl</strong></a>  <br><em>Molecular diffusivity for species l based on DEP_IND (cm2/s)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-mmg_l"><strong>mmg_l</strong></a>  <br><em>Molar mass for each gas species (kg/mol)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(size(<a href="../canopy__var3din__mod_8F90/#variable-zk"><strong>zk</strong></a>))</td>
+<td style="text-align: left;"><a href="#variable-ppfd"><strong>ppfd</strong></a>  <br><em>PPFD ave sun and shade (umol/m2 s)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(:), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-ppfd_shade"><strong>ppfd_shade</strong></a>  <br><em>PPFD for shaded leaves (umol phot/m2 s)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(:), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-ppfd_sun"><strong>ppfd_sun</strong></a>  <br><em>PPFD for sunlit leaves (umol phot/m2 s)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), parameter</td>
+<td style="text-align: left;"><a href="#variable-pr"><strong>pr</strong></a>   = <code>0.709</code><br><em>Prandtl Number (dimensionless)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(:), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-pressa"><strong>pressa</strong></a>  <br><em>Ambient Pressure profile in canopy (mb)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-qv2"><strong>qv2</strong></a>  <br><em>Mean mixing ratio just above surface (kg/kg)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-ra"><strong>ra</strong></a>  <br><em>Aerodynamic resistance (s/cm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(size(<a href="../canopy__var3din__mod_8F90/#variable-zk"><strong>zk</strong></a>))</td>
+<td style="text-align: left;"><a href="#variable-rb"><strong>rb</strong></a>  <br><em>Boundary layer resistance for species l based on DEP_IND (s/cm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-rbg"><strong>rbg</strong></a>  <br><em>Ground boundary layer resistance (s/cm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-rbw"><strong>rbw</strong></a>  <br><em>Water boundary layer resistance (s/cm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(size(<a href="../canopy__var3din__mod_8F90/#variable-zk"><strong>zk</strong></a>))</td>
+<td style="text-align: left;"><a href="#variable-rc"><strong>rc</strong></a>  <br><em>Cuticular resistance for species l based on DEP_IND (s/cm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-rden"><strong>rden</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(:), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-relhuma"><strong>relhuma</strong></a>  <br><em>Ambient Relative Humidity profile in canopy (%)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-rlx"><strong>rlx</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(size(<a href="../canopy__var3din__mod_8F90/#variable-zk"><strong>zk</strong></a>))</td>
+<td style="text-align: left;"><a href="#variable-rm"><strong>rm</strong></a>  <br><em>Mesophyll resistance for species l based on DEP_IND (s/cm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-rnum"><strong>rnum</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(size(<a href="../canopy__var3din__mod_8F90/#variable-zk"><strong>zk</strong></a>))</td>
+<td style="text-align: left;"><a href="#variable-rs"><strong>rs</strong></a>  <br><em>Stomatal resistance for species l based on DEP_IND (s/cm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), parameter</td>
+<td style="text-align: left;"><a href="#variable-rsnow0"><strong>rsnow0</strong></a>   = <code>100.0</code><br><em>Resistance to deposition to snow (s/cm) based on Helmig et al.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-rsnowl"><strong>rsnowl</strong></a>  <br><em>Resistance to diffusion thru snow space for chemical species (s/cm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-rsoill"><strong>rsoill</strong></a>  <br><em>Resistance to diffusion thru soil pore space for chemical species (s/cm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), parameter</td>
+<td style="text-align: left;"><a href="#variable-rt25ink"><strong>rt25ink</strong></a>   = <code>1.0\_rk/(stdtemp + 25.0\_rk)</code><br><em>298.15K = 25C</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-rurbanl"><strong>rurbanl</strong></a>  <br><em>Resistance to diffusion thru snow space for chemical species (s/m)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-rwaterl"><strong>rwaterl</strong></a>  <br><em>Water surface resistance (s/cm)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-scw_pr_23"><strong>scw_pr_23</strong></a>  <br><em>(scw/pr)**2/3</em></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../canopy__bioparm__mod_8F90/#variable-integer"><strong>integer</strong></a>, intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-socat"><strong>socat</strong></a>  <br><em>Input soil category dataset used.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;"><a href="../canopy__bioparm__mod_8F90/#variable-integer"><strong>integer</strong></a>, intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-sotyp"><strong>sotyp</strong></a>  <br><em>Input soil type integer associated with soilcat.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-srad"><strong>srad</strong></a>  <br><em>Incoming solar irradiation top of canopy (W/m^2)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-stheta"><strong>stheta</strong></a>  <br><em>Volumetric soil water content in topsoil (m^3/m^3)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-temp"><strong>temp</strong></a>  <br><em>Mean temperature just above surface (K)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-temp2"><strong>temp2</strong></a>  <br><em>Mean temperature just above surface (K)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(:), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-tempa"><strong>tempa</strong></a>  <br><em>Ambient Temperature profile in canopy (K)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-tempsoil"><strong>tempsoil</strong></a>  <br><em>Soil temperature in topsoil (K)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-tw"><strong>tw</strong></a>  <br><em>Wet bulb temperature (K)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), parameter</td>
+<td style="text-align: left;"><a href="#variable-twothirds"><strong>twothirds</strong></a>   = <code>2.0\_rk / 3.0\_rk</code><br><em>Two thirds constant.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(:), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-ubar"><strong>ubar</strong></a>  <br><em>Mean above/in-canopy wind speed (m/s)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-ustar"><strong>ustar</strong></a>  <br><em>Friction velocity at surface (m/s)</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk)</td>
+<td style="text-align: left;"><a href="#variable-vdlx"><strong>vdlx</strong></a>  <br><em>Working variables for resistance calculations.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(:), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-zk"><strong>zk</strong></a>  <br><em>Model heights (m)</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="detailed-description">Detailed Description</h2>
+<p>This module implements parameterized canopy gas dry deposition based on Zhang et al. (2003) algorithms for various surface types including vegetation, soil, snow, urban surfaces, and water. </p>
+<p><strong>Author:</strong></p>
+<p>P.C. Campbell </p>
+<p><strong>Date:</strong></p>
+<p>February 2025 </p>
+<p><strong>Version:</strong></p>
+<p>1.0 </p>
+<h2 id="public-attributes-documentation">Public Attributes Documentation</h2>
+<h3 id="variable-ar_0">variable ar_0</h3>
+<p><em>Used to scale other species to HNO3 (dimensionless)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">parameter </span><span class="n">ar_0</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-ar_l">variable ar_l</h3>
+<p><em>Reactivity denominator relative to HNO3 for each species (dimensionless)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">ar_l</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-cave_l">variable cave_l</h3>
+<p><em>Maxwell-Boltzmann average speed of gas distribution (m/s)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">cave_l</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-chemmechgas_opt">variable chemmechgas_opt</h3>
+<p><em>Select chemical mechanism.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-chemmechgas_tot">variable chemmechgas_tot</h3>
+<p><em>Select chemical mechanism gas species list.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-cp_air">variable cp_air</h3>
+<p><em>Specific heat of moist air (J/kg-K)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">cp_air</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-ctemp2">variable ctemp2</h3>
+<p><em>Mean temperature just above surface (C)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">ctemp2</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-d3">variable d3</h3>
+<p><em>Scaling parameter used to estimate the friction velocity in surface waters from the atmospheric friction velocity to a value following Slinn et al.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">parameter </span><span class="n">d3</span><span class="p">;</span>
+</code></pre></div></p>
+<p>(1978) and Fairall et al. (2007) </p>
+<hr>
+
+<h3 id="variable-dep_ind">variable dep_ind</h3>
+<p><em>Gas deposition species index (depends on gas mech, set in constants)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">dep_ind</span><span class="p">;</span>
+</code></pre></div></p>
+<p>Gas deposition species index (depends on gas mech) </p>
+<hr>
+
+<h3 id="variable-dep_out">variable dep_out</h3>
+<p><em>Output canopy layer gas dry deposition rate for each DEP_IND (cm/s)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="n">dep_out</span><span class="p">;</span>
+</code></pre></div></p>
+<p>Output soil layer gas dry deposition rate for each DEP_IND (cm/s) </p>
+<hr>
+
+<h3 id="variable-dsoil">variable dsoil</h3>
+<p><em>Depth of topsoil (cm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">dsoil</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-dw">variable dw</h3>
+<p><em>Diffusivity of water.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">dw</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-dw25">variable dw25</h3>
+<p><em>Diffusivity of water at 298.15 K.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">dw25</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-f01">variable f01</h3>
+<p><em>Reactivity parameter based on DEP_IND (0-1)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">f01</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-fch">variable fch</h3>
+<p><em>Canopy height (m)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">fch</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-fsun">variable fsun</h3>
+<p><em>Sunlit/Shaded fraction from photolysis correction factor.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">fsun</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-gamma_build">variable gamma_build</h3>
+<p><em>Reaction probability with building type (dimensionless) Default NL is average of range in gamma from as low as 10−8 for glass and metal to 10−4 for activated carbon and brick.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">gamma_build</span><span class="p">;</span>
+</code></pre></div></p>
+<p>=5.0D-5. Reference (Shen and Gao, 2018; <a href="https://doi.org/10.1016/j.buildenv.2018.02.046">https://doi.org/10.1016/j.buildenv.2018.02.046</a>) </p>
+<hr>
+
+<h3 id="variable-hstarl">variable hstarl</h3>
+<p><em>Effective Henry's law coefficient based on DEP_IND (M/atm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">hstarl</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-i">variable i</h3>
+<p><em>Loop index.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">integer </span><span class="n">i</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-kvisw">variable kvisw</h3>
+<p><em>Kinematic viscosity of water (cm^2/s)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">kvisw</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-lebas_l">variable lebas_l</h3>
+<p><em>Le Bas molar volumes are from the Schroeder additive method (cm3/mol)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">lebas_l</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-lv">variable lv</h3>
+<p><em>Latent heat of vaporization (J/kg)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">lv</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-mdiffl">variable mdiffl</h3>
+<p><em>Molecular diffusivity for species l based on DEP_IND (cm2/s)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">mdiffl</span><span class="p">;</span>
+</code></pre></div></p>
+<p>Molecular diffusivity (cm^2/s) </p>
+<hr>
+
+<h3 id="variable-mmg_l">variable mmg_l</h3>
+<p><em>Molar mass for each gas species (kg/mol)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">mmg_l</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-ppfd">variable ppfd</h3>
+<p><em>PPFD ave sun and shade (umol/m2 s)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">zk</span><span class="p">))</span><span class="w"> </span><span class="n">ppfd</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-ppfd_shade">variable ppfd_shade</h3>
+<p><em>PPFD for shaded leaves (umol phot/m2 s)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd_shade</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-ppfd_sun">variable ppfd_sun</h3>
+<p><em>PPFD for sunlit leaves (umol phot/m2 s)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd_sun</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-pr">variable pr</h3>
+<p><em>Prandtl Number (dimensionless)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">parameter </span><span class="n">pr</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-pressa">variable pressa</h3>
+<p><em>Ambient Pressure profile in canopy (mb)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">pressa</span><span class="p">;</span>
+</code></pre></div></p>
+<p>Ambient Pressure just above surface (mb) </p>
+<hr>
+
+<h3 id="variable-qv2">variable qv2</h3>
+<p><em>Mean mixing ratio just above surface (kg/kg)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">qv2</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-ra">variable ra</h3>
+<p><em>Aerodynamic resistance (s/cm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ra</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rb">variable rb</h3>
+<p><em>Boundary layer resistance for species l based on DEP_IND (s/cm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">zk</span><span class="p">))</span><span class="w"> </span><span class="n">rb</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rbg">variable rbg</h3>
+<p><em>Ground boundary layer resistance (s/cm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">rbg</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rbw">variable rbw</h3>
+<p><em>Water boundary layer resistance (s/cm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">rbw</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rc">variable rc</h3>
+<p><em>Cuticular resistance for species l based on DEP_IND (s/cm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">zk</span><span class="p">))</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rden">variable rden</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">rden</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-relhuma">variable relhuma</h3>
+<p><em>Ambient Relative Humidity profile in canopy (%)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">relhuma</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rlx">variable rlx</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">rlx</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-rm">variable rm</h3>
+<p><em>Mesophyll resistance for species l based on DEP_IND (s/cm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">zk</span><span class="p">))</span><span class="w"> </span><span class="n">rm</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rnum">variable rnum</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">rnum</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-rs">variable rs</h3>
+<p><em>Stomatal resistance for species l based on DEP_IND (s/cm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">zk</span><span class="p">))</span><span class="w"> </span><span class="n">rs</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rsnow0">variable rsnow0</h3>
+<p><em>Resistance to deposition to snow (s/cm) based on Helmig et al.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">parameter </span><span class="n">rsnow0</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rsnowl">variable rsnowl</h3>
+<p><em>Resistance to diffusion thru snow space for chemical species (s/cm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">rsnowl</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rsoill">variable rsoill</h3>
+<p><em>Resistance to diffusion thru soil pore space for chemical species (s/cm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">rsoill</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rt25ink">variable rt25ink</h3>
+<p><em>298.15K = 25C</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">parameter </span><span class="n">rt25ink</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rurbanl">variable rurbanl</h3>
+<p><em>Resistance to diffusion thru snow space for chemical species (s/m)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">rurbanl</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-rwaterl">variable rwaterl</h3>
+<p><em>Water surface resistance (s/cm)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">rwaterl</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-scw_pr_23">variable scw_pr_23</h3>
+<p><em>(scw/pr)**2/3</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">scw_pr_23</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-socat">variable socat</h3>
+<p><em>Input soil category dataset used.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">socat</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-sotyp">variable sotyp</h3>
+<p><em>Input soil type integer associated with soilcat.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">sotyp</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-srad">variable srad</h3>
+<p><em>Incoming solar irradiation top of canopy (W/m^2)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">srad</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-stheta">variable stheta</h3>
+<p><em>Volumetric soil water content in topsoil (m^3/m^3)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">stheta</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-temp">variable temp</h3>
+<p><em>Mean temperature just above surface (K)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-temp2">variable temp2</h3>
+<p><em>Mean temperature just above surface (K)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">temp2</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-tempa">variable tempa</h3>
+<p><em>Ambient Temperature profile in canopy (K)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tempa</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-tempsoil">variable tempsoil</h3>
+<p><em>Soil temperature in topsoil (K)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tempsoil</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-tw">variable tw</h3>
+<p><em>Wet bulb temperature (K)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">tw</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-twothirds">variable twothirds</h3>
+<p><em>Two thirds constant.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">parameter </span><span class="n">twothirds</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-ubar">variable ubar</h3>
+<p><em>Mean above/in-canopy wind speed (m/s)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ubar</span><span class="p">;</span>
+</code></pre></div></p>
+<p>Mean wind speed just above surface (m/s) </p>
+<hr>
+
+<h3 id="variable-ustar">variable ustar</h3>
+<p><em>Friction velocity at surface (m/s)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ustar</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-vdlx">variable vdlx</h3>
+<p><em>Working variables for resistance calculations.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">vdlx</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<h3 id="variable-zk">variable zk</h3>
+<p><em>Model heights (m)</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">zk</span><span class="p">;</span>
+</code></pre></div></p>
+<hr>
+
+<hr />
+<p>The documentation for this class was generated from the following file <code>src/canopy_drydep_mod.F90</code></p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by <a href="https://github.com/noaa-oar-arl/canopy-app/issues/new/?title=[Docs]+File%20canopy_drydep_mod.F90+-+/canopy/canopy__drydep__mod_8F90/" target="_blank" rel="noopener">telling us what you found lacking</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 NOAA Air Resources Laboratory - P.C. Campbell and contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/noaa-oar-arl/canopy-app" target="_blank" rel="noopener" title="GitHub Repository" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.noaa.gov/" target="_blank" rel="noopener" title="NOAA Website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M351.9 280H161c2.9 64.5 17.2 123.9 37.5 167.4 11.4 24.5 23.7 41.8 35.1 52.4 11.2 10.5 18.9 12.2 22.9 12.2s11.7-1.7 22.9-12.2c11.4-10.6 23.7-28 35.1-52.4 20.3-43.5 34.6-102.9 37.5-167.4zm-191-48h190.9c-2.8-64.5-17.1-123.9-37.4-167.4-11.4-24.4-23.7-41.8-35.1-52.4C268.1 1.7 260.4 0 256.4 0s-11.7 1.7-22.9 12.2c-11.4 10.6-23.7 28-35.1 52.4-20.3 43.5-34.6 102.9-37.5 167.4m-48 0c3.5-85.6 25.6-165.1 57.9-217.3C78.7 47.3 10.9 131.2 1.5 232zM1.5 280c9.4 100.8 77.2 184.7 169.3 217.3-32.3-52.2-54.4-131.7-57.9-217.3zm398.4 0c-3.5 85.6-25.6 165.1-57.9 217.3 92.1-32.7 159.9-116.5 169.3-217.3zm111.4-48C501.9 131.2 434.1 47.3 342 14.7c32.3 52.2 54.4 131.7 57.9 217.3z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:patrick.c.campbell@noaa.gov" target="_blank" rel="noopener" title="Contact" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.prune", "navigation.indexes", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.tooltips"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="../../javascripts/noaa-enhancements.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

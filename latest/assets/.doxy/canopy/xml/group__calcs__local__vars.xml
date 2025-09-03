@@ -1,0 +1,801 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__calcs__local__vars" kind="group">
+    <compoundname>calcs_local_vars</compoundname>
+    <title>Local Variables</title>
+      <sectiondef kind="user-defined">
+      <header>Local Variables</header>
+      <description><para>Read supplementary canopy variables from text file</para>
+<para>Reads supplementary canopy variables from a text file into the canopy variables array. Used for additional canopy-specific inputs. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>TXTFILE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path to input text file containing canopy variables </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P.C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>October 2022 </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">txtfile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path to input text file </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+</description>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gacbe33a5171b6ec34639fa01ddb56517e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer loc</definition>
+        <argsstring></argsstring>
+        <name>loc</name>
+        <briefdescription>
+<para>I/O status and location counter. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="62" column="1" bodyfile="src/canopy_calcs.F90" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__calcs__local__vars_1gad92f10a8a0497b9f8c1d554d75673b93" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) aerodynamic</definition>
+        <argsstring></argsstring>
+        <name>aerodynamic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="70" column="1" bodyfile="src/canopy_calcs.F90" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga1c39eda26afc3557c276b80264650f1a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>real(rk) and</definition>
+        <argsstring></argsstring>
+        <name>and</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="62" column="1" bodyfile="src/canopy_calcs.F90" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gae9d1a73aefc23af9231f6e63950c3fbb" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) arrays</definition>
+        <argsstring></argsstring>
+        <name>arrays</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="71" column="1" bodyfile="src/canopy_calcs.F90" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gacd79b658763d42855119823e8c56acbc" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) averaging</definition>
+        <argsstring></argsstring>
+        <name>averaging</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="69" column="1" bodyfile="src/canopy_calcs.F90" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga3bd53586e086ffbf053c1623125f2ad6" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) between</definition>
+        <argsstring></argsstring>
+        <name>between</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="68" column="1" bodyfile="src/canopy_calcs.F90" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga5646015cefe734675f38e8bac9f5ee54" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) biogenics</definition>
+        <argsstring></argsstring>
+        <name>biogenics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="69" column="1" bodyfile="src/canopy_calcs.F90" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga0d709a9ca5df20b5c9b4d65ec126fd8a" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(saved <ref refid="group__var3din__inputs_1gadab32ca667acca22ce6d37aeca1bb4d1" kindref="member">from</ref> one <ref refid="group__calcs__local__vars_1gac49db8f2111c56a03bd2cf38ae1ed65b" kindref="member">timestep</ref> <ref refid="group__bioparm__inputs_1ga08c0b8620f03f74f743c134f326226cc" kindref="member">to</ref> <ref refid="group__phot__inputs_1ga0c58b476aeea8b56cff22446ea1d10e1" kindref="member">the</ref> next), save</type>
+        <definition>real(rk), dimension  (saved from one timestep to the next), save cm2</definition>
+        <argsstring></argsstring>
+        <name>cm2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="66" column="1" bodyfile="src/canopy_calcs.F90" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga401d7e1d8cdc05a1360b999aba9a7bfa" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer counters</definition>
+        <argsstring></argsstring>
+        <name>counters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="62" column="1" bodyfile="src/canopy_calcs.F90" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga13a16b2d7ecb11770ef57f20668f2e5c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>real(rk), save current</definition>
+        <argsstring></argsstring>
+        <name>current</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga0ee1e61d111e67b15e99f745283a3795" prot="public" static="no" mutable="no">
+        <type>real(rk), save</type>
+        <definition>real(rk), save currentlai</definition>
+        <argsstring></argsstring>
+        <name>currentlai</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="67" column="1" bodyfile="src/canopy_calcs.F90" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) d</definition>
+        <argsstring></argsstring>
+        <name>d</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="71" column="1" bodyfile="src/canopy_calcs.F90" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__utils__group_1gaabcb23e0c2bdb7e3bf6d192182cc30dc" compoundref="canopy__utils__mod_8F90" startline="1215" endline="1220">canopy_utils_mod::calccair</referencedby>
+        <referencedby refid="group__utils__group_1ga8146cf77b1f196409226fca98d44c760" compoundref="canopy__utils__mod_8F90" startline="1917" endline="1926">canopy_utils_mod::calcrib</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__utils__group_1ga149a5cc3d082fe6d563600c0e71c80dc" compoundref="canopy__utils__mod_8F90" startline="1856" endline="1909">canopy_utils_mod::rav</referencedby>
+        <referencedby refid="group__utils__group_1gaf840cb7c41011affe160cf584cb5a1fa" compoundref="canopy__utils__mod_8F90" startline="1396" endline="1403">canopy_utils_mod::rcl</referencedby>
+        <referencedby refid="group__utils__group_1ga3cbd1c93a9f821582f527132a5fcbc36" compoundref="canopy__utils__mod_8F90" startline="1619" endline="1645">canopy_utils_mod::seteffhenryslawcoeffs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gad91edcd10897ade7b2757d2e2e15b120" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) days</definition>
+        <argsstring></argsstring>
+        <name>days</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="68" column="1" bodyfile="src/canopy_calcs.F90" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga8a89ef0d431d2151be40e69ec9f44502" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) dep</definition>
+        <argsstring></argsstring>
+        <name>dep</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="70" column="1" bodyfile="src/canopy_calcs.F90" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga1b228039b71a55af15d7e0c16da49787" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) dnewfrac</definition>
+        <argsstring></argsstring>
+        <name>dnewfrac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="69" column="1" bodyfile="src/canopy_calcs.F90" bodystart="69" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga6fbd56aebd2c2509732be7e803454b86" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) doldfrac</definition>
+        <argsstring></argsstring>
+        <name>doldfrac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="69" column="1" bodyfile="src/canopy_calcs.F90" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga6f7764010577d1308784763a8b73a4c5" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) dry</definition>
+        <argsstring></argsstring>
+        <name>dry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="70" column="1" bodyfile="src/canopy_calcs.F90" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga0c4949035dc4639af092df22cd96fa9e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>integer save elapsed</definition>
+        <argsstring></argsstring>
+        <name>elapsed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga574aad91a56a11f9b11db59d72d6edd9" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) for</definition>
+        <argsstring></argsstring>
+        <name>for</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="69" column="1" bodyfile="src/canopy_calcs.F90" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gad335c34ee3f417226963d5acf1425d62" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) gas</definition>
+        <argsstring></argsstring>
+        <name>gas</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="70" column="1" bodyfile="src/canopy_calcs.F90" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gad84662fdf9c9ab59012b7dc46fd1453f" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) historical</definition>
+        <argsstring></argsstring>
+        <name>historical</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="69" column="1" bodyfile="src/canopy_calcs.F90" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gac9dbb37e7e6d89d43de20fa44a2cddff" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) hnewfrac</definition>
+        <argsstring></argsstring>
+        <name>hnewfrac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="69" column="1" bodyfile="src/canopy_calcs.F90" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga3da5429e8263ff07f89d729682e8dc0a" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) holdfrac</definition>
+        <argsstring></argsstring>
+        <name>holdfrac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="69" column="1" bodyfile="src/canopy_calcs.F90" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gaaea4baed8fd8b780f6938f0dc1fb0f72" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="62" column="1" bodyfile="src/canopy_calcs.F90" bodystart="62" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>integer save in</definition>
+        <argsstring></argsstring>
+        <name>in</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gaca9cf9310805035463e3a8887814058f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="62" column="1" bodyfile="src/canopy_calcs.F90" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gaaa310ad3dcce92e7e2f4c77036e8e049" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>integer save int</definition>
+        <argsstring></argsstring>
+        <name>int</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga316f097ac6195bced4a56f6bf0b194cc" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer int_nlaic</definition>
+        <argsstring></argsstring>
+        <name>int_nlaic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gacdf3b5db2752f8620572a6f75a029607" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>integer, save int_nlaip</definition>
+        <argsstring></argsstring>
+        <name>int_nlaip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="64" column="1" bodyfile="src/canopy_calcs.F90" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gaeadbc0ce9b66517f8fde156199772ec1" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer j</definition>
+        <argsstring></argsstring>
+        <name>j</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="62" column="1" bodyfile="src/canopy_calcs.F90" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gaf22c486581933c52df7d4aa306382074" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer k</definition>
+        <argsstring></argsstring>
+        <name>k</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="62" column="1" bodyfile="src/canopy_calcs.F90" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga4c289b7f93de1e353fb9a1b4637c9dce" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>real(rk), save lai</definition>
+        <argsstring></argsstring>
+        <name>lai</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga263b95b887cb540f4d28e78be216ecfa" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(nlon *nlat)</type>
+        <definition>real(rk), dimension(nlon*nlat) lat1d</definition>
+        <argsstring></argsstring>
+        <name>lat1d</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="72" column="1" bodyfile="src/canopy_calcs.F90" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga194157a57848247afb67eebe35276bed" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(nlon, nlat)</type>
+        <definition>real(rk), dimension(nlon,nlat) lat2d</definition>
+        <argsstring></argsstring>
+        <name>lat2d</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="71" column="1" bodyfile="src/canopy_calcs.F90" bodystart="71" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga710dbfc6508f0b1e264d912873d9cdc8" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) latitude</definition>
+        <argsstring></argsstring>
+        <name>latitude</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="71" column="1" bodyfile="src/canopy_calcs.F90" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga7d06385d5efaf1a099496972897aa2f7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer location</definition>
+        <argsstring></argsstring>
+        <name>location</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="62" column="1" bodyfile="src/canopy_calcs.F90" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gaa26ca8930726dee314c45f6613630582" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(nlon *nlat)</type>
+        <definition>real(rk), dimension(nlon*nlat) lon1d</definition>
+        <argsstring></argsstring>
+        <name>lon1d</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="72" column="1" bodyfile="src/canopy_calcs.F90" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga914976a0f6ae0f0f6797dcf8bf2253da" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(nlon, nlat)</type>
+        <definition>real(rk), dimension(nlon,nlat) lon2d</definition>
+        <argsstring></argsstring>
+        <name>lon2d</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="71" column="1" bodyfile="src/canopy_calcs.F90" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga8b14c13c0be9c56428041aeddb9b11e9" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) longitude</definition>
+        <argsstring></argsstring>
+        <name>longitude</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="71" column="1" bodyfile="src/canopy_calcs.F90" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga3f19d0a31ae878128ef35ea480f170cc" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer loop</definition>
+        <argsstring></argsstring>
+        <name>loop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="62" column="1" bodyfile="src/canopy_calcs.F90" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga715beef26113c9dca3d65434d983d401" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>real(rk), save model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gae832fde730209218f2a5553f79cc8dac" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) nlaic</definition>
+        <argsstring></argsstring>
+        <name>nlaic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="65" column="1" bodyfile="src/canopy_calcs.F90" bodystart="65" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga0790ea35f73669df11a16d9c280dda30" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) nlaip</definition>
+        <argsstring></argsstring>
+        <name>nlaip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="65" column="1" bodyfile="src/canopy_calcs.F90" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gab5a0f0f1b8e9cd9d4ea5b0a9dbbc423d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>real(rk), save number</definition>
+        <argsstring></argsstring>
+        <name>number</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gadc73e3bf1625a24cb039950cfa2fca57" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>real(rk), save of</definition>
+        <argsstring></argsstring>
+        <name>of</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gaef87f8d176fec0b17d908fd526115bf9" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>real(rk), save past</definition>
+        <argsstring></argsstring>
+        <name>past</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="64" column="1" bodyfile="src/canopy_calcs.F90" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga95121592d2fe557f03e497c5c590f8a6" prot="public" static="no" mutable="no">
+        <type>real(rk), save</type>
+        <definition>real(rk), save pastlai</definition>
+        <argsstring></argsstring>
+        <name>pastlai</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="66" column="1" bodyfile="src/canopy_calcs.F90" bodystart="66" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga8f98af611901890ea94b6a918f0a912d" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) ra</definition>
+        <argsstring></argsstring>
+        <name>ra</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="70" column="1" bodyfile="src/canopy_calcs.F90" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga4283cd4121c81a0373a02e776c013336" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) resistance</definition>
+        <argsstring></argsstring>
+        <name>resistance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="70" column="1" bodyfile="src/canopy_calcs.F90" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gacc95ace9cd91076324304f9a2a46caa3" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) rib</definition>
+        <argsstring></argsstring>
+        <name>rib</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="70" column="1" bodyfile="src/canopy_calcs.F90" bodystart="70" bodyend="70"/>
+        <referencedby refid="group__utils__group_1ga149a5cc3d082fe6d563600c0e71c80dc" compoundref="canopy__utils__mod_8F90" startline="1856" endline="1909">canopy_utils_mod::rav</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gab5af5b2ae6594a3dc7a05faf6095a6e5" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>real(rk), save the</definition>
+        <argsstring></argsstring>
+        <name>the</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gac49db8f2111c56a03bd2cf38ae1ed65b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>integer save timestep</definition>
+        <argsstring></argsstring>
+        <name>timestep</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1ga66332f52dd076cf153e2d0447c13e93e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, save</type>
+        <definition>integer save timesteps</definition>
+        <argsstring></argsstring>
+        <name>timesteps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="63" column="1" bodyfile="src/canopy_calcs.F90" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gaaa0009fbebc769d8334f695485652a6b" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) tsteplai</definition>
+        <argsstring></argsstring>
+        <name>tsteplai</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="68" column="1" bodyfile="src/canopy_calcs.F90" bodystart="68" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__calcs__local__vars_1gac885d6f077e71492930c3e248364f341" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) variables</definition>
+        <argsstring></argsstring>
+        <name>variables</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_calcs.F90" line="69" column="1" bodyfile="src/canopy_calcs.F90" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_ncf_io_mod::canopy_read_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Main canopy calculations dependent on canopy conditions. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This subroutine contains the main computational workflow for the canopy model. It processes meteorological inputs, performs canopy parameter calculations, and computes various canopy processes including:<itemizedlist>
+<listitem><para>Grid distance calculations for 2D domains</para>
+</listitem><listitem><para>Reference height assignments</para>
+</listitem><listitem><para>Canopy geometry and morphology calculations</para>
+</listitem><listitem><para>Wind profile calculations within and above canopy</para>
+</listitem><listitem><para>Radiation transfer and photosynthesis computations</para>
+</listitem><listitem><para>Leaf temperature calculations for sun and shade conditions</para>
+</listitem><listitem><para>Biogenic emission calculations</para>
+</listitem><listitem><para>Dry deposition velocity computations</para>
+</listitem><listitem><para>Fire-related wind adjustment factors</para>
+</listitem><listitem><para>Photolysis attenuation factors</para>
+</listitem><listitem><para>Eddy diffusivity profiles</para>
+</listitem></itemizedlist>
+</para>
+<para>The subroutine handles both 1D point calculations and 2D gridded computations depending on the input format option specified in the namelist.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">nn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input time step index </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">nn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dry deposition calculations </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

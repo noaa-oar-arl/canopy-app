@@ -1,0 +1,311 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__phot__inputs" kind="group">
+    <compoundname>phot_inputs</compoundname>
+    <title>Input Variables</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__phot__inputs_1gaa7a46160b58b6a3e0ebf172a0537b1f1" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) angle</definition>
+        <argsstring></argsstring>
+        <name>angle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="53" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1ga240ed71d2647db3b96e9ae72ded2c677" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) area</definition>
+        <argsstring></argsstring>
+        <name>area</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="51" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1gaa537c01d5b31f79caa48aae5d852557a" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) clu</definition>
+        <argsstring></argsstring>
+        <name>clu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="52" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1ga04096c4dea22f4dacc032e529976e302" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) clumping</definition>
+        <argsstring></argsstring>
+        <name>clumping</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="52" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1ga9ad6da1fbd614f9e63cc887b61128d39" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) cosine</definition>
+        <argsstring></argsstring>
+        <name>cosine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="53" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1gae5f7fb5be7f4dc03146878c4ddf7aecb" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) coszen</definition>
+        <argsstring></argsstring>
+        <name>coszen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="53" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1ga581ef9fe4e5b52519553814e0bf31486" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) fclai</definition>
+        <argsstring></argsstring>
+        <name>fclai</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="49" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1gadde7a1a96cb23fafe05f956c899386ec" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(<ref refid="group__var3din__inputs_1gac4649400bcadf4900ec594f10f472787" kindref="member">z</ref>), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (z), intent(in) fractional</definition>
+        <argsstring></argsstring>
+        <name>fractional</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="49" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1gafb8d48599cb0f62937e653da8915eb95" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="51" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1ga312856c28c718856736b714e4826b0fd" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) input</definition>
+        <argsstring></argsstring>
+        <name>input</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="49" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1gab2fa38240595d7cf5da16988f523e279" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) lai</definition>
+        <argsstring></argsstring>
+        <name>lai</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="51" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="51" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1gaa272975ad6e14bc5e2335931223b7745" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) leaf</definition>
+        <argsstring></argsstring>
+        <name>leaf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="51" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1gac5e9d4290a016d7f5743123de29b4fdf" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="49" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1ga30d341cb94b8f75e3c348ddbe56ea8cf" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) of</definition>
+        <argsstring></argsstring>
+        <name>of</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="49" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1ga4d293cc91fb2b458be366d43bce157c5" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) shapes</definition>
+        <argsstring></argsstring>
+        <name>shapes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="49" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1gac54c0f0c00c7cf70b606d8bfe6132daa" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) solar</definition>
+        <argsstring></argsstring>
+        <name>solar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="53" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1ga0c58b476aeea8b56cff22446ea1d10e1" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) the</definition>
+        <argsstring></argsstring>
+        <name>the</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="49" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1ga049b89090c1b63d39fb76772d4562e29" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) total</definition>
+        <argsstring></argsstring>
+        <name>total</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="51" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__inputs_1gad6f1b66799e0316e15ee79a557203095" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) zenith</definition>
+        <argsstring></argsstring>
+        <name>zenith</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="53" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Calculate photolysis attenuation in canopy. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This subroutine computes the photolysis correction factors within a forest canopy using the exponential attenuation model from Makar et al. (2017). The calculation accounts for:<itemizedlist>
+<listitem><para>Fractional cumulative leaf area index (FCLAI) profiles</para>
+</listitem><listitem><para>Total leaf area index (LAI)</para>
+</listitem><listitem><para>Clumping index to account for non-random leaf distribution</para>
+</listitem><listitem><para>Solar zenith angle effects on light penetration</para>
+</listitem></itemizedlist>
+</para>
+<para>The photolysis correction factor represents the fraction of photolysis rates relative to above-canopy conditions at each height within the canopy.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">FCLAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fractional cumulative LAI shapes of plant surface distribution (nondimensional) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input total Leaf Area Index (m²/m²) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CLU</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input Clumping Index (nondimensional) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">COSZEN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input Cosine Solar Zenith Angle (nondimensional) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">RJCF</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Photolysis correction factor (nondimensional) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

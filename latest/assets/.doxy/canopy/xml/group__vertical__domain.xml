@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__vertical__domain" kind="group">
+    <compoundname>vertical_domain</compoundname>
+    <title>Vertical Domain Variables</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__vertical__domain_1gab9d37524b26e0d4bd7b8ea84e15f2e8a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_coord_mod::modlays</definition>
+        <argsstring></argsstring>
+        <name>modlays</name>
+        <briefdescription>
+<para>Number of total above and below canopy model layers. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_coord_mod.F90" line="49" column="1" bodyfile="src/canopy_coord_mod.F90" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__vertical__domain_1gaed72cd10edd6daa122ded9e44acf9900" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_coord_mod::modres</definition>
+        <argsstring></argsstring>
+        <name>modres</name>
+        <briefdescription>
+<para>Model above and below canopy vertical resolution [m]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_coord_mod.F90" line="51" column="1" bodyfile="src/canopy_coord_mod.F90" bodystart="51" bodyend="51"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Variables defining the vertical domain of the canopy model. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

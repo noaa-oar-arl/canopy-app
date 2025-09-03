@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacecanopy__date__mod" kind="namespace" language="Fortran">
+    <compoundname>canopy_date_mod</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__date__group_1gadb3daf70fbceadfe85a443ddb6d5d479" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_date_mod::geth_idts</definition>
+        <argsstring>(newdate, olddate, idts)</argsstring>
+        <name>geth_idts</name>
+        <param>
+          <type>newdate</type>
+          <defname>newdate</defname>
+        </param>
+        <param>
+          <type>olddate</type>
+          <defname>olddate</defname>
+        </param>
+        <param>
+          <type>idts</type>
+          <defname>idts</defname>
+        </param>
+        <briefdescription>
+<para>Calculate time difference between two dates. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes the time difference in seconds between two input dates in the format &apos;YYYY-MM-DD HH:MM:SS.ffff&apos;. Handles leap years and different month lengths correctly. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>newdate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The new (later) date string &apos;YYYY-MM-DD HH:MM:SS.ffff&apos; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>olddate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The old (earlier) date string &apos;YYYY-MM-DD HH:MM:SS.ffff&apos; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time difference in seconds (newdate - olddate) [output] </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>NCAR, T. Otte </para>
+</simplesect>
+<simplesect kind="date"><para>February 2001, modified 2011 </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_date_mod.F90" line="58" column="1" bodyfile="src/canopy_date_mod.F90" bodystart="59" bodyend="297"/>
+        <references refid="group__date__group_1gaeb05e26612ca3dd4167632ed3d3b3860" compoundref="canopy__date__mod_8F90" startline="623" endline="641">nfeb</references>
+      </memberdef>
+      <memberdef kind="function" id="group__date__group_1gabf441683c9c1d303622dc1ea36603770" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_date_mod::geth_newdate</definition>
+        <argsstring>(ndate, odate, idt)</argsstring>
+        <name>geth_newdate</name>
+        <param>
+          <type>ndate</type>
+          <defname>ndate</defname>
+        </param>
+        <param>
+          <type>odate</type>
+          <defname>odate</defname>
+        </param>
+        <param>
+          <type>idt</type>
+          <defname>idt</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_date_mod.F90" line="302" column="1" bodyfile="src/canopy_date_mod.F90" bodystart="303" bodyend="617"/>
+        <references refid="group__date__group_1gaeb05e26612ca3dd4167632ed3d3b3860" compoundref="canopy__date__mod_8F90" startline="623" endline="641">nfeb</references>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__date__group_1gaddd86acce93c99543f8cfc5be7dff31b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_date_mod::getsdt</definition>
+        <argsstring>(hdate, sdate, stime)</argsstring>
+        <name>getsdt</name>
+        <param>
+          <type>hdate</type>
+          <defname>hdate</defname>
+        </param>
+        <param>
+          <type>sdate</type>
+          <defname>sdate</defname>
+        </param>
+        <param>
+          <type>stime</type>
+          <defname>stime</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_date_mod.F90" line="710" column="1" bodyfile="src/canopy_date_mod.F90" bodystart="711" bodyend="746"/>
+        <references refid="group__date__group_1ga8e187879daea3e6204ee4aa6aa199606" compoundref="canopy__date__mod_8F90" startline="667" endline="707">julian</references>
+      </memberdef>
+      <memberdef kind="function" id="group__date__group_1ga8e187879daea3e6204ee4aa6aa199606" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref> <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref></type>
+        <definition>integer function canopy_date_mod::julian</definition>
+        <argsstring>(year, mnth, mday)</argsstring>
+        <name>julian</name>
+        <param>
+          <type>year</type>
+          <defname>year</defname>
+        </param>
+        <param>
+          <type>mnth</type>
+          <defname>mnth</defname>
+        </param>
+        <param>
+          <type>mday</type>
+          <defname>mday</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_date_mod.F90" line="666" column="1" bodyfile="src/canopy_date_mod.F90" bodystart="667" bodyend="707"/>
+        <references refid="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" compoundref="canopy__bioemi__mod_8F90" startline="143">m</references>
+        <referencedby refid="group__date__group_1gaddd86acce93c99543f8cfc5be7dff31b" compoundref="canopy__date__mod_8F90" startline="711" endline="746">getsdt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__date__group_1gaeb05e26612ca3dd4167632ed3d3b3860" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref> <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref></type>
+        <definition>integer function canopy_date_mod::nfeb</definition>
+        <argsstring>(year)</argsstring>
+        <name>nfeb</name>
+        <param>
+          <type>year</type>
+          <defname>year</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_date_mod.F90" line="622" column="1" bodyfile="src/canopy_date_mod.F90" bodystart="623" bodyend="641"/>
+        <referencedby refid="group__date__group_1gadb3daf70fbceadfe85a443ddb6d5d479" compoundref="canopy__date__mod_8F90" startline="59" endline="297">geth_idts</referencedby>
+        <referencedby refid="group__date__group_1gabf441683c9c1d303622dc1ea36603770" compoundref="canopy__date__mod_8F90" startline="303" endline="617">geth_newdate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__date__group_1ga35957aff7019b228585cb7e607dcb440" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_date_mod::split_date_char</definition>
+        <argsstring>(date, century_year, month, day, hour, minute, second)</argsstring>
+        <name>split_date_char</name>
+        <param>
+          <type>date</type>
+          <defname>date</defname>
+        </param>
+        <param>
+          <type>century_year</type>
+          <defname>century_year</defname>
+        </param>
+        <param>
+          <type>month</type>
+          <defname>month</defname>
+        </param>
+        <param>
+          <type>day</type>
+          <defname>day</defname>
+        </param>
+        <param>
+          <type>hour</type>
+          <defname>hour</defname>
+        </param>
+        <param>
+          <type>minute</type>
+          <defname>minute</defname>
+        </param>
+        <param>
+          <type>second</type>
+          <defname>second</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_date_mod.F90" line="645" column="1" bodyfile="src/canopy_date_mod.F90" bodystart="646" bodyend="663"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/canopy_date_mod.F90" line="20" column="1"/>
+  </compounddef>
+</doxygen>

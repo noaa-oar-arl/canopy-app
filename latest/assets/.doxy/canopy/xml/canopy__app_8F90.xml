@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="canopy__app_8F90" kind="file" language="Fortran">
+    <compoundname>canopy_app.F90</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>program</type>
+        <definition>program canopy_app</definition>
+        <argsstring></argsstring>
+        <name>canopy_app</name>
+        <briefdescription>
+<para>Main Canopy Application Program. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This program coordinates the entire canopy model workflow including:<itemizedlist>
+<listitem><para>Reading user options from namelist</para>
+</listitem><listitem><para>Allocating and initializing variables</para>
+</listitem><listitem><para>Setting up input/output data structures</para>
+</listitem><listitem><para>Time stepping through the simulation period</para>
+</listitem><listitem><para>Calling main canopy calculations</para>
+</listitem><listitem><para>Writing output files</para>
+</listitem><listitem><para>Cleanup and deallocation </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_app.F90" line="29" column="1" bodyfile="src/canopy_app.F90" bodystart="29" bodyend="-1"/>
+        <references refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</references>
+        <references refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</references>
+        <references refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</references>
+        <references refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</references>
+        <references refid="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" compoundref="canopy__read__txt_8F90" startline="23" endline="41">canopy_read_txt</references>
+        <references refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</references>
+        <references refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</references>
+        <references refid="group__write__txt_1gaaa758bd839ed984e162eef9dbdc7038c" compoundref="canopy__write__txt_8F90" startline="23" endline="35">canopy_write_txt</references>
+        <references refid="group__file__arrays_1ga6f66c8ebefa74176797a06f17efe0677" compoundref="canopy__files__mod_8F90" startline="42" endline="42">canopy_files_mod::file_canvars</references>
+        <references refid="group__file__arrays_1ga89a83ef8abda85131555afd9932706b2" compoundref="canopy__files__mod_8F90" startline="44" endline="44">canopy_files_mod::file_out</references>
+        <references refid="group__file__arrays_1ga4d6f2843daec94c4a0804f743f1e9969" compoundref="canopy__files__mod_8F90" startline="40" endline="40">canopy_files_mod::file_vars</references>
+        <references refid="group__date__group_1gabf441683c9c1d303622dc1ea36603770" compoundref="canopy__date__mod_8F90" startline="303" endline="617">canopy_date_mod::geth_newdate</references>
+        <references refid="group__time__domain_1gaf9bec413b2a74c1c542d5f44c2345224" compoundref="canopy__coord__mod_8F90" startline="29" endline="29">canopy_coord_mod::ntime</references>
+        <references refid="group__time__domain_1ga8f726078dc2174d9044bb3fb1efbf4f2" compoundref="canopy__coord__mod_8F90" startline="27" endline="27">canopy_coord_mod::time_intvl</references>
+        <references refid="group__time__domain_1gaaa7c8c023d081706aef8548c53b01359" compoundref="canopy__coord__mod_8F90" startline="23" endline="23">canopy_coord_mod::time_start</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Main Canopy Application Program. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This is the main application program that coordinates the canopy model calculations by orchestrating input reading, model initialization, time stepping, canopy calculations, and output writing.</para>
+<para><simplesect kind="author"><para>Patrick C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>June 2022</para>
+</simplesect>
+<simplesect kind="version"><para><itemizedlist>
+<listitem><para>Prototype: Patrick C. Campbell, 06/2022</para>
+</listitem><listitem><para>Revised: PCC (10/2022)</para>
+</listitem><listitem><para>21 Aug 2023: Adding multiple timesteps (P.C. Campbell)</para>
+</listitem><listitem><para>Revised: 30 Nov 2023: Added supplementary canopy profile, file_canvars (P.C. Campbell) </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="15"></codeline>
+<codeline lineno="19"></codeline>
+<codeline lineno="29" refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" refkind="member"><highlight class="keyword">program</highlight><highlight class="normal"><sp/><ref refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" kindref="member">canopy_app</ref></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__date__mod" kindref="compound">canopy_date_mod</ref><sp/><sp/><sp/><sp/></highlight><highlight class="comment">!<sp/>main<sp/>canopy<sp/>date<sp/>module</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__files__mod" kindref="compound">canopy_files_mod</ref><sp/><sp/><sp/></highlight><highlight class="comment">!<sp/>main<sp/>canopy<sp/>input<sp/>files</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__coord__mod" kindref="compound">canopy_coord_mod</ref><sp/><sp/><sp/></highlight><highlight class="comment">!<sp/>main<sp/>canopy<sp/>coordinates</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>NETCDF</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__ncf__io__mod" kindref="compound">canopy_ncf_io_mod</ref></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">implicit<sp/>none</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=24)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/>time_next</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=24)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/>time_now</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=24)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/>time_now_file</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal"><sp/><sp/><sp/>::<sp/>n,nn</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/><sp/>CHARACTER(LEN=24)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/>nn_string</highlight></codeline>
+<codeline lineno="53"></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=256)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/>::<sp/>f100<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;(//,<sp/>1x,<sp/>78(&apos;~&apos;),<sp/>&amp;</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral"></highlight><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&amp;<sp/>/,<sp/><sp/>1x,<sp/>&apos;~~~<sp/>Processing<sp/>canopy-app<sp/>for<sp/>time<sp/>=<sp/>&apos;,<sp/>a,<sp/><sp/>&amp;</highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral"></highlight><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&amp;<sp/>/,<sp/><sp/>1x,<sp/>78(&apos;~&apos;),<sp/>/)&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="group__utils__group_1gab3ea55e33061c1980467674980682879" kindref="member">canopy_readnml</ref></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">canopy_alloc</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" kindref="member">canopy_init</ref></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>NETCDF</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" kindref="member">canopy_outncf_alloc</ref></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" kindref="member">canopy_outncf_init</ref></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>time_now<sp/>=<sp/><ref refid="group__time__domain_1gaaa7c8c023d081706aef8548c53b01359" kindref="member">time_start</ref></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="group__time__domain_1gaf9bec413b2a74c1c542d5f44c2345224" kindref="member">ntime</ref>.le.0)<sp/><ref refid="group__time__domain_1gaf9bec413b2a74c1c542d5f44c2345224" kindref="member">ntime</ref>=999999999<sp/></highlight><highlight class="comment">!<sp/>assign<sp/>a<sp/>large<sp/>number</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>timeloop:<sp/></highlight><highlight class="keywordflow">DO</highlight><highlight class="normal"><sp/>nn=1,<ref refid="group__time__domain_1gaf9bec413b2a74c1c542d5f44c2345224" kindref="member">ntime</ref></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">WRITE</highlight><highlight class="normal"><sp/>(*,f100)<sp/>time_now</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>NETCDF</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">canopy_check_input(<ref refid="group__file__arrays_1ga4d6f2843daec94c4a0804f743f1e9969" kindref="member">file_vars</ref>(nn),<ref refid="group__file__arrays_1ga6f66c8ebefa74176797a06f17efe0677" kindref="member">file_canvars</ref>(nn))</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" kindref="member">canopy_read_txt</ref>(<ref refid="group__file__arrays_1ga4d6f2843daec94c4a0804f743f1e9969" kindref="member">file_vars</ref>(nn),<ref refid="group__file__arrays_1ga6f66c8ebefa74176797a06f17efe0677" kindref="member">file_canvars</ref>(nn))</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">canopy_calcs(nn)</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>time_now_file=time_now</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>n<sp/>=<sp/>1,<sp/>len(time_now_file)</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(time_now_file(n:n)<sp/>==<sp/></highlight><highlight class="stringliteral">&apos;:&apos;</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>time_now_file(n:n)<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;-&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>if</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>do</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="group__write__txt_1gaaa758bd839ed984e162eef9dbdc7038c" kindref="member">canopy_write_txt</ref>((trim(<ref refid="group__file__arrays_1ga89a83ef8abda85131555afd9932706b2" kindref="member">file_out</ref>(1))<sp/>//<sp/></highlight><highlight class="stringliteral">&apos;_&apos;</highlight><highlight class="normal"><sp/>//<sp/>trim(time_now_file)),time_now)</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(nn.lt.10)<sp/>then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>call<sp/>canopy_write_txt((trim(file_out(1))<sp/>//<sp/>&apos;_t00&apos;<sp/>//<sp/>ADJUSTL(nn_string)),<sp/>&amp;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>time_now)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else<sp/>if<sp/>(nn.ge.10.and.nn.lt.100)<sp/>then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>call<sp/>canopy_write_txt((trim(file_out(1))<sp/>//<sp/>&apos;_t0&apos;<sp/>//<sp/>ADJUSTL(nn_string)),<sp/>&amp;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>time_now)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>call<sp/>canopy_write_txt((trim(file_out(1))<sp/>//<sp/>&apos;_t&apos;<sp/>//<sp/>ADJUSTL(nn_string)),<sp/>&amp;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>time_now)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">!<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>if</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>NETCDF</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" kindref="member">canopy_write_ncf</ref>(trim(<ref refid="group__file__arrays_1ga89a83ef8abda85131555afd9932706b2" kindref="member">file_out</ref>(1))<sp/>//<sp/></highlight><highlight class="stringliteral">&apos;_&apos;</highlight><highlight class="normal"><sp/>//<sp/>adjustl(time_now_file))</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">CALL<sp/></highlight><highlight class="normal"><ref refid="group__date__group_1gabf441683c9c1d303622dc1ea36603770" kindref="member">geth_newdate</ref><sp/>(time_next,<sp/>time_now,<sp/><ref refid="group__time__domain_1ga8f726078dc2174d9044bb3fb1efbf4f2" kindref="member">time_intvl</ref>)</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>time_now<sp/>=<sp/>time_next</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/>ENDDO</highlight><highlight class="normal"><sp/>timeloop</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" kindref="member">canopy_dealloc</ref></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">WRITE</highlight><highlight class="normal"><sp/>(*,</highlight><highlight class="stringliteral">&apos;(//,<sp/>a)&apos;</highlight><highlight class="normal">)<sp/></highlight><highlight class="stringliteral">&apos;Canopy-App<sp/>Finished<sp/>Normally&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>program<sp/></highlight><highlight class="normal"><ref refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" kindref="member">canopy_app</ref></highlight></codeline>
+    </programlisting>
+    <location file="src/canopy_app.F90"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1022 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__drydep__group" kind="group">
+    <compoundname>drydep_group</compoundname>
+    <title>Gas Dry Deposition Calculations</title>
+      <sectiondef kind="user-defined">
+      <header>Input Parameters</header>
+      <description><para>Gas dry deposition to water surfaces</para>
+<para>Calculates gas dry deposition velocity to water surfaces based on Henry&apos;s law coefficient, wet bulb temperature calculations, and diffusivity considerations following established parameterizations. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CHEMMECHGAS_OPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Chemical mechanism option selector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CHEMMECHGAS_TOT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total number of gas species in chemical mechanism </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TEMP2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mean temperature just above surface (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QV2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mean mixing ratio just above surface (kg/kg) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>USTAR</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Friction velocity at surface (m/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RA</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Aerodynamic resistance (s/cm) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DEP_IND</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gas deposition species index (depends on gas mechanism) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DEP_OUT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output water surface gas dry deposition rate (cm/s) [output] </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P.C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>February 2025 </para>
+</simplesect>
+<simplesect kind="note"><para>Based on Slinn et al. (1978), Fairall et al. (2007), and Fritschen and Gay (1979) </para>
+</simplesect>
+</para>
+</description>
+      <memberdef kind="variable" id="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) chemmechgas_opt</definition>
+        <argsstring></argsstring>
+        <name>chemmechgas_opt</name>
+        <briefdescription>
+<para>Select chemical mechanism. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="56" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="56" bodyend="56"/>
+        <referencedby refid="group__utils__group_1gab7aaf7725f96338bac795e5a4ff3c0c2" compoundref="canopy__utils__mod_8F90" startline="1602" endline="1610">canopy_utils_mod::effhenryslawcoeff</referencedby>
+        <referencedby refid="group__utils__group_1ga4012f78879de80d028b28f3c7f4e999e" compoundref="canopy__utils__mod_8F90" startline="1802" endline="1810">canopy_utils_mod::lebasmvgas</referencedby>
+        <referencedby refid="group__utils__group_1ga248f51dc89ea08ee41f2cf79f13bcc9f" compoundref="canopy__utils__mod_8F90" startline="1752" endline="1760">canopy_utils_mod::molarmassgas</referencedby>
+        <referencedby refid="group__utils__group_1gadb04d3dbbd51c5230a98cf13592194d7" compoundref="canopy__utils__mod_8F90" startline="1281" endline="1291">canopy_utils_mod::molecdiff</referencedby>
+        <referencedby refid="group__utils__group_1ga34f53ebdcf5fa67812a064a42d8ca6dc" compoundref="canopy__utils__mod_8F90" startline="1652" endline="1660">canopy_utils_mod::reactivityparam</referencedby>
+        <referencedby refid="group__utils__group_1gaebeb0654adb72a47ad278d6dffb74a2b" compoundref="canopy__utils__mod_8F90" startline="1702" endline="1710">canopy_utils_mod::reactivityparamhno3</referencedby>
+        <referencedby refid="group__utils__group_1ga3cbd1c93a9f821582f527132a5fcbc36" compoundref="canopy__utils__mod_8F90" startline="1619" endline="1645">canopy_utils_mod::seteffhenryslawcoeffs</referencedby>
+        <referencedby refid="group__utils__group_1ga1ba1a7cb15857912aab31421a77c90ba" compoundref="canopy__utils__mod_8F90" startline="1819" endline="1845">canopy_utils_mod::setlebasmvgas</referencedby>
+        <referencedby refid="group__utils__group_1gad0e47f742908a655f57ff26f9e52d27b" compoundref="canopy__utils__mod_8F90" startline="1769" endline="1795">canopy_utils_mod::setmolarmassgas</referencedby>
+        <referencedby refid="group__utils__group_1ga77a2f1046081bd3a13af4014060931e9" compoundref="canopy__utils__mod_8F90" startline="1243" endline="1273">canopy_utils_mod::setmolecdiffstp</referencedby>
+        <referencedby refid="group__utils__group_1gae606505780e1f654defcd107d16c32cd" compoundref="canopy__utils__mod_8F90" startline="1719" endline="1745">canopy_utils_mod::setreactivityhno3</referencedby>
+        <referencedby refid="group__utils__group_1gae583dbe8fb88b195f504f012904b45cb" compoundref="canopy__utils__mod_8F90" startline="1669" endline="1695">canopy_utils_mod::setreactivityparams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) chemmechgas_tot</definition>
+        <argsstring></argsstring>
+        <name>chemmechgas_tot</name>
+        <briefdescription>
+<para>Select chemical mechanism gas species list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="57" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="57" bodyend="57"/>
+        <referencedby refid="group__utils__group_1gab7aaf7725f96338bac795e5a4ff3c0c2" compoundref="canopy__utils__mod_8F90" startline="1602" endline="1610">canopy_utils_mod::effhenryslawcoeff</referencedby>
+        <referencedby refid="group__utils__group_1ga4012f78879de80d028b28f3c7f4e999e" compoundref="canopy__utils__mod_8F90" startline="1802" endline="1810">canopy_utils_mod::lebasmvgas</referencedby>
+        <referencedby refid="group__utils__group_1ga248f51dc89ea08ee41f2cf79f13bcc9f" compoundref="canopy__utils__mod_8F90" startline="1752" endline="1760">canopy_utils_mod::molarmassgas</referencedby>
+        <referencedby refid="group__utils__group_1gadb04d3dbbd51c5230a98cf13592194d7" compoundref="canopy__utils__mod_8F90" startline="1281" endline="1291">canopy_utils_mod::molecdiff</referencedby>
+        <referencedby refid="group__utils__group_1ga34f53ebdcf5fa67812a064a42d8ca6dc" compoundref="canopy__utils__mod_8F90" startline="1652" endline="1660">canopy_utils_mod::reactivityparam</referencedby>
+        <referencedby refid="group__utils__group_1gaebeb0654adb72a47ad278d6dffb74a2b" compoundref="canopy__utils__mod_8F90" startline="1702" endline="1710">canopy_utils_mod::reactivityparamhno3</referencedby>
+        <referencedby refid="group__utils__group_1ga3cbd1c93a9f821582f527132a5fcbc36" compoundref="canopy__utils__mod_8F90" startline="1619" endline="1645">canopy_utils_mod::seteffhenryslawcoeffs</referencedby>
+        <referencedby refid="group__utils__group_1ga1ba1a7cb15857912aab31421a77c90ba" compoundref="canopy__utils__mod_8F90" startline="1819" endline="1845">canopy_utils_mod::setlebasmvgas</referencedby>
+        <referencedby refid="group__utils__group_1gad0e47f742908a655f57ff26f9e52d27b" compoundref="canopy__utils__mod_8F90" startline="1769" endline="1795">canopy_utils_mod::setmolarmassgas</referencedby>
+        <referencedby refid="group__utils__group_1ga77a2f1046081bd3a13af4014060931e9" compoundref="canopy__utils__mod_8F90" startline="1243" endline="1273">canopy_utils_mod::setmolecdiffstp</referencedby>
+        <referencedby refid="group__utils__group_1gae606505780e1f654defcd107d16c32cd" compoundref="canopy__utils__mod_8F90" startline="1719" endline="1745">canopy_utils_mod::setreactivityhno3</referencedby>
+        <referencedby refid="group__utils__group_1gae583dbe8fb88b195f504f012904b45cb" compoundref="canopy__utils__mod_8F90" startline="1669" endline="1695">canopy_utils_mod::setreactivityparams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) zk</definition>
+        <argsstring></argsstring>
+        <name>zk</name>
+        <briefdescription>
+<para>Model heights (m) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="58" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="58" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga58903d4fbed988ec5e610958a66bd5ad" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) fch</definition>
+        <argsstring></argsstring>
+        <name>fch</name>
+        <briefdescription>
+<para>Canopy height (m) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="59" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="59" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gae2b157e5a18cbd634cb3b2a844ec3ed0" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) fsun</definition>
+        <argsstring></argsstring>
+        <name>fsun</name>
+        <briefdescription>
+<para>Sunlit/Shaded fraction from photolysis correction factor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="60" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gaece20e83eed7d489abc55b53f2c2e619" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) ppfd_sun</definition>
+        <argsstring></argsstring>
+        <name>ppfd_sun</name>
+        <briefdescription>
+<para>PPFD for sunlit leaves (umol phot/m2 s) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="61" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="61" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga8b5fe0004a36271a2d7edc02f07c4b7b" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) ppfd_shade</definition>
+        <argsstring></argsstring>
+        <name>ppfd_shade</name>
+        <briefdescription>
+<para>PPFD for shaded leaves (umol phot/m2 s) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="62" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="62" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga5a5d68bb957e2ede7d4993f295b06852" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) tempa</definition>
+        <argsstring></argsstring>
+        <name>tempa</name>
+        <briefdescription>
+<para>Ambient Temperature profile in canopy (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="63" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="63" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga0572cb0aaaf222a636deaf055799d7c8" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) pressa</definition>
+        <argsstring></argsstring>
+        <name>pressa</name>
+        <briefdescription>
+<para>Ambient Pressure profile in canopy (mb) </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Ambient Pressure just above surface (mb) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="64" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga7472cee4942b86289d40f41dc6b9933f" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) relhuma</definition>
+        <argsstring></argsstring>
+        <name>relhuma</name>
+        <briefdescription>
+<para>Ambient Relative Humidity profile in canopy (%) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="65" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="65" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga6e6096171957e9d01a8d50ccc4884060" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) ubar</definition>
+        <argsstring></argsstring>
+        <name>ubar</name>
+        <briefdescription>
+<para>Mean above/in-canopy wind speed (m/s) </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Mean wind speed just above surface (m/s) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="66" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="66" bodyend="66"/>
+        <referencedby refid="group__utils__group_1ga149a5cc3d082fe6d563600c0e71c80dc" compoundref="canopy__utils__mod_8F90" startline="1856" endline="1909">canopy_utils_mod::rav</referencedby>
+        <referencedby refid="group__utils__group_1ga1ae995099777336af6bb828f8da7ab8d" compoundref="canopy__utils__mod_8F90" startline="1567" endline="1577">canopy_utils_mod::soilrbg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gae598a7b2f21f1bb0ade6ec97e4acce8a" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) srad</definition>
+        <argsstring></argsstring>
+        <name>srad</name>
+        <briefdescription>
+<para>Incoming solar irradiation top of canopy (W/m^2) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="67" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="67" bodyend="67"/>
+        <referencedby refid="group__utils__group_1ga8cf7fc0966b3a57b4655dd04b9ef326b" compoundref="canopy__utils__mod_8F90" startline="1317" endline="1371">canopy_utils_mod::rs_zhang_gas</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga802b14b6667bba4ff5f5f76dd3e7168c" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) ra</definition>
+        <argsstring></argsstring>
+        <name>ra</name>
+        <briefdescription>
+<para>Aerodynamic resistance (s/cm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="68" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="68" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga7e40156690e99f8fd876ce69f6a05871" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) dep_ind</definition>
+        <argsstring></argsstring>
+        <name>dep_ind</name>
+        <briefdescription>
+<para>Gas deposition species index (depends on gas mech, set in constants) </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Gas deposition species index (depends on gas mech) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="69" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="69" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gafc3ef9bf148f65b0cc76f9ca8da424ff" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) tempsoil</definition>
+        <argsstring></argsstring>
+        <name>tempsoil</name>
+        <briefdescription>
+<para>Soil temperature in topsoil (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="148" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="148" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga3d205317e539f20db9a194ecbcf0188e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) socat</definition>
+        <argsstring></argsstring>
+        <name>socat</name>
+        <briefdescription>
+<para>Input soil category dataset used. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="151" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="151" bodyend="151"/>
+        <referencedby refid="group__utils__group_1ga2604b0a6c14947af2c057ba089c94d16" compoundref="canopy__utils__mod_8F90" startline="1429" endline="1558">canopy_utils_mod::soilresist</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga9c65e7579d13055be636ee8b2475179b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) sotyp</definition>
+        <argsstring></argsstring>
+        <name>sotyp</name>
+        <briefdescription>
+<para>Input soil type integer associated with soilcat. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="152" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="152" bodyend="152"/>
+        <referencedby refid="group__utils__group_1ga2604b0a6c14947af2c057ba089c94d16" compoundref="canopy__utils__mod_8F90" startline="1429" endline="1558">canopy_utils_mod::soilresist</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gaf77f712334a1777f730fa3ce9c3a1e81" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) dsoil</definition>
+        <argsstring></argsstring>
+        <name>dsoil</name>
+        <briefdescription>
+<para>Depth of topsoil (cm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="153" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="153" bodyend="153"/>
+        <referencedby refid="group__utils__group_1ga2604b0a6c14947af2c057ba089c94d16" compoundref="canopy__utils__mod_8F90" startline="1429" endline="1558">canopy_utils_mod::soilresist</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gab3f4ff7d9c48e5d71d2b0af8a78755f8" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) stheta</definition>
+        <argsstring></argsstring>
+        <name>stheta</name>
+        <briefdescription>
+<para>Volumetric soil water content in topsoil (m^3/m^3) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="154" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="154" bodyend="154"/>
+        <referencedby refid="group__utils__group_1ga2604b0a6c14947af2c057ba089c94d16" compoundref="canopy__utils__mod_8F90" startline="1429" endline="1558">canopy_utils_mod::soilresist</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gace37926573e2cb30a20c7a68a37bedb2" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) temp</definition>
+        <argsstring></argsstring>
+        <name>temp</name>
+        <briefdescription>
+<para>Mean temperature just above surface (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="271" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="271" bodyend="271"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gaa89eb8edca248e821f4b71ddb5be19d0" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) gamma_build</definition>
+        <argsstring></argsstring>
+        <name>gamma_build</name>
+        <briefdescription>
+<para>Reaction probability with building type (dimensionless) Default NL is average of range in gamma from as low as 10−8 for glass and metal to 10−4 for activated carbon and brick. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>=5.0D-5. Reference (Shen and Gao, 2018; <ulink url="https://doi.org/10.1016/j.buildenv.2018.02.046">https://doi.org/10.1016/j.buildenv.2018.02.046</ulink>) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="272" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="272" bodyend="272"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga0d2ba7d32b18e29bdb055d5fc48c5ade" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) temp2</definition>
+        <argsstring></argsstring>
+        <name>temp2</name>
+        <briefdescription>
+<para>Mean temperature just above surface (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="339" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="339" bodyend="339"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga0f51db40958c5340da2d7cfc5bde3095" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) qv2</definition>
+        <argsstring></argsstring>
+        <name>qv2</name>
+        <briefdescription>
+<para>Mean mixing ratio just above surface (kg/kg) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="340" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="340" bodyend="340"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga8ece472fdbc07ee4926bcbb7909a08c9" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) ustar</definition>
+        <argsstring></argsstring>
+        <name>ustar</name>
+        <briefdescription>
+<para>Friction velocity at surface (m/s) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="341" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="341" bodyend="341"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__drydep__group_1gacf6db63b73ab93fa45b062f1cc6bfa4a" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) dep_out</definition>
+        <argsstring></argsstring>
+        <name>dep_out</name>
+        <briefdescription>
+<para>Output canopy layer gas dry deposition rate for each DEP_IND (cm/s) </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Output soil layer gas dry deposition rate for each DEP_IND (cm/s) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="74" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="74" bodyend="74"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__drydep__group_1ga00bcd2ed98002e4587f50764d5ad61a7" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) ppfd</definition>
+        <argsstring></argsstring>
+        <name>ppfd</name>
+        <briefdescription>
+<para>PPFD ave sun and shade (umol/m2 s) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="79" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="79" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gac5b57be235607dbf37fd80158b30bbce" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk) mdiffl</definition>
+        <argsstring></argsstring>
+        <name>mdiffl</name>
+        <briefdescription>
+<para>Molecular diffusivity for species l based on DEP_IND (cm2/s) </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Molecular diffusivity (cm^2/s) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="80" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="80" bodyend="80"/>
+        <referencedby refid="group__utils__group_1ga6bcc084fd779f53ed44a15b117bf2cde" compoundref="canopy__utils__mod_8F90" startline="1381" endline="1387">canopy_utils_mod::rbl</referencedby>
+        <referencedby refid="group__utils__group_1ga8cf7fc0966b3a57b4655dd04b9ef326b" compoundref="canopy__utils__mod_8F90" startline="1317" endline="1371">canopy_utils_mod::rs_zhang_gas</referencedby>
+        <referencedby refid="group__utils__group_1ga2604b0a6c14947af2c057ba089c94d16" compoundref="canopy__utils__mod_8F90" startline="1429" endline="1558">canopy_utils_mod::soilresist</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga5fe9b6caeaccdf10a1bf8c01a1b50a90" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) rs</definition>
+        <argsstring></argsstring>
+        <name>rs</name>
+        <briefdescription>
+<para>Stomatal resistance for species l based on DEP_IND (s/cm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="81" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="81" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga6072bf6820f7bfb5dd69c5b3a7ba571e" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) rb</definition>
+        <argsstring></argsstring>
+        <name>rb</name>
+        <briefdescription>
+<para>Boundary layer resistance for species l based on DEP_IND (s/cm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="82" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="82" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga4328d095fe6a60395fb7b9a6f506ed2e" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) rc</definition>
+        <argsstring></argsstring>
+        <name>rc</name>
+        <briefdescription>
+<para>Cuticular resistance for species l based on DEP_IND (s/cm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="83" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="83" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga4d2236cf869c79872f1b6c972c447ef6" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) rm</definition>
+        <argsstring></argsstring>
+        <name>rm</name>
+        <briefdescription>
+<para>Mesophyll resistance for species l based on DEP_IND (s/cm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="84" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="84" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gaa0a8b38c4efaa75cf5587d59faa879c2" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) hstarl</definition>
+        <argsstring></argsstring>
+        <name>hstarl</name>
+        <briefdescription>
+<para>Effective Henry&apos;s law coefficient based on DEP_IND (M/atm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="85" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="85" bodyend="85"/>
+        <referencedby refid="group__utils__group_1gaf840cb7c41011affe160cf584cb5a1fa" compoundref="canopy__utils__mod_8F90" startline="1396" endline="1403">canopy_utils_mod::rcl</referencedby>
+        <referencedby refid="group__utils__group_1ga7552f5c48aa99523c42180cfc0e5a8bf" compoundref="canopy__utils__mod_8F90" startline="1413" endline="1419">canopy_utils_mod::rml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga488738eec06bc800ff5186f79d8ee029" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) f01</definition>
+        <argsstring></argsstring>
+        <name>f01</name>
+        <briefdescription>
+<para>Reactivity parameter based on DEP_IND (0-1) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="86" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="86" bodyend="86"/>
+        <referencedby refid="group__utils__group_1gaf840cb7c41011affe160cf584cb5a1fa" compoundref="canopy__utils__mod_8F90" startline="1396" endline="1403">canopy_utils_mod::rcl</referencedby>
+        <referencedby refid="group__utils__group_1ga7552f5c48aa99523c42180cfc0e5a8bf" compoundref="canopy__utils__mod_8F90" startline="1413" endline="1419">canopy_utils_mod::rml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga6890f6a047bc4523b1d637a1185ba018" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) rnum</definition>
+        <argsstring></argsstring>
+        <name>rnum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="87" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="87" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gaa595e462e8f320ae126a900f83628aa8" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) rden</definition>
+        <argsstring></argsstring>
+        <name>rden</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="87" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga30c63f5c4e51ca5c5e67d81061f90a37" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) rlx</definition>
+        <argsstring></argsstring>
+        <name>rlx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="87" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga684cee3b8af19cc5424a3e0b9668364f" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) vdlx</definition>
+        <argsstring></argsstring>
+        <name>vdlx</name>
+        <briefdescription>
+<para>Working variables for resistance calculations. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="87" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gaaea4baed8fd8b780f6938f0dc1fb0f72" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <briefdescription>
+<para>Loop index. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="88" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="88" bodyend="88"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__drydep__group_1ga2ac6a7dd5479a492bfbb6cc52f9ea180" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) rsoill</definition>
+        <argsstring></argsstring>
+        <name>rsoill</name>
+        <briefdescription>
+<para>Resistance to diffusion thru soil pore space for chemical species (s/cm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="167" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="167" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gab36c23b6c264952d86ab0c5729a29e84" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) rbg</definition>
+        <argsstring></argsstring>
+        <name>rbg</name>
+        <briefdescription>
+<para>Ground boundary layer resistance (s/cm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="168" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="168" bodyend="168"/>
+        <referencedby refid="group__utils__group_1ga1ae995099777336af6bb828f8da7ab8d" compoundref="canopy__utils__mod_8F90" startline="1567" endline="1577">canopy_utils_mod::soilrbg</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__drydep__group_1ga37fb1e69d4f321a6de40d835516e1ae4" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter ar_0</definition>
+        <argsstring></argsstring>
+        <name>ar_0</name>
+        <initializer>= 8.0</initializer>
+        <briefdescription>
+<para>Used to scale other species to HNO3 (dimensionless) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="222" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="222" bodyend="222"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga3d60cdfc4ffd58eda7589c8038e1785b" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) ar_l</definition>
+        <argsstring></argsstring>
+        <name>ar_l</name>
+        <briefdescription>
+<para>Reactivity denominator relative to HNO3 for each species (dimensionless) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="223" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="223" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga07c37ef464b6f2c787e600c683eb98ff" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter rsnow0</definition>
+        <argsstring></argsstring>
+        <name>rsnow0</name>
+        <initializer>= 100.0</initializer>
+        <briefdescription>
+<para>Resistance to deposition to snow (s/cm) based on Helmig et al. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="224" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="224" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gae929c2d3f948175de86e14fb213df9a0" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) rsnowl</definition>
+        <argsstring></argsstring>
+        <name>rsnowl</name>
+        <briefdescription>
+<para>Resistance to diffusion thru snow space for chemical species (s/cm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="225" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="225" bodyend="225"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__drydep__group_1ga154ce586a3592e75af61cf1fcb3aa95e" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) mmg_l</definition>
+        <argsstring></argsstring>
+        <name>mmg_l</name>
+        <briefdescription>
+<para>Molar mass for each gas species (kg/mol) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="288" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="288" bodyend="288"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gae980ef06ebbfe268862c09b4d5cfd3ed" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) cave_l</definition>
+        <argsstring></argsstring>
+        <name>cave_l</name>
+        <briefdescription>
+<para>Maxwell-Boltzmann average speed of gas distribution (m/s) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="289" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="289" bodyend="289"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gaea097ec0d3a0c01078a12192904eb9e8" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) rurbanl</definition>
+        <argsstring></argsstring>
+        <name>rurbanl</name>
+        <briefdescription>
+<para>Resistance to diffusion thru snow space for chemical species (s/m) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="290" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="290" bodyend="290"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__drydep__group_1gac61334c342b9fc1a819e30f74cfe946a" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) ctemp2</definition>
+        <argsstring></argsstring>
+        <name>ctemp2</name>
+        <briefdescription>
+<para>Mean temperature just above surface (C) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="354" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="354" bodyend="354"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga7aa9afa79fc2c3dd3e84f5e497caa097" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) lv</definition>
+        <argsstring></argsstring>
+        <name>lv</name>
+        <briefdescription>
+<para>Latent heat of vaporization (J/kg) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="355" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="355" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga80f0f3e55372881c00ba28ed6035b8ba" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) cp_air</definition>
+        <argsstring></argsstring>
+        <name>cp_air</name>
+        <briefdescription>
+<para>Specific heat of moist air (J/kg-K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="356" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="356" bodyend="356"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga666816571d6aa019aa64705ad62663eb" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) tw</definition>
+        <argsstring></argsstring>
+        <name>tw</name>
+        <briefdescription>
+<para>Wet bulb temperature (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="357" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="357" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gadf3346b493dfd7ddb8e573b6ebf7a634" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) lebas_l</definition>
+        <argsstring></argsstring>
+        <name>lebas_l</name>
+        <briefdescription>
+<para>Le Bas molar volumes are from the Schroeder additive method (cm3/mol) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="358" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="358" bodyend="358"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gafdb4429a116149973547974bf56af04b" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) dw</definition>
+        <argsstring></argsstring>
+        <name>dw</name>
+        <briefdescription>
+<para>Diffusivity of water. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="359" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="359" bodyend="359"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gabf238dea59b13816797aaf2cc4720089" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) dw25</definition>
+        <argsstring></argsstring>
+        <name>dw25</name>
+        <briefdescription>
+<para>Diffusivity of water at 298.15 K. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="360" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="360" bodyend="360"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga98b987cdd9b8f7d7d64c48e630e5a0ea" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) kvisw</definition>
+        <argsstring></argsstring>
+        <name>kvisw</name>
+        <briefdescription>
+<para>Kinematic viscosity of water (cm^2/s) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="361" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="361" bodyend="361"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga1bdc1fba54cd2fddfd8e0927efab11e1" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) scw_pr_23</definition>
+        <argsstring></argsstring>
+        <name>scw_pr_23</name>
+        <briefdescription>
+<para>(scw/pr)**2/3 </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="362" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="362" bodyend="362"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gaa6ea4519a4f3ca9bc11971b14881a695" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) rbw</definition>
+        <argsstring></argsstring>
+        <name>rbw</name>
+        <briefdescription>
+<para>Water boundary layer resistance (s/cm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="363" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="363" bodyend="363"/>
+        <referencedby refid="group__utils__group_1gaa60ef969ac96b048c73dffa3f0a3cb5b" compoundref="canopy__utils__mod_8F90" startline="1586" endline="1594">canopy_utils_mod::waterrbw</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga865f9f1d45d2516158ba3c3e8f7789c4" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) rwaterl</definition>
+        <argsstring></argsstring>
+        <name>rwaterl</name>
+        <briefdescription>
+<para>Water surface resistance (s/cm) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="364" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="364" bodyend="364"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__drydep__group_1ga67e597d069036cd6c9432f5105e0e57c" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter pr</definition>
+        <argsstring></argsstring>
+        <name>pr</name>
+        <initializer>= 0.709</initializer>
+        <briefdescription>
+<para>Prandtl Number (dimensionless) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="369" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="369" bodyend="369"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga0a087e8ad309a65f632f0bcd2e07a004" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter rt25ink</definition>
+        <argsstring></argsstring>
+        <name>rt25ink</name>
+        <initializer>= 1.0_rk/(stdtemp + 25.0_rk)</initializer>
+        <briefdescription>
+<para>298.15K = 25C </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="370" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="370" bodyend="370"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1gad5c821e0410a0a8428840978d1f81955" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter twothirds</definition>
+        <argsstring></argsstring>
+        <name>twothirds</name>
+        <initializer>= 2.0_rk / 3.0_rk</initializer>
+        <briefdescription>
+<para>Two thirds constant. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="371" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="371" bodyend="371"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__drydep__group_1ga87b72c1a80aa2180d61801fbb736fb47" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter d3</definition>
+        <argsstring></argsstring>
+        <name>d3</name>
+        <initializer>= 1.38564e-2</initializer>
+        <briefdescription>
+<para>Scaling parameter used to estimate the friction velocity in surface waters from the atmospheric friction velocity to a value following Slinn et al. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>(1978) and Fairall et al. (2007) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_drydep_mod.F90" line="372" column="1" bodyfile="src/canopy_drydep_mod.F90" bodystart="372" bodyend="372"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Routines for calculating gas dry deposition to various surface types. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This group contains subroutines for calculating gas dry deposition velocities to vegetation, soil, snow, urban surfaces, and water based on Zhang et al. (2003) and other established parameterizations. </para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

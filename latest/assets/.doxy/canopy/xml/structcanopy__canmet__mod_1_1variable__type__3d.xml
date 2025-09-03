@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structcanopy__canmet__mod_1_1variable__type__3d" kind="type" language="Fortran" prot="public">
+    <compoundname>canopy_canmet_mod::variable_type_3d</compoundname>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__3d_1a25b40295b6ab0e645baba21721f0f0c8" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type_3d::pavd</definition>
+        <argsstring></argsstring>
+        <name>pavd</name>
+        <briefdescription>
+<para>Plant Area Volume Density profile. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Plant Area Volume Density (PAVD) profile <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m²/m³ </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="236" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="236" bodyend="236"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>3D Plant Area Volume Density variables </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Type for 3D PAVD input variables </para>
+    </detaileddescription>
+    <location file="src/canopy_canmet_mod.F90" line="232" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="232" bodyend="237"/>
+    <listofallmembers>
+      <member refid="structcanopy__canmet__mod_1_1variable__type__3d_1a25b40295b6ab0e645baba21721f0f0c8" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type_3d</scope><name>pavd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

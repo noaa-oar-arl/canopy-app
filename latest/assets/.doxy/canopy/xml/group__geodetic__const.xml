@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__geodetic__const" kind="group">
+    <compoundname>geodetic_const</compoundname>
+    <title>Geodetic Constants</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__geodetic__const_1ga24e2077844b592781a128a65a596cc2a" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_const_mod::dg2m</definition>
+        <argsstring></argsstring>
+        <name>dg2m</name>
+        <briefdescription>
+<para>Latitude degrees to meters conversion factor [m/deg]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="67" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__geodetic__const_1ga6b7103c3a336492d882e1f85d5d0ad93" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::grav</definition>
+        <argsstring></argsstring>
+        <name>grav</name>
+        <initializer>= 9.80622_rk</initializer>
+        <briefdescription>
+<para>Mean gravitational acceleration [m/sec²]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Mean of polar and equatorial values (Source: CRC76, pp. 14-6) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="64" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__geodetic__const_1ga8cd2ff5e64c11ed4608834097f16303c" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::rearth</definition>
+        <argsstring></argsstring>
+        <name>rearth</name>
+        <initializer>= 6371008.8_rk</initializer>
+        <briefdescription>
+<para>Radius of Earth [m]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Radius of sphere having same surface area as Clarke ellipsoid of 1866 WGS84 arithmetic mean radius (Source: Snyder, 1987) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="57" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__geodetic__const_1gad4f6891af7fc6e01e3e650879ea53a93" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::siday</definition>
+        <argsstring></argsstring>
+        <name>siday</name>
+        <initializer>= 86164.09_rk</initializer>
+        <briefdescription>
+<para>Length of a sidereal day <ulink url="Source: CRC76, pp. 14-6">sec</ulink> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="60" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__geodetic__const_1ga38f416c6f3c953f6654bb632c74531d6" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::solcnst</definition>
+        <argsstring></argsstring>
+        <name>solcnst</name>
+        <initializer>= 1373.0</initializer>
+        <briefdescription>
+<para>Solar Constant <ulink url="Source: CRC76, pp. 14-2">W/m²</ulink> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="70" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="70" bodyend="70"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Earth geometry and geodetic constants. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

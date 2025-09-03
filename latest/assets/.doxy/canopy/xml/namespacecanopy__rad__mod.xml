@@ -1,0 +1,438 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacecanopy__rad__mod" kind="namespace" language="Fortran">
+    <compoundname>canopy_rad_mod</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__canopy__radiation_1ga817075c885c28dffde38361f4159e3a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_rad_mod::canopy_fsun_clu</definition>
+        <argsstring>(FCLAI, LAI, CLU, COSZEN, FSUN)</argsstring>
+        <name>canopy_fsun_clu</name>
+        <param>
+          <type>FCLAI</type>
+          <defname>FCLAI</defname>
+        </param>
+        <param>
+          <type>LAI</type>
+          <defname>LAI</defname>
+        </param>
+        <param>
+          <type>CLU</type>
+          <defname>CLU</defname>
+        </param>
+        <param>
+          <type>COSZEN</type>
+          <defname>COSZEN</defname>
+        </param>
+        <param>
+          <type>FSUN</type>
+          <defname>FSUN</defname>
+        </param>
+        <briefdescription>
+<para>Calculate sunlit fraction using clumping index. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes sunlit/shaded fraction through canopy using photolysis correction factor and clumping index</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">FCLAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fractional cumulative LAI profile (dimensionless) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input total Leaf Area Index (m²/m²) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CLU</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input Clumping Index (dimensionless) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">COSZEN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input Cosine Solar Zenith Angle (dimensionless) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">FSUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sunlit/Shaded fraction from photolysis correction factor </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P. C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>Jun 2023 </para>
+</simplesect>
+<simplesect kind="note"><para>Based on Bonan (2019) equation 14.18 for clumping correction </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_rad_mod.F90" line="31" column="1" bodyfile="src/canopy_rad_mod.F90" bodystart="32" bodyend="67"/>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+      </memberdef>
+      <memberdef kind="function" id="group__canopy__radiation_1ga44abae1b598c05e773207789755164f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_rad_mod::canopy_ppfd_exp</definition>
+        <argsstring>(ZK, FCH, SFCRAD, LAI, FSUN, PPFD_SUN, PPFD_SHADE, PPFD_AVE)</argsstring>
+        <name>canopy_ppfd_exp</name>
+        <param>
+          <type>ZK</type>
+          <defname>ZK</defname>
+        </param>
+        <param>
+          <type>FCH</type>
+          <defname>FCH</defname>
+        </param>
+        <param>
+          <type>SFCRAD</type>
+          <defname>SFCRAD</defname>
+        </param>
+        <param>
+          <type>LAI</type>
+          <defname>LAI</defname>
+        </param>
+        <param>
+          <type>FSUN</type>
+          <defname>FSUN</defname>
+        </param>
+        <param>
+          <type>PPFD_SUN</type>
+          <defname>PPFD_SUN</defname>
+        </param>
+        <param>
+          <type>PPFD_SHADE</type>
+          <defname>PPFD_SHADE</defname>
+        </param>
+        <param>
+          <type>PPFD_AVE</type>
+          <defname>PPFD_AVE</defname>
+        </param>
+        <briefdescription>
+<para>Calculate PPFD profiles using exponential model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes photosynthetic photon flux density for sunlit and shaded leaves through canopy using exponential decay models from Silva et al. (2020)</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ZK</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input model heights (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FCH</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input canopy height (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SFCRAD</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input instantaneous surface downward shortwave flux (W/m²) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input total Leaf Area Index (m²/m²) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FSUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sunlit/Shaded fraction from photolysis correction factor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">PPFD_SUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PPFD for sunlit leaves (μmol photons/m²/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">PPFD_SHADE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PPFD for shaded leaves (μmol photons/m²/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">PPFD_AVE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Average PPFD for sunlit and shaded leaves (μmol photons/m²/s) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P. C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>Jun 2023 </para>
+</simplesect>
+<simplesect kind="note"><para>Based on Silva et al. (2020) 5-layer canopy exponential PPFD model Silva, S. J., Heald, C. L., and Guenther, A. B. (2020). Development of a reduced-complexity plant canopy physics surrogate model for use in chemical transport models: a case study with GEOS-Chem v12.3.0. Geoscientific Model Development, 13, 2569-2585. <ulink url="https://doi.org/10.5194/gmd-13-2569-2020">https://doi.org/10.5194/gmd-13-2569-2020</ulink> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Exponential PPFD regression coefficient C for sunlit leaves at level 1</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 1 (top of canopy) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient C for sunlit leaves at level 2</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 2 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient C for sunlit leaves at level 3</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 3 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient C for sunlit leaves at level 4</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 4 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient C for sunlit leaves at level 5</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 5 (bottom) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient D for sunlit leaves at level 1</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 1 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient D for sunlit leaves at level 2</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 2 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient D for sunlit leaves at level 3</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 3 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient D for sunlit leaves at level 4</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 4 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient D for sunlit leaves at level 5</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 5 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient C for shaded leaves at level 1</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 1 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient C for shaded leaves at level 2</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 2 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient C for shaded leaves at level 3</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 3 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient C for shaded leaves at level 4</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 4 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient C for shaded leaves at level 5</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 5 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient D for shaded leaves at level 1</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 1 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient D for shaded leaves at level 2</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 2 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient D for shaded leaves at level 3</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 3 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient D for shaded leaves at level 4</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 4 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Exponential PPFD regression coefficient D for shaded leaves at level 5</para>
+<para>Regression coefficient from Silva et al. (2020) Table 1, level 5 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Fraction of PAR in solar irradiance</para>
+<para>Fraction of incoming solar irradiance that is photosynthetically active radiation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Regression coefficient C for sun leaves</para>
+<para>Height-interpolated regression coefficient C for sun leaves</para>
+<para>Regression coefficient D for sun leaves</para>
+<para>Height-interpolated regression coefficient D for sun leaves</para>
+<para>Regression coefficient C for shade leaves</para>
+<para>Height-interpolated regression coefficient C for shade leaves</para>
+<para>Regression coefficient D for shade leaves</para>
+<para>Height-interpolated regression coefficient D for shade leaves</para>
+<para>Loop index</para>
+<para>Loop index for height levels</para>
+        </inbodydescription>
+        <location file="src/canopy_rad_mod.F90" line="90" column="1" bodyfile="src/canopy_rad_mod.F90" bodystart="92" bodyend="302"/>
+        <references refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" compoundref="canopy__utils__mod_8F90" startline="67" endline="86">canopy_utils_mod::interp_linear1_internal</references>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/canopy_rad_mod.F90" line="12" column="1"/>
+  </compounddef>
+</doxygen>

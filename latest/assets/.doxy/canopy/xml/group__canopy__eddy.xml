@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__canopy__eddy" kind="group">
+    <compoundname>canopy_eddy</compoundname>
+    <title>Canopy Eddy Diffusivity</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__canopy__eddy_1ga11c37cfcc5385c9f158e4be92855f51f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_eddy_mod::canopy_eddyx</definition>
+        <argsstring>(HCM, ZK, USTAR, MOL, KZ)</argsstring>
+        <name>canopy_eddyx</name>
+        <param>
+          <type>HCM</type>
+          <defname>HCM</defname>
+        </param>
+        <param>
+          <type>ZK</type>
+          <defname>ZK</defname>
+        </param>
+        <param>
+          <type>USTAR</type>
+          <defname>USTAR</defname>
+        </param>
+        <param>
+          <type>MOL</type>
+          <defname>MOL</defname>
+        </param>
+        <param>
+          <type>KZ</type>
+          <defname>KZ</defname>
+        </param>
+        <briefdescription>
+<para>Calculate canopy eddy diffusivity. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes Eddy Diffusivity, Kz, within and just above canopy using stability-dependent parameterizations for different atmospheric conditions</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">HCM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Height of canopy top (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ZK</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Above/Below canopy height, z (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">USTAR</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input friction velocity (m/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MOL</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input Monin-Obukhov Length (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">KZ</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Estimated Eddy Diffusivity with canopy turbulence (m²/s) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P. C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>Jun 2022 </para>
+</simplesect>
+<simplesect kind="note"><para>Based on Makar et al. (2017) algorithms for canopy turbulence Makar, P., Staebler, R., Akingunola, A. et al. (2017). The effects of forest canopy shading and turbulence on boundary layer ozone. Nature Communications, 8, 15243. <ulink url="https://doi.org/10.1038/ncomms15243">https://doi.org/10.1038/ncomms15243</ulink> Raupach, M. R. (1989). A Practical Lagrangian method for relating scalar concentrations to source distributions in vegetation canopies. Quarterly Journal of the Royal Meteorological Society, 115, 609-632. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Local canopy stability parameter</para>
+<para>Canopy stability parameter (hc/MOL) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Turbulence length scale in canopy</para>
+<para>Turbulence length scale in canopy from Raupach (1989) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m)</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Sigma parameter R</para>
+<para>Sigma parameter R from Makar et al. (2017) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Sigma parameter A</para>
+<para>Sigma parameter A from Makar et al. (2017) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Sigma parameter B</para>
+<para>Sigma parameter B from Makar et al. (2017) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Eulerian vertical velocity</para>
+<para>Eulerian vertical velocity variance <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m/s</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </inbodydescription>
+        <location file="src/canopy_eddy_mod.F90" line="37" column="1" bodyfile="src/canopy_eddy_mod.F90" bodystart="38" bodyend="155"/>
+        <references refid="group__geom__const_1ga6a99f47ba1f4f9cf9e4421be86a0672b" compoundref="canopy__const__mod_8F90" startline="43" endline="43">canopy_const_mod::pi</references>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Eddy diffusivity calculations within and above canopy. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

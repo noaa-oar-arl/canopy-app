@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__bioemi__const" kind="group">
+    <compoundname>bioemi_const</compoundname>
+    <title>Biogenic Emission Constants</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__bioemi__const_1gae95c35cb0fb6a44b00a9cdbc5aaa4704" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::tau_days</definition>
+        <argsstring></argsstring>
+        <name>tau_days</name>
+        <initializer>= 5.0_rk</initializer>
+        <briefdescription>
+<para>E-folding time for long-term past conditions for biogenic emissions [days]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="163" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="163" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__const_1gafefa73352d147f5066390277fd014dc7" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::tau_hours</definition>
+        <argsstring></argsstring>
+        <name>tau_hours</name>
+        <initializer>= 12.0_rk</initializer>
+        <briefdescription>
+<para>E-folding time for short-term past conditions for biogenic emissions [hours]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="166" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="166" bodyend="166"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Constants for biogenic emission calculations. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

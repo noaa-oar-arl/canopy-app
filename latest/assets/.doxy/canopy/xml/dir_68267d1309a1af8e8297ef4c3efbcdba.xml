@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="canopy__alloc_8F90">canopy_alloc.F90</innerfile>
+    <innerfile refid="canopy__app_8F90">canopy_app.F90</innerfile>
+    <innerfile refid="canopy__bioemi__mod_8F90">canopy_bioemi_mod.F90</innerfile>
+    <innerfile refid="canopy__bioparm__mod_8F90">canopy_bioparm_mod.F90</innerfile>
+    <innerfile refid="canopy__calcs_8F90">canopy_calcs.F90</innerfile>
+    <innerfile refid="canopy__canmet__mod_8F90">canopy_canmet_mod.F90</innerfile>
+    <innerfile refid="canopy__canopts__mod_8F90">canopy_canopts_mod.F90</innerfile>
+    <innerfile refid="canopy__canvars__mod_8F90">canopy_canvars_mod.F90</innerfile>
+    <innerfile refid="canopy__check__input_8F90">canopy_check_input.F90</innerfile>
+    <innerfile refid="canopy__const__mod_8F90">canopy_const_mod.F90</innerfile>
+    <innerfile refid="canopy__coord__mod_8F90">canopy_coord_mod.F90</innerfile>
+    <innerfile refid="canopy__date__mod_8F90">canopy_date_mod.F90</innerfile>
+    <innerfile refid="canopy__dealloc_8F90">canopy_dealloc.F90</innerfile>
+    <innerfile refid="canopy__drydep__mod_8F90">canopy_drydep_mod.F90</innerfile>
+    <innerfile refid="canopy__dxcalc__mod_8F90">canopy_dxcalc_mod.F90</innerfile>
+    <innerfile refid="canopy__eddy__mod_8F90">canopy_eddy_mod.F90</innerfile>
+    <innerfile refid="canopy__files__mod_8F90">canopy_files_mod.F90</innerfile>
+    <innerfile refid="canopy__fire__mod_8F90">canopy_fire_mod.F90</innerfile>
+    <innerfile refid="canopy__init_8F90">canopy_init.F90</innerfile>
+    <innerfile refid="canopy__ncf__io__mod_8F90">canopy_ncf_io_mod.F90</innerfile>
+    <innerfile refid="canopy__phot__mod_8F90">canopy_phot_mod.F90</innerfile>
+    <innerfile refid="canopy__profile__mod_8F90">canopy_profile_mod.F90</innerfile>
+    <innerfile refid="canopy__rad__mod_8F90">canopy_rad_mod.F90</innerfile>
+    <innerfile refid="canopy__read__txt_8F90">canopy_read_txt.F90</innerfile>
+    <innerfile refid="canopy__readnml_8F90">canopy_readnml.F90</innerfile>
+    <innerfile refid="canopy__tleaf__mod_8F90">canopy_tleaf_mod.F90</innerfile>
+    <innerfile refid="canopy__txt__io__mod_8F90">canopy_txt_io_mod.F90</innerfile>
+    <innerfile refid="canopy__utils__mod_8F90">canopy_utils_mod.F90</innerfile>
+    <innerfile refid="canopy__var3din__mod_8F90">canopy_var3din_mod.F90</innerfile>
+    <innerfile refid="canopy__wind__mod_8F90">canopy_wind_mod.F90</innerfile>
+    <innerfile refid="canopy__write__txt_8F90">canopy_write_txt.F90</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/"/>
+  </compounddef>
+</doxygen>

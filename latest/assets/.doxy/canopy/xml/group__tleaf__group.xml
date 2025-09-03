@@ -1,0 +1,539 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__tleaf__group" kind="group">
+    <compoundname>tleaf_group</compoundname>
+    <title>Leaf Temperature Calculations</title>
+      <sectiondef kind="user-defined">
+      <header>Input Parameters</header>
+      <description><para>Linear interpolation method for leaf temperature calculation in canopy</para>
+<para>Computes linear interpolation method for leaf temperature (sun/shade) in canopy based on Silva et al. (2020) algorithms. Uses linearized 2-m temperature to leaf temperature parameters with regression coefficients for 5 canopy layers. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ZK</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input model heights (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FCH</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input canopy height (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TEMP2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input 2-m temperature (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sunlit/shaded fraction from photolysis correction factor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TLEAF_SUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Leaf temperature for sunlit leaves (K) [output] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TLEAF_SHADE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Leaf temperature for shaded leaves (K) [output] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TLEAF_AVE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Average leaf temperature for sun/shaded leaves (K) [output] </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P.C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>June 2023 </para>
+</simplesect>
+<simplesect kind="note"><para>Based on Silva et al. (2020) - Development of a reduced-complexity plant canopy physics surrogate model for use in chemical transport models </para>
+</simplesect>
+</para>
+</description>
+      <memberdef kind="variable" id="group__tleaf__group_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) zk</definition>
+        <argsstring></argsstring>
+        <name>zk</name>
+        <briefdescription>
+<para>Input model heights (m) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="47" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga58903d4fbed988ec5e610958a66bd5ad" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) fch</definition>
+        <argsstring></argsstring>
+        <name>fch</name>
+        <briefdescription>
+<para>Model input canopy height (m) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="48" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga0d2ba7d32b18e29bdb055d5fc48c5ade" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) temp2</definition>
+        <argsstring></argsstring>
+        <name>temp2</name>
+        <briefdescription>
+<para>Model input 2-m Temperature (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="49" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gae2b157e5a18cbd634cb3b2a844ec3ed0" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) fsun</definition>
+        <argsstring></argsstring>
+        <name>fsun</name>
+        <briefdescription>
+<para>Sunlit/Shaded fraction from photolysis correction factor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="50" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="50" bodyend="50"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__tleaf__group_1ga8b4f1efce2c35b34a33abb08eb21b93b" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>)), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), dimension(size(zk)), intent(out) tleaf_sun</definition>
+        <argsstring></argsstring>
+        <name>tleaf_sun</name>
+        <briefdescription>
+<para>Leaf temp for sunlit leaves (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="55" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga7b759790dc2dcc7e6e63eb9a0a16e9c5" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>)), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), dimension(size(zk)), intent(out) tleaf_shade</definition>
+        <argsstring></argsstring>
+        <name>tleaf_shade</name>
+        <briefdescription>
+<para>Leaf temp for shaded leaves (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="56" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gaae22484e6884470398cf9c3270346a4c" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>)), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), dimension(size(zk)), intent(out) tleaf_ave</definition>
+        <argsstring></argsstring>
+        <name>tleaf_ave</name>
+        <briefdescription>
+<para>Ave Leaf temp for sun/shaded leaves (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="57" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="57" bodyend="57"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__tleaf__group_1ga0f1282b7e89a630160939bcbaefa875d" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_1_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_1_sun</name>
+        <initializer>=  -13.891_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="64" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga39b6fdc973fab2af9168bc86dcd0fd41" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_2_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_2_sun</name>
+        <initializer>=  -12.322_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="66" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="66" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga00c524910b5ef30edd2620366674c60c" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_3_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_3_sun</name>
+        <initializer>=  -1.032_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="68" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="68" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gadca9fbdc264ed6db46f3d6d9db3dfd5b" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_4_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_4_sun</name>
+        <initializer>=  -5.172_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="70" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="70" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gaccac56a1ea67e15a4f3deeb5467b62de" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_5_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_5_sun</name>
+        <initializer>=  -5.589_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="72" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga57818f2646409b85981e2983e12de053" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_1_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_1_sun</name>
+        <initializer>=  1.064_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="74" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="74" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga31b91d1f83e4cccc0f8082d72f83abbf" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_2_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_2_sun</name>
+        <initializer>=  1.057_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="76" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga85feb9ecc36d672f90d315959f778860" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_3_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_3_sun</name>
+        <initializer>=  1.031_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="78" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="78" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga9c09b5ad90fe72325600b11b5cc5fd82" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_4_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_4_sun</name>
+        <initializer>=  1.050_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="80" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="80" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga51ae2abb76d7fc81a17ed3127c8e81cb" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_5_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_5_sun</name>
+        <initializer>=  1.051_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="82" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="82" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gab916cee914f7eed8169861e1e5c14325" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_1_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_1_shade</name>
+        <initializer>=  -12.846_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="84" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="84" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga7a609d95385cbafec8d9b6c5f6ccb824" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_2_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_2_shade</name>
+        <initializer>=  -11.343_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="86" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="86" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga1a2d9669f0605a37b7ea2e97a01fa9fd" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_3_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_3_shade</name>
+        <initializer>=  -1.068_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="88" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="88" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gace49da9c36b667cb0ee7bf6e0bbece46" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_4_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_4_shade</name>
+        <initializer>=  -5.551_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="90" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="90" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga563c59c82bb59160fed436c039716d60" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_5_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_5_shade</name>
+        <initializer>=  -5.955_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="92" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="92" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gae15a16716ee45544aff2e75c75f12000" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_1_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_1_shade</name>
+        <initializer>=  1.060_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="94" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="94" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga00ace36b1594cc269df778a9bf997e16" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_2_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_2_shade</name>
+        <initializer>=  1.053_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="96" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="96" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gaae26ef6daaf43ca06359eeec80b792c3" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_3_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_3_shade</name>
+        <initializer>=  1.031_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="98" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="98" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga0c2e2092938c87399fc7c6f52708ddce" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_4_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_4_shade</name>
+        <initializer>=  1.051_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="100" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="100" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga943aca9bfedf83742ce3d132f62f24ef" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_5_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_5_shade</name>
+        <initializer>=  1.053_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="102" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="102" bodyend="102"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__tleaf__group_1ga0be5070f00aaaf3b291b7846a02fddb3" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) atemp_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_sun</name>
+        <briefdescription>
+<para>Regression coefficient A for sun leaves (Silva et al., 2020) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="107" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="107" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga513fa74690410a0c566c254eb0aeadb7" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) btemp_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_sun</name>
+        <briefdescription>
+<para>Regression coefficient B for sun leaves. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="108" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="108" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gaa6e81763ce77521cd5983b9fdaebedb4" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) atemp_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_shade</name>
+        <briefdescription>
+<para>Regression coefficient A for shade leaves. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="109" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="109" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gab1256824fba5ebf265ce25b9f1d53682" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) btemp_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_shade</name>
+        <briefdescription>
+<para>Regression coefficient B for shade leaves. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="110" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="110" bodyend="110"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__tleaf__group_1gaaea4baed8fd8b780f6938f0dc1fb0f72" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <briefdescription>
+<para>Loop index. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Calculate linear change in parameters interpolated to Silva et al. 5 layer canopy regions Above canopy, Tleaf = Tair Level 1 - 2 Level 2 - 3 Level 3 - 4 Level 4 - Bottom </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="113" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="113" bodyend="113"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Routines for calculating leaf temperatures in forest canopies. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This group contains subroutines for calculating leaf temperatures for sunlit and shaded leaves using linear interpolation methods based on Silva et al. (2020) parameterizations. </para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

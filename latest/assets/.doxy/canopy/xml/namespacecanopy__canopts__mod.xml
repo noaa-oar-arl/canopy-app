@@ -1,0 +1,1887 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacecanopy__canopts__mod" kind="namespace" language="Fortran">
+    <compoundname>canopy_canopts_mod</compoundname>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__canopy__options_1ga7967d0484fdd67b8bffa531dad3cbe3b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::infmt_opt</definition>
+        <argsstring></argsstring>
+        <name>infmt_opt</name>
+        <briefdescription>
+<para>Input file format option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Integer for choosing 1D or 2D input file format<itemizedlist>
+<listitem><para>0 = 2D format (default)</para>
+</listitem><listitem><para>1 = 1D format </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="30" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="30" bodyend="30"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_ncf_io_mod::canopy_read_ncf</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gab0b5819b28313ed0be7118a333b361da" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::var3d_opt</definition>
+        <argsstring></argsstring>
+        <name>var3d_opt</name>
+        <briefdescription>
+<para>3D variable input option </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Integer for choosing if 3D variables will be read from file<itemizedlist>
+<listitem><para>0 = off (default)</para>
+</listitem><listitem><para>1 = on </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="36" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="36" bodyend="36"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_ncf_io_mod::canopy_read_ncf</referencedby>
+        <referencedby refid="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" compoundref="canopy__read__txt_8F90" startline="23" endline="41">canopy_read_txt</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gac95854a7bee4a961ea089cda378c5536" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::var3d_set</definition>
+        <argsstring></argsstring>
+        <name>var3d_set</name>
+        <briefdescription>
+<para>Number of 3D levels in input file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Integer for number of 3D levels in input file, if var3d_opt=1 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>14 levels </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="41" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="41" bodyend="41"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga78eb6b0808ab5f2921d1b22f3e93dd81" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::pavd_opt</definition>
+        <argsstring></argsstring>
+        <name>pavd_opt</name>
+        <briefdescription>
+<para>3D GEDI PAVD profiles option </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Integer for turning on 3D GEDI PAVD profiles read from input file<itemizedlist>
+<listitem><para>0 = off (default)</para>
+</listitem><listitem><para>1 = on </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="47" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="47" bodyend="47"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_ncf_io_mod::canopy_read_ncf</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga980408716e9b886c8a48052a496e92d6" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::pavd_set</definition>
+        <argsstring></argsstring>
+        <name>pavd_set</name>
+        <briefdescription>
+<para>GEDI PAVD latitude threshold. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Real value for latitude +/- threshold when 3D GEDI PAVD profiles read from input file <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>52.0 degrees </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="52" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="52" bodyend="52"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga855fdd72fcb3923e2ab8be68ccc76926" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::href_opt</definition>
+        <argsstring></argsstring>
+        <name>href_opt</name>
+        <briefdescription>
+<para>Reference height option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Integer for using set href in namelist (=0) or array from file(=1)<itemizedlist>
+<listitem><para>0 = use namelist value (default)</para>
+</listitem><listitem><para>1 = read from file </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="58" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="58" bodyend="58"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga0a4ef06b497f89416fa885a8ec9f53b1" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::href_set</definition>
+        <argsstring></argsstring>
+        <name>href_set</name>
+        <briefdescription>
+<para>Set reference height above canopy. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Reference height above canopy at 10 m <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>10.0 m </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="64" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="64" bodyend="64"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga934783f210ee500c6403c63b9be20678" prot="public" static="no" mutable="no">
+        <type>logical</type>
+        <definition>logical canopy_canopts_mod::ifcanwind</definition>
+        <argsstring></argsstring>
+        <name>ifcanwind</name>
+        <briefdescription>
+<para>Canopy wind option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Logical canopy wind option <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>.FALSE. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="69" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="69" bodyend="69"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gafe17438548619d45e2e78ee67101e02b" prot="public" static="no" mutable="no">
+        <type>logical</type>
+        <definition>logical canopy_canopts_mod::ifcanwaf</definition>
+        <argsstring></argsstring>
+        <name>ifcanwaf</name>
+        <briefdescription>
+<para>Canopy WAF option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Logical canopy WAF (Wind Attenuation Factor) option <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>.FALSE. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="74" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="74" bodyend="74"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gaa5df00af2b5c3c3f7b6f94d50ca6a3fd" prot="public" static="no" mutable="no">
+        <type>logical</type>
+        <definition>logical canopy_canopts_mod::ifcaneddy</definition>
+        <argsstring></argsstring>
+        <name>ifcaneddy</name>
+        <briefdescription>
+<para>Canopy eddy Kz option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Logical canopy eddy diffusivity Kz option <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>.FALSE. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="79" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="79" bodyend="79"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gae29808e1b5d91e32e6a20066a6994f68" prot="public" static="no" mutable="no">
+        <type>logical</type>
+        <definition>logical canopy_canopts_mod::ifcanphot</definition>
+        <argsstring></argsstring>
+        <name>ifcanphot</name>
+        <briefdescription>
+<para>Canopy photolysis attenuation option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Logical canopy photolysis attenuation option <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>.FALSE. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="84" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="84" bodyend="84"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gacbd0683a95eff758864d68f9795829ac" prot="public" static="no" mutable="no">
+        <type>logical</type>
+        <definition>logical canopy_canopts_mod::ifcanbio</definition>
+        <argsstring></argsstring>
+        <name>ifcanbio</name>
+        <briefdescription>
+<para>Canopy biogenic emissions option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Logical canopy biogenic emissions option <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>.FALSE. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="89" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="89" bodyend="89"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gaa80c16e177daada28967f02ac812efb4" prot="public" static="no" mutable="no">
+        <type>logical</type>
+        <definition>logical canopy_canopts_mod::ifcanddepgas</definition>
+        <argsstring></argsstring>
+        <name>ifcanddepgas</name>
+        <briefdescription>
+<para>Canopy gas dry deposition option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Logical canopy gas dry deposition option <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>.FALSE. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="94" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="94" bodyend="94"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gab69d01fdbf3969946dfe77380a2155af" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::pai_opt</definition>
+        <argsstring></argsstring>
+        <name>pai_opt</name>
+        <briefdescription>
+<para>PAI calculation option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Integer for PAI (Plant Area Index) values used or calculated<itemizedlist>
+<listitem><para>0 = calculated from model (default)</para>
+</listitem><listitem><para>1 = use set value </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="99" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="99" bodyend="99"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gaa4dce9f5ee91043764f19a8b8556d527" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::pai_set</definition>
+        <argsstring></argsstring>
+        <name>pai_set</name>
+        <briefdescription>
+<para>Set PAI value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Real value for PAI set values used when pai_opt=1 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m²/m² </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>4.0 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="105" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="105" bodyend="105"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga3d491033526cf826c247558442541d29" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::lu_opt</definition>
+        <argsstring></argsstring>
+        <name>lu_opt</name>
+        <briefdescription>
+<para>Land use mapping option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Integer for LU type from model mapped to Massman et al.<itemizedlist>
+<listitem><para>0 = VIIRS (default)</para>
+</listitem><listitem><para>1 = other mapping </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="111" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="111" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga91fbe34e60fb0a3fbddf9397e0fbb2fa" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::z0_opt</definition>
+        <argsstring></argsstring>
+        <name>z0_opt</name>
+        <briefdescription>
+<para>Surface roughness option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Integer for setting first estimate of z0<itemizedlist>
+<listitem><para>0 = Z0_MOD (default)</para>
+</listitem><listitem><para>1 = other method </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="117" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="117" bodyend="117"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga5b401d21ca534a81079aa3352b194fb1" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::flameh_opt</definition>
+        <argsstring></argsstring>
+        <name>flameh_opt</name>
+        <briefdescription>
+<para>Flame height calculation option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Integer for flame height values used or calculated<itemizedlist>
+<listitem><para>0 = calculated (default)</para>
+</listitem><listitem><para>1 = use set value </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="123" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="123" bodyend="123"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gad951801f95772017a48b36c9f119ad56" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::flameh_cal</definition>
+        <argsstring></argsstring>
+        <name>flameh_cal</name>
+        <briefdescription>
+<para>FRP to flame height relationship. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Integer for FRP (Fire Radiative Power) to flame height relationships used<itemizedlist>
+<listitem><para>0 = default relationship</para>
+</listitem><listitem><para>1 = alternative relationship </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="129" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="129" bodyend="129"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga680a950ab6dfaba8273fa2c3063ca9ee" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::flameh_set</definition>
+        <argsstring></argsstring>
+        <name>flameh_set</name>
+        <briefdescription>
+<para>User set flame height. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>User Set Flame Height value <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="134" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="134" bodyend="134"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gaf2da71dc1f8f608c77be9d605486eec1" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::frp_fac</definition>
+        <argsstring></argsstring>
+        <name>frp_fac</name>
+        <briefdescription>
+<para>FRP tuning factor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>FRP tuning factor for flame height calculation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1.0 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="139" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="139" bodyend="139"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga08ae33527b4c39b283c0b9071ff8eb2b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::dx_opt</definition>
+        <argsstring></argsstring>
+        <name>dx_opt</name>
+        <briefdescription>
+<para>Grid resolution option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Integer for dx resolution values used or calculated<itemizedlist>
+<listitem><para>0 = calculated (default)</para>
+</listitem><listitem><para>1 = use set value </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="145" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="145" bodyend="145"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga0b9b034dac4d72d36aa493860cc09136" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::dx_set</definition>
+        <argsstring></argsstring>
+        <name>dx_set</name>
+        <briefdescription>
+<para>User set grid cell resolution. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>User Set Grid Cell Resolution <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="150" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="150" bodyend="150"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gab8066d1cae19769c1b2421ff89346442" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::lai_thresh</definition>
+        <argsstring></argsstring>
+        <name>lai_thresh</name>
+        <briefdescription>
+<para>LAI threshold for canopy conditions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>User set grid cell LAI threshold to apply canopy conditions <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m²/m² </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="155" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="155" bodyend="155"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga4b4cfa7edb966a2950a3e13d2d073a67" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::cf_thresh</definition>
+        <argsstring></argsstring>
+        <name>cf_thresh</name>
+        <briefdescription>
+<para>Canopy fraction threshold. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>User set grid cell canopy fraction threshold to apply canopy conditions <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless fraction </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="160" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="160" bodyend="160"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gaf199b8f23502459da987814dcc761b05" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::ch_thresh</definition>
+        <argsstring></argsstring>
+        <name>ch_thresh</name>
+        <briefdescription>
+<para>Canopy height threshold. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>User set grid cell canopy height threshold to apply canopy conditions <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="165" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="165" bodyend="165"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gad3cfae79d6f1687e33962406bd49504e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::rsl_opt</definition>
+        <argsstring></argsstring>
+        <name>rsl_opt</name>
+        <briefdescription>
+<para>Roughness sublayer option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>RSL option used in model from Rosenzweig et al. 2021<itemizedlist>
+<listitem><para>0 = off (default)</para>
+</listitem><listitem><para>1 = on </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="171" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="171" bodyend="171"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga31982d089c52810ae771ec5a55215213" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::z0ghc</definition>
+        <argsstring></argsstring>
+        <name>z0ghc</name>
+        <briefdescription>
+<para>Ground roughness to canopy height ratio. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Ratio of ground roughness length to canopy top height <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="176" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="176" bodyend="176"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gaf380b67bf0e9d11e3ce2752a9df97886" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::lambdars</definition>
+        <argsstring></argsstring>
+        <name>lambdars</name>
+        <briefdescription>
+<para>Roughness sublayer influence parameter. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Value representing influence of roughness sublayer <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="181" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="181" bodyend="181"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga87bcc5a9129a7b6d44e9e9a587079e76" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::bio_cce</definition>
+        <argsstring></argsstring>
+        <name>bio_cce</name>
+        <briefdescription>
+<para>MEGAN biogenic emission canopy environment coefficient. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>MEGAN biogenic emission canopy environment coefficient <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="185" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="185" bodyend="185"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga367190ead6edf469054a3b265d3d5ac7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::biospec_opt</definition>
+        <argsstring></argsstring>
+        <name>biospec_opt</name>
+        <briefdescription>
+<para>Biogenic species output option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for species output option<itemizedlist>
+<listitem><para>0 = all species (default)</para>
+</listitem><listitem><para>1 = selected species </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="191" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="191" bodyend="191"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga9552844fa82cc2e73fc7d134dd641dc8" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::biovert_opt</definition>
+        <argsstring></argsstring>
+        <name>biovert_opt</name>
+        <briefdescription>
+<para>MEGAN vertical integration option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>MEGAN vertical integration of emissions option<itemizedlist>
+<listitem><para>0 = off (default)</para>
+</listitem><listitem><para>1 = on </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="197" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="197" bodyend="197"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gaccfdb52041060e1f0de056819ccfd4af" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::can_opt</definition>
+        <argsstring></argsstring>
+        <name>can_opt</name>
+        <briefdescription>
+<para>Canopy data source option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for canopy option from GEDI or user<itemizedlist>
+<listitem><para>0 = GEDI data (default)</para>
+</listitem><listitem><para>1 = user-defined values </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="203" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="203" bodyend="203"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga4158b990f6a14650a830b243ca209eac" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::can_chset</definition>
+        <argsstring></argsstring>
+        <name>can_chset</name>
+        <briefdescription>
+<para>Default canopy vegetation height. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for canopy vegtype heights used in model <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1.0 m </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="209" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="209" bodyend="209"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga31ad6d052a80ac71252b8bb40b5a9ec1" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::can_cfset</definition>
+        <argsstring></argsstring>
+        <name>can_cfset</name>
+        <briefdescription>
+<para>Default canopy vegetation fraction. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for canopy vegfrac used in model <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless fraction </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0.5 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="215" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="215" bodyend="215"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga7926f86b55c1f5a001045c69944590d5" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::can_laiset</definition>
+        <argsstring></argsstring>
+        <name>can_laiset</name>
+        <briefdescription>
+<para>Default canopy LAI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for canopy LAI used in model <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m²/m² </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0.1 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="221" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="221" bodyend="221"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gac678e902aa03e0f395accc09e9c671e6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::ssg_opt</definition>
+        <argsstring></argsstring>
+        <name>ssg_opt</name>
+        <briefdescription>
+<para>Shrubs/savanna/grassland vegetation option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for shrubs/savanna/grassland vegtype option from GEDI or user<itemizedlist>
+<listitem><para>0 = GEDI data (default)</para>
+</listitem><listitem><para>1 = user-defined values </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="227" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="227" bodyend="227"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga5a7e57117cb7cf2c17bdc21c4f341cdb" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::ssg_chset</definition>
+        <argsstring></argsstring>
+        <name>ssg_chset</name>
+        <briefdescription>
+<para>Default shrub/savanna/grassland height. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for shrubs/savanna/grassland vegtype heights used in model <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1.0 m </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="233" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="233" bodyend="233"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga54980e814a81c521a76dea13050a601a" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::ssg_cfset</definition>
+        <argsstring></argsstring>
+        <name>ssg_cfset</name>
+        <briefdescription>
+<para>Default shrub/savanna/grassland vegetation fraction. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for shrubs/savanna/grassland vegfrac used in model <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless fraction </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0.5 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="239" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="239" bodyend="239"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gaba5d146164eac8df3cb3dd8c7961f07b" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::ssg_laiset</definition>
+        <argsstring></argsstring>
+        <name>ssg_laiset</name>
+        <briefdescription>
+<para>Default shrub/savanna/grassland LAI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for shrubs/savanna/grassland LAI used in model <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m²/m² </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0.1 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="244" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="244" bodyend="244"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga1043496adbbbcc0f03e898425b4be61c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::crop_opt</definition>
+        <argsstring></argsstring>
+        <name>crop_opt</name>
+        <briefdescription>
+<para>Crop vegetation option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for crop vegtype option from GEDI or user<itemizedlist>
+<listitem><para>0 = GEDI data (default)</para>
+</listitem><listitem><para>1 = user-defined values </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="250" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="250" bodyend="250"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga412704c59f4c3270f2185a9e8f9214e1" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::crop_chset</definition>
+        <argsstring></argsstring>
+        <name>crop_chset</name>
+        <briefdescription>
+<para>Default crop height. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for crop vegtype heights used in model <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>3.0 m </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="256" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="256" bodyend="256"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga16b001f4b6356b145fde720eaf6a096d" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::crop_cfset</definition>
+        <argsstring></argsstring>
+        <name>crop_cfset</name>
+        <briefdescription>
+<para>Default crop vegetation fraction. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for crop vegfrac used in model <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless fraction </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0.5 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="262" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="262" bodyend="262"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gadabda3f15adebed96903114db57e2e5b" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::crop_laiset</definition>
+        <argsstring></argsstring>
+        <name>crop_laiset</name>
+        <briefdescription>
+<para>Default crop LAI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for crop LAI used in model <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m²/m² </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0.1 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="268" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="268" bodyend="268"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga5abef2eb1fb0a74ac4efb42fb5eb3a78" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::co2_opt</definition>
+        <argsstring></argsstring>
+        <name>co2_opt</name>
+        <briefdescription>
+<para>CO₂ inhibition option for isoprene. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for CO₂ inhibition option for biogenic isoprene emissions<itemizedlist>
+<listitem><para>0 = Possell &amp; Hewitt (2011) (default)</para>
+</listitem><listitem><para>1 = alternative method </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="274" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="274" bodyend="274"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga1c0b2d6ca40f15b1b25a165ccadb81a4" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::co2_set</definition>
+        <argsstring></argsstring>
+        <name>co2_set</name>
+        <briefdescription>
+<para>Atmospheric CO₂ concentration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for atmospheric CO₂ concentration for co2_opt <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ppmv </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>400.0 ppmv </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="280" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="280" bodyend="280"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga5a99425dc5829d64968659c9ba257ad6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::leafage_opt</definition>
+        <argsstring></argsstring>
+        <name>leafage_opt</name>
+        <briefdescription>
+<para>Leaf age factor option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default for Leaf Age factor option for BVOCs<itemizedlist>
+<listitem><para>1 = GAMMA_LEAFAGE = 1 (default) </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="285" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="285" bodyend="285"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga9f3d86470c8a32beac97cd2de56c520e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::lai_tstep</definition>
+        <argsstring></argsstring>
+        <name>lai_tstep</name>
+        <briefdescription>
+<para>LAI timestep. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default timestep for LAI input <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>seconds </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>86400 (daily), 2592000 for monthly </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="291" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="291" bodyend="291"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga24e30776fd43a8be645a2ed2843425da" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::loss_opt</definition>
+        <argsstring></argsstring>
+        <name>loss_opt</name>
+        <briefdescription>
+<para>Canopy loss ratios option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for turning on canopy loss ratios for adjusting top of canopy net emissions<itemizedlist>
+<listitem><para>0 = off (default)</para>
+</listitem><listitem><para>1 = use lifetime-based loss</para>
+</listitem><listitem><para>2 = use constant loss factor </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="298" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="298" bodyend="298"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga8f8d3c5c10a6bd1b0ae564bc7521c169" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::lifetime</definition>
+        <argsstring></argsstring>
+        <name>lifetime</name>
+        <briefdescription>
+<para>Above-canopy BVOC lifetime. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for above-canopy BVOC lifetime used with loss_opt=1 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>seconds (s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>3600 s </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="304" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="304" bodyend="304"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gadee1e81a1e29bbe225af46519d0707a4" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::loss_set</definition>
+        <argsstring></argsstring>
+        <name>loss_set</name>
+        <briefdescription>
+<para>Constant canopy loss factor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for constant canopy loss factor applied used with loss_opt=2 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0.96 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="310" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="310" bodyend="310"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga7e55fdf2973cf00ae2f66d835f99ae3a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::loss_ind</definition>
+        <argsstring></argsstring>
+        <name>loss_ind</name>
+        <briefdescription>
+<para>Loss factor application index. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for applying canopy loss factor to all species (=0) or only specific biogenics specie indices (&gt; 0) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="314" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="314" bodyend="314"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga4fffeaebfe4716854854c5555f4631eb" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::hist_opt</definition>
+        <argsstring></argsstring>
+        <name>hist_opt</name>
+        <briefdescription>
+<para>Historical averaging option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for using historically averaged leaf temp and PAR for biogenic emissions<itemizedlist>
+<listitem><para>0 = off (default)</para>
+</listitem><listitem><para>1 = on </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="320" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="320" bodyend="320"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga66771998e87e7e5933b8178e2ce56b6a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::soim_opt</definition>
+        <argsstring></argsstring>
+        <name>soim_opt</name>
+        <briefdescription>
+<para>Soil moisture factor option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default for Soil Moisture factor option for BVOCs<itemizedlist>
+<listitem><para>1 = GAMMA_SOIM = 1 (default) </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="325" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="325" bodyend="325"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga4dbf60025ccb735883602005cbb1da55" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::soild1</definition>
+        <argsstring></argsstring>
+        <name>soild1</name>
+        <briefdescription>
+<para>Soil layer 1 depth. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>User set real value of depth of soil layer 1 centerpoint <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>centimeters (cm) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>5 cm (based on Noah/Noah-MP) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="330" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="330" bodyend="330"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga28892e5b92113415872d1f5c06f199fa" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::soild2</definition>
+        <argsstring></argsstring>
+        <name>soild2</name>
+        <briefdescription>
+<para>Soil layer 2 depth. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>User set real value of depth of soil layer 2 centerpoint <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>centimeters (cm) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>25 cm (based on Noah/Noah-MP) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="336" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="336" bodyend="336"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga3e0f4a876761a72bd3bf91f92ffed0b2" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::soild3</definition>
+        <argsstring></argsstring>
+        <name>soild3</name>
+        <briefdescription>
+<para>Soil layer 3 depth. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>User set real value of depth of soil layer 3 centerpoint <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>centimeters (cm) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>70 cm (based on Noah/Noah-MP) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="342" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="342" bodyend="342"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gaba460bcd20cc99ddb4b16b90898cfcf3" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::soild4</definition>
+        <argsstring></argsstring>
+        <name>soild4</name>
+        <briefdescription>
+<para>Soil layer 4 depth. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>User set real value of depth of soil layer 4 centerpoint <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>centimeters (cm) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>150 cm (based on Noah/Noah-MP) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="348" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="348" bodyend="348"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gaae2facb0b72ea3a128d88e7b5c7a40dc" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::aq_opt</definition>
+        <argsstring></argsstring>
+        <name>aq_opt</name>
+        <briefdescription>
+<para>Air quality stress index option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for air quality stress index for gamma_aq in biogenic emissions </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="352" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="352" bodyend="352"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga56fe6bc8412fbd472c4035bee89ddaa5" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::w126_set</definition>
+        <argsstring></argsstring>
+        <name>w126_set</name>
+        <briefdescription>
+<para>Ozone W126 value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default value for constant ozone W126 value <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ppm-hours </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="357" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="357" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga6c011181b7bec27d156f4c0b0ea1d40b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::ht_opt</definition>
+        <argsstring></argsstring>
+        <name>ht_opt</name>
+        <briefdescription>
+<para>High temperature stress index option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for high temperature stress index for gamma_ht in biogenic emissions </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="361" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="361" bodyend="361"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga3a97026b43cc35b133cd4e2eb68c1e7f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::lt_opt</definition>
+        <argsstring></argsstring>
+        <name>lt_opt</name>
+        <briefdescription>
+<para>Low temperature stress index option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for low temperature stress index for gamma_lt in biogenic emissions </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="365" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="365" bodyend="365"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gaa9795c3872084bca7e20f83065092de9" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::hw_opt</definition>
+        <argsstring></argsstring>
+        <name>hw_opt</name>
+        <briefdescription>
+<para>High wind stress index option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for high wind stress index for gamma_hw in biogenic emissions </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="369" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="369" bodyend="369"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga51d9966fd1b6bc82e7f6638055f7c083" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::ddepspecgas_opt</definition>
+        <argsstring></argsstring>
+        <name>ddepspecgas_opt</name>
+        <briefdescription>
+<para>Dry deposition species output option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer for species output option<itemizedlist>
+<listitem><para>0 = all species (default)</para>
+</listitem><listitem><para>1 = selected species </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="375" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="375" bodyend="375"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga3f1a46425b8d3d7138b882fbe17e942d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::chemmechgas_opt</definition>
+        <argsstring></argsstring>
+        <name>chemmechgas_opt</name>
+        <briefdescription>
+<para>Chemical mechanism option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer value to select chemical mechanism<itemizedlist>
+<listitem><para>0 = RACM2 (default) </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="380" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="380" bodyend="380"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga32aaf738974f08ac4a4ca38633d3c0d4" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::chemmechgas_tot</definition>
+        <argsstring></argsstring>
+        <name>chemmechgas_tot</name>
+        <briefdescription>
+<para>Total chemical mechanism species. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer value to select chemical mechanism gas species list including transported <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>31 for RACM2 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="385" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="385" bodyend="385"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga22d3a166bf9d33a03e97843bf4a98eb8" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canopts_mod::soilcat_opt</definition>
+        <argsstring></argsstring>
+        <name>soilcat_opt</name>
+        <briefdescription>
+<para>Soil category option. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default integer value to select soil category option<itemizedlist>
+<listitem><para>0 = STATSGO/FAO (default) </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="390" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="390" bodyend="390"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gac1d86f3047f377bcf5fc52eb14babb56" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::hyblev1</definition>
+        <argsstring></argsstring>
+        <name>hyblev1</name>
+        <briefdescription>
+<para>First hybrid model layer height. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default approximate input height of 1st hybrid model layer above ground (used for temp lapse rate approximation) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>20.0 meters </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="396" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="396" bodyend="396"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gabd1214eb1c56a5752b197d70b8e898f6" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::snowc_set</definition>
+        <argsstring></argsstring>
+        <name>snowc_set</name>
+        <briefdescription>
+<para>Snow cover threshold. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default snow cover percent at grid/point, above which ground surface is treated as dominant snow <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>percent (%) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>50% </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="402" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="402" bodyend="402"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gac1530dfc39f51f310835b02125403d55" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::icec_set</definition>
+        <argsstring></argsstring>
+        <name>icec_set</name>
+        <briefdescription>
+<para>Ice cover threshold. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default ice cover percent at grid/point, above which ground or water surface is treated as dominant ice <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>percent (%) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>50% </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="408" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="408" bodyend="408"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1ga534094db5b7e396f70bab1a576bc4c9c" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::gamma_set</definition>
+        <argsstring></argsstring>
+        <name>gamma_set</name>
+        <briefdescription>
+<para>Reaction probability for building surfaces. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default reaction probability for gas dry deposition to different building surfaces <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>5.0D-5 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="414" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="414" bodyend="414"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__canopy__options_1gafb98a2fbb36ef15bdb201f7fad1fdfeb" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canopts_mod::ramin_set</definition>
+        <argsstring></argsstring>
+        <name>ramin_set</name>
+        <briefdescription>
+<para>Minimum aerodynamic resistance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default minimum aerodynamic resistance <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>s/m </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>default</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>10 s/m </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canopts_mod.F90" line="420" column="1" bodyfile="src/canopy_canopts_mod.F90" bodystart="420" bodyend="420"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/canopy_canopts_mod.F90" line="12" column="1"/>
+  </compounddef>
+</doxygen>

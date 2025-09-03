@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__ncfio__group" kind="group">
+    <compoundname>ncfio_group</compoundname>
+    <title>NetCDF File I/O Operations</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ncfio__group_1ga448fb73be44b1171263f78c6bf851f8e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_ncf_io_mod::get_var_3d_real_cdf</definition>
+        <argsstring>(cdfid, var, dum3d, it, rcode)</argsstring>
+        <name>get_var_3d_real_cdf</name>
+        <param>
+          <type>cdfid</type>
+          <defname>cdfid</defname>
+        </param>
+        <param>
+          <type>var</type>
+          <defname>var</defname>
+        </param>
+        <param>
+          <type>dum3d</type>
+          <defname>dum3d</defname>
+        </param>
+        <param>
+          <type>it</type>
+          <defname>it</defname>
+        </param>
+        <param>
+          <type>rcode</type>
+          <defname>rcode</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="66" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="67" bodyend="97"/>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_ncf_io_mod::canopy_read_ncf</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Routines for reading and writing NetCDF format data files. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This group contains subroutines for comprehensive NetCDF file operations including reading meteorological input, writing model output, and handling NetCDF attributes and dimensions. </para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

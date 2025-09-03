@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__canopy__calcs" kind="group">
+    <compoundname>canopy_calcs</compoundname>
+    <title>Main Canopy Calculations</title>
+    <innergroup refid="group__calcs__local__vars">Local Variables</innergroup>
+    <briefdescription>
+<para>Core computational routines for canopy model calculations. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

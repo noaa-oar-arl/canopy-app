@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__file__arrays" kind="group">
+    <compoundname>file_arrays</compoundname>
+    <title>File Path Arrays</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__file__arrays_1ga6f66c8ebefa74176797a06f17efe0677" prot="public" static="no" mutable="no">
+        <type>character(len=256), dimension(max_mm)</type>
+        <definition>character(len=256), dimension ( max_mm ) canopy_files_mod::file_canvars</definition>
+        <argsstring></argsstring>
+        <name>file_canvars</name>
+        <briefdescription>
+<para>Array of canopy variable input file paths. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_files_mod.F90" line="42" column="1" bodyfile="src/canopy_files_mod.F90" bodystart="42" bodyend="42"/>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__file__arrays_1ga89a83ef8abda85131555afd9932706b2" prot="public" static="no" mutable="no">
+        <type>character(len=256), dimension(1)</type>
+        <definition>character(len=256), dimension     ( 1 ) canopy_files_mod::file_out</definition>
+        <argsstring></argsstring>
+        <name>file_out</name>
+        <briefdescription>
+<para>Array of output file paths. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_files_mod.F90" line="44" column="1" bodyfile="src/canopy_files_mod.F90" bodystart="44" bodyend="44"/>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__file__arrays_1ga4d6f2843daec94c4a0804f743f1e9969" prot="public" static="no" mutable="no">
+        <type>character(len=256), dimension(max_mm)</type>
+        <definition>character(len=256), dimension    ( max_mm ) canopy_files_mod::file_vars</definition>
+        <argsstring></argsstring>
+        <name>file_vars</name>
+        <briefdescription>
+<para>Array of main variable input file paths. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_files_mod.F90" line="40" column="1" bodyfile="src/canopy_files_mod.F90" bodystart="40" bodyend="40"/>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Arrays storing file paths for different input/output types. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

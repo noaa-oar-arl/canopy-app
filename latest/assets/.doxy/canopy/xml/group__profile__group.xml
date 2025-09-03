@@ -1,0 +1,413 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__profile__group" kind="group">
+    <compoundname>profile_group</compoundname>
+    <title>Canopy Profile Calculations</title>
+      <sectiondef kind="user-defined">
+      <header>Input Parameters</header>
+      <description><para>Determine canopy, fire, and foliage shape distribution parameters</para>
+<para>Determines the canopy, fire, and foliage shape distribution parameters based on vegetation type, canopy characteristics, and forest fraction. Maps vegetation types to Massman et al. (2017) forest classifications. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>VTYPE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Grid cell dominant vegetation type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FCH</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Grid cell canopy height (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FFRAC</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Grid cell forest fraction </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Grid cell leaf area index </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PAI_OPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer for PAI values used or calculated (default = 0) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PAI_SET</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Real value for PAI set values used (default = 4.0) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LU_OPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer for LU type from model mapped to Massman et al. (default = 0/VIIRS) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FIRETYPE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy [output] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CDRAG</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Drag coefficient (nondimensional) [output] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Plant/foliage area index (nondimensional) [output] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ZCANMAX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Height of maximum foliage area density (z/h) (nondimensional) [output] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SIGMAU</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Standard deviation of shape function above zcanmax (z/h) [output] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SIGMA1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Standard deviation of shape function below zcanmax (z/h) [output] </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P.C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>June 2022 </para>
+</simplesect>
+<simplesect kind="note"><para>Based on Massman et al. (2017) algorithms </para>
+</simplesect>
+</para>
+</description>
+      <memberdef kind="variable" id="group__profile__group_1gaa4b3d43d015fa3bca1ada7fb8ba71481" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) vtype</definition>
+        <argsstring></argsstring>
+        <name>vtype</name>
+        <briefdescription>
+<para>Grid cell dominant vegetation type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="52" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__profile__group_1ga58903d4fbed988ec5e610958a66bd5ad" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) fch</definition>
+        <argsstring></argsstring>
+        <name>fch</name>
+        <briefdescription>
+<para>Grid cell canopy height (m) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="53" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__profile__group_1gaef135195903ce64b83e60910c280820d" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) ffrac</definition>
+        <argsstring></argsstring>
+        <name>ffrac</name>
+        <briefdescription>
+<para>Grid cell forest fraction. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="54" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__profile__group_1gab2fa38240595d7cf5da16988f523e279" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) lai</definition>
+        <argsstring></argsstring>
+        <name>lai</name>
+        <briefdescription>
+<para>Grid cell leaf area index. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="55" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__profile__group_1ga8acc7010ad7edfb33fa6ae7005c8d61a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) pai_opt</definition>
+        <argsstring></argsstring>
+        <name>pai_opt</name>
+        <briefdescription>
+<para>Integer for PAI values used or calculated (default = 0) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="56" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__profile__group_1ga1863a025830d4150f1effa5172c9502c" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) pai_set</definition>
+        <argsstring></argsstring>
+        <name>pai_set</name>
+        <briefdescription>
+<para>Real value for PAI set values used (default = 4.0) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="57" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__profile__group_1ga1adde842497949967a630320b18ef99a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) lu_opt</definition>
+        <argsstring></argsstring>
+        <name>lu_opt</name>
+        <briefdescription>
+<para>Integer for LU type from model mapped to Massman et al. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>(default = 0/VIIRS) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="58" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="58" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__profile__group_1ga1f12145c7c4b25a35f613df47795b148" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>integer, intent(out) firetype</definition>
+        <argsstring></argsstring>
+        <name>firetype</name>
+        <briefdescription>
+<para>1 = Above Canopy Fire; 0 = Below Canopy Fire; -1 No Canopy </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="63" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="63" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__profile__group_1ga094e1d804af0b691d8170dc9a6dd69d7" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) cdrag</definition>
+        <argsstring></argsstring>
+        <name>cdrag</name>
+        <briefdescription>
+<para>Drag coefficient (nondimensional) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="64" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__profile__group_1ga0e2b978ba0ec13ff87067d704243aec4" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) pai</definition>
+        <argsstring></argsstring>
+        <name>pai</name>
+        <briefdescription>
+<para>Plant/foliage area index (nondimensional) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="65" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="65" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__profile__group_1ga6283c98264ec3ff7925c3de54d694055" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) zcanmax</definition>
+        <argsstring></argsstring>
+        <name>zcanmax</name>
+        <briefdescription>
+<para>Height of maximum foliage area density (z/h) (nondimensional) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="66" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="66" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__profile__group_1ga50aa0c1e3706ae90b62a51c8a9636a67" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) sigmau</definition>
+        <argsstring></argsstring>
+        <name>sigmau</name>
+        <briefdescription>
+<para>Standard deviation of shape function above zcanmax (z/h) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="67" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__profile__group_1gae4409b789dfe3ddbef40a691c9562e86" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) sigma1</definition>
+        <argsstring></argsstring>
+        <name>sigma1</name>
+        <briefdescription>
+<para>Standard deviation of shape function below zcanmax (z/h) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="68" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="68" bodyend="68"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="function" id="group__profile__group_1ga12df2dbb79549987a7ebfbabbc16d4ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_profile_mod::canopy_foliage</definition>
+        <argsstring>(MODLAYS, ZHC, ZCANMAX, SIGMAU, SIGMA1, FAFRACZINT)</argsstring>
+        <name>canopy_foliage</name>
+        <param>
+          <type>MODLAYS</type>
+          <defname>MODLAYS</defname>
+        </param>
+        <param>
+          <type>ZHC</type>
+          <defname>ZHC</defname>
+        </param>
+        <param>
+          <type>ZCANMAX</type>
+          <defname>ZCANMAX</defname>
+        </param>
+        <param>
+          <type>SIGMAU</type>
+          <defname>SIGMAU</defname>
+        </param>
+        <param>
+          <type>SIGMA1</type>
+          <defname>SIGMA1</defname>
+        </param>
+        <param>
+          <type>FAFRACZINT</type>
+          <defname>FAFRACZINT</defname>
+        </param>
+        <briefdescription>
+<para>Compute canopy foliage and plant distribution functions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes canopy foliage and plant distribution functions based on Massman et al. (2017) algorithms. Calculates foliage area fraction distribution throughout the canopy layers. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MODLAYS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of model layers </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ZHC</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Height of each canopy model layer (z/h) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ZCANMAX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Height of maximum foliage area density (z/h) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SIGMAU</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Standard deviation of shape function above zcanmax (z/h) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SIGMA1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Standard deviation of shape function below zcanmax (z/h) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FAFRACZINT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Foliage area fraction at each canopy model layer [output] </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P.C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>October 2022 </para>
+</simplesect>
+<simplesect kind="note"><para>Based on Massman et al. (2017) algorithms </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_profile_mod.F90" line="237" column="1" bodyfile="src/canopy_profile_mod.F90" bodystart="239" bodyend="303"/>
+        <references refid="namespacecanopy__utils__mod_1a1b9f21c1a286510c16c76b70b5627275" compoundref="canopy__utils__mod_8F90" startline="49" endline="55">canopy_utils_mod::integratetrapezoid</references>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Routines for calculating canopy profiles and foliage distributions. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This group contains subroutines for calculating canopy parameters, foliage area density distributions, and zero-plane displacement based on Massman et al. (2017) algorithms and vegetation characteristics. </para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__spatial__domain" kind="group">
+    <compoundname>spatial_domain</compoundname>
+    <title>Spatial Domain Variables</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__spatial__domain_1ga9512cd840f763815a1fcf27eae91a5c4" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_coord_mod::nlat</definition>
+        <argsstring></argsstring>
+        <name>nlat</name>
+        <briefdescription>
+<para>Length of latitude coordinate (number of latitude points) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_coord_mod.F90" line="38" column="1" bodyfile="src/canopy_coord_mod.F90" bodystart="38" bodyend="38"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a46724c6b574ca9d594af71b538e8af92" compoundref="canopy__ncf__io__mod_8F90" startline="1804" endline="2323">canopy_ncf_io_mod::canopy_outncfglobal</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__spatial__domain_1gade13d14d702dbd983bed9336e17d6728" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_coord_mod::nlon</definition>
+        <argsstring></argsstring>
+        <name>nlon</name>
+        <briefdescription>
+<para>Length of longitude coordinate (number of longitude points) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_coord_mod.F90" line="40" column="1" bodyfile="src/canopy_coord_mod.F90" bodystart="40" bodyend="40"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a46724c6b574ca9d594af71b538e8af92" compoundref="canopy__ncf__io__mod_8F90" startline="1804" endline="2323">canopy_ncf_io_mod::canopy_outncfglobal</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Variables defining the spatial domain of the simulation. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

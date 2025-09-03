@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__InputVariables" kind="group">
+    <compoundname>InputVariables</compoundname>
+    <title>Input Variable Arrays</title>
+    <briefdescription>
+<para>Allocate all necessary arrays for canopy model inputs and outputs. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This subroutine allocates memory for all arrays used in the canopy model including input variables, canopy distribution variables, wind fields, diffusivity profiles, photolysis correction factors, biogenic emissions, and gas dry deposition arrays. Memory allocation is conditional based on user-selected options.</para>
+<para><simplesect kind="author"><para>P.C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>03 Oct 2022 </para>
+</simplesect>
+<simplesect kind="version"><para>1.0</para>
+</simplesect>
+<simplesect kind="par"><title>Revision History:</title><para><itemizedlist>
+<listitem><para>03 Oct 2022: Original version (P.C. Campbell)</para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="par"><title>References:</title><para><itemizedlist>
+<listitem><para>Canopy-App Documentation </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__file__paths" kind="group">
+    <compoundname>file_paths</compoundname>
+    <title>Fixed File Paths</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__file__paths_1ga1aca291cb1692e583f11295204bb544f" prot="public" static="no" mutable="no">
+        <type>character(len= *), parameter</type>
+        <definition>character(len=*), parameter canopy_files_mod::file_nml</definition>
+        <argsstring></argsstring>
+        <name>file_nml</name>
+        <initializer>= &apos;<ref refid="group__var3din__inputs_1ga312856c28c718856736b714e4826b0fd" kindref="member">input</ref>/<ref refid="group__var3din__inputs_1gac064082b4bef8c921ae5d49af69e95bf" kindref="member">namelist.canopy</ref>&apos;</initializer>
+        <briefdescription>
+<para>Path to the namelist configuration file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_files_mod.F90" line="53" column="1" bodyfile="src/canopy_files_mod.F90" bodystart="53" bodyend="53"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Fixed file paths for configuration files. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

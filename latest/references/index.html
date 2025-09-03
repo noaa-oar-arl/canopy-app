@@ -1,0 +1,1932 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the Canopy-App atmospheric modeling system">
+      
+      
+        <meta name="author" content="P.C. Campbell and contributors">
+      
+      
+        <link rel="canonical" href="https://noaa-oar-arl.github.io/canopy-app/latest/references/">
+      
+      
+        <link rel="prev" href="../development/code-style/">
+      
+      
+        <link rel="next" href="../canopy/links/">
+      
+      
+      <link rel="icon" href="../canopy-app-logo_no-bg.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>References - Canopy-App Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/noaa-theme.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#references-bibliography" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Canopy-App Documentation" class="md-header__button md-logo" aria-label="Canopy-App Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Canopy-App Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              References
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/noaa-oar-arl/canopy-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    noaa-oar-arl/canopy-app
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../user-guide/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../science/model-description/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Science Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../development/contributing/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  References
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../canopy/links/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Doxygen API
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Canopy-App Documentation" class="md-nav__button md-logo" aria-label="Canopy-App Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Canopy-App Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/noaa-oar-arl/canopy-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    noaa-oar-arl/canopy-app
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../getting-started/installation/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../user-guide/overview/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../science/model-description/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Science Documentation
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../api/overview/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../development/contributing/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-model-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Model References
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Model References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wind-and-turbulence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wind and Turbulence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roughness-sublayer-and-unified-parameterizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roughness Sublayer and Unified Parameterizations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#biogenic-emissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biogenic Emissions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Biogenic Emissions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#megan-model-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      MEGAN Model Development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-megan-parameterizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced MEGAN Parameterizations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#co2-inhibition-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      CO₂ Inhibition Studies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leaf-age-and-environmental-stress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leaf Age and Environmental Stress
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dry-deposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dry Deposition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dry Deposition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gas-dry-deposition-parameterizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gas Dry Deposition Parameterizations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urban-dry-deposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Urban Dry Deposition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chemical-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chemical Mechanisms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soil-and-root-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soil and Root Distribution
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fire-and-flame-height" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fire and Flame Height
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-sources-and-satellite-products" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Sources and Satellite Products
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Sources and Satellite Products">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canopy-structure-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Structure Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viirs-products" class="md-nav__link">
+    <span class="md-ellipsis">
+      VIIRS Products
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gedi-products" class="md-nav__link">
+    <span class="md-ellipsis">
+      GEDI Products
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#griddingmachine" class="md-nav__link">
+    <span class="md-ellipsis">
+      GriddingMachine
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-coupling-and-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Coupling and Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Coupling and Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#large-eddy-simulation-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Large Eddy Simulation Studies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monin-obukhov-length-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monin-Obukhov Length Calculations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-and-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software and Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Software and Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-solar-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python Solar Calculations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fortran-namelist-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fortran Namelist Processing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standards-and-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standards and Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Standards and Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netcdf-climate-and-forecast-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      NetCDF Climate and Forecast Conventions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epa-air-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      EPA Air Quality Standards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-repositories-and-archives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Repositories and Archives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Repositories and Archives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#noaa-data-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      NOAA Data Sources
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-open-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Open Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ncei-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      NCEI Archive
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-cite" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Cite
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Cite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primary-citation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Primary Citation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-specific-citations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Component-Specific Citations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Sources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../canopy/links/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Doxygen API
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-model-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Model References
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Model References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wind-and-turbulence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wind and Turbulence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roughness-sublayer-and-unified-parameterizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roughness Sublayer and Unified Parameterizations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#biogenic-emissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biogenic Emissions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Biogenic Emissions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#megan-model-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      MEGAN Model Development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-megan-parameterizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced MEGAN Parameterizations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#co2-inhibition-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      CO₂ Inhibition Studies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leaf-age-and-environmental-stress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leaf Age and Environmental Stress
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dry-deposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dry Deposition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dry Deposition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gas-dry-deposition-parameterizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gas Dry Deposition Parameterizations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urban-dry-deposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Urban Dry Deposition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chemical-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chemical Mechanisms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soil-and-root-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soil and Root Distribution
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fire-and-flame-height" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fire and Flame Height
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-sources-and-satellite-products" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Sources and Satellite Products
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Sources and Satellite Products">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canopy-structure-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Structure Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viirs-products" class="md-nav__link">
+    <span class="md-ellipsis">
+      VIIRS Products
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gedi-products" class="md-nav__link">
+    <span class="md-ellipsis">
+      GEDI Products
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#griddingmachine" class="md-nav__link">
+    <span class="md-ellipsis">
+      GriddingMachine
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-coupling-and-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Coupling and Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Coupling and Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#large-eddy-simulation-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Large Eddy Simulation Studies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monin-obukhov-length-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monin-Obukhov Length Calculations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-and-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software and Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Software and Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-solar-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python Solar Calculations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fortran-namelist-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fortran Namelist Processing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standards-and-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standards and Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Standards and Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netcdf-climate-and-forecast-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      NetCDF Climate and Forecast Conventions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epa-air-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      EPA Air Quality Standards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-repositories-and-archives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Repositories and Archives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Repositories and Archives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#noaa-data-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      NOAA Data Sources
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-open-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Open Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ncei-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      NCEI Archive
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-cite" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Cite
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Cite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primary-citation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Primary Citation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-specific-citations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Component-Specific Citations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Sources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="references-bibliography">References &amp; Bibliography</h1>
+<p>This section contains the complete bibliography and references for the Canopy-App model, including the scientific basis for the parameterizations and algorithms used.</p>
+<h2 id="core-model-references">Core Model References</h2>
+<h3 id="wind-and-turbulence">Wind and Turbulence</h3>
+<p><strong>Massman, W. J., Forthofer, J. M., &amp; Finney, M. A. (2017).</strong> An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior. <em>Canadian Journal of Forest Research</em>, 47(5), 594-603. <a href="https://doi.org/10.1139/cjfr-2016-0354">https://doi.org/10.1139/cjfr-2016-0354</a></p>
+<p><strong>Katul, G. G., Mahrt, L., Poggi, D., &amp; Sanz, C. (2004).</strong> One- and two-equation models for canopy turbulence. <em>Boundary-Layer Meteorology</em>, 113, 81-109. <a href="https://doi.org/10.1023/B:BOUN.0000037333.48760.e5">https://doi.org/10.1023/B:BOUN.0000037333.48760.e5</a></p>
+<p><strong>Makar, P., Staebler, R., Akingunola, A., et al. (2017).</strong> The effects of forest canopy shading and turbulence on boundary layer ozone. <em>Nature Communications</em>, 8, 15243. <a href="https://doi.org/10.1038/ncomms15243">https://doi.org/10.1038/ncomms15243</a></p>
+<h3 id="roughness-sublayer-and-unified-parameterizations">Roughness Sublayer and Unified Parameterizations</h3>
+<p><strong>Bonan, G. B., Patton, E. G., Harman, I. N., Oleson, K. W., Finnigan, J. J., Lu, Y., &amp; Burakowski, E. A. (2018).</strong> Modeling canopy-induced turbulence in the Earth system: A unified parameterization of turbulent exchange within plant canopies and the roughness sublayer (CLM-ml v0). <em>Geoscientific Model Development</em>, 11, 1467-1496. <a href="https://doi.org/10.5194/gmd-11-1467-2018">https://doi.org/10.5194/gmd-11-1467-2018</a></p>
+<p><strong>Abolafia-Rosenzweig, R., He, C., Burns, S. P., &amp; Chen, F. (2021).</strong> Implementation and evaluation of a unified turbulence parameterization throughout the canopy and roughness sublayer in Noah-MP snow simulations. <em>Journal of Advances in Modeling Earth Systems</em>, 13, e2021MS002665. <a href="https://doi.org/10.1029/2021MS002665">https://doi.org/10.1029/2021MS002665</a></p>
+<h2 id="biogenic-emissions">Biogenic Emissions</h2>
+<h3 id="megan-model-development">MEGAN Model Development</h3>
+<p><strong>Guenther, A. B., Jiang, X., Heald, C. L., Sakulyanontvittaya, T., Duhl, T., Emmons, L. K., &amp; Wang, X. (2012).</strong> The Model of Emissions of Gases and Aerosols from Nature version 2.1 (MEGAN2.1): an extended and updated framework for modeling biogenic emissions. <em>Geoscientific Model Development</em>, 5, 1471-1492. <a href="https://doi.org/10.5194/gmd-5-1471-2012">https://doi.org/10.5194/gmd-5-1471-2012</a></p>
+<p><strong>Guenther, A., Hewitt, C. N., Erickson, D., Fall, R., Geron, C., Graedel, T., Harley, P., Klinger, L., Lerdau, M., McKay, W. A., Pierce, T., Scholes, B., Steinbrecher, R., Tallamraju, R., Taylor, J., &amp; Zimmerman, P. (1995).</strong> A global model of natural volatile organic compound emissions. <em>Journal of Geophysical Research</em>, 100(D5), 8873-8892. <a href="https://doi.org/10.1029/94JD02950">https://doi.org/10.1029/94JD02950</a></p>
+<p><strong>Guenther, A., Baugh, B., Brasseur, G., Greenberg, J., Harley, P., Klinger, L., Serça, D., &amp; Vierling, L. (1999).</strong> Isoprene emission estimates and uncertainties for the Central African EXPRESSO study domain. <em>Journal of Geophysical Research</em>, 104(D23), 30625-30639. <a href="https://doi.org/10.1029/1999JD900391">https://doi.org/10.1029/1999JD900391</a></p>
+<h3 id="advanced-megan-parameterizations">Advanced MEGAN Parameterizations</h3>
+<p><strong>Silva, S. J., Heald, C. L., &amp; Guenther, A. B. (2020).</strong> Development of a reduced-complexity plant canopy physics surrogate model for use in chemical transport models: a case study with GEOS-Chem v12.3.0. <em>Geoscientific Model Development</em>, 13, 2569-2585. <a href="https://doi.org/10.5194/gmd-13-2569-2020">https://doi.org/10.5194/gmd-13-2569-2020</a></p>
+<p><strong>Clifton, O. E., Patton, E. G., Wang, S., Barth, M., Orlando, J., &amp; Schwantes, R. H. (2022).</strong> Large eddy simulation for investigating coupled forest canopy and turbulence influences on atmospheric chemistry. <em>Journal of Advances in Modeling Earth Systems</em>, 14, e2022MS003078. <a href="https://doi.org/10.1029/2022MS003078">https://doi.org/10.1029/2022MS003078</a></p>
+<h3 id="co2-inhibition-studies">CO₂ Inhibition Studies</h3>
+<p><strong>Possell, M., &amp; Hewitt, C. N. (2011).</strong> Isoprene emissions from plants are mediated by atmospheric CO₂ concentrations. <em>Global Change Biology</em>, 17, 1595-1610. <a href="https://doi.org/10.1111/j.1365-2486.2010.02306.x">https://doi.org/10.1111/j.1365-2486.2010.02306.x</a></p>
+<p><strong>Wilkinson, M. J., Monson, R. K., Trahan, N., Lee, S., Brown, E., Jackson, R. B., Polley, H. W., Fay, P. A., &amp; Fall, R. (2009).</strong> Leaf isoprene emission rate as a function of atmospheric CO₂ concentration. <em>Global Change Biology</em>, 15, 1189-1200. <a href="https://doi.org/10.1111/j.1365-2486.2008.01803.x">https://doi.org/10.1111/j.1365-2486.2008.01803.x</a></p>
+<h3 id="leaf-age-and-environmental-stress">Leaf Age and Environmental Stress</h3>
+<p><strong>Guenther, A., Karl, T., Harley, P., Wiedinmyer, C., Palmer, P. I., &amp; Geron, C. (2006).</strong> Estimates of global terrestrial isoprene emissions using MEGAN (Model of Emissions of Gases and Aerosols from Nature). <em>Atmospheric Chemistry and Physics</em>, 6, 3181-3210. <a href="https://doi.org/10.5194/acp-6-3181-2006">https://doi.org/10.5194/acp-6-3181-2006</a></p>
+<p><strong>Fang, H., Wei, S., &amp; Liang, S. (2019).</strong> Validation of MODIS and CYCLOPES LAI products using global field measurement data. <em>Remote Sensing of Environment</em>, 119, 43-54.</p>
+<p><strong>Zou, J., Rogers, W. E., &amp; Siemann, E. (2009).</strong> Plasticity of Sapium sebiferum seedling growth to light and water resources: Inter- and intraspecific comparisons. <em>Basic and Applied Ecology</em>, 10, 79-88.</p>
+<h2 id="dry-deposition">Dry Deposition</h2>
+<h3 id="gas-dry-deposition-parameterizations">Gas Dry Deposition Parameterizations</h3>
+<p><strong>Zhang, L., Brook, J. R., &amp; Vet, R. (2003).</strong> A revised parameterization for gaseous dry deposition in air-quality models. <em>Atmospheric Chemistry and Physics</em>, 3, 2067-2082. <a href="https://doi.org/10.5194/acp-3-2067-2003">https://doi.org/10.5194/acp-3-2067-2003</a></p>
+<p><strong>Saylor, R. D. (2013).</strong> The Atmospheric Chemistry and Canopy Exchange Simulation System (ACCESS): model description and application to a temperate deciduous forest canopy. <em>Atmospheric Chemistry and Physics</em>, 13, 693-715. <a href="https://doi.org/10.5194/acp-13-693-2013">https://doi.org/10.5194/acp-13-693-2013</a></p>
+<h3 id="urban-dry-deposition">Urban Dry Deposition</h3>
+<p><strong>Gao, J., &amp; Shen, H. (2018).</strong> A review of dry deposition of air pollutants on building surfaces and its influence on indoor air quality. <em>Building and Environment</em>, 132, 205-217. <a href="https://doi.org/10.1016/j.buildenv.2018.02.046">https://doi.org/10.1016/j.buildenv.2018.02.046</a></p>
+<h2 id="chemical-mechanisms">Chemical Mechanisms</h2>
+<p><strong>Goliff, W. S., Stockwell, W. R., &amp; Lawson, C. V. (2013).</strong> The regional atmospheric chemistry mechanism, version 2. <em>Atmospheric Environment</em>, 68, 174-185. <a href="https://doi.org/10.1016/j.atmosenv.2012.11.038">https://doi.org/10.1016/j.atmosenv.2012.11.038</a></p>
+<h2 id="soil-and-root-distribution">Soil and Root Distribution</h2>
+<p><strong>Zeng, X. (2001).</strong> Global vegetation root distribution for land modeling. <em>Journal of Hydrometeorology</em>, 2, 525-530. <a href="https://doi.org/10.1175/1525-7541(2001)002&lt;0525:GVRDFL&gt;2.0.CO;2">https://doi.org/10.1175/1525-7541(2001)002&lt;0525:GVRDFL&gt;2.0.CO;2</a></p>
+<h2 id="fire-and-flame-height">Fire and Flame Height</h2>
+<p><strong>Alexander, M. E., &amp; Cruz, M. G. (2012).</strong> Interdependencies between flame length and fireline intensity in predicting crown fire initiation and crown scorch height. <em>International Journal of Wildland Fire</em>, 21, 95-113. <a href="https://doi.org/10.1071/WF11001">https://doi.org/10.1071/WF11001</a></p>
+<h2 id="data-sources-and-satellite-products">Data Sources and Satellite Products</h2>
+<h3 id="canopy-structure-data">Canopy Structure Data</h3>
+<p><strong>Lang, N., Jetz, W., Schindler, K., &amp; Wegner, J. D. (2023).</strong> A high-resolution canopy height model of the Earth. <em>Nature Ecology &amp; Evolution</em>, 7, 1778-1789. <a href="https://doi.org/10.1038/s41559-023-02206-6">https://doi.org/10.1038/s41559-023-02206-6</a></p>
+<p><strong>Wei, S., Fang, H., Schaaf, C. B., He, L., &amp; Chen, J. M. (2019).</strong> Global 500 m clumping index product derived from MODIS BRDF data (2001-2017). <em>Remote Sensing of Environment</em>, 232, 111296. <a href="https://doi.org/10.1016/j.rse.2019.111296">https://doi.org/10.1016/j.rse.2019.111296</a></p>
+<h3 id="viirs-products">VIIRS Products</h3>
+<p><strong>Myneni, R. (2023).</strong> VIIRS/NPP Leaf Area Index/FPAR 8-Day L4 Global 500m SIN Grid V002. NASA EOSDIS Land Processes Distributed Active Archive Center. <a href="https://doi.org/10.5067/VIIRS/VNP15A2H.002">https://doi.org/10.5067/VIIRS/VNP15A2H.002</a></p>
+<p><strong>Myneni, R. (2023).</strong> VIIRS/NOAA20 Leaf Area Index/FPAR 8-Day L4 Global 500m SIN Grid V002. NASA EOSDIS Land Processes Distributed Active Archive Center. <a href="https://doi.org/10.5067/VIIRS/VJ115A2H.002">https://doi.org/10.5067/VIIRS/VJ115A2H.002</a></p>
+<h3 id="gedi-products">GEDI Products</h3>
+<p><strong>GEDI Product from North Arizona University.</strong> <a href="https://goetzlab.rc.nau.edu/index.php/gedi/">https://goetzlab.rc.nau.edu/index.php/gedi/</a>. Plant area volume density data (2019-2022) with 14 vertical layers from surface to 70m above ground level.</p>
+<h3 id="griddingmachine">GriddingMachine</h3>
+<p><strong>Wang, Y., Konings, A. G., Le Vine, N., Prigent, C., Piles, M., Fluet-Chouinard, E., Gascoin, S., Mialon, A., Wigneron, J. P., Fan, L., Kerr, Y. H., &amp; Fernandez-Moran, R. (2022).</strong> A new global dataset of microwave vegetation optical depth. <em>Scientific Data</em>, 9, 342. <a href="https://doi.org/10.1038/s41597-022-01346-x">https://doi.org/10.1038/s41597-022-01346-x</a></p>
+<h2 id="model-coupling-and-applications">Model Coupling and Applications</h2>
+<h3 id="large-eddy-simulation-studies">Large Eddy Simulation Studies</h3>
+<p><strong>Clifton, O. E., Patton, E. G., Wang, S., Barth, M., Orlando, J., &amp; Schwantes, R. H. (2022).</strong> Large eddy simulation for investigating coupled forest canopy and turbulence influences on atmospheric chemistry. <em>Journal of Advances in Modeling Earth Systems</em>, 14, e2022MS003078. <a href="https://doi.org/10.1029/2022MS003078">https://doi.org/10.1029/2022MS003078</a></p>
+<h3 id="monin-obukhov-length-calculations">Monin-Obukhov Length Calculations</h3>
+<p><strong>Essa, K. S. M. (1999).</strong> Estimation of Monin-Obukhov length using Richardson number and surface layer wind speed. <em>International Atomic Energy Agency Technical Document</em>, IAEA-TECDOC-1106, 215-224.</p>
+<h2 id="software-and-tools">Software and Tools</h2>
+<h3 id="python-solar-calculations">Python Solar Calculations</h3>
+<p><strong>Pysolar Documentation.</strong> Solar position calculations used for cosine solar zenith angle. <a href="https://pysolar.readthedocs.io/en/latest/">https://pysolar.readthedocs.io/en/latest/</a></p>
+<h3 id="fortran-namelist-processing">Fortran Namelist Processing</h3>
+<p><strong>f90nml Documentation.</strong> Python library for reading and writing Fortran namelists. <a href="https://f90nml.readthedocs.io/en/latest/">https://f90nml.readthedocs.io/en/latest/</a></p>
+<h2 id="standards-and-conventions">Standards and Conventions</h2>
+<h3 id="netcdf-climate-and-forecast-conventions">NetCDF Climate and Forecast Conventions</h3>
+<p><strong>CF Conventions.</strong> Climate and Forecast metadata conventions for NetCDF files. <a href="http://cfconventions.org/">http://cfconventions.org/</a></p>
+<h3 id="epa-air-quality-standards">EPA Air Quality Standards</h3>
+<p><strong>U.S. Environmental Protection Agency.</strong> W126 ozone exposure index calculation methodology. <a href="https://www.epa.gov/sites/default/files/2015-09/documents/w126_steps_to_calculate_revised_feb19.pdf">https://www.epa.gov/sites/default/files/2015-09/documents/w126_steps_to_calculate_revised_feb19.pdf</a></p>
+<h2 id="data-repositories-and-archives">Data Repositories and Archives</h2>
+<h3 id="noaa-data-sources">NOAA Data Sources</h3>
+<p><strong>NOAA/NESDIS GBBEPx.</strong> Global Biomass Burning Emissions Product. <a href="https://www.ospo.noaa.gov/Products/land/gbbepx/">https://www.ospo.noaa.gov/Products/land/gbbepx/</a></p>
+<p><strong>NOAA VIIRS Green Vegetation Fraction.</strong> <a href="https://www.star.nesdis.noaa.gov/jpss/gvf.php">https://www.star.nesdis.noaa.gov/jpss/gvf.php</a></p>
+<p><strong>NOAA CLASS Archive.</strong> Comprehensive Large Array-data Stewardship System. <a href="https://www.aev.class.noaa.gov/">https://www.aev.class.noaa.gov/</a></p>
+<h3 id="aws-open-data">AWS Open Data</h3>
+<p><strong>NOAA OAR ARL AWS Archive.</strong> <a href="https://registry.opendata.aws/noaa-oar-arl-nacc-pds/">https://registry.opendata.aws/noaa-oar-arl-nacc-pds/</a>
+- Global GFS meteorological files: <code>https://noaa-oar-arl-nacc-pds.s3.amazonaws.com/inputs/</code>
+- Global 13-km canopy files: <code>https://noaa-oar-arl-nacc-pds.s3.amazonaws.com/inputs/geo-files/</code></p>
+<h3 id="ncei-archive">NCEI Archive</h3>
+<p><strong>NOAA National Centers for Environmental Information.</strong> Global 1-km canopy data representative of 2020. <a href="https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.nodc:0295750">https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.nodc:0295750</a></p>
+<hr />
+<h2 id="how-to-cite">How to Cite</h2>
+<h3 id="primary-citation">Primary Citation</h3>
+<p>When using Canopy-App in research, please cite:</p>
+<p><strong>Campbell, P. C., Moon, Z., Hung, W.-T., Marvin, M., Rasool, Q., et al. (2024).</strong> Canopy-App: A repository for low-level, stand-alone/column canopy parameterizations for atmospheric composition and air quality models. <em>Zenodo</em>. <a href="https://doi.org/10.5281/zenodo.8403649">https://doi.org/10.5281/zenodo.8403649</a></p>
+<h3 id="component-specific-citations">Component-Specific Citations</h3>
+<p>When using specific components, please also cite the relevant scientific papers listed above:</p>
+<ul>
+<li><strong>Wind calculations</strong>: Massman et al. (2017)</li>
+<li><strong>Biogenic emissions</strong>: Guenther et al. (2012), Silva et al. (2020)</li>
+<li><strong>Dry deposition</strong>: Zhang et al. (2003), Saylor (2013)</li>
+<li><strong>Turbulence</strong>: Makar et al. (2017), Katul et al. (2004)</li>
+</ul>
+<h3 id="data-sources">Data Sources</h3>
+<p>Please also acknowledge the data sources used in your application:
+- <strong>GFS meteorological data</strong>: NOAA/NCEP
+- <strong>VIIRS products</strong>: NASA/NOAA
+- <strong>GEDI canopy height</strong>: NASA/North Arizona University
+- <strong>Satellite-derived parameters</strong>: As listed in the data sources section above</p>
+<hr />
+<p><em>This bibliography is maintained as part of the Canopy-App documentation. For the most current references and additional citations, please refer to the source code comments and the main <a href="../README.md">README.md</a> file.</em></p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by <a href="https://github.com/noaa-oar-arl/canopy-app/issues/new/?title=[Docs]+References+-+/references/" target="_blank" rel="noopener">telling us what you found lacking</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 NOAA Air Resources Laboratory - P.C. Campbell and contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/noaa-oar-arl/canopy-app" target="_blank" rel="noopener" title="GitHub Repository" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.noaa.gov/" target="_blank" rel="noopener" title="NOAA Website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M351.9 280H161c2.9 64.5 17.2 123.9 37.5 167.4 11.4 24.5 23.7 41.8 35.1 52.4 11.2 10.5 18.9 12.2 22.9 12.2s11.7-1.7 22.9-12.2c11.4-10.6 23.7-28 35.1-52.4 20.3-43.5 34.6-102.9 37.5-167.4zm-191-48h190.9c-2.8-64.5-17.1-123.9-37.4-167.4-11.4-24.4-23.7-41.8-35.1-52.4C268.1 1.7 260.4 0 256.4 0s-11.7 1.7-22.9 12.2c-11.4 10.6-23.7 28-35.1 52.4-20.3 43.5-34.6 102.9-37.5 167.4m-48 0c3.5-85.6 25.6-165.1 57.9-217.3C78.7 47.3 10.9 131.2 1.5 232zM1.5 280c9.4 100.8 77.2 184.7 169.3 217.3-32.3-52.2-54.4-131.7-57.9-217.3zm398.4 0c-3.5 85.6-25.6 165.1-57.9 217.3 92.1-32.7 159.9-116.5 169.3-217.3zm111.4-48C501.9 131.2 434.1 47.3 342 14.7c32.3 52.2 54.4 131.7 57.9 217.3z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:patrick.c.campbell@noaa.gov" target="_blank" rel="noopener" title="Contact" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.prune", "navigation.indexes", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.tooltips"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="../javascripts/noaa-enhancements.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

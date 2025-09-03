@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__time__domain" kind="group">
+    <compoundname>time_domain</compoundname>
+    <title>Time Domain Variables</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__time__domain_1gaf9bec413b2a74c1c542d5f44c2345224" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_coord_mod::ntime</definition>
+        <argsstring></argsstring>
+        <name>ntime</name>
+        <briefdescription>
+<para>Number of model timesteps. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_coord_mod.F90" line="29" column="1" bodyfile="src/canopy_coord_mod.F90" bodystart="29" bodyend="29"/>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a46724c6b574ca9d594af71b538e8af92" compoundref="canopy__ncf__io__mod_8F90" startline="1804" endline="2323">canopy_ncf_io_mod::canopy_outncfglobal</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__time__domain_1gabf6dd69b9532341d6b477e7d2d583645" prot="public" static="no" mutable="no">
+        <type>character(len=24)</type>
+        <definition>character(len=24) canopy_coord_mod::time_end</definition>
+        <argsstring></argsstring>
+        <name>time_end</name>
+        <briefdescription>
+<para>Simulation end time in YYYY-MM-DD-HH:MM:SS.SSSS format. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_coord_mod.F90" line="25" column="1" bodyfile="src/canopy_coord_mod.F90" bodystart="25" bodyend="25"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__time__domain_1ga8f726078dc2174d9044bb3fb1efbf4f2" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_coord_mod::time_intvl</definition>
+        <argsstring></argsstring>
+        <name>time_intvl</name>
+        <briefdescription>
+<para>Time interval for input/output [seconds]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_coord_mod.F90" line="27" column="1" bodyfile="src/canopy_coord_mod.F90" bodystart="27" bodyend="27"/>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__time__domain_1gaaa7c8c023d081706aef8548c53b01359" prot="public" static="no" mutable="no">
+        <type>character(len=24)</type>
+        <definition>character(len=24) canopy_coord_mod::time_start</definition>
+        <argsstring></argsstring>
+        <name>time_start</name>
+        <briefdescription>
+<para>Simulation start time in YYYY-MM-DD-HH:MM:SS.SSSS format. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_coord_mod.F90" line="23" column="1" bodyfile="src/canopy_coord_mod.F90" bodystart="23" bodyend="23"/>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Variables defining the temporal domain of the simulation. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

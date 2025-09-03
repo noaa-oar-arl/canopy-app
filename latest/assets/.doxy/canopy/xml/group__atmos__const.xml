@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__atmos__const" kind="group">
+    <compoundname>atmos_const</compoundname>
+    <title>Atmospheric Constants</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__atmos__const_1gaefa79a26e8d6d387695744063d7889ed" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::beta_n</definition>
+        <argsstring></argsstring>
+        <name>beta_n</name>
+        <initializer>= 0.35_rk</initializer>
+        <briefdescription>
+<para>Stability parameter beta for neutral conditions (dimensionless) </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Source: Bonan et al. (2018) <ulink url="https://doi.org/10.5194/gmd-11-1467-2018">https://doi.org/10.5194/gmd-11-1467-2018</ulink> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="154" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="154" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga1737e7ea037dde0611c218688148b74a" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::cpd</definition>
+        <argsstring></argsstring>
+        <name>cpd</name>
+        <initializer>= 7.0 * rdgas / 2.0</initializer>
+        <briefdescription>
+<para>Specific heat of dry air at constant pressure [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>1004.7642148 J/kg-K. Calculated assuming dry air is classical ideal gas </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="122" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="122" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1gac8ebe3cb6416cf1ebf6565a1d7861417" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::cpwvap</definition>
+        <argsstring></argsstring>
+        <name>cpwvap</name>
+        <initializer>= 4.0 * rwvap</initializer>
+        <briefdescription>
+<para>Specific heat for water vapor at constant pressure [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>1846.0997042 J/kg-K. Calculated assuming water vapor is classical ideal gas </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="130" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="130" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga2a5ed18dbf88f592991b6d1520e32a58" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::cvd</definition>
+        <argsstring></argsstring>
+        <name>cvd</name>
+        <initializer>= 5.0 * rdgas / 2.0</initializer>
+        <briefdescription>
+<para>Specific heat of dry air at constant volume [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>717.68872485 J/kg-K. Calculated assuming dry air is classical ideal gas </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="126" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="126" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga02a90fcde2e35991d827345dc7584eec" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::cvwvap</definition>
+        <argsstring></argsstring>
+        <name>cvwvap</name>
+        <initializer>= 3.0 * rwvap</initializer>
+        <briefdescription>
+<para>Specific heat for water vapor at constant volume [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>1384.5747781 J/kg-K. Calculated assuming water vapor is classical ideal gas </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="134" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="134" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1gaafcf42bda5953576cf68e4df4bb5051e" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::dlvdt</definition>
+        <argsstring></argsstring>
+        <name>dlvdt</name>
+        <initializer>= 2370.0</initializer>
+        <briefdescription>
+<para>Rate of change of latent heat of vaporization w.r.t. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>temperature [J/kg-K] </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="144" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="144" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga76a015bf9d92adaffe06dfac926a905b" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::lf0</definition>
+        <argsstring></argsstring>
+        <name>lf0</name>
+        <initializer>= 3.34e5</initializer>
+        <briefdescription>
+<para>Latent heat of fusion of water at 0°C [J/kg]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="147" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="147" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga57ae26d2f558db39aa8ddfee876258fe" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::lv0</definition>
+        <argsstring></argsstring>
+        <name>lv0</name>
+        <initializer>= 2.501e6</initializer>
+        <briefdescription>
+<para>Latent heat of vaporization of water at 0°C [J/kg]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Values from p. 641 of Stull (1988) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="141" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="141" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga97db331408496c8b4b5d65c9fb605bab" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::mwair</definition>
+        <argsstring></argsstring>
+        <name>mwair</name>
+        <initializer>= 28.9628_rk</initializer>
+        <briefdescription>
+<para>Mean molecular weight for dry air [g/mol]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>78.06% N2, 21% O2, and 0.943% A on a mole fraction basis (Source: Hobbs, 1995, pp. 69-70) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="107" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="107" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1gad10c444248f9d5f1f71104c29bb1f970" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::mwwat</definition>
+        <argsstring></argsstring>
+        <name>mwwat</name>
+        <initializer>= 18.01528_rk</initializer>
+        <briefdescription>
+<para>Mean molecular weight for water vapor [g/mol]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="114" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="114" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga0a05efb638347414653499df5ab2e3fa" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::rdgas</definition>
+        <argsstring></argsstring>
+        <name>rdgas</name>
+        <initializer>= 1.0e3 * rgasuniv / mwair</initializer>
+        <briefdescription>
+<para>Dry-air gas constant [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>287.07548994 J/kg-K </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="111" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="111" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1gacdb1e1e3320863b7bb8ecc8a3cdcfd17" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::rwvap</definition>
+        <argsstring></argsstring>
+        <name>rwvap</name>
+        <initializer>= 1.0e3 * rgasuniv / mwwat</initializer>
+        <briefdescription>
+<para>Gas constant for water vapor [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>461.52492604 J/kg-K </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="118" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="118" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga85b76f8bcfe737e0f0cb6a22f145e6a4" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::vonk</definition>
+        <argsstring></argsstring>
+        <name>vonk</name>
+        <initializer>= 0.4_rk</initializer>
+        <briefdescription>
+<para>Von Karman constant (dimensionless) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="150" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="150" bodyend="150"/>
+        <referencedby refid="group__canopy__wind_1gade10f32eedf03561ded2d522994845b6" compoundref="canopy__wind__mod_8F90" startline="47" endline="208">canopy_wind_mod::canopy_wind_most</referencedby>
+        <referencedby refid="namespacecanopy__profile__mod_1a1fccb5556673155fef7143bfd81358d9" compoundref="canopy__profile__mod_8F90" startline="331" endline="454">canopy_profile_mod::canopy_zpd</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1gaabc89a1bea9518dbcf9d122862596493" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::vp0</definition>
+        <argsstring></argsstring>
+        <name>vp0</name>
+        <initializer>= 611.29_rk</initializer>
+        <briefdescription>
+<para>Vapor pressure of water at 0°C <ulink url="Source: CRC76 pp. 6-15">Pa</ulink> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="137" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="137" bodyend="137"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Constants for atmospheric thermodynamics and chemistry. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,653 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="canopy__tleaf__mod_8F90" kind="file" language="Fortran">
+    <compoundname>canopy_tleaf_mod.F90</compoundname>
+    <innernamespace refid="namespacecanopy__tleaf__mod">canopy_tleaf_mod</innernamespace>
+      <sectiondef kind="user-defined">
+      <header>Input Parameters</header>
+      <description><para>Linear interpolation method for leaf temperature calculation in canopy</para>
+<para>Computes linear interpolation method for leaf temperature (sun/shade) in canopy based on Silva et al. (2020) algorithms. Uses linearized 2-m temperature to leaf temperature parameters with regression coefficients for 5 canopy layers. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ZK</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input model heights (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FCH</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input canopy height (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TEMP2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input 2-m temperature (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sunlit/shaded fraction from photolysis correction factor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TLEAF_SUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Leaf temperature for sunlit leaves (K) [output] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TLEAF_SHADE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Leaf temperature for shaded leaves (K) [output] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TLEAF_AVE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Average leaf temperature for sun/shaded leaves (K) [output] </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P.C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>June 2023 </para>
+</simplesect>
+<simplesect kind="note"><para>Based on Silva et al. (2020) - Development of a reduced-complexity plant canopy physics surrogate model for use in chemical transport models </para>
+</simplesect>
+</para>
+</description>
+      <memberdef kind="variable" id="group__tleaf__group_1ga58903d4fbed988ec5e610958a66bd5ad" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) fch</definition>
+        <argsstring></argsstring>
+        <name>fch</name>
+        <briefdescription>
+<para>Model input canopy height (m) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="48" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gae2b157e5a18cbd634cb3b2a844ec3ed0" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) fsun</definition>
+        <argsstring></argsstring>
+        <name>fsun</name>
+        <briefdescription>
+<para>Sunlit/Shaded fraction from photolysis correction factor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="50" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="50" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga0d2ba7d32b18e29bdb055d5fc48c5ade" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) temp2</definition>
+        <argsstring></argsstring>
+        <name>temp2</name>
+        <briefdescription>
+<para>Model input 2-m Temperature (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="49" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) zk</definition>
+        <argsstring></argsstring>
+        <name>zk</name>
+        <briefdescription>
+<para>Input model heights (m) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="47" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="47" bodyend="47"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__tleaf__group_1gaae22484e6884470398cf9c3270346a4c" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>)), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), dimension(size(zk)), intent(out) tleaf_ave</definition>
+        <argsstring></argsstring>
+        <name>tleaf_ave</name>
+        <briefdescription>
+<para>Ave Leaf temp for sun/shaded leaves (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="57" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga7b759790dc2dcc7e6e63eb9a0a16e9c5" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>)), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), dimension(size(zk)), intent(out) tleaf_shade</definition>
+        <argsstring></argsstring>
+        <name>tleaf_shade</name>
+        <briefdescription>
+<para>Leaf temp for shaded leaves (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="56" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga8b4f1efce2c35b34a33abb08eb21b93b" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>)), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), dimension(size(zk)), intent(out) tleaf_sun</definition>
+        <argsstring></argsstring>
+        <name>tleaf_sun</name>
+        <briefdescription>
+<para>Leaf temp for sunlit leaves (K) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="55" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="55" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__tleaf__group_1gab916cee914f7eed8169861e1e5c14325" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_1_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_1_shade</name>
+        <initializer>=  -12.846_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="84" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="84" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga0f1282b7e89a630160939bcbaefa875d" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_1_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_1_sun</name>
+        <initializer>=  -13.891_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="64" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga7a609d95385cbafec8d9b6c5f6ccb824" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_2_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_2_shade</name>
+        <initializer>=  -11.343_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="86" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="86" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga39b6fdc973fab2af9168bc86dcd0fd41" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_2_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_2_sun</name>
+        <initializer>=  -12.322_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="66" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="66" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga1a2d9669f0605a37b7ea2e97a01fa9fd" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_3_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_3_shade</name>
+        <initializer>=  -1.068_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="88" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="88" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga00c524910b5ef30edd2620366674c60c" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_3_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_3_sun</name>
+        <initializer>=  -1.032_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="68" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="68" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gace49da9c36b667cb0ee7bf6e0bbece46" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_4_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_4_shade</name>
+        <initializer>=  -5.551_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="90" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="90" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gadca9fbdc264ed6db46f3d6d9db3dfd5b" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_4_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_4_sun</name>
+        <initializer>=  -5.172_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="70" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="70" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga563c59c82bb59160fed436c039716d60" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_5_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_5_shade</name>
+        <initializer>=  -5.955_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="92" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="92" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gaccac56a1ea67e15a4f3deeb5467b62de" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter atemp_5_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_5_sun</name>
+        <initializer>=  -5.589_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="72" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gae15a16716ee45544aff2e75c75f12000" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_1_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_1_shade</name>
+        <initializer>=  1.060_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="94" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="94" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga57818f2646409b85981e2983e12de053" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_1_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_1_sun</name>
+        <initializer>=  1.064_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="74" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="74" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga00ace36b1594cc269df778a9bf997e16" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_2_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_2_shade</name>
+        <initializer>=  1.053_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="96" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="96" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga31b91d1f83e4cccc0f8082d72f83abbf" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_2_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_2_sun</name>
+        <initializer>=  1.057_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="76" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gaae26ef6daaf43ca06359eeec80b792c3" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_3_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_3_shade</name>
+        <initializer>=  1.031_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="98" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="98" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga85feb9ecc36d672f90d315959f778860" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_3_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_3_sun</name>
+        <initializer>=  1.031_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="78" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="78" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga0c2e2092938c87399fc7c6f52708ddce" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_4_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_4_shade</name>
+        <initializer>=  1.051_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="100" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="100" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga9c09b5ad90fe72325600b11b5cc5fd82" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_4_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_4_sun</name>
+        <initializer>=  1.050_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="80" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="80" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga943aca9bfedf83742ce3d132f62f24ef" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_5_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_5_shade</name>
+        <initializer>=  1.053_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="102" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="102" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga51ae2abb76d7fc81a17ed3127c8e81cb" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter btemp_5_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_5_sun</name>
+        <initializer>=  1.051_rk</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="82" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="82" bodyend="82"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__tleaf__group_1gaa6e81763ce77521cd5983b9fdaebedb4" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) atemp_shade</definition>
+        <argsstring></argsstring>
+        <name>atemp_shade</name>
+        <briefdescription>
+<para>Regression coefficient A for shade leaves. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="109" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="109" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga0be5070f00aaaf3b291b7846a02fddb3" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) atemp_sun</definition>
+        <argsstring></argsstring>
+        <name>atemp_sun</name>
+        <briefdescription>
+<para>Regression coefficient A for sun leaves (Silva et al., 2020) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="107" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="107" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1gab1256824fba5ebf265ce25b9f1d53682" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) btemp_shade</definition>
+        <argsstring></argsstring>
+        <name>btemp_shade</name>
+        <briefdescription>
+<para>Regression coefficient B for shade leaves. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="110" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="110" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__tleaf__group_1ga513fa74690410a0c566c254eb0aeadb7" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref>))</type>
+        <definition>real(rk), dimension(size(zk)) btemp_sun</definition>
+        <argsstring></argsstring>
+        <name>btemp_sun</name>
+        <briefdescription>
+<para>Regression coefficient B for sun leaves. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="108" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="108" bodyend="108"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="group__tleaf__group_1gaaea4baed8fd8b780f6938f0dc1fb0f72" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <briefdescription>
+<para>Loop index. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Calculate linear change in parameters interpolated to Silva et al. 5 layer canopy regions Above canopy, Tleaf = Tair Level 1 - 2 Level 2 - 3 Level 3 - 4 Level 4 - Bottom </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_tleaf_mod.F90" line="113" column="1" bodyfile="src/canopy_tleaf_mod.F90" bodystart="113" bodyend="113"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Leaf temperature calculation module for canopy model. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This module implements linear interpolation methods for calculating leaf temperatures for sunlit and shaded leaves throughout the canopy based on Silva et al. (2020) algorithms. <simplesect kind="author"><para>P.C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>June 2023 </para>
+</simplesect>
+<simplesect kind="version"><para>1.0 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="9"></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="namespacecanopy__tleaf__mod" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">module</highlight><highlight class="normal"><sp/><ref refid="namespacecanopy__tleaf__mod" kindref="compound">canopy_tleaf_mod</ref></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">implicit<sp/>none</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">contains</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">SUBROUTINE<sp/></highlight><highlight class="normal">canopy_tleaf_lin(<sp/>ZK,<sp/>FCH,<sp/>TEMP2,<sp/>FSUN,<sp/>&amp;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TLEAF_SUN,<sp/>TLEAF_SHADE,<sp/>TLEAF_AVE)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__const__mod" kindref="compound">canopy_const_mod</ref>,<sp/></highlight><highlight class="keywordtype">ONLY</highlight><highlight class="normal">:<sp/><ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref><sp/><sp/><sp/><sp/><sp/>!&lt;<sp/>constants<sp/><ref refid="group__bioemi__inputs_1gaf446508c68e334894eee1a7ec50b62f3" kindref="member">for</ref><sp/><ref refid="group__bioemi__inputs_1gaad0c993bd5fd93c7decad9daf442d225" kindref="member">canopy</ref><sp/>models</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__utils__mod" kindref="compound">canopy_utils_mod</ref>,<sp/><sp/></highlight><highlight class="keywordtype">ONLY</highlight><highlight class="normal">:<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref><sp/>!&lt;<sp/>linear<sp/>interpolation<sp/>utility</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="group__tleaf__group_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(:)</highlight></codeline>
+<codeline lineno="48" refid="group__tleaf__group_1ga58903d4fbed988ec5e610958a66bd5ad" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref></highlight></codeline>
+<codeline lineno="49" refid="group__tleaf__group_1ga0d2ba7d32b18e29bdb055d5fc48c5ade" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__bioemi__inputs_1ga0d2ba7d32b18e29bdb055d5fc48c5ade" kindref="member">temp2</ref></highlight></codeline>
+<codeline lineno="50" refid="group__tleaf__group_1gae2b157e5a18cbd634cb3b2a844ec3ed0" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__bioemi__inputs_1gae2b157e5a18cbd634cb3b2a844ec3ed0" kindref="member">fsun</ref>(:)</highlight></codeline>
+<codeline lineno="52"></codeline>
+<codeline lineno="55" refid="group__tleaf__group_1ga8b4f1efce2c35b34a33abb08eb21b93b" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>OUT<sp/>)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__bioemi__inputs_1ga9b8a60ad5270b0d830e7e5b1fc4146b8" kindref="member">tleaf_sun</ref>(size(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>))</highlight></codeline>
+<codeline lineno="56" refid="group__tleaf__group_1ga7b759790dc2dcc7e6e63eb9a0a16e9c5" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>OUT<sp/>)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__bioemi__inputs_1gae3271890f004cdd6071901a333504c16" kindref="member">tleaf_shade</ref>(size(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>))</highlight></codeline>
+<codeline lineno="57" refid="group__tleaf__group_1gaae22484e6884470398cf9c3270346a4c" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>OUT<sp/>)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1gaae22484e6884470398cf9c3270346a4c" kindref="member">tleaf_ave</ref>(size(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>))</highlight></codeline>
+<codeline lineno="59"></codeline>
+<codeline lineno="64" refid="group__tleaf__group_1ga0f1282b7e89a630160939bcbaefa875d" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga0f1282b7e89a630160939bcbaefa875d" kindref="member">atemp_1_sun</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>-13.891_rk</highlight></codeline>
+<codeline lineno="66" refid="group__tleaf__group_1ga39b6fdc973fab2af9168bc86dcd0fd41" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga39b6fdc973fab2af9168bc86dcd0fd41" kindref="member">atemp_2_sun</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>-12.322_rk</highlight></codeline>
+<codeline lineno="68" refid="group__tleaf__group_1ga00c524910b5ef30edd2620366674c60c" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga00c524910b5ef30edd2620366674c60c" kindref="member">atemp_3_sun</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>-1.032_rk</highlight></codeline>
+<codeline lineno="70" refid="group__tleaf__group_1gadca9fbdc264ed6db46f3d6d9db3dfd5b" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1gadca9fbdc264ed6db46f3d6d9db3dfd5b" kindref="member">atemp_4_sun</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>-5.172_rk</highlight></codeline>
+<codeline lineno="72" refid="group__tleaf__group_1gaccac56a1ea67e15a4f3deeb5467b62de" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1gaccac56a1ea67e15a4f3deeb5467b62de" kindref="member">atemp_5_sun</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>-5.589_rk</highlight></codeline>
+<codeline lineno="74" refid="group__tleaf__group_1ga57818f2646409b85981e2983e12de053" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga57818f2646409b85981e2983e12de053" kindref="member">btemp_1_sun</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>1.064_rk</highlight></codeline>
+<codeline lineno="76" refid="group__tleaf__group_1ga31b91d1f83e4cccc0f8082d72f83abbf" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga31b91d1f83e4cccc0f8082d72f83abbf" kindref="member">btemp_2_sun</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>1.057_rk</highlight></codeline>
+<codeline lineno="78" refid="group__tleaf__group_1ga85feb9ecc36d672f90d315959f778860" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga85feb9ecc36d672f90d315959f778860" kindref="member">btemp_3_sun</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>1.031_rk</highlight></codeline>
+<codeline lineno="80" refid="group__tleaf__group_1ga9c09b5ad90fe72325600b11b5cc5fd82" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga9c09b5ad90fe72325600b11b5cc5fd82" kindref="member">btemp_4_sun</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>1.050_rk</highlight></codeline>
+<codeline lineno="82" refid="group__tleaf__group_1ga51ae2abb76d7fc81a17ed3127c8e81cb" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga51ae2abb76d7fc81a17ed3127c8e81cb" kindref="member">btemp_5_sun</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>1.051_rk</highlight></codeline>
+<codeline lineno="84" refid="group__tleaf__group_1gab916cee914f7eed8169861e1e5c14325" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1gab916cee914f7eed8169861e1e5c14325" kindref="member">atemp_1_shade</ref><sp/><sp/><sp/>=<sp/><sp/>-12.846_rk</highlight></codeline>
+<codeline lineno="86" refid="group__tleaf__group_1ga7a609d95385cbafec8d9b6c5f6ccb824" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga7a609d95385cbafec8d9b6c5f6ccb824" kindref="member">atemp_2_shade</ref><sp/><sp/><sp/>=<sp/><sp/>-11.343_rk</highlight></codeline>
+<codeline lineno="88" refid="group__tleaf__group_1ga1a2d9669f0605a37b7ea2e97a01fa9fd" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga1a2d9669f0605a37b7ea2e97a01fa9fd" kindref="member">atemp_3_shade</ref><sp/><sp/><sp/>=<sp/><sp/>-1.068_rk</highlight></codeline>
+<codeline lineno="90" refid="group__tleaf__group_1gace49da9c36b667cb0ee7bf6e0bbece46" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1gace49da9c36b667cb0ee7bf6e0bbece46" kindref="member">atemp_4_shade</ref><sp/><sp/><sp/>=<sp/><sp/>-5.551_rk</highlight></codeline>
+<codeline lineno="92" refid="group__tleaf__group_1ga563c59c82bb59160fed436c039716d60" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga563c59c82bb59160fed436c039716d60" kindref="member">atemp_5_shade</ref><sp/><sp/><sp/>=<sp/><sp/>-5.955_rk</highlight></codeline>
+<codeline lineno="94" refid="group__tleaf__group_1gae15a16716ee45544aff2e75c75f12000" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1gae15a16716ee45544aff2e75c75f12000" kindref="member">btemp_1_shade</ref><sp/><sp/><sp/>=<sp/><sp/>1.060_rk</highlight></codeline>
+<codeline lineno="96" refid="group__tleaf__group_1ga00ace36b1594cc269df778a9bf997e16" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga00ace36b1594cc269df778a9bf997e16" kindref="member">btemp_2_shade</ref><sp/><sp/><sp/>=<sp/><sp/>1.053_rk</highlight></codeline>
+<codeline lineno="98" refid="group__tleaf__group_1gaae26ef6daaf43ca06359eeec80b792c3" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1gaae26ef6daaf43ca06359eeec80b792c3" kindref="member">btemp_3_shade</ref><sp/><sp/><sp/>=<sp/><sp/>1.031_rk</highlight></codeline>
+<codeline lineno="100" refid="group__tleaf__group_1ga0c2e2092938c87399fc7c6f52708ddce" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga0c2e2092938c87399fc7c6f52708ddce" kindref="member">btemp_4_shade</ref><sp/><sp/><sp/>=<sp/><sp/>1.051_rk</highlight></codeline>
+<codeline lineno="102" refid="group__tleaf__group_1ga943aca9bfedf83742ce3d132f62f24ef" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__tleaf__group_1ga943aca9bfedf83742ce3d132f62f24ef" kindref="member">btemp_5_shade</ref><sp/><sp/><sp/>=<sp/><sp/>1.053_rk</highlight></codeline>
+<codeline lineno="104"></codeline>
+<codeline lineno="107" refid="group__tleaf__group_1ga0be5070f00aaaf3b291b7846a02fddb3" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>)<sp/>::<sp/><ref refid="group__tleaf__group_1ga0be5070f00aaaf3b291b7846a02fddb3" kindref="member">atemp_sun</ref>(size(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>))</highlight></codeline>
+<codeline lineno="108" refid="group__tleaf__group_1ga513fa74690410a0c566c254eb0aeadb7" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>)<sp/>::<sp/><ref refid="group__tleaf__group_1ga513fa74690410a0c566c254eb0aeadb7" kindref="member">btemp_sun</ref>(size(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>))</highlight></codeline>
+<codeline lineno="109" refid="group__tleaf__group_1gaa6e81763ce77521cd5983b9fdaebedb4" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>)<sp/>::<sp/><ref refid="group__tleaf__group_1gaa6e81763ce77521cd5983b9fdaebedb4" kindref="member">atemp_shade</ref>(size(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>))</highlight></codeline>
+<codeline lineno="110" refid="group__tleaf__group_1gab1256824fba5ebf265ce25b9f1d53682" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>)<sp/>::<sp/><ref refid="group__tleaf__group_1gab1256824fba5ebf265ce25b9f1d53682" kindref="member">btemp_shade</ref>(size(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>))</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="group__tleaf__group_1gaaea4baed8fd8b780f6938f0dc1fb0f72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal"><sp/><ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref></highlight></codeline>
+<codeline lineno="114"></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/><ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>=1,<sp/></highlight><highlight class="keyword">SIZE</highlight><highlight class="normal">(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>)<sp/><sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.gt.<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1ga0be5070f00aaaf3b291b7846a02fddb3" kindref="member">atemp_sun</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/>0.0</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1ga513fa74690410a0c566c254eb0aeadb7" kindref="member">btemp_sun</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/>1.0</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1gaa6e81763ce77521cd5983b9fdaebedb4" kindref="member">atemp_shade</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/>0.0</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1gab1256824fba5ebf265ce25b9f1d53682" kindref="member">btemp_shade</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/>1.0</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.le.<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref><sp/>.and.<sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.gt.<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(4.0_rk/5.0_rk))<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1ga0be5070f00aaaf3b291b7846a02fddb3" kindref="member">atemp_sun</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(4.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref><sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga39b6fdc973fab2af9168bc86dcd0fd41" kindref="member">atemp_2_sun</ref>,<ref refid="group__tleaf__group_1ga0f1282b7e89a630160939bcbaefa875d" kindref="member">atemp_1_sun</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1ga513fa74690410a0c566c254eb0aeadb7" kindref="member">btemp_sun</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(4.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref><sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga31b91d1f83e4cccc0f8082d72f83abbf" kindref="member">btemp_2_sun</ref>,<ref refid="group__tleaf__group_1ga57818f2646409b85981e2983e12de053" kindref="member">btemp_1_sun</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1gaa6e81763ce77521cd5983b9fdaebedb4" kindref="member">atemp_shade</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(4.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref><sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga7a609d95385cbafec8d9b6c5f6ccb824" kindref="member">atemp_2_shade</ref>,<ref refid="group__tleaf__group_1gab916cee914f7eed8169861e1e5c14325" kindref="member">atemp_1_shade</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1gab1256824fba5ebf265ce25b9f1d53682" kindref="member">btemp_shade</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(4.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref><sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga00ace36b1594cc269df778a9bf997e16" kindref="member">btemp_2_shade</ref>,<ref refid="group__tleaf__group_1gae15a16716ee45544aff2e75c75f12000" kindref="member">btemp_1_shade</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.le.<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(4.0_rk/5.0_rk)<sp/>.and.<sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.gt.<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(3.0_rk/5.0_rk))<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1ga0be5070f00aaaf3b291b7846a02fddb3" kindref="member">atemp_sun</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(3.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(4.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga00c524910b5ef30edd2620366674c60c" kindref="member">atemp_3_sun</ref>,<ref refid="group__tleaf__group_1ga39b6fdc973fab2af9168bc86dcd0fd41" kindref="member">atemp_2_sun</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1ga513fa74690410a0c566c254eb0aeadb7" kindref="member">btemp_sun</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(3.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(4.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga85feb9ecc36d672f90d315959f778860" kindref="member">btemp_3_sun</ref>,<ref refid="group__tleaf__group_1ga31b91d1f83e4cccc0f8082d72f83abbf" kindref="member">btemp_2_sun</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1gaa6e81763ce77521cd5983b9fdaebedb4" kindref="member">atemp_shade</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(3.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(4.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga1a2d9669f0605a37b7ea2e97a01fa9fd" kindref="member">atemp_3_shade</ref>,<ref refid="group__tleaf__group_1ga7a609d95385cbafec8d9b6c5f6ccb824" kindref="member">atemp_2_shade</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1gab1256824fba5ebf265ce25b9f1d53682" kindref="member">btemp_shade</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(3.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(4.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1gaae26ef6daaf43ca06359eeec80b792c3" kindref="member">btemp_3_shade</ref>,<ref refid="group__tleaf__group_1ga00ace36b1594cc269df778a9bf997e16" kindref="member">btemp_2_shade</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.le.<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(3.0_rk/5.0_rk)<sp/>.and.<sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.gt.<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(2.0_rk/5.0_rk))<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1ga0be5070f00aaaf3b291b7846a02fddb3" kindref="member">atemp_sun</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(2.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(3.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1gadca9fbdc264ed6db46f3d6d9db3dfd5b" kindref="member">atemp_4_sun</ref>,<ref refid="group__tleaf__group_1ga00c524910b5ef30edd2620366674c60c" kindref="member">atemp_3_sun</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1ga513fa74690410a0c566c254eb0aeadb7" kindref="member">btemp_sun</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(2.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(3.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga9c09b5ad90fe72325600b11b5cc5fd82" kindref="member">btemp_4_sun</ref>,<ref refid="group__tleaf__group_1ga85feb9ecc36d672f90d315959f778860" kindref="member">btemp_3_sun</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1gaa6e81763ce77521cd5983b9fdaebedb4" kindref="member">atemp_shade</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(2.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(3.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1gace49da9c36b667cb0ee7bf6e0bbece46" kindref="member">atemp_4_shade</ref>,<ref refid="group__tleaf__group_1ga1a2d9669f0605a37b7ea2e97a01fa9fd" kindref="member">atemp_3_shade</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1gab1256824fba5ebf265ce25b9f1d53682" kindref="member">btemp_shade</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(2.0_rk/5.0_rk),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(3.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga0c2e2092938c87399fc7c6f52708ddce" kindref="member">btemp_4_shade</ref>,<ref refid="group__tleaf__group_1gaae26ef6daaf43ca06359eeec80b792c3" kindref="member">btemp_3_shade</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.le.<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(2.0_rk/5.0_rk)<sp/>)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1ga0be5070f00aaaf3b291b7846a02fddb3" kindref="member">atemp_sun</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(1),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(2.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1gaccac56a1ea67e15a4f3deeb5467b62de" kindref="member">atemp_5_sun</ref>,<ref refid="group__tleaf__group_1gadca9fbdc264ed6db46f3d6d9db3dfd5b" kindref="member">atemp_4_sun</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1ga513fa74690410a0c566c254eb0aeadb7" kindref="member">btemp_sun</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(1),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(2.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga51ae2abb76d7fc81a17ed3127c8e81cb" kindref="member">btemp_5_sun</ref>,<ref refid="group__tleaf__group_1ga9c09b5ad90fe72325600b11b5cc5fd82" kindref="member">btemp_4_sun</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1gaa6e81763ce77521cd5983b9fdaebedb4" kindref="member">atemp_shade</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(1),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(2.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga563c59c82bb59160fed436c039716d60" kindref="member">atemp_5_shade</ref>,<ref refid="group__tleaf__group_1gace49da9c36b667cb0ee7bf6e0bbece46" kindref="member">atemp_4_shade</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1gab1256824fba5ebf265ce25b9f1d53682" kindref="member">btemp_shade</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(1),<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref>*(2.0_rk/5.0_rk)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__tleaf__group_1ga943aca9bfedf83742ce3d132f62f24ef" kindref="member">btemp_5_shade</ref>,<ref refid="group__tleaf__group_1ga0c2e2092938c87399fc7c6f52708ddce" kindref="member">btemp_4_shade</ref><sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>if</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>do</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bioemi__inputs_1ga9b8a60ad5270b0d830e7e5b1fc4146b8" kindref="member">tleaf_sun</ref><sp/><sp/><sp/>=<sp/><ref refid="group__tleaf__group_1ga0be5070f00aaaf3b291b7846a02fddb3" kindref="member">atemp_sun</ref><sp/>+<sp/>(<ref refid="group__tleaf__group_1ga513fa74690410a0c566c254eb0aeadb7" kindref="member">btemp_sun</ref>*<ref refid="group__bioemi__inputs_1ga0d2ba7d32b18e29bdb055d5fc48c5ade" kindref="member">temp2</ref>)</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bioemi__inputs_1gae3271890f004cdd6071901a333504c16" kindref="member">tleaf_shade</ref><sp/>=<sp/><ref refid="group__tleaf__group_1gaa6e81763ce77521cd5983b9fdaebedb4" kindref="member">atemp_shade</ref><sp/>+<sp/>(<ref refid="group__tleaf__group_1gab1256824fba5ebf265ce25b9f1d53682" kindref="member">btemp_shade</ref>*<ref refid="group__bioemi__inputs_1ga0d2ba7d32b18e29bdb055d5fc48c5ade" kindref="member">temp2</ref>)</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__tleaf__group_1gaae22484e6884470398cf9c3270346a4c" kindref="member">tleaf_ave</ref><sp/>=<sp/>(<ref refid="group__bioemi__inputs_1ga9b8a60ad5270b0d830e7e5b1fc4146b8" kindref="member">tleaf_sun</ref>*<ref refid="group__bioemi__inputs_1gae2b157e5a18cbd634cb3b2a844ec3ed0" kindref="member">fsun</ref>)<sp/>+<sp/>(<ref refid="group__bioemi__inputs_1gae3271890f004cdd6071901a333504c16" kindref="member">tleaf_shade</ref>*(1.0-<ref refid="group__bioemi__inputs_1gae2b157e5a18cbd634cb3b2a844ec3ed0" kindref="member">fsun</ref>))</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">END<sp/>SUBROUTINE<sp/></highlight><highlight class="normal">canopy_tleaf_lin</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>module<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__tleaf__mod" kindref="compound">canopy_tleaf_mod</ref></highlight></codeline>
+    </programlisting>
+    <location file="src/canopy_tleaf_mod.F90"/>
+  </compounddef>
+</doxygen>

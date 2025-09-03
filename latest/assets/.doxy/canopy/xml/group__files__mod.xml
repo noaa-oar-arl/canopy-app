@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__files__mod" kind="group">
+    <compoundname>files_mod</compoundname>
+    <title>File Management Module</title>
+    <innergroup refid="group__file__arrays">File Path Arrays</innergroup>
+    <innergroup refid="group__file__units">File Units and Limits</innergroup>
+    <innergroup refid="group__file__paths">Fixed File Paths</innergroup>
+    <briefdescription>
+<para>Module for file path and unit management. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

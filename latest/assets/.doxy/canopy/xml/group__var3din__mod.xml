@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__var3din__mod" kind="group">
+    <compoundname>var3din_mod</compoundname>
+    <title>3D Variable Input Module</title>
+    <innergroup refid="group__var3din__inputs">Input Variables</innergroup>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__var3din__mod_1gadb270d06c7e6f5106391c271e0f3a65b" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), dimension(:), intent(out) fafraczint</definition>
+        <argsstring></argsstring>
+        <name>fafraczint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="65" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="65" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__mod_1ga98ce5878c48004c123172e1f209dd9c8" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>), allocatable</type>
+        <definition>real(rk), intent(out), allocatable fractional</definition>
+        <argsstring></argsstring>
+        <name>fractional</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="65" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__mod_1gab5251e02e5100192d6a3b0d44b673ab2" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>), allocatable</type>
+        <definition>real(rk), intent(out), allocatable incremental</definition>
+        <argsstring></argsstring>
+        <name>incremental</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="65" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__mod_1ga8047d3825a4324ea8bb8c065e38390f5" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) integral</definition>
+        <argsstring></argsstring>
+        <name>integral</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="65" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Module for processing 3D canopy structure inputs. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

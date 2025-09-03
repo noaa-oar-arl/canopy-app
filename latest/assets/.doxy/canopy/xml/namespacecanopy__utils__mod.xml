@@ -1,0 +1,1372 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacecanopy__utils__mod" kind="namespace" language="Fortran">
+    <compoundname>canopy_utils_mod</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__utils__group_1gaabcb23e0c2bdb7e3bf6d192182cc30dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::calccair</definition>
+        <argsstring>(pmbi, tki)</argsstring>
+        <name>calccair</name>
+        <param>
+          <type>pmbi</type>
+          <defname>pmbi</defname>
+        </param>
+        <param>
+          <type>tki</type>
+          <defname>tki</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1214" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1215" bodyend="1220"/>
+        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="71">d</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga24b86b1c6a395bd9c05c9ae773743137" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::calcdx</definition>
+        <argsstring>(lat, dlon)</argsstring>
+        <name>calcdx</name>
+        <param>
+          <type>lat</type>
+          <defname>lat</defname>
+        </param>
+        <param>
+          <type>dlon</type>
+          <defname>dlon</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="114" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="115" bodyend="125"/>
+        <referencedby refid="group__canopy__dx_1gaad4ce838500a648283dee0ea12bb7bba" compoundref="canopy__dxcalc__mod_8F90" startline="34" endline="87">canopy_dxcalc_mod::canopy_calcdx</referencedby>
+        <referencedby refid="group__canopy__dx_1ga5102ac789e2d39bb539c15aabde9bcb2" compoundref="canopy__dxcalc__mod_8F90" startline="107" endline="164">canopy_dxcalc_mod::canopy_calcdx_2d</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga0fdff4c99c48afdcc355366c92658b0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::calcflameh</definition>
+        <argsstring>(frp, dx, lu_opt, vtype, flameh_cal)</argsstring>
+        <name>calcflameh</name>
+        <param>
+          <type>frp</type>
+          <defname>frp</defname>
+        </param>
+        <param>
+          <type>dx</type>
+          <defname>dx</defname>
+        </param>
+        <param>
+          <type><ref refid="group__profile__group_1ga1adde842497949967a630320b18ef99a" kindref="member">lu_opt</ref></type>
+          <defname>lu_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__profile__group_1gaa4b3d43d015fa3bca1ada7fb8ba71481" kindref="member">vtype</ref></type>
+          <defname>vtype</defname>
+        </param>
+        <param>
+          <type>flameh_cal</type>
+          <defname>flameh_cal</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="149" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="150" bodyend="506"/>
+        <references refid="group__bioemi__inputs_1ga1adde842497949967a630320b18ef99a" compoundref="canopy__bioemi__mod_8F90" startline="144" endline="144">lu_opt</references>
+        <references refid="group__bioemi__inputs_1gaa4b3d43d015fa3bca1ada7fb8ba71481" compoundref="canopy__bioemi__mod_8F90" startline="145" endline="145">vtype</references>
+        <referencedby refid="group__canopy__fire_1ga1e55990adca2c705635845526e1354de" compoundref="canopy__fire__mod_8F90" startline="41" endline="149">canopy_fire_mod::canopy_flameh</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga939db13183a6a3afef4595d065de5e17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::calcpai</definition>
+        <argsstring>(ch, canfrac)</argsstring>
+        <name>calcpai</name>
+        <param>
+          <type>ch</type>
+          <defname>ch</defname>
+        </param>
+        <param>
+          <type>canfrac</type>
+          <defname>canfrac</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input Grid cell canopy height (m)</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">canfrac</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input Grid cell canopy fraction </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="90" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="91" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gad6424cae6753e427994d96ec2aa7e20e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::calcpressure</definition>
+        <argsstring>(zk, zref, pmbzref, tref, t0)</argsstring>
+        <name>calcpressure</name>
+        <param>
+          <type><ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref></type>
+          <defname>zk</defname>
+        </param>
+        <param>
+          <type>zref</type>
+          <defname>zref</defname>
+        </param>
+        <param>
+          <type>pmbzref</type>
+          <defname>pmbzref</defname>
+        </param>
+        <param>
+          <type>tref</type>
+          <defname>tref</defname>
+        </param>
+        <param>
+          <type>t0</type>
+          <defname>t0</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1130" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1131" bodyend="1141"/>
+        <references refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" compoundref="canopy__bioemi__mod_8F90" startline="123" endline="123">zk</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gac53b0debdd259ba71ddf6871632162e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::calcrelhum</definition>
+        <argsstring>(tki, pmbi, qhi)</argsstring>
+        <name>calcrelhum</name>
+        <param>
+          <type>tki</type>
+          <defname>tki</defname>
+        </param>
+        <param>
+          <type>pmbi</type>
+          <defname>pmbi</defname>
+        </param>
+        <param>
+          <type>qhi</type>
+          <defname>qhi</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1169" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1170" bodyend="1186"/>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga8146cf77b1f196409226fca98d44c760" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::calcrib</definition>
+        <argsstring>(tak, tsk, ubari, d, zref)</argsstring>
+        <name>calcrib</name>
+        <param>
+          <type>tak</type>
+          <defname>tak</defname>
+        </param>
+        <param>
+          <type>tsk</type>
+          <defname>tsk</defname>
+        </param>
+        <param>
+          <type>ubari</type>
+          <defname>ubari</defname>
+        </param>
+        <param>
+          <type><ref refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" kindref="member">d</ref></type>
+          <defname>d</defname>
+        </param>
+        <param>
+          <type>zref</type>
+          <defname>zref</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1916" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1917" bodyend="1926"/>
+        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="71">d</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga239cf3416193408964190c47096231d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::calcspechum</definition>
+        <argsstring>(rhi, tki, pmbi)</argsstring>
+        <name>calcspechum</name>
+        <param>
+          <type>rhi</type>
+          <defname>rhi</defname>
+        </param>
+        <param>
+          <type>tki</type>
+          <defname>tki</defname>
+        </param>
+        <param>
+          <type>pmbi</type>
+          <defname>pmbi</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1193" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1194" bodyend="1207"/>
+        <references refid="group__utils__group_1ga302dd4acd7d03c86cb0f70b59f77016b" compoundref="canopy__utils__mod_8F90" startline="1154" endline="1160">esat</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga70c251ed48260b952b2171996d961673" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::calctemp</definition>
+        <argsstring>(zk, zref, taref, tsref)</argsstring>
+        <name>calctemp</name>
+        <param>
+          <type><ref refid="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" kindref="member">zk</ref></type>
+          <defname>zk</defname>
+        </param>
+        <param>
+          <type>zref</type>
+          <defname>zref</defname>
+        </param>
+        <param>
+          <type>taref</type>
+          <defname>taref</defname>
+        </param>
+        <param>
+          <type>tsref</type>
+          <defname>tsref</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1111" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1112" bodyend="1123"/>
+        <references refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" compoundref="canopy__bioemi__mod_8F90" startline="123" endline="123">zk</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gab910cee51af373b9c2110fb2f8e69180" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::convert_qh_to_h2o</definition>
+        <argsstring>(qhi, cairi)</argsstring>
+        <name>convert_qh_to_h2o</name>
+        <param>
+          <type>qhi</type>
+          <defname>qhi</defname>
+        </param>
+        <param>
+          <type>cairi</type>
+          <defname>cairi</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1227" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1228" bodyend="1234"/>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gab7aaf7725f96338bac795e5a4ff3c0c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::effhenryslawcoeff</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, ispec)</argsstring>
+        <name>effhenryslawcoeff</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>ispec</type>
+          <defname>ispec</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1601" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1602" bodyend="1610"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <references refid="group__utils__group_1ga3cbd1c93a9f821582f527132a5fcbc36" compoundref="canopy__utils__mod_8F90" startline="1619" endline="1645">seteffhenryslawcoeffs</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga302dd4acd7d03c86cb0f70b59f77016b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::esat</definition>
+        <argsstring>(tki)</argsstring>
+        <name>esat</name>
+        <param>
+          <type>tki</type>
+          <defname>tki</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1153" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1154" bodyend="1160"/>
+        <referencedby refid="group__utils__group_1ga239cf3416193408964190c47096231d3" compoundref="canopy__utils__mod_8F90" startline="1194" endline="1207">calcspechum</referencedby>
+        <referencedby refid="group__utils__group_1ga8cf7fc0966b3a57b4655dd04b9ef326b" compoundref="canopy__utils__mod_8F90" startline="1317" endline="1371">rs_zhang_gas</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga44ce09ebe8520cfbf3f329a8d80b8e5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::get_canloss_bio</definition>
+        <argsstring>(loss_opt, lifetime, ustar, ch)</argsstring>
+        <name>get_canloss_bio</name>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1ga9bfc72f4c93bfb58926d5c50bfae6544" kindref="member">loss_opt</ref></type>
+          <defname>loss_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1ga8321291d68495cd768884629988b0322" kindref="member">lifetime</ref></type>
+          <defname>lifetime</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1ga8ece472fdbc07ee4926bcbb7909a08c9" kindref="member">ustar</ref></type>
+          <defname>ustar</defname>
+        </param>
+        <param>
+          <type>ch</type>
+          <defname>ch</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="756" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="757" bodyend="799"/>
+        <references refid="group__bioemi__inputs_1ga8321291d68495cd768884629988b0322" compoundref="canopy__bioemi__mod_8F90" startline="178" endline="178">lifetime</references>
+        <references refid="group__bioemi__inputs_1ga9bfc72f4c93bfb58926d5c50bfae6544" compoundref="canopy__bioemi__mod_8F90" startline="179">loss_opt</references>
+        <references refid="group__bioemi__inputs_1ga8ece472fdbc07ee4926bcbb7909a08c9" compoundref="canopy__bioemi__mod_8F90" startline="182" endline="182">ustar</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga32aa0c8a9aeabb2253ca3aad69e3c20c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::get_gamma_aq</definition>
+        <argsstring>(aq_opt, w126_ozone, w126_set, caq, taq, dtaq)</argsstring>
+        <name>get_gamma_aq</name>
+        <param>
+          <type>aq_opt</type>
+          <defname>aq_opt</defname>
+        </param>
+        <param>
+          <type>w126_ozone</type>
+          <defname>w126_ozone</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1gada4307ae9fbf30bf63ca7b22bb97f527" kindref="member">w126_set</ref></type>
+          <defname>w126_set</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1ac9329f6c00b666bde590c6c0fc3b5dfd" kindref="member">caq</ref></type>
+          <defname>caq</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1ab947f2bdaaa50302abd72b4dee02281e" kindref="member">taq</ref></type>
+          <defname>taq</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1a2c03e89eebf4b10daaaefc6b00ff13d3" kindref="member">dtaq</ref></type>
+          <defname>dtaq</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="920" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="921" bodyend="969"/>
+        <references refid="canopy__bioemi__mod_8F90_1ac9329f6c00b666bde590c6c0fc3b5dfd" compoundref="canopy__bioemi__mod_8F90" startline="257" endline="257">caq</references>
+        <references refid="canopy__bioemi__mod_8F90_1a2c03e89eebf4b10daaaefc6b00ff13d3" compoundref="canopy__bioemi__mod_8F90" startline="257">dtaq</references>
+        <references refid="canopy__bioemi__mod_8F90_1ab947f2bdaaa50302abd72b4dee02281e" compoundref="canopy__bioemi__mod_8F90" startline="257">taq</references>
+        <references refid="group__bioemi__inputs_1gab52d8ef37a8d7a81547c07d906a0fd57" compoundref="canopy__bioemi__mod_8F90" startline="162">w126</references>
+        <references refid="group__bioemi__inputs_1gada4307ae9fbf30bf63ca7b22bb97f527" compoundref="canopy__bioemi__mod_8F90" startline="162" endline="162">w126_set</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga0962d4aef518f665da37d50deefa7cd0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::get_gamma_co2</definition>
+        <argsstring>(co2_opt, co2_set)</argsstring>
+        <name>get_gamma_co2</name>
+        <param>
+          <type>co2_opt</type>
+          <defname>co2_opt</defname>
+        </param>
+        <param>
+          <type>co2_set</type>
+          <defname>co2_set</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="509" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="510" bodyend="632"/>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gaf363ff7687b7744ee298b1b5433c6341" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::get_gamma_ht</definition>
+        <argsstring>(ht_opt, maxt2m, cht, tht, dtht)</argsstring>
+        <name>get_gamma_ht</name>
+        <param>
+          <type>ht_opt</type>
+          <defname>ht_opt</defname>
+        </param>
+        <param>
+          <type>maxt2m</type>
+          <defname>maxt2m</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1ac1155f6a99f9964563a318a30ad84e53" kindref="member">cht</ref></type>
+          <defname>cht</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1ac016493f4cc3aefc22d41af09cf6b4eb" kindref="member">tht</ref></type>
+          <defname>tht</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1a2781a89ac62f974fb333ca98a8942ce4" kindref="member">dtht</ref></type>
+          <defname>dtht</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="973" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="974" bodyend="1012"/>
+        <references refid="canopy__bioemi__mod_8F90_1ac1155f6a99f9964563a318a30ad84e53" compoundref="canopy__bioemi__mod_8F90" startline="260" endline="260">cht</references>
+        <references refid="canopy__bioemi__mod_8F90_1a2781a89ac62f974fb333ca98a8942ce4" compoundref="canopy__bioemi__mod_8F90" startline="260">dtht</references>
+        <references refid="canopy__bioemi__mod_8F90_1ac016493f4cc3aefc22d41af09cf6b4eb" compoundref="canopy__bioemi__mod_8F90" startline="260">tht</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga748ad824d99762da763dabfff886c873" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::get_gamma_hw</definition>
+        <argsstring>(hw_opt, maxws10m, chw, thw, dthw)</argsstring>
+        <name>get_gamma_hw</name>
+        <param>
+          <type>hw_opt</type>
+          <defname>hw_opt</defname>
+        </param>
+        <param>
+          <type>maxws10m</type>
+          <defname>maxws10m</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1a6085c3b6844b4a7e71ae8b835ec675cd" kindref="member">chw</ref></type>
+          <defname>chw</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1a2c15f837acf1488902c9b266cae31d12" kindref="member">thw</ref></type>
+          <defname>thw</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1a84d5e4d52ed3864a2b4d6c19ddb23589" kindref="member">dthw</ref></type>
+          <defname>dthw</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1063" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1064" bodyend="1102"/>
+        <references refid="canopy__bioemi__mod_8F90_1a6085c3b6844b4a7e71ae8b835ec675cd" compoundref="canopy__bioemi__mod_8F90" startline="266" endline="266">chw</references>
+        <references refid="canopy__bioemi__mod_8F90_1a84d5e4d52ed3864a2b4d6c19ddb23589" compoundref="canopy__bioemi__mod_8F90" startline="266">dthw</references>
+        <references refid="canopy__bioemi__mod_8F90_1a2c15f837acf1488902c9b266cae31d12" compoundref="canopy__bioemi__mod_8F90" startline="266">thw</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gaee120e34885cce395cd8fedb67a742f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::get_gamma_leafage</definition>
+        <argsstring>(leafage_opt, LAIpast, LAIcurrent, tsteplai, TABOVE, Anew, Agro, Amat, Aold)</argsstring>
+        <name>get_gamma_leafage</name>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1ga316363521a4ba362437be6738d485083" kindref="member">leafage_opt</ref></type>
+          <defname>leafage_opt</defname>
+        </param>
+        <param>
+          <type>LAIpast</type>
+          <defname>LAIpast</defname>
+        </param>
+        <param>
+          <type>LAIcurrent</type>
+          <defname>LAIcurrent</defname>
+        </param>
+        <param>
+          <type><ref refid="group__calcs__local__vars_1gaaa0009fbebc769d8334f695485652a6b" kindref="member">tsteplai</ref></type>
+          <defname>tsteplai</defname>
+        </param>
+        <param>
+          <type>TABOVE</type>
+          <defname>TABOVE</defname>
+        </param>
+        <param>
+          <type>Anew</type>
+          <defname>Anew</defname>
+        </param>
+        <param>
+          <type>Agro</type>
+          <defname>Agro</defname>
+        </param>
+        <param>
+          <type>Amat</type>
+          <defname>Amat</defname>
+        </param>
+        <param>
+          <type>Aold</type>
+          <defname>Aold</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="635" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="636" bodyend="753"/>
+        <references refid="canopy__bioemi__mod_8F90_1ab811b1536bd31b3a66fbe41a50e6c0a5" compoundref="canopy__bioemi__mod_8F90" startline="254">agro</references>
+        <references refid="canopy__bioemi__mod_8F90_1a3614c037cc79546dae50ff999d6e8cd0" compoundref="canopy__bioemi__mod_8F90" startline="254">amat</references>
+        <references refid="canopy__bioemi__mod_8F90_1af927c6ab14d057ec9fba5097e437fc81" compoundref="canopy__bioemi__mod_8F90" startline="254" endline="254">anew</references>
+        <references refid="canopy__bioemi__mod_8F90_1a1be7abeddad87ed9b4d5e88fb0a9caef" compoundref="canopy__bioemi__mod_8F90" startline="254">aold</references>
+        <references refid="group__bioemi__inputs_1ga316363521a4ba362437be6738d485083" compoundref="canopy__bioemi__mod_8F90" startline="171">leafage_opt</references>
+        <references refid="group__bioemi__inputs_1ga56796cf68bae648136b188e2994a5993" compoundref="canopy__bioemi__mod_8F90" startline="174" endline="174">tsteplai</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga1c37817d3a56f8c01dff750ecb2b9939" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::get_gamma_lt</definition>
+        <argsstring>(lt_opt, mint2m, clt, tlt, dtlt)</argsstring>
+        <name>get_gamma_lt</name>
+        <param>
+          <type>lt_opt</type>
+          <defname>lt_opt</defname>
+        </param>
+        <param>
+          <type>mint2m</type>
+          <defname>mint2m</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1a075c4c566492335f8ae82290829d1ed7" kindref="member">clt</ref></type>
+          <defname>clt</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1ae8a49f5392473de05a0774cb9c42561e" kindref="member">tlt</ref></type>
+          <defname>tlt</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1a56c4d81b51ae04c44c1dde948b9b4e97" kindref="member">dtlt</ref></type>
+          <defname>dtlt</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1018" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1019" bodyend="1057"/>
+        <references refid="canopy__bioemi__mod_8F90_1a075c4c566492335f8ae82290829d1ed7" compoundref="canopy__bioemi__mod_8F90" startline="263" endline="263">clt</references>
+        <references refid="canopy__bioemi__mod_8F90_1a56c4d81b51ae04c44c1dde948b9b4e97" compoundref="canopy__bioemi__mod_8F90" startline="263">dtlt</references>
+        <references refid="canopy__bioemi__mod_8F90_1ae8a49f5392473de05a0774cb9c42561e" compoundref="canopy__bioemi__mod_8F90" startline="263">tlt</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga4d60f5a655c8b3b5a15aeffa509e1b41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::get_gamma_soim</definition>
+        <argsstring>(soim_opt, soim1, soim2, soim3, soim4, soid1, soid2, soid3, soid4, wilt, roota, rootb)</argsstring>
+        <name>get_gamma_soim</name>
+        <param>
+          <type>soim_opt</type>
+          <defname>soim_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1ga7d1b6c926b1766aea56aec7dca733783" kindref="member">soim1</ref></type>
+          <defname>soim1</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1gaf34c5f7e4d1768018852ea9a13506618" kindref="member">soim2</ref></type>
+          <defname>soim2</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1ga32173d0916725d8dcd54f6bac34b37fe" kindref="member">soim3</ref></type>
+          <defname>soim3</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1ga386347d107b3bc390ac46762534cb289" kindref="member">soim4</ref></type>
+          <defname>soim4</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1gad10de5cc2848a9f5d446337427991eb3" kindref="member">soid1</ref></type>
+          <defname>soid1</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1gadbcc914975e916888231cf6630e04cc1" kindref="member">soid2</ref></type>
+          <defname>soid2</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1gaf8eb9b57bc6cf8d6f92180cbe9755bc8" kindref="member">soid3</ref></type>
+          <defname>soid3</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1ga2acf71d798e431cbbd7d1372629da0f0" kindref="member">soid4</ref></type>
+          <defname>soid4</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1ga7c33b0cb08ae5387d2bb4f714b80824d" kindref="member">wilt</ref></type>
+          <defname>wilt</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1ac34635fa5cc10b35b2584773467b7d59" kindref="member">roota</ref></type>
+          <defname>roota</defname>
+        </param>
+        <param>
+          <type><ref refid="canopy__bioemi__mod_8F90_1afb79bea366486e7329d7d99dd6784345" kindref="member">rootb</ref></type>
+          <defname>rootb</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="802" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="804" bodyend="910"/>
+        <references refid="canopy__bioemi__mod_8F90_1ac34635fa5cc10b35b2584773467b7d59" compoundref="canopy__bioemi__mod_8F90" startline="269" endline="269">roota</references>
+        <references refid="canopy__bioemi__mod_8F90_1afb79bea366486e7329d7d99dd6784345" compoundref="canopy__bioemi__mod_8F90" startline="269">rootb</references>
+        <references refid="group__bioemi__inputs_1gad10de5cc2848a9f5d446337427991eb3" compoundref="canopy__bioemi__mod_8F90" startline="156" endline="156">soid1</references>
+        <references refid="group__bioemi__inputs_1gadbcc914975e916888231cf6630e04cc1" compoundref="canopy__bioemi__mod_8F90" startline="157" endline="157">soid2</references>
+        <references refid="group__bioemi__inputs_1gaf8eb9b57bc6cf8d6f92180cbe9755bc8" compoundref="canopy__bioemi__mod_8F90" startline="158" endline="158">soid3</references>
+        <references refid="group__bioemi__inputs_1ga2acf71d798e431cbbd7d1372629da0f0" compoundref="canopy__bioemi__mod_8F90" startline="159" endline="159">soid4</references>
+        <references refid="group__bioemi__inputs_1ga7d1b6c926b1766aea56aec7dca733783" compoundref="canopy__bioemi__mod_8F90" startline="152" endline="152">soim1</references>
+        <references refid="group__bioemi__inputs_1gaf34c5f7e4d1768018852ea9a13506618" compoundref="canopy__bioemi__mod_8F90" startline="153" endline="153">soim2</references>
+        <references refid="group__bioemi__inputs_1ga32173d0916725d8dcd54f6bac34b37fe" compoundref="canopy__bioemi__mod_8F90" startline="154" endline="154">soim3</references>
+        <references refid="group__bioemi__inputs_1ga386347d107b3bc390ac46762534cb289" compoundref="canopy__bioemi__mod_8F90" startline="155" endline="155">soim4</references>
+        <references refid="group__bioemi__inputs_1ga7c33b0cb08ae5387d2bb4f714b80824d" compoundref="canopy__bioemi__mod_8F90" startline="160" endline="160">wilt</references>
+      </memberdef>
+      <memberdef kind="function" id="namespacecanopy__utils__mod_1a1b9f21c1a286510c16c76b70b5627275" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::integratetrapezoid</definition>
+        <argsstring>(x, y)</argsstring>
+        <name>integratetrapezoid</name>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>y</type>
+          <defname>y</defname>
+        </param>
+        <briefdescription>
+<para>Numerical integration using trapezoidal rule. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Calculates the integral of an array y with respect to x using the trapezoid approximation. Note that the mesh spacing of x does not have to be uniform. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Variable x array </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function y(x) array </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>IntegrateTrapezoid Integral ∫y(x)·dx </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Variable x </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function y(x) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Integral ∫y(x)·dx </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Integrate using the trapezoidal rule</para>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="48" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="49" bodyend="55"/>
+        <referencedby refid="group__profile__group_1ga12df2dbb79549987a7ebfbabbc16d4ae" compoundref="canopy__profile__mod_8F90" startline="239" endline="303">canopy_profile_mod::canopy_foliage</referencedby>
+        <referencedby refid="namespacecanopy__profile__mod_1a1fccb5556673155fef7143bfd81358d9" compoundref="canopy__profile__mod_8F90" startline="331" endline="454">canopy_profile_mod::canopy_zpd</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::interp_linear1_internal</definition>
+        <argsstring>(x, y, xout)</argsstring>
+        <name>interp_linear1_internal</name>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>y</type>
+          <defname>y</defname>
+        </param>
+        <param>
+          <type>xout</type>
+          <defname>xout</defname>
+        </param>
+        <briefdescription>
+<para>Linear interpolation function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Interpolates for the y value at the desired x value, given x and y values around the desired point. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Two x-values surrounding the interpolation point </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Two y-values corresponding to the x-values </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>xout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Desired x-value for interpolation </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>yout Interpolated y-value at xout </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">xout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input arrays and target value </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interpolated result </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="66" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="67" bodyend="86"/>
+        <referencedby refid="group__canopy__radiation_1ga44abae1b598c05e773207789755164f2" compoundref="canopy__rad__mod_8F90" startline="92" endline="302">canopy_rad_mod::canopy_ppfd_exp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga4012f78879de80d028b28f3c7f4e999e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::lebasmvgas</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, ispec)</argsstring>
+        <name>lebasmvgas</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>ispec</type>
+          <defname>ispec</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1801" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1802" bodyend="1810"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <references refid="group__utils__group_1ga1ba1a7cb15857912aab31421a77c90ba" compoundref="canopy__utils__mod_8F90" startline="1819" endline="1845">setlebasmvgas</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga5e402b189b9bd205cebfe8eb5a11ac7b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref></type>
+        <definition>real(rk) function canopy_utils_mod::mdiffh2o</definition>
+        <argsstring>(tki, pmbi)</argsstring>
+        <name>mdiffh2o</name>
+        <param>
+          <type>tki</type>
+          <defname>tki</defname>
+        </param>
+        <param>
+          <type>pmbi</type>
+          <defname>pmbi</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1299" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1300" bodyend="1306"/>
+        <referencedby refid="group__utils__group_1ga8cf7fc0966b3a57b4655dd04b9ef326b" compoundref="canopy__utils__mod_8F90" startline="1317" endline="1371">rs_zhang_gas</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga248f51dc89ea08ee41f2cf79f13bcc9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::molarmassgas</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, ispec)</argsstring>
+        <name>molarmassgas</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>ispec</type>
+          <defname>ispec</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1751" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1752" bodyend="1760"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <references refid="group__utils__group_1gad0e47f742908a655f57ff26f9e52d27b" compoundref="canopy__utils__mod_8F90" startline="1769" endline="1795">setmolarmassgas</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gadb04d3dbbd51c5230a98cf13592194d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::molecdiff</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, ispec, tkx, pmbx)</argsstring>
+        <name>molecdiff</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>ispec</type>
+          <defname>ispec</defname>
+        </param>
+        <param>
+          <type>tkx</type>
+          <defname>tkx</defname>
+        </param>
+        <param>
+          <type>pmbx</type>
+          <defname>pmbx</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1280" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1281" bodyend="1291"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <references refid="group__utils__group_1ga77a2f1046081bd3a13af4014060931e9" compoundref="canopy__utils__mod_8F90" startline="1243" endline="1273">setmolecdiffstp</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga149a5cc3d082fe6d563600c0e71c80dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::rav</definition>
+        <argsstring>(ubar, zref, d, hc, rib)</argsstring>
+        <name>rav</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga6e6096171957e9d01a8d50ccc4884060" kindref="member">ubar</ref></type>
+          <defname>ubar</defname>
+        </param>
+        <param>
+          <type>zref</type>
+          <defname>zref</defname>
+        </param>
+        <param>
+          <type><ref refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" kindref="member">d</ref></type>
+          <defname>d</defname>
+        </param>
+        <param>
+          <type>hc</type>
+          <defname>hc</defname>
+        </param>
+        <param>
+          <type><ref refid="group__calcs__local__vars_1gacc95ace9cd91076324304f9a2a46caa3" kindref="member">rib</ref></type>
+          <defname>rib</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1855" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1856" bodyend="1909"/>
+        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="71">d</references>
+        <references refid="group__calcs__local__vars_1gacc95ace9cd91076324304f9a2a46caa3" compoundref="canopy__calcs_8F90" startline="70" endline="70">rib</references>
+        <references refid="group__drydep__group_1ga6e6096171957e9d01a8d50ccc4884060" compoundref="canopy__drydep__mod_8F90" startline="66" endline="66">ubar</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga6bcc084fd779f53ed44a15b117bf2cde" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::rbl</definition>
+        <argsstring>(mdiffl, ubari)</argsstring>
+        <name>rbl</name>
+        <param>
+          <type><ref refid="group__drydep__group_1gac5b57be235607dbf37fd80158b30bbce" kindref="member">mdiffl</ref></type>
+          <defname>mdiffl</defname>
+        </param>
+        <param>
+          <type>ubari</type>
+          <defname>ubari</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1380" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1381" bodyend="1387"/>
+        <references refid="group__drydep__group_1gac5b57be235607dbf37fd80158b30bbce" compoundref="canopy__drydep__mod_8F90" startline="80" endline="80">mdiffl</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gaf840cb7c41011affe160cf584cb5a1fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::rcl</definition>
+        <argsstring>(hstarl, f01)</argsstring>
+        <name>rcl</name>
+        <param>
+          <type><ref refid="group__drydep__group_1gaa0a8b38c4efaa75cf5587d59faa879c2" kindref="member">hstarl</ref></type>
+          <defname>hstarl</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1ga488738eec06bc800ff5186f79d8ee029" kindref="member">f01</ref></type>
+          <defname>f01</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1395" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1396" bodyend="1403"/>
+        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="71">d</references>
+        <references refid="group__drydep__group_1ga488738eec06bc800ff5186f79d8ee029" compoundref="canopy__drydep__mod_8F90" startline="86" endline="86">f01</references>
+        <references refid="group__drydep__group_1gaa0a8b38c4efaa75cf5587d59faa879c2" compoundref="canopy__drydep__mod_8F90" startline="85" endline="85">hstarl</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga34f53ebdcf5fa67812a064a42d8ca6dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::reactivityparam</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, ispec)</argsstring>
+        <name>reactivityparam</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>ispec</type>
+          <defname>ispec</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1651" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1652" bodyend="1660"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <references refid="group__utils__group_1gae583dbe8fb88b195f504f012904b45cb" compoundref="canopy__utils__mod_8F90" startline="1669" endline="1695">setreactivityparams</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gaebeb0654adb72a47ad278d6dffb74a2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::reactivityparamhno3</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, ispec)</argsstring>
+        <name>reactivityparamhno3</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>ispec</type>
+          <defname>ispec</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1701" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1702" bodyend="1710"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <references refid="group__utils__group_1gae606505780e1f654defcd107d16c32cd" compoundref="canopy__utils__mod_8F90" startline="1719" endline="1745">setreactivityhno3</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga7552f5c48aa99523c42180cfc0e5a8bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::rml</definition>
+        <argsstring>(hstarl, f01)</argsstring>
+        <name>rml</name>
+        <param>
+          <type><ref refid="group__drydep__group_1gaa0a8b38c4efaa75cf5587d59faa879c2" kindref="member">hstarl</ref></type>
+          <defname>hstarl</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1ga488738eec06bc800ff5186f79d8ee029" kindref="member">f01</ref></type>
+          <defname>f01</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1412" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1413" bodyend="1419"/>
+        <references refid="group__drydep__group_1ga488738eec06bc800ff5186f79d8ee029" compoundref="canopy__drydep__mod_8F90" startline="86" endline="86">f01</references>
+        <references refid="group__drydep__group_1gaa0a8b38c4efaa75cf5587d59faa879c2" compoundref="canopy__drydep__mod_8F90" startline="85" endline="85">hstarl</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga8cf7fc0966b3a57b4655dd04b9ef326b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::rs_zhang_gas</definition>
+        <argsstring>(mdiffl, tki, pmbi, ppfdi, srad, relhumi)</argsstring>
+        <name>rs_zhang_gas</name>
+        <param>
+          <type><ref refid="group__drydep__group_1gac5b57be235607dbf37fd80158b30bbce" kindref="member">mdiffl</ref></type>
+          <defname>mdiffl</defname>
+        </param>
+        <param>
+          <type>tki</type>
+          <defname>tki</defname>
+        </param>
+        <param>
+          <type>pmbi</type>
+          <defname>pmbi</defname>
+        </param>
+        <param>
+          <type>ppfdi</type>
+          <defname>ppfdi</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gae598a7b2f21f1bb0ade6ec97e4acce8a" kindref="member">srad</ref></type>
+          <defname>srad</defname>
+        </param>
+        <param>
+          <type>relhumi</type>
+          <defname>relhumi</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1316" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1317" bodyend="1371"/>
+        <references refid="group__utils__group_1ga302dd4acd7d03c86cb0f70b59f77016b" compoundref="canopy__utils__mod_8F90" startline="1154" endline="1160">esat</references>
+        <references refid="group__bioemi__inputs_1ga74e550465e192400c58554b99978f986" compoundref="canopy__bioemi__mod_8F90" startline="144">et</references>
+        <references refid="group__utils__group_1ga5e402b189b9bd205cebfe8eb5a11ac7b" compoundref="canopy__utils__mod_8F90" startline="1300" endline="1306">mdiffh2o</references>
+        <references refid="group__drydep__group_1gac5b57be235607dbf37fd80158b30bbce" compoundref="canopy__drydep__mod_8F90" startline="80" endline="80">mdiffl</references>
+        <references refid="group__drydep__group_1gae598a7b2f21f1bb0ade6ec97e4acce8a" compoundref="canopy__drydep__mod_8F90" startline="67" endline="67">srad</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga3cbd1c93a9f821582f527132a5fcbc36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_utils_mod::seteffhenryslawcoeffs</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, hstar)</argsstring>
+        <name>seteffhenryslawcoeffs</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>hstar</type>
+          <defname>hstar</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1618" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1619" bodyend="1645"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="71">d</references>
+        <referencedby refid="group__utils__group_1gab7aaf7725f96338bac795e5a4ff3c0c2" compoundref="canopy__utils__mod_8F90" startline="1602" endline="1610">effhenryslawcoeff</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga1ba1a7cb15857912aab31421a77c90ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_utils_mod::setlebasmvgas</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, mvg)</argsstring>
+        <name>setlebasmvgas</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>mvg</type>
+          <defname>mvg</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1818" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1819" bodyend="1845"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <referencedby refid="group__utils__group_1ga4012f78879de80d028b28f3c7f4e999e" compoundref="canopy__utils__mod_8F90" startline="1802" endline="1810">lebasmvgas</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gad0e47f742908a655f57ff26f9e52d27b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_utils_mod::setmolarmassgas</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, mmg)</argsstring>
+        <name>setmolarmassgas</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>mmg</type>
+          <defname>mmg</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1768" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1769" bodyend="1795"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <referencedby refid="group__utils__group_1ga248f51dc89ea08ee41f2cf79f13bcc9f" compoundref="canopy__utils__mod_8F90" startline="1752" endline="1760">molarmassgas</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga77a2f1046081bd3a13af4014060931e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_utils_mod::setmolecdiffstp</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, mdiffstp)</argsstring>
+        <name>setmolecdiffstp</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>mdiffstp</type>
+          <defname>mdiffstp</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1242" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1243" bodyend="1273"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <referencedby refid="group__utils__group_1gadb04d3dbbd51c5230a98cf13592194d7" compoundref="canopy__utils__mod_8F90" startline="1281" endline="1291">molecdiff</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gae606505780e1f654defcd107d16c32cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_utils_mod::setreactivityhno3</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, ar)</argsstring>
+        <name>setreactivityhno3</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>ar</type>
+          <defname>ar</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1718" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1719" bodyend="1745"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <referencedby refid="group__utils__group_1gaebeb0654adb72a47ad278d6dffb74a2b" compoundref="canopy__utils__mod_8F90" startline="1702" endline="1710">reactivityparamhno3</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gae583dbe8fb88b195f504f012904b45cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_utils_mod::setreactivityparams</definition>
+        <argsstring>(chemmechgas_opt, chemmechgas_tot, f0)</argsstring>
+        <name>setreactivityparams</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" kindref="member">chemmechgas_opt</ref></type>
+          <defname>chemmechgas_opt</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" kindref="member">chemmechgas_tot</ref></type>
+          <defname>chemmechgas_tot</defname>
+        </param>
+        <param>
+          <type>f0</type>
+          <defname>f0</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1668" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1669" bodyend="1695"/>
+        <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
+        <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
+        <referencedby refid="group__utils__group_1ga34f53ebdcf5fa67812a064a42d8ca6dc" compoundref="canopy__utils__mod_8F90" startline="1652" endline="1660">reactivityparam</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga1ae995099777336af6bb828f8da7ab8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::soilrbg</definition>
+        <argsstring>(ubar)</argsstring>
+        <name>soilrbg</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga6e6096171957e9d01a8d50ccc4884060" kindref="member">ubar</ref></type>
+          <defname>ubar</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1566" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1567" bodyend="1577"/>
+        <references refid="group__drydep__group_1gab36c23b6c264952d86ab0c5729a29e84" compoundref="canopy__drydep__mod_8F90" startline="168" endline="168">rbg</references>
+        <references refid="group__drydep__group_1ga6e6096171957e9d01a8d50ccc4884060" compoundref="canopy__drydep__mod_8F90" startline="66" endline="66">ubar</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1ga2604b0a6c14947af2c057ba089c94d16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::soilresist</definition>
+        <argsstring>(mdiffl, socat, sotyp, dsoil, stheta)</argsstring>
+        <name>soilresist</name>
+        <param>
+          <type><ref refid="group__drydep__group_1gac5b57be235607dbf37fd80158b30bbce" kindref="member">mdiffl</ref></type>
+          <defname>mdiffl</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1ga3d205317e539f20db9a194ecbcf0188e" kindref="member">socat</ref></type>
+          <defname>socat</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1ga9c65e7579d13055be636ee8b2475179b" kindref="member">sotyp</ref></type>
+          <defname>sotyp</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gaf77f712334a1777f730fa3ce9c3a1e81" kindref="member">dsoil</ref></type>
+          <defname>dsoil</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1gab3f4ff7d9c48e5d71d2b0af8a78755f8" kindref="member">stheta</ref></type>
+          <defname>stheta</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1428" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1429" bodyend="1558"/>
+        <references refid="group__drydep__group_1gaf77f712334a1777f730fa3ce9c3a1e81" compoundref="canopy__drydep__mod_8F90" startline="153" endline="153">dsoil</references>
+        <references refid="group__drydep__group_1gac5b57be235607dbf37fd80158b30bbce" compoundref="canopy__drydep__mod_8F90" startline="80" endline="80">mdiffl</references>
+        <references refid="group__drydep__group_1ga3d205317e539f20db9a194ecbcf0188e" compoundref="canopy__drydep__mod_8F90" startline="151" endline="151">socat</references>
+        <references refid="group__drydep__group_1ga9c65e7579d13055be636ee8b2475179b" compoundref="canopy__drydep__mod_8F90" startline="152" endline="152">sotyp</references>
+        <references refid="group__drydep__group_1gab3f4ff7d9c48e5d71d2b0af8a78755f8" compoundref="canopy__drydep__mod_8F90" startline="154" endline="154">stheta</references>
+      </memberdef>
+      <memberdef kind="function" id="group__utils__group_1gaa60ef969ac96b048c73dffa3f0a3cb5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
+        <definition>real(rk) function, public canopy_utils_mod::waterrbw</definition>
+        <argsstring>(ustar)</argsstring>
+        <name>waterrbw</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga8ece472fdbc07ee4926bcbb7909a08c9" kindref="member">ustar</ref></type>
+          <defname>ustar</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_utils_mod.F90" line="1585" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1586" bodyend="1594"/>
+        <references refid="group__drydep__group_1gaa6ea4519a4f3ca9bc11971b14881a695" compoundref="canopy__drydep__mod_8F90" startline="363" endline="363">rbw</references>
+        <references refid="group__bioemi__inputs_1ga8ece472fdbc07ee4926bcbb7909a08c9" compoundref="canopy__bioemi__mod_8F90" startline="182" endline="182">ustar</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/canopy_utils_mod.F90" line="21" column="1"/>
+  </compounddef>
+</doxygen>

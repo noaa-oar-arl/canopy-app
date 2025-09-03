@@ -1,0 +1,2787 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__bioemi__inputs" kind="group">
+    <compoundname>bioemi_inputs</compoundname>
+    <title>Input Variables</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaf04004eb4ad83b04f241a9359b346b76" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) above</definition>
+        <argsstring></argsstring>
+        <name>above</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="178" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gab64d6e4be736f9f920fa16a1ef973598" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) air</definition>
+        <argsstring></argsstring>
+        <name>air</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="140" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaaddacb7cb12902ff9822e4e4dbf398f2" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, dimension(default=0/viirs), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, dimension (default = 0/viirs), intent(in) al</definition>
+        <argsstring></argsstring>
+        <name>al</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="144" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gabba0f4ddb6e0a06eea359cd19ea5ff33" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) all</definition>
+        <argsstring></argsstring>
+        <name>all</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="180" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga59114d36efb4c40f7bf160e02d4448de" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) and</definition>
+        <argsstring></argsstring>
+        <name>and</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="174" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaa45f6bc44a9f1d67be2e1008f9c2d564" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) applied</definition>
+        <argsstring></argsstring>
+        <name>applied</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="179" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga8c3e79cc4bc456ab8eb668e7776fa616" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) applying</definition>
+        <argsstring></argsstring>
+        <name>applying</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="180" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga485b1be2cb817c85b2ea98512456f564" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) aq</definition>
+        <argsstring></argsstring>
+        <name>aq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="161" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gafcf8851064e6f6e050695059fb64f8e7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) aqopt</definition>
+        <argsstring></argsstring>
+        <name>aqopt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="161" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="161" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga240ed71d2647db3b96e9ae72ded2c677" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) area</definition>
+        <argsstring></argsstring>
+        <name>area</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="128" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga8a665211f738c8bd7ac15a30b467dfe9" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) atmospheric</definition>
+        <argsstring></argsstring>
+        <name>atmospheric</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="150" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga5f7bbce190a8b431152b6d6393b203cf" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) ave</definition>
+        <argsstring></argsstring>
+        <name>ave</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="134" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga86fffbd5c4c8253a6a6f07d6c85f1e08" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) average</definition>
+        <argsstring></argsstring>
+        <name>average</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="136" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaddc266742c25c0c6287cfbe6022815f7" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) between</definition>
+        <argsstring></argsstring>
+        <name>between</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="174" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gafc13aed788d858b9bf358cdd2be45780" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) biogenic</definition>
+        <argsstring></argsstring>
+        <name>biogenic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="183" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga4359da8bc784f82b753c0a7600b72fc7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) biogenics</definition>
+        <argsstring></argsstring>
+        <name>biogenics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="180" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gadc40e5fdd0c8fcb16f2321800d839bcd" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) calculated</definition>
+        <argsstring></argsstring>
+        <name>calculated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="163" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gafe3c290696dcdb92ca6fa036d7473504" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) calculation</definition>
+        <argsstring></argsstring>
+        <name>calculation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="149" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaad0c993bd5fd93c7decad9daf442d225" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) canopy</definition>
+        <argsstring></argsstring>
+        <name>canopy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="127" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" compoundref="canopy__read__txt_8F90" startline="23" endline="41">canopy_read_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gab39010c18c5d3b1285367d60a2444775" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) cce</definition>
+        <argsstring></argsstring>
+        <name>cce</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="147" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="147" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gad110a1509d07af257cd51455743bc1aa" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) cell</definition>
+        <argsstring></argsstring>
+        <name>cell</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="145" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gad8508bc8fe86227ddc2d39813c8fce78" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) chemical</definition>
+        <argsstring></argsstring>
+        <name>chemical</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="178" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga36b712ec2e9679ff5d2a1025b4715bf6" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) cm</definition>
+        <argsstring></argsstring>
+        <name>cm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="156" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga1f67e7aa5464b38c1723461912383e0c" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) cm2</definition>
+        <argsstring></argsstring>
+        <name>cm2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="172" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga8dbbc072e0b32d6d721d4e46c35aa89e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) co2</definition>
+        <argsstring></argsstring>
+        <name>co2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="149" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gac636209a2ce011213c625eb3b79fb542" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) co2opt</definition>
+        <argsstring></argsstring>
+        <name>co2opt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="149" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="149" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gae5f6077e35fef1f5175266c79f4c76c2" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) co2set</definition>
+        <argsstring></argsstring>
+        <name>co2set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="150" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="150" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gacbc029d487be69c4166dd30512e32c87" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) coefficient</definition>
+        <argsstring></argsstring>
+        <name>coefficient</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="147" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga6320a9fb397324d1d1be1a244d1132e9" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) conc</definition>
+        <argsstring></argsstring>
+        <name>conc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="150" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga815e614d4ee004d8d7ad75ab20d4d411" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) constant</definition>
+        <argsstring></argsstring>
+        <name>constant</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="179" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga63d69140a467ee7757c33ddef5973520" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) correction</definition>
+        <argsstring></argsstring>
+        <name>correction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="129" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga7f219fd2433f7d32315606480c95da37" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) current</definition>
+        <argsstring></argsstring>
+        <name>current</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="173" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gad57f1e26a6b2a5420b2ce86b1e1689e2" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) currentlai</definition>
+        <argsstring></argsstring>
+        <name>currentlai</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="173" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="173" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga3b35ddeca130ce5bf89492f606883ba0" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) daily</definition>
+        <argsstring></argsstring>
+        <name>daily</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="167" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga3ecbaae41053fcfbd66305306e2d794d" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) daily_maxt2</definition>
+        <argsstring></argsstring>
+        <name>daily_maxt2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="167" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="167" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gacd052548f633148d7f2817ed1b6e6bf3" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) daily_maxws10</definition>
+        <argsstring></argsstring>
+        <name>daily_maxws10</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="169" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="169" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga2df79c5ac6ab0d7439929af00c58a514" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) daily_mint2</definition>
+        <argsstring></argsstring>
+        <name>daily_mint2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="168" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="168" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaa581a7050dd2e17e83b0cba3aa775d6f" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) days</definition>
+        <argsstring></argsstring>
+        <name>days</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="174" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gab54019f92dfaca02137f8a07664c1a30" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="156" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga1efa0211799eff1381d5f6de279712af" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) dominant</definition>
+        <argsstring></argsstring>
+        <name>dominant</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="145" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga312ff561b400a1f5d5ff425126849f4c" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) downward</definition>
+        <argsstring></argsstring>
+        <name>downward</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="142" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga4dc756326e051a7c33a82614aa5297a1" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) dswrf</definition>
+        <argsstring></argsstring>
+        <name>dswrf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="142" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="142" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga1342016f0561cc46f8847e28a68f85a3" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) emi_ind</definition>
+        <argsstring></argsstring>
+        <name>emi_ind</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="183" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="183" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga027b2c64a3fc3119040f812acaa12fa5" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, dimension(kg <ref refid="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" kindref="member">m</ref>-3 s-1), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), dimension (kg m-3 s-1), intent(out) emissions</definition>
+        <argsstring></argsstring>
+        <name>emissions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="177" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga485b753be1b863fc16608204635a953b" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) environment</definition>
+        <argsstring></argsstring>
+        <name>environment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="147" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga74e550465e192400c58554b99978f986" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) et</definition>
+        <argsstring></argsstring>
+        <name>et</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="144" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__utils__group_1ga8cf7fc0966b3a57b4655dd04b9ef326b" compoundref="canopy__utils__mod_8F90" startline="1317" endline="1371">canopy_utils_mod::rs_zhang_gas</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaf67141aeeb6d304c7d63514f556e22e8" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) factor</definition>
+        <argsstring></argsstring>
+        <name>factor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="129" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) fch</definition>
+        <argsstring></argsstring>
+        <name>fch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="127" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="127" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga581ef9fe4e5b52519553814e0bf31486" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) fclai</definition>
+        <argsstring></argsstring>
+        <name>fclai</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="124" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="124" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaf446508c68e334894eee1a7ec50b62f3" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) for</definition>
+        <argsstring></argsstring>
+        <name>for</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="130" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga1220973b2650f277abff419dfe39b889" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) fraction</definition>
+        <argsstring></argsstring>
+        <name>fraction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="129" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga15a28a1bc6082c0662aced80ee02e52b" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) friction</definition>
+        <argsstring></argsstring>
+        <name>friction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="182" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga32bbf1b788a888b78f4d52619d37c2ca" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) from</definition>
+        <argsstring></argsstring>
+        <name>from</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="129" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gae2b157e5a18cbd634cb3b2a844ec3ed0" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) fsun</definition>
+        <argsstring></argsstring>
+        <name>fsun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="129" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="129" bodyend="129"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga4018cae945fa7151c6aa9d25d29e7306" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) gfs</definition>
+        <argsstring></argsstring>
+        <name>gfs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="163" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga25c9480f7c514d836cff3378b70067db" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) grid</definition>
+        <argsstring></argsstring>
+        <name>grid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="145" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga9ccadeb0e6b9c4add78bf6caa15eacc2" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(<ref refid="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" kindref="member">m</ref>), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (m), intent(in) height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="127" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga7fcb3082e40b75783d637ea89da484af" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(<ref refid="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" kindref="member">m</ref>), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (m), intent(in) heights</definition>
+        <argsstring></argsstring>
+        <name>heights</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="123" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga123bf6c4e40e5e1ad156bc49977fc2d2" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) high</definition>
+        <argsstring></argsstring>
+        <name>high</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="164" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga6670a9eefa3fc0d714711ee26e3ea553" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) hours</definition>
+        <argsstring></argsstring>
+        <name>hours</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="162" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gab57d56279a4d902ef7e215ea0c872487" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) hr</definition>
+        <argsstring></argsstring>
+        <name>hr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="134" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga1dd1310b82dffdb29c9885d985662c9f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) htopt</definition>
+        <argsstring></argsstring>
+        <name>htopt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="164" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="164" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga64f6b188d766278928167deba9874c51" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) hwopt</definition>
+        <argsstring></argsstring>
+        <name>hwopt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="166" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="166" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gadf0c96371725f0ce9141054a08e8dff7" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="128" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gad41090755e8be15caf3a2d63da4b100b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, dimension(&gt; 0), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, dimension (&gt; 0), intent(in) indices</definition>
+        <argsstring></argsstring>
+        <name>indices</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="180" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga1b6e7e19f15fc9251adc580a8270003d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) inhibition</definition>
+        <argsstring></argsstring>
+        <name>inhibition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="149" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gacd390ea767ea8b3b515834ad9ddd6e18" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) input</definition>
+        <argsstring></argsstring>
+        <name>input</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="142" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" prot="public" static="no" mutable="no">
+        <type>integer, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) integer</definition>
+        <argsstring></argsstring>
+        <name>integer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="144" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga85f9d90ebd5aa9e8b1a392323edff0fe" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) integration</definition>
+        <argsstring></argsstring>
+        <name>integration</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="148" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga38bc68548927d88c2264445ba9045743" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) interpolated</definition>
+        <argsstring></argsstring>
+        <name>interpolated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="140" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gab74c833d8d67ad14f496a8e84c8facce" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer save lai</definition>
+        <argsstring></argsstring>
+        <name>lai</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="128" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="128" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga123e94cde8c4241c6de88e944c1432ef" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) layer</definition>
+        <argsstring></argsstring>
+        <name>layer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="152" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gad42a63974f75318b36ecefde9cf490a0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) layers</definition>
+        <argsstring></argsstring>
+        <name>layers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="176" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaa272975ad6e14bc5e2335931223b7745" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) leaf</definition>
+        <argsstring></argsstring>
+        <name>leaf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="128" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga316363521a4ba362437be6738d485083" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, dimension(0=on, 1=off i.e. <ref refid="canopy__bioemi__mod_8F90_1a7cfdad85064fcdff4e6435957be9fc94" kindref="member">gammaleafage</ref>=1, <ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref> canopy_readnml.f90), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, dimension (0= on, 1= off i.e. gammaleafage =1, in canopy_readnml.f90), intent(in) leafage_opt</definition>
+        <argsstring></argsstring>
+        <name>leafage_opt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="171" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__utils__group_1gaee120e34885cce395cd8fedb67a742f2" compoundref="canopy__utils__mod_8F90" startline="636" endline="753">canopy_utils_mod::get_gamma_leafage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga8f8f476b5795ab4b9b6078239ff81521" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) leafageopt</definition>
+        <argsstring></argsstring>
+        <name>leafageopt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="171" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="171" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga2c110ffad1a2f3ffbbda16e4511713c0" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(umol phot/m2 s), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (umol phot/m2 s), intent(in) leaves</definition>
+        <argsstring></argsstring>
+        <name>leaves</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="130" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga8321291d68495cd768884629988b0322" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) lifetime</definition>
+        <argsstring></argsstring>
+        <name>lifetime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="178" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="178" bodyend="178"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__utils__group_1ga44ce09ebe8520cfbf3f329a8d80b8e5d" compoundref="canopy__utils__mod_8F90" startline="757" endline="799">canopy_utils_mod::get_canloss_bio</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga1ae2910dc3f5c2028cc32f3ba835bdac" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) loss</definition>
+        <argsstring></argsstring>
+        <name>loss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="177" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga9bfc72f4c93bfb58926d5c50bfae6544" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) loss_opt</definition>
+        <argsstring></argsstring>
+        <name>loss_opt</name>
+        <initializer>=2 (Default = 0.96)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="179" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__utils__group_1ga44ce09ebe8520cfbf3f329a8d80b8e5d" compoundref="canopy__utils__mod_8F90" startline="757" endline="799">canopy_utils_mod::get_canloss_bio</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga71af186ca024313d9ed4b7bb292f1844" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) lossind</definition>
+        <argsstring></argsstring>
+        <name>lossind</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="180" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="180" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga02dddd5d539a8d3964f635d0e02db1d1" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) lossopt</definition>
+        <argsstring></argsstring>
+        <name>lossopt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="177" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="177" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga06f68d4480b86ee386331171be63cdbf" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) lossset</definition>
+        <argsstring></argsstring>
+        <name>lossset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="179" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="179" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gab6d7e59c4e852505ed6810353cd28b9a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) low</definition>
+        <argsstring></argsstring>
+        <name>low</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="165" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga9f3ba6b9c0e0f27dabb0eb2e2a84a04c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) ltopt</definition>
+        <argsstring></argsstring>
+        <name>ltopt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="165" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="165" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga34dcaaa416d6215720a0bb2112d9594b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) lu</definition>
+        <argsstring></argsstring>
+        <name>lu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="144" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga1adde842497949967a630320b18ef99a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) lu_opt</definition>
+        <argsstring></argsstring>
+        <name>lu_opt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="144" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="144" bodyend="144"/>
+        <referencedby refid="group__utils__group_1ga0fdff4c99c48afdcc355366c92658b0e" compoundref="canopy__utils__mod_8F90" startline="150" endline="506">canopy_utils_mod::calcflameh</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) m</definition>
+        <argsstring></argsstring>
+        <name>m</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="143" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__date__group_1ga8e187879daea3e6204ee4aa6aa199606" compoundref="canopy__date__mod_8F90" startline="667" endline="707">canopy_date_mod::julian</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga9ece5f485a0d0f285d90fc88c4bfff31" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) m3</definition>
+        <argsstring></argsstring>
+        <name>m3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="152" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga3b50b854b82c2dc1a9b91e998a274668" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) mapped</definition>
+        <argsstring></argsstring>
+        <name>mapped</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="144" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga59fb800b1b023f23c7ade2236eb0caa4" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) massman</definition>
+        <argsstring></argsstring>
+        <name>massman</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="144" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaed1f2446c1d669ae491c25ca263f9992" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) maximum</definition>
+        <argsstring></argsstring>
+        <name>maximum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="167" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga9453d07dd7183f83c2e644a35e36ea7e" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) megan</definition>
+        <argsstring></argsstring>
+        <name>megan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="147" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gacbbc9601d3c3b0a4134ccb7371871c53" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) minimum</definition>
+        <argsstring></argsstring>
+        <name>minimum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="168" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaf32c58978a558b1552cf0508f6e4361a" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer save model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="123" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga23a42344a064fa8bf4d52691a0034078" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) modlays</definition>
+        <argsstring></argsstring>
+        <name>modlays</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="176" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="176" bodyend="176"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a46724c6b574ca9d594af71b538e8af92" compoundref="canopy__ncf__io__mod_8F90" startline="1804" endline="2323">canopy_ncf_io_mod::canopy_outncfglobal</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaa4a0efab04932a8b8f7e35610eeacf18" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) modres</definition>
+        <argsstring></argsstring>
+        <name>modres</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="146" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="146" bodyend="146"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga751fc892d948dd5d54a38cd7f0496839" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) moisture</definition>
+        <argsstring></argsstring>
+        <name>moisture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="151" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga3f1fefe869c6e86b013b90bbf85a3c62" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer save number</definition>
+        <argsstring></argsstring>
+        <name>number</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="174" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga3ee1b184159c992d99d327a045dadde9" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer save of</definition>
+        <argsstring></argsstring>
+        <name>of</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="174" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga93175c32a7843a094bfafc3c3b4bd9e2" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) only</definition>
+        <argsstring></argsstring>
+        <name>only</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="180" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga3d8664482080cdcefd8f770ebce65120" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, dimension(default=0/no <ref refid="group__bioemi__inputs_1ga85f9d90ebd5aa9e8b1a392323edff0fe" kindref="member">integration</ref>), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, dimension (default = 0/no integration), intent(in) option</definition>
+        <argsstring></argsstring>
+        <name>option</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="148" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga02baf2b1cc739802f9c14cb99c58be5c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) or</definition>
+        <argsstring></argsstring>
+        <name>or</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="180" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga19d0a4cc1282c06f50cd5cda0e3758fe" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) ozone</definition>
+        <argsstring></argsstring>
+        <name>ozone</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="162" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga53a7f53033b45b707a5b51fb98ba3548" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) past</definition>
+        <argsstring></argsstring>
+        <name>past</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="172" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gac207f2491c7712040d7ca65b5eece00c" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) pastlai</definition>
+        <argsstring></argsstring>
+        <name>pastlai</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="172" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="172" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaedef60a9562658abe2ea0a30f925e27b" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) photolysis</definition>
+        <argsstring></argsstring>
+        <name>photolysis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="129" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gadca0080b3f702562a60b991455ddf244" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) point</definition>
+        <argsstring></argsstring>
+        <name>point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="160" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga9d7d9d315d076b9f5e1cd77958ef90b0" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) ppfd</definition>
+        <argsstring></argsstring>
+        <name>ppfd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="132" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga5f62ab36e856faafac8a975326585d81" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) ppfd240_shade</definition>
+        <argsstring></argsstring>
+        <name>ppfd240_shade</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="138" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="138" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga21315c02abb9e8a335cbeb93a12642c0" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) ppfd240_sun</definition>
+        <argsstring></argsstring>
+        <name>ppfd240_sun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="137" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="137" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga6afe64a52b211d9aa585bea5e4e68906" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) ppfd24_shade</definition>
+        <argsstring></argsstring>
+        <name>ppfd24_shade</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="135" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="135" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga2c388ad700b89169db69ac3a1cddb68d" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) ppfd24_sun</definition>
+        <argsstring></argsstring>
+        <name>ppfd24_sun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="134" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="134" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga8b5fe0004a36271a2d7edc02f07c4b7b" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) ppfd_shade</definition>
+        <argsstring></argsstring>
+        <name>ppfd_shade</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="133" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="133" bodyend="133"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaece20e83eed7d489abc55b53f2c2e619" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) ppfd_sun</definition>
+        <argsstring></argsstring>
+        <name>ppfd_sun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="132" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="132" bodyend="132"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga6d44f9cf0a631917d8f18df6318108a7" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) ppm</definition>
+        <argsstring></argsstring>
+        <name>ppm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="162" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gae7323abeabcb1e6f0ffc027f52a91f21" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) ppmv</definition>
+        <argsstring></argsstring>
+        <name>ppmv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="150" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga3a13f5a48b480e5bf501e732c2022e22" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) proportion</definition>
+        <argsstring></argsstring>
+        <name>proportion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="160" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gae8f24144ed34ae6f1b6216359a936558" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(w/m2), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (w/m2), intent(in) radiation</definition>
+        <argsstring></argsstring>
+        <name>radiation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="142" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga71c1717b8b8a9c0c011ea17284f7dfa3" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(<ref refid="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" kindref="member">m</ref>), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (m), intent(in) resolution</definition>
+        <argsstring></argsstring>
+        <name>resolution</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="146" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gabcf6da74877943090bb09124bb5defb5" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) set</definition>
+        <argsstring></argsstring>
+        <name>set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="150" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaefb8c92ee1e19c6473ca3af951c829b6" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) shaded</definition>
+        <argsstring></argsstring>
+        <name>shaded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="129" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gae7bd9bb316fb3fe5c6427e79c12ba9b4" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) shortwave</definition>
+        <argsstring></argsstring>
+        <name>shortwave</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="142" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gad10de5cc2848a9f5d446337427991eb3" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) soid1</definition>
+        <argsstring></argsstring>
+        <name>soid1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="156" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="156" bodyend="156"/>
+        <referencedby refid="group__utils__group_1ga4d60f5a655c8b3b5a15aeffa509e1b41" compoundref="canopy__utils__mod_8F90" startline="804" endline="910">canopy_utils_mod::get_gamma_soim</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gadbcc914975e916888231cf6630e04cc1" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) soid2</definition>
+        <argsstring></argsstring>
+        <name>soid2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="157" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="157" bodyend="157"/>
+        <referencedby refid="group__utils__group_1ga4d60f5a655c8b3b5a15aeffa509e1b41" compoundref="canopy__utils__mod_8F90" startline="804" endline="910">canopy_utils_mod::get_gamma_soim</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaf8eb9b57bc6cf8d6f92180cbe9755bc8" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) soid3</definition>
+        <argsstring></argsstring>
+        <name>soid3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="158" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="158" bodyend="158"/>
+        <referencedby refid="group__utils__group_1ga4d60f5a655c8b3b5a15aeffa509e1b41" compoundref="canopy__utils__mod_8F90" startline="804" endline="910">canopy_utils_mod::get_gamma_soim</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga2acf71d798e431cbbd7d1372629da0f0" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) soid4</definition>
+        <argsstring></argsstring>
+        <name>soid4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="159" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="159" bodyend="159"/>
+        <referencedby refid="group__utils__group_1ga4d60f5a655c8b3b5a15aeffa509e1b41" compoundref="canopy__utils__mod_8F90" startline="804" endline="910">canopy_utils_mod::get_gamma_soim</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga5861b97a2bbf9075308b0902b2651a92" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) soil</definition>
+        <argsstring></argsstring>
+        <name>soil</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="151" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga7d1b6c926b1766aea56aec7dca733783" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) soim1</definition>
+        <argsstring></argsstring>
+        <name>soim1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="152" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="152" bodyend="152"/>
+        <referencedby refid="group__utils__group_1ga4d60f5a655c8b3b5a15aeffa509e1b41" compoundref="canopy__utils__mod_8F90" startline="804" endline="910">canopy_utils_mod::get_gamma_soim</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaf34c5f7e4d1768018852ea9a13506618" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) soim2</definition>
+        <argsstring></argsstring>
+        <name>soim2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="153" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="153" bodyend="153"/>
+        <referencedby refid="group__utils__group_1ga4d60f5a655c8b3b5a15aeffa509e1b41" compoundref="canopy__utils__mod_8F90" startline="804" endline="910">canopy_utils_mod::get_gamma_soim</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga32173d0916725d8dcd54f6bac34b37fe" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) soim3</definition>
+        <argsstring></argsstring>
+        <name>soim3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="154" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="154" bodyend="154"/>
+        <referencedby refid="group__utils__group_1ga4d60f5a655c8b3b5a15aeffa509e1b41" compoundref="canopy__utils__mod_8F90" startline="804" endline="910">canopy_utils_mod::get_gamma_soim</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga386347d107b3bc390ac46762534cb289" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) soim4</definition>
+        <argsstring></argsstring>
+        <name>soim4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="155" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="155" bodyend="155"/>
+        <referencedby refid="group__utils__group_1ga4d60f5a655c8b3b5a15aeffa509e1b41" compoundref="canopy__utils__mod_8F90" startline="804" endline="910">canopy_utils_mod::get_gamma_soim</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga62551db57c173b319cf9b4c277793b2d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) soimopt</definition>
+        <argsstring></argsstring>
+        <name>soimopt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="151" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="151" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga95981ef901354e390e5a9ff776fff2cf" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) specie</definition>
+        <argsstring></argsstring>
+        <name>specie</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="180" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga2b1ec42b1396646cb1ca4118fdfb6e20" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, dimension(=0), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, dimension (=0), intent(in) species</definition>
+        <argsstring></argsstring>
+        <name>species</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="180" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga4a964aec022ad3320b7fc6654fd7eaec" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) specific</definition>
+        <argsstring></argsstring>
+        <name>specific</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="180" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga5c6a7bbf76962db1ad8ed8779c60bc7b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) speed</definition>
+        <argsstring></argsstring>
+        <name>speed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="166" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga17a73f4ff34fbf9603773254075cc379" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) stress</definition>
+        <argsstring></argsstring>
+        <name>stress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="161" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga0f32a2ccd90a66abe04973ce86ef6a5d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) summing</definition>
+        <argsstring></argsstring>
+        <name>summing</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="177" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gadb9d38ea0c6afcdbf9f639bcf69474be" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) sunlit</definition>
+        <argsstring></argsstring>
+        <name>sunlit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="129" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga425e2acc0a1e7a61966ab811c88ea9b8" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(<ref refid="group__calcs__local__vars_1gaf22c486581933c52df7d4aa306382074" kindref="member">k</ref>), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (k), intent(in) temp</definition>
+        <argsstring></argsstring>
+        <name>temp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="130" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga0d2ba7d32b18e29bdb055d5fc48c5ade" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) temp2</definition>
+        <argsstring></argsstring>
+        <name>temp2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="143" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="143" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga5d1595863a6b59d232057765d5418e91" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(<ref refid="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" kindref="member">m</ref>/s), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (m/s), intent(in) temperature</definition>
+        <argsstring></argsstring>
+        <name>temperature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="143" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga9e6bdc39b079aa15bf181e5177ecde9a" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer save the</definition>
+        <argsstring></argsstring>
+        <name>the</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="174" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga158f95ccb2f7c97813a536feae1f10fb" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) tka</definition>
+        <argsstring></argsstring>
+        <name>tka</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="140" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="140" bodyend="140"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga3861e221b40c9328d274eb71f284616b" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) tleaf240_ave</definition>
+        <argsstring></argsstring>
+        <name>tleaf240_ave</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="139" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="139" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaa064cd55ab1a371ebc602624c0de8d42" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) tleaf24_ave</definition>
+        <argsstring></argsstring>
+        <name>tleaf24_ave</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="136" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="136" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gae3271890f004cdd6071901a333504c16" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) tleaf_shade</definition>
+        <argsstring></argsstring>
+        <name>tleaf_shade</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="131" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="131" bodyend="131"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga9b8a60ad5270b0d830e7e5b1fc4146b8" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) tleaf_sun</definition>
+        <argsstring></argsstring>
+        <name>tleaf_sun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="130" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="130" bodyend="130"/>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga08c0b8620f03f74f743c134f326226cc" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) to</definition>
+        <argsstring></argsstring>
+        <name>to</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="144" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga1bbbc616f8bf7983f905b11eb81e635c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) top</definition>
+        <argsstring></argsstring>
+        <name>top</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="177" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gab9492b7073966a7add3a5b0e55258e48" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) total</definition>
+        <argsstring></argsstring>
+        <name>total</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="128" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga56796cf68bae648136b188e2994a5993" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) tsteplai</definition>
+        <argsstring></argsstring>
+        <name>tsteplai</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="174" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="174" bodyend="174"/>
+        <referencedby refid="group__utils__group_1gaee120e34885cce395cd8fedb67a742f2" compoundref="canopy__utils__mod_8F90" startline="636" endline="753">canopy_utils_mod::get_gamma_leafage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga8a12842f575a3d9029d6eb80ccd7f1fe" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="144" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaab95c1db7f5d8d9a803c816247ea4e25" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) used</definition>
+        <argsstring></argsstring>
+        <name>used</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="179" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga5f1126f4ed897b7263c21bc86184e2c6" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) user</definition>
+        <argsstring></argsstring>
+        <name>user</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="150" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga8ece472fdbc07ee4926bcbb7909a08c9" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) ustar</definition>
+        <argsstring></argsstring>
+        <name>ustar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="182" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="182" bodyend="182"/>
+        <referencedby refid="group__utils__group_1ga44ce09ebe8520cfbf3f329a8d80b8e5d" compoundref="canopy__utils__mod_8F90" startline="757" endline="799">canopy_utils_mod::get_canloss_bio</referencedby>
+        <referencedby refid="group__utils__group_1gaa60ef969ac96b048c73dffa3f0a3cb5b" compoundref="canopy__utils__mod_8F90" startline="1586" endline="1594">canopy_utils_mod::waterrbw</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga48d8ef74b9729960e24304d24562a535" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="179" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga10400d01350728079cf5765bdf59fc63" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) vegetation</definition>
+        <argsstring></argsstring>
+        <name>vegetation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="145" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gad6186ba06469ef4b7abcc298205ff09d" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(<ref refid="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" kindref="member">m</ref>/s), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (m/s), intent(in) velocity</definition>
+        <argsstring></argsstring>
+        <name>velocity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="182" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gacba926c6bf156bf0dc1c572daa3cb990" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) vert</definition>
+        <argsstring></argsstring>
+        <name>vert</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="148" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="148" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gabb0f73bc5899416c6635e45da3352abe" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) vertical</definition>
+        <argsstring></argsstring>
+        <name>vertical</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="146" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga300ec06a6fb4013169851aceb6f414f3" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(s), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (s), intent(in) voc</definition>
+        <argsstring></argsstring>
+        <name>voc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="178" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gadeedaa56b3dd12ced1b38cf1f4d163cc" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) volumetric</definition>
+        <argsstring></argsstring>
+        <name>volumetric</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="152" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaa4b3d43d015fa3bca1ada7fb8ba71481" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) vtype</definition>
+        <argsstring></argsstring>
+        <name>vtype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="145" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="145" bodyend="145"/>
+        <referencedby refid="group__utils__group_1ga0fdff4c99c48afdcc355366c92658b0e" compoundref="canopy__utils__mod_8F90" startline="150" endline="506">canopy_utils_mod::calcflameh</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gab52d8ef37a8d7a81547c07d906a0fd57" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) w126</definition>
+        <argsstring></argsstring>
+        <name>w126</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="162" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="162" bodyend="-1"/>
+        <referencedby refid="group__utils__group_1ga32aa0c8a9aeabb2253ca3aad69e3c20c" compoundref="canopy__utils__mod_8F90" startline="921" endline="969">canopy_utils_mod::get_gamma_aq</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gacf90ce39e334136bb08043647e3f79f7" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) w126_ref</definition>
+        <argsstring></argsstring>
+        <name>w126_ref</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="163" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="163" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gada4307ae9fbf30bf63ca7b22bb97f527" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) w126_set</definition>
+        <argsstring></argsstring>
+        <name>w126_set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="162" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="162" bodyend="162"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__utils__group_1ga32aa0c8a9aeabb2253ca3aad69e3c20c" compoundref="canopy__utils__mod_8F90" startline="921" endline="969">canopy_utils_mod::get_gamma_aq</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga42443bcb33cf91803615dc40e013751a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>integer, intent(in) when</definition>
+        <argsstring></argsstring>
+        <name>when</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="177" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga7c33b0cb08ae5387d2bb4f714b80824d" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) wilt</definition>
+        <argsstring></argsstring>
+        <name>wilt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="160" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="160" bodyend="160"/>
+        <referencedby refid="group__utils__group_1ga4d60f5a655c8b3b5a15aeffa509e1b41" compoundref="canopy__utils__mod_8F90" startline="804" endline="910">canopy_utils_mod::get_gamma_soim</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gab18a5d0e422f7112e8e923dbb7f024bf" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) wilting</definition>
+        <argsstring></argsstring>
+        <name>wilting</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="160" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gafe69721e8278bee0704379cea8e90533" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) wind</definition>
+        <argsstring></argsstring>
+        <name>wind</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="166" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1gaff913030474a11aa8789e4ab4606e03f" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) with</definition>
+        <argsstring></argsstring>
+        <name>with</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="179" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) zk</definition>
+        <argsstring></argsstring>
+        <name>zk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioemi_mod.F90" line="123" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="123" bodyend="123"/>
+        <referencedby refid="group__utils__group_1gad6424cae6753e427994d96ec2aa7e20e" compoundref="canopy__utils__mod_8F90" startline="1131" endline="1141">canopy_utils_mod::calcpressure</referencedby>
+        <referencedby refid="group__utils__group_1ga70c251ed48260b952b2171996d961673" compoundref="canopy__utils__mod_8F90" startline="1112" endline="1123">canopy_utils_mod::calctemp</referencedby>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Calculate parameterized canopy biogenic emissions. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This subroutine computes biogenic volatile organic compound (BVOC) emissions from forest canopies using the algorithms described in Clifton et al. (2022) based on Guenther et al. (2012). The calculations include:<itemizedlist>
+<listitem><para>Light-dependent and light-independent emission fractions</para>
+</listitem><listitem><para>Temperature and light activity factors for sunlit and shaded leaves</para>
+</listitem><listitem><para>CO2 inhibition effects (for isoprene)</para>
+</listitem><listitem><para>Soil moisture, leaf age, and stress factor influences</para>
+</listitem><listitem><para>Multiple vertical integration options (full 3D vs. integrated approaches)</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ZK</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model heights (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FCLAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fractional cumulative LAI shapes of plant surface distribution (nondimensional) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FCH</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canopy height (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total Leaf Area Index (m²/m²) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FSUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sunlit fraction from photolysis correction factor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">PPFD_SUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PPFD for sunlit leaves (μmol photons/m²/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">PPFD_SHADE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PPFD for shaded leaves (μmol photons/m²/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TLEAF_SUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Leaf temperature for sunlit leaves (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TLEAF_SHADE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Leaf temperature for shaded leaves (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">PPFD24_SUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>24-hour average PPFD for sunlit leaves (μmol photons/m²/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">PPFD24_SHADE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>24-hour average PPFD for shaded leaves (μmol photons/m²/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TLEAF24_AVE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>24-hour average leaf temperature (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">PPFD240_SUN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>240-hour average PPFD for sunlit leaves (μmol photons/m²/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">PPFD240_SHADE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>240-hour average PPFD for shaded leaves (μmol photons/m²/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TLEAF240_AVE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>240-hour average leaf temperature (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TKA</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interpolated air temperature (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DSWRF</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input downward shortwave radiation (W/m²) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TEMP2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input 2-m temperature (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LU_OPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Land use type option from model mapped to Massman et al. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">VTYPE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Grid cell dominant vegetation type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MODRES</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canopy model input vertical resolution (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CCE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>MEGAN Canopy environment coefficient </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">VERT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>MEGAN vertical integration option </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CO2OPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Option for CO2 inhibition calculation </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CO2SET</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User set atmospheric CO2 concentration (ppmv) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LEAFAGEOPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Leaf age response option </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">PASTLAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Past LAI (cm²/cm²) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CURRENTLAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current LAI (cm²/cm²) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TSTEPLAI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of days between past and current LAI </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LOSSOPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Option for canopy loss factor when summing emissions </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LOSSSET</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input value for constant canopy loss factor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LOSSIND</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer for applying loss factor to all or specific species </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LIFETIME</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Above canopy chemical lifetime of VOC (s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">USTAR</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Above canopy friction velocity (m/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SOIMOPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Option for soil moisture factor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SOIM1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Volumetric soil moisture layer 1 (m³/m³) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SOIM2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Volumetric soil moisture layer 2 (m³/m³) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SOIM3</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Volumetric soil moisture layer 3 (m³/m³) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SOIM4</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Volumetric soil moisture layer 4 (m³/m³) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SOID1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Soil depth layer 1 (cm) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SOID2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Soil depth layer 2 (cm) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SOID3</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Soil depth layer 3 (cm) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SOID4</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Soil depth layer 4 (cm) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">WILT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Wilting point (proportion) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">AQOPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Option for air quality stress calculation </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">W126_SET</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User set ozone W126 (ppm-hours) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">W126_REF</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GFS calculated ozone W126 (ppm-hours) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">HTOPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Option for high temperature stress calculation </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LTOPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Option for low temperature stress calculation </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">HWOPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Option for high wind speed stress calculation </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DAILY_MAXT2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Daily maximum 2-m temperature (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DAILY_MINT2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Daily minimum 2-m temperature (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DAILY_MAXWS10</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Daily maximum 10-m wind speed (m/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MODLAYS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input total model layers </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EMI_IND</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input biogenic emissions index </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">EMI_OUT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output canopy layer volume emissions (kg/m³/s) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

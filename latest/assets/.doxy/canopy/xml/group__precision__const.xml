@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__precision__const" kind="group">
+    <compoundname>precision_const</compoundname>
+    <title>Precision Constants</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__precision__const_1ga5559da76b628a9da9c24af13ad4ec623" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::fillreal</definition>
+        <argsstring></argsstring>
+        <name>fillreal</name>
+        <initializer>= -9.0e20</initializer>
+        <briefdescription>
+<para>NetCDF fill value for missing real data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="34" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="34" bodyend="34"/>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, parameter</type>
+        <definition>integer, parameter canopy_const_mod::rk</definition>
+        <argsstring></argsstring>
+        <name>rk</name>
+        <initializer>= SELECTED_REAL_KIND(15, 307)</initializer>
+        <briefdescription>
+<para>Selected real kind for double precision (15 decimal digits, 307 exponent range) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="32" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="32" bodyend="32"/>
+        <referencedby refid="group__canopy__dx_1gaad4ce838500a648283dee0ea12bb7bba" compoundref="canopy__dxcalc__mod_8F90" startline="34" endline="87">canopy_dxcalc_mod::canopy_calcdx</referencedby>
+        <referencedby refid="group__canopy__dx_1ga5102ac789e2d39bb539c15aabde9bcb2" compoundref="canopy__dxcalc__mod_8F90" startline="107" endline="164">canopy_dxcalc_mod::canopy_calcdx_2d</referencedby>
+        <referencedby refid="group__canopy__eddy_1ga11c37cfcc5385c9f158e4be92855f51f" compoundref="canopy__eddy__mod_8F90" startline="38" endline="155">canopy_eddy_mod::canopy_eddyx</referencedby>
+        <referencedby refid="group__canopy__fire_1ga1e55990adca2c705635845526e1354de" compoundref="canopy__fire__mod_8F90" startline="41" endline="149">canopy_fire_mod::canopy_flameh</referencedby>
+        <referencedby refid="group__profile__group_1ga12df2dbb79549987a7ebfbabbc16d4ae" compoundref="canopy__profile__mod_8F90" startline="239" endline="303">canopy_profile_mod::canopy_foliage</referencedby>
+        <referencedby refid="group__canopy__radiation_1ga817075c885c28dffde38361f4159e3a7" compoundref="canopy__rad__mod_8F90" startline="32" endline="67">canopy_rad_mod::canopy_fsun_clu</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="group__canopy__radiation_1ga44abae1b598c05e773207789755164f2" compoundref="canopy__rad__mod_8F90" startline="92" endline="302">canopy_rad_mod::canopy_ppfd_exp</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_ncf_io_mod::canopy_read_ncf</referencedby>
+        <referencedby refid="group__canopy__fire_1ga243d431e2c79b388516093a46e8ac67d" compoundref="canopy__fire__mod_8F90" startline="175" endline="251">canopy_fire_mod::canopy_waf</referencedby>
+        <referencedby refid="group__canopy__wind_1gade10f32eedf03561ded2d522994845b6" compoundref="canopy__wind__mod_8F90" startline="47" endline="208">canopy_wind_mod::canopy_wind_most</referencedby>
+        <referencedby refid="namespacecanopy__profile__mod_1a1fccb5556673155fef7143bfd81358d9" compoundref="canopy__profile__mod_8F90" startline="331" endline="454">canopy_profile_mod::canopy_zpd</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1ab417cdb308c6b9426403f5090d209b4f" compoundref="canopy__ncf__io__mod_8F90" startline="198" endline="219">canopy_ncf_io_mod::get_var_1d_real_cdf</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a6e6b7091237f16ddde457b12497579c9" compoundref="canopy__ncf__io__mod_8F90" startline="135" endline="162">canopy_ncf_io_mod::get_var_2d_real_cdf</referencedby>
+        <referencedby refid="group__ncfio__group_1ga448fb73be44b1171263f78c6bf851f8e" compoundref="canopy__ncf__io__mod_8F90" startline="67" endline="97">canopy_ncf_io_mod::get_var_3d_real_cdf</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Precision and fill value constants. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

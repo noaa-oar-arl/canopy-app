@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__read__txt" kind="group">
+    <compoundname>read_txt</compoundname>
+    <title>Text Input Reading</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_read_txt</definition>
+        <argsstring>(INFILE, INFILE2)</argsstring>
+        <name>canopy_read_txt</name>
+        <param>
+          <type>INFILE</type>
+          <defname>INFILE</defname>
+        </param>
+        <param>
+          <type>INFILE2</type>
+          <defname>INFILE2</defname>
+        </param>
+        <briefdescription>
+<para>Read canopy met/sfc inputs from text files. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This subroutine reads meteorological and surface input data from text files. It can handle both single variable text files and combined variable plus canopy profile text files depending on the var3d_opt setting.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">INFILE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Primary input text file path </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">INFILE2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Secondary canopy profile input text file path </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">infile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>main IO text reader/writer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Determine which text files to read based on 3D variable option</para>
+        </inbodydescription>
+        <location file="src/canopy_read_txt.F90" line="22" column="1" bodyfile="src/canopy_read_txt.F90" bodystart="23" bodyend="41"/>
+        <references refid="group__bioemi__inputs_1gaad0c993bd5fd93c7decad9daf442d225" compoundref="canopy__bioemi__mod_8F90" startline="127">canopy</references>
+        <references refid="group__canopy__options_1gab0b5819b28313ed0be7118a333b361da" compoundref="canopy__canopts__mod_8F90" startline="36" endline="36">canopy_canopts_mod::var3d_opt</references>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Routines for reading text format input files. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

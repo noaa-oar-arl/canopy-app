@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__geom__const" kind="group">
+    <compoundname>geom_const</compoundname>
+    <title>Geometric Constants</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__geom__const_1ga6a99f47ba1f4f9cf9e4421be86a0672b" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::pi</definition>
+        <argsstring></argsstring>
+        <name>pi</name>
+        <initializer>= 3.14159265358979324_rk</initializer>
+        <briefdescription>
+<para>Pi (double precision: 3.14159265358979324) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="43" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="43" bodyend="43"/>
+        <referencedby refid="group__canopy__eddy_1ga11c37cfcc5385c9f158e4be92855f51f" compoundref="canopy__eddy__mod_8F90" startline="38" endline="155">canopy_eddy_mod::canopy_eddyx</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__geom__const_1gadc1d6d44f8973ed6815719fd899869fa" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::pi180</definition>
+        <argsstring></argsstring>
+        <name>pi180</name>
+        <initializer>= pi / 180.0_rk</initializer>
+        <briefdescription>
+<para>Pi/180 conversion factor from degrees to radians [rad/deg]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="46" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="46" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Mathematical and geometric constants. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

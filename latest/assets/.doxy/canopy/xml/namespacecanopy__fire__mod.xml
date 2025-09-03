@@ -1,0 +1,380 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacecanopy__fire__mod" kind="namespace" language="Fortran">
+    <compoundname>canopy_fire_mod</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__canopy__fire_1ga1e55990adca2c705635845526e1354de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_fire_mod::canopy_flameh</definition>
+        <argsstring>(FLAMEH_OPT, FLAMEH_SET, DX, MODRES, FRP_IN, FRP_FAC, FCH, LU_OPT, VTYPE, FLAMEH_CAL, MIDFLAMEPOINT, FLAMEH)</argsstring>
+        <name>canopy_flameh</name>
+        <param>
+          <type>FLAMEH_OPT</type>
+          <defname>FLAMEH_OPT</defname>
+        </param>
+        <param>
+          <type>FLAMEH_SET</type>
+          <defname>FLAMEH_SET</defname>
+        </param>
+        <param>
+          <type>DX</type>
+          <defname>DX</defname>
+        </param>
+        <param>
+          <type>MODRES</type>
+          <defname>MODRES</defname>
+        </param>
+        <param>
+          <type>FRP_IN</type>
+          <defname>FRP_IN</defname>
+        </param>
+        <param>
+          <type>FRP_FAC</type>
+          <defname>FRP_FAC</defname>
+        </param>
+        <param>
+          <type>FCH</type>
+          <defname>FCH</defname>
+        </param>
+        <param>
+          <type>LU_OPT</type>
+          <defname>LU_OPT</defname>
+        </param>
+        <param>
+          <type>VTYPE</type>
+          <defname>VTYPE</defname>
+        </param>
+        <param>
+          <type>FLAMEH_CAL</type>
+          <defname>FLAMEH_CAL</defname>
+        </param>
+        <param>
+          <type>MIDFLAMEPOINT</type>
+          <defname>MIDFLAMEPOINT</defname>
+        </param>
+        <param>
+          <type>FLAMEH</type>
+          <defname>FLAMEH</defname>
+        </param>
+        <briefdescription>
+<para>Calculate flame height and midflame point. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes flame height and midflamepoint layer needed for WAF calculation using various methods including FRP-based calculations and user-defined values</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">FLAMEH_OPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer for flame height calculation option (0=calculate, 1=user set, etc.) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FLAMEH_SET</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User set flame height value (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Grid cell distance using haversine formula (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MODRES</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Canopy model input vertical resolution (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FRP_IN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input Fire Radiative Power (MW/grid cell area) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FRP_FAC</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>FRP tuning factor for flame height calculation </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FCH</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Grid cell canopy height (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LU_OPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Supported land use classifications </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">VTYPE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dominant vegetation type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FLAMEH_CAL</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Option of vegetation type dependent FRP to flame height relationships </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">MIDFLAMEPOINT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the mid-flame point </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">FLAMEH</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Calculated flame height (m) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P. C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>Oct 2022 </para>
+</simplesect>
+<simplesect kind="note"><para>Supports multiple flame height calculation methods and crown fire detection </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Number of flame layers</para>
+<para>Number of flame layers in vertical grid</para>
+<para>Adjusted fire radiative power</para>
+<para>FRP after tuning factor applied <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>MW/grid cell area</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </inbodydescription>
+        <location file="src/canopy_fire_mod.F90" line="38" column="1" bodyfile="src/canopy_fire_mod.F90" bodystart="41" bodyend="149"/>
+        <references refid="group__utils__group_1ga0fdff4c99c48afdcc355366c92658b0e" compoundref="canopy__utils__mod_8F90" startline="150" endline="506">canopy_utils_mod::calcflameh</references>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+      </memberdef>
+      <memberdef kind="function" id="group__canopy__fire_1ga243d431e2c79b388516093a46e8ac67d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_fire_mod::canopy_waf</definition>
+        <argsstring>(HCM, LAMBDARS, HREF, FLAMEH, FIRETYPE, D_H, ZO_H, CANBOTMID, CANTOPMID, WAF)</argsstring>
+        <name>canopy_waf</name>
+        <param>
+          <type>HCM</type>
+          <defname>HCM</defname>
+        </param>
+        <param>
+          <type>LAMBDARS</type>
+          <defname>LAMBDARS</defname>
+        </param>
+        <param>
+          <type>HREF</type>
+          <defname>HREF</defname>
+        </param>
+        <param>
+          <type>FLAMEH</type>
+          <defname>FLAMEH</defname>
+        </param>
+        <param>
+          <type>FIRETYPE</type>
+          <defname>FIRETYPE</defname>
+        </param>
+        <param>
+          <type>D_H</type>
+          <defname>D_H</defname>
+        </param>
+        <param>
+          <type>ZO_H</type>
+          <defname>ZO_H</defname>
+        </param>
+        <param>
+          <type>CANBOTMID</type>
+          <defname>CANBOTMID</defname>
+        </param>
+        <param>
+          <type>CANTOPMID</type>
+          <defname>CANTOPMID</defname>
+        </param>
+        <param>
+          <type>WAF</type>
+          <defname>WAF</defname>
+        </param>
+        <briefdescription>
+<para>Calculate Wind Adjustment Factor for fire spread. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes Wind Adjustment Factor for fire spread for either sub-canopy or above-canopy fires using Massman et al. (2017) formulations</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">HCM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Height of canopy top (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LAMBDARS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value representing influence of roughness sublayer (dimensionless) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">HREF</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference height above the canopy (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FLAMEH</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flame height for above canopy fire (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FIRETYPE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fire type: 1=Above Canopy Fire, 0=Below Canopy Fire </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CANBOTMID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mid-flame canopy bottom wind reduction factor (dimensionless) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CANTOPMID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mid-flame canopy top wind reduction factor (dimensionless) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">D_H</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Zero-plane displacement height (d/h) (dimensionless) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ZO_H</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Surface (soil+veg) roughness length (zo/h) (dimensionless) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">WAF</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Wind Adjustment Factor (dimensionless) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P. C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>Jun 2022 </para>
+</simplesect>
+<simplesect kind="note"><para>Based on Massman et al. (2017) algorithms for fire behavior prediction Massman, W.J., J.M. Forthofer, M.A. Finney (2017). An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior. Canadian Journal of Forest Research, 47(5), 594-599. <ulink url="https://doi.org/10.1139/cjfr-2016-0354">https://doi.org/10.1139/cjfr-2016-0354</ulink> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Major Term1 in WAF calculation</para>
+<para>Major Term1 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Major Term2 in WAF calculation</para>
+<para>Major Term2 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Ratio parameter for above-canopy WAF</para>
+<para>Ratio parameter used in WAF for above-canopy (Eq. 18 Massman et al.) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Local roughness sublayer influence</para>
+<para>Local values for influence of roughness sublayer <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </inbodydescription>
+        <location file="src/canopy_fire_mod.F90" line="173" column="1" bodyfile="src/canopy_fire_mod.F90" bodystart="175" bodyend="251"/>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/canopy_fire_mod.F90" line="12" column="1"/>
+  </compounddef>
+</doxygen>

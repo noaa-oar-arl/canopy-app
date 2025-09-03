@@ -1,0 +1,2107 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the Canopy-App atmospheric modeling system">
+      
+      
+        <meta name="author" content="P.C. Campbell and contributors">
+      
+      
+        <link rel="canonical" href="https://noaa-oar-arl.github.io/canopy-app/latest/canopy/group__utils__group/">
+      
+      
+      
+      
+      <link rel="icon" href="../../canopy-app-logo_no-bg.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Group utils_group - Canopy-App Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/noaa-theme.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#group-utils_group" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Canopy-App Documentation" class="md-header__button md-logo" aria-label="Canopy-App Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Canopy-App Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Group utils_group
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/noaa-oar-arl/canopy-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    noaa-oar-arl/canopy-app
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../user-guide/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../science/model-description/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Science Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../development/contributing/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../references/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  References
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../links/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Doxygen API
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Canopy-App Documentation" class="md-nav__button md-logo" aria-label="Canopy-App Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Canopy-App Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/noaa-oar-arl/canopy-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    noaa-oar-arl/canopy-app
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../getting-started/installation/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../user-guide/overview/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../science/model-description/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Science Documentation
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../api/overview/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../development/contributing/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../links/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Doxygen API
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Functions Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Functions Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-calccair" class="md-nav__link">
+    <span class="md-ellipsis">
+      function calccair
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-calcdx" class="md-nav__link">
+    <span class="md-ellipsis">
+      function calcdx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-calcflameh" class="md-nav__link">
+    <span class="md-ellipsis">
+      function calcflameh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-calcpai" class="md-nav__link">
+    <span class="md-ellipsis">
+      function calcpai
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-calcpressure" class="md-nav__link">
+    <span class="md-ellipsis">
+      function calcpressure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-calcrelhum" class="md-nav__link">
+    <span class="md-ellipsis">
+      function calcrelhum
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-calcrib" class="md-nav__link">
+    <span class="md-ellipsis">
+      function calcrib
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-calcspechum" class="md-nav__link">
+    <span class="md-ellipsis">
+      function calcspechum
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-calctemp" class="md-nav__link">
+    <span class="md-ellipsis">
+      function calctemp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-canopy_dealloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      function canopy_dealloc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-canopy_init" class="md-nav__link">
+    <span class="md-ellipsis">
+      function canopy_init
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-canopy_readnml" class="md-nav__link">
+    <span class="md-ellipsis">
+      function canopy_readnml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-convert_qh_to_h2o" class="md-nav__link">
+    <span class="md-ellipsis">
+      function convert_qh_to_h2o
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-effhenryslawcoeff" class="md-nav__link">
+    <span class="md-ellipsis">
+      function effhenryslawcoeff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-esat" class="md-nav__link">
+    <span class="md-ellipsis">
+      function esat
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-get_canloss_bio" class="md-nav__link">
+    <span class="md-ellipsis">
+      function get_canloss_bio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-get_gamma_aq" class="md-nav__link">
+    <span class="md-ellipsis">
+      function get_gamma_aq
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-get_gamma_co2" class="md-nav__link">
+    <span class="md-ellipsis">
+      function get_gamma_co2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-get_gamma_ht" class="md-nav__link">
+    <span class="md-ellipsis">
+      function get_gamma_ht
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-get_gamma_hw" class="md-nav__link">
+    <span class="md-ellipsis">
+      function get_gamma_hw
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-get_gamma_leafage" class="md-nav__link">
+    <span class="md-ellipsis">
+      function get_gamma_leafage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-get_gamma_lt" class="md-nav__link">
+    <span class="md-ellipsis">
+      function get_gamma_lt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-get_gamma_soim" class="md-nav__link">
+    <span class="md-ellipsis">
+      function get_gamma_soim
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-interp_linear1_internal" class="md-nav__link">
+    <span class="md-ellipsis">
+      function interp_linear1_internal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-lebasmvgas" class="md-nav__link">
+    <span class="md-ellipsis">
+      function lebasmvgas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-molarmassgas" class="md-nav__link">
+    <span class="md-ellipsis">
+      function molarmassgas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-molecdiff" class="md-nav__link">
+    <span class="md-ellipsis">
+      function molecdiff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-rav" class="md-nav__link">
+    <span class="md-ellipsis">
+      function rav
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-rbl" class="md-nav__link">
+    <span class="md-ellipsis">
+      function rbl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-rcl" class="md-nav__link">
+    <span class="md-ellipsis">
+      function rcl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-reactivityparam" class="md-nav__link">
+    <span class="md-ellipsis">
+      function reactivityparam
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-reactivityparamhno3" class="md-nav__link">
+    <span class="md-ellipsis">
+      function reactivityparamhno3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-rml" class="md-nav__link">
+    <span class="md-ellipsis">
+      function rml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-rs_zhang_gas" class="md-nav__link">
+    <span class="md-ellipsis">
+      function rs_zhang_gas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-seteffhenryslawcoeffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      function seteffhenryslawcoeffs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-setlebasmvgas" class="md-nav__link">
+    <span class="md-ellipsis">
+      function setlebasmvgas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-setmolarmassgas" class="md-nav__link">
+    <span class="md-ellipsis">
+      function setmolarmassgas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-setmolecdiffstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      function setmolecdiffstp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-setreactivityhno3" class="md-nav__link">
+    <span class="md-ellipsis">
+      function setreactivityhno3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-setreactivityparams" class="md-nav__link">
+    <span class="md-ellipsis">
+      function setreactivityparams
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-soilrbg" class="md-nav__link">
+    <span class="md-ellipsis">
+      function soilrbg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-soilresist" class="md-nav__link">
+    <span class="md-ellipsis">
+      function soilresist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-waterrbw" class="md-nav__link">
+    <span class="md-ellipsis">
+      function waterrbw
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="group-utils_group">Group utils_group</h1>
+<p><a href="../modules/"><strong>Modules</strong></a> <strong>&gt;</strong> <a href="./"><strong>utils_group</strong></a></p>
+<p><em>Collection of utility and calculation functions for canopy modeling.</em> <a href="#detailed-description">More...</a></p>
+<h2 id="public-functions">Public Functions</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-calccair"><strong>canopy_utils_mod::calccair</strong></a> (pmbi pmbi, tki tki) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-calcdx"><strong>canopy_utils_mod::calcdx</strong></a> (lat lat, dlon dlon) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-calcflameh"><strong>canopy_utils_mod::calcflameh</strong></a> (frp frp, dx dx, <a href="../canopy__profile__mod_8F90/#variable-lu_opt"><strong>lu_opt</strong></a> lu_opt, <a href="../canopy__profile__mod_8F90/#variable-vtype"><strong>vtype</strong></a> vtype, flameh_cal flameh_cal) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-calcpai"><strong>canopy_utils_mod::calcpai</strong></a> (ch ch, canfrac canfrac) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-calcpressure"><strong>canopy_utils_mod::calcpressure</strong></a> (<a href="../canopy__var3din__mod_8F90/#variable-zk"><strong>zk</strong></a> zk, zref zref, pmbzref pmbzref, tref tref, t0 t0) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-calcrelhum"><strong>canopy_utils_mod::calcrelhum</strong></a> (tki tki, pmbi pmbi, qhi qhi) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-calcrib"><strong>canopy_utils_mod::calcrib</strong></a> (tak tak, tsk tsk, ubari ubari, <a href="../canopy__calcs_8F90/#variable-d"><strong>d</strong></a> d, zref zref) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-calcspechum"><strong>canopy_utils_mod::calcspechum</strong></a> (rhi rhi, tki tki, pmbi pmbi) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-calctemp"><strong>canopy_utils_mod::calctemp</strong></a> (<a href="../canopy__var3din__mod_8F90/#variable-zk"><strong>zk</strong></a> zk, zref zref, taref taref, tsref tsref) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">subroutine</td>
+<td style="text-align: left;"><a href="#function-canopy_dealloc"><strong>canopy_dealloc</strong></a> () <br><em>Deallocate arrays for canopy model.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">subroutine</td>
+<td style="text-align: left;"><a href="#function-canopy_init"><strong>canopy_init</strong></a> () <br><em>Initialize arrays for canopy model inputs and outputs.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">subroutine</td>
+<td style="text-align: left;"><a href="#function-canopy_readnml"><strong>canopy_readnml</strong></a> () <br><em>Read canopy model namelist configuration.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-convert_qh_to_h2o"><strong>canopy_utils_mod::convert_qh_to_h2o</strong></a> (qhi qhi, cairi cairi) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-effhenryslawcoeff"><strong>canopy_utils_mod::effhenryslawcoeff</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, ispec ispec) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-esat"><strong>canopy_utils_mod::esat</strong></a> (tki tki) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-get_canloss_bio"><strong>canopy_utils_mod::get_canloss_bio</strong></a> (<a href="../canopy__bioemi__mod_8F90/#variable-loss_opt"><strong>loss_opt</strong></a> loss_opt, <a href="../canopy__bioemi__mod_8F90/#variable-lifetime"><strong>lifetime</strong></a> lifetime, <a href="../canopy__drydep__mod_8F90/#variable-ustar"><strong>ustar</strong></a> ustar, ch ch) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-get_gamma_aq"><strong>canopy_utils_mod::get_gamma_aq</strong></a> (aq_opt aq_opt, w126_ozone w126_ozone, <a href="../canopy__bioemi__mod_8F90/#variable-w126_set"><strong>w126_set</strong></a> w126_set, <a href="../canopy__bioemi__mod_8F90/#variable-caq"><strong>caq</strong></a> caq, <a href="../canopy__bioemi__mod_8F90/#variable-taq"><strong>taq</strong></a> taq, <a href="../canopy__bioemi__mod_8F90/#variable-dtaq"><strong>dtaq</strong></a> dtaq) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-get_gamma_co2"><strong>canopy_utils_mod::get_gamma_co2</strong></a> (co2_opt co2_opt, co2_set co2_set) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-get_gamma_ht"><strong>canopy_utils_mod::get_gamma_ht</strong></a> (ht_opt ht_opt, maxt2m maxt2m, <a href="../canopy__bioemi__mod_8F90/#variable-cht"><strong>cht</strong></a> cht, <a href="../canopy__bioemi__mod_8F90/#variable-tht"><strong>tht</strong></a> tht, <a href="../canopy__bioemi__mod_8F90/#variable-dtht"><strong>dtht</strong></a> dtht) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-get_gamma_hw"><strong>canopy_utils_mod::get_gamma_hw</strong></a> (hw_opt hw_opt, maxws10m maxws10m, <a href="../canopy__bioemi__mod_8F90/#variable-chw"><strong>chw</strong></a> chw, <a href="../canopy__bioemi__mod_8F90/#variable-thw"><strong>thw</strong></a> thw, <a href="../canopy__bioemi__mod_8F90/#variable-dthw"><strong>dthw</strong></a> dthw) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-get_gamma_leafage"><strong>canopy_utils_mod::get_gamma_leafage</strong></a> (<a href="../canopy__bioemi__mod_8F90/#variable-leafage_opt"><strong>leafage_opt</strong></a> leafage_opt, LAIpast LAIpast, LAIcurrent LAIcurrent, <a href="../canopy__calcs_8F90/#variable-tsteplai"><strong>tsteplai</strong></a> tsteplai, TABOVE TABOVE, Anew Anew, Agro Agro, Amat Amat, Aold Aold) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-get_gamma_lt"><strong>canopy_utils_mod::get_gamma_lt</strong></a> (lt_opt lt_opt, mint2m mint2m, <a href="../canopy__bioemi__mod_8F90/#variable-clt"><strong>clt</strong></a> clt, <a href="../canopy__bioemi__mod_8F90/#variable-tlt"><strong>tlt</strong></a> tlt, <a href="../canopy__bioemi__mod_8F90/#variable-dtlt"><strong>dtlt</strong></a> dtlt) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-get_gamma_soim"><strong>canopy_utils_mod::get_gamma_soim</strong></a> (soim_opt soim_opt, <a href="../canopy__bioemi__mod_8F90/#variable-soim1"><strong>soim1</strong></a> soim1, <a href="../canopy__bioemi__mod_8F90/#variable-soim2"><strong>soim2</strong></a> soim2, <a href="../canopy__bioemi__mod_8F90/#variable-soim3"><strong>soim3</strong></a> soim3, <a href="../canopy__bioemi__mod_8F90/#variable-soim4"><strong>soim4</strong></a> soim4, <a href="../canopy__bioemi__mod_8F90/#variable-soid1"><strong>soid1</strong></a> soid1, <a href="../canopy__bioemi__mod_8F90/#variable-soid2"><strong>soid2</strong></a> soid2, <a href="../canopy__bioemi__mod_8F90/#variable-soid3"><strong>soid3</strong></a> soid3, <a href="../canopy__bioemi__mod_8F90/#variable-soid4"><strong>soid4</strong></a> soid4, <a href="../canopy__bioemi__mod_8F90/#variable-wilt"><strong>wilt</strong></a> wilt, <a href="../canopy__bioemi__mod_8F90/#variable-roota"><strong>roota</strong></a> roota, <a href="../canopy__bioemi__mod_8F90/#variable-rootb"><strong>rootb</strong></a> rootb) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-interp_linear1_internal"><strong>canopy_utils_mod::interp_linear1_internal</strong></a> (x x, y y, xout xout) <br><em>Linear interpolation function.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-lebasmvgas"><strong>canopy_utils_mod::lebasmvgas</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, ispec ispec) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-molarmassgas"><strong>canopy_utils_mod::molarmassgas</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, ispec ispec) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-molecdiff"><strong>canopy_utils_mod::molecdiff</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, ispec ispec, tkx tkx, pmbx pmbx) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-rav"><strong>canopy_utils_mod::rav</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-ubar"><strong>ubar</strong></a> ubar, zref zref, <a href="../canopy__calcs_8F90/#variable-d"><strong>d</strong></a> d, hc hc, <a href="../canopy__calcs_8F90/#variable-rib"><strong>rib</strong></a> rib) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-rbl"><strong>canopy_utils_mod::rbl</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-mdiffl"><strong>mdiffl</strong></a> mdiffl, ubari ubari) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-rcl"><strong>canopy_utils_mod::rcl</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-hstarl"><strong>hstarl</strong></a> hstarl, <a href="../canopy__drydep__mod_8F90/#variable-f01"><strong>f01</strong></a> f01) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-reactivityparam"><strong>canopy_utils_mod::reactivityparam</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, ispec ispec) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-reactivityparamhno3"><strong>canopy_utils_mod::reactivityparamhno3</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, ispec ispec) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-rml"><strong>canopy_utils_mod::rml</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-hstarl"><strong>hstarl</strong></a> hstarl, <a href="../canopy__drydep__mod_8F90/#variable-f01"><strong>f01</strong></a> f01) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-rs_zhang_gas"><strong>canopy_utils_mod::rs_zhang_gas</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-mdiffl"><strong>mdiffl</strong></a> mdiffl, tki tki, pmbi pmbi, ppfdi ppfdi, <a href="../canopy__drydep__mod_8F90/#variable-srad"><strong>srad</strong></a> srad, relhumi relhumi) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">subroutine, public</td>
+<td style="text-align: left;"><a href="#function-seteffhenryslawcoeffs"><strong>canopy_utils_mod::seteffhenryslawcoeffs</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, hstar hstar) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">subroutine, public</td>
+<td style="text-align: left;"><a href="#function-setlebasmvgas"><strong>canopy_utils_mod::setlebasmvgas</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, mvg mvg) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">subroutine, public</td>
+<td style="text-align: left;"><a href="#function-setmolarmassgas"><strong>canopy_utils_mod::setmolarmassgas</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, mmg mmg) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">subroutine, public</td>
+<td style="text-align: left;"><a href="#function-setmolecdiffstp"><strong>canopy_utils_mod::setmolecdiffstp</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, mdiffstp mdiffstp) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">subroutine, public</td>
+<td style="text-align: left;"><a href="#function-setreactivityhno3"><strong>canopy_utils_mod::setreactivityhno3</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, ar ar) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">subroutine, public</td>
+<td style="text-align: left;"><a href="#function-setreactivityparams"><strong>canopy_utils_mod::setreactivityparams</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_opt"><strong>chemmechgas_opt</strong></a> chemmechgas_opt, <a href="../canopy__drydep__mod_8F90/#variable-chemmechgas_tot"><strong>chemmechgas_tot</strong></a> chemmechgas_tot, f0 f0) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-soilrbg"><strong>canopy_utils_mod::soilrbg</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-ubar"><strong>ubar</strong></a> ubar) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-soilresist"><strong>canopy_utils_mod::soilresist</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-mdiffl"><strong>mdiffl</strong></a> mdiffl, <a href="../canopy__drydep__mod_8F90/#variable-socat"><strong>socat</strong></a> socat, <a href="../canopy__drydep__mod_8F90/#variable-sotyp"><strong>sotyp</strong></a> sotyp, <a href="../canopy__drydep__mod_8F90/#variable-dsoil"><strong>dsoil</strong></a> dsoil, <a href="../canopy__drydep__mod_8F90/#variable-stheta"><strong>stheta</strong></a> stheta) <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk) <a href="../canopy__var3din__mod_8F90/#variable-function"><strong>function</strong></a>, public</td>
+<td style="text-align: left;"><a href="#function-waterrbw"><strong>canopy_utils_mod::waterrbw</strong></a> (<a href="../canopy__drydep__mod_8F90/#variable-ustar"><strong>ustar</strong></a> ustar) <br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="detailed-description">Detailed Description</h2>
+<p>This group contains various utility functions including:
+* Mathematical operations (integration, interpolation)
+* Environmental calculations (temperature, pressure, humidity)
+* Biogenic emission factors and corrections
+* Molecular property calculations
+* Physical parameterizations for deposition and resistance </p>
+<h2 id="public-functions-documentation">Public Functions Documentation</h2>
+<h3 id="function-calccair">function calccair</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">calccair</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">pmbi</span><span class="w"> </span><span class="n">pmbi</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">tki</span><span class="w"> </span><span class="n">tki</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-calcdx">function calcdx</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">calcdx</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">lat</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">dlon</span><span class="w"> </span><span class="n">dlon</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-calcflameh">function calcflameh</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">calcflameh</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">frp</span><span class="w"> </span><span class="n">frp</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">dx</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">lu_opt</span><span class="w"> </span><span class="n">lu_opt</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">vtype</span><span class="w"> </span><span class="n">vtype</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="n">flameh_cal</span><span class="w"> </span><span class="n">flameh_cal</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-calcpai">function calcpai</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">calcpai</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">ch</span><span class="w"> </span><span class="n">ch</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">canfrac</span><span class="w"> </span><span class="n">canfrac</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>ch</code> Input Grid cell canopy height (m)</li>
+<li><code>canfrac</code> Input Grid cell canopy fraction </li>
+</ul>
+<hr>
+
+<h3 id="function-calcpressure">function calcpressure</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">calcpressure</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">zk</span><span class="w"> </span><span class="n">zk</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">zref</span><span class="w"> </span><span class="n">zref</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">pmbzref</span><span class="w"> </span><span class="n">pmbzref</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">tref</span><span class="w"> </span><span class="n">tref</span><span class="p">,</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">t0</span><span class="w"> </span><span class="n">t0</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-calcrelhum">function calcrelhum</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">calcrelhum</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">tki</span><span class="w"> </span><span class="n">tki</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">pmbi</span><span class="w"> </span><span class="n">pmbi</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">qhi</span><span class="w"> </span><span class="n">qhi</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-calcrib">function calcrib</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">calcrib</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">tak</span><span class="w"> </span><span class="n">tak</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">tsk</span><span class="w"> </span><span class="n">tsk</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">ubari</span><span class="w"> </span><span class="n">ubari</span><span class="p">,</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="n">d</span><span class="w"> </span><span class="n">d</span><span class="p">,</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="n">zref</span><span class="w"> </span><span class="n">zref</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-calcspechum">function calcspechum</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">calcspechum</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="n">rhi</span><span class="w"> </span><span class="n">rhi</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="n">tki</span><span class="w"> </span><span class="n">tki</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="n">pmbi</span><span class="w"> </span><span class="n">pmbi</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-calctemp">function calctemp</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">calctemp</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="n">zk</span><span class="w"> </span><span class="n">zk</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="n">zref</span><span class="w"> </span><span class="n">zref</span><span class="p">,</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">taref</span><span class="w"> </span><span class="n">taref</span><span class="p">,</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="n">tsref</span><span class="w"> </span><span class="n">tsref</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-canopy_dealloc">function canopy_dealloc</h3>
+<p><em>Deallocate arrays for canopy model.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">subroutine </span><span class="n">canopy_dealloc</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+</code></pre></div></p>
+<p>Deallocates all allocated arrays including:
+* Input variable arrays
+* Canopy distribution arrays
+* Meteorological arrays
+* Leaf temperature and PPFD arrays
+* 24-hour and 240-hour temporary arrays
+* Biogenic emission arrays
+* Chemical species arrays </p>
+<p><strong>Author:</strong></p>
+<p>P.C. Campbell </p>
+<p><strong>Date:</strong></p>
+<p>October 2022 </p>
+<hr>
+
+<h3 id="function-canopy_init">function canopy_init</h3>
+<p><em>Initialize arrays for canopy model inputs and outputs.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">subroutine </span><span class="n">canopy_init</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+</code></pre></div></p>
+<p>Initializes all arrays for canopy model including:
+* Canopy distribution variables
+* Meteorological arrays
+* Leaf temperature and PPFD arrays
+* 24-hour and 240-hour temporary arrays
+* Biogenic emission arrays
+* Chemical species arrays </p>
+<p><strong>Author:</strong></p>
+<p>P.C. Campbell </p>
+<p><strong>Date:</strong></p>
+<p>October 2022 </p>
+<hr>
+
+<h3 id="function-canopy_readnml">function canopy_readnml</h3>
+<p><em>Read canopy model namelist configuration.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">subroutine </span><span class="n">canopy_readnml</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+</code></pre></div></p>
+<p>Reads input namelist to get user control variables including:
+* File names and paths
+* Model configuration options
+* Physical and chemical parameters
+* Time and grid settings
+* Output options </p>
+<p><strong>Author:</strong></p>
+<p>P.C. Campbell </p>
+<p><strong>Date:</strong></p>
+<p>July 2022 </p>
+<hr>
+
+<h3 id="function-convert_qh_to_h2o">function convert_qh_to_h2o</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">convert_qh_to_h2o</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="n">qhi</span><span class="w"> </span><span class="n">qhi</span><span class="p">,</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="n">cairi</span><span class="w"> </span><span class="n">cairi</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-effhenryslawcoeff">function effhenryslawcoeff</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">effhenryslawcoeff</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="n">ispec</span><span class="w"> </span><span class="n">ispec</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-esat">function esat</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">esat</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="n">tki</span><span class="w"> </span><span class="n">tki</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-get_canloss_bio">function get_canloss_bio</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">get_canloss_bio</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="n">loss_opt</span><span class="w"> </span><span class="n">loss_opt</span><span class="p">,</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="n">lifetime</span><span class="w"> </span><span class="n">lifetime</span><span class="p">,</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="n">ustar</span><span class="w"> </span><span class="n">ustar</span><span class="p">,</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="n">ch</span><span class="w"> </span><span class="n">ch</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-get_gamma_aq">function get_gamma_aq</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">get_gamma_aq</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="n">aq_opt</span><span class="w"> </span><span class="n">aq_opt</span><span class="p">,</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="n">w126_ozone</span><span class="w"> </span><span class="n">w126_ozone</span><span class="p">,</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="n">w126_set</span><span class="w"> </span><span class="n">w126_set</span><span class="p">,</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="n">caq</span><span class="w"> </span><span class="n">caq</span><span class="p">,</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="n">taq</span><span class="w"> </span><span class="n">taq</span><span class="p">,</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="n">dtaq</span><span class="w"> </span><span class="n">dtaq</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-get_gamma_co2">function get_gamma_co2</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">get_gamma_co2</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="n">co2_opt</span><span class="w"> </span><span class="n">co2_opt</span><span class="p">,</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="n">co2_set</span><span class="w"> </span><span class="n">co2_set</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-get_gamma_ht">function get_gamma_ht</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">get_gamma_ht</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="n">ht_opt</span><span class="w"> </span><span class="n">ht_opt</span><span class="p">,</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="n">maxt2m</span><span class="w"> </span><span class="n">maxt2m</span><span class="p">,</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="n">cht</span><span class="w"> </span><span class="n">cht</span><span class="p">,</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span><span class="n">tht</span><span class="w"> </span><span class="n">tht</span><span class="p">,</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">    </span><span class="n">dtht</span><span class="w"> </span><span class="n">dtht</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-get_gamma_hw">function get_gamma_hw</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">get_gamma_hw</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="n">hw_opt</span><span class="w"> </span><span class="n">hw_opt</span><span class="p">,</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="n">maxws10m</span><span class="w"> </span><span class="n">maxws10m</span><span class="p">,</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span><span class="n">chw</span><span class="w"> </span><span class="n">chw</span><span class="p">,</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">    </span><span class="n">thw</span><span class="w"> </span><span class="n">thw</span><span class="p">,</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">    </span><span class="n">dthw</span><span class="w"> </span><span class="n">dthw</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-get_gamma_leafage">function get_gamma_leafage</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">get_gamma_leafage</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="n">leafage_opt</span><span class="w"> </span><span class="n">leafage_opt</span><span class="p">,</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="n">LAIpast</span><span class="w"> </span><span class="n">LAIpast</span><span class="p">,</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="n">LAIcurrent</span><span class="w"> </span><span class="n">LAIcurrent</span><span class="p">,</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">    </span><span class="n">tsteplai</span><span class="w"> </span><span class="n">tsteplai</span><span class="p">,</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">    </span><span class="n">TABOVE</span><span class="w"> </span><span class="n">TABOVE</span><span class="p">,</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">    </span><span class="n">Anew</span><span class="w"> </span><span class="n">Anew</span><span class="p">,</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">    </span><span class="n">Agro</span><span class="w"> </span><span class="n">Agro</span><span class="p">,</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="w">    </span><span class="n">Amat</span><span class="w"> </span><span class="n">Amat</span><span class="p">,</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">    </span><span class="n">Aold</span><span class="w"> </span><span class="n">Aold</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-get_gamma_lt">function get_gamma_lt</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">get_gamma_lt</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span><span class="n">lt_opt</span><span class="w"> </span><span class="n">lt_opt</span><span class="p">,</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span><span class="n">mint2m</span><span class="w"> </span><span class="n">mint2m</span><span class="p">,</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="n">clt</span><span class="w"> </span><span class="n">clt</span><span class="p">,</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">    </span><span class="n">tlt</span><span class="w"> </span><span class="n">tlt</span><span class="p">,</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">    </span><span class="n">dtlt</span><span class="w"> </span><span class="n">dtlt</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-get_gamma_soim">function get_gamma_soim</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">get_gamma_soim</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="n">soim_opt</span><span class="w"> </span><span class="n">soim_opt</span><span class="p">,</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="n">soim1</span><span class="w"> </span><span class="n">soim1</span><span class="p">,</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">    </span><span class="n">soim2</span><span class="w"> </span><span class="n">soim2</span><span class="p">,</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">    </span><span class="n">soim3</span><span class="w"> </span><span class="n">soim3</span><span class="p">,</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span><span class="n">soim4</span><span class="w"> </span><span class="n">soim4</span><span class="p">,</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">    </span><span class="n">soid1</span><span class="w"> </span><span class="n">soid1</span><span class="p">,</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">    </span><span class="n">soid2</span><span class="w"> </span><span class="n">soid2</span><span class="p">,</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">    </span><span class="n">soid3</span><span class="w"> </span><span class="n">soid3</span><span class="p">,</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="w">    </span><span class="n">soid4</span><span class="w"> </span><span class="n">soid4</span><span class="p">,</span>
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="w">    </span><span class="n">wilt</span><span class="w"> </span><span class="n">wilt</span><span class="p">,</span>
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="w">    </span><span class="n">roota</span><span class="w"> </span><span class="n">roota</span><span class="p">,</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a><span class="w">    </span><span class="n">rootb</span><span class="w"> </span><span class="n">rootb</span>
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-interp_linear1_internal">function interp_linear1_internal</h3>
+<p><em>Linear interpolation function.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">interp_linear1_internal</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="n">y</span><span class="p">,</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">    </span><span class="n">xout</span><span class="w"> </span><span class="n">xout</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div></p>
+<p>Interpolates for the y value at the desired x value, given x and y values around the desired point. </p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>x</code> Two x-values surrounding the interpolation point </li>
+<li><code>y</code> Two y-values corresponding to the x-values </li>
+<li><code>xout</code> Desired x-value for interpolation </li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>yout Interpolated y-value at xout </p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>xout</code> Input arrays and target value </li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>Interpolated result </p>
+<hr>
+
+<h3 id="function-lebasmvgas">function lebasmvgas</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">lebasmvgas</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">    </span><span class="n">ispec</span><span class="w"> </span><span class="n">ispec</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-molarmassgas">function molarmassgas</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">molarmassgas</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="n">ispec</span><span class="w"> </span><span class="n">ispec</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-molecdiff">function molecdiff</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">molecdiff</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">    </span><span class="n">ispec</span><span class="w"> </span><span class="n">ispec</span><span class="p">,</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="w">    </span><span class="n">tkx</span><span class="w"> </span><span class="n">tkx</span><span class="p">,</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="w">    </span><span class="n">pmbx</span><span class="w"> </span><span class="n">pmbx</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-rav">function rav</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">rav</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">    </span><span class="n">ubar</span><span class="w"> </span><span class="n">ubar</span><span class="p">,</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">    </span><span class="n">zref</span><span class="w"> </span><span class="n">zref</span><span class="p">,</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">    </span><span class="n">d</span><span class="w"> </span><span class="n">d</span><span class="p">,</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">    </span><span class="n">hc</span><span class="w"> </span><span class="n">hc</span><span class="p">,</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">    </span><span class="n">rib</span><span class="w"> </span><span class="n">rib</span>
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-rbl">function rbl</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">rbl</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">    </span><span class="n">mdiffl</span><span class="w"> </span><span class="n">mdiffl</span><span class="p">,</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">    </span><span class="n">ubari</span><span class="w"> </span><span class="n">ubari</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-rcl">function rcl</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">rcl</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">    </span><span class="n">hstarl</span><span class="w"> </span><span class="n">hstarl</span><span class="p">,</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">    </span><span class="n">f01</span><span class="w"> </span><span class="n">f01</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-reactivityparam">function reactivityparam</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">reactivityparam</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">    </span><span class="n">ispec</span><span class="w"> </span><span class="n">ispec</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-reactivityparamhno3">function reactivityparamhno3</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">reactivityparamhno3</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">    </span><span class="n">ispec</span><span class="w"> </span><span class="n">ispec</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-rml">function rml</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">rml</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">    </span><span class="n">hstarl</span><span class="w"> </span><span class="n">hstarl</span><span class="p">,</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">    </span><span class="n">f01</span><span class="w"> </span><span class="n">f01</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-rs_zhang_gas">function rs_zhang_gas</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">rs_zhang_gas</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">    </span><span class="n">mdiffl</span><span class="w"> </span><span class="n">mdiffl</span><span class="p">,</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">    </span><span class="n">tki</span><span class="w"> </span><span class="n">tki</span><span class="p">,</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">    </span><span class="n">pmbi</span><span class="w"> </span><span class="n">pmbi</span><span class="p">,</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="w">    </span><span class="n">ppfdi</span><span class="w"> </span><span class="n">ppfdi</span><span class="p">,</span>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="w">    </span><span class="n">srad</span><span class="w"> </span><span class="n">srad</span><span class="p">,</span>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="w">    </span><span class="n">relhumi</span><span class="w"> </span><span class="n">relhumi</span>
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-seteffhenryslawcoeffs">function seteffhenryslawcoeffs</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="k">subroutine</span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">seteffhenryslawcoeffs</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="w">    </span><span class="n">hstar</span><span class="w"> </span><span class="n">hstar</span>
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-setlebasmvgas">function setlebasmvgas</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="k">subroutine</span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">setlebasmvgas</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="w">    </span><span class="n">mvg</span><span class="w"> </span><span class="n">mvg</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-setmolarmassgas">function setmolarmassgas</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="k">subroutine</span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">setmolarmassgas</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">    </span><span class="n">mmg</span><span class="w"> </span><span class="n">mmg</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-setmolecdiffstp">function setmolecdiffstp</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="k">subroutine</span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">setmolecdiffstp</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="w">    </span><span class="n">mdiffstp</span><span class="w"> </span><span class="n">mdiffstp</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-setreactivityhno3">function setreactivityhno3</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="k">subroutine</span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">setreactivityhno3</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="w">    </span><span class="n">ar</span><span class="w"> </span><span class="n">ar</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-setreactivityparams">function setreactivityparams</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="k">subroutine</span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">setreactivityparams</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="w">    </span><span class="n">chemmechgas_opt</span><span class="w"> </span><span class="n">chemmechgas_opt</span><span class="p">,</span>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="w">    </span><span class="n">chemmechgas_tot</span><span class="w"> </span><span class="n">chemmechgas_tot</span><span class="p">,</span>
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="w">    </span><span class="n">f0</span><span class="w"> </span><span class="n">f0</span>
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-soilrbg">function soilrbg</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">soilrbg</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="w">    </span><span class="n">ubar</span><span class="w"> </span><span class="n">ubar</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-soilresist">function soilresist</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">soilresist</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="w">    </span><span class="n">mdiffl</span><span class="w"> </span><span class="n">mdiffl</span><span class="p">,</span>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="w">    </span><span class="n">socat</span><span class="w"> </span><span class="n">socat</span><span class="p">,</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="w">    </span><span class="n">sotyp</span><span class="w"> </span><span class="n">sotyp</span><span class="p">,</span>
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="w">    </span><span class="n">dsoil</span><span class="w"> </span><span class="n">dsoil</span><span class="p">,</span>
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a><span class="w">    </span><span class="n">stheta</span><span class="w"> </span><span class="n">stheta</span>
+<a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<h3 id="function-waterrbw">function waterrbw</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">public </span><span class="n">canopy_utils_mod</span><span class="kd">::</span><span class="n">waterrbw</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="w">    </span><span class="n">ustar</span><span class="w"> </span><span class="n">ustar</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<hr>
+
+<hr />
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by <a href="https://github.com/noaa-oar-arl/canopy-app/issues/new/?title=[Docs]+Group%20utils_group+-+/canopy/group__utils__group/" target="_blank" rel="noopener">telling us what you found lacking</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 NOAA Air Resources Laboratory - P.C. Campbell and contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/noaa-oar-arl/canopy-app" target="_blank" rel="noopener" title="GitHub Repository" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.noaa.gov/" target="_blank" rel="noopener" title="NOAA Website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M351.9 280H161c2.9 64.5 17.2 123.9 37.5 167.4 11.4 24.5 23.7 41.8 35.1 52.4 11.2 10.5 18.9 12.2 22.9 12.2s11.7-1.7 22.9-12.2c11.4-10.6 23.7-28 35.1-52.4 20.3-43.5 34.6-102.9 37.5-167.4zm-191-48h190.9c-2.8-64.5-17.1-123.9-37.4-167.4-11.4-24.4-23.7-41.8-35.1-52.4C268.1 1.7 260.4 0 256.4 0s-11.7 1.7-22.9 12.2c-11.4 10.6-23.7 28-35.1 52.4-20.3 43.5-34.6 102.9-37.5 167.4m-48 0c3.5-85.6 25.6-165.1 57.9-217.3C78.7 47.3 10.9 131.2 1.5 232zM1.5 280c9.4 100.8 77.2 184.7 169.3 217.3-32.3-52.2-54.4-131.7-57.9-217.3zm398.4 0c-3.5 85.6-25.6 165.1-57.9 217.3 92.1-32.7 159.9-116.5 169.3-217.3zm111.4-48C501.9 131.2 434.1 47.3 342 14.7c32.3 52.2 54.4 131.7 57.9 217.3z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:patrick.c.campbell@noaa.gov" target="_blank" rel="noopener" title="Contact" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.prune", "navigation.indexes", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.tooltips"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="../../javascripts/noaa-enhancements.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

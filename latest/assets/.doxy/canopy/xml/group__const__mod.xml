@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__const__mod" kind="group">
+    <compoundname>const_mod</compoundname>
+    <title>Constants Module</title>
+    <innergroup refid="group__atmos__const">Atmospheric Constants</innergroup>
+    <innergroup refid="group__bioemi__const">Biogenic Emission Constants</innergroup>
+    <innergroup refid="group__fundamental__const">Fundamental Constants</innergroup>
+    <innergroup refid="group__geodetic__const">Geodetic Constants</innergroup>
+    <innergroup refid="group__geom__const">Geometric Constants</innergroup>
+    <innergroup refid="group__precision__const">Precision Constants</innergroup>
+    <briefdescription>
+<para>Module containing fundamental constants for canopy modeling. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

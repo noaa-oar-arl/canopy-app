@@ -1,0 +1,116 @@
+
+
+# Dir src
+
+
+
+[**FileList**](files.md) **>** [**src**](dir_68267d1309a1af8e8297ef4c3efbcdba.md)
+
+
+
+
+
+
+
+
+
+
+
+
+## Files
+
+| Type | Name |
+| ---: | :--- |
+| file | [**canopy\_alloc.F90**](canopy__alloc_8F90.md) <br>_Memory allocation subroutine for canopy model arrays._  |
+| file | [**canopy\_app.F90**](canopy__app_8F90.md) <br>_Main Canopy Application Program._  |
+| file | [**canopy\_bioemi\_mod.F90**](canopy__bioemi__mod_8F90.md) <br>_Biogenic Emissions Module._  |
+| file | [**canopy\_bioparm\_mod.F90**](canopy__bioparm__mod_8F90.md) <br>_Biogenic Parameters Module._  |
+| file | [**canopy\_calcs.F90**](canopy__calcs_8F90.md) <br>_Main Canopy Calculations Subroutine._  |
+| file | [**canopy\_canmet\_mod.F90**](canopy__canmet__mod_8F90.md) <br>_Canopy meteorological and surface input variable definitions._  |
+| file | [**canopy\_canopts\_mod.F90**](canopy__canopts__mod_8F90.md) <br>_Canopy model configuration options and user-settable parameters._  |
+| file | [**canopy\_canvars\_mod.F90**](canopy__canvars__mod_8F90.md) <br>_Canopy model variables and data structures._  |
+| file | [**canopy\_check\_input.F90**](canopy__check__input_8F90.md) <br>_Input File Validation and Reading Subroutine._  |
+| file | [**canopy\_const\_mod.F90**](canopy__const__mod_8F90.md) <br>_Constants Module._  |
+| file | [**canopy\_coord\_mod.F90**](canopy__coord__mod_8F90.md) <br>_Canopy Coordinate and Domain Module._  |
+| file | [**canopy\_date\_mod.F90**](canopy__date__mod_8F90.md) <br>_Date and time utility routines for canopy model._  |
+| file | [**canopy\_dealloc.F90**](canopy__dealloc_8F90.md) <br>_Deallocation subroutine for canopy model arrays._  |
+| file | [**canopy\_drydep\_mod.F90**](canopy__drydep__mod_8F90.md) <br>_Gas dry deposition calculations for canopy model._  |
+| file | [**canopy\_dxcalc\_mod.F90**](canopy__dxcalc__mod_8F90.md) <br>_Grid cell distance calculations for canopy model._  |
+| file | [**canopy\_eddy\_mod.F90**](canopy__eddy__mod_8F90.md) <br>_Canopy eddy diffusivity calculations._  |
+| file | [**canopy\_files\_mod.F90**](canopy__files__mod_8F90.md) <br>_File Management Module._  |
+| file | [**canopy\_fire\_mod.F90**](canopy__fire__mod_8F90.md) <br>_Canopy fire-related calculations including flame height and wind adjustment factors._  |
+| file | [**canopy\_init.F90**](canopy__init_8F90.md) <br>_Initialization subroutine for canopy model arrays._  |
+| file | [**canopy\_ncf\_io\_mod.F90**](canopy__ncf__io__mod_8F90.md) <br>_NetCDF file input/output routines for canopy model._  |
+| file | [**canopy\_phot\_mod.F90**](canopy__phot__mod_8F90.md) <br>_Canopy Photolysis Module._  |
+| file | [**canopy\_profile\_mod.F90**](canopy__profile__mod_8F90.md) <br>_Canopy profile and foliage distribution calculations._  |
+| file | [**canopy\_rad\_mod.F90**](canopy__rad__mod_8F90.md) <br>_Canopy radiation and photosynthetic photon flux density calculations._  |
+| file | [**canopy\_read\_txt.F90**](canopy__read__txt_8F90.md) <br>_Text Input File Reader Subroutine._  |
+| file | [**canopy\_readnml.F90**](canopy__readnml_8F90.md) <br>_Namelist reading subroutine for canopy model._  |
+| file | [**canopy\_tleaf\_mod.F90**](canopy__tleaf__mod_8F90.md) <br>_Leaf temperature calculation module for canopy model._  |
+| file | [**canopy\_txt\_io\_mod.F90**](canopy__txt__io__mod_8F90.md) <br>_Text file input/output routines for canopy model._  |
+| file | [**canopy\_utils\_mod.F90**](canopy__utils__mod_8F90.md) <br>_Utility functions and calculations for canopy model._  |
+| file | [**canopy\_var3din\_mod.F90**](canopy__var3din__mod_8F90.md) <br>_3D Variable Input Module_  |
+| file | [**canopy\_wind\_mod.F90**](canopy__wind__mod_8F90.md) <br>_Canopy wind speed profile calculations._  |
+| file | [**canopy\_write\_txt.F90**](canopy__write__txt_8F90.md) <br>_Text Output File Writer Subroutine._  |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------
+The documentation for this class was generated from the following file `src/`
+

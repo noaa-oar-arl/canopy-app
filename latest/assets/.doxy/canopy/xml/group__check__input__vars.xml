@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__check__input__vars" kind="group">
+    <compoundname>check_input_vars</compoundname>
+    <title>Local Variables</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__check__input__vars_1ga0b841fe54202315f92724ee756ea4a00" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) canopy</definition>
+        <argsstring></argsstring>
+        <name>canopy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="38" column="1" bodyfile="src/canopy_check_input.F90" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gafecb787a98bdbbf3eb1ad3c2ca364075" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer extension</definition>
+        <argsstring></argsstring>
+        <name>extension</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga9df0545b1fe40725d1be537b09a7aa1c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) file</definition>
+        <argsstring></argsstring>
+        <name>file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="-1"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) infile</definition>
+        <argsstring></argsstring>
+        <name>infile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="37" column="1" bodyfile="src/canopy_check_input.F90" bodystart="37" bodyend="37"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_ncf_io_mod::canopy_read_ncf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gab42a463938f277696bff9624b446cd64" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) infile2</definition>
+        <argsstring></argsstring>
+        <name>infile2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="38" column="1" bodyfile="src/canopy_check_input.F90" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga2a5ae48cce7a3dab6170a197a61da176" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) input</definition>
+        <argsstring></argsstring>
+        <name>input</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="37" column="1" bodyfile="src/canopy_check_input.F90" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga5d903a41dab00e46cc54c881d9538f86" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer of</definition>
+        <argsstring></argsstring>
+        <name>of</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gae76f7b4911c4364de9dd4e6e35865a45" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) path</definition>
+        <argsstring></argsstring>
+        <name>path</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="37" column="1" bodyfile="src/canopy_check_input.F90" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga1cbb3e6ffe89173c2026ce1cd4279c8a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga60370f263709397cadcc14ad362bc3b7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer ppos</definition>
+        <argsstring></argsstring>
+        <name>ppos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gace9942591e97b81a41be5f98f54631a6" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) primary</definition>
+        <argsstring></argsstring>
+        <name>primary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="37" column="1" bodyfile="src/canopy_check_input.F90" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gad63b1bda465eac9cf20b15b3c08cc057" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) profile</definition>
+        <argsstring></argsstring>
+        <name>profile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="38" column="1" bodyfile="src/canopy_check_input.F90" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gae61eac17f3193fc36398ea4973a23758" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) secondary</definition>
+        <argsstring></argsstring>
+        <name>secondary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="38" column="1" bodyfile="src/canopy_check_input.F90" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gaf4401158f030c2b6572293d20a479d8f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer separator</definition>
+        <argsstring></argsstring>
+        <name>separator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Check and read canopy input files (TXT or NETCDF) </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This subroutine determines the input file format based on the file extension and validates it against the user-specified format option (infmt_opt). It then calls the appropriate reading routine:<itemizedlist>
+<listitem><para>For .txt files: calls <ref refid="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" kindref="member">canopy_read_txt()</ref></para>
+</listitem><listitem><para>For .nc/.ncf/.nc4 files: calls <ref refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" kindref="member">canopy_read_ncf()</ref></para>
+</listitem></itemizedlist>
+</para>
+<para>The subroutine performs error checking to ensure the file format matches the namelist specification and exits with an error code if there are mismatches.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">INFILE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Primary input file path </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">INFILE2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Secondary canopy profile input file path </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

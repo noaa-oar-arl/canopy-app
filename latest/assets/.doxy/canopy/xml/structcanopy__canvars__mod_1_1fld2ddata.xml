@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structcanopy__canvars__mod_1_1fld2ddata" kind="type" language="Fortran" prot="public">
+    <compoundname>canopy_canvars_mod::fld2ddata</compoundname>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld2ddata_1a94941610f0912d6f4203cf4176980964" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:, :), pointer</type>
+        <definition>real(rk), dimension        ( : , : ), pointer canopy_canvars_mod::fld2ddata::fld</definition>
+        <argsstring></argsstring>
+        <name>fld</name>
+        <briefdescription>
+<para>Field data pointer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Pointer to 2D field data </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canvars_mod.F90" line="423" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="423" bodyend="423"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld2ddata_1a306a94b06391bf7b6e51c15e99458bff" prot="public" static="no" mutable="no">
+        <type>character(len=16)</type>
+        <definition>character(len=16) canopy_canvars_mod::fld2ddata::fldname</definition>
+        <argsstring></argsstring>
+        <name>fldname</name>
+        <briefdescription>
+<para>Field name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canvars_mod.F90" line="425" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="425" bodyend="425"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld2ddata_1abb38372795c8d018267476fd745dba23" prot="public" static="no" mutable="no">
+        <type>character(len=80)</type>
+        <definition>character(len=80) canopy_canvars_mod::fld2ddata::long_name</definition>
+        <argsstring></argsstring>
+        <name>long_name</name>
+        <briefdescription>
+<para>Long descriptive name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canvars_mod.F90" line="427" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="427" bodyend="427"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld2ddata_1af322da06e18afea2e3c304fe357376fe" prot="public" static="no" mutable="no">
+        <type>character(len=16)</type>
+        <definition>character(len=16) canopy_canvars_mod::fld2ddata::units</definition>
+        <argsstring></argsstring>
+        <name>units</name>
+        <briefdescription>
+<para>Units string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canvars_mod.F90" line="429" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="429" bodyend="429"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld2ddata_1a1efdfe2942b7ae0217e5c0374413de58" prot="public" static="no" mutable="no">
+        <type>real</type>
+        <definition>real canopy_canvars_mod::fld2ddata::fillvalue</definition>
+        <argsstring></argsstring>
+        <name>fillvalue</name>
+        <briefdescription>
+<para>Fill value for missing data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canvars_mod.F90" line="431" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="431" bodyend="431"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld2ddata_1a0d6548a2917776644a8e9a81c65b2693" prot="public" static="no" mutable="no">
+        <type>character(len=16), dimension(4)</type>
+        <definition>character(len=16), dimension   ( 4 ) canopy_canvars_mod::fld2ddata::dimnames</definition>
+        <argsstring></argsstring>
+        <name>dimnames</name>
+        <briefdescription>
+<para>Dimension names array. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canvars_mod.F90" line="433" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="433" bodyend="433"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld2ddata_1a2c9a04c9cf0d4f13f06a079299b0539c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, dimension(4)</type>
+        <definition>integer, dimension     ( 4 ) canopy_canvars_mod::fld2ddata::istart</definition>
+        <argsstring></argsstring>
+        <name>istart</name>
+        <briefdescription>
+<para>Start indices for each dimension. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canvars_mod.F90" line="435" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="435" bodyend="435"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld2ddata_1a339cf876378230065e8cb385a673fa6d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, dimension(4)</type>
+        <definition>integer, dimension       ( 4 ) canopy_canvars_mod::fld2ddata::iend</definition>
+        <argsstring></argsstring>
+        <name>iend</name>
+        <briefdescription>
+<para>End indices for each dimension. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canvars_mod.F90" line="437" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="437" bodyend="437"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>2D data structure </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Data structure for 2D NETCDF output fields </para>
+    </detaileddescription>
+    <location file="src/canopy_canvars_mod.F90" line="420" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="420" bodyend="438"/>
+    <listofallmembers>
+      <member refid="structcanopy__canvars__mod_1_1fld2ddata_1a0d6548a2917776644a8e9a81c65b2693" prot="public" virt="non-virtual"><scope>canopy_canvars_mod::fld2ddata</scope><name>dimnames</name></member>
+      <member refid="structcanopy__canvars__mod_1_1fld2ddata_1a1efdfe2942b7ae0217e5c0374413de58" prot="public" virt="non-virtual"><scope>canopy_canvars_mod::fld2ddata</scope><name>fillvalue</name></member>
+      <member refid="structcanopy__canvars__mod_1_1fld2ddata_1a94941610f0912d6f4203cf4176980964" prot="public" virt="non-virtual"><scope>canopy_canvars_mod::fld2ddata</scope><name>fld</name></member>
+      <member refid="structcanopy__canvars__mod_1_1fld2ddata_1a306a94b06391bf7b6e51c15e99458bff" prot="public" virt="non-virtual"><scope>canopy_canvars_mod::fld2ddata</scope><name>fldname</name></member>
+      <member refid="structcanopy__canvars__mod_1_1fld2ddata_1a339cf876378230065e8cb385a673fa6d" prot="public" virt="non-virtual"><scope>canopy_canvars_mod::fld2ddata</scope><name>iend</name></member>
+      <member refid="structcanopy__canvars__mod_1_1fld2ddata_1a2c9a04c9cf0d4f13f06a079299b0539c" prot="public" virt="non-virtual"><scope>canopy_canvars_mod::fld2ddata</scope><name>istart</name></member>
+      <member refid="structcanopy__canvars__mod_1_1fld2ddata_1abb38372795c8d018267476fd745dba23" prot="public" virt="non-virtual"><scope>canopy_canvars_mod::fld2ddata</scope><name>long_name</name></member>
+      <member refid="structcanopy__canvars__mod_1_1fld2ddata_1af322da06e18afea2e3c304fe357376fe" prot="public" virt="non-virtual"><scope>canopy_canvars_mod::fld2ddata</scope><name>units</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

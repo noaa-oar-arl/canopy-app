@@ -1,0 +1,1912 @@
+
+
+# File canopy\_utils\_mod.F90
+
+[**File List**](files.md) **>** [**src**](dir_68267d1309a1af8e8297ef4c3efbcdba.md) **>** [**canopy\_utils\_mod.F90**](canopy__utils__mod_8F90.md)
+
+[Go to the documentation of this file](canopy__utils__mod_8F90.md)
+
+
+```Fortran
+
+
+
+module canopy_utils_mod
+
+!    use canopy_const_mod, ONLY: ntotal, pi, rk, rearth    !constants for canopy models
+    use canopy_const_mod, ONLY: pi, rk, rearth !< constants for canopy models
+
+    implicit none
+
+    private
+    public integratetrapezoid,interp_linear1_internal,calcpai, &
+        calcdx,calcflameh,get_gamma_co2,get_gamma_leafage, &
+        get_gamma_soim,get_gamma_aq,get_gamma_ht,get_gamma_lt, &
+        get_gamma_hw,get_canloss_bio,calctemp,calcpressure,esat, &
+        calcrelhum,calcspechum,calccair,convert_qh_to_h2o, &
+        setmolecdiffstp,molecdiff,rs_zhang_gas,rbl,rcl,rml, &
+        seteffhenryslawcoeffs,setreactivityparams,reactivityparam, &
+        effhenryslawcoeff,soilresist,soilrbg,waterrbw,reactivityparamhno3, &
+        setreactivityhno3,molarmassgas,setmolarmassgas, &
+        lebasmvgas,setlebasmvgas,rav,calcrib
+
+contains
+
+    function integratetrapezoid(x, y)
+        real(rk), intent(in)  :: x(:)
+        real(rk), intent(in)  :: y(size(x))
+        real(rk)              :: integratetrapezoid
+        associate(n => size(x))
+            integratetrapezoid = sum((y(1+1:n-0) + y(1+0:n-1))*(x(1+1:n-0) - x(1+0:n-1)))/2
+        end associate
+    end function
+!-------------------------------------------------------------------------------------
+
+    function interp_linear1_internal(x,y,xout) result(yout)
+
+        implicit none
+
+        real(rk), intent(IN)  :: x(2), y(2), xout
+        real(rk) :: yout
+        real(rk) :: alph
+
+        if ( xout .lt. x(1) .or. xout .gt. x(2) ) then
+            write(*,*) "interp1: xout < x0 or xout > x1 !"
+            write(*,*) "xout = ",xout
+            write(*,*) "x0   = ",x(1)
+            write(*,*) "x1   = ",x(2)
+            stop
+        end if
+
+        alph = (xout - x(1)) / (x(2) - x(1))
+        yout = y(1) + alph*(y(2) - y(1))
+
+        return
+
+    end function interp_linear1_internal
+!--------------------------------------------------------------------------------------
+
+    function calcpai(ch, canfrac)
+        !! Calculates the Plant Area Index as a function of canopy height and canopy/
+        !! forest fraction (Based on Eq. 19 of Massman et al., 2017).
+
+        !!  W.J. Massman, J.M. Forthofer, and M.A. Finney. An improved
+        !!  canopy wind model for predicting wind adjustment factors
+        !!  and wildland fire behavior. Canadian Journal of Forest Research.
+        !!  47(5): 594-603. https://doi.org/10.1139/cjfr-2016-0354
+
+        ! Assume Canopy Cover Fraction, C,  = CANFRAC
+        !! Assume Canopy Crown Ratio, F, = CC/3.0 = CANFRAC/3.0 (Eq. 9 in  Andrews, 2012).
+        !! Andrews, P.L. 2012. Modeling wind adjustment factor and midflame wind speed
+        !!  for Rothermel’s surface fire spread model. USDA For. Serv. Gen. Tech. Rep. RMRS-GTR-266.
+
+
+        real(rk), intent(in)  :: ch
+        real(rk), intent(in)  :: canfrac
+        real(rk)              :: calcpai      !! Calculated Plant area index (PAI)
+
+        calcpai=( (ch*(canfrac/3.0_rk)*10.6955_rk) / (2.0_rk * pi) ) * canfrac !Massman PAI calculation (Eq. 19)
+
+    end function
+    !--------------------------------------------------------------------------------------
+
+    real(rk) function calcdx(lat, dlon) result(dx)
+        !! Compute the zonal distance, dx, corresponding to longitude increment `dlon`.
+
+        real(rk), intent(in) :: lat   !! Latitude (degrees)
+        real(rk), intent(in) :: dlon  !! Longitude increment (degrees)
+        real(rk) :: lat_rad, dlon_rad
+
+        lat_rad = lat * pi / 180._rk
+        dlon_rad = dlon * pi / 180._rk
+
+        dx = rearth * cos(lat_rad) * dlon_rad
+
+    end function
+    !--------------------------------------------------------------------------------------
+
+    ! real(rk) function CalcGCDist(lat1, lat2, lon1, lon2) result(d)
+    !     !! Compute great-circle distance between two points using the spherical law of cosines formula.
+
+    !     real(rk), intent(in)  :: lat1,lat2                  !! Two model latitudes
+    !     real(rk), intent(in)  :: lon1,lon2                  !! Two model longitudes
+    !     real(rk) :: lat_rad1, lat_rad2, lon_rad1, lon_rad2  !! radians
+
+    !     lat_rad1 = lat1/(180.0_rk/pi)
+    !     lon_rad1 = lon1/(180.0_rk/pi)
+    !     lat_rad2 = lat2/(180.0_rk/pi)
+    !     lon_rad2 = lon2/(180.0_rk/pi)
+
+    !     d = rearth*acos( &
+    !         sin(lat_rad1)*sin(lat_rad2) &
+    !         + cos(lat_rad1)*cos(lat_rad2)*cos(lon_rad2-lon_rad1) &
+    !     )
+
+    ! end function
+    ! !--------------------------------------------------------------------------------------
+
+    real(rk) function calcflameh(frp, dx, lu_opt, vtype, flameh_cal) result( calcflameh_set )
+        !! Approximates the Flame Height as a function of FRP intensity, grid cell distance (dx),
+        !! and vegetation type (Based on Alexander and Cruz 2012).
+
+        !!  Alexander, Martin E.; Cruz, Miguel G. 2012. Interdependencies between flame length and
+        !!  fireline intensity in predicting crown fire initiation and crown scorch height.
+        !!  International Journal of Wildland Fire 21(2):95-113.
+
+        !! Assume Flame Length = Flame Height under calm winds
+
+        real(rk), intent(in)  :: frp              !! Input Grid cell Fire Radiative Power (MW/cell)
+        real(rk), intent(in)  :: dx               !! Input Grid cell length (m)
+        integer,  intent(in)  :: lu_opt           !! Supported land use classifications
+        integer,  intent(in)  :: vtype            !! Grid cell dominant vegetation type
+        integer,  intent(in)  :: flameh_cal       !! Option of vegtype dependent FRP to Flame Height relationships used
+        real(rk)              :: calcflameh_b59   !! Fireline intensity to flame length (=height) (m): Byram (1959)
+        real(rk)              :: calcflameh_a66_l !! Fireline intensity to flame length (=height) (m): Anderson et al. (1966)
+        real(rk)              :: calcflameh_a66_d !! Fireline intensity to flame length (=height) (m): Anderson et al. (1966)
+        real(rk)              :: calcflameh_n80   !! Fireline intensity to flame length (=height) (m): Nelson (1980)
+        real(rk)              :: calcflameh_c83_h !! Fireline intensity to flame length (=height) (m): Clark (1983)
+        real(rk)              :: calcflameh_c83_b !! Fireline intensity to flame length (=height) (m): Clark (1983)
+        real(rk)              :: calcflameh_n86   !! Fireline intensity to flame length (=height) (m): Nelson and Adkins (1986)
+        real(rk)              :: calcflameh_v86   !! Fireline intensity to flame length (=height) (m): van Wilgen (1986)
+        real(rk)              :: calcflameh_b94   !! Fireline intensity to flame length (=height) (m): Burrows (1994)
+        real(rk)              :: calcflameh_w96   !! Fireline intensity to flame length (=height) (m): Weise and Biging (1996)
+        real(rk)              :: calcflameh_v98   !! Fireline intensity to flame length (=height) (m): Vega et al. (1998)
+        real(rk)              :: calcflameh_c98   !! Fireline intensity to flame length (=height) (m): Catchpole et al. (1998)
+        real(rk)              :: calcflameh_f00   !! Fireline intensity to flame length (=height) (m): Fernandes et al. (2000)
+        real(rk)              :: calcflameh_b04   !! Fireline intensity to flame length (=height) (m): Butler et al. (2004)
+        real(rk)              :: calcflameh_f09_h !! Fireline intensity to flame length (=height) (m): Fernandes et al. (2009)
+        real(rk)              :: calcflameh_f09_b !! Fireline intensity to flame length (=height) (m): Fernandes et al. (2009)
+        real(rk)              :: calcflames_m71   !! Fireline intensity to flame scorch (m): McArthur (1971)
+        real(rk)              :: calcflames_v73   !! Fireline intensity to flame scorch (m): Van Wagner (1973)
+        real(rk)              :: calcflames_c78   !! Fireline intensity to flame scorch (m): Cheyney (1978)
+        real(rk)              :: calcflames_l78   !! Fireline intensity to flame scorch (m): Luke and McArthur (1978)
+        real(rk)              :: calcflames_b88   !! Fireline intensity to flame scorch (m): Burrows et al. (1988)
+        real(rk)              :: calcflames_b89   !! Fireline intensity to flame scorch (m): Burrows et al. (1989)
+        real(rk)              :: calcflames_s90   !! Fireline intensity to flame scorch (m): Saveland et al. (1990)
+        real(rk)              :: calcflames_f93   !! Fireline intensity to flame scorch (m): Finney and Martin (1993)
+        real(rk)              :: calcflames_b94_1 !! Fireline intensity to flame scorch (m): Burrows (1994)
+        real(rk)              :: calcflames_b94_2 !! Fireline intensity to flame scorch (m): Burrows (1994)
+        real(rk)              :: calcflames_w98   !! Fireline intensity to flame scorch (m): Williams et al. (1998)
+        real(rk)              :: calcflames_f02   !! Fireline intensity to flame scorch (m): Fernandes (2002)
+        real(rk)              :: calcflames_set   !! Vegetation dependent average crown scorch height (m)
+
+
+        if (flameh_cal .eq. 0) then !We assume that flame height=flame length,
+            !and use the relationships in Table 1 of Alexander and Cruz (2012)
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Byram, GM (1959). Combustion of Forest Fuels. In Forest Fire: Control and Use.
+            !!  (Ed. KP David) pp. 61-89.  McGraw Hill, New York, NY
+            !Pine litter with grass understorey (Evergreen and Grasses)
+            calcflameh_b59=0.0775_rk*((frp*1000.0_rk)/dx)**0.46_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Anderson HE, Brackebusch AP, Mutch RW, Rothermel RC (1966) Mechanisms of fire spread
+            !!  research progress report 2. USDA Forest Service,
+            !!  Intermountain Forest and Range Experiment Station, Research Paper
+            !!  INT-28. (Ogden, UT)
+            !Lodgepole pine slash (Evergreen)
+            calcflameh_a66_l=0.074_rk*((frp*1000.0_rk)/dx)**0.651_rk
+            !Douglas-fir slash  (Evergreen)
+            calcflameh_a66_d=0.0447_rk*((frp*1000.0_rk)/dx)**0.67_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Nelson RM Jr (1980) Flame characteristics for fires in southern fuels. USDA
+            !!  Forest Service, Southeastern Forest Experiment Station, Research Paper
+            !!  SE-205. (Asheville, NC)
+            !Southern USA Fuels (Mixed Forest)
+            calcflameh_n80=0.0377_rk*((frp*1000.0_rk)/dx)**0.50_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Clark RG (1983) Threshold requirements for fire spread in grassland fuels.
+            !!  PhD dissertation, Texas Tech University, Lubbock.
+            !Grasslands (head fire) (Grasslands)
+            calcflameh_c83_h=0.00015_rk*((frp*1000.0_rk)/dx)**1.75_rk
+            !Grasslands (backfire) (Grasslands)
+            calcflameh_c83_b=0.000722_rk*((frp*1000.0_rk)/dx)**0.99_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Nelson RM Jr, Adkins CW (1986) Flame characteristics of wind-driven
+            !!  surface fires. Canadian Journal of Forest Research 16, 1293–1300.
+            !!  doi:10.1139/X86-229
+            !Litter and shrubs (Shrublands)
+            calcflameh_n86=0.0475_rk*((frp*1000.0_rk)/dx)**0.493_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  van Wilgen BW (1986) A simple relationship for estimating the intensity of
+            !!  fires in natural vegetation. South African Journal of Botany 52, 384–385
+            !Fynbos shrublands (Shrublands)
+            calcflameh_v86=0.0075_rk*((frp*1000.0_rk)/dx)**0.46_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Burrows ND (1994) Experimental development of a fire management model
+            !!  for jarrah (Eucalyptus marginata Donn ex Sm.) forest. PhD thesis,
+            !!  Australian National University, Canberra.
+            !Eucalypt Forest (Evergreens)
+            calcflameh_b94=0.0147_rk*((frp*1000.0_rk)/dx)**0.767_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Weise DR, Biging GS (1996) Effects of wind velocity and slope on flame
+            !!  properties. Canadian Journal of Forest Research 26, 1849–1858.
+            !!  doi:10.1139/X26-210
+            !Excelsior (Deciduous)
+            calcflameh_w96=0.016_rk*((frp*1000.0_rk)/dx)**0.7_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Vega JA, Cuinas P, Fonturbel T, Perez-Gorostiaga P, Fernandez C (1998)
+            !!  Predicting fire behaviour in Galician (NW Spain) shrubland fuel
+            !!  complexes. In ‘Proceedings of 3rd International Conference on Forest
+            !!  Flame length and fireline intensity interdependences.
+            !Shrublands
+            calcflameh_v98=0.087_rk*((frp*1000.0_rk)/dx)**0.493_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  CatchpoleWR, Bradstock RA, Choate J, Fogarty LG, Gellie N, McCarthy G,
+            !!  McCaw WL, Marsden-Smedley JB, Pearce G (1998) Cooperative
+            !!  development of equations for heathland fire behaviour. In ‘Proceedings
+            !!  of 3rd International Conference on Forest Fire Research and 14th
+            !!  Conference on Fire and Forest Meteorology, Volume II’, 16–20
+            !!  November 1998, Luso–Coimbra, Portugal. (Ed. DX Viegas)
+            !!  pp. 631–645. (University of Coimbra: Coimbra, Portugal)
+            !Shrublands
+            calcflameh_c98=0.0325_rk*((frp*1000.0_rk)/dx)**0.56_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Fernandes PM, Catchpole WR, Rego FC (2000) Shrubland fire behaviour
+            !!  modelling with microplot data.Canadian Journal of Forest Research 30,
+            !!  889–899. doi:10.1139/X00-012
+            !Shrublands
+            calcflameh_f00=0.0516_rk*((frp*1000.0_rk)/dx)**0.453_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Butler BW, Finney MA, Andrews PL, Albini FA (2004) A radiation-driven
+            !!  model of crown fire spread. Canadian Journal of Forest Research 34,
+            !!  1588–1599. doi:10.1139/X04-074
+            !Jack Pine Forest - Crown Fire (Evergreen)
+            calcflameh_b04=0.0175_rk*((frp*1000.0_rk)/dx)**0.667_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Fernandes PM, Botelho HS, Rego FC, Loureiro C (2009) Empirical
+            !!  modelling of surface fire behaviour in maritime pine stands.
+            !!  International Journal of Wildland Fire 18, 698–710. doi:10.1071/
+            !!  WF08023
+            !Maritime Pine (head fire) (Evergreen)
+            calcflameh_f09_h=0.045_rk*((frp*1000.0_rk)/dx)**0.543_rk
+            !Maritime Pine (backfire) (Evergreen)
+            calcflameh_f09_b=0.029_rk*((frp*1000.0_rk)/dx)**0.724_rk
+            !!  -------------------------------------------------------------------------------------
+
+            if (lu_opt .eq. 0 .or. lu_opt .eq. 1) then !VIIRS or MODIS LU types
+                if (vtype .ge. 1 .and. vtype .le. 2) then !VIIRS/MODIS Cat 1-2/Evergreen Needleleaf & Broadleaf
+                    calcflameh_set=(calcflameh_b59+calcflameh_a66_l+calcflameh_a66_d+calcflameh_b94+ &
+                        calcflameh_f09_h+calcflameh_f09_b) / 6.0_rk
+                    if (((frp*1000.0_rk)/dx) .ge. 1700.0_rk ) then !Evergreen forest crowning likely
+                        calcflameh_set=calcflameh_b04!for completeness in Alexander and Cruz, will leave here
+                        !but is overidden in WAF calculation anyway for same crowning
+                        !check and flame heigh set to canopy height.
+                    end if
+                else if (vtype .ge. 3 .and. vtype .le. 4) then !VIIRS/MODIS Cat 3-4 Deciduous Needleleaf and  Broadleaf
+                    calcflameh_set=(calcflameh_n80+calcflameh_w96) / 2.0_rk
+                else if (vtype .eq. 5) then !VIIRS/MODIS Cat 5 Mixed Forests
+                    calcflameh_set=calcflameh_n80
+                else if (vtype .ge. 6 .and. vtype .le. 7) then !VIIRS/MODIS Cat 6-7 Shrublands
+                    calcflameh_set=(calcflameh_n86+calcflameh_v86+calcflameh_v98+calcflameh_c98+ &
+                        calcflameh_f00) / 5.0_rk
+                else if (vtype .ge. 8 .and. vtype .le. 10) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
+                    calcflameh_set=(calcflameh_b59+calcflameh_c83_h+calcflameh_c83_b) / 3.0_rk
+                else if (vtype .ge. 12 .and. vtype .lt. 13) then !VIIRS/MODIS Cat 12 Croplands
+                    calcflameh_set=(calcflameh_b59+calcflameh_c83_h+calcflameh_c83_b) / 3.0_rk
+                else if (vtype .ge. 14 .and. vtype .lt. 15) then !VIIRS/MODIS Cat 14 Cropland/Natural Mosaic
+                    calcflameh_set=(calcflameh_b59+calcflameh_c83_h+calcflameh_c83_b) / 3.0_rk
+                else if (vtype .ge. 18 .and. vtype .le. 19) then !VIIRS/MODIS Cat 18-19 Wooded and Mixed Tundra
+                    calcflameh_set=(calcflameh_n86+calcflameh_v86+calcflameh_v98+calcflameh_c98+ &
+                        calcflameh_f00) / 5.0_rk
+                else
+                    calcflameh_set=(calcflameh_b59+calcflameh_a66_l+calcflameh_a66_d+calcflameh_n80+ &
+                        calcflameh_c83_h+calcflameh_c83_b+calcflameh_n86+calcflameh_v86+ &
+                        calcflameh_b94+calcflameh_w96+calcflameh_v98+calcflameh_c98+ &
+                        calcflameh_f00+calcflameh_b04+calcflameh_f09_h+ &
+                        calcflameh_f09_b) / 16.0_rk
+                end if
+            else
+                write(*,*)  'Wrong LU_OPT choice of ', lu_opt, 'in namelist, only VIIRS/MODIS available right now...exiting'
+                call exit(2)
+            end if
+
+
+
+        else if (flameh_cal .eq. 1) then!We use the crown scorch height relationships in
+            !Table 2 of Alexander and Cruz (2012) and Equation 14
+            !that directly relates flame height to crown scorch height
+
+
+            !!  -------------------------------------------------------------------------------------
+            !!  McArthur AG (1971) Aspects of fire control in the P. caribaea and
+            !!  P. elliottii plantations of north-western Viti Levu, Fiji Islands.
+            !!  Commonwealth of Australia, Forest and Timber Bureau, Forest
+            !!  Research Institute. (Canberra, ACT)
+            !Slash and Carribean Pine (Evergreen)
+            calcflames_m71=0.1226_rk*((frp*1000.0_rk)/dx)**0.667_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Van Wagner CE (1973) Height of crown scorch in forest fires. Canadian
+            !!  Journal of Forest Research 3, 373–378. doi:10.1139/X73-055
+            !Red Pine, White Pine, Jack Pine, and Northern Red Oak (Mixed Forest)
+            calcflames_v73=0.1483_rk*((frp*1000.0_rk)/dx)**0.667_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Cheney NP (1978) Guidelines for fire management on forested watersheds,
+            !!  based on Australian experience. In ‘Special Readings in Conservation’,
+            !!  FAO Conservation Guide 4, pp. 1–37. (Food and Agriculture Organization
+            !!  of the United Nations: Rome, Italy)
+            !Eucalypt Forest (Evergreen)
+            calcflames_c78=0.1297_rk*((frp*1000.0_rk)/dx)**0.667_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Luke RH, McArthur AG (1978) ‘Bushfires in Australia.’ (Australian
+            !!  Government Publishing Service: Canberra, ACT)
+            !Eucalypt Forest (Evergreen)
+            calcflames_l78=0.1523_rk*((frp*1000.0_rk)/dx)**0.667_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Burrows ND, Smith RH, RobinsonAD(1988) Prescribed burning slash fuels
+            !!  in Pinus radiata plantations in Western Australia. Western Australia
+            !!  Department of Conservation and Land Management, Technical Report
+            !!  20. (Perth, WA)
+            !Radiata Pine Thinning Slash (Evergreen)
+            calcflames_b88=0.1579_rk*((frp*1000.0_rk)/dx)**0.667_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Burrows ND, Woods YC, Ward BG, Robinson AD (1989) Prescribing low
+            !!  intensity fire to kill wildings in Pinus radiata plantations in Western
+            !!  Australia. Australian Forestry 52, 45–52.
+            !Radiata Pine Wildings (Evergreen)
+            if (frp .gt. 0) then
+                calcflames_b89=max(0.0_rk,(0.248_rk*((frp*1000.0_rk)/dx)**0.667_rk) - 0.41)
+            else
+                calcflames_b89=0.0_rk
+            end if
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Saveland JM, Bakken SR, Neuenschwander LF (1990) Predicting mortality
+            !!  and scorch height from prescribed burning for ponderosa pine in
+            !!  northern Idaho. University of Idaho, College of Forestry, Wildlife and
+            !!  Range Sciences, Idaho Forest, Wildlife and Range Experiment Station,
+            !!  Station Bulletin 53. (Moscow, ID)
+            !Ponderosa Pine (Evergreen)
+            calcflames_s90=0.063_rk*((frp*1000.0_rk)/dx)**0.667_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Finney MA, Martin RE (1993) Modeling effects of prescribed fire on younggrowth
+            !!  coast redwood trees. Canadian Journal of Forest Research 23,
+            !!  1125–1135. doi:10.1139/X93-143
+            !Coast Redwood (Evergreen)
+            calcflames_f93=0.228_rk*((frp*1000.0_rk)/dx)**0.667_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  BurrowsND(1994) Experimental development of a fire management model
+            !!  for jarrah (Eucalyptus marginata Donn ex Sm.) forest. PhD thesis,
+            !!  Australian National University, Canberra.
+            !Jarrah Forest - spring (Evergreen)
+            calcflames_b94_1=0.28_rk*((frp*1000.0_rk)/dx)**0.58_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  BurrowsND(1994) Experimental development of a fire management model
+            !!  for jarrah (Eucalyptus marginata Donn ex Sm.) forest. PhD thesis,
+            !!  Australian National University, Canberra.
+            !Jarrah Forest - summer (Evergreen)
+            calcflames_b94_2=0.36_rk*((frp*1000.0_rk)/dx)**0.59_rk
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Williams RJ, Gill AM, Moore PHR (1998) Seasonal changes in fire
+            !!  behaviour in a tropical savanna in Northern Australia. International
+            !!  Journal of Wildland Fire 8, 227–239. doi:10.1071/WF9980227
+            !Grassland-eucalypt savanna (Savanna, Grassland, Crops)
+            if (frp .gt. 0) then
+                calcflames_w98=(21.2_rk - 17.6_rk)*exp(0.000287_rk*((frp*1000.0_rk)/dx))
+            else
+                calcflames_w98=0.0_rk
+            end if
+            !!  -------------------------------------------------------------------------------------
+
+            !!  -------------------------------------------------------------------------------------
+            !!  Fernandes PM (2002) Desenvolvimento de relacoes predictivas para uso no
+            !!  planeamento de fogo controlado em povoamentos de Pinus pinaster Ait.
+            !!  [Development of predictive relationships for use in planning prescribed
+            !!  fire in Pinus pinaster Ait. stands]. PhD thesis, Universidade de Tras os
+            !!  Montes e Alto Douro, Vilas Real, Portugal. [In Portugese]
+            !Maritime Pine Head Fire (Evergreen)
+            calcflames_f02=0.125_rk*((frp*1000.0_rk)/dx)**0.724_rk
+            !!  -------------------------------------------------------------------------------------
+
+            if (lu_opt .eq. 0 .or. lu_opt .eq. 1) then !VIIRS or MODIS LU types
+                if (vtype .ge. 1 .and. vtype .le. 2) then !VIIRS/MODIS Cat 1-2/Evergreen Needleleaf & Broadleaf
+                    calcflames_set=(calcflames_m71+calcflames_c78+calcflames_l78+calcflames_b88+ &
+                        calcflames_b89+calcflames_s90+calcflames_f93+calcflames_b94_1+ &
+                        calcflames_b94_2+calcflames_f02) / 10.0_rk
+                    calcflameh_set=(calcflames_set/5.232_rk)**(1.0_rk/0.756_rk)
+                else if (vtype .ge. 3 .and. vtype .le. 4) then !VIIRS/MODIS Cat 3-4 Deciduous Needleleaf and  Broadleaf
+                    calcflames_set=calcflames_v73
+                    calcflameh_set=(calcflames_set/5.232_rk)**(1.0_rk/0.756_rk)
+                else if (vtype .eq. 5) then !VIIRS/MODIS Cat 5 Mixed Forests
+                    calcflames_set=calcflames_v73
+                    calcflameh_set=(calcflames_set/5.232_rk)**(1.0_rk/0.756_rk)
+                else if (vtype .ge. 6 .and. vtype .le. 7) then !VIIRS/MODIS Cat 6-7 Shrublands
+                    calcflames_set=calcflames_w98
+                    calcflameh_set=(calcflames_set/5.232_rk)**(1.0_rk/0.756_rk)
+                else if (vtype .ge. 8 .and. vtype .le. 10) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
+                    calcflames_set=calcflames_w98
+                    calcflameh_set=(calcflames_set/5.232_rk)**(1.0_rk/0.756_rk)
+                else if (vtype .ge. 12 .and. vtype .lt. 13) then !VIIRS/MODIS Cat 12 Croplands
+                    calcflames_set=calcflames_w98
+                    calcflameh_set=(calcflames_set/5.232_rk)**(1.0_rk/0.756_rk)
+                else if (vtype .ge. 14 .and. vtype .lt. 15) then !VIIRS/MODIS Cat 14 Cropland/Natural Mosaic
+                    calcflames_set=calcflames_w98
+                    calcflameh_set=(calcflames_set/5.232_rk)**(1.0_rk/0.756_rk)
+                else if (vtype .ge. 18 .and. vtype .le. 19) then !VIIRS/MODIS Cat 18-19 Wooded and Mixed Tundra
+                    calcflames_set=calcflames_w98
+                    calcflameh_set=(calcflames_set/5.232_rk)**(1.0_rk/0.756_rk)
+                else
+                    calcflames_set=(calcflames_m71+calcflames_c78+calcflames_l78+calcflames_b88+ &
+                        calcflames_b89+calcflames_s90+calcflames_f93+calcflames_b94_1+ &
+                        calcflames_b94_2+calcflames_f02+calcflames_v73+calcflames_w98) / 12.0_rk
+                    calcflameh_set=(calcflames_set/5.232_rk)**(1.0_rk/0.756_rk)
+                end if
+            else
+                write(*,*)  'Wrong LU_OPT choice of ', lu_opt, 'in namelist, only VIIRS/MODIS available right now...exiting'
+                call exit(2)
+            end if
+        else
+            write(*,*)  'Wrong FLAMEH_CAL choice of ', flameh_cal, 'in namelist...exiting'
+            call exit(2)
+        end if
+
+    end function
+
+    real(rk) function get_gamma_co2(co2_opt, co2_set)  result( gamma_co2 )
+        ! !IROUTINE: get_gamma_co2
+        !
+        ! !DESCRIPTION: Function GET\_GAMMA\_CO2 computes the CO2 activity factor
+        !  associated with CO2 inhibition of isoprene emission. Called from
+        !  GET\_MEGAN\_EMISSIONS only.
+        !\\
+        !\\
+        ! !INTERFACE:
+
+        ! !INPUT PARAMETERS:
+        integer,  INTENT(IN) :: co2_opt       ! Option for co2 inhibition calculation
+        ! 0=Possell & Hewitt (2011);
+        ! 1=Wilkinson et al. (2009)
+        ! >1=off
+        real(rk), INTENT(IN) :: co2_set       ! User set atmospheric CO2 conc [ppmv]
+        !
+        ! !RETURN VALUE:
+!        REAL(rk)             :: GAMMA_CO2  ! CO2 activity factor [unitless]
+        !
+        ! !LOCAL VARIABLES:
+        REAL(rk)             :: co2i       ! Intercellular CO2 conc [ppmv]
+        REAL(rk)             :: ismaxi     ! Asymptote for intercellular CO2
+        REAL(rk)             :: hexpi      ! Exponent for intercellular CO2
+        REAL(rk)             :: cstari     ! Scaling coef for intercellular CO2
+        REAL(rk)             :: ismaxa     ! Asymptote for atmospheric CO2
+        REAL(rk)             :: hexpa      ! Exponent for atmospheric CO2
+        REAL(rk)             :: cstara     ! Scaling coef for atmospheric CO2
+        !
+        ! !REMARKS:
+        !  References:
+        !  ============================================================================
+        !  (1 ) Heald, C. L., Wilkinson, M. J., Monson, R. K., Alo, C. A.,
+        !       Wang, G. L., and Guenther, A.: Response of isoprene emission
+        !       to ambient co(2) changes and implications for global budgets,
+        !       Global Change Biology, 15, 1127-1140, 2009.
+        !  (2 ) Wilkinson, M. J., Monson, R. K., Trahan, N., Lee, S., Brown, E.,
+        !       Jackson, R. B., Polley, H. W., Fay, P. A., and Fall, R.: Leaf
+        !       isoprene emission rate as a function of atmospheric CO2
+        !       concentration, Global Change Biology, 15, 1189-1200, 2009.
+        !  (3 ) Possell, M., and Hewitt, C. N.: Isoprene emissions from plants
+        !       are mediated by atmospheric co2 concentrations, Global Change
+        !       Biology, 17, 1595-1610, 2011.
+
+        ! !REVISION HISTORY:
+        !  (1 ) Implemented in the standard code by A. Tai (Jun 2012).
+        !  See https://github.com/geoschem/hemco for complete history
+        !EOP
+        !------------------------------------------------------------------------------
+        !BOC
+
+        !-----------------------
+        ! Compute GAMMA_CO2
+        !-----------------------
+
+        !----------------------------------------------------------
+        ! Choose between two alternative CO2 inhibition schemes
+        !----------------------------------------------------------
+
+        IF ( co2_opt .eq. 0 ) THEN
+
+            ! Use empirical relationship of Possell & Hewitt (2011):
+            ! Empirical relationship of Possell & Hewitt (2011) based on nine
+            ! experimental studies including Wilkinson et al. (2009).
+
+            gamma_co2 = 8.9406_rk / ( 1.0_rk + 8.9406_rk * 0.0024_rk * co2_set )
+
+
+        ELSEIF ( co2_opt .eq. 1 ) THEN
+
+            ! Use parameterization of Wilkinson et al. (2009):
+            ! Semi-process-based parameterization of Wilkinson et al. (2009),
+            ! taking into account of sensitivity to intercellular CO2
+            ! fluctuation, which is here set as a constant fraction of
+            ! atmospheric CO2. This is especially recommended for sub-ambient
+            ! CO2 concentrations::
+
+
+            ! Parameters for intercellular CO2 using linear interpolation:
+            IF ( co2_set <= 600.0_rk ) THEN
+                ismaxi = 1.036_rk  - (1.036_rk - 1.072_rk) / &
+                    (600.0_rk - 400.0_rk) * (600.0_rk - co2_set)
+                hexpi  = 2.0125_rk - (2.0125_rk - 1.7000_rk) / &
+                    (600.0_rk - 400.0_rk) * (600.0_rk - co2_set)
+                cstari = 1150.0_rk - (1150.0_rk - 1218.0_rk) / &
+                    (600.0_rk - 400.0_rk) * (600.0_rk - co2_set)
+            ELSEIF ( co2_set > 600.0_rk .AND. co2_set < 800.0_rk ) THEN
+                ismaxi = 1.046_rk  - (1.046_rk - 1.036_rk) / &
+                    (800.0_rk - 600.0_rk) * (800.0_rk - co2_set)
+                hexpi  = 1.5380_rk - (1.5380_rk - 2.0125_rk) / &
+                    (800.0_rk - 600.0_rk) * (800.0_rk - co2_set)
+                cstari = 2025.0_rk - (2025.0_rk - 1150.0_rk) / &
+                    (800.0_rk - 600.0_rk) * (800.0_rk - co2_set)
+            ELSE
+                ismaxi = 1.014_rk - (1.014_rk - 1.046_rk) / &
+                    (1200.0_rk - 800.0_rk) * (1200.0_rk - co2_set)
+                hexpi  = 2.8610_rk - (2.8610_rk - 1.5380_rk) / &
+                    (1200.0_rk - 800.0_rk) * (1200.0_rk - co2_set)
+                cstari = 1525.0_rk - (1525.0_rk - 2025.0_rk) / &
+                    (1200.0_rk - 800.0_rk) * (1200.0_rk - co2_set)
+            ENDIF
+
+            ! Parameters for atmospheric CO2:
+            ismaxa    = 1.344_rk
+            hexpa     = 1.4614_rk
+            cstara    = 585.0_rk
+
+            ! For now, set CO2_Ci = 0.7d0 * CO2_Ca as recommended by Heald
+            ! et al. (2009):
+            co2i      = 0.7_rk * co2_set
+
+            ! Compute GAMMA_CO2:
+            gamma_co2 = ( ismaxi -  ismaxi * co2i**hexpi / &
+                ( cstari**hexpi + co2i**hexpi ) )  &
+                * ( ismaxa - ismaxa * ( 0.7_rk * co2_set )**hexpa / &
+                ( cstara**hexpa + ( 0.7_rk * co2_set )**hexpa ) )
+
+        ELSE
+
+            ! No CO2 inhibition scheme is used; GAMMA_CO2 set to unity:
+            gamma_co2 = 1.0_rk
+
+        ENDIF
+
+    end function get_gamma_co2
+
+    function get_gamma_leafage(leafage_opt,LAIpast,LAIcurrent,tsteplai,TABOVE,Anew,Agro,Amat,Aold)  result( GAMMA_LEAFAGE )
+        ! ROUTINE: GET_GAMMA_LEAFAGE
+        !
+        ! !DESCRIPTION: Function GET_GAMMA_LEAFAGE computes the leaf age activity factor
+        !  associated with foliage fraction calculation.
+        !
+        !     leaf age response to Biogenic VOCs
+        ! Revision: Sept 2023 Quazi Z. Rasool NOAA CSL/CIRES
+        !----------------------------------------------------------------
+        !
+        !       GAMLA = Fnew*Anew + Fgro*Agro + Fmat*Amat + Fold*Aold
+        !       where Fnew = new foliage fraction
+        !             Fgro = growing foliage fraction
+        !             Fmat = mature foliage fraction
+        !             Fold = old foliage fraction
+        !             Anew = emission activity for new foliage
+        !             Agro = emission activity for growing foliage
+        !             Amat = emission activity for mature foliage
+        !             Aold = emission activity for old foliage
+        !           "Age class fractions are determined from LAI changes"
+        !             LAIcurrent = current Month's LAI (asuuming monthly LAI but can be
+        !             customized as per tsteplai)
+        !             LAIpast = past Month's LAI
+        !             tsteplai  = length of the time step (days) i.e. days in between LAIpast and LAIcurrent
+        !             ti = days between budbreak and emission induction (calculated below)
+        !             tm = days between budbreak and peak emission (Calculated below)
+        !             TABOVE = 2-meter temperature (K) TEMP2 or tmp2mref from the input model/obs
+        !------------------------------------------------------------------------------
+        ! !INTERFACE:
+
+        ! !INPUT PARAMETERS:
+        INTEGER,  INTENT(IN) :: leafage_opt       ! Option for leaf age emission factor calculation
+        ! 0=On;
+        ! 1 or  >1 =off i.e. GAMMA_LEAFAGE =1
+
+        REAl(rk), INTENT(IN) :: tsteplai    ! time step, number of days between Past and Current LAI inputs
+        REAL(rk), INTENT(IN) :: tabove      ! Above canopy temperature (K), t2m or tmpsfc
+        REAL(rk), INTENT(IN) :: laipast     ! Past LAI [cm2/cm2]
+        REAL(rk), INTENT(IN) :: laicurrent  ! Current LAI [cm2/cm2]
+        REAL(rk), INTENT(IN) :: anew        ! Relative emiss factor (new leaves)
+        REAL(rk), INTENT(IN) :: agro        ! Relative emiss factor (growing leaves)
+        REAL(rk), INTENT(IN) :: amat        ! Relative emiss factor (mature leaves)
+        REAL(rk), INTENT(IN) :: aold        ! Relative emiss factor (old leaves)
+        !
+        ! !RETURN VALUE:
+        REAL(rk) :: gamma_leafage           ! Leaf age activity factor [unitless]
+        !
+        ! !LOCAL VARIABLES:
+        REAL(rk) :: laidelta = 1.0e-10_rk   ! Tolerance for LAI comparison
+        !INTEGER :: tsteplai                ! time step
+        REAL(rk) :: fnew, fgro              ! foliage fractions
+        REAL(rk) :: fmat, fold
+        REAL(rk) :: ti, tm
+
+        !
+        ! !REMARKS:
+        !  The function computes the leaf age activity factor based on BVOC's leaf age response.
+        !
+        ! !REVISION HISTORY:
+        !  Adapted from HEMCO: https://github.com/geoschem/hemco for complete history
+        !EOP
+        !------------------------------------------------------------------------------
+        !BOC
+
+        !TABOVE (Tt in MEGAN code) -> Above Canopy TEMP (tmp2mref or temp2)
+
+        ! Calculate foliage fraction
+        !-----------------------
+        !Also, Compute ti and tm
+        ! ti: number of days after budbreak required to induce emissions
+        ! tm: number of days after budbreak required to reach peak emissions
+
+        !-----------------------
+        ! Compute GAMMA_AGE
+        !-----------------------
+        IF (leafage_opt .eq. 0) THEN
+            IF (laicurrent - laipast > laidelta) THEN !(i.e. LAI has Increased)
+                IF (tabove .le. 303.0_rk) THEN
+                    ti = 5.0_rk + 0.7_rk*(300.0_rk-tabove)
+                ELSE
+                    ti = 2.9_rk
+                ENDIF
+                tm = 2.3_rk*ti
+                !Fnew calculated
+                IF (ti .ge. tsteplai) THEN
+                    fnew = 1.0_rk - (laipast/laicurrent)
+                ELSE
+                    fnew = (ti/tsteplai) * ( 1.0_rk-(laipast/laicurrent) )
+                ENDIF
+                !Fmat calculated
+                IF (tm .ge. tsteplai) THEN
+                    fmat = laipast/laicurrent
+                ELSE
+                    fmat = (laipast/laicurrent) + ( (tsteplai-tm)/tsteplai ) * ( 1.0_rk-(laipast/laicurrent) )
+                ENDIF
+
+                fgro = 1.0_rk - fnew - fmat
+                fold = 0.0_rk
+            ELSEIF (laipast - laicurrent > laidelta) THEN !(i.e. LAI has decreased)
+                fnew = 0.0_rk
+                fgro = 0.0_rk
+                fold = ( laipast-laicurrent ) / laipast
+                fmat = 1.0_rk-fold
+            ELSE !(LAIpast == LAIcurrent) THEN !If LAI remains same
+                fnew = 0.0_rk
+                fgro = 0.1_rk
+                fmat = 0.8_rk
+                fold = 0.1_rk
+            ENDIF
+            ! Compute GAMMA_LEAFAGE
+            gamma_leafage = fnew*anew + fgro*agro + fmat*amat + fold*aold
+            ! Prevent negative values
+            gamma_leafage = max( gamma_leafage , 0.0_rk )
+        ELSEIF (leafage_opt .eq. 1) THEN
+            gamma_leafage = 1.0_rk
+        ELSE
+            gamma_leafage = 1.0_rk
+        ENDIF
+
+    end function get_gamma_leafage
+
+    function get_canloss_bio(loss_opt,lifetime,ustar,ch)  result( CANLOSS_BIO )
+        ! ROUTINE: CANLOSS_BIO
+        !
+        ! !DESCRIPTION: Function to calculate BVOC canopy loss ratio due to approximate chemistry and dep loss
+        !               Useful for comparing individual BVOC primary emissions to above canopy flux measurements
+        !
+        ! Based on Guenther et al. (2006) www.atmos-chem-phys.net/6/3181/2006/
+        ! Note:  Formulation and emprical parameters based on isoprene oxidation chemistry Only -- Exercise caution applying to other BVOCs
+        !
+        ! Revision: Feb 2024 Patrick C. Campbell GMU/NOAA-ARL
+        !----------------------------------------------------------------
+        !
+        !       LOSS RATIO = 1 -  D/(lambda*ustar*tau+D)
+        !       where D = Canopy Depth (Assumed 1/3 the canopy height) (m)
+        !             lambda = 0.3 (Assumed and usually PFT dependent)
+        !             ustar = above canopy friction velocity (m/s)
+        !             tau = above canopy chemical lifetime (default = 3600 s, isoprene) (s)
+        !------------------------------------------------------------------------------
+        ! !INTERFACE:
+
+        ! !INPUT PARAMETERS:
+        INTEGER,  INTENT(IN) :: loss_opt       ! Option for canopy loss function
+        ! 0 = Calculation Off; CANLOSS_BIO = 1
+        ! 1 = Calculation On i.e. CANLOSS_BIO < 1
+
+        REAl(rk), INTENT(IN) :: lifetime    ! Above canopy BVOC chemical lifetime [s]
+        REAL(rk), INTENT(IN) :: ustar       ! Above canopy friction velocity [m/s]
+        REAL(rk), INTENT(IN) :: ch          ! Canopy Height [m]
+        !
+        ! !RETURN VALUE:
+        REAL(rk) :: canloss_bio             ! Canopy loss factor [unitless]
+        !
+        ! !LOCAL VARIABLES:
+        REAL(rk) :: lambda   = 0.3_rk         ! Assumed value for empirical parameter (Guenther et al., 2006)
+
+        IF (loss_opt .eq. 0) THEN ! Off
+            canloss_bio = 1.0_rk
+        ELSE IF (loss_opt .eq. 1) THEN
+            canloss_bio = 1.0_rk - ((ch*0.3333_rk)/(lambda*ustar*lifetime+(ch*0.3333_rk)))
+        ELSE
+            write(*,*)  'Wrong LOSS_OPT choice of ', loss_opt, 'in namelist...exiting'
+            call exit(2)
+        END IF
+
+    end function get_canloss_bio
+
+    function get_gamma_soim(soim_opt,soim1,soim2,soim3,soim4, &
+        soid1,soid2,soid3,soid4,wilt,roota,rootb)  result( GAMMA_SOIM )
+        ! ROUTINE: GET_GAMMA_SOIM
+        !
+        ! !DESCRIPTION: Function GET_GAMMA_SOIM computes the soil moisture activity factor
+        !  associated with volumetric soil moisture and wilting point
+        !
+        !     Soil moisture response to Biogenic VOC Emissions
+        ! Revision: February 08, 2024:  Patrick C. Campbell
+        !----------------------------------------------------------------
+        ! Based on Guenther et al. (2006),
+        ! https://acp.copernicus.org/articles/6/3181/2006/
+        ! And uses Zeng (2001) for PFT dependent root depth fractions,
+        ! https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
+        !------------------------------------------------------------------------------
+!        ! !INPUT PARAMETERS:
+        INTEGER,  INTENT(IN) :: soim_opt     ! Option for soil moisture emission factor calculation
+!        ! 0=On;
+!        ! 1 or  >1 =off i.e. GAMMA_SOIM =1
+
+        REAL(rk), INTENT(IN)  :: soim1     ! Volumetric soil moisture layer 1 [m3/m3]
+        REAL(rk), INTENT(IN)  :: soim2     ! Volumetric soil moisture layer 2 [m3/m3]
+        REAL(rk), INTENT(IN)  :: soim3     ! Volumetric soil moisture layer 3 [m3/m3]
+        REAL(rk), INTENT(IN)  :: soim4     ! Volumetric soil moisture layer 4 [m3/m3]
+        REAL(rk), INTENT(IN)  :: soid1     ! Soil depth layer 1 [cm]
+        REAL(rk), INTENT(IN)  :: soid2     ! Soil depth layer 2 [cm]
+        REAL(rk), INTENT(IN)  :: soid3     ! Soil depth layer 3 [cm]
+        REAL(rk), INTENT(IN)  :: soid4     ! Soil depth layer 4 [cm]
+        REAL(rk), INTENT(IN)  :: wilt      ! Wilting point [proportion]
+        REAL(rk), INTENT(IN)  :: roota     ! Coefficient A for PFT dependent cumulative root depth fraction [m-1]
+        REAL(rk), INTENT(IN)  :: rootb     ! Coefficient B for PFT dependent cumulative root depth fraction [m-1]
+
+        ! !RETURN VALUE:
+        REAL(rk) :: gamma_soim            ! Soil moisture activity factor [unitless]
+
+!        ! !LOCAL VARIABLES:
+        REAL(rk) :: delta_theta1 = 0.06_rk                  ! Empirical parameter based on Pegoraro et al. (2004)
+        ! https://www.publish.csiro.au/fp/FP04142
+        REAL(rk) :: theta1                                  ! wilt + delta_theta1
+
+        REAL(rk) :: gamma_soim1,gamma_soim2,gamma_soim3,gamma_soim4 ! gamma soil values for each soim1-4 [unitless]
+        REAL(rk) :: rootfrac1,rootfrac2,rootfrac3,rootfrac4 !cumulative root fraction from surface to depth [fraction]
+        REAL(rk) :: rootfrac_sum                            !sum of cumulative root fractions from each layer
+!        !
+!        ! !REMARKS:
+!        !  The function computes the soil moisture activity factor
+!        !
+!        !EOP
+!        !------------------------------------------------------------------------------
+!        !BOC
+!
+!        !-----------------------
+!        ! Compute GAMMA_SOIM for each layer and take weighted average across fraction of roots
+!        !-----------------------
+
+!Calculte the gamma soil values for each soim1-4
+        IF (soim_opt .eq. 0) THEN
+            theta1 = wilt + delta_theta1
+            !Soil Layer 1
+            if (soim1 .ge. theta1) then
+                gamma_soim1 = 1.0_rk
+            else if (soim1 .lt. theta1 .and. soim1 .gt. wilt ) then
+                gamma_soim1 = (soim1 - wilt)/delta_theta1
+            else
+                gamma_soim1 = 0.0_rk
+            end if
+            !Soil Layer 2
+            if (soim2 .ge. theta1) then
+                gamma_soim2 = 1.0_rk
+            else if (soim2 .lt. theta1 .and. soim2 .gt. wilt ) then
+                gamma_soim2 = (soim2 - wilt)/delta_theta1
+            else
+                gamma_soim2 = 0.0_rk
+            end if
+            !Soil Layer 3
+            if (soim3 .ge. theta1) then
+                gamma_soim3 = 1.0_rk
+            else if (soim3 .lt. theta1 .and. soim3 .gt. wilt ) then
+                gamma_soim3 = (soim3 - wilt)/delta_theta1
+            else
+                gamma_soim3 = 0.0_rk
+            end if
+            !Soil Layer 4
+            if (soim4 .ge. theta1) then
+                gamma_soim4 = 1.0_rk
+            else if (soim4 .lt. theta1 .and. soim4 .gt. wilt ) then
+                gamma_soim4 = (soim4 - wilt)/delta_theta1
+            else
+                gamma_soim4 = 0.0_rk
+            end if
+!Calculate the cumulative root fraction from surface to depth (Y), soild1-4
+            rootfrac1 = 1.0_rk - 0.5_rk*(exp(-1.0_rk*roota*(soid1/100.0_rk)) + &
+                exp(-1.0_rk*rootb*(soid1/100.0_rk)))
+            rootfrac2 = 1.0_rk - 0.5_rk*(exp(-1.0_rk*roota*(soid2/100.0_rk)) + &
+                exp(-1.0_rk*rootb*(soid2/100.0_rk)))
+            rootfrac3 = 1.0_rk - 0.5_rk*(exp(-1.0_rk*roota*(soid3/100.0_rk)) + &
+                exp(-1.0_rk*rootb*(soid3/100.0_rk)))
+            rootfrac4 = 1.0_rk - 0.5_rk*(exp(-1.0_rk*roota*(soid4/100.0_rk)) + &
+                exp(-1.0_rk*rootb*(soid4/100.0_rk)))
+            rootfrac_sum = rootfrac1+rootfrac2+rootfrac3+rootfrac4
+!Calculate the weighted average of gamma_soim based on the PFT-dependent cumulative root fraction for each soil layer
+            gamma_soim = ((rootfrac1*gamma_soim1) + (rootfrac2*gamma_soim2) + (rootfrac3*gamma_soim3) + &
+                (rootfrac4*gamma_soim4))/rootfrac_sum
+        ELSE IF (soim_opt .eq. 1) THEN
+            gamma_soim = 1.0_rk
+        ELSE
+            gamma_soim = 1.0_rk
+        END IF
+
+    end function get_gamma_soim
+
+!----------------------------------------------------------------
+!
+!   Function GAMMA_AQ
+!   EA response to air quality
+!
+!----------------------------------------------------------------
+
+    real(rk) function get_gamma_aq(aq_opt, w126_ozone, w126_set, caq, taq, dtaq)  result( gamma_aq )
+
+        ! !IROUTINE: get_gamma_aq
+        !
+        ! !DESCRIPTION: Function GET\_GAMMA\_AQ computes the  activity factor
+        !  associated with air qualtity (ozone W126 stress of biogenic emission. Called from
+        !  GET\_MEGAN\_EMISSIONS only.
+        !\\
+        !\\
+        ! !INTERFACE:
+
+        ! !INPUT PARAMETERS:
+        integer,  INTENT(IN) :: aq_opt       ! Option for aq stress calculation
+        ! 0=MEGANv3.2 implementation with climatological, spatially dependent GFSv16-based W126;
+        ! 1=MEGANv3.2 implementation with user-set, spatially constant value of ozone W126
+        ! >1=off (gamma_aq=1)
+        real(rk), INTENT(IN) :: w126_ozone     ! spatially dependent GFS w126 ozone [ppm-hours]
+        real(rk), INTENT(IN) :: w126_set       ! user set spatially constant w126 ozone [ppm-hours]
+        real(rk), INTENT(IN) :: taq            ! threshold for poor Air Quality stress (ppm-hours)
+        real(rk), INTENT(IN) :: dtaq           ! delta threshold for poor Air Quality stress (ppm-hours)
+        real(rk), INTENT(IN) :: caq            ! coefficient for poor Air Quality stress
+        !
+        ! !RETURN VALUE:
+        !REAL(rk)             :: GAMMA_AQ  ! AQ activity factor [unitless]
+        !
+        ! !LOCAL VARIABLES:
+        REAL(rk)             :: w126       ! local w126 value (ppm-hours)
+        REAL(rk)             :: t1         ! combined threshold + delta threshold AQ value
+
+        if (aq_opt .eq. 0) then !Use spatial GFS W126 ozone
+            w126 = w126_ozone
+        else                    !Use user set value of W126 ozone
+            w126 = w126_set
+        end if
+
+
+        if (aq_opt .le. 1) then !Calculate GAMMA_AQ
+            t1 = taq + dtaq
+            if (w126 <= taq) then
+                gamma_aq = 1.0_rk
+            else if ( w126 > taq .and. w126 < t1) then
+                gamma_aq = 1.0_rk + (caq - 1.0_rk)* (w126 - &
+                    taq)/dtaq
+            else
+                gamma_aq = caq
+            end if
+        else                    ! GAMMA_AQ = 1
+            gamma_aq = 1.0_rk
+        end if
+
+    end function get_gamma_aq
+!-----------------------------------------------------------------------
+
+    real(rk) function get_gamma_ht(ht_opt, maxt2m, cht, tht, dtht)  result( gamma_ht )
+
+        ! !IROUTINE: get_gamma_ht
+        !
+        ! !DESCRIPTION: Function GET\_GAMMA\_HT computes the  activity factor
+        !  associated with high temperature stress of biogenic emission. Called from
+        !  GET\_MEGAN\_EMISSIONS only.
+        !\\
+        !\\
+        ! !INTERFACE:
+
+        ! !INPUT PARAMETERS:
+        integer,  INTENT(IN) :: ht_opt       ! Option for ht stress calculation
+        ! 0=MEGANv3.2 On;
+        ! 1=MEGANv3.2 Off
+        real(rk), INTENT(IN) :: maxt2m         ! maximum input 2-m temperature [K]
+        real(rk), INTENT(IN) :: tht            ! threshold for high temperature [K]
+        real(rk), INTENT(IN) :: dtht           ! delta threshold for high temperature [K]
+        real(rk), INTENT(IN) :: cht            ! coefficient for high temperature stress
+        !
+        ! !RETURN VALUE:
+        !REAL(rk)             :: GAMMA_HT  ! HT activity factor [unitless]
+        !
+        ! !LOCAL VARIABLES:
+        REAL(rk)             :: t1         ! combined threshold + delta threshold HT value
+
+        if (ht_opt .eq. 0) then !Calculate GAMMA_HT
+            t1 = tht + dtht
+            if (maxt2m <= tht) then
+                gamma_ht = 1.0_rk
+            else if ( maxt2m > tht .and. maxt2m < t1) then
+                gamma_ht = 1.0_rk + (cht - 1.0_rk)* (maxt2m - &
+                    tht)/dtht
+            else
+                gamma_ht = cht
+            end if
+        else                    ! GAMMA_HT = 1
+            gamma_ht = 1.0_rk
+        end if
+
+    end function get_gamma_ht
+!-----------------------------------------------------------------------
+
+!-----------------------------------------------------------------------
+
+    real(rk) function get_gamma_lt(lt_opt, mint2m, clt, tlt, dtlt)  result( gamma_lt )
+
+        ! !IROUTINE: get_gamma_lt
+        !
+        ! !DESCRIPTION: Function GET\_GAMMA\_LT computes the  activity factor
+        !  associated with low temperature stress of biogenic emission. Called from
+        !  GET\_MEGAN\_EMISSIONS only.
+        !\\
+        !\\
+        ! !INTERFACE:
+
+        ! !INPUT PARAMETERS:
+        integer,  INTENT(IN) :: lt_opt       ! Option for lt stress calculation
+        ! 0=MEGANv3.2 On;
+        ! 1=MEGANv3.2 Off
+        real(rk), INTENT(IN) :: mint2m         ! minimum input 2-m temperature [K]
+        real(rk), INTENT(IN) :: tlt            ! threshold for low temperature [K]
+        real(rk), INTENT(IN) :: dtlt           ! delta threshold for low temperature [K]
+        real(rk), INTENT(IN) :: clt            ! coefficient for low temperature stress
+        !
+        ! !RETURN VALUE:
+        !REAL(rk)             :: GAMMA_LT  ! LT activity factor [unitless]
+        !
+        ! !LOCAL VARIABLES:
+        REAL(rk)             :: t1         ! combined threshold + delta threshold LT value
+
+        if (lt_opt .eq. 0) then !Calculate GAMMA_LT
+            t1 = tlt - dtlt
+            if (mint2m >= tlt) then
+                gamma_lt = 1.0_rk
+            else if ( mint2m < tlt .and. mint2m > t1) then
+                gamma_lt = 1.0_rk + (clt - 1.0_rk)* (tlt - &
+                    mint2m)/dtlt
+            else
+                gamma_lt = clt
+            end if
+        else                    ! GAMMA_LT = 1
+            gamma_lt = 1.0_rk
+        end if
+
+    end function get_gamma_lt
+!-----------------------------------------------------------------------
+
+!-----------------------------------------------------------------------
+
+    real(rk) function get_gamma_hw(hw_opt, maxws10m, chw, thw, dthw)  result( gamma_hw )
+
+        ! !IROUTINE: get_gamma_hw
+        !
+        ! !DESCRIPTION: Function GET\_GAMMA\_HW computes the  activity factor
+        !  associated with high wind stress of biogenic emission. Called from
+        !  GET\_MEGAN\_EMISSIONS only.
+        !\\
+        !\\
+        ! !INTERFACE:
+
+        ! !INPUT PARAMETERS:
+        integer,  INTENT(IN) :: hw_opt       ! Option for hw stress calculation
+        ! 0=MEGANv3.2 On;
+        ! 1=MEGANv3.2 Off
+        real(rk), INTENT(IN) :: maxws10m       ! maximum input 10-m wind speed [m/s]
+        real(rk), INTENT(IN) :: thw            ! threshold for high wind speed [m/s]
+        real(rk), INTENT(IN) :: dthw           ! delta threshold for high wind speed [m/s]
+        real(rk), INTENT(IN) :: chw            ! coefficient for high wind speed stress
+        !
+        ! !RETURN VALUE:
+        !REAL(rk)             :: GAMMA_HW  ! HT activity factor [unitless]
+        !
+        ! !LOCAL VARIABLES:
+        REAL(rk)             :: t1         ! combined threshold + delta threshold HW value
+
+        if (hw_opt .eq. 0) then !Calculate GAMMA_HW
+            t1 = thw + dthw
+            if (maxws10m <= thw) then
+                gamma_hw = 1.0_rk
+            else if ( maxws10m > thw .and. maxws10m < t1) then
+                gamma_hw = 1.0_rk + (chw - 1.0_rk)* (maxws10m - &
+                    thw)/dthw
+            else
+                gamma_hw = chw
+            end if
+        else                    ! GAMMA_HW = 1
+            gamma_hw = 1.0_rk
+        end if
+
+    end function get_gamma_hw
+!-----------------------------------------------------------------------
+
+!Initial guesses for canopy profile air temp, pressure, and humidity based on ACCESS
+!**********************************************************************************************************************!
+! CalcTemp ... compute air temperature (K) at z
+!
+!**********************************************************************************************************************!
+    function calctemp(zk, zref, taref, tsref)
+        real(rk), intent(in)  :: zk        ! current z (cm)
+        real(rk), intent(in)  :: zref      ! reference z (cm)
+        real(rk), intent(in)  :: taref     ! air temperature at zref (C)
+        real(rk), intent(in)  :: tsref     ! near surface temperature (C)
+        real(rk)              :: dtmp      ! temperature gradient (C/cm)
+        real(rk)              :: calctemp  ! air temp (K) at z
+
+        ! zref and zn must be same units!!!
+
+        dtmp = (taref-tsref)/zref
+        calctemp = (tsref + dtmp*zk) + 273.15_rk
+        return
+    end function calctemp
+
+!**********************************************************************************************************************!
+! CalcPressure ... compute air pressure (mb) at z
+!
+!**********************************************************************************************************************!
+    function calcpressure(zk, zref, pmbzref, tref, t0)
+        real(rk), intent(in)  :: zk        ! current z (cm)
+        real(rk), intent(in)  :: zref      ! zref (cm)      (=200 cm if using 2-m temperature)
+        real(rk), intent(in)  :: pmbzref   ! air pressure at zref (mb)  (e.g., surface pressure from model, assume = to 2-m)
+        real(rk), intent(in)  :: tref      ! temperature at zref (K)  (=sfc_temp if  using press_sfc)
+        real(rk), intent(in)  :: t0        ! temperature at z0 (K) (e.g., use top soil layer temperature)
+        real(rk), parameter   :: a0=3.42d-04   ! Mg/R (K/cm)
+        real(rk)              :: calcpressure  ! air pressure at current z (mb)
+
+        calcpressure = pmbzref*exp(-a0*(zk-zref)/(0.5_rk*(tref+t0)))
+
+        return
+    end function calcpressure
+
+!**********************************************************************************************************************!
+! function esat - calculate the saturation vapor pressure of water at a
+!                 given temperature
+!
+!    Rogers, R. R., and Yau, M. K. (1989) A Short Course in Cloud Physics,
+!    3rd Ed., Butterworth-Heinemann, Burlington, MA. (p16)
+!    Valid over -30C <= T <= 35C
+!
+!**********************************************************************************************************************!
+    function esat(tki)
+        real(rk), intent(in) :: tki     ! temperature (K)
+        real(rk)             :: esat    ! saturation vapor pressure (kPa)
+        real(rk)             :: tc      ! temperature (C)
+
+        tc = tki - 273.15_rk
+        esat = 0.6112_rk*exp(17.67_rk*tc/(tc+243.5_rk))
+        return
+    end function esat
+
+
+    !**********************************************************************************************************************!
+! function CalcRelHum - calculates the relative humidity from the
+!                             supplied specific humidity, temperature and
+!                             pressure
+!**********************************************************************************************************************!
+    function calcrelhum(tki, pmbi, qhi)
+        real(rk), intent(in) :: tki        ! air temperature (K)
+        real(rk), intent(in) :: pmbi       ! air pressure (mb)
+        real(rk), intent(in) :: qhi        ! specific humidity (g/kg)
+        real(rk)             :: calcrelhum ! relative humidity (%)
+        real(rk)             :: tc, e, es, qhd, pkpa, rhi
+        real(rk), parameter  :: rhmin=0.1
+        real(rk), parameter  :: rhmax=99.0
+        qhd=0.001_rk*qhi
+        pkpa=0.1_rk*pmbi
+        tc = tki - 273.15_rk
+        e = pkpa*qhd/(0.622_rk+qhd)
+        es = 0.6112_rk*exp(17.67_rk*tc/(tc+243.5_rk)) !Rogers et al. (1989)
+        !print*, 'qhi=',qhi,'pmbi=',pmbi, 'tki=', tki
+        !print*, 'e=', e, 'es=',es
+        rhi = max(rhmin, min(rhmax, 100.0_rk*e/es))   ! bound RH to (rhmin, rhmax)
+        calcrelhum = rhi
+        return
+    end function calcrelhum
+
+!**********************************************************************************************************************!
+! function CalcSpecHum - calculates specific humidity (g/kg) from the supplied relative humidity,
+!                             temperature, and pressure
+!**********************************************************************************************************************!
+    function calcspechum(rhi, tki, pmbi)
+        real(rk), intent(in) :: rhi                 ! relative humidity (%)
+        real(rk), intent(in) :: tki                 ! air temperature (K)
+        real(rk), intent(in) :: pmbi                ! air pressure (mb)
+        real(rk)             :: calcspechum         ! specific humidity (g/kg)
+        real(rk)             :: es                  ! saturation vapor pressure at tki (mb)
+        real(rk)             :: e                   ! ambient vapor pressure (mb)
+
+        es = esat(tki)*10.0_rk            ! kPa -> mb
+        e  = es*rhi*0.01_rk               ! mb
+
+        calcspechum = 622.0_rk*e/(pmbi-0.378_rk*e)
+
+        return
+
+    end function calcspechum
+
+!**********************************************************************************************************************!
+! CalcCair ... compute cair at z
+!
+!**********************************************************************************************************************!
+    function calccair(pmbi, tki)
+        real(rk), intent(in)  :: pmbi       ! air pressure at current z (mb)
+        real(rk), intent(in)  :: tki        ! air temperature at current z (K)
+        real(rk)              :: calccair   ! air concentration (molec/cm3)
+
+        calccair  = pmbi*7.2428d+18/tki
+        return
+    end function calccair
+
+!**********************************************************************************************************************!
+! function Convert_qh_to_h2o - convert qh (g/kg) to h2o (molecs/cm3)
+!
+!**********************************************************************************************************************!
+    function convert_qh_to_h2o(qhi, cairi)
+        real(rk), intent(in) :: qhi                   ! specific humidity at i (g/kg)
+        real(rk), intent(in) :: cairi                 ! air concentration at i (molecs/cm3)
+        real(rk)             :: convert_qh_to_h2o     ! h2o concentration (molecs/cm3)
+
+        convert_qh_to_h2o = 0.001611_rk*qhi*cairi
+
+        return
+    end function convert_qh_to_h2o
+
+
+!=====================================================================================
+!function mdiffstp - set molecular diffusivity data (cm^2/s) for all species at
+!                           0 deg C and 1 atm
+!=====================================================================================
+    subroutine setmolecdiffstp(chemmechgas_opt,chemmechgas_tot,mdiffstp)
+        integer, intent(in)  :: chemmechgas_opt, chemmechgas_tot      !chemical mechanism and total gas species including transported
+        real(rk),dimension(chemmechgas_tot),intent(out)  :: mdiffstp       !molecular diffusivities of species in air at 0degC and 1 atm [cm^2/s]
+!    real(kind = dp), parameter         :: mdiffstp_default = 0.100   !default value of mdiffstp (cm^2/s) with no reliable data
+!    integer(kind=i4)                   :: l                          !l is species
+
+        if (chemmechgas_opt .eq. 0) then !RACM2
+            !Insert MolecDiffSTP Coefficients for RACM2_plus mechanism
+            !species in array are:
+            != (/NO,   NO2,    O3,  HONO,  HNO4,   HNO3,   N2O5,     CO,  H2O2,  CH4,
+            !MO2,   OP1,   MOH,   NO3,   O3P,    O1D,     HO,    HO2,  ORA1,  HAC,
+            !PAA, DHMOB, HPALD,  ISHP, IEPOX, PROPNN, ISOPNB, ISOPND, MACRN, MVKN,
+            !ISNP /)
+            if (chemmechgas_tot .gt. 31) then ! too many species defined
+                write(*,*)  'Too many species of ', chemmechgas_tot, ' in namelist for this chemmechgas_opt....exiting'
+                write(*,*)  'Set chemmechgas_tot < 31'
+                call exit(2)
+            else
+                mdiffstp =(/0.1802, 0.1361, 0.1444, 0.1349, 0.1041, 0.1041, 0.0808, 0.1807, 0.1300, 0.1952,  &
+                    0.1297, 0.1200, 0.1297, 0.1153, 0.2773, 0.2773, 0.2543, 0.2000, 0.1340, 0.1060,  &
+                    0.1040, 0.0892, 0.0845, 0.0837, 0.0837, 0.0834, 0.0750, 0.0750, 0.0745, 0.0745,  &
+                    0.0712 /)
+            end if
+        else
+            write(*,*)  'Wrong chemical mechanism option of ', chemmechgas_opt, ' in namelist...exiting'
+            write(*,*)  'Set chemmechgas_opt to only 0 (RACM2) for now'
+            call exit(2)
+        end if
+!species (NO2, O3)
+!    mdiffstp =(/0.1361, 0.1444/)
+
+        return
+    end subroutine setmolecdiffstp
+
+!==========================================================================
+!function MolecDiff - calculate molecular diffusivities (cm^2/s) at a given
+!                     temperature and pressure
+!==========================================================================
+    function molecdiff(chemmechgas_opt, chemmechgas_tot,ispec, tkx, pmbx)
+        integer, intent(in)  :: chemmechgas_opt, chemmechgas_tot      !chemical mechanism and total gas species including transported
+        integer, intent(in)         :: ispec     !dummy id for species
+        real(rk), intent(in)        :: tkx       !ambient temp [K]
+        real(rk), intent(in)        :: pmbx      !ambient press pmb]
+        real(rk)                    :: molecdiff !cm2/s
+        real(rk),dimension(chemmechgas_tot)  ::mdiffstp
+
+        call setmolecdiffstp(chemmechgas_opt,chemmechgas_tot,mdiffstp)
+        molecdiff = mdiffstp(ispec)*(1013.25_rk/pmbx)*((tkx/298.15_rk)**1.81)
+
+        return
+    end function molecdiff
+
+!=========================================================================
+!function mdiffh2o - calculate molecular diffusivity of water vapor in air
+!
+!source: Tracy (1980)
+!=========================================================================
+    function mdiffh2o(tki,pmbi)
+        real(rk), intent(in) :: tki
+        real(rk), intent(in) :: pmbi
+        real(rk)             :: mdiffh2o
+
+        mdiffh2o = 0.226_rk*((tki/273.15_rk)**1.81_rk)*(1000.0_rk/pmbi)
+
+        return
+    end function mdiffh2o
+
+!======================================================================
+!function rs_zhang_gas - calcualte stomatal resistance for trace species
+!
+!Source - Zhang et al., (2002 & 2003)
+!       - 'rsmin' by Wesely et al (1989)
+!       - 'bvpd' by Wolfe and Thornton (2011)
+!======================================================================
+    function rs_zhang_gas(mdiffl, tki, pmbi, ppfdi, srad, relhumi)
+        real(rk), intent(in) :: mdiffl            !molecular diffusivity of trace species in air (cm^2/s)
+        real(rk), intent(in) :: tki               !air temperature (K)
+        real(rk), intent(in) :: pmbi              !air pressure (mb)
+        real(rk), intent(in) :: ppfdi             !photosynthetic photon flux (umol/m^2-s)
+        real(rk), intent(in) :: srad              !solar irradiation (W/m^2)
+        real(rk), intent(in) :: relhumi           !relative humidity (%)
+        real(rk)             :: rs_zhang_gas      !stomatal resistance (s/cm)
+        !TODO --- Make rs parameters vegtyp dependent -----
+        real(rk), parameter  :: rsmin =1.0        !minimum leaf stomatal resistance (s/cm) for deciduous forest
+        real(rk), parameter  :: rsmax =10000.0    !maximum leaf stomatal resistance (s/cm) (stoma are closed)
+        real(rk), parameter  :: brsp = 196.5      !empirical constant (umol/m^2-s) for deciduous forest
+        real(rk), parameter  :: tmin = 0.0        !temperature correction parameter-deciduous forest
+        real(rk), parameter  :: tmax = 45.0       !temperature correction parameter-deciduous forest
+        real(rk), parameter  :: topt = 27.0       !temperature correction parameter-deciduous forest
+        real(rk), parameter  :: bvpd = 0.10       !empirical constant for VPD correction-deciduous forest
+        real(rk), parameter  :: phic1 = -1.9      !empirical constant for water stress correction-deciduous forest
+        real(rk), parameter  :: phic2 = -2.5      !empirical constant for water stress correction-deciduous forest
+        !TODO --- Make rs parameters vegtyp dependent -----
+        real(rk)             :: cft
+        real(rk)             :: cfvpd
+        real(rk)             :: cfphi
+        real(rk)             :: tcel
+        real(rk)             :: ft1
+        real(rk)             :: ft2
+        real(rk)             :: et
+        real(rk)             :: vpd
+        real(rk)             :: phi
+
+        !temperature correction
+        tcel = tki - 273.15_rk !convert to degrees C
+        if (tcel .ge. tmax) then  !restrict tcell < tmax
+            tcel = tmax-0.1_rk
+        else if (tcel .le. tmin) then !restrict tcell > tmin
+            tcel = tmin+0.1_rk
+        else
+            tcel = tcel
+        end if
+        et   = (tmax-topt)/(topt-tmin)
+        ft1  =(tcel-tmin)/(topt-tmin)
+        ft2  = (tmax-tcel)/(tmax-topt)
+        cft  = ft1*(ft2**et)
+        !water vapor pressure defit correction
+        vpd  = esat(tki)*(1.0_rk - (relhumi/100.0_rk))
+        cfvpd= 1.0_rk - bvpd*vpd
+        !water stress correction
+        phi  = -0.72_rk - 0.0013_rk*srad
+        cfphi= (phi-phic2)/(phic1-phic2)
+
+        if (ppfdi >0.0) then
+            rs_zhang_gas = rsmin*(1.0_rk+brsp/ppfdi)*mdiffh2o(tki,pmbi)/(mdiffl*cft*cfvpd*cfphi)
+        else
+            rs_zhang_gas = rsmax                         !nighttime, stoma are closed
+        endif
+
+        return
+    end function rs_zhang_gas
+
+!===================================================================
+!function rbl - calculate leaf boundary resistance for trace species
+!
+!Source - rb formulation from Wu et al., (2003)
+!       - ustar = 0.14*ubar from Weber (1999)
+!===================================================================
+    function rbl(mdiffl, ubari)
+        real(rk)               :: rbl            !leaf boundary layer resistance (s/cm)
+        real(rk), intent(in)   :: mdiffl         !molecular diffusivity of species in air (cm^2/s)
+        real(rk), intent(in)   :: ubari          !mean wind speed at layer i (cm/s)
+
+!    rbl = 10.53_rk/((mdiffl**0.666667_rk)*max(1.0D-10,ubari))
+        rbl = 10.53_rk/((mdiffl**0.666667_rk)*ubari)
+        return
+    end function rbl
+
+!===============================================================
+!function rcl - calculate cuticular resistance for trace species
+!
+!Source - Wesely (1989)
+!===============================================================
+    function rcl(hstarl,f01)
+        real(rk), intent(in)   :: hstarl         ! effective Henry's law coefficient (M/atm)
+        real(rk), intent(in)   :: f01            ! reactivity parameter (0-1)
+        real(rk)               :: rcl            ! cuticular resistance (s/cm)
+        real(rk), parameter    :: rcref=20.0     ! rc for ozone (s/cm) for deciduous forest
+
+        rcl = rcref/((hstarl*1.0d-05)+f01)
+
+        return
+    end function rcl
+
+
+!===============================================================
+!function rml - calculate mesophyll resistance for trace species
+!
+!Source - Wesely (1989)
+!===============================================================
+    function rml(hstarl,f01)
+        real(rk), intent(in)   :: hstarl          ! effective Henry's law coefficient (M/atm)
+        real(rk), intent(in)   :: f01             ! reactivity parameter (0-1)
+        real(rk)               :: rml             ! mesophyll resistance (s/cm)
+
+        rml = 1.0_rk/((hstarl/3000.0_rk)+100.0_rk*f01)
+
+        return
+    end function rml
+
+
+!===============================================================================================================
+!function SoilResist - calculate the resistance to diffusion of a species from the free warer surface in the soil
+!                      to the soil-atmosphere interface. Rsoil
+!Source - Sakagichi & Zeng (2009)
+!================================================================================================================
+    function soilresist(mdiffl,socat,sotyp,dsoil,stheta)
+        real(rk), intent(in)  :: mdiffl         !molecular diffusivity of species in air (cm^2/s)
+        integer,  intent(in)  :: socat          !input soil category datset
+        integer,  intent(in)  :: sotyp          !input soil type integer associated with soilcat
+        real(rk), intent(in)  :: dsoil          !depth of topsoil (cm)
+        real(rk), intent(in)  :: stheta         !volumetric soil water content in topsoil(m^3/m^3)
+        real(rk)              :: sattheta       !saturation volumetric soil water content (m^3/m^3)
+        real(rk)              :: rtheta         !residual volumetic soil water content (m^3/m^3), typical range of 0.001–0.1rk
+        real(rk)              :: wfctheta       !soil field capacity
+        real(rk)              :: soilresist     !Soil resistance (s/cm)
+        real(rk)              :: xe             !temporary variable
+        real(rk)              :: ldry           !diffusion distance through the soil (cm)
+        real(rk)              :: mdiffp         !effective diffusivity of species through the soil (cm^2/s)
+        real(rk), parameter   :: sbcoef = 0.2   !clapp and hornberger exponent
+
+
+        if (socat .eq. 0) then !input based on NCA-LDAS 16-Category Type
+            ! Soil Characteristics by Type from NCA-LDAS 16-category type based on STATSGO/FAO soil texture
+            ! https://ldas.gsfc.nasa.gov/nca-ldas/soils
+            !Based on WRF4+ Taken from CMAQv5.4+: https://github.com/GMU-SESS-AQ/CMAQ/blob/main/CCTM/src/depv/m3dry/LSM_MOD.F#L134
+            !
+            !   #  SOIL TYPE  WSAT  WFC  WWLT  BSLP  CGSAT   JP   AS   C2R  C1SAT  WRES
+            !   _  _________  ____  ___  ____  ____  _____   ___  ___  ___  _____  ____
+            !   1  SAND       .395 .135  .068  4.05  3.222    4  .387  3.9  .082   .020
+            !   2  LOAMY SAND .410 .150  .075  4.38  3.057    4  .404  3.7  .098   .035
+            !   3  SANDY LOAM .435 .195  .114  4.90  3.560    4  .219  1.8  .132   .041
+            !   4  SILT LOAM  .485 .255  .179  5.30  4.418    6  .105  0.8  .153   .015
+            !   5  SILT       .480 .260  .150  5.30  4.418    6  .105  0.8  .153   .020
+            !   6  LOAM       .451 .240  .155  5.39  4.111    6  .148  0.8  .191   .027
+            !   7  SND CLY LM .420 .255  .175  7.12  3.670    6  .135  0.8  .213   .068
+            !   8  SLT CLY LM .477 .322  .218  7.75  3.593    8  .127  0.4  .385   .040
+            !   9  CLAY LOAM  .476 .325  .250  8.52  3.995   10  .084  0.6  .227   .075
+            !  10  SANDY CLAY .426 .310  .219 10.40  3.058    8  .139  0.3  .421   .109
+            !  11  SILTY CLAY .482 .370  .283 10.40  3.729   10  .075  0.3  .375   .056
+            !  12  CLAY       .482 .367  .286 11.40  3.600   12  .083  0.3  .342   .090
+            !  13  ORGANICMAT .451 .240  .155  5.39  4.111    6  .148  0.8  .191   .027
+            !  14  WATER      .482 .367  .286 11.40  3.600   12  .083  0.3  .342   .090
+            !  15  BEDROCK    .482 .367  .286 11.40  3.600   12  .083  0.3  .342   .090
+            !  16  OTHER      .420 .255  .175  7.12  3.670    6  .135  0.8  .213   .068
+            !-------------------------------------------------------------------------------
+            !Note:  sattheta = WSAT, rtheta = WRES, and wtheta = WWLT
+            !OTHER = land-ice
+
+            if (sotyp .eq. 0) then !if soil type water = 0 (e.g., FV3) --really shouldn't be water cell here
+                sattheta = 0.482_rk
+                rtheta   = 0.090_rk
+                wfctheta = 0.367_rk
+            else if (sotyp .eq. 1) then
+                sattheta = 0.395_rk
+                rtheta   = 0.020_rk
+                wfctheta = 0.135_rk
+            else if (sotyp .eq. 2 ) then
+                sattheta = 0.410_rk
+                rtheta   = 0.035_rk
+                wfctheta = 0.150_rk
+            else if (sotyp .eq. 3 ) then
+                sattheta = 0.435_rk
+                rtheta   = 0.041_rk
+                wfctheta = 0.195_rk
+            else if (sotyp .eq. 4 ) then
+                sattheta = 0.485_rk
+                rtheta   = 0.015_rk
+                wfctheta = 0.255_rk
+            else if (sotyp .eq. 5 ) then
+                sattheta = 0.480_rk
+                rtheta   = 0.020_rk
+                wfctheta = 0.260_rk
+            else if (sotyp .eq. 6 ) then
+                sattheta = 0.451_rk
+                rtheta   = 0.027_rk
+                wfctheta = 0.240_rk
+            else if (sotyp .eq. 7 ) then
+                sattheta = 0.420_rk
+                rtheta   = 0.068_rk
+                wfctheta = 0.255_rk
+            else if (sotyp .eq. 8 ) then
+                sattheta = 0.477_rk
+                rtheta   = 0.040_rk
+                wfctheta = 0.322_rk
+            else if (sotyp .eq. 9 ) then
+                sattheta = 0.476_rk
+                rtheta   = 0.075_rk
+                wfctheta = 0.325_rk
+            else if (sotyp .eq. 10 ) then
+                sattheta = 0.426_rk
+                rtheta   = 0.109_rk
+                wfctheta = 0.310_rk
+            else if (sotyp .eq. 11 ) then
+                sattheta = 0.482_rk
+                rtheta   = 0.056_rk
+                wfctheta = 0.370_rk
+            else if (sotyp .eq. 12 ) then
+                sattheta = 0.482_rk
+                rtheta   = 0.090_rk
+                wfctheta = 0.367_rk
+            else if (sotyp .eq. 13 ) then
+                sattheta = 0.451_rk
+                rtheta   = 0.027_rk
+                wfctheta = 0.240_rk
+            else if (sotyp .eq. 14 ) then
+                sattheta = 0.482_rk
+                rtheta   = 0.090_rk
+                wfctheta = 0.367_rk
+            else if (sotyp .eq. 15 ) then
+                sattheta = 0.482_rk
+                rtheta   = 0.090_rk
+                wfctheta = 0.367_rk
+            else if (sotyp .eq. 16 ) then
+                sattheta = 0.420_rk
+                rtheta   = 0.068_rk
+                wfctheta = 0.255_rk
+            else !set to OTHER type
+                sattheta = 0.420_rk
+                rtheta   = 0.068_rk
+                wfctheta = 0.255_rk
+            end if
+        else
+            write(*,*)  'Wrong socat option of ', socat, ' in namelist...exiting'
+            write(*,*)  'Set socat to only 0 (NCA-LDAS Soils based on STATSGO/FAO) for now'
+            call exit(2)
+        end if
+
+        xe = (1.0_rk-(stheta/sattheta))**5.0_rk
+        ldry = dsoil*(exp(xe)-1.0_rk)/1.7183_rk
+        ldry = max(0.0_rk,ldry)
+
+        mdiffp = mdiffl*sattheta*sattheta*(1.0_rk-(rtheta/sattheta))**(2.0_rk+3.0_rk/sbcoef)
+        soilresist = ldry/mdiffp
+
+        return
+
+    end function soilresist
+
+!=====================================================================================
+!function SoilRbg - calculate the boundary layer resistance at the ground surface. Rbg
+!
+!Source - Schuepp (1977)
+!=====================================================================================
+    function soilrbg(ubar)
+        real(rk), intent(in)  :: ubar            !mean wind speed in the 1st model layer above ground (cm/s)
+        !do not use ground wind because of physical zero-slip condition,
+        !i.e., ubar=0 at z=0
+        real(rk)              :: soilrbg         !Boundary layer resistance at ground surface (s/cm)
+        real(rk), parameter   :: rbgmax = 1.67   !maximum ground surface boundary layer resistance (s/cm)
+        real(rk)              :: rbg             !temporary variable for boundary layer resistance (s/cm)
+
+        rbg = 11.534_rk/(0.14_rk*ubar)           !assume Sc=0.7,del0/zl = 0.02 and ustar = 0.14*ubar (Weber,1999)
+        soilrbg = min(rbgmax,rbg)
+
+        return
+    end function soilrbg
+
+!=====================================================================================
+!function WaterRbw - calculate the boundary layer resistance at the ground surface. Rbg
+!
+!Source - Based on Schuepp (1977), but modified for water an input scaled ustar
+!=====================================================================================
+    function waterrbw(ustar)
+        real(rk), intent(in)  :: ustar            !scaled model friction velocity at water (cm/s)
+        real(rk)              :: waterrbw         !Boundary layer resistance at water surface (s/cm)
+        real(rk), parameter   :: rbwmax = 1.67    !maximum water surface boundary layer resistance (s/cm)
+        real(rk)              :: rbw              !temporary variable for boundary layer resistance (s/cm)
+
+        rbw = 11.534_rk/(ustar)                   !assume Sc=0.7,del0/zl = 0.02 (Weber,1999)
+        waterrbw = min(rbwmax,rbw)
+
+        return
+    end function waterrbw
+
+!========================================================================
+!function EffHenrysLawCoeff - calculate Henry's Law coefficient (M/atm)
+!                             have not include temperature dependence yet
+!========================================================================
+    function effhenryslawcoeff(chemmechgas_opt,chemmechgas_tot,ispec)
+        integer, intent(in)         :: chemmechgas_opt,chemmechgas_tot ! chemical mechanism and total gas species including transported
+        integer, intent(in)         :: ispec  !dummy id for species
+        real(rk)                    :: effhenryslawcoeff
+        real(rk),dimension(chemmechgas_tot) :: hstar
+
+        call seteffhenryslawcoeffs(chemmechgas_opt,chemmechgas_tot,hstar)
+        effhenryslawcoeff = hstar(ispec)
+
+        return
+    end function effhenryslawcoeff
+
+!====================================================================
+!function hstar - set henry's law coefficient for all species (M/atm)
+!
+!source - Nguyen et al., (2015)
+!====================================================================
+    subroutine seteffhenryslawcoeffs(chemmechgas_opt,chemmechgas_tot,hstar)
+        integer, intent(in)                             :: chemmechgas_opt,chemmechgas_tot ! chemical mechanism and total gas species including transported
+        real(rk),dimension(chemmechgas_tot),intent(out) :: hstar
+
+        if (chemmechgas_opt .eq. 0) then !RACM2
+            !Insert Henry's Law Coefficients for RACM2_plus mechanism
+            !species in array are:
+            != (/NO,   NO2,    O3,  HONO,  HNO4,   HNO3,   N2O5,     CO,  H2O2,  CH4,
+            !MO2,   OP1,   MOH,   NO3,   O3P,    O1D,     HO,    HO2,  ORA1,  HAC,
+            !PAA, DHMOB, HPALD,  ISHP, IEPOX, PROPNN, ISOPNB, ISOPND, MACRN, MVKN,
+            !ISNP /)
+            if (chemmechgas_tot .gt. 31) then ! too many species defined
+                write(*,*)  'Too many species of ', chemmechgas_tot, ' in namelist for this chemmechgas_opt...exiting'
+                write(*,*)  'Set chemmechgas_tot < 31'
+                call exit(2)
+            else
+                hstar = (/1.9d-03, 1.2d-02,1.03d-02, 2.6d+05, 1.0d+07, 3.2d+13, 1.0d+14, 9.8d-04, 8.4d+04, 1.4d-03,  &
+                    6.9d+02, 3.0d+02, 2.2d+02, 3.8d-02, 3.8d-02, 3.8d-02, 3.9d+01, 6.9d+02, 5.6d+03, 2.0d+03,  &
+                    5.2d+02, 2.0d+03, 4.0d+04, 7.0d+07, 7.0d+07, 1.0d+04, 5.0d+03, 5.0d+03, 6.0d+03, 6.0d+03,  &
+                    5.0d+03 /)
+            end if
+        else
+            write(*,*)  'Wrong chemical mechanism option of ', chemmechgas_opt, ' in namelist...exiting'
+            write(*,*)  'Set chemmechgas_opt to only 0 (RACM2) for now'
+            call exit(2)
+        end if
+
+        return
+    end subroutine seteffhenryslawcoeffs
+
+!==========================================================================
+!function ReactivityParam - calculate reactivity parameters (dimensionless)
+!==========================================================================
+    function reactivityparam(chemmechgas_opt,chemmechgas_tot,ispec)
+        integer, intent(in)                             :: chemmechgas_opt,chemmechgas_tot ! chemical mechanism and total gas species including transported
+        integer, intent(in)        :: ispec   !dummy id for species
+        real(rk)                   :: reactivityparam
+        real(rk),dimension(chemmechgas_tot) :: f0
+
+        call setreactivityparams(chemmechgas_opt,chemmechgas_tot,f0)
+        reactivityparam = f0(ispec)
+
+        return
+    end function reactivityparam
+
+!========================================================
+!function f0 - set reactivity parameters for all species
+!
+!source - Wesely et al., (1989) and Nguyen et al., (2015)
+!========================================================
+    subroutine setreactivityparams(chemmechgas_opt,chemmechgas_tot,f0)
+!    integer(kind=i4)                              :: l               !l is species
+        integer, intent(in)                             :: chemmechgas_opt,chemmechgas_tot ! chemical mechanism and total gas species including transported
+        real(rk),dimension(chemmechgas_tot),intent(out) :: f0
+
+        if (chemmechgas_opt .eq. 0) then !RACM2
+            !Insert Reactivity Params Coefficients for RACM2_plus mechanism
+            !species in array are:
+            != (/NO,   NO2,    O3,  HONO,  HNO4,   HNO3,   N2O5,     CO,  H2O2,  CH4,
+            !MO2,   OP1,   MOH,   NO3,   O3P,    O1D,     HO,    HO2,  ORA1,  HAC,
+            !PAA, DHMOB, HPALD,  ISHP, IEPOX, PROPNN, ISOPNB, ISOPND, MACRN, MVKN,
+            !ISNP /)
+            if (chemmechgas_tot .gt. 31) then ! too many species defined
+                write(*,*)  'Too many species of ', chemmechgas_tot, ' in namelist for this chemmechgas_opt....exiting'
+                write(*,*)  'Set chemmechgas_tot < 31'
+                call exit(2)
+            else
+                f0 = (/0.0, 0.1, 1.0, 0.1, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,  &
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.1, 0.0, 0.0,  &
+                    0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,  &
+                    0.0 /)
+            end if
+        else
+            write(*,*)  'Wrong chemical mechanism option of ', chemmechgas_opt, ' in namelist...exiting'
+            write(*,*)  'Set chemmechgas_opt to only 0 (RACM2) for now'
+            call exit(2)
+        end if
+        return
+    end subroutine setreactivityparams
+
+!==========================================================================
+!function ReactivityHNO3 - calculate relative reactivity parameters to HNO3  (dimensionless)
+!==========================================================================
+    function reactivityparamhno3(chemmechgas_opt,chemmechgas_tot,ispec)
+        integer, intent(in)        :: chemmechgas_opt,chemmechgas_tot ! chemical mechanism and total gas species including transported
+        integer, intent(in)        :: ispec   !dummy id for species
+        real(rk)                   :: reactivityparamhno3
+        real(rk),dimension(chemmechgas_tot) :: ar
+
+        call setreactivityhno3(chemmechgas_opt,chemmechgas_tot,ar)
+        reactivityparamhno3 = ar(ispec)
+
+        return
+    end function reactivityparamhno3
+
+!========================================================
+!function ar - set reactivity relative to HNO3 for all species
+!
+!source - reactivity relative to HNO3 -- CMAQv5.3.1 Model
+!========================================================
+    subroutine setreactivityhno3(chemmechgas_opt,chemmechgas_tot,ar)
+!    integer(kind=i4)                              :: l               !l is species
+        integer, intent(in)                             :: chemmechgas_opt,chemmechgas_tot ! chemical mechanism and total gas species including transported
+        real(rk),dimension(chemmechgas_tot),intent(out) :: ar
+
+        if (chemmechgas_opt .eq. 0) then !RACM2
+            !Insert Reactivity Coefficients for RACM2_plus mechanism
+            !species in array are:
+            != (/NO,   NO2,    O3,  HONO,  HNO4,   HNO3,   N2O5,     CO,  H2O2,  CH4,
+            !MO2,   OP1,   MOH,   NO3,   O3P,    O1D,     HO,    HO2,  ORA1,  HAC,
+            !PAA, DHMOB, HPALD,  ISHP, IEPOX, PROPNN, ISOPNB, ISOPND, MACRN, MVKN,
+            !ISNP /)
+            if (chemmechgas_tot .gt. 31) then ! too many species defined
+                write(*,*)  'Too many species of ', chemmechgas_tot, ' in namelist for this chemmechgas_opt....exiting'
+                write(*,*)  'Set chemmechgas_tot < 31'
+                call exit(2)
+            else
+                ar = (/2.0, 2.0, 12.0, 20.0, 1.0, 8000.0, 5000.0, 5.0, 34000.0, 2.0,  &
+                    10.0, 10.0, 2.0, 5000.0, 12.0, 12.0, 10.0, 10.0, 20.0, 20.0,  &
+                    20.0, 10.0, 10.0, 10.0, 8.0, 16.0, 16.0, 16.0, 8.0, 16.0,  &
+                    16.0 /)
+            end if
+        else
+            write(*,*)  'Wrong chemical mechanism option of ', chemmechgas_opt, ' in namelist...exiting'
+            write(*,*)  'Set chemmechgas_opt to only 0 (RACM2) for now'
+            call exit(2)
+        end if
+        return
+    end subroutine setreactivityhno3
+
+!==========================================================================
+!function Molar Mass - set molar mass for gas species  (kg/mol)
+!==========================================================================
+    function molarmassgas(chemmechgas_opt,chemmechgas_tot,ispec)
+        integer, intent(in)        :: chemmechgas_opt,chemmechgas_tot ! chemical mechanism and total gas species including transported
+        integer, intent(in)        :: ispec   !dummy id for species
+        real(rk)                   :: molarmassgas !Molar Mass of Gases (kg/mol)
+        real(rk),dimension(chemmechgas_tot) :: mmg
+
+        call setmolarmassgas(chemmechgas_opt,chemmechgas_tot,mmg)
+        molarmassgas = mmg(ispec)
+
+        return
+    end function molarmassgas
+
+!========================================================
+!function mmg - set Molar Mass for all gas species
+!
+!source - Molar Mass for Gas Species -
+!========================================================
+    subroutine setmolarmassgas(chemmechgas_opt,chemmechgas_tot,mmg)
+!    integer(kind=i4)                              :: l               !l is species
+        integer, intent(in)                             :: chemmechgas_opt,chemmechgas_tot ! chemical mechanism and total gas species including transported
+        real(rk),dimension(chemmechgas_tot),intent(out) :: mmg  !Molar Mass of Gases (kg/mol)
+
+        if (chemmechgas_opt .eq. 0) then !RACM2
+            !Insert Molar Mass for RACM2_plus mechanism
+            !species in array are:
+            != (/NO,   NO2,    O3,  HONO,  HNO4,   HNO3,   N2O5,     CO,  H2O2,  CH4,
+            !MO2,   OP1,   MOH,   NO3,   O3P,    O1D,     HO,    HO2,  ORA1,  HAC,
+            !PAA, DHMOB, HPALD,  ISHP, IEPOX, PROPNN, ISOPNB, ISOPND, MACRN, MVKN,
+            !ISNP /)
+            if (chemmechgas_tot .gt. 31) then ! too many species defined
+                write(*,*)  'Too many species of ', chemmechgas_tot, ' in namelist for this chemmechgas_opt....exiting'
+                write(*,*)  'Set chemmechgas_tot < 31'
+                call exit(2)
+            else
+                mmg = (/0.03001, 0.046055, 0.048, 0.047013, 0.079012, 0.06301, 0.10801, 0.02801, 0.0340147, 0.01604,  &
+                    0.0470333, 0.048041, 0.03204, 0.0620049, 0.032, 0.032, 0.01701, 0.01801528, 0.04603, 0.06052,  &
+                    0.0760514, 0.06052, 0.10012, 0.14717, 0.118, 0.11908, 0.147, 0.12911, 0.0709, 0.0709,  &
+                    0.0709 /)
+            end if
+        else
+            write(*,*)  'Wrong chemical mechanism option of ', chemmechgas_opt, ' in namelist...exiting'
+            write(*,*)  'Set chemmechgas_opt to only 0 (RACM2) for now'
+            call exit(2)
+        end if
+        return
+    end subroutine setmolarmassgas
+
+!==========================================================================
+!function Le Bas Molar Volume - set molar volume for gas species  (cm3/mol)
+!==========================================================================
+    function lebasmvgas(chemmechgas_opt,chemmechgas_tot,ispec)
+        integer, intent(in)        :: chemmechgas_opt,chemmechgas_tot ! chemical mechanism and total gas species including transported
+        integer, intent(in)        :: ispec      !dummy id for species
+        real(rk)                   :: lebasmvgas !Le Bas Molar Volume of Gases (cm3/mol)
+        real(rk),dimension(chemmechgas_tot) :: mvg
+
+        call setlebasmvgas(chemmechgas_opt,chemmechgas_tot,mvg)
+        lebasmvgas = mvg(ispec)
+
+        return
+    end function lebasmvgas
+
+!========================================================
+!function mvg - set Molar Volume for all gas species
+!
+!source - Molar Volume for Gas Species - Le Bas
+!========================================================
+    subroutine setlebasmvgas(chemmechgas_opt,chemmechgas_tot,mvg)
+!    integer(kind=i4)                              :: l               !l is species
+        integer, intent(in)                             :: chemmechgas_opt,chemmechgas_tot ! chemical mechanism and total gas species including transported
+        real(rk),dimension(chemmechgas_tot),intent(out) :: mvg  !Molar Volume of Gases (cm3/mol)
+
+        if (chemmechgas_opt .eq. 0) then !RACM2
+            !Insert MV Gas Coefficients for RACM2_plus mechanism
+            !species in array are:
+            != (/NO,   NO2,    O3,  HONO,  HNO4,   HNO3,   N2O5,     CO,  H2O2,  CH4,
+            !MO2,   OP1,   MOH,   NO3,   O3P,    O1D,     HO,    HO2,  ORA1,  HAC,
+            !PAA, DHMOB, HPALD,  ISHP, IEPOX, PROPNN, ISOPNB, ISOPND, MACRN, MVKN,
+            !ISNP /)
+            if (chemmechgas_tot .gt. 31) then ! too many species defined
+                write(*,*)  'Too many species of ', chemmechgas_tot, ' in namelist for this chemmechgas_opt....exiting'
+                write(*,*)  'Set chemmechgas_tot < 31'
+                call exit(2)
+            else
+                mvg = (/14.0, 21.0, 21.0, 28.0, 45.2, 35.0, 49.0, 14.0, 28.0, 29.6,  &
+                    49.0, 49.0, 42.5, 28.0, 21.0, 21.0, 49.0, 49.0, 63.0, 63.0,  &
+                    70.0, 49.0, 49.0, 49.0, 110.8, 133.0, 147.8, 147.8, 88.8, 28.0,  &
+                    28.0 /)
+            end if
+        else
+            write(*,*)  'Wrong chemical mechanism option of ', chemmechgas_opt, ' in namelist...exiting'
+            write(*,*)  'Set chemmechgas_opt to only 0 (RACM2) for now'
+            call exit(2)
+        end if
+        return
+    end subroutine setlebasmvgas
+
+!**********************************************************************************************************************!
+! subroutine rav - calculate aerodynamic resistance (ra)
+!
+! Uses formulation of ...
+!  Viney (1991) BLM, 56, 381-393.
+!
+!**********************************************************************************************************************!
+    function rav(ubar, zref, d, hc, rib)
+        real(rk)              :: rav     ! aerodynamic resistance, ra (s/cm)
+        real(rk), intent(in)  :: ubar    ! wind speed at reference height (cm/s)
+        real(rk), intent(in)  :: zref    ! reference height (m or cm)
+        real(rk), intent(in)  :: d       ! displacement height (m or cm)
+
+        real(rk), intent(in)  :: hc      ! height of canopy (m or cm)
+        ! zref, d, and hc must all be same units!
+        real(rk), intent(in)  :: rib     ! bulk Richardson number
+        real(rk), parameter   :: kv=0.4  ! von Karman constant
+        real(rk)              :: gmm     ! momentum gamma
+        real(rk)              :: gmh     ! heat gamma
+        real(rk)              :: z0m     ! momentum roughness height (m or cm)
+        real(rk)              :: z0h     ! heat roughness height (m or cm)
+        real(rk)              :: rapr    ! ra neutral (s/cm)
+        real(rk)              :: phim    ! momentum stability function
+        real(rk)              :: phih    ! heat stability function
+        real(rk)              :: a, b, c ! Viney empirical constants for unstable
+
+        z0m = 0.13_rk*hc
+        z0h = z0m/7.0_rk
+
+        if((zref-d) <= 0.) then
+            write(*,*) "critical problem: zref <= d"
+            write(*,*) "possibility: hcan <= zpd, this can't be..."
+            call exit(1)
+        end if
+
+        gmm = log((zref-d)/z0m)
+        gmh = log((zref-d)/z0h)
+
+        rapr = (gmm*gmh)/(kv*kv*ubar)
+
+        if (rib > 0.0) then
+            ! stable
+            phim = (gmh+10.0_rk*rib*gmm-((gmh*gmh+20.0_rk*rib*gmm*(gmh-gmm))**0.5_rk))/(2.0_rk-10.0_rk*rib)
+            phim = max(-5.0_rk, phim)
+            phih = phim
+            rav = ((gmh-phih)*(gmm-phim))/(kv*kv*ubar)
+        else if (rib < 0.0) then
+            ! unstable
+            a = 1.0591_rk - 0.0552_rk*log(1.72_rk+(4.03_rk-gmm)**2.0_rk)
+            b = 1.9117_rk - 0.2237_rk*log(1.86_rk+(2.12_rk-gmm)**2.0_rk)
+            c = 0.8437_rk - 0.1243_rk*log(3.49_rk+(2.79_rk-gmm)**2.0_rk)
+            rav = rapr/(a + b*(-1.0_rk*rib)**c)
+        else
+            ! neutral
+            rav = rapr
+        end if
+
+        if (rav .lt. 0.0) then
+            rav = rav*(-1.0_rk) !rav can switch sign to negative in some stable conditions
+        endif
+
+        return
+    end function rav
+
+!**********************************************************************************************************************!
+! CalcRiB ... compute the bulk Richardson number
+!
+!**********************************************************************************************************************!
+    function calcrib(tak, tsk, ubari, d, zref)
+        real(rk), intent(in) :: tak            ! air temperature at zref (K)
+        real(rk), intent(in) :: tsk            ! surface temperature (K)
+        real(rk), intent(in) :: ubari          ! mean wind speed at zref (cm/s)
+        real(rk), intent(in) :: zref           ! reference height (cm)
+        real(rk), intent(in) :: d              ! displacement height (cm)
+        real(rk), parameter  :: g=982.2        ! gravitational acceleration (cm/s2)
+        real(rk)             :: calcrib        ! bulk Richardson number ()
+
+        calcrib = ((zref-d)*g*(tak-tsk))/(ubari*ubari*tak)
+        return
+    end function calcrib
+
+
+end module canopy_utils_mod
+```
+
+

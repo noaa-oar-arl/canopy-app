@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="canopy__write__txt_8F90" kind="file" language="Fortran">
+    <compoundname>canopy_write_txt.F90</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__write__txt_1gaaa758bd839ed984e162eef9dbdc7038c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_write_txt</definition>
+        <argsstring>(OUTPREFX, TIMENOW)</argsstring>
+        <name>canopy_write_txt</name>
+        <param>
+          <type>OUTPREFX</type>
+          <defname>OUTPREFX</defname>
+        </param>
+        <param>
+          <type>TIMENOW</type>
+          <defname>TIMENOW</defname>
+        </param>
+        <briefdescription>
+<para>Write canopy outputs to text files. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This subroutine writes canopy model calculation results to text format output files. It serves as a wrapper for the main text writing routine, passing the output file prefix and current time information.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">OUTPREFX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output file prefix string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TIMENOW</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current time stamp string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">outprefx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>main IO text reader/writer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Call main text writing routine</para>
+        </inbodydescription>
+        <location file="src/canopy_write_txt.F90" line="22" column="1" bodyfile="src/canopy_write_txt.F90" bodystart="23" bodyend="35"/>
+        <references refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</references>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Text Output File Writer Subroutine. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This file contains the subroutine for writing canopy model output to text format files. It serves as a wrapper that calls the main text writing routine with appropriate parameters.</para>
+<para><simplesect kind="author"><para>Patrick C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>October 2022 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="10"></codeline>
+<codeline lineno="14"></codeline>
+<codeline lineno="22" refid="group__write__txt_1gaaa758bd839ed984e162eef9dbdc7038c" refkind="member"><highlight class="keyword">SUBROUTINE<sp/></highlight><highlight class="normal"><ref refid="group__write__txt_1gaaa758bd839ed984e162eef9dbdc7038c" kindref="member">canopy_write_txt</ref>(OUTPREFX,TIMENOW)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">USE<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__txt__io__mod" kindref="compound">canopy_txt_io_mod</ref><sp/><sp/>!&gt;<sp/>main<sp/>io<sp/>text<sp/>reader/writer</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">IMPLICIT<sp/>NONE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=*)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/>OUTPREFX</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=*)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/>TIMENOW</highlight></codeline>
+<codeline lineno="30"></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" kindref="member">write_txt</ref>(outprefx,timenow)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">END<sp/>SUBROUTINE<sp/></highlight><highlight class="normal"><ref refid="group__write__txt_1gaaa758bd839ed984e162eef9dbdc7038c" kindref="member">canopy_write_txt</ref></highlight></codeline>
+    </programlisting>
+    <location file="src/canopy_write_txt.F90"/>
+  </compounddef>
+</doxygen>

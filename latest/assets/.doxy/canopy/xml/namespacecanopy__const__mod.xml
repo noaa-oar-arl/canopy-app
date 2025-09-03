@@ -1,0 +1,509 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacecanopy__const__mod" kind="namespace" language="Fortran">
+    <compoundname>canopy_const_mod</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__fundamental__const_1ga629413bd53f9899a994b2933459cae25" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::avo</definition>
+        <argsstring></argsstring>
+        <name>avo</name>
+        <initializer>= 6.02214076d23</initializer>
+        <briefdescription>
+<para>Avogadro&apos;s Constant [number/mol]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="80" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="80" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1gaefa79a26e8d6d387695744063d7889ed" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::beta_n</definition>
+        <argsstring></argsstring>
+        <name>beta_n</name>
+        <initializer>= 0.35_rk</initializer>
+        <briefdescription>
+<para>Stability parameter beta for neutral conditions (dimensionless) </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Source: Bonan et al. (2018) <ulink url="https://doi.org/10.5194/gmd-11-1467-2018">https://doi.org/10.5194/gmd-11-1467-2018</ulink> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="154" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="154" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga1737e7ea037dde0611c218688148b74a" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::cpd</definition>
+        <argsstring></argsstring>
+        <name>cpd</name>
+        <initializer>= 7.0 * <ref refid="group__atmos__const_1ga0a05efb638347414653499df5ab2e3fa" kindref="member">rdgas</ref> / 2.0</initializer>
+        <briefdescription>
+<para>Specific heat of dry air at constant pressure [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>1004.7642148 J/kg-K. Calculated assuming dry air is classical ideal gas </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="122" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="122" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1gac8ebe3cb6416cf1ebf6565a1d7861417" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::cpwvap</definition>
+        <argsstring></argsstring>
+        <name>cpwvap</name>
+        <initializer>= 4.0 * <ref refid="group__atmos__const_1gacdb1e1e3320863b7bb8ecc8a3cdcfd17" kindref="member">rwvap</ref></initializer>
+        <briefdescription>
+<para>Specific heat for water vapor at constant pressure [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>1846.0997042 J/kg-K. Calculated assuming water vapor is classical ideal gas </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="130" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="130" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga2a5ed18dbf88f592991b6d1520e32a58" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::cvd</definition>
+        <argsstring></argsstring>
+        <name>cvd</name>
+        <initializer>= 5.0 * <ref refid="group__atmos__const_1ga0a05efb638347414653499df5ab2e3fa" kindref="member">rdgas</ref> / 2.0</initializer>
+        <briefdescription>
+<para>Specific heat of dry air at constant volume [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>717.68872485 J/kg-K. Calculated assuming dry air is classical ideal gas </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="126" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="126" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga02a90fcde2e35991d827345dc7584eec" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::cvwvap</definition>
+        <argsstring></argsstring>
+        <name>cvwvap</name>
+        <initializer>= 3.0 * <ref refid="group__atmos__const_1gacdb1e1e3320863b7bb8ecc8a3cdcfd17" kindref="member">rwvap</ref></initializer>
+        <briefdescription>
+<para>Specific heat for water vapor at constant volume [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>1384.5747781 J/kg-K. Calculated assuming water vapor is classical ideal gas </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="134" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="134" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__geodetic__const_1ga24e2077844b592781a128a65a596cc2a" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>)</type>
+        <definition>real(rk) canopy_const_mod::dg2m</definition>
+        <argsstring></argsstring>
+        <name>dg2m</name>
+        <briefdescription>
+<para>Latitude degrees to meters conversion factor [m/deg]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="67" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1gaafcf42bda5953576cf68e4df4bb5051e" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::dlvdt</definition>
+        <argsstring></argsstring>
+        <name>dlvdt</name>
+        <initializer>= 2370.0</initializer>
+        <briefdescription>
+<para>Rate of change of latent heat of vaporization w.r.t. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>temperature [J/kg-K] </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="144" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="144" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__precision__const_1ga5559da76b628a9da9c24af13ad4ec623" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::fillreal</definition>
+        <argsstring></argsstring>
+        <name>fillreal</name>
+        <initializer>= -9.0e20</initializer>
+        <briefdescription>
+<para>NetCDF fill value for missing real data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="34" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="34" bodyend="34"/>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__geodetic__const_1ga6b7103c3a336492d882e1f85d5d0ad93" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::grav</definition>
+        <argsstring></argsstring>
+        <name>grav</name>
+        <initializer>= 9.80622_rk</initializer>
+        <briefdescription>
+<para>Mean gravitational acceleration [m/sec²]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Mean of polar and equatorial values (Source: CRC76, pp. 14-6) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="64" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga76a015bf9d92adaffe06dfac926a905b" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::lf0</definition>
+        <argsstring></argsstring>
+        <name>lf0</name>
+        <initializer>= 3.34e5</initializer>
+        <briefdescription>
+<para>Latent heat of fusion of water at 0°C [J/kg]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="147" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="147" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga57ae26d2f558db39aa8ddfee876258fe" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::lv0</definition>
+        <argsstring></argsstring>
+        <name>lv0</name>
+        <initializer>= 2.501e6</initializer>
+        <briefdescription>
+<para>Latent heat of vaporization of water at 0°C [J/kg]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Values from p. 641 of Stull (1988) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="141" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="141" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fundamental__const_1ga79638fe8cc54eb04d51a68a732ece82c" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::molvol</definition>
+        <argsstring></argsstring>
+        <name>molvol</name>
+        <initializer>= 22.4139695_rk</initializer>
+        <briefdescription>
+<para>Molar volume of ideal gas at STP [L/mol] (Non-MKS units) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="95" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="95" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga97db331408496c8b4b5d65c9fb605bab" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::mwair</definition>
+        <argsstring></argsstring>
+        <name>mwair</name>
+        <initializer>= 28.9628_rk</initializer>
+        <briefdescription>
+<para>Mean molecular weight for dry air [g/mol]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>78.06% N2, 21% O2, and 0.943% A on a mole fraction basis (Source: Hobbs, 1995, pp. 69-70) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="107" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="107" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1gad10c444248f9d5f1f71104c29bb1f970" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::mwwat</definition>
+        <argsstring></argsstring>
+        <name>mwwat</name>
+        <initializer>= 18.01528_rk</initializer>
+        <briefdescription>
+<para>Mean molecular weight for water vapor [g/mol]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="114" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="114" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__geom__const_1ga6a99f47ba1f4f9cf9e4421be86a0672b" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::pi</definition>
+        <argsstring></argsstring>
+        <name>pi</name>
+        <initializer>= 3.14159265358979324_rk</initializer>
+        <briefdescription>
+<para>Pi (double precision: 3.14159265358979324) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="43" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="43" bodyend="43"/>
+        <referencedby refid="group__canopy__eddy_1ga11c37cfcc5385c9f158e4be92855f51f" compoundref="canopy__eddy__mod_8F90" startline="38" endline="155">canopy_eddy_mod::canopy_eddyx</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__geom__const_1gadc1d6d44f8973ed6815719fd899869fa" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::pi180</definition>
+        <argsstring></argsstring>
+        <name>pi180</name>
+        <initializer>= <ref refid="group__geom__const_1ga6a99f47ba1f4f9cf9e4421be86a0672b" kindref="member">pi</ref> / 180.0_rk</initializer>
+        <briefdescription>
+<para>Pi/180 conversion factor from degrees to radians [rad/deg]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="46" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga0a05efb638347414653499df5ab2e3fa" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::rdgas</definition>
+        <argsstring></argsstring>
+        <name>rdgas</name>
+        <initializer>= 1.0e3 * <ref refid="group__fundamental__const_1ga4d71483a584f3ad3c3471b24225b9e51" kindref="member">rgasuniv</ref> / <ref refid="group__atmos__const_1ga97db331408496c8b4b5d65c9fb605bab" kindref="member">mwair</ref></initializer>
+        <briefdescription>
+<para>Dry-air gas constant [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>287.07548994 J/kg-K </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="111" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="111" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__geodetic__const_1ga8cd2ff5e64c11ed4608834097f16303c" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::rearth</definition>
+        <argsstring></argsstring>
+        <name>rearth</name>
+        <initializer>= 6371008.8_rk</initializer>
+        <briefdescription>
+<para>Radius of Earth [m]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Radius of sphere having same surface area as Clarke ellipsoid of 1866 WGS84 arithmetic mean radius (Source: Snyder, 1987) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="57" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fundamental__const_1ga4d71483a584f3ad3c3471b24225b9e51" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::rgasuniv</definition>
+        <argsstring></argsstring>
+        <name>rgasuniv</name>
+        <initializer>= 8.31446261815324_rk</initializer>
+        <briefdescription>
+<para>Universal gas constant [J/mol-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="83" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="83" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, parameter</type>
+        <definition>integer, parameter canopy_const_mod::rk</definition>
+        <argsstring></argsstring>
+        <name>rk</name>
+        <initializer>= SELECTED_REAL_KIND(15, 307)</initializer>
+        <briefdescription>
+<para>Selected real kind for double precision (15 decimal digits, 307 exponent range) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="32" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="32" bodyend="32"/>
+        <referencedby refid="group__canopy__dx_1gaad4ce838500a648283dee0ea12bb7bba" compoundref="canopy__dxcalc__mod_8F90" startline="34" endline="87">canopy_dxcalc_mod::canopy_calcdx</referencedby>
+        <referencedby refid="group__canopy__dx_1ga5102ac789e2d39bb539c15aabde9bcb2" compoundref="canopy__dxcalc__mod_8F90" startline="107" endline="164">canopy_dxcalc_mod::canopy_calcdx_2d</referencedby>
+        <referencedby refid="group__canopy__eddy_1ga11c37cfcc5385c9f158e4be92855f51f" compoundref="canopy__eddy__mod_8F90" startline="38" endline="155">canopy_eddy_mod::canopy_eddyx</referencedby>
+        <referencedby refid="group__canopy__fire_1ga1e55990adca2c705635845526e1354de" compoundref="canopy__fire__mod_8F90" startline="41" endline="149">canopy_fire_mod::canopy_flameh</referencedby>
+        <referencedby refid="group__profile__group_1ga12df2dbb79549987a7ebfbabbc16d4ae" compoundref="canopy__profile__mod_8F90" startline="239" endline="303">canopy_profile_mod::canopy_foliage</referencedby>
+        <referencedby refid="group__canopy__radiation_1ga817075c885c28dffde38361f4159e3a7" compoundref="canopy__rad__mod_8F90" startline="32" endline="67">canopy_rad_mod::canopy_fsun_clu</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="group__canopy__radiation_1ga44abae1b598c05e773207789755164f2" compoundref="canopy__rad__mod_8F90" startline="92" endline="302">canopy_rad_mod::canopy_ppfd_exp</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_ncf_io_mod::canopy_read_ncf</referencedby>
+        <referencedby refid="group__canopy__fire_1ga243d431e2c79b388516093a46e8ac67d" compoundref="canopy__fire__mod_8F90" startline="175" endline="251">canopy_fire_mod::canopy_waf</referencedby>
+        <referencedby refid="group__canopy__wind_1gade10f32eedf03561ded2d522994845b6" compoundref="canopy__wind__mod_8F90" startline="47" endline="208">canopy_wind_mod::canopy_wind_most</referencedby>
+        <referencedby refid="namespacecanopy__profile__mod_1a1fccb5556673155fef7143bfd81358d9" compoundref="canopy__profile__mod_8F90" startline="331" endline="454">canopy_profile_mod::canopy_zpd</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1ab417cdb308c6b9426403f5090d209b4f" compoundref="canopy__ncf__io__mod_8F90" startline="198" endline="219">canopy_ncf_io_mod::get_var_1d_real_cdf</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a6e6b7091237f16ddde457b12497579c9" compoundref="canopy__ncf__io__mod_8F90" startline="135" endline="162">canopy_ncf_io_mod::get_var_2d_real_cdf</referencedby>
+        <referencedby refid="group__ncfio__group_1ga448fb73be44b1171263f78c6bf851f8e" compoundref="canopy__ncf__io__mod_8F90" startline="67" endline="97">canopy_ncf_io_mod::get_var_3d_real_cdf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1gacdb1e1e3320863b7bb8ecc8a3cdcfd17" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::rwvap</definition>
+        <argsstring></argsstring>
+        <name>rwvap</name>
+        <initializer>= 1.0e3 * <ref refid="group__fundamental__const_1ga4d71483a584f3ad3c3471b24225b9e51" kindref="member">rgasuniv</ref> / <ref refid="group__atmos__const_1gad10c444248f9d5f1f71104c29bb1f970" kindref="member">mwwat</ref></initializer>
+        <briefdescription>
+<para>Gas constant for water vapor [J/kg-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>461.52492604 J/kg-K </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="118" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="118" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__geodetic__const_1gad4f6891af7fc6e01e3e650879ea53a93" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::siday</definition>
+        <argsstring></argsstring>
+        <name>siday</name>
+        <initializer>= 86164.09_rk</initializer>
+        <briefdescription>
+<para>Length of a sidereal day <ulink url="Source: CRC76, pp. 14-6">sec</ulink> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="60" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__geodetic__const_1ga38f416c6f3c953f6654bb632c74531d6" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::solcnst</definition>
+        <argsstring></argsstring>
+        <name>solcnst</name>
+        <initializer>= 1373.0</initializer>
+        <briefdescription>
+<para>Solar Constant <ulink url="Source: CRC76, pp. 14-2">W/m²</ulink> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="70" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="70" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fundamental__const_1ga3901c27d764d7bbff02b8fc6b08f5a3c" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::stdatmpa</definition>
+        <argsstring></argsstring>
+        <name>stdatmpa</name>
+        <initializer>= 101325.0</initializer>
+        <briefdescription>
+<para>Standard atmosphere [Pa]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="86" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="86" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fundamental__const_1ga333892d86c6608cc3bd6b76001151ac7" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::stdtemp</definition>
+        <argsstring></argsstring>
+        <name>stdtemp</name>
+        <initializer>= 273.15_rk</initializer>
+        <briefdescription>
+<para>Standard temperature [K]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="89" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="89" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fundamental__const_1ga2fdfe54acf30b36ae5e1a5ed4dc4068d" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::stfblz</definition>
+        <argsstring></argsstring>
+        <name>stfblz</name>
+        <initializer>= 5.67037442<ref refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" kindref="member">d</ref>-8</initializer>
+        <briefdescription>
+<para>Stefan-Boltzmann constant [W/(m² K⁴)]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="92" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="92" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__const_1gae95c35cb0fb6a44b00a9cdbc5aaa4704" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::tau_days</definition>
+        <argsstring></argsstring>
+        <name>tau_days</name>
+        <initializer>= 5.0_rk</initializer>
+        <briefdescription>
+<para>E-folding time for long-term past conditions for biogenic emissions [days]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="163" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="163" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioemi__const_1gafefa73352d147f5066390277fd014dc7" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::tau_hours</definition>
+        <argsstring></argsstring>
+        <name>tau_hours</name>
+        <initializer>= 12.0_rk</initializer>
+        <briefdescription>
+<para>E-folding time for short-term past conditions for biogenic emissions [hours]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="166" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="166" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1ga85b76f8bcfe737e0f0cb6a22f145e6a4" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::vonk</definition>
+        <argsstring></argsstring>
+        <name>vonk</name>
+        <initializer>= 0.4_rk</initializer>
+        <briefdescription>
+<para>Von Karman constant (dimensionless) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="150" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="150" bodyend="150"/>
+        <referencedby refid="group__canopy__wind_1gade10f32eedf03561ded2d522994845b6" compoundref="canopy__wind__mod_8F90" startline="47" endline="208">canopy_wind_mod::canopy_wind_most</referencedby>
+        <referencedby refid="namespacecanopy__profile__mod_1a1fccb5556673155fef7143bfd81358d9" compoundref="canopy__profile__mod_8F90" startline="331" endline="454">canopy_profile_mod::canopy_zpd</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__atmos__const_1gaabc89a1bea9518dbcf9d122862596493" prot="public" static="no" mutable="no">
+        <type>real(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::vp0</definition>
+        <argsstring></argsstring>
+        <name>vp0</name>
+        <initializer>= 611.29_rk</initializer>
+        <briefdescription>
+<para>Vapor pressure of water at 0°C <ulink url="Source: CRC76 pp. 6-15">Pa</ulink> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="137" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="137" bodyend="137"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/canopy_const_mod.F90" line="23" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="canopy__check__input_8F90" kind="file" language="Fortran">
+    <compoundname>canopy_check_input.F90</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__check__input__vars_1ga0b841fe54202315f92724ee756ea4a00" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) canopy</definition>
+        <argsstring></argsstring>
+        <name>canopy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="38" column="1" bodyfile="src/canopy_check_input.F90" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gafecb787a98bdbbf3eb1ad3c2ca364075" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer extension</definition>
+        <argsstring></argsstring>
+        <name>extension</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga9df0545b1fe40725d1be537b09a7aa1c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) file</definition>
+        <argsstring></argsstring>
+        <name>file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="-1"/>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) infile</definition>
+        <argsstring></argsstring>
+        <name>infile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="37" column="1" bodyfile="src/canopy_check_input.F90" bodystart="37" bodyend="37"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_ncf_io_mod::canopy_read_ncf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gab42a463938f277696bff9624b446cd64" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) infile2</definition>
+        <argsstring></argsstring>
+        <name>infile2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="38" column="1" bodyfile="src/canopy_check_input.F90" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga2a5ae48cce7a3dab6170a197a61da176" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) input</definition>
+        <argsstring></argsstring>
+        <name>input</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="37" column="1" bodyfile="src/canopy_check_input.F90" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga5d903a41dab00e46cc54c881d9538f86" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer of</definition>
+        <argsstring></argsstring>
+        <name>of</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gae76f7b4911c4364de9dd4e6e35865a45" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) path</definition>
+        <argsstring></argsstring>
+        <name>path</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="37" column="1" bodyfile="src/canopy_check_input.F90" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga1cbb3e6ffe89173c2026ce1cd4279c8a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1ga60370f263709397cadcc14ad362bc3b7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer ppos</definition>
+        <argsstring></argsstring>
+        <name>ppos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gace9942591e97b81a41be5f98f54631a6" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) primary</definition>
+        <argsstring></argsstring>
+        <name>primary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="37" column="1" bodyfile="src/canopy_check_input.F90" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gad63b1bda465eac9cf20b15b3c08cc057" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) profile</definition>
+        <argsstring></argsstring>
+        <name>profile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="38" column="1" bodyfile="src/canopy_check_input.F90" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gae61eac17f3193fc36398ea4973a23758" prot="public" static="no" mutable="no">
+        <type>character(len= *), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>character(len=*), intent(in) secondary</definition>
+        <argsstring></argsstring>
+        <name>secondary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="38" column="1" bodyfile="src/canopy_check_input.F90" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__check__input__vars_1gaf4401158f030c2b6572293d20a479d8f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer separator</definition>
+        <argsstring></argsstring>
+        <name>separator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_check_input.F90" line="36" column="1" bodyfile="src/canopy_check_input.F90" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Input File Validation and Reading Subroutine. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This file contains the subroutine that checks and reads canopy input files. It supports both text and NetCDF input formats and validates the file format against the user-specified input format option.</para>
+<para><simplesect kind="author"><para>Patrick C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>December 2022 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="10"></codeline>
+<codeline lineno="14"></codeline>
+<codeline lineno="27"><highlight class="keyword">SUBROUTINE<sp/></highlight><highlight class="normal">canopy_check_input(INFILE,INFILE2)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__canopts__mod" kindref="compound">canopy_canopts_mod</ref><sp/>!&gt;<sp/>main<sp/><ref refid="group__bioemi__inputs_1gaad0c993bd5fd93c7decad9daf442d225" kindref="member">canopy</ref><sp/><ref refid="group__bioemi__inputs_1ga3d8664482080cdcefd8f770ebce65120" kindref="member">option</ref><sp/>descriptions</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__ncf__io__mod" kindref="compound">canopy_ncf_io_mod</ref>,<sp/></highlight><highlight class="keywordtype">only</highlight><highlight class="normal">:<sp/><ref refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" kindref="member">canopy_read_ncf</ref></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">implicit<sp/>none</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="group__check__input__vars_1gafecb787a98bdbbf3eb1ad3c2ca364075" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">integer</highlight><highlight class="normal"><sp/><ref refid="group__check__input__vars_1ga60370f263709397cadcc14ad362bc3b7" kindref="member">ppos</ref></highlight></codeline>
+<codeline lineno="37" refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=*)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/><ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref></highlight></codeline>
+<codeline lineno="38" refid="group__check__input__vars_1ga0b841fe54202315f92724ee756ea4a00" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=*)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/><ref refid="group__check__input__vars_1gab42a463938f277696bff9624b446cd64" kindref="member">infile2</ref></highlight></codeline>
+<codeline lineno="40"></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__check__input__vars_1ga60370f263709397cadcc14ad362bc3b7" kindref="member">ppos</ref><sp/>=<sp/>scan(trim(<ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref>),</highlight><highlight class="stringliteral">&quot;.&quot;</highlight><highlight class="normal">,<sp/>back=<sp/>.true.)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(trim(<ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref>(<ref refid="group__check__input__vars_1ga60370f263709397cadcc14ad362bc3b7" kindref="member">ppos</ref>:)).eq.</highlight><highlight class="stringliteral">&quot;.txt&quot;</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">!TXT<sp/>File</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="group__canopy__options_1ga7967d0484fdd67b8bffa531dad3cbe3b" kindref="member">infmt_opt</ref><sp/>.ne.<sp/>1)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">!check<sp/>to<sp/>make<sp/>sure<sp/>input<sp/>format<sp/>matches<sp/>text</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">write</highlight><highlight class="normal">(*,*)<sp/><sp/></highlight><highlight class="stringliteral">&apos;Wrong<sp/>choice<sp/>of<sp/>INFMT_OPT<sp/>&apos;</highlight><highlight class="normal">,<sp/><ref refid="group__canopy__options_1ga7967d0484fdd67b8bffa531dad3cbe3b" kindref="member">infmt_opt</ref>,<sp/></highlight><highlight class="stringliteral">&apos;<sp/>in<sp/>namelist...exiting&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">write</highlight><highlight class="normal">(*,*)<sp/><sp/></highlight><highlight class="stringliteral">&apos;Reading<sp/>.txt<sp/>file,<sp/>change<sp/>to<sp/>INFMT_OPT<sp/>=<sp/>1<sp/>&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">exit(2)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">!read<sp/>text<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" kindref="member">canopy_read_txt</ref>(<ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref>,<ref refid="group__check__input__vars_1gab42a463938f277696bff9624b446cd64" kindref="member">infile2</ref>)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>if</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(trim(<ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref>(<ref refid="group__check__input__vars_1ga60370f263709397cadcc14ad362bc3b7" kindref="member">ppos</ref>:)).eq.</highlight><highlight class="stringliteral">&quot;.nc&quot;</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">!NetCDF<sp/>File</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" kindref="member">canopy_read_ncf</ref>(<ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref>)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(trim(<ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref>(<ref refid="group__check__input__vars_1ga60370f263709397cadcc14ad362bc3b7" kindref="member">ppos</ref>:)).eq.</highlight><highlight class="stringliteral">&quot;.ncf&quot;</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" kindref="member">canopy_read_ncf</ref>(<ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref>)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(trim(<ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref>(<ref refid="group__check__input__vars_1ga60370f263709397cadcc14ad362bc3b7" kindref="member">ppos</ref>:)).eq.</highlight><highlight class="stringliteral">&quot;.nc4&quot;</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" kindref="member">canopy_read_ncf</ref>(<ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref>)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">write</highlight><highlight class="normal">(*,*)<sp/><sp/></highlight><highlight class="stringliteral">&apos;Error<sp/>the<sp/>file<sp/>input<sp/>type<sp/>&apos;</highlight><highlight class="normal">,trim(<ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref>(<ref refid="group__check__input__vars_1ga60370f263709397cadcc14ad362bc3b7" kindref="member">ppos</ref>:)),<sp/>&amp;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;<sp/>is<sp/>not<sp/>supported...exiting&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">exit(2)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/>end<sp/>if</highlight><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="comment">!File<sp/>Input<sp/>types</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">END<sp/>SUBROUTINE<sp/></highlight><highlight class="normal">canopy_check_input</highlight></codeline>
+    </programlisting>
+    <location file="src/canopy_check_input.F90"/>
+  </compounddef>
+</doxygen>

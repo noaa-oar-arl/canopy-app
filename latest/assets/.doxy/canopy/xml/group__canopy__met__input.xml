@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__canopy__met__input" kind="group">
+    <compoundname>canopy_met_input</compoundname>
+    <title>Canopy Meteorological Input Variables</title>
+    <innerclass refid="structcanopy__canmet__mod_1_1variable__type" prot="public">canopy_canmet_mod::variable_type</innerclass>
+    <briefdescription>
+<para>Meteorological and surface input variables for canopy model. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

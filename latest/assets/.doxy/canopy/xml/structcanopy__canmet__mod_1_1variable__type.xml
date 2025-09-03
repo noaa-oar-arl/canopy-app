@@ -1,0 +1,924 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structcanopy__canmet__mod_1_1variable__type" kind="type" language="Fortran" prot="public">
+    <compoundname>canopy_canmet_mod::variable_type</compoundname>
+      <sectiondef kind="user-defined">
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a25d8732091ee80af5fc1da89247cc06d" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::lat</definition>
+        <argsstring></argsstring>
+        <name>lat</name>
+        <briefdescription>
+<para>Latitude coordinate. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Latitude of cell/point <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>degrees </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="33" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="33" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1af884fb93e8c01e8f6efee4f723efad79" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::lon</definition>
+        <argsstring></argsstring>
+        <name>lon</name>
+        <briefdescription>
+<para>Longitude coordinate. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Longitude of cell/point <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>degrees </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="38" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a7cccce7d7b03596d7228ac55878096de" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::ch</definition>
+        <argsstring></argsstring>
+        <name>ch</name>
+        <briefdescription>
+<para>Canopy height. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Canopy height <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="43" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1aa8e248cc9466488cd34a722a7c66bc46" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::ugrd10m</definition>
+        <argsstring></argsstring>
+        <name>ugrd10m</name>
+        <briefdescription>
+<para>U-component wind speed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>U wind speed at reference height above canopy <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m/s </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="48" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1ab821dec94ffa9f82a5db1f3ab60c28a1" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::vgrd10m</definition>
+        <argsstring></argsstring>
+        <name>vgrd10m</name>
+        <briefdescription>
+<para>V-component wind speed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>V wind speed at reference height above canopy <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m/s </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="53" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1af95df130265ecff840202b085aa1ee97" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::clu</definition>
+        <argsstring></argsstring>
+        <name>clu</name>
+        <briefdescription>
+<para>Clumping index. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Clumping index for canopy structure <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="58" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="58" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a362d827668939719a97ceec2666d8847" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::lai</definition>
+        <argsstring></argsstring>
+        <name>lai</name>
+        <briefdescription>
+<para>Leaf area index. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Leaf area index <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m²/m² </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="63" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="63" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a53afbf53b4cd28263e31947e4be49b2b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canmet_mod::variable_type::vtype</definition>
+        <argsstring></argsstring>
+        <name>vtype</name>
+        <briefdescription>
+<para>Vegetation type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Vegetation type classification </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="67" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a1919d92ed64bbbad38c63d1e31cbc698" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::canfrac</definition>
+        <argsstring></argsstring>
+        <name>canfrac</name>
+        <briefdescription>
+<para>Canopy fraction. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Canopy fraction of grid cell <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless fraction </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="72" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a86d551f7ef11fec8fbd84f4af2b89aab" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::fricv</definition>
+        <argsstring></argsstring>
+        <name>fricv</name>
+        <briefdescription>
+<para>Friction velocity. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Friction velocity (u*) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m/s </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="77" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a2a42922583037d8687df331ea728e906" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::csz</definition>
+        <argsstring></argsstring>
+        <name>csz</name>
+        <briefdescription>
+<para>Cosine of solar zenith angle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Cosine of solar zenith angle <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="82" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="82" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a1249f8b8e38d81bfd42c55f85f8247c9" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::sfcr</definition>
+        <argsstring></argsstring>
+        <name>sfcr</name>
+        <briefdescription>
+<para>Surface roughness length. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Surface roughness length <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="87" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="87" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1ab548a50677a3e4c491cdb7b119a24ebb" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::mol</definition>
+        <argsstring></argsstring>
+        <name>mol</name>
+        <briefdescription>
+<para>Monin-Obukhov length. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Monin-Obukhov length <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="92" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="92" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a81aadf6827ab3fb1b27d62cbb67ff605" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::frp</definition>
+        <argsstring></argsstring>
+        <name>frp</name>
+        <briefdescription>
+<para>Fire radiative power. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Fire radiative power <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>MW </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="97" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="97" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a658aa8c2cf819b6c5d9cfe0313cd6706" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::href</definition>
+        <argsstring></argsstring>
+        <name>href</name>
+        <briefdescription>
+<para>Reference height above canopy. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Reference height above the canopy <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="102" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="102" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1ab0daf923eb0e702e205b086d10025f10" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer canopy_canmet_mod::variable_type::sotyp</definition>
+        <argsstring></argsstring>
+        <name>sotyp</name>
+        <briefdescription>
+<para>Soil type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Soil type classification </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="106" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="106" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a09dda4b7fbf8968181a22d92c101d721" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::pressfc</definition>
+        <argsstring></argsstring>
+        <name>pressfc</name>
+        <briefdescription>
+<para>Surface pressure. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Surface pressure <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>hPa </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="111" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="111" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1ad1d22578b851b03804887d1bfb09aa45" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::dswrf</definition>
+        <argsstring></argsstring>
+        <name>dswrf</name>
+        <briefdescription>
+<para>Downward shortwave radiation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Instantaneous downward shortwave radiation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>W/m² </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="116" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="116" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1adbb83086ef27e4f9d7932b188a7b0ff5" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::shtfl</definition>
+        <argsstring></argsstring>
+        <name>shtfl</name>
+        <briefdescription>
+<para>Surface sensible heat flux. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Instantaneous surface sensible heat net flux <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>W/m² </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="121" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="121" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a48a24cae568f176dcafab595f53b2c64" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::tmpsfc</definition>
+        <argsstring></argsstring>
+        <name>tmpsfc</name>
+        <briefdescription>
+<para>Surface temperature. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Surface temperature <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>K </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="126" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="126" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a24d8089fa50a56020182891819533489" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::tmp2m</definition>
+        <argsstring></argsstring>
+        <name>tmp2m</name>
+        <briefdescription>
+<para>2-meter temperature </para>
+        </briefdescription>
+        <detaileddescription>
+<para>2-meter temperature <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>K </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="131" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="131" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a7fe7b555f2b841dd59f98450b61954d5" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::spfh2m</definition>
+        <argsstring></argsstring>
+        <name>spfh2m</name>
+        <briefdescription>
+<para>2-meter specific humidity </para>
+        </briefdescription>
+        <detaileddescription>
+<para>2-meter specific humidity <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>kg/kg </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="136" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="136" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a6abebed5c693007b4ead86a6a9e15419" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::hpbl</definition>
+        <argsstring></argsstring>
+        <name>hpbl</name>
+        <briefdescription>
+<para>Planetary boundary layer height. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Height of planetary boundary layer <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>meters (m) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="141" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="141" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a6c92ef48c9edb5f205395c30e8babbe0" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::prate_ave</definition>
+        <argsstring></argsstring>
+        <name>prate_ave</name>
+        <briefdescription>
+<para>Precipitation rate. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Mass precipitation rate <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>kg/m²/s </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="146" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="146" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a5241f5c7baec49df897a58449bcd62d0" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::soilw1</definition>
+        <argsstring></argsstring>
+        <name>soilw1</name>
+        <briefdescription>
+<para>Soil moisture level 1. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Volumetric soil moisture level 1 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m³/m³ </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="151" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="151" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a2d91ab22086e85a825304b9f00bd1047" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::soilw2</definition>
+        <argsstring></argsstring>
+        <name>soilw2</name>
+        <briefdescription>
+<para>Soil moisture level 2. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Volumetric soil moisture level 2 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m³/m³ </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="156" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="156" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1afef75ae115bdcf90e4a758bbf2151ec9" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::soilw3</definition>
+        <argsstring></argsstring>
+        <name>soilw3</name>
+        <briefdescription>
+<para>Soil moisture level 3. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Volumetric soil moisture level 3 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m³/m³ </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="161" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="161" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1acbab9c4bf957bfd6815e5dc4758e489c" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::soilw4</definition>
+        <argsstring></argsstring>
+        <name>soilw4</name>
+        <briefdescription>
+<para>Soil moisture level 4. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Volumetric soil moisture level 4 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>m³/m³ </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="166" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="166" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a6e66105df3f41523108b24b34fef575d" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::wilt</definition>
+        <argsstring></argsstring>
+        <name>wilt</name>
+        <briefdescription>
+<para>Wilting point. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Wilting point <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>proportion </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="171" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="171" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a4e235a5d873ae9f5a1e4b5f3e02d933c" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::ozone_w126</definition>
+        <argsstring></argsstring>
+        <name>ozone_w126</name>
+        <briefdescription>
+<para>Ozone W126 values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Ozone W126 values <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ppm-hours </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="176" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="176" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1ac0df6e93c69bf65e7cee3cec5a844d1b" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::soilt1</definition>
+        <argsstring></argsstring>
+        <name>soilt1</name>
+        <briefdescription>
+<para>Soil temperature level 1. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Soil temperature level 1 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>K </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="181" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="181" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1af28249821f7840180c214381aaf22421" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::soilt2</definition>
+        <argsstring></argsstring>
+        <name>soilt2</name>
+        <briefdescription>
+<para>Soil temperature level 2. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Soil temperature level 2 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>K </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="186" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="186" bodyend="186"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a32bbb1f9dfd10440507062f0c7139a07" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::soilt3</definition>
+        <argsstring></argsstring>
+        <name>soilt3</name>
+        <briefdescription>
+<para>Soil temperature level 3. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Soil temperature level 3 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>K </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="191" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="191" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a104a20aefd4a40bbe73fffef3b9ff07f" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::soilt4</definition>
+        <argsstring></argsstring>
+        <name>soilt4</name>
+        <briefdescription>
+<para>Soil temperature level 4. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Soil temperature level 4 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>K </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="196" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="196" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a8f5fa81f7ab3a364559c0fbcaa7e4358" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::tmp_hyblev1</definition>
+        <argsstring></argsstring>
+        <name>tmp_hyblev1</name>
+        <briefdescription>
+<para>First model layer air temperature. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>1st model layer air temperature above ground <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>K </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="201" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="201" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1ad249aaf03abdfe70f8af878314d39d84" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::snowc_ave</definition>
+        <argsstring></argsstring>
+        <name>snowc_ave</name>
+        <briefdescription>
+<para>Average ground snow cover. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Average percent ground snow cover <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>percent (%) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="206" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="206" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a128ac58ae050aea2d545fe54794766cd" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::icec</definition>
+        <argsstring></argsstring>
+        <name>icec</name>
+        <briefdescription>
+<para>Average ground or water ice cover. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Average fraction ground or water ice cover <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dimensionless fraction </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="210" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="210" bodyend="210"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>2D meteorological and surface input variables </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Generic 2D met/sfc input variables that should be passed to canopy calculations </para>
+    </detaileddescription>
+    <location file="src/canopy_canmet_mod.F90" line="29" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="29" bodyend="211"/>
+    <listofallmembers>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a1919d92ed64bbbad38c63d1e31cbc698" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>canfrac</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a7cccce7d7b03596d7228ac55878096de" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>ch</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1af95df130265ecff840202b085aa1ee97" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>clu</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a2a42922583037d8687df331ea728e906" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>csz</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1ad1d22578b851b03804887d1bfb09aa45" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>dswrf</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a86d551f7ef11fec8fbd84f4af2b89aab" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>fricv</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a81aadf6827ab3fb1b27d62cbb67ff605" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>frp</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a6abebed5c693007b4ead86a6a9e15419" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>hpbl</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a658aa8c2cf819b6c5d9cfe0313cd6706" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>href</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a128ac58ae050aea2d545fe54794766cd" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>icec</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a362d827668939719a97ceec2666d8847" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>lai</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a25d8732091ee80af5fc1da89247cc06d" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>lat</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1af884fb93e8c01e8f6efee4f723efad79" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>lon</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1ab548a50677a3e4c491cdb7b119a24ebb" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>mol</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a4e235a5d873ae9f5a1e4b5f3e02d933c" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>ozone_w126</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a6c92ef48c9edb5f205395c30e8babbe0" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>prate_ave</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a09dda4b7fbf8968181a22d92c101d721" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>pressfc</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a1249f8b8e38d81bfd42c55f85f8247c9" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>sfcr</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1adbb83086ef27e4f9d7932b188a7b0ff5" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>shtfl</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1ad249aaf03abdfe70f8af878314d39d84" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>snowc_ave</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1ac0df6e93c69bf65e7cee3cec5a844d1b" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>soilt1</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1af28249821f7840180c214381aaf22421" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>soilt2</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a32bbb1f9dfd10440507062f0c7139a07" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>soilt3</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a104a20aefd4a40bbe73fffef3b9ff07f" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>soilt4</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a5241f5c7baec49df897a58449bcd62d0" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>soilw1</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a2d91ab22086e85a825304b9f00bd1047" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>soilw2</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1afef75ae115bdcf90e4a758bbf2151ec9" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>soilw3</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1acbab9c4bf957bfd6815e5dc4758e489c" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>soilw4</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1ab0daf923eb0e702e205b086d10025f10" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>sotyp</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a7fe7b555f2b841dd59f98450b61954d5" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>spfh2m</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a24d8089fa50a56020182891819533489" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>tmp2m</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a8f5fa81f7ab3a364559c0fbcaa7e4358" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>tmp_hyblev1</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a48a24cae568f176dcafab595f53b2c64" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>tmpsfc</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1aa8e248cc9466488cd34a722a7c66bc46" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>ugrd10m</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1ab821dec94ffa9f82a5db1f3ab60c28a1" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>vgrd10m</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a53afbf53b4cd28263e31947e4be49b2b" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>vtype</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a6e66105df3f41523108b24b34fef575d" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>wilt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__phot__mod" kind="group">
+    <compoundname>phot_mod</compoundname>
+    <title>Canopy Photolysis Module</title>
+    <innergroup refid="group__phot__inputs">Input Variables</innergroup>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__phot__mod_1gaafbf3dd78d6dc2c9d02baade37959f67" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) correction</definition>
+        <argsstring></argsstring>
+        <name>correction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="59" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__mod_1ga0b5302b003af6209822e85ba8f85626c" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) factor</definition>
+        <argsstring></argsstring>
+        <name>factor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="59" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__mod_1ga5920db0291494d0b5d1a13a3d0e18157" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) photolysis</definition>
+        <argsstring></argsstring>
+        <name>photolysis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="59" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__phot__mod_1ga451012afe8c31eb77e6273df5d1cae40" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), dimension(:), intent(out) rjcf</definition>
+        <argsstring></argsstring>
+        <name>rjcf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_phot_mod.F90" line="59" column="1" bodyfile="src/canopy_phot_mod.F90" bodystart="59" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Module for photolysis attenuation calculations in canopies. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

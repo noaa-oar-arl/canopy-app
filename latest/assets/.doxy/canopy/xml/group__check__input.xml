@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__check__input" kind="group">
+    <compoundname>check_input</compoundname>
+    <title>Input File Validation</title>
+    <innergroup refid="group__check__input__vars">Local Variables</innergroup>
+    <briefdescription>
+<para>Routines for validating and reading input files. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

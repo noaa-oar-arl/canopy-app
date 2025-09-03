@@ -1,0 +1,621 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacecanopy__ncf__io__mod" kind="namespace" language="Fortran">
+    <compoundname>canopy_ncf_io_mod</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1a0cb59014697eea2eb72a0eec73d0cc9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_ncf_io_mod::canopy_close_files</definition>
+        <argsstring>(OUTPREFX)</argsstring>
+        <name>canopy_close_files</name>
+        <param>
+          <type>OUTPREFX</type>
+          <defname>OUTPREFX</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="3765" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="3766" bodyend="3815"/>
+        <references refid="group__file__units_1ga4476fdd7d9120e021c7480f53f6c7b5e" compoundref="canopy__files__mod_8F90" startline="27" endline="27">canopy_files_mod::cdfid_m</references>
+      </memberdef>
+      <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_ncf_io_mod::canopy_outncf_alloc</definition>
+        <argsstring></argsstring>
+        <name>canopy_outncf_alloc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="1367" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="1368" bodyend="1800"/>
+        <references refid="group__canopy__options_1ga367190ead6edf469054a3b265d3d5ac7" compoundref="canopy__canopts__mod_8F90" startline="191" endline="191">canopy_canopts_mod::biospec_opt</references>
+        <references refid="group__canopy__variables_1gaecc879b25af6a2dcb36f94f47cfced75" compoundref="canopy__canvars__mod_8F90" startline="513" endline="513">canopy_canvars_mod::c_canheight</references>
+        <references refid="group__canopy__variables_1gab5b29a557a6487c34c72d49cba639e25" compoundref="canopy__canvars__mod_8F90" startline="523" endline="523">canopy_canvars_mod::c_canwind</references>
+        <references refid="group__canopy__variables_1ga88e90c8124320c74311452c9c658cbc5" compoundref="canopy__canvars__mod_8F90" startline="554" endline="554">canopy_canvars_mod::c_ddep_ch4</references>
+        <references refid="group__canopy__variables_1ga31bb1afda9a7151831d489b1fcbbf41f" compoundref="canopy__canvars__mod_8F90" startline="552" endline="552">canopy_canvars_mod::c_ddep_co</references>
+        <references refid="group__canopy__variables_1ga0d692e8b991a36b016a39984738b68a8" compoundref="canopy__canvars__mod_8F90" startline="566" endline="566">canopy_canvars_mod::c_ddep_dhmob</references>
+        <references refid="group__canopy__variables_1ga64b7b5d1b38fd8901efefebb40b1c64e" compoundref="canopy__canvars__mod_8F90" startline="553" endline="553">canopy_canvars_mod::c_ddep_h2o2</references>
+        <references refid="group__canopy__variables_1gaba5a8bf3ba73a77ae27a81fda86fa86f" compoundref="canopy__canvars__mod_8F90" startline="564" endline="564">canopy_canvars_mod::c_ddep_hac</references>
+        <references refid="group__canopy__variables_1gae437163420c1b615ed81028c352f3ddf" compoundref="canopy__canvars__mod_8F90" startline="550" endline="550">canopy_canvars_mod::c_ddep_hno3</references>
+        <references refid="group__canopy__variables_1ga6f17628da52ea955b098d39642079452" compoundref="canopy__canvars__mod_8F90" startline="549" endline="549">canopy_canvars_mod::c_ddep_hno4</references>
+        <references refid="group__canopy__variables_1ga5665690027d75a2a0217c1653cd89f01" compoundref="canopy__canvars__mod_8F90" startline="561" endline="561">canopy_canvars_mod::c_ddep_ho</references>
+        <references refid="group__canopy__variables_1ga9f1c105f20bff285dbed6ed64cb237f9" compoundref="canopy__canvars__mod_8F90" startline="562" endline="562">canopy_canvars_mod::c_ddep_ho2</references>
+        <references refid="group__canopy__variables_1ga28b8e85e1b54f419eb6e3739dbcf1412" compoundref="canopy__canvars__mod_8F90" startline="548" endline="548">canopy_canvars_mod::c_ddep_hono</references>
+        <references refid="group__canopy__variables_1ga1c2bf851fbfb59776ebcf7e38277c282" compoundref="canopy__canvars__mod_8F90" startline="567" endline="567">canopy_canvars_mod::c_ddep_hpald</references>
+        <references refid="group__canopy__variables_1ga38a2c72361acc3ac404ca8cbbb70a9b9" compoundref="canopy__canvars__mod_8F90" startline="569" endline="569">canopy_canvars_mod::c_ddep_iepox</references>
+        <references refid="group__canopy__variables_1gac17fa7c60772c55b63c3b854687874f1" compoundref="canopy__canvars__mod_8F90" startline="568" endline="568">canopy_canvars_mod::c_ddep_ishp</references>
+        <references refid="group__canopy__variables_1ga7cd9c7c142412cc7507aa547471a2ec0" compoundref="canopy__canvars__mod_8F90" startline="575" endline="575">canopy_canvars_mod::c_ddep_isnp</references>
+        <references refid="group__canopy__variables_1ga9063400e37354d28e40a5c5bd509ef64" compoundref="canopy__canvars__mod_8F90" startline="571" endline="571">canopy_canvars_mod::c_ddep_isopnb</references>
+        <references refid="group__canopy__variables_1ga4888fe696557d3e2e81aee772d16875e" compoundref="canopy__canvars__mod_8F90" startline="572" endline="572">canopy_canvars_mod::c_ddep_isopnd</references>
+        <references refid="group__canopy__variables_1ga95d3438194fa1395726649bc1ce5d75f" compoundref="canopy__canvars__mod_8F90" startline="573" endline="573">canopy_canvars_mod::c_ddep_macrn</references>
+        <references refid="group__canopy__variables_1gab423816b504db97530f51a81bed30b00" compoundref="canopy__canvars__mod_8F90" startline="555" endline="555">canopy_canvars_mod::c_ddep_mo2</references>
+        <references refid="group__canopy__variables_1ga1bb9655a20d51cafab03aa0473596360" compoundref="canopy__canvars__mod_8F90" startline="557" endline="557">canopy_canvars_mod::c_ddep_moh</references>
+        <references refid="group__canopy__variables_1ga75cba1537f20c0c7ba4d4f8752ae0387" compoundref="canopy__canvars__mod_8F90" startline="574" endline="574">canopy_canvars_mod::c_ddep_mvkn</references>
+        <references refid="group__canopy__variables_1ga1de1b2788de50f89cd54f5aa47824694" compoundref="canopy__canvars__mod_8F90" startline="551" endline="551">canopy_canvars_mod::c_ddep_n2o5</references>
+        <references refid="group__canopy__variables_1ga607ff8346716cd33a3f7155c6f144a2a" compoundref="canopy__canvars__mod_8F90" startline="545" endline="545">canopy_canvars_mod::c_ddep_no</references>
+        <references refid="group__canopy__variables_1ga0a15a40f145e65e76b74146bf5a1c574" compoundref="canopy__canvars__mod_8F90" startline="546" endline="546">canopy_canvars_mod::c_ddep_no2</references>
+        <references refid="group__canopy__variables_1ga8ebe478a6cec5abdc44a9ec9aa6385c5" compoundref="canopy__canvars__mod_8F90" startline="558" endline="558">canopy_canvars_mod::c_ddep_no3</references>
+        <references refid="group__canopy__variables_1gab1f6f97d1a209351fa26558464fef55a" compoundref="canopy__canvars__mod_8F90" startline="560" endline="560">canopy_canvars_mod::c_ddep_o1d</references>
+        <references refid="group__canopy__variables_1gad62fbf22d814a0a4c94b4aa0b99cfedf" compoundref="canopy__canvars__mod_8F90" startline="547" endline="547">canopy_canvars_mod::c_ddep_o3</references>
+        <references refid="group__canopy__variables_1ga34d27b2d98e0749f5c2d47a682482127" compoundref="canopy__canvars__mod_8F90" startline="559" endline="559">canopy_canvars_mod::c_ddep_o3p</references>
+        <references refid="group__canopy__variables_1ga9ee208ca87033c95647a06f645607018" compoundref="canopy__canvars__mod_8F90" startline="556" endline="556">canopy_canvars_mod::c_ddep_op1</references>
+        <references refid="group__canopy__variables_1ga45c515661aed60e2cbf717581e1a6aa7" compoundref="canopy__canvars__mod_8F90" startline="563" endline="563">canopy_canvars_mod::c_ddep_ora1</references>
+        <references refid="group__canopy__variables_1ga5dac3233781a8f23e2f4d667f6de785b" compoundref="canopy__canvars__mod_8F90" startline="565" endline="565">canopy_canvars_mod::c_ddep_paa</references>
+        <references refid="group__canopy__variables_1ga55a2a1cccdb73be1cea711894e91caee" compoundref="canopy__canvars__mod_8F90" startline="570" endline="570">canopy_canvars_mod::c_ddep_propnn</references>
+        <references refid="group__canopy__variables_1ga1b9f50de458c2d79a18222a3ef74b3d3" compoundref="canopy__canvars__mod_8F90" startline="514" endline="514">canopy_canvars_mod::c_dh</references>
+        <references refid="group__canopy__variables_1gae7f5f485ab1da5ce66bdcb43f918faae" compoundref="canopy__canvars__mod_8F90" startline="540" endline="540">canopy_canvars_mod::c_emi_acet</references>
+        <references refid="group__canopy__variables_1ga14e5dd6db7d79895d2cb3a61743bc211" compoundref="canopy__canvars__mod_8F90" startline="533" endline="533">canopy_canvars_mod::c_emi_apin</references>
+        <references refid="group__canopy__variables_1ga56594bbc5f044b00d1440a15fe4a8543" compoundref="canopy__canvars__mod_8F90" startline="532" endline="532">canopy_canvars_mod::c_emi_bpin</references>
+        <references refid="group__canopy__variables_1gab335e5fefee37d6c949b72c14516c76e" compoundref="canopy__canvars__mod_8F90" startline="542" endline="542">canopy_canvars_mod::c_emi_bvoc</references>
+        <references refid="group__canopy__variables_1ga59ecd92b99ca7f2a919f2df060b759de" compoundref="canopy__canvars__mod_8F90" startline="530" endline="530">canopy_canvars_mod::c_emi_care</references>
+        <references refid="group__canopy__variables_1ga3d4ab1c927a1bf60992f19b3ccb25230" compoundref="canopy__canvars__mod_8F90" startline="536" endline="536">canopy_canvars_mod::c_emi_cary</references>
+        <references refid="group__canopy__variables_1gaedb201cb2322cf59c9857acaaed7dc6f" compoundref="canopy__canvars__mod_8F90" startline="541" endline="541">canopy_canvars_mod::c_emi_co</references>
+        <references refid="group__canopy__variables_1ga36d56e22aa172a76b883d6b2a39b5598" compoundref="canopy__canvars__mod_8F90" startline="535" endline="535">canopy_canvars_mod::c_emi_farn</references>
+        <references refid="group__canopy__variables_1ga2cea00482e62d88cedb3f74424362c53" compoundref="canopy__canvars__mod_8F90" startline="526" endline="526">canopy_canvars_mod::c_emi_isop</references>
+        <references refid="group__canopy__variables_1ga02bc57d73a71084ce06ba263dcb9be42" compoundref="canopy__canvars__mod_8F90" startline="529" endline="529">canopy_canvars_mod::c_emi_limo</references>
+        <references refid="group__canopy__variables_1gab703c1d18aa93393e75833063cd02cc1" compoundref="canopy__canvars__mod_8F90" startline="538" endline="538">canopy_canvars_mod::c_emi_mbol</references>
+        <references refid="group__canopy__variables_1ga1c6173106a431ddb5dee51894db404b5" compoundref="canopy__canvars__mod_8F90" startline="539" endline="539">canopy_canvars_mod::c_emi_meth</references>
+        <references refid="group__canopy__variables_1ga930dbf2fc378f211c1942a2e3dae7dbf" compoundref="canopy__canvars__mod_8F90" startline="534" endline="534">canopy_canvars_mod::c_emi_mono</references>
+        <references refid="group__canopy__variables_1gaa3435a6e74185fd75480ce593f8b0289" compoundref="canopy__canvars__mod_8F90" startline="527" endline="527">canopy_canvars_mod::c_emi_myrc</references>
+        <references refid="group__canopy__variables_1gacc5a291c8b878303d5da78a7edc0f5aa" compoundref="canopy__canvars__mod_8F90" startline="531" endline="531">canopy_canvars_mod::c_emi_ocim</references>
+        <references refid="group__canopy__variables_1ga1c687162603a46a8c4558155e9897ebc" compoundref="canopy__canvars__mod_8F90" startline="544" endline="544">canopy_canvars_mod::c_emi_ovoc</references>
+        <references refid="group__canopy__variables_1ga3f4bb91e0ff3e02dc77378f42b1965fb" compoundref="canopy__canvars__mod_8F90" startline="528" endline="528">canopy_canvars_mod::c_emi_sabi</references>
+        <references refid="group__canopy__variables_1gab2d727cedf0c90f97c15b2c337300000" compoundref="canopy__canvars__mod_8F90" startline="537" endline="537">canopy_canvars_mod::c_emi_sesq</references>
+        <references refid="group__canopy__variables_1ga968d2c6163526eceb1178534bc4fd5a2" compoundref="canopy__canvars__mod_8F90" startline="543" endline="543">canopy_canvars_mod::c_emi_svoc</references>
+        <references refid="group__canopy__variables_1ga0ed8fc1f5f15dc3d818254d9419aeb0b" compoundref="canopy__canvars__mod_8F90" startline="512" endline="512">canopy_canvars_mod::c_flameh</references>
+        <references refid="group__canopy__variables_1ga9df611e68dfa539031166a85a3fd82f3" compoundref="canopy__canvars__mod_8F90" startline="524" endline="524">canopy_canvars_mod::c_kz</references>
+        <references refid="group__canopy__variables_1ga25b33ac42be165bf330c6f065d8d697c" compoundref="canopy__canvars__mod_8F90" startline="522" endline="522">canopy_canvars_mod::c_lad</references>
+        <references refid="group__canopy__variables_1ga25152dec58591e20c01f360dcf295c4f" compoundref="canopy__canvars__mod_8F90" startline="525" endline="525">canopy_canvars_mod::c_rjcf</references>
+        <references refid="group__canopy__variables_1gad67ce17a6019c0bdcbac73209bf8a39c" compoundref="canopy__canvars__mod_8F90" startline="511" endline="511">canopy_canvars_mod::c_waf</references>
+        <references refid="group__canopy__variables_1ga5da86439d98c5a243e60e968b3d507b3" compoundref="canopy__canvars__mod_8F90" startline="515" endline="515">canopy_canvars_mod::c_zoh</references>
+        <references refid="group__canopy__options_1ga3f1a46425b8d3d7138b882fbe17e942d" compoundref="canopy__canopts__mod_8F90" startline="380" endline="380">canopy_canopts_mod::chemmechgas_opt</references>
+        <references refid="group__canopy__options_1ga51d9966fd1b6bc82e7f6638055f7c083" compoundref="canopy__canopts__mod_8F90" startline="375" endline="375">canopy_canopts_mod::ddepspecgas_opt</references>
+        <references refid="group__canopy__variables_1ga9a1294e336b9d88b749cf5aa15ada04d" compoundref="canopy__canvars__mod_8F90" startline="488" endline="488">canopy_canvars_mod::fld1dt</references>
+        <references refid="group__canopy__variables_1gac0c6209338a80755f9fdce88cadd1912" compoundref="canopy__canvars__mod_8F90" startline="495" endline="495">canopy_canvars_mod::fld1dz</references>
+        <references refid="group__canopy__variables_1ga749e2d0aa03dd928020a7cb17b37777e" compoundref="canopy__canvars__mod_8F90" startline="502" endline="502">canopy_canvars_mod::fld2dxy</references>
+        <references refid="group__canopy__variables_1gaa94a088dd8f4525e3f0ed60cb83f8ef0" compoundref="canopy__canvars__mod_8F90" startline="510" endline="510">canopy_canvars_mod::fld2dxyt</references>
+        <references refid="group__canopy__variables_1ga8992ef36fe600d84c965a0c46755b641" compoundref="canopy__canvars__mod_8F90" startline="521" endline="521">canopy_canvars_mod::fld3dxyzt</references>
+        <references refid="group__canopy__variables_1ga38ed68be2fe07e317ee4558517bed561" compoundref="canopy__canvars__mod_8F90" startline="503" endline="503">canopy_canvars_mod::g_lat</references>
+        <references refid="group__canopy__variables_1gab7e9c0211f8d3c460531558556e989c9" compoundref="canopy__canvars__mod_8F90" startline="496" endline="496">canopy_canvars_mod::g_level</references>
+        <references refid="group__canopy__variables_1ga84ba1428be0916449cb0df0c6f785fc6" compoundref="canopy__canvars__mod_8F90" startline="504" endline="504">canopy_canvars_mod::g_lon</references>
+        <references refid="group__canopy__variables_1ga20b7667fd864ccb4327b19e4d37df0cc" compoundref="canopy__canvars__mod_8F90" startline="489" endline="489">canopy_canvars_mod::g_time</references>
+        <references refid="group__canopy__options_1gacbd0683a95eff758864d68f9795829ac" compoundref="canopy__canopts__mod_8F90" startline="89" endline="89">canopy_canopts_mod::ifcanbio</references>
+        <references refid="group__canopy__options_1gaa80c16e177daada28967f02ac812efb4" compoundref="canopy__canopts__mod_8F90" startline="94" endline="94">canopy_canopts_mod::ifcanddepgas</references>
+        <references refid="group__canopy__options_1gaa5df00af2b5c3c3f7b6f94d50ca6a3fd" compoundref="canopy__canopts__mod_8F90" startline="79" endline="79">canopy_canopts_mod::ifcaneddy</references>
+        <references refid="group__canopy__options_1gae29808e1b5d91e32e6a20066a6994f68" compoundref="canopy__canopts__mod_8F90" startline="84" endline="84">canopy_canopts_mod::ifcanphot</references>
+        <references refid="group__canopy__options_1gafe17438548619d45e2e78ee67101e02b" compoundref="canopy__canopts__mod_8F90" startline="74" endline="74">canopy_canopts_mod::ifcanwaf</references>
+        <references refid="group__canopy__options_1ga934783f210ee500c6403c63b9be20678" compoundref="canopy__canopts__mod_8F90" startline="69" endline="69">canopy_canopts_mod::ifcanwind</references>
+        <references refid="group__bioemi__inputs_1ga23a42344a064fa8bf4d52691a0034078" compoundref="canopy__bioemi__mod_8F90" startline="176" endline="176">modlays</references>
+        <references refid="group__canopy__variables_1ga356af89d9e8544ccc50f3632b2db6267" compoundref="canopy__canvars__mod_8F90" startline="468" endline="468">canopy_canvars_mod::nfld1dt</references>
+        <references refid="group__canopy__variables_1gacb69b9d7c2d7c38c21fc2b53ac939228" compoundref="canopy__canvars__mod_8F90" startline="472" endline="472">canopy_canvars_mod::nfld1dz</references>
+        <references refid="group__canopy__variables_1ga4a716b5d96986c38c3196c8cd72fc801" compoundref="canopy__canvars__mod_8F90" startline="476" endline="476">canopy_canvars_mod::nfld2dxy</references>
+        <references refid="group__canopy__variables_1ga46ce695718a3d284a421b2d01ccd145f" compoundref="canopy__canvars__mod_8F90" startline="480" endline="480">canopy_canvars_mod::nfld2dxyt</references>
+        <references refid="group__canopy__variables_1gab5257cd6bd528a609a082b2be07fbe2b" compoundref="canopy__canvars__mod_8F90" startline="481" endline="481">canopy_canvars_mod::nfld3dxyzt</references>
+        <references refid="group__spatial__domain_1ga9512cd840f763815a1fcf27eae91a5c4" compoundref="canopy__coord__mod_8F90" startline="38" endline="38">canopy_coord_mod::nlat</references>
+        <references refid="group__spatial__domain_1gade13d14d702dbd983bed9336e17d6728" compoundref="canopy__coord__mod_8F90" startline="40" endline="40">canopy_coord_mod::nlon</references>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_ncf_io_mod::canopy_outncf_init</definition>
+        <argsstring></argsstring>
+        <name>canopy_outncf_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="303" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="304" bodyend="1363"/>
+        <references refid="group__canopy__options_1ga367190ead6edf469054a3b265d3d5ac7" compoundref="canopy__canopts__mod_8F90" startline="191" endline="191">canopy_canopts_mod::biospec_opt</references>
+        <references refid="group__canopy__variables_1gaecc879b25af6a2dcb36f94f47cfced75" compoundref="canopy__canvars__mod_8F90" startline="513" endline="513">canopy_canvars_mod::c_canheight</references>
+        <references refid="group__canopy__variables_1gab5b29a557a6487c34c72d49cba639e25" compoundref="canopy__canvars__mod_8F90" startline="523" endline="523">canopy_canvars_mod::c_canwind</references>
+        <references refid="group__canopy__variables_1ga88e90c8124320c74311452c9c658cbc5" compoundref="canopy__canvars__mod_8F90" startline="554" endline="554">canopy_canvars_mod::c_ddep_ch4</references>
+        <references refid="group__canopy__variables_1ga31bb1afda9a7151831d489b1fcbbf41f" compoundref="canopy__canvars__mod_8F90" startline="552" endline="552">canopy_canvars_mod::c_ddep_co</references>
+        <references refid="group__canopy__variables_1ga0d692e8b991a36b016a39984738b68a8" compoundref="canopy__canvars__mod_8F90" startline="566" endline="566">canopy_canvars_mod::c_ddep_dhmob</references>
+        <references refid="group__canopy__variables_1ga64b7b5d1b38fd8901efefebb40b1c64e" compoundref="canopy__canvars__mod_8F90" startline="553" endline="553">canopy_canvars_mod::c_ddep_h2o2</references>
+        <references refid="group__canopy__variables_1gaba5a8bf3ba73a77ae27a81fda86fa86f" compoundref="canopy__canvars__mod_8F90" startline="564" endline="564">canopy_canvars_mod::c_ddep_hac</references>
+        <references refid="group__canopy__variables_1gae437163420c1b615ed81028c352f3ddf" compoundref="canopy__canvars__mod_8F90" startline="550" endline="550">canopy_canvars_mod::c_ddep_hno3</references>
+        <references refid="group__canopy__variables_1ga6f17628da52ea955b098d39642079452" compoundref="canopy__canvars__mod_8F90" startline="549" endline="549">canopy_canvars_mod::c_ddep_hno4</references>
+        <references refid="group__canopy__variables_1ga5665690027d75a2a0217c1653cd89f01" compoundref="canopy__canvars__mod_8F90" startline="561" endline="561">canopy_canvars_mod::c_ddep_ho</references>
+        <references refid="group__canopy__variables_1ga9f1c105f20bff285dbed6ed64cb237f9" compoundref="canopy__canvars__mod_8F90" startline="562" endline="562">canopy_canvars_mod::c_ddep_ho2</references>
+        <references refid="group__canopy__variables_1ga28b8e85e1b54f419eb6e3739dbcf1412" compoundref="canopy__canvars__mod_8F90" startline="548" endline="548">canopy_canvars_mod::c_ddep_hono</references>
+        <references refid="group__canopy__variables_1ga1c2bf851fbfb59776ebcf7e38277c282" compoundref="canopy__canvars__mod_8F90" startline="567" endline="567">canopy_canvars_mod::c_ddep_hpald</references>
+        <references refid="group__canopy__variables_1ga38a2c72361acc3ac404ca8cbbb70a9b9" compoundref="canopy__canvars__mod_8F90" startline="569" endline="569">canopy_canvars_mod::c_ddep_iepox</references>
+        <references refid="group__canopy__variables_1gac17fa7c60772c55b63c3b854687874f1" compoundref="canopy__canvars__mod_8F90" startline="568" endline="568">canopy_canvars_mod::c_ddep_ishp</references>
+        <references refid="group__canopy__variables_1ga7cd9c7c142412cc7507aa547471a2ec0" compoundref="canopy__canvars__mod_8F90" startline="575" endline="575">canopy_canvars_mod::c_ddep_isnp</references>
+        <references refid="group__canopy__variables_1ga9063400e37354d28e40a5c5bd509ef64" compoundref="canopy__canvars__mod_8F90" startline="571" endline="571">canopy_canvars_mod::c_ddep_isopnb</references>
+        <references refid="group__canopy__variables_1ga4888fe696557d3e2e81aee772d16875e" compoundref="canopy__canvars__mod_8F90" startline="572" endline="572">canopy_canvars_mod::c_ddep_isopnd</references>
+        <references refid="group__canopy__variables_1ga95d3438194fa1395726649bc1ce5d75f" compoundref="canopy__canvars__mod_8F90" startline="573" endline="573">canopy_canvars_mod::c_ddep_macrn</references>
+        <references refid="group__canopy__variables_1gab423816b504db97530f51a81bed30b00" compoundref="canopy__canvars__mod_8F90" startline="555" endline="555">canopy_canvars_mod::c_ddep_mo2</references>
+        <references refid="group__canopy__variables_1ga1bb9655a20d51cafab03aa0473596360" compoundref="canopy__canvars__mod_8F90" startline="557" endline="557">canopy_canvars_mod::c_ddep_moh</references>
+        <references refid="group__canopy__variables_1ga75cba1537f20c0c7ba4d4f8752ae0387" compoundref="canopy__canvars__mod_8F90" startline="574" endline="574">canopy_canvars_mod::c_ddep_mvkn</references>
+        <references refid="group__canopy__variables_1ga1de1b2788de50f89cd54f5aa47824694" compoundref="canopy__canvars__mod_8F90" startline="551" endline="551">canopy_canvars_mod::c_ddep_n2o5</references>
+        <references refid="group__canopy__variables_1ga607ff8346716cd33a3f7155c6f144a2a" compoundref="canopy__canvars__mod_8F90" startline="545" endline="545">canopy_canvars_mod::c_ddep_no</references>
+        <references refid="group__canopy__variables_1ga0a15a40f145e65e76b74146bf5a1c574" compoundref="canopy__canvars__mod_8F90" startline="546" endline="546">canopy_canvars_mod::c_ddep_no2</references>
+        <references refid="group__canopy__variables_1ga8ebe478a6cec5abdc44a9ec9aa6385c5" compoundref="canopy__canvars__mod_8F90" startline="558" endline="558">canopy_canvars_mod::c_ddep_no3</references>
+        <references refid="group__canopy__variables_1gab1f6f97d1a209351fa26558464fef55a" compoundref="canopy__canvars__mod_8F90" startline="560" endline="560">canopy_canvars_mod::c_ddep_o1d</references>
+        <references refid="group__canopy__variables_1gad62fbf22d814a0a4c94b4aa0b99cfedf" compoundref="canopy__canvars__mod_8F90" startline="547" endline="547">canopy_canvars_mod::c_ddep_o3</references>
+        <references refid="group__canopy__variables_1ga34d27b2d98e0749f5c2d47a682482127" compoundref="canopy__canvars__mod_8F90" startline="559" endline="559">canopy_canvars_mod::c_ddep_o3p</references>
+        <references refid="group__canopy__variables_1ga9ee208ca87033c95647a06f645607018" compoundref="canopy__canvars__mod_8F90" startline="556" endline="556">canopy_canvars_mod::c_ddep_op1</references>
+        <references refid="group__canopy__variables_1ga45c515661aed60e2cbf717581e1a6aa7" compoundref="canopy__canvars__mod_8F90" startline="563" endline="563">canopy_canvars_mod::c_ddep_ora1</references>
+        <references refid="group__canopy__variables_1ga5dac3233781a8f23e2f4d667f6de785b" compoundref="canopy__canvars__mod_8F90" startline="565" endline="565">canopy_canvars_mod::c_ddep_paa</references>
+        <references refid="group__canopy__variables_1ga55a2a1cccdb73be1cea711894e91caee" compoundref="canopy__canvars__mod_8F90" startline="570" endline="570">canopy_canvars_mod::c_ddep_propnn</references>
+        <references refid="group__canopy__variables_1ga1b9f50de458c2d79a18222a3ef74b3d3" compoundref="canopy__canvars__mod_8F90" startline="514" endline="514">canopy_canvars_mod::c_dh</references>
+        <references refid="group__canopy__variables_1gae7f5f485ab1da5ce66bdcb43f918faae" compoundref="canopy__canvars__mod_8F90" startline="540" endline="540">canopy_canvars_mod::c_emi_acet</references>
+        <references refid="group__canopy__variables_1ga14e5dd6db7d79895d2cb3a61743bc211" compoundref="canopy__canvars__mod_8F90" startline="533" endline="533">canopy_canvars_mod::c_emi_apin</references>
+        <references refid="group__canopy__variables_1ga56594bbc5f044b00d1440a15fe4a8543" compoundref="canopy__canvars__mod_8F90" startline="532" endline="532">canopy_canvars_mod::c_emi_bpin</references>
+        <references refid="group__canopy__variables_1gab335e5fefee37d6c949b72c14516c76e" compoundref="canopy__canvars__mod_8F90" startline="542" endline="542">canopy_canvars_mod::c_emi_bvoc</references>
+        <references refid="group__canopy__variables_1ga59ecd92b99ca7f2a919f2df060b759de" compoundref="canopy__canvars__mod_8F90" startline="530" endline="530">canopy_canvars_mod::c_emi_care</references>
+        <references refid="group__canopy__variables_1ga3d4ab1c927a1bf60992f19b3ccb25230" compoundref="canopy__canvars__mod_8F90" startline="536" endline="536">canopy_canvars_mod::c_emi_cary</references>
+        <references refid="group__canopy__variables_1gaedb201cb2322cf59c9857acaaed7dc6f" compoundref="canopy__canvars__mod_8F90" startline="541" endline="541">canopy_canvars_mod::c_emi_co</references>
+        <references refid="group__canopy__variables_1ga36d56e22aa172a76b883d6b2a39b5598" compoundref="canopy__canvars__mod_8F90" startline="535" endline="535">canopy_canvars_mod::c_emi_farn</references>
+        <references refid="group__canopy__variables_1ga2cea00482e62d88cedb3f74424362c53" compoundref="canopy__canvars__mod_8F90" startline="526" endline="526">canopy_canvars_mod::c_emi_isop</references>
+        <references refid="group__canopy__variables_1ga02bc57d73a71084ce06ba263dcb9be42" compoundref="canopy__canvars__mod_8F90" startline="529" endline="529">canopy_canvars_mod::c_emi_limo</references>
+        <references refid="group__canopy__variables_1gab703c1d18aa93393e75833063cd02cc1" compoundref="canopy__canvars__mod_8F90" startline="538" endline="538">canopy_canvars_mod::c_emi_mbol</references>
+        <references refid="group__canopy__variables_1ga1c6173106a431ddb5dee51894db404b5" compoundref="canopy__canvars__mod_8F90" startline="539" endline="539">canopy_canvars_mod::c_emi_meth</references>
+        <references refid="group__canopy__variables_1ga930dbf2fc378f211c1942a2e3dae7dbf" compoundref="canopy__canvars__mod_8F90" startline="534" endline="534">canopy_canvars_mod::c_emi_mono</references>
+        <references refid="group__canopy__variables_1gaa3435a6e74185fd75480ce593f8b0289" compoundref="canopy__canvars__mod_8F90" startline="527" endline="527">canopy_canvars_mod::c_emi_myrc</references>
+        <references refid="group__canopy__variables_1gacc5a291c8b878303d5da78a7edc0f5aa" compoundref="canopy__canvars__mod_8F90" startline="531" endline="531">canopy_canvars_mod::c_emi_ocim</references>
+        <references refid="group__canopy__variables_1ga1c687162603a46a8c4558155e9897ebc" compoundref="canopy__canvars__mod_8F90" startline="544" endline="544">canopy_canvars_mod::c_emi_ovoc</references>
+        <references refid="group__canopy__variables_1ga3f4bb91e0ff3e02dc77378f42b1965fb" compoundref="canopy__canvars__mod_8F90" startline="528" endline="528">canopy_canvars_mod::c_emi_sabi</references>
+        <references refid="group__canopy__variables_1gab2d727cedf0c90f97c15b2c337300000" compoundref="canopy__canvars__mod_8F90" startline="537" endline="537">canopy_canvars_mod::c_emi_sesq</references>
+        <references refid="group__canopy__variables_1ga968d2c6163526eceb1178534bc4fd5a2" compoundref="canopy__canvars__mod_8F90" startline="543" endline="543">canopy_canvars_mod::c_emi_svoc</references>
+        <references refid="group__canopy__variables_1ga0ed8fc1f5f15dc3d818254d9419aeb0b" compoundref="canopy__canvars__mod_8F90" startline="512" endline="512">canopy_canvars_mod::c_flameh</references>
+        <references refid="group__canopy__variables_1ga9df611e68dfa539031166a85a3fd82f3" compoundref="canopy__canvars__mod_8F90" startline="524" endline="524">canopy_canvars_mod::c_kz</references>
+        <references refid="group__canopy__variables_1ga25b33ac42be165bf330c6f065d8d697c" compoundref="canopy__canvars__mod_8F90" startline="522" endline="522">canopy_canvars_mod::c_lad</references>
+        <references refid="group__canopy__variables_1ga25152dec58591e20c01f360dcf295c4f" compoundref="canopy__canvars__mod_8F90" startline="525" endline="525">canopy_canvars_mod::c_rjcf</references>
+        <references refid="group__canopy__variables_1gad67ce17a6019c0bdcbac73209bf8a39c" compoundref="canopy__canvars__mod_8F90" startline="511" endline="511">canopy_canvars_mod::c_waf</references>
+        <references refid="group__canopy__variables_1ga5da86439d98c5a243e60e968b3d507b3" compoundref="canopy__canvars__mod_8F90" startline="515" endline="515">canopy_canvars_mod::c_zoh</references>
+        <references refid="group__canopy__options_1ga3f1a46425b8d3d7138b882fbe17e942d" compoundref="canopy__canopts__mod_8F90" startline="380" endline="380">canopy_canopts_mod::chemmechgas_opt</references>
+        <references refid="group__canopy__options_1ga51d9966fd1b6bc82e7f6638055f7c083" compoundref="canopy__canopts__mod_8F90" startline="375" endline="375">canopy_canopts_mod::ddepspecgas_opt</references>
+        <references refid="group__precision__const_1ga5559da76b628a9da9c24af13ad4ec623" compoundref="canopy__const__mod_8F90" startline="34" endline="34">canopy_const_mod::fillreal</references>
+        <references refid="group__canopy__variables_1ga38ed68be2fe07e317ee4558517bed561" compoundref="canopy__canvars__mod_8F90" startline="503" endline="503">canopy_canvars_mod::g_lat</references>
+        <references refid="group__canopy__variables_1gab7e9c0211f8d3c460531558556e989c9" compoundref="canopy__canvars__mod_8F90" startline="496" endline="496">canopy_canvars_mod::g_level</references>
+        <references refid="group__canopy__variables_1ga84ba1428be0916449cb0df0c6f785fc6" compoundref="canopy__canvars__mod_8F90" startline="504" endline="504">canopy_canvars_mod::g_lon</references>
+        <references refid="group__canopy__variables_1ga20b7667fd864ccb4327b19e4d37df0cc" compoundref="canopy__canvars__mod_8F90" startline="489" endline="489">canopy_canvars_mod::g_time</references>
+        <references refid="group__canopy__options_1gacbd0683a95eff758864d68f9795829ac" compoundref="canopy__canopts__mod_8F90" startline="89" endline="89">canopy_canopts_mod::ifcanbio</references>
+        <references refid="group__canopy__options_1gaa80c16e177daada28967f02ac812efb4" compoundref="canopy__canopts__mod_8F90" startline="94" endline="94">canopy_canopts_mod::ifcanddepgas</references>
+        <references refid="group__canopy__options_1gaa5df00af2b5c3c3f7b6f94d50ca6a3fd" compoundref="canopy__canopts__mod_8F90" startline="79" endline="79">canopy_canopts_mod::ifcaneddy</references>
+        <references refid="group__canopy__options_1gae29808e1b5d91e32e6a20066a6994f68" compoundref="canopy__canopts__mod_8F90" startline="84" endline="84">canopy_canopts_mod::ifcanphot</references>
+        <references refid="group__canopy__options_1gafe17438548619d45e2e78ee67101e02b" compoundref="canopy__canopts__mod_8F90" startline="74" endline="74">canopy_canopts_mod::ifcanwaf</references>
+        <references refid="group__canopy__options_1ga934783f210ee500c6403c63b9be20678" compoundref="canopy__canopts__mod_8F90" startline="69" endline="69">canopy_canopts_mod::ifcanwind</references>
+        <references refid="group__bioemi__inputs_1ga23a42344a064fa8bf4d52691a0034078" compoundref="canopy__bioemi__mod_8F90" startline="176" endline="176">modlays</references>
+        <references refid="group__spatial__domain_1ga9512cd840f763815a1fcf27eae91a5c4" compoundref="canopy__coord__mod_8F90" startline="38" endline="38">canopy_coord_mod::nlat</references>
+        <references refid="group__spatial__domain_1gade13d14d702dbd983bed9336e17d6728" compoundref="canopy__coord__mod_8F90" startline="40" endline="40">canopy_coord_mod::nlon</references>
+        <references refid="group__time__domain_1gaaa7c8c023d081706aef8548c53b01359" compoundref="canopy__coord__mod_8F90" startline="23" endline="23">canopy_coord_mod::time_start</references>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1a46724c6b574ca9d594af71b538e8af92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_ncf_io_mod::canopy_outncfglobal</definition>
+        <argsstring>(cdfid_in, fl)</argsstring>
+        <name>canopy_outncfglobal</name>
+        <param>
+          <type>cdfid_in</type>
+          <defname>cdfid_in</defname>
+        </param>
+        <param>
+          <type>fl</type>
+          <defname>fl</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="1803" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="1804" bodyend="2323"/>
+        <references refid="group__bioemi__inputs_1ga23a42344a064fa8bf4d52691a0034078" compoundref="canopy__bioemi__mod_8F90" startline="176" endline="176">modlays</references>
+        <references refid="group__spatial__domain_1ga9512cd840f763815a1fcf27eae91a5c4" compoundref="canopy__coord__mod_8F90" startline="38" endline="38">canopy_coord_mod::nlat</references>
+        <references refid="group__spatial__domain_1gade13d14d702dbd983bed9336e17d6728" compoundref="canopy__coord__mod_8F90" startline="40" endline="40">canopy_coord_mod::nlon</references>
+        <references refid="group__time__domain_1gaf9bec413b2a74c1c542d5f44c2345224" compoundref="canopy__coord__mod_8F90" startline="29" endline="29">canopy_coord_mod::ntime</references>
+        <references refid="group__canopy__variables_1ga882937c60e586d327534b63e8a14146b" compoundref="canopy__canvars__mod_8F90" startline="358" endline="358">canopy_canvars_mod::progname</references>
+        <references refid="group__canopy__variables_1ga1f0778b700dec1bb33bdb0e44394de41" compoundref="canopy__canvars__mod_8F90" startline="359" endline="359">canopy_canvars_mod::vdate</references>
+        <references refid="group__canopy__variables_1ga76a669f22aa5d40583ddbfcffec5acb9" compoundref="canopy__canvars__mod_8F90" startline="362" endline="362">canopy_canvars_mod::ver</references>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_write_ncf</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_ncf_io_mod::canopy_read_ncf</definition>
+        <argsstring>(infile)</argsstring>
+        <name>canopy_read_ncf</name>
+        <param>
+          <type><ref refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" kindref="member">infile</ref></type>
+          <defname>infile</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="3070" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="3071" bodyend="3762"/>
+        <references refid="namespacecanopy__ncf__io__mod_1abcdeea31e415de87479c147a63f94448" compoundref="canopy__ncf__io__mod_8F90" startline="226" endline="246">get_var_1d_int_cdf</references>
+        <references refid="namespacecanopy__ncf__io__mod_1ab417cdb308c6b9426403f5090d209b4f" compoundref="canopy__ncf__io__mod_8F90" startline="198" endline="219">get_var_1d_real_cdf</references>
+        <references refid="namespacecanopy__ncf__io__mod_1afe40f918a2243d41347b8e5ce7b53e8c" compoundref="canopy__ncf__io__mod_8F90" startline="169" endline="191">get_var_2d_int_cdf</references>
+        <references refid="namespacecanopy__ncf__io__mod_1a6e6b7091237f16ddde457b12497579c9" compoundref="canopy__ncf__io__mod_8F90" startline="135" endline="162">get_var_2d_real_cdf</references>
+        <references refid="group__ncfio__group_1ga448fb73be44b1171263f78c6bf851f8e" compoundref="canopy__ncf__io__mod_8F90" startline="67" endline="97">get_var_3d_real_cdf</references>
+        <references refid="group__check__input__vars_1ga995af87d643a2c6a4cb9fb81d15a4730" compoundref="canopy__check__input_8F90" startline="37" endline="37">infile</references>
+        <references refid="group__canopy__options_1ga7967d0484fdd67b8bffa531dad3cbe3b" compoundref="canopy__canopts__mod_8F90" startline="30" endline="30">canopy_canopts_mod::infmt_opt</references>
+        <references refid="group__canopy__options_1ga78eb6b0808ab5f2921d1b22f3e93dd81" compoundref="canopy__canopts__mod_8F90" startline="47" endline="47">canopy_canopts_mod::pavd_opt</references>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+        <references refid="group__canopy__options_1gab0b5819b28313ed0be7118a333b361da" compoundref="canopy__canopts__mod_8F90" startline="36" endline="36">canopy_canopts_mod::var3d_opt</references>
+        <references refid="group__calcs__local__vars_1gac885d6f077e71492930c3e248364f341" compoundref="canopy__calcs_8F90" startline="69">variables</references>
+        <references refid="namespacecanopy__canmet__mod_1a728ccea7aa2d26baa3be5753bf3ea351" compoundref="canopy__canmet__mod_8F90" startline="228" endline="228">canopy_canmet_mod::variables_1d</references>
+        <references refid="namespacecanopy__canmet__mod_1a7f7d9225bbd480af13c2e842a922c2c8" compoundref="canopy__canmet__mod_8F90" startline="215">canopy_canmet_mod::variables_2d</references>
+        <references refid="namespacecanopy__canmet__mod_1ac4103f9610c12400fbe91ec7eec13fb6" compoundref="canopy__canmet__mod_8F90" startline="241" endline="241">canopy_canmet_mod::variables_3d</references>
+      </memberdef>
+      <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_ncf_io_mod::canopy_write_ncf</definition>
+        <argsstring>(OUTPREFX)</argsstring>
+        <name>canopy_write_ncf</name>
+        <param>
+          <type>OUTPREFX</type>
+          <defname>OUTPREFX</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="2327" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="2328" bodyend="3066"/>
+        <references refid="group__canopy__options_1ga367190ead6edf469054a3b265d3d5ac7" compoundref="canopy__canopts__mod_8F90" startline="191" endline="191">canopy_canopts_mod::biospec_opt</references>
+        <references refid="group__canopy__variables_1gaecc879b25af6a2dcb36f94f47cfced75" compoundref="canopy__canvars__mod_8F90" startline="513" endline="513">canopy_canvars_mod::c_canheight</references>
+        <references refid="group__canopy__variables_1gab5b29a557a6487c34c72d49cba639e25" compoundref="canopy__canvars__mod_8F90" startline="523" endline="523">canopy_canvars_mod::c_canwind</references>
+        <references refid="group__canopy__variables_1ga88e90c8124320c74311452c9c658cbc5" compoundref="canopy__canvars__mod_8F90" startline="554" endline="554">canopy_canvars_mod::c_ddep_ch4</references>
+        <references refid="group__canopy__variables_1ga31bb1afda9a7151831d489b1fcbbf41f" compoundref="canopy__canvars__mod_8F90" startline="552" endline="552">canopy_canvars_mod::c_ddep_co</references>
+        <references refid="group__canopy__variables_1ga0d692e8b991a36b016a39984738b68a8" compoundref="canopy__canvars__mod_8F90" startline="566" endline="566">canopy_canvars_mod::c_ddep_dhmob</references>
+        <references refid="group__canopy__variables_1ga64b7b5d1b38fd8901efefebb40b1c64e" compoundref="canopy__canvars__mod_8F90" startline="553" endline="553">canopy_canvars_mod::c_ddep_h2o2</references>
+        <references refid="group__canopy__variables_1gaba5a8bf3ba73a77ae27a81fda86fa86f" compoundref="canopy__canvars__mod_8F90" startline="564" endline="564">canopy_canvars_mod::c_ddep_hac</references>
+        <references refid="group__canopy__variables_1gae437163420c1b615ed81028c352f3ddf" compoundref="canopy__canvars__mod_8F90" startline="550" endline="550">canopy_canvars_mod::c_ddep_hno3</references>
+        <references refid="group__canopy__variables_1ga6f17628da52ea955b098d39642079452" compoundref="canopy__canvars__mod_8F90" startline="549" endline="549">canopy_canvars_mod::c_ddep_hno4</references>
+        <references refid="group__canopy__variables_1ga5665690027d75a2a0217c1653cd89f01" compoundref="canopy__canvars__mod_8F90" startline="561" endline="561">canopy_canvars_mod::c_ddep_ho</references>
+        <references refid="group__canopy__variables_1ga9f1c105f20bff285dbed6ed64cb237f9" compoundref="canopy__canvars__mod_8F90" startline="562" endline="562">canopy_canvars_mod::c_ddep_ho2</references>
+        <references refid="group__canopy__variables_1ga28b8e85e1b54f419eb6e3739dbcf1412" compoundref="canopy__canvars__mod_8F90" startline="548" endline="548">canopy_canvars_mod::c_ddep_hono</references>
+        <references refid="group__canopy__variables_1ga1c2bf851fbfb59776ebcf7e38277c282" compoundref="canopy__canvars__mod_8F90" startline="567" endline="567">canopy_canvars_mod::c_ddep_hpald</references>
+        <references refid="group__canopy__variables_1ga38a2c72361acc3ac404ca8cbbb70a9b9" compoundref="canopy__canvars__mod_8F90" startline="569" endline="569">canopy_canvars_mod::c_ddep_iepox</references>
+        <references refid="group__canopy__variables_1gac17fa7c60772c55b63c3b854687874f1" compoundref="canopy__canvars__mod_8F90" startline="568" endline="568">canopy_canvars_mod::c_ddep_ishp</references>
+        <references refid="group__canopy__variables_1ga7cd9c7c142412cc7507aa547471a2ec0" compoundref="canopy__canvars__mod_8F90" startline="575" endline="575">canopy_canvars_mod::c_ddep_isnp</references>
+        <references refid="group__canopy__variables_1ga9063400e37354d28e40a5c5bd509ef64" compoundref="canopy__canvars__mod_8F90" startline="571" endline="571">canopy_canvars_mod::c_ddep_isopnb</references>
+        <references refid="group__canopy__variables_1ga4888fe696557d3e2e81aee772d16875e" compoundref="canopy__canvars__mod_8F90" startline="572" endline="572">canopy_canvars_mod::c_ddep_isopnd</references>
+        <references refid="group__canopy__variables_1ga95d3438194fa1395726649bc1ce5d75f" compoundref="canopy__canvars__mod_8F90" startline="573" endline="573">canopy_canvars_mod::c_ddep_macrn</references>
+        <references refid="group__canopy__variables_1gab423816b504db97530f51a81bed30b00" compoundref="canopy__canvars__mod_8F90" startline="555" endline="555">canopy_canvars_mod::c_ddep_mo2</references>
+        <references refid="group__canopy__variables_1ga1bb9655a20d51cafab03aa0473596360" compoundref="canopy__canvars__mod_8F90" startline="557" endline="557">canopy_canvars_mod::c_ddep_moh</references>
+        <references refid="group__canopy__variables_1ga75cba1537f20c0c7ba4d4f8752ae0387" compoundref="canopy__canvars__mod_8F90" startline="574" endline="574">canopy_canvars_mod::c_ddep_mvkn</references>
+        <references refid="group__canopy__variables_1ga1de1b2788de50f89cd54f5aa47824694" compoundref="canopy__canvars__mod_8F90" startline="551" endline="551">canopy_canvars_mod::c_ddep_n2o5</references>
+        <references refid="group__canopy__variables_1ga607ff8346716cd33a3f7155c6f144a2a" compoundref="canopy__canvars__mod_8F90" startline="545" endline="545">canopy_canvars_mod::c_ddep_no</references>
+        <references refid="group__canopy__variables_1ga0a15a40f145e65e76b74146bf5a1c574" compoundref="canopy__canvars__mod_8F90" startline="546" endline="546">canopy_canvars_mod::c_ddep_no2</references>
+        <references refid="group__canopy__variables_1ga8ebe478a6cec5abdc44a9ec9aa6385c5" compoundref="canopy__canvars__mod_8F90" startline="558" endline="558">canopy_canvars_mod::c_ddep_no3</references>
+        <references refid="group__canopy__variables_1gab1f6f97d1a209351fa26558464fef55a" compoundref="canopy__canvars__mod_8F90" startline="560" endline="560">canopy_canvars_mod::c_ddep_o1d</references>
+        <references refid="group__canopy__variables_1gad62fbf22d814a0a4c94b4aa0b99cfedf" compoundref="canopy__canvars__mod_8F90" startline="547" endline="547">canopy_canvars_mod::c_ddep_o3</references>
+        <references refid="group__canopy__variables_1ga34d27b2d98e0749f5c2d47a682482127" compoundref="canopy__canvars__mod_8F90" startline="559" endline="559">canopy_canvars_mod::c_ddep_o3p</references>
+        <references refid="group__canopy__variables_1ga9ee208ca87033c95647a06f645607018" compoundref="canopy__canvars__mod_8F90" startline="556" endline="556">canopy_canvars_mod::c_ddep_op1</references>
+        <references refid="group__canopy__variables_1ga45c515661aed60e2cbf717581e1a6aa7" compoundref="canopy__canvars__mod_8F90" startline="563" endline="563">canopy_canvars_mod::c_ddep_ora1</references>
+        <references refid="group__canopy__variables_1ga5dac3233781a8f23e2f4d667f6de785b" compoundref="canopy__canvars__mod_8F90" startline="565" endline="565">canopy_canvars_mod::c_ddep_paa</references>
+        <references refid="group__canopy__variables_1ga55a2a1cccdb73be1cea711894e91caee" compoundref="canopy__canvars__mod_8F90" startline="570" endline="570">canopy_canvars_mod::c_ddep_propnn</references>
+        <references refid="group__canopy__variables_1ga1b9f50de458c2d79a18222a3ef74b3d3" compoundref="canopy__canvars__mod_8F90" startline="514" endline="514">canopy_canvars_mod::c_dh</references>
+        <references refid="group__canopy__variables_1gae7f5f485ab1da5ce66bdcb43f918faae" compoundref="canopy__canvars__mod_8F90" startline="540" endline="540">canopy_canvars_mod::c_emi_acet</references>
+        <references refid="group__canopy__variables_1ga14e5dd6db7d79895d2cb3a61743bc211" compoundref="canopy__canvars__mod_8F90" startline="533" endline="533">canopy_canvars_mod::c_emi_apin</references>
+        <references refid="group__canopy__variables_1ga56594bbc5f044b00d1440a15fe4a8543" compoundref="canopy__canvars__mod_8F90" startline="532" endline="532">canopy_canvars_mod::c_emi_bpin</references>
+        <references refid="group__canopy__variables_1gab335e5fefee37d6c949b72c14516c76e" compoundref="canopy__canvars__mod_8F90" startline="542" endline="542">canopy_canvars_mod::c_emi_bvoc</references>
+        <references refid="group__canopy__variables_1ga59ecd92b99ca7f2a919f2df060b759de" compoundref="canopy__canvars__mod_8F90" startline="530" endline="530">canopy_canvars_mod::c_emi_care</references>
+        <references refid="group__canopy__variables_1ga3d4ab1c927a1bf60992f19b3ccb25230" compoundref="canopy__canvars__mod_8F90" startline="536" endline="536">canopy_canvars_mod::c_emi_cary</references>
+        <references refid="group__canopy__variables_1gaedb201cb2322cf59c9857acaaed7dc6f" compoundref="canopy__canvars__mod_8F90" startline="541" endline="541">canopy_canvars_mod::c_emi_co</references>
+        <references refid="group__canopy__variables_1ga36d56e22aa172a76b883d6b2a39b5598" compoundref="canopy__canvars__mod_8F90" startline="535" endline="535">canopy_canvars_mod::c_emi_farn</references>
+        <references refid="group__canopy__variables_1ga2cea00482e62d88cedb3f74424362c53" compoundref="canopy__canvars__mod_8F90" startline="526" endline="526">canopy_canvars_mod::c_emi_isop</references>
+        <references refid="group__canopy__variables_1ga02bc57d73a71084ce06ba263dcb9be42" compoundref="canopy__canvars__mod_8F90" startline="529" endline="529">canopy_canvars_mod::c_emi_limo</references>
+        <references refid="group__canopy__variables_1gab703c1d18aa93393e75833063cd02cc1" compoundref="canopy__canvars__mod_8F90" startline="538" endline="538">canopy_canvars_mod::c_emi_mbol</references>
+        <references refid="group__canopy__variables_1ga1c6173106a431ddb5dee51894db404b5" compoundref="canopy__canvars__mod_8F90" startline="539" endline="539">canopy_canvars_mod::c_emi_meth</references>
+        <references refid="group__canopy__variables_1ga930dbf2fc378f211c1942a2e3dae7dbf" compoundref="canopy__canvars__mod_8F90" startline="534" endline="534">canopy_canvars_mod::c_emi_mono</references>
+        <references refid="group__canopy__variables_1gaa3435a6e74185fd75480ce593f8b0289" compoundref="canopy__canvars__mod_8F90" startline="527" endline="527">canopy_canvars_mod::c_emi_myrc</references>
+        <references refid="group__canopy__variables_1gacc5a291c8b878303d5da78a7edc0f5aa" compoundref="canopy__canvars__mod_8F90" startline="531" endline="531">canopy_canvars_mod::c_emi_ocim</references>
+        <references refid="group__canopy__variables_1ga1c687162603a46a8c4558155e9897ebc" compoundref="canopy__canvars__mod_8F90" startline="544" endline="544">canopy_canvars_mod::c_emi_ovoc</references>
+        <references refid="group__canopy__variables_1ga3f4bb91e0ff3e02dc77378f42b1965fb" compoundref="canopy__canvars__mod_8F90" startline="528" endline="528">canopy_canvars_mod::c_emi_sabi</references>
+        <references refid="group__canopy__variables_1gab2d727cedf0c90f97c15b2c337300000" compoundref="canopy__canvars__mod_8F90" startline="537" endline="537">canopy_canvars_mod::c_emi_sesq</references>
+        <references refid="group__canopy__variables_1ga968d2c6163526eceb1178534bc4fd5a2" compoundref="canopy__canvars__mod_8F90" startline="543" endline="543">canopy_canvars_mod::c_emi_svoc</references>
+        <references refid="group__canopy__variables_1ga0ed8fc1f5f15dc3d818254d9419aeb0b" compoundref="canopy__canvars__mod_8F90" startline="512" endline="512">canopy_canvars_mod::c_flameh</references>
+        <references refid="group__canopy__variables_1ga9df611e68dfa539031166a85a3fd82f3" compoundref="canopy__canvars__mod_8F90" startline="524" endline="524">canopy_canvars_mod::c_kz</references>
+        <references refid="group__canopy__variables_1ga25b33ac42be165bf330c6f065d8d697c" compoundref="canopy__canvars__mod_8F90" startline="522" endline="522">canopy_canvars_mod::c_lad</references>
+        <references refid="group__canopy__variables_1ga25152dec58591e20c01f360dcf295c4f" compoundref="canopy__canvars__mod_8F90" startline="525" endline="525">canopy_canvars_mod::c_rjcf</references>
+        <references refid="group__canopy__variables_1gad67ce17a6019c0bdcbac73209bf8a39c" compoundref="canopy__canvars__mod_8F90" startline="511" endline="511">canopy_canvars_mod::c_waf</references>
+        <references refid="group__canopy__variables_1ga5da86439d98c5a243e60e968b3d507b3" compoundref="canopy__canvars__mod_8F90" startline="515" endline="515">canopy_canvars_mod::c_zoh</references>
+        <references refid="namespacecanopy__ncf__io__mod_1a46724c6b574ca9d594af71b538e8af92" compoundref="canopy__ncf__io__mod_8F90" startline="1804" endline="2323">canopy_outncfglobal</references>
+        <references refid="group__canopy__variables_1ga8cae2d1b0a842ec078bd7e22ab13e75a" compoundref="canopy__canvars__mod_8F90" startline="225" endline="225">canopy_canvars_mod::canwind_3d</references>
+        <references refid="group__file__units_1ga4476fdd7d9120e021c7480f53f6c7b5e" compoundref="canopy__files__mod_8F90" startline="27" endline="27">canopy_files_mod::cdfid_m</references>
+        <references refid="group__canopy__options_1ga3f1a46425b8d3d7138b882fbe17e942d" compoundref="canopy__canopts__mod_8F90" startline="380" endline="380">canopy_canopts_mod::chemmechgas_opt</references>
+        <references refid="group__canopy__variables_1ga9ccee39a5df0dbee8fe1e44d6089f6fe" compoundref="canopy__canvars__mod_8F90" startline="242" endline="242">canopy_canvars_mod::d_h_2d</references>
+        <references refid="group__canopy__variables_1ga9f1c94afcf8ce2132b826545c1ebd4a4" compoundref="canopy__canvars__mod_8F90" startline="310" endline="310">canopy_canvars_mod::ddep_ch4_3d</references>
+        <references refid="group__canopy__variables_1ga79a35a320b74e962b25529827d39c44f" compoundref="canopy__canvars__mod_8F90" startline="306" endline="306">canopy_canvars_mod::ddep_co_3d</references>
+        <references refid="group__canopy__variables_1ga52b404ce43321747f551f584ba9e10fc" compoundref="canopy__canvars__mod_8F90" startline="334" endline="334">canopy_canvars_mod::ddep_dhmob_3d</references>
+        <references refid="group__canopy__variables_1gaa2b9b81946cc7270322a3d9cbfab6c0f" compoundref="canopy__canvars__mod_8F90" startline="308" endline="308">canopy_canvars_mod::ddep_h2o2_3d</references>
+        <references refid="group__canopy__variables_1gaa12b69af00af003d9f0006bc14d3b045" compoundref="canopy__canvars__mod_8F90" startline="330" endline="330">canopy_canvars_mod::ddep_hac_3d</references>
+        <references refid="group__canopy__variables_1ga1f8e2930fc0e26e97bfd5b42ba314896" compoundref="canopy__canvars__mod_8F90" startline="302" endline="302">canopy_canvars_mod::ddep_hno3_3d</references>
+        <references refid="group__canopy__variables_1ga64f2c61e6368729056df6d1919de3451" compoundref="canopy__canvars__mod_8F90" startline="300" endline="300">canopy_canvars_mod::ddep_hno4_3d</references>
+        <references refid="group__canopy__variables_1gaa50138aa40f21acfdec36b275d99d9f9" compoundref="canopy__canvars__mod_8F90" startline="326" endline="326">canopy_canvars_mod::ddep_ho2_3d</references>
+        <references refid="group__canopy__variables_1ga932e692263d54090b4e2d33558bdfe84" compoundref="canopy__canvars__mod_8F90" startline="324" endline="324">canopy_canvars_mod::ddep_ho_3d</references>
+        <references refid="group__canopy__variables_1ga62ef9f743c63e1eafa984aa540297f00" compoundref="canopy__canvars__mod_8F90" startline="298" endline="298">canopy_canvars_mod::ddep_hono_3d</references>
+        <references refid="group__canopy__variables_1gafec2c224327b42cf32580fff3d0357cb" compoundref="canopy__canvars__mod_8F90" startline="336" endline="336">canopy_canvars_mod::ddep_hpald_3d</references>
+        <references refid="group__canopy__variables_1gadae18fcd2e834407d4d10f62a77f4840" compoundref="canopy__canvars__mod_8F90" startline="340" endline="340">canopy_canvars_mod::ddep_iepox_3d</references>
+        <references refid="group__canopy__variables_1gabdfab19fc1f6563107b681b5d29638a6" compoundref="canopy__canvars__mod_8F90" startline="338" endline="338">canopy_canvars_mod::ddep_ishp_3d</references>
+        <references refid="group__canopy__variables_1ga5ec0c1c3fa1b9a31fcc22ffa184bb9df" compoundref="canopy__canvars__mod_8F90" startline="352" endline="352">canopy_canvars_mod::ddep_isnp_3d</references>
+        <references refid="group__canopy__variables_1ga290d031a20d6a1fc6a731a6da75fac70" compoundref="canopy__canvars__mod_8F90" startline="344" endline="344">canopy_canvars_mod::ddep_isopnb_3d</references>
+        <references refid="group__canopy__variables_1gaf24d717aa73bcd9838eda3f1e5fb2922" compoundref="canopy__canvars__mod_8F90" startline="346" endline="346">canopy_canvars_mod::ddep_isopnd_3d</references>
+        <references refid="group__canopy__variables_1ga1151df12043618e24bcbf055b0d0c2c9" compoundref="canopy__canvars__mod_8F90" startline="348" endline="348">canopy_canvars_mod::ddep_macrn_3d</references>
+        <references refid="group__canopy__variables_1ga84fba6f281b5f03ea7a8fd6bac5b4c60" compoundref="canopy__canvars__mod_8F90" startline="312" endline="312">canopy_canvars_mod::ddep_mo2_3d</references>
+        <references refid="group__canopy__variables_1ga7af415ec6d949d7d91c3f8da94167e5b" compoundref="canopy__canvars__mod_8F90" startline="316" endline="316">canopy_canvars_mod::ddep_moh_3d</references>
+        <references refid="group__canopy__variables_1gaa60fe7047631f32d326e929c83625b3e" compoundref="canopy__canvars__mod_8F90" startline="350" endline="350">canopy_canvars_mod::ddep_mvkn_3d</references>
+        <references refid="group__canopy__variables_1ga059e4563f3222e6f564c07565e85dfe0" compoundref="canopy__canvars__mod_8F90" startline="304" endline="304">canopy_canvars_mod::ddep_n2o5_3d</references>
+        <references refid="group__canopy__variables_1gaebada8be55c4c5561938a11027f1e8cb" compoundref="canopy__canvars__mod_8F90" startline="294" endline="294">canopy_canvars_mod::ddep_no2_3d</references>
+        <references refid="group__canopy__variables_1ga147ed6d42e063bff05ce2214dd085c8c" compoundref="canopy__canvars__mod_8F90" startline="318" endline="318">canopy_canvars_mod::ddep_no3_3d</references>
+        <references refid="group__canopy__variables_1ga8229ebe0305eceb47a7c92b9d95da090" compoundref="canopy__canvars__mod_8F90" startline="292" endline="292">canopy_canvars_mod::ddep_no_3d</references>
+        <references refid="group__canopy__variables_1ga40f386d041747bdf7f72d251e9ad6bf7" compoundref="canopy__canvars__mod_8F90" startline="322" endline="322">canopy_canvars_mod::ddep_o1d_3d</references>
+        <references refid="group__canopy__variables_1gaf955899fab9d51e5a5a1efbaa2a2b9e6" compoundref="canopy__canvars__mod_8F90" startline="296" endline="296">canopy_canvars_mod::ddep_o3_3d</references>
+        <references refid="group__canopy__variables_1ga78263e12c6ac310aa11c83f1e81bcf75" compoundref="canopy__canvars__mod_8F90" startline="320" endline="320">canopy_canvars_mod::ddep_o3p_3d</references>
+        <references refid="group__canopy__variables_1ga92807b0407e4ce2c119690fe675d1df2" compoundref="canopy__canvars__mod_8F90" startline="314" endline="314">canopy_canvars_mod::ddep_op1_3d</references>
+        <references refid="group__canopy__variables_1ga6c24f36a1e774a8df8be24f89d6a5458" compoundref="canopy__canvars__mod_8F90" startline="328" endline="328">canopy_canvars_mod::ddep_ora1_3d</references>
+        <references refid="group__canopy__variables_1gaa8a9afacac49d93ca8a24e8fa2ec4822" compoundref="canopy__canvars__mod_8F90" startline="332" endline="332">canopy_canvars_mod::ddep_paa_3d</references>
+        <references refid="group__canopy__variables_1ga579a88138073f0dee868f22906fc751d" compoundref="canopy__canvars__mod_8F90" startline="342" endline="342">canopy_canvars_mod::ddep_propnn_3d</references>
+        <references refid="group__canopy__options_1ga51d9966fd1b6bc82e7f6638055f7c083" compoundref="canopy__canopts__mod_8F90" startline="375" endline="375">canopy_canopts_mod::ddepspecgas_opt</references>
+        <references refid="group__canopy__variables_1ga989af50f7866093107d417b529946464" compoundref="canopy__canvars__mod_8F90" startline="280" endline="280">canopy_canvars_mod::emi_acet_3d</references>
+        <references refid="group__canopy__variables_1ga28b0d64d6755302846e5ced472fd4e33" compoundref="canopy__canvars__mod_8F90" startline="266" endline="266">canopy_canvars_mod::emi_apin_3d</references>
+        <references refid="group__canopy__variables_1gaa37017350f6c257f32f448b670b74fd3" compoundref="canopy__canvars__mod_8F90" startline="264" endline="264">canopy_canvars_mod::emi_bpin_3d</references>
+        <references refid="group__canopy__variables_1ga3d1e9e67dca27cd1f6cbdacfd6e7bb9e" compoundref="canopy__canvars__mod_8F90" startline="284" endline="284">canopy_canvars_mod::emi_bvoc_3d</references>
+        <references refid="group__canopy__variables_1ga41ade3aa0e29b5b250bd8487e5d77f7c" compoundref="canopy__canvars__mod_8F90" startline="260" endline="260">canopy_canvars_mod::emi_care_3d</references>
+        <references refid="group__canopy__variables_1ga6d37f8e2351922754332cb243c3615e0" compoundref="canopy__canvars__mod_8F90" startline="272" endline="272">canopy_canvars_mod::emi_cary_3d</references>
+        <references refid="group__canopy__variables_1ga46011b7bfe5f14fcd58b33d5ed365c36" compoundref="canopy__canvars__mod_8F90" startline="282" endline="282">canopy_canvars_mod::emi_co_3d</references>
+        <references refid="group__canopy__variables_1ga99b29ddef1506f806f77fbcd99727856" compoundref="canopy__canvars__mod_8F90" startline="270" endline="270">canopy_canvars_mod::emi_farn_3d</references>
+        <references refid="group__canopy__variables_1gad438622510f9ed4f6b60ec82fa988897" compoundref="canopy__canvars__mod_8F90" startline="252" endline="252">canopy_canvars_mod::emi_isop_3d</references>
+        <references refid="group__canopy__variables_1ga051377fdab65fe0f424bb06945c1c71e" compoundref="canopy__canvars__mod_8F90" startline="258" endline="258">canopy_canvars_mod::emi_limo_3d</references>
+        <references refid="group__canopy__variables_1gaa39f698a3db8643f50310e6c1962c5af" compoundref="canopy__canvars__mod_8F90" startline="276" endline="276">canopy_canvars_mod::emi_mbol_3d</references>
+        <references refid="group__canopy__variables_1ga252018004af9ffa30209f5baca529181" compoundref="canopy__canvars__mod_8F90" startline="278" endline="278">canopy_canvars_mod::emi_meth_3d</references>
+        <references refid="group__canopy__variables_1gaa4f1a3c828f4615232fafb08cd7eaf2d" compoundref="canopy__canvars__mod_8F90" startline="268" endline="268">canopy_canvars_mod::emi_mono_3d</references>
+        <references refid="group__canopy__variables_1ga6f843bf3ceebbfd1dca7e4b5aff4c945" compoundref="canopy__canvars__mod_8F90" startline="254" endline="254">canopy_canvars_mod::emi_myrc_3d</references>
+        <references refid="group__canopy__variables_1ga4d2dc0b6e142a6a3791a0d02daaa9292" compoundref="canopy__canvars__mod_8F90" startline="262" endline="262">canopy_canvars_mod::emi_ocim_3d</references>
+        <references refid="group__canopy__variables_1gad55cb29cee0d5ef2ab7363d258ed8ac7" compoundref="canopy__canvars__mod_8F90" startline="288" endline="288">canopy_canvars_mod::emi_ovoc_3d</references>
+        <references refid="group__canopy__variables_1ga8e69e48f2af26de8e87f97e6211bf9a9" compoundref="canopy__canvars__mod_8F90" startline="256" endline="256">canopy_canvars_mod::emi_sabi_3d</references>
+        <references refid="group__canopy__variables_1gac567943597b7a2a18dbdf3626d3c7953" compoundref="canopy__canvars__mod_8F90" startline="274" endline="274">canopy_canvars_mod::emi_sesq_3d</references>
+        <references refid="group__canopy__variables_1ga68d9d663d9e027840da68ba51589b402" compoundref="canopy__canvars__mod_8F90" startline="286" endline="286">canopy_canvars_mod::emi_svoc_3d</references>
+        <references refid="group__canopy__variables_1ga75ad2943612a1002935bf1dee10f269d" compoundref="canopy__canvars__mod_8F90" startline="250" endline="250">canopy_canvars_mod::flameh_2d</references>
+        <references refid="group__canopy__variables_1ga9a1294e336b9d88b749cf5aa15ada04d" compoundref="canopy__canvars__mod_8F90" startline="488" endline="488">canopy_canvars_mod::fld1dt</references>
+        <references refid="group__canopy__variables_1gac0c6209338a80755f9fdce88cadd1912" compoundref="canopy__canvars__mod_8F90" startline="495" endline="495">canopy_canvars_mod::fld1dz</references>
+        <references refid="group__canopy__variables_1ga749e2d0aa03dd928020a7cb17b37777e" compoundref="canopy__canvars__mod_8F90" startline="502" endline="502">canopy_canvars_mod::fld2dxy</references>
+        <references refid="group__canopy__variables_1gaa94a088dd8f4525e3f0ed60cb83f8ef0" compoundref="canopy__canvars__mod_8F90" startline="510" endline="510">canopy_canvars_mod::fld2dxyt</references>
+        <references refid="group__canopy__variables_1ga8992ef36fe600d84c965a0c46755b641" compoundref="canopy__canvars__mod_8F90" startline="521" endline="521">canopy_canvars_mod::fld3dxyzt</references>
+        <references refid="group__canopy__variables_1ga38ed68be2fe07e317ee4558517bed561" compoundref="canopy__canvars__mod_8F90" startline="503" endline="503">canopy_canvars_mod::g_lat</references>
+        <references refid="group__canopy__variables_1gab7e9c0211f8d3c460531558556e989c9" compoundref="canopy__canvars__mod_8F90" startline="496" endline="496">canopy_canvars_mod::g_level</references>
+        <references refid="group__canopy__variables_1ga84ba1428be0916449cb0df0c6f785fc6" compoundref="canopy__canvars__mod_8F90" startline="504" endline="504">canopy_canvars_mod::g_lon</references>
+        <references refid="group__canopy__variables_1ga20b7667fd864ccb4327b19e4d37df0cc" compoundref="canopy__canvars__mod_8F90" startline="489" endline="489">canopy_canvars_mod::g_time</references>
+        <references refid="group__canopy__options_1gacbd0683a95eff758864d68f9795829ac" compoundref="canopy__canopts__mod_8F90" startline="89" endline="89">canopy_canopts_mod::ifcanbio</references>
+        <references refid="group__canopy__options_1gaa80c16e177daada28967f02ac812efb4" compoundref="canopy__canopts__mod_8F90" startline="94" endline="94">canopy_canopts_mod::ifcanddepgas</references>
+        <references refid="group__canopy__options_1gaa5df00af2b5c3c3f7b6f94d50ca6a3fd" compoundref="canopy__canopts__mod_8F90" startline="79" endline="79">canopy_canopts_mod::ifcaneddy</references>
+        <references refid="group__canopy__options_1gae29808e1b5d91e32e6a20066a6994f68" compoundref="canopy__canopts__mod_8F90" startline="84" endline="84">canopy_canopts_mod::ifcanphot</references>
+        <references refid="group__canopy__options_1gafe17438548619d45e2e78ee67101e02b" compoundref="canopy__canopts__mod_8F90" startline="74" endline="74">canopy_canopts_mod::ifcanwaf</references>
+        <references refid="group__canopy__options_1ga934783f210ee500c6403c63b9be20678" compoundref="canopy__canopts__mod_8F90" startline="69" endline="69">canopy_canopts_mod::ifcanwind</references>
+        <references refid="group__canopy__options_1ga7967d0484fdd67b8bffa531dad3cbe3b" compoundref="canopy__canopts__mod_8F90" startline="30" endline="30">canopy_canopts_mod::infmt_opt</references>
+        <references refid="group__canopy__variables_1ga55334ee90cec2b57c628ea4c5fd78be9" compoundref="canopy__canvars__mod_8F90" startline="246" endline="246">canopy_canvars_mod::kz_3d</references>
+        <references refid="group__canopy__variables_1ga3ef57c6878664b074cbb24b67f353c99" compoundref="canopy__canvars__mod_8F90" startline="227" endline="227">canopy_canvars_mod::lad_3d</references>
+        <references refid="group__bioemi__inputs_1ga23a42344a064fa8bf4d52691a0034078" compoundref="canopy__bioemi__mod_8F90" startline="176" endline="176">modlays</references>
+        <references refid="group__canopy__variables_1ga356af89d9e8544ccc50f3632b2db6267" compoundref="canopy__canvars__mod_8F90" startline="468" endline="468">canopy_canvars_mod::nfld1dt</references>
+        <references refid="group__canopy__variables_1gacb69b9d7c2d7c38c21fc2b53ac939228" compoundref="canopy__canvars__mod_8F90" startline="472" endline="472">canopy_canvars_mod::nfld1dz</references>
+        <references refid="group__canopy__variables_1ga4a716b5d96986c38c3196c8cd72fc801" compoundref="canopy__canvars__mod_8F90" startline="476" endline="476">canopy_canvars_mod::nfld2dxy</references>
+        <references refid="group__canopy__variables_1ga46ce695718a3d284a421b2d01ccd145f" compoundref="canopy__canvars__mod_8F90" startline="480" endline="480">canopy_canvars_mod::nfld2dxyt</references>
+        <references refid="group__canopy__variables_1gab5257cd6bd528a609a082b2be07fbe2b" compoundref="canopy__canvars__mod_8F90" startline="481" endline="481">canopy_canvars_mod::nfld3dxyzt</references>
+        <references refid="group__spatial__domain_1ga9512cd840f763815a1fcf27eae91a5c4" compoundref="canopy__coord__mod_8F90" startline="38" endline="38">canopy_coord_mod::nlat</references>
+        <references refid="group__spatial__domain_1gade13d14d702dbd983bed9336e17d6728" compoundref="canopy__coord__mod_8F90" startline="40" endline="40">canopy_coord_mod::nlon</references>
+        <references refid="group__canopy__variables_1gabc6d6be9189579062b349f095d28a3df" compoundref="canopy__canvars__mod_8F90" startline="248" endline="248">canopy_canvars_mod::rjcf_3d</references>
+        <references refid="group__time__domain_1ga8f726078dc2174d9044bb3fb1efbf4f2" compoundref="canopy__coord__mod_8F90" startline="27" endline="27">canopy_coord_mod::time_intvl</references>
+        <references refid="namespacecanopy__canmet__mod_1a7f7d9225bbd480af13c2e842a922c2c8" compoundref="canopy__canmet__mod_8F90" startline="215">canopy_canmet_mod::variables_2d</references>
+        <references refid="group__canopy__variables_1ga15d40c4ca75d4f26fc0eb07bb395f4ca" compoundref="canopy__canvars__mod_8F90" startline="240" endline="240">canopy_canvars_mod::waf_2d</references>
+        <references refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" compoundref="canopy__bioemi__mod_8F90" startline="123" endline="123">zk</references>
+        <references refid="group__canopy__variables_1ga042baa799f2d2dc34c9f331a9b61102f" compoundref="canopy__canvars__mod_8F90" startline="244" endline="244">canopy_canvars_mod::zo_h_2d</references>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1abcdeea31e415de87479c147a63f94448" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_ncf_io_mod::get_var_1d_int_cdf</definition>
+        <argsstring>(cdfid, var, idum1d, it, rcode)</argsstring>
+        <name>get_var_1d_int_cdf</name>
+        <param>
+          <type>cdfid</type>
+          <defname>cdfid</defname>
+        </param>
+        <param>
+          <type>var</type>
+          <defname>var</defname>
+        </param>
+        <param>
+          <type>idum1d</type>
+          <defname>idum1d</defname>
+        </param>
+        <param>
+          <type>it</type>
+          <defname>it</defname>
+        </param>
+        <param>
+          <type>rcode</type>
+          <defname>rcode</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="225" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="226" bodyend="246"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_read_ncf</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1ab417cdb308c6b9426403f5090d209b4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_ncf_io_mod::get_var_1d_real_cdf</definition>
+        <argsstring>(cdfid, var, dum1d, it, rcode)</argsstring>
+        <name>get_var_1d_real_cdf</name>
+        <param>
+          <type>cdfid</type>
+          <defname>cdfid</defname>
+        </param>
+        <param>
+          <type>var</type>
+          <defname>var</defname>
+        </param>
+        <param>
+          <type>dum1d</type>
+          <defname>dum1d</defname>
+        </param>
+        <param>
+          <type>it</type>
+          <defname>it</defname>
+        </param>
+        <param>
+          <type>rcode</type>
+          <defname>rcode</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="197" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="198" bodyend="219"/>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_read_ncf</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1afe40f918a2243d41347b8e5ce7b53e8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_ncf_io_mod::get_var_2d_int_cdf</definition>
+        <argsstring>(cdfid, var, idum2d, it, rcode)</argsstring>
+        <name>get_var_2d_int_cdf</name>
+        <param>
+          <type>cdfid</type>
+          <defname>cdfid</defname>
+        </param>
+        <param>
+          <type>var</type>
+          <defname>var</defname>
+        </param>
+        <param>
+          <type>idum2d</type>
+          <defname>idum2d</defname>
+        </param>
+        <param>
+          <type>it</type>
+          <defname>it</defname>
+        </param>
+        <param>
+          <type>rcode</type>
+          <defname>rcode</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="168" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="169" bodyend="191"/>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_read_ncf</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1a6e6b7091237f16ddde457b12497579c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_ncf_io_mod::get_var_2d_real_cdf</definition>
+        <argsstring>(cdfid, var, dum2d, it, rcode)</argsstring>
+        <name>get_var_2d_real_cdf</name>
+        <param>
+          <type>cdfid</type>
+          <defname>cdfid</defname>
+        </param>
+        <param>
+          <type>var</type>
+          <defname>var</defname>
+        </param>
+        <param>
+          <type>dum2d</type>
+          <defname>dum2d</defname>
+        </param>
+        <param>
+          <type>it</type>
+          <defname>it</defname>
+        </param>
+        <param>
+          <type>rcode</type>
+          <defname>rcode</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="134" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="135" bodyend="162"/>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_read_ncf</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ncfio__group_1ga448fb73be44b1171263f78c6bf851f8e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_ncf_io_mod::get_var_3d_real_cdf</definition>
+        <argsstring>(cdfid, var, dum3d, it, rcode)</argsstring>
+        <name>get_var_3d_real_cdf</name>
+        <param>
+          <type>cdfid</type>
+          <defname>cdfid</defname>
+        </param>
+        <param>
+          <type>var</type>
+          <defname>var</defname>
+        </param>
+        <param>
+          <type>dum3d</type>
+          <defname>dum3d</defname>
+        </param>
+        <param>
+          <type>it</type>
+          <defname>it</defname>
+        </param>
+        <param>
+          <type>rcode</type>
+          <defname>rcode</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_ncf_io_mod.F90" line="66" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="67" bodyend="97"/>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3071" endline="3762">canopy_read_ncf</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/canopy_ncf_io_mod.F90" line="17" column="1"/>
+  </compounddef>
+</doxygen>

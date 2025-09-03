@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="canopy__read__txt_8F90" kind="file" language="Fortran">
+    <compoundname>canopy_read_txt.F90</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_read_txt</definition>
+        <argsstring>(INFILE, INFILE2)</argsstring>
+        <name>canopy_read_txt</name>
+        <param>
+          <type>INFILE</type>
+          <defname>INFILE</defname>
+        </param>
+        <param>
+          <type>INFILE2</type>
+          <defname>INFILE2</defname>
+        </param>
+        <briefdescription>
+<para>Read canopy met/sfc inputs from text files. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This subroutine reads meteorological and surface input data from text files. It can handle both single variable text files and combined variable plus canopy profile text files depending on the var3d_opt setting.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">INFILE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Primary input text file path </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">INFILE2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Secondary canopy profile input text file path </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">infile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>main IO text reader/writer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Determine which text files to read based on 3D variable option</para>
+        </inbodydescription>
+        <location file="src/canopy_read_txt.F90" line="22" column="1" bodyfile="src/canopy_read_txt.F90" bodystart="23" bodyend="41"/>
+        <references refid="group__bioemi__inputs_1gaad0c993bd5fd93c7decad9daf442d225" compoundref="canopy__bioemi__mod_8F90" startline="127">canopy</references>
+        <references refid="group__canopy__options_1gab0b5819b28313ed0be7118a333b361da" compoundref="canopy__canopts__mod_8F90" startline="36" endline="36">canopy_canopts_mod::var3d_opt</references>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Text Input File Reader Subroutine. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This file contains the subroutine for reading meteorological and surface data from text format input files. It handles both main variable files and supplementary canopy profile files.</para>
+<para><simplesect kind="author"><para>Patrick C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>October 2022 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="10"></codeline>
+<codeline lineno="14"></codeline>
+<codeline lineno="22" refid="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" refkind="member"><highlight class="keyword">SUBROUTINE<sp/></highlight><highlight class="normal"><ref refid="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" kindref="member">canopy_read_txt</ref>(INFILE,INFILE2)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">USE<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__canopts__mod" kindref="compound">canopy_canopts_mod</ref><sp/>!&gt;<sp/>main<sp/><ref refid="group__bioemi__inputs_1gaad0c993bd5fd93c7decad9daf442d225" kindref="member">canopy</ref><sp/>options</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">USE<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__txt__io__mod" kindref="compound">canopy_txt_io_mod</ref><sp/><sp/>!&gt;<sp/>main<sp/>io<sp/>text<sp/>reader/writer</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">IMPLICIT<sp/>NONE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=*)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/>INFILE</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=*)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/>INFILE2</highlight></codeline>
+<codeline lineno="31"></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canopy__options_1gab0b5819b28313ed0be7118a333b361da" kindref="member">var3d_opt</ref><sp/>.ne.<sp/>1)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">!<sp/>reading<sp/>only<sp/>variable<sp/>text<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">read_txt(infile)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">!<sp/>reading<sp/>variable<sp/>text<sp/>file<sp/>and<sp/>canopy<sp/>profile</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">read_txt(infile)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">call<sp/></highlight><highlight class="normal">read_can_txt(infile2)</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/>end<sp/>if</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">END<sp/>SUBROUTINE<sp/></highlight><highlight class="normal"><ref refid="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" kindref="member">canopy_read_txt</ref></highlight></codeline>
+    </programlisting>
+    <location file="src/canopy_read_txt.F90"/>
+  </compounddef>
+</doxygen>

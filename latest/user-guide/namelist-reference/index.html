@@ -1,0 +1,4148 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the Canopy-App atmospheric modeling system">
+      
+      
+        <meta name="author" content="P.C. Campbell and contributors">
+      
+      
+        <link rel="canonical" href="https://noaa-oar-arl.github.io/canopy-app/latest/user-guide/namelist-reference/">
+      
+      
+        <link rel="prev" href="../examples/">
+      
+      
+        <link rel="next" href="../troubleshooting/">
+      
+      
+      <link rel="icon" href="../../canopy-app-logo_no-bg.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Namelist Reference - Canopy-App Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/noaa-theme.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#namelist-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Canopy-App Documentation" class="md-header__button md-logo" aria-label="Canopy-App Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Canopy-App Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Namelist Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/noaa-oar-arl/canopy-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    noaa-oar-arl/canopy-app
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../science/model-description/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Science Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../development/contributing/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../references/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  References
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../canopy/links/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Doxygen API
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Canopy-App Documentation" class="md-nav__button md-logo" aria-label="Canopy-App Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Canopy-App Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/noaa-oar-arl/canopy-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    noaa-oar-arl/canopy-app
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../getting-started/installation/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../input-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../running/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running the Model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../output-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Output Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Examples & Tutorials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Namelist Reference
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Namelist Reference
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-namelist-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Namelist File
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-namelist-options-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Namelist Options Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Namelist Options Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-model-format-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Model Format Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-model-grid-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Model Grid Sizes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-model-run-times-and-interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Model Run Times and Interval
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-model-vegetationland-use-input-dataset-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Model Vegetation/Land Use Input Dataset Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-model-3d-netcdf-variable-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Model 3D NetCDF Variable Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-to-use-observed-pavd-profiles-and-latitude-threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Options to Use Observed PAVD Profiles and Latitude Threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-model-vertical-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Model Vertical Layers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contiguous-canopy-model-thresholds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contiguous Canopy Model Thresholds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-crop-and-shrubsavannagrass-extension-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Crop and Shrub/Savanna/Grass Extension Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-physics-and-wind-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Physics and Wind-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-firewaf-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Fire/WAF-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-eddy-diffusivity-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Eddy Diffusivity-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-radiationphotolysis-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Radiation/Photolysis-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-biogenic-emissions-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Biogenic Emissions-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-gas-dry-deposition-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Gas Dry Deposition-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physics-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physics Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Configurations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-forest-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Forest Simulation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-biogenic-emissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Biogenic Emissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wildfire-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wildfire Application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-model-vertical-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Model Vertical Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vegetation-type-override-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vegetation Type Override Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vegetation Type Override Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-canopy-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Canopy Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shrubsavannagrass-ssg-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shrub/Savanna/Grass (SSG) Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crop-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crop Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#physics-component-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physics Component Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Physics Component Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wind-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wind Calculations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wind-adjustment-factor-waf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wind Adjustment Factor (WAF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vertical-diffusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vertical Diffusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#photolysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Photolysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#biogenic-emissions-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biogenic Emissions Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Biogenic Emissions Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loss-and-chemistry-factors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loss and Chemistry Factors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environmental-response-factors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environmental Response Factors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stress-factors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stress Factors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gas-dry-deposition-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gas Dry Deposition Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gas Dry Deposition Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-settings_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physical-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physical Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-species-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output Species Tables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Species Tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#biogenic-emissions-species-table-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biogenic Emissions Species (Table 1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gas-dry-deposition-species-racm2-table-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gas Dry Deposition Species - RACM2 (Table 2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-tips-and-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Tips and Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Tips and Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simulation-duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simulation Duration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vertical-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vertical Resolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biogenic-emissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biogenic Emissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dry-deposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dry Deposition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wind-calculations_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wind Calculations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-and-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation and Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation and Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-validation-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Validation Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-ranges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Ranges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Documentation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../science/model-description/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Science Documentation
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../api/overview/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../development/contributing/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../canopy/links/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Doxygen API
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-namelist-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Namelist File
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-namelist-options-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Namelist Options Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Namelist Options Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-model-format-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Model Format Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-model-grid-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Model Grid Sizes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-model-run-times-and-interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Model Run Times and Interval
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-model-vegetationland-use-input-dataset-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Model Vegetation/Land Use Input Dataset Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-model-3d-netcdf-variable-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Model 3D NetCDF Variable Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-to-use-observed-pavd-profiles-and-latitude-threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Options to Use Observed PAVD Profiles and Latitude Threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-model-vertical-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Model Vertical Layers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contiguous-canopy-model-thresholds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contiguous Canopy Model Thresholds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-crop-and-shrubsavannagrass-extension-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Crop and Shrub/Savanna/Grass Extension Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-physics-and-wind-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Physics and Wind-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-firewaf-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Fire/WAF-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-eddy-diffusivity-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Eddy Diffusivity-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-radiationphotolysis-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Radiation/Photolysis-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-biogenic-emissions-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Biogenic Emissions-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-gas-dry-deposition-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Gas Dry Deposition-Specific Options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physics-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physics Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Configurations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-forest-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Forest Simulation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-biogenic-emissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Biogenic Emissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wildfire-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wildfire Application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canopy-model-vertical-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Canopy Model Vertical Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vegetation-type-override-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vegetation Type Override Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vegetation Type Override Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-canopy-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Canopy Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shrubsavannagrass-ssg-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shrub/Savanna/Grass (SSG) Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crop-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crop Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#physics-component-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physics Component Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Physics Component Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wind-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wind Calculations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wind-adjustment-factor-waf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wind Adjustment Factor (WAF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vertical-diffusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vertical Diffusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#photolysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Photolysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#biogenic-emissions-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biogenic Emissions Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Biogenic Emissions Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loss-and-chemistry-factors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loss and Chemistry Factors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environmental-response-factors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environmental Response Factors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stress-factors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stress Factors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gas-dry-deposition-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gas Dry Deposition Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gas Dry Deposition Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-settings_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physical-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physical Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-species-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output Species Tables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Species Tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#biogenic-emissions-species-table-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biogenic Emissions Species (Table 1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gas-dry-deposition-species-racm2-table-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gas Dry Deposition Species - RACM2 (Table 2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-tips-and-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Tips and Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Tips and Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simulation-duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simulation Duration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vertical-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vertical Resolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biogenic-emissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Biogenic Emissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dry-deposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dry Deposition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wind-calculations_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wind Calculations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-and-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation and Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation and Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-validation-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Validation Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-ranges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Ranges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Documentation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="namelist-reference">Namelist Reference</h1>
+<p>Complete reference guide for all Canopy-App namelist options and parameters.</p>
+<h2 id="overview">Overview</h2>
+<p>Canopy-App uses Fortran namelist files for configuration. The main configuration file is <a href="https://github.com/noaa-oar-arl/canopy-app/blob/main/input/namelist.canopy"><code>input/namelist.canopy</code></a> and contains two primary namelist groups: <code>&amp;filenames</code> and <code>&amp;userdefs</code>.</p>
+<h2 id="example-namelist-file">Example Namelist File</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&amp;</span><span class="n">filenames</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">file_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;input/gfs.t12z.20220701.sfcf000.canopy.nc&#39;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">file_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;canopy_output&#39;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="o">/</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">&amp;</span><span class="n">userdefs</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="c">! Input format options</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">infmt_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="n">nlat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">361</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="n">nlon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">720</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="c">! Time configuration</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="n">time_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2022-07-01-00:00:00.0000&#39;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="n">time_end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2022-07-01-23:00:00.0000&#39;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="n">ntime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">24</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="n">time_intvl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3600</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="c">! Canopy model structure</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="n">modlays</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="n">modres</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="c">! Physics components</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="n">ifcanwind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="n">ifcanbio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="n">ifcanddepgas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="n">ifcanphot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="n">ifcaneddy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="c">! Biogenic emission settings</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="n">bio_cce</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.21</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="n">hist_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">    </span><span class="n">soim_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="o">/</span>
+</code></pre></div>
+<h2 id="complete-namelist-options-reference">Complete Namelist Options Reference</h2>
+<h3 id="input-model-format-options">Input Model Format Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>infmt_opt</code></td>
+<td>integer</td>
+<td>Input format: <code>0</code>=2D NetCDF, <code>1</code>=1D text</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="input-model-grid-sizes">Input Model Grid Sizes</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nlat</code></td>
+<td>integer</td>
+<td>Number of latitude cells (must match input file)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>nlon</code></td>
+<td>integer</td>
+<td>Number of longitude cells (must match input file)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="input-model-run-times-and-interval">Input Model Run Times and Interval</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>time_start</code></td>
+<td>string</td>
+<td>Start time (YYYY-MM-DD-HH:MM:SS.SSSS)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>time_end</code></td>
+<td>string</td>
+<td>End time (YYYY-MM-DD-HH:MM:SS.SSSS)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>ntime</code></td>
+<td>integer</td>
+<td>Number of time steps</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>time_intvl</code></td>
+<td>integer</td>
+<td>Time interval in seconds (e.g., 3600 for hourly)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="canopy-model-vegetationland-use-input-dataset-options">Canopy Model Vegetation/Land Use Input Dataset Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lu_opt</code></td>
+<td>integer</td>
+<td>Land use type: <code>0</code>=VIIRS 17-cat, <code>1</code>=MODIS-IGBP 20-cat</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="input-model-3d-netcdf-variable-options">Input Model 3D NetCDF Variable Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>var3d_opt</code></td>
+<td>integer</td>
+<td>Use 3D variables: <code>0</code>=off, <code>1</code>=on</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>var3d_set</code></td>
+<td>integer</td>
+<td>Number of 3D input levels (max 14 for text files)</td>
+<td><code>14</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="options-to-use-observed-pavd-profiles-and-latitude-threshold">Options to Use Observed PAVD Profiles and Latitude Threshold</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pavd_opt</code></td>
+<td>integer</td>
+<td>Use GEDI 3D PAVD profiles: <code>0</code>=off, <code>1</code>=on</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>pavd_set</code></td>
+<td>real</td>
+<td>Latitude threshold for PAVD profiles (degrees)</td>
+<td><code>52.0</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="canopy-model-vertical-layers">Canopy Model Vertical Layers</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>modlays</code></td>
+<td>integer</td>
+<td>Number of model layers (above and below canopy)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>modres</code></td>
+<td>real</td>
+<td>Vertical resolution (m)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Layer Configuration</p>
+<p>Strongly recommend adjusting <code>modlays</code> and <code>modres</code> to maintain canopy model column extension above tallest canopies. For a 50m column simulation, you could use:
+- 1000 layers @ 0.05m resolution
+- 100 layers @ 0.5m resolution
+- 50 layers @ 1.0m resolution</p>
+</div>
+<h3 id="contiguous-canopy-model-thresholds">Contiguous Canopy Model Thresholds</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lai_thresh</code></td>
+<td>real</td>
+<td>LAI threshold for contiguous canopy (m²/m²)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>cf_thresh</code></td>
+<td>real</td>
+<td>Canopy fraction threshold for contiguous canopy</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>ch_thresh</code></td>
+<td>real</td>
+<td>Canopy height threshold for contiguous canopy (m)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These thresholds only apply for valid vegetated land use types (forests, shrub/savanna/grass, crops, wetlands).</p>
+</div>
+<h3 id="canopy-crop-and-shrubsavannagrass-extension-options">Canopy Crop and Shrub/Savanna/Grass Extension Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>can_opt</code></td>
+<td>integer</td>
+<td>Use input data (<code>0</code>) or user-set values (<code>1</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>can_chset</code></td>
+<td>real</td>
+<td>Constant canopy height (m), used if <code>can_opt=1</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>can_cfset</code></td>
+<td>real</td>
+<td>Constant canopy fraction, used if <code>can_opt=1</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>can_laiset</code></td>
+<td>real</td>
+<td>Constant canopy LAI, used if <code>can_opt=1</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>ssg_opt</code></td>
+<td>integer</td>
+<td>Shrub/savanna/grass option: input data (<code>0</code>) or user-set (<code>1</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>ssg_chset</code></td>
+<td>real</td>
+<td>Constant SSG height (m), used if <code>ssg_opt=1</code></td>
+<td><code>0.5-1.0</code></td>
+</tr>
+<tr>
+<td><code>ssg_cfset</code></td>
+<td>real</td>
+<td>Constant SSG fraction, used if <code>ssg_opt=1</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>ssg_laiset</code></td>
+<td>real</td>
+<td>Constant SSG LAI, used if <code>ssg_opt=1</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>crop_opt</code></td>
+<td>integer</td>
+<td>Crop option: input data (<code>0</code>) or user-set (<code>1</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>crop_chset</code></td>
+<td>real</td>
+<td>Constant crop height (m), used if <code>crop_opt=1</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>crop_cfset</code></td>
+<td>real</td>
+<td>Constant crop fraction, used if <code>crop_opt=1</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>crop_laiset</code></td>
+<td>real</td>
+<td>Constant crop LAI, used if <code>crop_opt=1</code></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="canopy-physics-and-wind-specific-options">Canopy Physics and Wind-Specific Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcanwind</code></td>
+<td>logical</td>
+<td>Enable canopy wind calculations</td>
+<td><code>.FALSE.</code></td>
+</tr>
+<tr>
+<td><code>href_opt</code></td>
+<td>integer</td>
+<td>Use namelist (<code>0</code>) or file array (<code>1</code>) for reference height</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>href_set</code></td>
+<td>real</td>
+<td>Reference height above canopy (m)</td>
+<td><code>10.0</code></td>
+</tr>
+<tr>
+<td><code>z0ghc</code></td>
+<td>real</td>
+<td>Ratio of ground roughness to canopy height</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>rsl_opt</code></td>
+<td>integer</td>
+<td>RSL effects: MOST (<code>0</code>) or unified RSL (<code>1</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>lambdars</code></td>
+<td>real</td>
+<td>RSL influence factor (with <code>rsl_opt=0</code>)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>pai_opt</code></td>
+<td>integer</td>
+<td>PAI calculation method (<code>0-3</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>pai_set</code></td>
+<td>real</td>
+<td>User-set PAI value (used if <code>pai_opt=3</code>)</td>
+<td><code>4.0</code></td>
+</tr>
+<tr>
+<td><code>z0_opt</code></td>
+<td>integer</td>
+<td>Use model input (<code>0</code>) or vegetation-dependent z0 (<code>1</code>)</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If <code>href_set</code> becomes small and approaches z0, only sub-canopy wind profile is calculated. Recommend <code>href_set = 10m</code>.</p>
+</div>
+<h3 id="canopy-firewaf-specific-options">Canopy Fire/WAF-Specific Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcanwaf</code></td>
+<td>logical</td>
+<td>Enable canopy WAF calculations</td>
+<td><code>.FALSE.</code></td>
+</tr>
+<tr>
+<td><code>dx_opt</code></td>
+<td>integer</td>
+<td>Grid resolution: calculated (<code>0</code>) or user-set (<code>1</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>dx_set</code></td>
+<td>real</td>
+<td>Grid resolution (m), used if <code>dx_opt=1</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>flameh_opt</code></td>
+<td>integer</td>
+<td>Flame height calculation method (<code>0-5</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>flameh_cal</code></td>
+<td>integer</td>
+<td>FRP-based flame height method (<code>0-1</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>flameh_set</code></td>
+<td>real</td>
+<td>User-set flame height (m) or fraction of canopy height</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>frp_fac</code></td>
+<td>real</td>
+<td>Tuning factor for FRP in flame height calculation</td>
+<td><code>1.0</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If <code>modres &gt;&gt; flameh</code>, errors in WAF calculation will occur. Use fine <code>modres</code> (≤0.5m) compared to average flame heights (~1.0m).</p>
+</div>
+<h3 id="canopy-eddy-diffusivity-specific-options">Canopy Eddy Diffusivity-Specific Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcaneddy</code></td>
+<td>logical</td>
+<td>Enable canopy eddy Kz calculations</td>
+<td><code>.FALSE.</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="canopy-radiationphotolysis-specific-options">Canopy Radiation/Photolysis-Specific Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcanphot</code></td>
+<td>logical</td>
+<td>Enable canopy photolysis calculations</td>
+<td><code>.FALSE.</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="canopy-biogenic-emissions-specific-options">Canopy Biogenic Emissions-Specific Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcanbio</code></td>
+<td>logical</td>
+<td>Enable canopy biogenic emissions</td>
+<td><code>.FALSE.</code></td>
+</tr>
+<tr>
+<td><code>bio_cce</code></td>
+<td>real</td>
+<td>MEGAN canopy environment coefficient</td>
+<td><code>0.21</code></td>
+</tr>
+<tr>
+<td><code>biospec_opt</code></td>
+<td>integer</td>
+<td>Species output: all (<code>0</code>) or single species (<code>1-19</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>biovert_opt</code></td>
+<td>integer</td>
+<td>Vertical summing option (<code>0-3</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>loss_opt</code></td>
+<td>integer</td>
+<td>Canopy loss factor option (<code>0-2</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>loss_set</code></td>
+<td>real</td>
+<td>Constant loss factor (used if <code>loss_opt=2</code>)</td>
+<td><code>0.96</code></td>
+</tr>
+<tr>
+<td><code>loss_ind</code></td>
+<td>integer</td>
+<td>Apply loss to all species (<code>0</code>) or specific species</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>lifetime</code></td>
+<td>real</td>
+<td>Chemical lifetime in seconds (used if <code>loss_opt=1</code>)</td>
+<td><code>3600</code></td>
+</tr>
+<tr>
+<td><code>co2_opt</code></td>
+<td>integer</td>
+<td>CO₂ inhibition method: Possell &amp; Hewitt (<code>0</code>), Wilkinson (<code>1</code>), off (<code>2</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>co2_set</code></td>
+<td>real</td>
+<td>Atmospheric CO₂ concentration (ppmv)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>For complete details on all biogenic emission options including leaf age, historical averaging, soil moisture, and environmental stress factors, see the full reference in the <a href="https://github.com/noaa-oar-arl/canopy-app/blob/main/README.md#table-3-current-user-namelist-options">README.md</a>.</p>
+<h3 id="canopy-gas-dry-deposition-specific-options">Canopy Gas Dry Deposition-Specific Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcanddepgas</code></td>
+<td>logical</td>
+<td>Enable canopy gas dry deposition</td>
+<td><code>.FALSE.</code></td>
+</tr>
+<tr>
+<td><code>ddepspecgas_opt</code></td>
+<td>integer</td>
+<td>Species output: all (<code>0</code>) or single species (<code>1-31</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>chemmechgas_opt</code></td>
+<td>integer</td>
+<td>Chemical mechanism: RACM2 (<code>0</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>chemmechgas_tot</code></td>
+<td>integer</td>
+<td>Total species in mechanism</td>
+<td><code>31</code></td>
+</tr>
+<tr>
+<td><code>hyblev1</code></td>
+<td>real</td>
+<td>Height of 1st hybrid model layer (m)</td>
+<td><code>20.0</code></td>
+</tr>
+<tr>
+<td><code>snowc_set</code></td>
+<td>real</td>
+<td>Snow cover threshold (%)</td>
+<td><code>50.0</code></td>
+</tr>
+<tr>
+<td><code>icec_set</code></td>
+<td>real</td>
+<td>Ice cover threshold (%)</td>
+<td><code>50.0</code></td>
+</tr>
+<tr>
+<td><code>gamma_set</code></td>
+<td>real</td>
+<td>Building surface reaction probability</td>
+<td><code>5.0e-5</code></td>
+</tr>
+<tr>
+<td><code>Ramin_set</code></td>
+<td>real</td>
+<td>Minimum aerodynamic resistance (s/m)</td>
+<td><code>10.0</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-tips">Configuration Tips</h2>
+<h3 id="basic-setup">Basic Setup</h3>
+<ul>
+<li>Start with default values and enable only needed physics components</li>
+<li>Ensure grid dimensions (<code>nlat</code>, <code>nlon</code>) match your input files</li>
+<li>Set appropriate vertical resolution (<code>modres</code>) and layers (<code>modlays</code>)</li>
+</ul>
+<h3 id="physics-components">Physics Components</h3>
+<ul>
+<li>Enable components based on your application:</li>
+<li><code>ifcanwind</code>: Wind profiles, wildfire applications</li>
+<li><code>ifcanbio</code>: Biogenic emissions</li>
+<li><code>ifcanddepgas</code>: Gas dry deposition</li>
+<li><code>ifcanphot</code>: Photolysis attenuation</li>
+<li><code>ifcaneddy</code>: Vertical diffusion</li>
+</ul>
+<h3 id="performance-considerations">Performance Considerations</h3>
+<ul>
+<li>Higher vertical resolution (<code>modres</code>) provides more accuracy but increases computation time</li>
+<li>Use historical averaging (<code>hist_opt=1</code>) for longer simulations to improve biogenic emission calculations</li>
+<li>Consider enabling soil moisture response (<code>soim_opt=0</code>) for realistic biogenic emissions</li>
+</ul>
+<h3 id="common-issues">Common Issues</h3>
+<ul>
+<li>Ensure <code>href_set</code> ≥ 10m to avoid calculation issues</li>
+<li>Match time settings with your input data frequency</li>
+<li>Verify land use type compatibility with your input data</li>
+<li>Check that flame height settings are appropriate for your grid resolution</li>
+</ul>
+<h2 id="example-configurations">Example Configurations</h2>
+<h3 id="basic-forest-simulation">Basic Forest Simulation</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">&amp;</span><span class="n">userdefs</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="c">! Basic setup</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">infmt_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">nlat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">361</span><span class="p">,</span><span class="w"> </span><span class="n">nlon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">720</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">modlays</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="n">modres</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="c">! Enable core physics</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">ifcanwind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">ifcanbio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="n">ifcanphot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="c">! Basic biogenic settings</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="n">bio_cce</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.21</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="n">hist_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="o">/</span>
+</code></pre></div>
+<h3 id="advanced-biogenic-emissions">Advanced Biogenic Emissions</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&amp;</span><span class="n">userdefs</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="c">! Detailed biogenic setup</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">ifcanbio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">bio_cce</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.21</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">hist_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="n">soim_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="c">! Environmental factors</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="n">aq_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="n">co2_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="n">co2_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">41</span><span class="mf">5.0</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="o">/</span>
+</code></pre></div>
+<h3 id="wildfire-application">Wildfire Application</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&amp;</span><span class="n">userdefs</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="c">! Wind and fire setup</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">ifcanwind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">ifcanwaf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="c">! Fine resolution for flame height</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="n">modres</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.25</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="n">modlays</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">200</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="c">! Fire-specific settings</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="n">flameh_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="n">flameh_cal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="n">frp_fac</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="o">/</span>
+</code></pre></div>
+<h3 id="canopy-model-vertical-structure">Canopy Model Vertical Structure</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>modlays</code></td>
+<td>integer</td>
+<td>Number of model layers (above/below canopy)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>modres</code></td>
+<td>real</td>
+<td>Vertical resolution (m)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>lai_thresh</code></td>
+<td>real</td>
+<td>LAI threshold for contiguous canopy (m²/m²)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>cf_thresh</code></td>
+<td>real</td>
+<td>Canopy fraction threshold</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>ch_thresh</code></td>
+<td>real</td>
+<td>Canopy height threshold (m)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vegetation-type-override-options">Vegetation Type Override Options</h3>
+<h4 id="general-canopy-settings">General Canopy Settings</h4>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>can_opt</code></td>
+<td>integer</td>
+<td>Use namelist values: <code>0</code>=input data, <code>1</code>=namelist values when missing</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>can_chset</code></td>
+<td>real</td>
+<td>Constant canopy height (m)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>can_cfset</code></td>
+<td>real</td>
+<td>Constant canopy fraction</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>can_laiset</code></td>
+<td>real</td>
+<td>Constant canopy LAI</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h4 id="shrubsavannagrass-ssg-settings">Shrub/Savanna/Grass (SSG) Settings</h4>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ssg_opt</code></td>
+<td>integer</td>
+<td>Use namelist SSG values when missing: <code>0</code>=off, <code>1</code>=on</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>ssg_chset</code></td>
+<td>real</td>
+<td>SSG height (m) - recommend 0.5-1.0m</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>ssg_cfset</code></td>
+<td>real</td>
+<td>SSG fraction</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>ssg_laiset</code></td>
+<td>real</td>
+<td>SSG LAI</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h4 id="crop-settings">Crop Settings</h4>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crop_opt</code></td>
+<td>integer</td>
+<td>Use namelist crop values when missing: <code>0</code>=off, <code>1</code>=on</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>crop_chset</code></td>
+<td>real</td>
+<td>Crop height (m)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>crop_cfset</code></td>
+<td>real</td>
+<td>Crop fraction</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>crop_laiset</code></td>
+<td>real</td>
+<td>Crop LAI</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="physics-component-options">Physics Component Options</h2>
+<h3 id="wind-calculations">Wind Calculations</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcanwind</code></td>
+<td>logical</td>
+<td>Enable canopy wind calculations</td>
+<td><code>.FALSE.</code></td>
+</tr>
+<tr>
+<td><code>href_opt</code></td>
+<td>integer</td>
+<td>Reference height: <code>0</code>=use <code>href_set</code>, <code>1</code>=from file</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>href_set</code></td>
+<td>real</td>
+<td>Reference height above canopy (m) - recommend 10m</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>z0ghc</code></td>
+<td>real</td>
+<td>Ground roughness to canopy height ratio</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>rsl_opt</code></td>
+<td>integer</td>
+<td>Roughness sublayer: <code>0</code>=MOST, <code>1</code>=unified RSL</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>lambdars</code></td>
+<td>real</td>
+<td>RSL influence factor</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>pai_opt</code></td>
+<td>integer</td>
+<td>PAI method: <code>0</code>=fixed, <code>1</code>=calculated, <code>2</code>=from LAI, <code>3</code>=user-set</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>pai_set</code></td>
+<td>real</td>
+<td>User-set PAI value (used if <code>pai_opt=3</code>)</td>
+<td><code>4.0</code></td>
+</tr>
+<tr>
+<td><code>z0_opt</code></td>
+<td>integer</td>
+<td>Surface roughness: <code>0</code>=model input, <code>1</code>=vegetation-dependent</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="wind-adjustment-factor-waf">Wind Adjustment Factor (WAF)</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcanwaf</code></td>
+<td>logical</td>
+<td>Enable WAF calculations</td>
+<td><code>.FALSE.</code></td>
+</tr>
+<tr>
+<td><code>dx_opt</code></td>
+<td>integer</td>
+<td>Grid resolution: <code>0</code>=calculate from lon, <code>1</code>=user-set</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>dx_set</code></td>
+<td>real</td>
+<td>Grid resolution (m)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>flameh_opt</code></td>
+<td>integer</td>
+<td>Flame height method (0-5)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>flameh_cal</code></td>
+<td>integer</td>
+<td>FRP calculation: <code>0</code>=Table 1 method, <code>1</code>=Table 2 method</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>flameh_set</code></td>
+<td>real</td>
+<td>Flame height (m) or fraction of canopy height</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>frp_fac</code></td>
+<td>real</td>
+<td>FRP tuning factor</td>
+<td><code>1.0</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Flame Height Options (<code>flameh_opt</code>):</strong>
+- <code>0</code>: Calculate from FRP (fire intensity)
+- <code>1</code>: User-set flame height
+- <code>2</code>: FRP where available, user-set elsewhere
+- <code>3</code>: Fraction of canopy height override
+- <code>4</code>: FRP where available, fraction override elsewhere
+- <code>5</code>: FRP/intensity dependent with crown fire detection</p>
+<h3 id="vertical-diffusion">Vertical Diffusion</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcaneddy</code></td>
+<td>logical</td>
+<td>Enable eddy diffusivity calculations</td>
+<td><code>.FALSE.</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="photolysis">Photolysis</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcanphot</code></td>
+<td>logical</td>
+<td>Enable photolysis attenuation</td>
+<td><code>.FALSE.</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="biogenic-emissions-options">Biogenic Emissions Options</h2>
+<h3 id="basic-settings">Basic Settings</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcanbio</code></td>
+<td>logical</td>
+<td>Enable biogenic emissions</td>
+<td><code>.FALSE.</code></td>
+</tr>
+<tr>
+<td><code>bio_cce</code></td>
+<td>real</td>
+<td>Canopy environment coefficient</td>
+<td><code>0.21</code></td>
+</tr>
+<tr>
+<td><code>biospec_opt</code></td>
+<td>integer</td>
+<td>Species output: <code>0</code>=all, <code>1-19</code>=single species</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>biovert_opt</code></td>
+<td>integer</td>
+<td>Vertical summing: <code>0</code>=none, <code>1</code>=LAD-weighted, <code>2</code>=Gaussian, <code>3</code>=even</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="loss-and-chemistry-factors">Loss and Chemistry Factors</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>loss_opt</code></td>
+<td>integer</td>
+<td>Canopy loss factor: <code>0</code>=off, <code>1</code>=calculated, <code>2</code>=constant</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>loss_set</code></td>
+<td>real</td>
+<td>Constant loss factor (used if <code>loss_opt=2</code>)</td>
+<td><code>0.96</code></td>
+</tr>
+<tr>
+<td><code>loss_ind</code></td>
+<td>integer</td>
+<td>Species for loss: <code>0</code>=all, <code>&gt;0</code>=specific species ID</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>lifetime</code></td>
+<td>real</td>
+<td>Chemical lifetime (s) for loss calculations</td>
+<td><code>3600</code></td>
+</tr>
+<tr>
+<td><code>co2_opt</code></td>
+<td>integer</td>
+<td>CO₂ inhibition: <code>0</code>=Possell &amp; Hewitt, <code>1</code>=Wilkinson, <code>2</code>=off</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>co2_set</code></td>
+<td>real</td>
+<td>CO₂ concentration (ppmv)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="environmental-response-factors">Environmental Response Factors</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>leafage_opt</code></td>
+<td>integer</td>
+<td>Leaf age response: <code>0</code>=on, <code>1</code>=off</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>lai_tstep</code></td>
+<td>integer</td>
+<td>LAI data interval (s) - e.g., 86400 for daily</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>hist_opt</code></td>
+<td>integer</td>
+<td>Historical averaging: <code>0</code>=off, <code>1</code>=on</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>soim_opt</code></td>
+<td>integer</td>
+<td>Soil moisture response: <code>0</code>=on, <code>1</code>=off</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>soild1</code></td>
+<td>real</td>
+<td>Soil layer 1 depth (cm)</td>
+<td><code>5.0</code></td>
+</tr>
+<tr>
+<td><code>soild2</code></td>
+<td>real</td>
+<td>Soil layer 2 depth (cm)</td>
+<td><code>25.0</code></td>
+</tr>
+<tr>
+<td><code>soild3</code></td>
+<td>real</td>
+<td>Soil layer 3 depth (cm)</td>
+<td><code>70.0</code></td>
+</tr>
+<tr>
+<td><code>soild4</code></td>
+<td>real</td>
+<td>Soil layer 4 depth (cm)</td>
+<td><code>150.0</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="stress-factors">Stress Factors</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aq_opt</code></td>
+<td>integer</td>
+<td>Air quality stress: <code>0</code>=calculated, <code>1</code>=user-set, <code>2</code>=off</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>w126_set</code></td>
+<td>real</td>
+<td>Ozone W126 value (ppm-hours)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>ht_opt</code></td>
+<td>integer</td>
+<td>High temperature stress: <code>0</code>=on, <code>1</code>=off</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>lt_opt</code></td>
+<td>integer</td>
+<td>Low temperature stress: <code>0</code>=on, <code>1</code>=off</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>hw_opt</code></td>
+<td>integer</td>
+<td>High wind stress: <code>0</code>=on, <code>1</code>=off</td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="gas-dry-deposition-options">Gas Dry Deposition Options</h2>
+<h3 id="basic-settings_1">Basic Settings</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ifcanddepgas</code></td>
+<td>logical</td>
+<td>Enable gas dry deposition</td>
+<td><code>.FALSE.</code></td>
+</tr>
+<tr>
+<td><code>ddepspecgas_opt</code></td>
+<td>integer</td>
+<td>Species output: <code>0</code>=all, <code>1-31</code>=single species</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>chemmechgas_opt</code></td>
+<td>integer</td>
+<td>Chemical mechanism: <code>0</code>=RACM2</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>chemmechgas_tot</code></td>
+<td>integer</td>
+<td>Total species in mechanism</td>
+<td><code>31</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="physical-settings">Physical Settings</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hyblev1</code></td>
+<td>real</td>
+<td>Height of first hybrid level (m)</td>
+<td><code>20.0</code></td>
+</tr>
+<tr>
+<td><code>snowc_set</code></td>
+<td>real</td>
+<td>Snow cover threshold (%)</td>
+<td><code>50.0</code></td>
+</tr>
+<tr>
+<td><code>icec_set</code></td>
+<td>real</td>
+<td>Ice cover threshold (%)</td>
+<td><code>50.0</code></td>
+</tr>
+<tr>
+<td><code>gamma_set</code></td>
+<td>real</td>
+<td>Building surface reaction probability</td>
+<td><code>5.0e-5</code></td>
+</tr>
+<tr>
+<td><code>Ramin_set</code></td>
+<td>real</td>
+<td>Minimum aerodynamic resistance (s/m)</td>
+<td><code>10.0</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="output-species-tables">Output Species Tables</h2>
+<h3 id="biogenic-emissions-species-table-1">Biogenic Emissions Species (Table 1)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Variable</th>
+<th>Description</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>emi_isop</code></td>
+<td>Isoprene</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>emi_myrc</code></td>
+<td>Myrcene</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>emi_sabi</code></td>
+<td>Sabinene</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>emi_limo</code></td>
+<td>Limonene</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>emi_care</code></td>
+<td>3-Carene</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>emi_ocim</code></td>
+<td>t-beta-Ocimene</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>emi_bpin</code></td>
+<td>beta-Pinene</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>emi_apin</code></td>
+<td>alpha-Pinene</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>emi_mono</code></td>
+<td>Other Monoterpenes (34 compounds)</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>emi_farn</code></td>
+<td>alpha-Farnesene</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>emi_cary</code></td>
+<td>beta-Caryophyllene</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>emi_sesq</code></td>
+<td>Other Sesquiterpenes (30 compounds)</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>emi_mbol</code></td>
+<td>2-Methyl-3-buten-2-ol</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>emi_meth</code></td>
+<td>Methanol</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>emi_acet</code></td>
+<td>Acetone</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>emi_co</code></td>
+<td>Carbon Monoxide</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>emi_bvoc</code></td>
+<td>Bi-Directional VOCs (5 compounds)</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>emi_svoc</code></td>
+<td>Stress VOCs (15 compounds)</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>emi_ovoc</code></td>
+<td>Other VOCs (49 compounds)</td>
+<td>kg m⁻³ s⁻¹</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gas-dry-deposition-species-racm2-table-2">Gas Dry Deposition Species - RACM2 (Table 2)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Variable</th>
+<th>Description</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>ddep_so2</code></td>
+<td>Sulfur Dioxide</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>ddep_no</code></td>
+<td>Nitric Oxide</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>ddep_no2</code></td>
+<td>Nitrogen Dioxide</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>ddep_nh3</code></td>
+<td>Ammonia</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>ddep_n2o5</code></td>
+<td>Dinitrogen Pentoxide</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>ddep_hno3</code></td>
+<td>Nitric Acid</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>ddep_hono</code></td>
+<td>Nitrous Acid</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>ddep_pna</code></td>
+<td>Peroxynitric Acid</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>ddep_h2o2</code></td>
+<td>Hydrogen Peroxide</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>ddep_o3</code></td>
+<td>Ozone</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>ddep_form</code></td>
+<td>Formaldehyde</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>ddep_ald</code></td>
+<td>Acetaldehyde</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>ddep_ora2</code></td>
+<td>Organic Acid</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>ddep_aacd</code></td>
+<td>Acetic Acid</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>ddep_pacd</code></td>
+<td>Peroxyacetic Acid</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>ddep_op1</code></td>
+<td>Methyl Hydroperoxide</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>ddep_op2</code></td>
+<td>Higher Organic Peroxide</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>ddep_pan</code></td>
+<td>Peroxyacetyl Nitrate</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>ddep_mpan</code></td>
+<td>Peroxymethacryloyl Nitrate</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>ddep_ntr</code></td>
+<td>Organic Nitrate</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>21</td>
+<td><code>ddep_facd</code></td>
+<td>Formic Acid</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>22</td>
+<td><code>ddep_co</code></td>
+<td>Carbon Monoxide</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>23</td>
+<td><code>ddep_eth</code></td>
+<td>Ethane</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>24</td>
+<td><code>ddep_hc3</code></td>
+<td>Alkanes</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>25</td>
+<td><code>ddep_hc5</code></td>
+<td>Higher Alkanes</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>26</td>
+<td><code>ddep_hc8</code></td>
+<td>Higher Alkanes</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>27</td>
+<td><code>ddep_ete</code></td>
+<td>Ethene</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>28</td>
+<td><code>ddep_olt</code></td>
+<td>Terminal Olefins</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>29</td>
+<td><code>ddep_oli</code></td>
+<td>Internal Olefins</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>30</td>
+<td><code>ddep_tol</code></td>
+<td>Toluene</td>
+<td>cm s⁻¹</td>
+</tr>
+<tr>
+<td>31</td>
+<td><code>ddep_xyl</code></td>
+<td>Xylene</td>
+<td>cm s⁻¹</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-tips-and-best-practices">Configuration Tips and Best Practices</h2>
+<h3 id="simulation-duration">Simulation Duration</h3>
+<ul>
+<li><strong>Short runs (&lt; 24 hours)</strong>: Use <code>hist_opt = 0</code></li>
+<li><strong>Medium runs (1-10 days)</strong>: Use <code>hist_opt = 1</code></li>
+<li><strong>Long runs (&gt; 10 days)</strong>: Include 240-hour spin-up period</li>
+</ul>
+<h3 id="vertical-resolution">Vertical Resolution</h3>
+<ul>
+<li><strong>WAF calculations</strong>: Use <code>modres ≤ 0.5m</code></li>
+<li><strong>Standard applications</strong>: Use <code>modres = 0.5-2.0m</code></li>
+<li><strong>Large domains</strong>: Use <code>modres = 1.0-2.0m</code></li>
+</ul>
+<h3 id="biogenic-emissions">Biogenic Emissions</h3>
+<ul>
+<li>Always use <code>bio_cce = 0.21</code> (recommended)</li>
+<li>Enable <code>soim_opt = 0</code> for soil moisture effects</li>
+<li>Use <code>hist_opt = 1</code> for runs &gt; 24 hours</li>
+<li>Set appropriate <code>lai_tstep</code> for your LAI data frequency</li>
+</ul>
+<h3 id="dry-deposition">Dry Deposition</h3>
+<ul>
+<li>Use default <code>gamma_set = 5.0e-5</code> for urban areas</li>
+<li>Adjust snow/ice thresholds (<code>snowc_set</code>, <code>icec_set</code>) for your domain</li>
+<li>Set <code>hyblev1</code> to match your model's first level height</li>
+</ul>
+<h3 id="wind-calculations_1">Wind Calculations</h3>
+<ul>
+<li>Set <code>href_set = 10.0m</code> (recommended)</li>
+<li>Use <code>z0ghc = 0.1</code> for typical forest conditions</li>
+<li>Avoid <code>href_set</code> approaching surface roughness length</li>
+</ul>
+<h2 id="validation-and-testing">Validation and Testing</h2>
+<h3 id="check-configuration">Check Configuration</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Validate namelist syntax</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./canopy<span class="w"> </span>--check-namelist
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Test short simulation</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Set ntime = 1 for quick validation</span>
+</code></pre></div>
+<h3 id="common-validation-steps">Common Validation Steps</h3>
+<ol>
+<li>Verify all required parameters are set</li>
+<li>Check that file paths exist and are readable</li>
+<li>Ensure grid dimensions match input files</li>
+<li>Validate time settings are consistent</li>
+<li>Check that enabled components have required parameters</li>
+</ol>
+<h3 id="parameter-ranges">Parameter Ranges</h3>
+<ul>
+<li><code>modres</code>: 0.1 - 5.0 m</li>
+<li><code>modlays</code>: 20 - 500 layers</li>
+<li><code>bio_cce</code>: 0.1 - 0.5</li>
+<li><code>href_set</code>: 5.0 - 50.0 m</li>
+<li><code>lai_thresh</code>: 0.1 - 10.0 m²/m²</li>
+<li><code>cf_thresh</code>: 0.1 - 1.0</li>
+<li><code>ch_thresh</code>: 1.0 - 100.0 m</li>
+</ul>
+<h2 id="related-documentation">Related Documentation</h2>
+<ul>
+<li><strong><a href="../../getting-started/configuration/">Configuration Guide</a></strong> - Basic setup instructions</li>
+<li><strong><a href="../examples/">Examples</a></strong> - Practical configuration examples</li>
+<li><strong><a href="../../science/model-description/">Science Documentation</a></strong> - Physics behind the parameters</li>
+<li><strong><a href="../troubleshooting/">Troubleshooting</a></strong> - Problem-solving guide</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by <a href="https://github.com/noaa-oar-arl/canopy-app/issues/new/?title=[Docs]+Namelist%20Reference+-+/user-guide/namelist-reference/" target="_blank" rel="noopener">telling us what you found lacking</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 NOAA Air Resources Laboratory - P.C. Campbell and contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/noaa-oar-arl/canopy-app" target="_blank" rel="noopener" title="GitHub Repository" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.noaa.gov/" target="_blank" rel="noopener" title="NOAA Website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M351.9 280H161c2.9 64.5 17.2 123.9 37.5 167.4 11.4 24.5 23.7 41.8 35.1 52.4 11.2 10.5 18.9 12.2 22.9 12.2s11.7-1.7 22.9-12.2c11.4-10.6 23.7-28 35.1-52.4 20.3-43.5 34.6-102.9 37.5-167.4zm-191-48h190.9c-2.8-64.5-17.1-123.9-37.4-167.4-11.4-24.4-23.7-41.8-35.1-52.4C268.1 1.7 260.4 0 256.4 0s-11.7 1.7-22.9 12.2c-11.4 10.6-23.7 28-35.1 52.4-20.3 43.5-34.6 102.9-37.5 167.4m-48 0c3.5-85.6 25.6-165.1 57.9-217.3C78.7 47.3 10.9 131.2 1.5 232zM1.5 280c9.4 100.8 77.2 184.7 169.3 217.3-32.3-52.2-54.4-131.7-57.9-217.3zm398.4 0c-3.5 85.6-25.6 165.1-57.9 217.3 92.1-32.7 159.9-116.5 169.3-217.3zm111.4-48C501.9 131.2 434.1 47.3 342 14.7c32.3 52.2 54.4 131.7 57.9 217.3z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:patrick.c.campbell@noaa.gov" target="_blank" rel="noopener" title="Contact" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.prune", "navigation.indexes", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.tooltips"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="../../javascripts/noaa-enhancements.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

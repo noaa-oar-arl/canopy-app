@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__MemoryManagement" kind="group">
+    <compoundname>MemoryManagement</compoundname>
+    <title>Memory Management</title>
+    <innergroup refid="group__Daily3DAverages">Daily Average 3D Arrays</innergroup>
+    <briefdescription>
+<para>Routines !&gt; </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

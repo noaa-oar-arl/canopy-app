@@ -1,0 +1,809 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="canopy__var3din__mod_8F90" kind="file" language="Fortran">
+    <compoundname>canopy_var3din_mod.F90</compoundname>
+    <innernamespace refid="namespacecanopy__var3din__mod">canopy_var3din_mod</innernamespace>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__var3din__inputs_1gaf04004eb4ad83b04f241a9359b346b76" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) above</definition>
+        <argsstring></argsstring>
+        <name>above</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="55" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1a431cd19fcf0e223f471bf18074aa0278" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) actual</definition>
+        <argsstring></argsstring>
+        <name>actual</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="72" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga240ed71d2647db3b96e9ae72ded2c677" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) area</definition>
+        <argsstring></argsstring>
+        <name>area</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="54" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gac21be24d96dd2925be2d966fb2eb06a2" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) associated</definition>
+        <argsstring></argsstring>
+        <name>associated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="59" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga9948737c5e8673833d89fe1f2902204e" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) below</definition>
+        <argsstring></argsstring>
+        <name>below</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="56" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gac064082b4bef8c921ae5d49af69e95bf" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) canopy</definition>
+        <argsstring></argsstring>
+        <name>canopy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="53" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gad96d6af32dd6c24af9320b07272de13b" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) cell</definition>
+        <argsstring></argsstring>
+        <name>cell</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="53" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1aa8c042f96afa6be60af0521493eebca0" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(<ref refid="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" kindref="member">m</ref>)</type>
+        <definition>real(rk), dimension (m) coordinates</definition>
+        <argsstring></argsstring>
+        <name>coordinates</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="72" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1a401d7e1d8cdc05a1360b999aba9a7bfa" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer counters</definition>
+        <argsstring></argsstring>
+        <name>counters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="71" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gab44d98a1701bf4c4c5a5cf99bea865b0" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(nondimensional), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (nondimensional), intent(in) density</definition>
+        <argsstring></argsstring>
+        <name>density</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="54" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga2e6e655c5d5b9dd5a60f3591e5b181d3" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) deviation</definition>
+        <argsstring></argsstring>
+        <name>deviation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="55" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1a2c6d8b1d539042b6e02a2d2b09321d54" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), allocatable</type>
+        <definition>real(rk), dimension(:), allocatable fafracz</definition>
+        <argsstring></argsstring>
+        <name>fafracz</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="77" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__mod_1gadb270d06c7e6f5106391c271e0f3a65b" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), dimension(:), intent(out) fafraczint</definition>
+        <argsstring></argsstring>
+        <name>fafraczint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="65" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="65" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1a33be70fe495bfe7236aff02eade8557f" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), allocatable</type>
+        <definition>real(rk), dimension(:), allocatable fainc</definition>
+        <argsstring></argsstring>
+        <name>fainc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="76" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1a7771c8541b8604fea440fa6f3dec5a34" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) fatot</definition>
+        <argsstring></argsstring>
+        <name>fatot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="78" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="78" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) fch</definition>
+        <argsstring></argsstring>
+        <name>fch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="53" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga156309b09796377721440271b638299e" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>), allocatable</type>
+        <definition>real(rk), intent(out), allocatable foliage</definition>
+        <argsstring></argsstring>
+        <name>foliage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="54" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__mod_1ga98ce5878c48004c123172e1f209dd9c8" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>), allocatable</type>
+        <definition>real(rk), intent(out), allocatable fractional</definition>
+        <argsstring></argsstring>
+        <name>fractional</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="65" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gadab32ca667acca22ce6d37aeca1bb4d1" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) from</definition>
+        <argsstring></argsstring>
+        <name>from</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="53" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>), allocatable</type>
+        <definition>real(rk), intent(out), allocatable function</definition>
+        <argsstring></argsstring>
+        <name>function</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="55" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gab3371918a8d31bfcf35909c6a3075d67" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) gedi</definition>
+        <argsstring></argsstring>
+        <name>gedi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="53" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga77ccad702780ee49c5aaeef0bc1c6c13" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) grid</definition>
+        <argsstring></argsstring>
+        <name>grid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="53" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gaf5a992d4900d06e13f0eccfe48ffddee" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(dimensionless), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (dimensionless), intent(in) h</definition>
+        <argsstring></argsstring>
+        <name>h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="57" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga9ccadeb0e6b9c4add78bf6caa15eacc2" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(<ref refid="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" kindref="member">m</ref>), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (m), intent(in) height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="53" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga32dbccf3ff1ca41ecc789878a4e186ca" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) heights</definition>
+        <argsstring></argsstring>
+        <name>heights</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="59" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="71" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="71" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__mod_1gab5251e02e5100192d6a3b0d44b673ab2" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>), allocatable</type>
+        <definition>real(rk), intent(out), allocatable incremental</definition>
+        <argsstring></argsstring>
+        <name>incremental</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="65" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga312856c28c718856736b714e4826b0fd" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) input</definition>
+        <argsstring></argsstring>
+        <name>input</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="54" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__mod_1ga8047d3825a4324ea8bb8c065e38390f5" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) integral</definition>
+        <argsstring></argsstring>
+        <name>integral</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="65" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1a58cf828c070498b72ba644cbb4f55eb6" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) interpolated</definition>
+        <argsstring></argsstring>
+        <name>interpolated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="73" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1aca8b0dfdbf1d4181c762930b0ca25472" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer lev</definition>
+        <argsstring></argsstring>
+        <name>lev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="71" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gaeb90550c19969c4c27a322637b94a6d1" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) level</definition>
+        <argsstring></argsstring>
+        <name>level</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="59" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1a3f19d0a31ae878128ef35ea480f170cc" prot="public" static="no" mutable="no">
+        <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref></type>
+        <definition>integer loop</definition>
+        <argsstring></argsstring>
+        <name>loop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="71" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gaed1f2446c1d669ae491c25ca263f9992" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) maximum</definition>
+        <argsstring></argsstring>
+        <name>maximum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="54" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga4471294e1d6655a8827c98623336d031" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) mid</definition>
+        <argsstring></argsstring>
+        <name>mid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="59" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga011898942deeabbb9e2c39fd248e9d9f" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
+        <definition>real(rk), intent(out) of</definition>
+        <argsstring></argsstring>
+        <name>of</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="54" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga28f5f86a5fa285dffd65e2055ead3bcb" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(<ref refid="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" kindref="member">m</ref>), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (m), intent(in) pavd</definition>
+        <argsstring></argsstring>
+        <name>pavd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="59" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga2ed93a817362023b690c18d04feaca94" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) pavd_in</definition>
+        <argsstring></argsstring>
+        <name>pavd_in</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="58" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="58" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1aac0dbd99393133a12f609fbb9dfe19b0" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>))</type>
+        <definition>real(rk), dimension(size(zhc)) pavd_interp</definition>
+        <argsstring></argsstring>
+        <name>pavd_interp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="73" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="73" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga76093ce08d902723abd083cb917dd541" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) pavd_levs</definition>
+        <argsstring></argsstring>
+        <name>pavd_levs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="59" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="59" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gae1a8a5f6d520dca644d1046b7c40f826" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) plant</definition>
+        <argsstring></argsstring>
+        <name>plant</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="58" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gae318ffd69f7aca844f502576046d70c8" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(m²/m³), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (m²/m³), intent(in) profile</definition>
+        <argsstring></argsstring>
+        <name>profile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="58" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga39534daf0aebd1ddbe8cf5924e965342" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>), allocatable</type>
+        <definition>real(rk), intent(out), allocatable shape</definition>
+        <argsstring></argsstring>
+        <name>shape</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="55" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga5704043e9722735ab1cb8e8b8ec73813" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) sigma1</definition>
+        <argsstring></argsstring>
+        <name>sigma1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="56" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga54ec3fd39fd5a1180cd9aa5780e692d0" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) sigmau</definition>
+        <argsstring></argsstring>
+        <name>sigmau</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="55" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gaa47e404b938be93a4aa14f2110ec38ac" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) standard</definition>
+        <argsstring></argsstring>
+        <name>standard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="55" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1a2a2b84e6cc555e3ae2e48769959f24c6" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) total</definition>
+        <argsstring></argsstring>
+        <name>total</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="78" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga38c655bcbc6a773fa65bc8e57671d8fa" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) volume</definition>
+        <argsstring></argsstring>
+        <name>volume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="58" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gaff913030474a11aa8789e4ab4606e03f" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) with</definition>
+        <argsstring></argsstring>
+        <name>with</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="59" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1gac4649400bcadf4900ec594f10f472787" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="57" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga5fe55c482855a4ffc748022666b1ee2c" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(<ref refid="group__var3din__inputs_1gac4649400bcadf4900ec594f10f472787" kindref="member">z</ref>/<ref refid="group__var3din__inputs_1gaf5a992d4900d06e13f0eccfe48ffddee" kindref="member">h</ref>), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (z/h), intent(in) zcanmax</definition>
+        <argsstring></argsstring>
+        <name>zcanmax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="55" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga5f2adc9ab276e90a604bd2068f78b0de" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) zcanmax_in</definition>
+        <argsstring></argsstring>
+        <name>zcanmax_in</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="54" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension(:), intent(in) zhc</definition>
+        <argsstring></argsstring>
+        <name>zhc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="57" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="variable" id="canopy__var3din__mod_8F90_1a6a7f10ea52af65f0e486503aa0ce546a" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(size(<ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>))</type>
+        <definition>real(rk), dimension(size(zhc)) zk</definition>
+        <argsstring></argsstring>
+        <name>zk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_var3din_mod.F90" line="72" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="72" bodyend="72"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>3D Variable Input Module </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This module contains subroutines for processing 3D variable inputs, particularly for converting GEDI PAVD (Plant Area Volume Density) profiles into fractional foliage shape functions. The module handles interpolation of observed PAVD profiles to user-defined canopy model resolutions.</para>
+<para><simplesect kind="author"><para>Patrick C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>July 2023</para>
+</simplesect>
+\references Massman, W.J., Forthofer, J.M., and Finney, M.A.: An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior. Canadian Journal of Forest Research. 47(5): 594-603. <ulink url="https://doi.org/10.1139/cjfr-2016-0354">https://doi.org/10.1139/cjfr-2016-0354</ulink> </para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="16"></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="namespacecanopy__var3din__mod" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">module</highlight><highlight class="normal"><sp/><ref refid="namespacecanopy__var3din__mod" kindref="compound">canopy_var3din_mod</ref></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">implicit<sp/>none</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">contains</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">SUBROUTINE<sp/></highlight><highlight class="normal">canopy_pavd2fafrac<sp/>(<sp/>ZCANMAX_IN,<sp/>SIGMAU,<sp/>SIGMA1,<sp/>FCH,<sp/>&amp;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ZHC,<sp/>PAVD_IN,<sp/>PAVD_LEVS,<sp/>FAFRACZINT<sp/>)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__const__mod" kindref="compound">canopy_const_mod</ref>,<sp/></highlight><highlight class="keywordtype">ONLY</highlight><highlight class="normal">:<sp/><ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!&gt;<sp/>constants<sp/><ref refid="group__bioemi__inputs_1gaf446508c68e334894eee1a7ec50b62f3" kindref="member">for</ref><sp/><ref refid="group__bioemi__inputs_1gaad0c993bd5fd93c7decad9daf442d225" kindref="member">canopy</ref><sp/>models</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">use<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__utils__mod" kindref="compound">canopy_utils_mod</ref>,<sp/></highlight><highlight class="keywordtype">ONLY</highlight><highlight class="normal">:<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>,<ref refid="namespacecanopy__utils__mod_1a1b9f21c1a286510c16c76b70b5627275" kindref="member">integratetrapezoid</ref><sp/><sp/><sp/>!&gt;<sp/>utilities<sp/><ref refid="group__bioemi__inputs_1gaf446508c68e334894eee1a7ec50b62f3" kindref="member">for</ref><sp/><ref refid="group__bioemi__inputs_1gaad0c993bd5fd93c7decad9daf442d225" kindref="member">canopy</ref><sp/>models</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="group__var3din__inputs_1gac064082b4bef8c921ae5d49af69e95bf" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/><ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref></highlight></codeline>
+<codeline lineno="54" refid="group__var3din__inputs_1ga240ed71d2647db3b96e9ae72ded2c677" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/><ref refid="group__var3din__inputs_1ga5f2adc9ab276e90a604bd2068f78b0de" kindref="member">zcanmax_in</ref></highlight></codeline>
+<codeline lineno="55" refid="group__var3din__inputs_1gaf04004eb4ad83b04f241a9359b346b76" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/><ref refid="group__profile__group_1ga50aa0c1e3706ae90b62a51c8a9636a67" kindref="member">sigmau</ref></highlight></codeline>
+<codeline lineno="56" refid="group__var3din__inputs_1ga9948737c5e8673833d89fe1f2902204e" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/><ref refid="group__profile__group_1gae4409b789dfe3ddbef40a691c9562e86" kindref="member">sigma1</ref></highlight></codeline>
+<codeline lineno="57" refid="group__var3din__inputs_1gaf5a992d4900d06e13f0eccfe48ffddee" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/><ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>(:)</highlight></codeline>
+<codeline lineno="58" refid="group__var3din__inputs_1ga2ed93a817362023b690c18d04feaca94" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/><ref refid="group__var3din__inputs_1ga2ed93a817362023b690c18d04feaca94" kindref="member">pavd_in</ref>(:)</highlight></codeline>
+<codeline lineno="59" refid="group__var3din__inputs_1gac21be24d96dd2925be2d966fb2eb06a2" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>IN<sp/>)</highlight><highlight class="normal"><sp/><sp/>::<sp/><ref refid="group__var3din__inputs_1ga76093ce08d902723abd083cb917dd541" kindref="member">pavd_levs</ref>(:)</highlight></codeline>
+<codeline lineno="61"></codeline>
+<codeline lineno="65" refid="group__var3din__mod_1gadb270d06c7e6f5106391c271e0f3a65b" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTENT(<sp/>OUT<sp/>)</highlight><highlight class="normal"><sp/>::<sp/><ref refid="group__var3din__mod_1gadb270d06c7e6f5106391c271e0f3a65b" kindref="member">fafraczint</ref>(:)</highlight></codeline>
+<codeline lineno="67"></codeline>
+<codeline lineno="71" refid="canopy__var3din__mod_8F90_1a401d7e1d8cdc05a1360b999aba9a7bfa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTEGER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>,<sp/><ref refid="canopy__var3din__mod_8F90_1aca8b0dfdbf1d4181c762930b0ca25472" kindref="member">lev</ref></highlight></codeline>
+<codeline lineno="72" refid="canopy__var3din__mod_8F90_1a431cd19fcf0e223f471bf18074aa0278" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(size(<ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>))</highlight></codeline>
+<codeline lineno="73" refid="canopy__var3din__mod_8F90_1a58cf828c070498b72ba644cbb4f55eb6" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="canopy__var3din__mod_8F90_1aac0dbd99393133a12f609fbb9dfe19b0" kindref="member">pavd_interp</ref>(size(<ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>))</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__profile__group_1ga6283c98264ec3ff7925c3de54d694055" kindref="member">zcanmax</ref></highlight></codeline>
+<codeline lineno="76" refid="canopy__var3din__mod_8F90_1a33be70fe495bfe7236aff02eade8557f" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/></highlight><highlight class="keywordtype">allocatable</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="canopy__var3din__mod_8F90_1a33be70fe495bfe7236aff02eade8557f" kindref="member">fainc</ref>(:)</highlight></codeline>
+<codeline lineno="77" refid="canopy__var3din__mod_8F90_1a2c6d8b1d539042b6e02a2d2b09321d54" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>),<sp/></highlight><highlight class="keywordtype">allocatable</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="canopy__var3din__mod_8F90_1a2c6d8b1d539042b6e02a2d2b09321d54" kindref="member">fafracz</ref>(:)</highlight></codeline>
+<codeline lineno="78" refid="canopy__var3din__mod_8F90_1a7771c8541b8604fea440fa6f3dec5a34" refkind="member"><highlight class="keywordtype"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REAL</highlight><highlight class="normal">(<ref refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" kindref="member">rk</ref>)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="canopy__var3din__mod_8F90_1a7771c8541b8604fea440fa6f3dec5a34" kindref="member">fatot</ref></highlight></codeline>
+<codeline lineno="80"></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref><sp/>=<sp/><ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>*<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="canopy__var3din__mod_8F90_1aac0dbd99393133a12f609fbb9dfe19b0" kindref="member">pavd_interp</ref><sp/>=<sp/>0.0_rk<sp/><sp/></highlight><highlight class="comment">!Initialize<sp/>PAVD_INTERP<sp/>=<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/><ref refid="canopy__var3din__mod_8F90_1aca8b0dfdbf1d4181c762930b0ca25472" kindref="member">lev</ref>=1,<sp/></highlight><highlight class="keyword">SIZE</highlight><highlight class="normal">(<ref refid="group__var3din__inputs_1ga76093ce08d902723abd083cb917dd541" kindref="member">pavd_levs</ref>)<sp/>-<sp/>1</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/><ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>=2,<sp/></highlight><highlight class="keyword">SIZE</highlight><highlight class="normal">(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>)<sp/><sp/></highlight><highlight class="comment">!loop<sp/>over<sp/>only<sp/>levels<sp/>ABOVE<sp/>ground</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.le.<sp/><sp/><ref refid="group__var3din__inputs_1ga76093ce08d902723abd083cb917dd541" kindref="member">pavd_levs</ref>(1))<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="canopy__var3din__mod_8F90_1aac0dbd99393133a12f609fbb9dfe19b0" kindref="member">pavd_interp</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/><ref refid="group__var3din__inputs_1ga2ed93a817362023b690c18d04feaca94" kindref="member">pavd_in</ref>(1)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>if</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.ge.<sp/><sp/><ref refid="group__var3din__inputs_1ga76093ce08d902723abd083cb917dd541" kindref="member">pavd_levs</ref>(<ref refid="canopy__var3din__mod_8F90_1aca8b0dfdbf1d4181c762930b0ca25472" kindref="member">lev</ref>)<sp/>.and.<sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.le.<sp/><sp/><ref refid="group__var3din__inputs_1ga76093ce08d902723abd083cb917dd541" kindref="member">pavd_levs</ref>(<ref refid="canopy__var3din__mod_8F90_1aca8b0dfdbf1d4181c762930b0ca25472" kindref="member">lev</ref>+1))<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="canopy__var3din__mod_8F90_1aac0dbd99393133a12f609fbb9dfe19b0" kindref="member">pavd_interp</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/><sp/><sp/>=<sp/><ref refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" kindref="member">interp_linear1_internal</ref>((/<sp/><ref refid="group__var3din__inputs_1ga76093ce08d902723abd083cb917dd541" kindref="member">pavd_levs</ref>(<ref refid="canopy__var3din__mod_8F90_1aca8b0dfdbf1d4181c762930b0ca25472" kindref="member">lev</ref>),<ref refid="group__var3din__inputs_1ga76093ce08d902723abd083cb917dd541" kindref="member">pavd_levs</ref>(<ref refid="canopy__var3din__mod_8F90_1aca8b0dfdbf1d4181c762930b0ca25472" kindref="member">lev</ref>+1)<sp/>/),<sp/>&amp;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(/<sp/><ref refid="group__var3din__inputs_1ga2ed93a817362023b690c18d04feaca94" kindref="member">pavd_in</ref>(<ref refid="canopy__var3din__mod_8F90_1aca8b0dfdbf1d4181c762930b0ca25472" kindref="member">lev</ref>),<ref refid="group__var3din__inputs_1ga2ed93a817362023b690c18d04feaca94" kindref="member">pavd_in</ref>(<ref refid="canopy__var3din__mod_8F90_1aca8b0dfdbf1d4181c762930b0ca25472" kindref="member">lev</ref>+1)<sp/>/),<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>if</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>do</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>do</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__profile__group_1ga6283c98264ec3ff7925c3de54d694055" kindref="member">zcanmax</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0.0_rk</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/><ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>=2,<sp/></highlight><highlight class="keyword">SIZE</highlight><highlight class="normal">(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>)</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="canopy__var3din__mod_8F90_1aac0dbd99393133a12f609fbb9dfe19b0" kindref="member">pavd_interp</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>.ge.<sp/>maxval(<ref refid="canopy__var3din__mod_8F90_1aac0dbd99393133a12f609fbb9dfe19b0" kindref="member">pavd_interp</ref>)<sp/>)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__profile__group_1ga6283c98264ec3ff7925c3de54d694055" kindref="member">zcanmax</ref><sp/>=<sp/><ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)/<ref refid="group__bioemi__inputs_1ga58903d4fbed988ec5e610958a66bd5ad" kindref="member">fch</ref></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="group__profile__group_1ga6283c98264ec3ff7925c3de54d694055" kindref="member">zcanmax</ref><sp/>.gt.<sp/>1.0_rk)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">!if<sp/>ZK<sp/>(at<sp/>max<sp/>GEDI<sp/>PAVD<sp/>height)<sp/>&gt;<sp/>GEDI<sp/>FCH<sp/>(inconsistent!)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__profile__group_1ga6283c98264ec3ff7925c3de54d694055" kindref="member">zcanmax</ref><sp/>=<sp/><ref refid="group__var3din__inputs_1ga5f2adc9ab276e90a604bd2068f78b0de" kindref="member">zcanmax_in</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">!override<sp/>with<sp/>Massman<sp/>Input<sp/>ZCANMAX</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>if</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">exit</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>if</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>do</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(.not.</highlight><highlight class="keyword">allocated</highlight><highlight class="normal">(<ref refid="canopy__var3din__mod_8F90_1a33be70fe495bfe7236aff02eade8557f" kindref="member">fainc</ref>))<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">allocate</highlight><highlight class="normal">(<ref refid="canopy__var3din__mod_8F90_1a33be70fe495bfe7236aff02eade8557f" kindref="member">fainc</ref>(</highlight><highlight class="keyword">SIZE</highlight><highlight class="normal">(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>)))</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(.not.</highlight><highlight class="keyword">allocated</highlight><highlight class="normal">(<ref refid="canopy__var3din__mod_8F90_1a2c6d8b1d539042b6e02a2d2b09321d54" kindref="member">fafracz</ref>))<sp/><sp/><sp/><sp/></highlight><highlight class="keyword">allocate</highlight><highlight class="normal">(<ref refid="canopy__var3din__mod_8F90_1a2c6d8b1d539042b6e02a2d2b09321d54" kindref="member">fafracz</ref>(</highlight><highlight class="keyword">SIZE</highlight><highlight class="normal">(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>)))</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="canopy__var3din__mod_8F90_1a33be70fe495bfe7236aff02eade8557f" kindref="member">fainc</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0.0_rk</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="canopy__var3din__mod_8F90_1a2c6d8b1d539042b6e02a2d2b09321d54" kindref="member">fafracz</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0.0_rk</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/><ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>=1,<sp/></highlight><highlight class="keyword">SIZE</highlight><highlight class="normal">(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>)</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>&gt;=<sp/><ref refid="group__profile__group_1ga6283c98264ec3ff7925c3de54d694055" kindref="member">zcanmax</ref><sp/>.and.<sp/><ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>&lt;=<sp/>1.0)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="canopy__var3din__mod_8F90_1a33be70fe495bfe7236aff02eade8557f" kindref="member">fainc</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/>exp((-1.0*((<ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)-<ref refid="group__profile__group_1ga6283c98264ec3ff7925c3de54d694055" kindref="member">zcanmax</ref>)**2.0))/<ref refid="group__profile__group_1ga50aa0c1e3706ae90b62a51c8a9636a67" kindref="member">sigmau</ref>**2.0)</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>&gt;=<sp/>0.0<sp/>.and.<sp/><ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>&lt;=<sp/><ref refid="group__profile__group_1ga6283c98264ec3ff7925c3de54d694055" kindref="member">zcanmax</ref>)<sp/></highlight><highlight class="keywordflow">then</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="canopy__var3din__mod_8F90_1a33be70fe495bfe7236aff02eade8557f" kindref="member">fainc</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/>exp((-1.0*((<ref refid="group__profile__group_1ga6283c98264ec3ff7925c3de54d694055" kindref="member">zcanmax</ref>-<ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))**2.0))/<ref refid="group__profile__group_1gae4409b789dfe3ddbef40a691c9562e86" kindref="member">sigma1</ref>**2.0)</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>if</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>do</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="canopy__var3din__mod_8F90_1a7771c8541b8604fea440fa6f3dec5a34" kindref="member">fatot</ref><sp/>=<sp/><ref refid="namespacecanopy__utils__mod_1a1b9f21c1a286510c16c76b70b5627275" kindref="member">integratetrapezoid</ref>(<ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>,<ref refid="canopy__var3din__mod_8F90_1a33be70fe495bfe7236aff02eade8557f" kindref="member">fainc</ref>)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/><ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>=1,<sp/></highlight><highlight class="keyword">SIZE</highlight><highlight class="normal">(<ref refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" kindref="member">zk</ref>)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="canopy__var3din__mod_8F90_1a2c6d8b1d539042b6e02a2d2b09321d54" kindref="member">fafracz</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/><ref refid="canopy__var3din__mod_8F90_1a33be70fe495bfe7236aff02eade8557f" kindref="member">fainc</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)/<ref refid="canopy__var3din__mod_8F90_1a7771c8541b8604fea440fa6f3dec5a34" kindref="member">fatot</ref></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__var3din__mod_1gadb270d06c7e6f5106391c271e0f3a65b" kindref="member">fafraczint</ref>(<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>)<sp/>=<sp/><ref refid="namespacecanopy__utils__mod_1a1b9f21c1a286510c16c76b70b5627275" kindref="member">integratetrapezoid</ref>(<ref refid="group__var3din__inputs_1ga2532f740c9a88595ee67936128ae094b" kindref="member">zhc</ref>(1:<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>),<ref refid="canopy__var3din__mod_8F90_1a2c6d8b1d539042b6e02a2d2b09321d54" kindref="member">fafracz</ref>(1:<ref refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" kindref="member">i</ref>))</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keywordflow"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>end<sp/>do</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">END<sp/>SUBROUTINE<sp/></highlight><highlight class="normal">canopy_pavd2fafrac</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keyword">end<sp/>module<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__var3din__mod" kindref="compound">canopy_var3din_mod</ref></highlight></codeline>
+    </programlisting>
+    <location file="src/canopy_var3din_mod.F90"/>
+  </compounddef>
+</doxygen>

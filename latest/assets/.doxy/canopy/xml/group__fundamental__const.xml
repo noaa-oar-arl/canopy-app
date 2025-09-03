@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__fundamental__const" kind="group">
+    <compoundname>fundamental_const</compoundname>
+    <title>Fundamental Constants</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__fundamental__const_1ga629413bd53f9899a994b2933459cae25" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::avo</definition>
+        <argsstring></argsstring>
+        <name>avo</name>
+        <initializer>= 6.02214076d23</initializer>
+        <briefdescription>
+<para>Avogadro&apos;s Constant [number/mol]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="80" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="80" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fundamental__const_1ga79638fe8cc54eb04d51a68a732ece82c" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::molvol</definition>
+        <argsstring></argsstring>
+        <name>molvol</name>
+        <initializer>= 22.4139695_rk</initializer>
+        <briefdescription>
+<para>Molar volume of ideal gas at STP [L/mol] (Non-MKS units) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="95" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="95" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fundamental__const_1ga4d71483a584f3ad3c3471b24225b9e51" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::rgasuniv</definition>
+        <argsstring></argsstring>
+        <name>rgasuniv</name>
+        <initializer>= 8.31446261815324_rk</initializer>
+        <briefdescription>
+<para>Universal gas constant [J/mol-K]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="83" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="83" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fundamental__const_1ga3901c27d764d7bbff02b8fc6b08f5a3c" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::stdatmpa</definition>
+        <argsstring></argsstring>
+        <name>stdatmpa</name>
+        <initializer>= 101325.0</initializer>
+        <briefdescription>
+<para>Standard atmosphere [Pa]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="86" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="86" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fundamental__const_1ga333892d86c6608cc3bd6b76001151ac7" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::stdtemp</definition>
+        <argsstring></argsstring>
+        <name>stdtemp</name>
+        <initializer>= 273.15_rk</initializer>
+        <briefdescription>
+<para>Standard temperature [K]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="89" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="89" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__fundamental__const_1ga2fdfe54acf30b36ae5e1a5ed4dc4068d" prot="public" static="no" mutable="no">
+        <type>real(rk), parameter</type>
+        <definition>real(rk), parameter canopy_const_mod::stfblz</definition>
+        <argsstring></argsstring>
+        <name>stfblz</name>
+        <initializer>= 5.67037442<ref refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" kindref="member">d</ref>-8</initializer>
+        <briefdescription>
+<para>Stefan-Boltzmann constant [W/(m² K⁴)]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_const_mod.F90" line="92" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="92" bodyend="92"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Fundamental physical constants (Source: CRC76, pp. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>1-1 to 1-6) </para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__write__txt" kind="group">
+    <compoundname>write_txt</compoundname>
+    <title>Text Output Writing</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__write__txt_1gaaa758bd839ed984e162eef9dbdc7038c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_write_txt</definition>
+        <argsstring>(OUTPREFX, TIMENOW)</argsstring>
+        <name>canopy_write_txt</name>
+        <param>
+          <type>OUTPREFX</type>
+          <defname>OUTPREFX</defname>
+        </param>
+        <param>
+          <type>TIMENOW</type>
+          <defname>TIMENOW</defname>
+        </param>
+        <briefdescription>
+<para>Write canopy outputs to text files. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This subroutine writes canopy model calculation results to text format output files. It serves as a wrapper for the main text writing routine, passing the output file prefix and current time information.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">OUTPREFX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output file prefix string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TIMENOW</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current time stamp string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">outprefx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>main IO text reader/writer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Call main text writing routine</para>
+        </inbodydescription>
+        <location file="src/canopy_write_txt.F90" line="22" column="1" bodyfile="src/canopy_write_txt.F90" bodystart="23" bodyend="35"/>
+        <references refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</references>
+        <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Routines for writing text format output files. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

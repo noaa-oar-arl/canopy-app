@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__canopy__app" kind="group">
+    <compoundname>canopy_app</compoundname>
+    <title>Canopy Application Main Program</title>
+    <innergroup refid="group__main__workflow">Main Application Workflow</innergroup>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>program</type>
+        <definition>program canopy_app</definition>
+        <argsstring></argsstring>
+        <name>canopy_app</name>
+        <briefdescription>
+<para>Main Canopy Application Program. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This program coordinates the entire canopy model workflow including:<itemizedlist>
+<listitem><para>Reading user options from namelist</para>
+</listitem><listitem><para>Allocating and initializing variables</para>
+</listitem><listitem><para>Setting up input/output data structures</para>
+</listitem><listitem><para>Time stepping through the simulation period</para>
+</listitem><listitem><para>Calling main canopy calculations</para>
+</listitem><listitem><para>Writing output files</para>
+</listitem><listitem><para>Cleanup and deallocation </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_app.F90" line="29" column="1" bodyfile="src/canopy_app.F90" bodystart="29" bodyend="-1"/>
+        <references refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</references>
+        <references refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</references>
+        <references refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</references>
+        <references refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</references>
+        <references refid="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" compoundref="canopy__read__txt_8F90" startline="23" endline="41">canopy_read_txt</references>
+        <references refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</references>
+        <references refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</references>
+        <references refid="group__write__txt_1gaaa758bd839ed984e162eef9dbdc7038c" compoundref="canopy__write__txt_8F90" startline="23" endline="35">canopy_write_txt</references>
+        <references refid="group__file__arrays_1ga6f66c8ebefa74176797a06f17efe0677" compoundref="canopy__files__mod_8F90" startline="42" endline="42">canopy_files_mod::file_canvars</references>
+        <references refid="group__file__arrays_1ga89a83ef8abda85131555afd9932706b2" compoundref="canopy__files__mod_8F90" startline="44" endline="44">canopy_files_mod::file_out</references>
+        <references refid="group__file__arrays_1ga4d6f2843daec94c4a0804f743f1e9969" compoundref="canopy__files__mod_8F90" startline="40" endline="40">canopy_files_mod::file_vars</references>
+        <references refid="group__date__group_1gabf441683c9c1d303622dc1ea36603770" compoundref="canopy__date__mod_8F90" startline="303" endline="617">canopy_date_mod::geth_newdate</references>
+        <references refid="group__time__domain_1gaf9bec413b2a74c1c542d5f44c2345224" compoundref="canopy__coord__mod_8F90" startline="29" endline="29">canopy_coord_mod::ntime</references>
+        <references refid="group__time__domain_1ga8f726078dc2174d9044bb3fb1efbf4f2" compoundref="canopy__coord__mod_8F90" startline="27" endline="27">canopy_coord_mod::time_intvl</references>
+        <references refid="group__time__domain_1gaaa7c8c023d081706aef8548c53b01359" compoundref="canopy__coord__mod_8F90" startline="23" endline="23">canopy_coord_mod::time_start</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Main program for the canopy model application. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

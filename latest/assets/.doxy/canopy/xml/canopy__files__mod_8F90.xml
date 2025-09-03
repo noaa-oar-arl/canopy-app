@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="canopy__files__mod_8F90" kind="file" language="Fortran">
+    <compoundname>canopy_files_mod.F90</compoundname>
+    <innernamespace refid="namespacecanopy__files__mod">canopy_files_mod</innernamespace>
+    <briefdescription>
+<para>File Management Module. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This module contains FORTRAN units and file names for the canopy model. It manages input and output file specifications including variable files, canopy profile files, output files, and the namelist file.</para>
+<para><simplesect kind="author"><para>Patrick C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>July 2022</para>
+</simplesect>
+<simplesect kind="version"><para><itemizedlist>
+<listitem><para>15 Jul 2022: Original version (P. C. Campbell)</para>
+</listitem><listitem><para>30 Nov 2023: Added supplementary canopy profile, file_canvars (P.C. Campbell) </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="13"></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="namespacecanopy__files__mod" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">MODULE</highlight><highlight class="normal"><sp/><ref refid="namespacecanopy__files__mod" kindref="compound">canopy_files_mod</ref></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">IMPLICIT<sp/>NONE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"></codeline>
+<codeline lineno="27" refid="group__file__units_1ga4476fdd7d9120e021c7480f53f6c7b5e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTEGER</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__file__units_1ga4476fdd7d9120e021c7480f53f6c7b5e" kindref="member">cdfid_m</ref></highlight></codeline>
+<codeline lineno="29" refid="group__file__units_1ga6bc6f99a9ab973cff64519bbc214c375" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTEGER</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/>::<sp/><ref refid="group__file__units_1ga6bc6f99a9ab973cff64519bbc214c375" kindref="member">max_mm</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>10000</highlight></codeline>
+<codeline lineno="31" refid="group__file__units_1gae46398a81a1e1ae01fc9357a74292e9d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">INTEGER</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/>::<sp/><ref refid="group__file__units_1gae46398a81a1e1ae01fc9357a74292e9d" kindref="member">iutnml</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>8</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"></codeline>
+<codeline lineno="38"></codeline>
+<codeline lineno="40" refid="group__file__arrays_1ga4d6f2843daec94c4a0804f743f1e9969" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=256)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__file__arrays_1ga4d6f2843daec94c4a0804f743f1e9969" kindref="member">file_vars</ref><sp/><sp/><sp/><sp/>(<sp/><ref refid="group__file__units_1ga6bc6f99a9ab973cff64519bbc214c375" kindref="member">max_mm</ref><sp/>)</highlight></codeline>
+<codeline lineno="42" refid="group__file__arrays_1ga6f66c8ebefa74176797a06f17efe0677" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=256)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__file__arrays_1ga6f66c8ebefa74176797a06f17efe0677" kindref="member">file_canvars</ref><sp/>(<sp/><ref refid="group__file__units_1ga6bc6f99a9ab973cff64519bbc214c375" kindref="member">max_mm</ref><sp/>)</highlight></codeline>
+<codeline lineno="44" refid="group__file__arrays_1ga89a83ef8abda85131555afd9932706b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=256)</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/><ref refid="group__file__arrays_1ga89a83ef8abda85131555afd9932706b2" kindref="member">file_out</ref><sp/><sp/><sp/><sp/><sp/>(<sp/>1<sp/>)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"></codeline>
+<codeline lineno="51"></codeline>
+<codeline lineno="53" refid="group__file__paths_1ga1aca291cb1692e583f11295204bb544f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">CHARACTER(LEN=*)</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">PARAMETER</highlight><highlight class="normal"><sp/><sp/><sp/>::<sp/><ref refid="group__file__paths_1ga1aca291cb1692e583f11295204bb544f" kindref="member">file_nml</ref><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="stringliteral">&apos;input/namelist.canopy&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">END<sp/>MODULE<sp/></highlight><highlight class="normal"><ref refid="namespacecanopy__files__mod" kindref="compound">canopy_files_mod</ref></highlight></codeline>
+    </programlisting>
+    <location file="src/canopy_files_mod.F90"/>
+  </compounddef>
+</doxygen>

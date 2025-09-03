@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group__canopy__dx" kind="group">
+    <compoundname>canopy_dx</compoundname>
+    <title>Grid Distance Calculations</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__canopy__dx_1gaad4ce838500a648283dee0ea12bb7bba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_dxcalc_mod::canopy_calcdx</definition>
+        <argsstring>(DXOPT, DXSET, NLAT, NLON, LAT, LON, DX)</argsstring>
+        <name>canopy_calcdx</name>
+        <param>
+          <type>DXOPT</type>
+          <defname>DXOPT</defname>
+        </param>
+        <param>
+          <type>DXSET</type>
+          <defname>DXSET</defname>
+        </param>
+        <param>
+          <type>NLAT</type>
+          <defname>NLAT</defname>
+        </param>
+        <param>
+          <type>NLON</type>
+          <defname>NLON</defname>
+        </param>
+        <param>
+          <type>LAT</type>
+          <defname>LAT</defname>
+        </param>
+        <param>
+          <type>LON</type>
+          <defname>LON</defname>
+        </param>
+        <param>
+          <type>DX</type>
+          <defname>DX</defname>
+        </param>
+        <briefdescription>
+<para>Calculate grid cell distances for 1D arrays. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes great circle distance or the orthodromic distance using Haversine formula for 1D latitude/longitude arrays</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">DXOPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User DX calculation option (0=calculate, 1=use set value) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DXSET</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User DX set value if cannot calculate (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">NLAT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of latitude grid cells/points </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">NLON</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of longitude grid cells/points </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LAT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model latitudes array (degrees) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LON</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model longitudes array (degrees) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">DX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Distance between two points (m) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P. C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>Oct 2022 </para>
+</simplesect>
+<simplesect kind="note"><para>Uses Haversine formula for great circle distance calculations </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Location index</para>
+<para>Loop index for NLAT*NLON locations</para>
+        </inbodydescription>
+        <location file="src/canopy_dxcalc_mod.F90" line="33" column="1" bodyfile="src/canopy_dxcalc_mod.F90" bodystart="34" bodyend="87"/>
+        <references refid="group__utils__group_1ga24b86b1c6a395bd9c05c9ae773743137" compoundref="canopy__utils__mod_8F90" startline="115" endline="125">canopy_utils_mod::calcdx</references>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+      </memberdef>
+      <memberdef kind="function" id="group__canopy__dx_1ga5102ac789e2d39bb539c15aabde9bcb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine</type>
+        <definition>subroutine canopy_dxcalc_mod::canopy_calcdx_2d</definition>
+        <argsstring>(DXOPT, DXSET, NLAT, NLON, LAT, LON, DX)</argsstring>
+        <name>canopy_calcdx_2d</name>
+        <param>
+          <type>DXOPT</type>
+          <defname>DXOPT</defname>
+        </param>
+        <param>
+          <type>DXSET</type>
+          <defname>DXSET</defname>
+        </param>
+        <param>
+          <type>NLAT</type>
+          <defname>NLAT</defname>
+        </param>
+        <param>
+          <type>NLON</type>
+          <defname>NLON</defname>
+        </param>
+        <param>
+          <type>LAT</type>
+          <defname>LAT</defname>
+        </param>
+        <param>
+          <type>LON</type>
+          <defname>LON</defname>
+        </param>
+        <param>
+          <type>DX</type>
+          <defname>DX</defname>
+        </param>
+        <briefdescription>
+<para>Calculate grid cell distances for 2D arrays. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes great circle distance or the orthodromic distance using Haversine formula for 2D latitude/longitude arrays</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">DXOPT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User DX calculation option (0=calculate, 1=use set value) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DXSET</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User DX set value if cannot calculate (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">NLAT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of latitude grid cells/points </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">NLON</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of longitude grid cells/points </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LAT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model latitudes 2D array (degrees) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LON</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model longitudes 2D array (degrees) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">DX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Distance between two points 2D array (m) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="author"><para>P. C. Campbell </para>
+</simplesect>
+<simplesect kind="date"><para>Oct 2022 </para>
+</simplesect>
+<simplesect kind="note"><para>Uses Haversine formula for great circle distance calculations </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Longitude and latitude loop indices</para>
+<para>Loop indices for NLON,NLAT grid dimensions</para>
+        </inbodydescription>
+        <location file="src/canopy_dxcalc_mod.F90" line="106" column="1" bodyfile="src/canopy_dxcalc_mod.F90" bodystart="107" bodyend="164"/>
+        <references refid="group__utils__group_1ga24b86b1c6a395bd9c05c9ae773743137" compoundref="canopy__utils__mod_8F90" startline="115" endline="125">canopy_utils_mod::calcdx</references>
+        <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Grid cell distance calculations using Haversine formula. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>
