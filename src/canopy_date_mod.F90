@@ -1,3 +1,22 @@
+!> \file canopy_date_mod.F90
+!> \brief Date and time utility routines for canopy model
+!> \details This module contains utilities for manipulating date and time
+!!          representations, originally adapted from NCAR's MM5 utility code
+!!          and modified for use with Models-3/CMAQ system and canopy-app.
+!> \author NCAR, T. Otte, P.C. Campbell
+!> \date Originally 2001, adapted for Canopy-App August 2023
+!> \version 2.0
+
+!> \defgroup date_group Date and Time Utilities
+!> \brief Routines for date and time manipulation and conversion
+!> \details This group contains subroutines and functions for:
+!!          - Computing time differences between dates
+!!          - Generating new dates from time increments
+!!          - Converting between date formats
+!!          - Julian day calculations
+!!          - Date string parsing and manipulation
+!> \{
+
 MODULE canopy_date_mod
 
 !-------------------------------------------------------------------------------
@@ -27,8 +46,15 @@ MODULE canopy_date_mod
 
 CONTAINS
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+!> \brief Calculate time difference between two dates
+!> \details Computes the time difference in seconds between two input dates
+!!          in the format 'YYYY-MM-DD HH:MM:SS.ffff'. Handles leap years
+!!          and different month lengths correctly.
+!> \param newdate The new (later) date string 'YYYY-MM-DD HH:MM:SS.ffff'
+!> \param olddate The old (earlier) date string 'YYYY-MM-DD HH:MM:SS.ffff'
+!> \param idts Time difference in seconds (newdate - olddate) [output]
+!> \author NCAR, T. Otte
+!> \date February 2001, modified 2011
     SUBROUTINE geth_idts (newdate, olddate, idts)
 
         IMPLICIT NONE
@@ -719,5 +745,7 @@ CONTAINS
         stime = ( hh * 10000 ) + ( mi * 100 )      ! assume seconds are 0
 
     END SUBROUTINE getsdt
+
+!> \}
 
 END MODULE canopy_date_mod

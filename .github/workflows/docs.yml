@@ -1,0 +1,298 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - stable
+      - develop
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'requirements-docs.txt'
+      - 'src/**'  # Rebuild docs when source code changes
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'requirements-docs.txt'
+      - 'src/**'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Documentation version to deploy'
+        required: false
+        default: 'latest'
+        type: string
+
+# Add permissions for the entire workflow
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Build documentation
+  build-docs:
+    name: Build Documentation
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for versioning
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: 'requirements-docs.txt'
+
+      - name: Install documentation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-docs.txt
+
+      - name: Install system dependencies for doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
+
+      - name: Configure Git for mike versioning
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Build documentation
+        run: |
+          # Build the documentation
+          mkdocs build --verbose --clean
+
+          # Create a tarball of the built site for artifacts
+          tar -czf documentation-site.tar.gz -C site .
+
+      - name: Upload documentation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-site
+          path: documentation-site.tar.gz
+          retention-days: 30
+
+      - name: Check documentation links
+        run: |
+          # Install link checker
+          pip install linkchecker
+
+          # Check internal links in built documentation
+          linkchecker site/ --check-extern --ignore-url="^mailto:" --ignore-url="^tel:" || true
+
+  # Deploy to GitHub Pages (for stable branch)
+  deploy-github-pages:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-22.04
+    needs: build-docs
+    if: (github.ref == 'refs/heads/stable' || github.ref == 'refs/heads/develop') && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          #token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAGES_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: 'requirements-docs.txt'
+
+      - name: Install documentation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-docs.txt
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAGES_TOKEN }}@github.com/${{ github.repository }}.git
+
+      - name: Deploy with mike (versioned documentation)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
+        run: |
+          # Set GH_PAGES_TOKEN
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAGES_TOKEN }}@github.com/${{ github.repository }}.git
+
+          # Determine version
+          if [ "${{ github.event.inputs.version }}" != "" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="latest"
+          fi
+
+          # Deploy to gh-pages branch with versioning
+          mike deploy --push --update-aliases $VERSION
+
+          # Set latest as default if deploying latest
+          if [ "$VERSION" == "latest" ]; then
+            mike set-default --push latest
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Build final site for Pages
+        run: |
+          # Check out gh-pages branch to get the versioned site
+          git fetch origin gh-pages:gh-pages
+          git checkout gh-pages
+
+          # Create artifact directory
+          mkdir -p _site
+          cp -r * _site/ || true
+
+          # Return to stable branch
+          git checkout stable
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # Optional: Still support ReadTheDocs webhook if configured
+  trigger-readthedocs:
+    name: Trigger ReadTheDocs Build (Optional)
+    runs-on: ubuntu-22.04
+    needs: build-docs
+    if: github.ref == 'refs/heads/stable' && github.event_name == 'push' && vars.ENABLE_READTHEDOCS == 'true'
+    steps:
+      - name: Trigger ReadTheDocs build
+        run: |
+          if [ "${{ secrets.READTHEDOCS_WEBHOOK_URL }}" != "" ]; then
+            curl -X POST -d "branches=stable" -d "token=${{ secrets.READTHEDOCS_WEBHOOK_TOKEN }}" \
+              ${{ secrets.READTHEDOCS_WEBHOOK_URL }}
+            echo "ReadTheDocs build triggered"
+          else
+            echo "ReadTheDocs webhook not configured - skipping"
+          fi
+
+  # Preview documentation for PRs (artifact-based approach)
+  preview-docs:
+    name: Preview Documentation
+    runs-on: ubuntu-22.04
+    needs: build-docs
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Download documentation artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: documentation-site
+
+      - name: Extract documentation
+        run: |
+          mkdir -p preview
+          tar -xzf documentation-site.tar.gz -C preview
+
+      - name: Upload preview as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-preview-${{ github.event.number }}
+          path: preview/
+          retention-days: 7
+
+      - name: Comment PR with download link
+        uses: actions/github-script@v7
+        continue-on-error: true  # Don't fail the workflow if commenting fails
+        with:
+          script: |
+            try {
+              const prNumber = context.payload.pull_request.number;
+              const repo = context.repo;
+              const runId = context.runId;
+              const artifactUrl = `https://github.com/${repo.owner}/${repo.repo}/actions/runs/${runId}`;
+
+              const comment = `## 📖 Documentation Preview
+
+              The documentation for this PR has been built and is available for download:
+
+              🔗 **[Download Preview Artifact](${artifactUrl})**
+
+              Look for the artifact named \`pr-preview-${prNumber}\` in the workflow run.
+
+              > **Note**: Due to GitHub security restrictions, we cannot deploy PR previews directly to GitHub Pages from forks. Please download the artifact to preview the documentation locally.
+
+              ---
+              *This comment was automatically generated by the Documentation workflow.*`;
+
+              // Check if comment already exists
+              const comments = await github.rest.issues.listComments({
+                owner: repo.owner,
+                repo: repo.repo,
+                issue_number: prNumber,
+              });
+
+              const botComment = comments.data.find(comment =>
+                comment.user.type === 'Bot' && comment.body.includes('Documentation Preview')
+              );
+
+              if (botComment) {
+                // Update existing comment
+                await github.rest.issues.updateComment({
+                  owner: repo.owner,
+                  repo: repo.repo,
+                  comment_id: botComment.id,
+                  body: comment
+                });
+                console.log('Updated existing PR comment');
+              } else {
+                // Create new comment
+                await github.rest.issues.createComment({
+                  owner: repo.owner,
+                  repo: repo.repo,
+                  issue_number: prNumber,
+                  body: comment
+                });
+                console.log('Created new PR comment');
+              }
+            } catch (error) {
+              console.log('Warning: Could not create PR comment due to permissions.');
+              console.log('This is expected for PRs from forks.');
+              console.log('Error details:', error.message);
+              console.log('The documentation artifact is still available for download.');
+            }
+
+      - name: PR Preview Summary (if comment failed)
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "📖 Documentation Preview Built Successfully"
+          echo "========================================="
+          echo "PR Number: ${{ github.event.number }}"
+          echo "Artifact Name: pr-preview-${{ github.event.number }}"
+          echo "Download from: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo ""
+          echo "Note: If the automatic PR comment failed due to permissions,"
+          echo "the documentation preview is still available as an artifact."
+
+  # Cleanup old PR preview artifacts (automatic by GitHub after retention period)

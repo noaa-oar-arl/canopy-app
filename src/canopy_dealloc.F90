@@ -1,4 +1,25 @@
 
+!> \file canopy_dealloc.F90
+!> \brief Deallocation subroutine for canopy model arrays
+!> \details This subroutine deallocates all allocated arrays used in the
+!!          canopy model to free memory at the end of model execution.
+!> \author P.C. Campbell
+!> \date October 2022
+!> \version 1.0
+
+!> \ingroup utils_group
+!> \brief Deallocate arrays for canopy model
+!> \details Deallocates all allocated arrays including:
+!!          - Input variable arrays
+!!          - Canopy distribution arrays
+!!          - Meteorological arrays
+!!          - Leaf temperature and PPFD arrays
+!!          - 24-hour and 240-hour temporary arrays
+!!          - Biogenic emission arrays
+!!          - Chemical species arrays
+!> \author P.C. Campbell
+!> \date October 2022
+
 SUBROUTINE canopy_dealloc
 
 !-------------------------------------------------------------------------------
@@ -46,6 +67,18 @@ SUBROUTINE canopy_dealloc
     if(allocated(ppfd_ave))              deallocate(ppfd_ave)
     if(allocated(lad))                   deallocate(lad)
     if(allocated(lad_3d))                deallocate(lad_3d)
+    if(allocated(zo_h))                  deallocate(zo_h)
+    if(allocated(zo_h_2d))               deallocate(zo_h_2d)
+    if(allocated(d_h))                   deallocate(d_h)
+    if(allocated(d_h_2d))                deallocate(d_h_2d)
+    if(allocated(tka))                   deallocate(tka)
+    if(allocated(tka_3d))                deallocate(tka_3d)
+    if(allocated(pressa))                deallocate(pressa)
+    if(allocated(pressa_3d))             deallocate(pressa_3d)
+    if(allocated(relhuma))               deallocate(relhuma)
+    if(allocated(relhuma_3d))            deallocate(relhuma_3d)
+    if(allocated(spechuma))              deallocate(spechuma)
+    if(allocated(spechuma_3d))           deallocate(spechuma_3d)
 
     if(allocated(tleaf_sun24_tmp))       deallocate(tleaf_sun24_tmp)
     if(allocated(tleaf_shade24_tmp))     deallocate(tleaf_shade24_tmp)
@@ -57,6 +90,8 @@ SUBROUTINE canopy_dealloc
     if(allocated(tleaf_ave240_tmp))      deallocate(tleaf_ave240_tmp)
     if(allocated(ppfd_sun240_tmp))       deallocate(ppfd_sun240_tmp)
     if(allocated(ppfd_shade240_tmp))     deallocate(ppfd_shade240_tmp)
+    if(allocated(tmp2mref_tmp))          deallocate(tmp2mref_tmp)
+    if(allocated(ubzref_tmp))            deallocate(ubzref_tmp)
     if(allocated(tleaf_sun24))           deallocate(tleaf_sun24)
     if(allocated(tleaf_shade24))         deallocate(tleaf_shade24)
     if(allocated(tleaf_ave24))           deallocate(tleaf_ave24)
@@ -67,6 +102,9 @@ SUBROUTINE canopy_dealloc
     if(allocated(tleaf_ave240))          deallocate(tleaf_ave240)
     if(allocated(ppfd_sun240))           deallocate(ppfd_sun240)
     if(allocated(ppfd_shade240))         deallocate(ppfd_shade240)
+    if(allocated(daily_maxt2m))          deallocate(daily_maxt2m)
+    if(allocated(daily_mint2m))          deallocate(daily_mint2m)
+    if(allocated(daily_maxws10m))        deallocate(daily_maxws10m)
 
     if(allocated(tleaf_sun24_tmp_3d))       deallocate(tleaf_sun24_tmp_3d)
     if(allocated(tleaf_shade24_tmp_3d))     deallocate(tleaf_shade24_tmp_3d)
@@ -78,6 +116,8 @@ SUBROUTINE canopy_dealloc
     if(allocated(tleaf_ave240_tmp_3d))      deallocate(tleaf_ave240_tmp_3d)
     if(allocated(ppfd_sun240_tmp_3d))       deallocate(ppfd_sun240_tmp_3d)
     if(allocated(ppfd_shade240_tmp_3d))     deallocate(ppfd_shade240_tmp_3d)
+    if(allocated(tmp2mref_tmp_3d))          deallocate(tmp2mref_tmp_3d)
+    if(allocated(ubzref_tmp_3d))            deallocate(ubzref_tmp_3d)
     if(allocated(tleaf_sun24_3d))           deallocate(tleaf_sun24_3d)
     if(allocated(tleaf_shade24_3d))         deallocate(tleaf_shade24_3d)
     if(allocated(tleaf_ave24_3d))           deallocate(tleaf_ave24_3d)
@@ -88,6 +128,9 @@ SUBROUTINE canopy_dealloc
     if(allocated(tleaf_ave240_3d))          deallocate(tleaf_ave240_3d)
     if(allocated(ppfd_sun240_3d))           deallocate(ppfd_sun240_3d)
     if(allocated(ppfd_shade240_3d))         deallocate(ppfd_shade240_3d)
+    if(allocated(daily_maxt2m_2d))          deallocate(daily_maxt2m_2d)
+    if(allocated(daily_mint2m_2d))          deallocate(daily_mint2m_2d)
+    if(allocated(daily_maxws10m_2d))        deallocate(daily_maxws10m_2d)
 
 !-------------------------------------------------------------------------------
 ! Deallocate arrays for Canopy Wind
@@ -171,6 +214,14 @@ SUBROUTINE canopy_dealloc
         if(allocated(emi_ovoc_3d))  deallocate(emi_ovoc_3d)
     end if
 
+!-------------------------------------------------------------------------------
+! Deallocate arrays for Canopy Gas Dry Dep
+!-------------------------------------------------------------------------------
+
+    if (ifcanddepgas) then
+        if(allocated(ddep_o3))      deallocate(ddep_o3)
+        if(allocated(ddep_o3_3d))   deallocate(ddep_o3_3d)
+    end if
 !-------------------------------------------------------------------------------
 !  Deallocate NetCDF data structures if used
 !-------------------------------------------------------------------------------

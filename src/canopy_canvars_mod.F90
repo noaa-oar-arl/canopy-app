@@ -1,3 +1,15 @@
+!> \file canopy_canvars_mod.F90
+!> \brief Canopy model variables and data structures
+!> \details This module contains all variable definitions, arrays, and data structures
+!>          used by the canopy model for storing calculated results, intermediate
+!>          variables, and output fields including wind profiles, temperature profiles,
+!>          biogenic emissions, and dry deposition variables.
+!> \author P. C. Campbell
+!> \date 03 Oct 2022
+
+!> \defgroup canopy_variables Canopy Model Variables
+!> \brief All variable definitions and data structures for canopy model
+
 MODULE canopy_canvars_mod
 
 !-------------------------------------------------------------------------------
@@ -13,43 +25,161 @@ MODULE canopy_canvars_mod
 ! Canopy scalars in the model
 !-------------------------------------------------------------------------------
 
-    integer        ::    firetype      !1 = Above Canopy Fire; 0 = Below Canopy Fire
-    integer        ::    cansublays    !Number of sub-canopy layers
-    integer        ::    midflamepoint !Indice of the mid-flame point
-    real(rk)       ::    cdrag         !Drag coefficient (nondimensional)
-    real(rk)       ::    pai           !Plant/foliage area index (nondimensional)
-    real(rk)       ::    zcanmax       !Height of maximum foliage area density (z/h) (nondimensional)
-    real(rk)       ::    sigmau        !Standard deviation of shape function above zcanmax (z/h)
-    real(rk)       ::    sigma1        !Standard deviation of shape function below zcanmax (z/h)
-    real(rk)       ::    d_h           !Zero plane displacement heights (z/h)
-    real(rk)       ::    zo_h          !Surface (soil+veg) roughness lengths (z/h)
+    !> \ingroup canopy_variables
+    !> \{
+
+    !> \brief Fire type indicator
+    !> \details Fire type: 1 = Above Canopy Fire; 0 = Below Canopy Fire
+    integer        ::    firetype
+
+    !> \brief Number of sub-canopy layers
+    !> \details Number of sub-canopy layers for vertical discretization
+    integer        ::    cansublays
+
+    !> \brief Mid-flame point index
+    !> \details Index of the mid-flame point in the vertical grid
+    integer        ::    midflamepoint
+
+    !> \brief Drag coefficient
+    !> \details Drag coefficient
+    !! \param units dimensionless
+    real(rk)       ::    cdrag
+
+    !> \brief Plant/foliage area index
+    !> \details Plant/foliage area index
+    !! \param units dimensionless
+    real(rk)       ::    pai
+
+    !> \brief Height of maximum foliage area density
+    !> \details Height of maximum foliage area density (z/h)
+    !! \param units dimensionless (z/h)
+    real(rk)       ::    zcanmax
+
+    !> \brief Standard deviation above zcanmax
+    !> \details Standard deviation of shape function above zcanmax (z/h)
+    !! \param units dimensionless (z/h)
+    real(rk)       ::    sigmau
+
+    !> \brief Standard deviation below zcanmax
+    !> \details Standard deviation of shape function below zcanmax (z/h)
+    !! \param units dimensionless (z/h)
+    real(rk)       ::    sigma1
 
 !-------------------------------------------------------------------------------
 ! Allocatable canopy variable arrays
 !-------------------------------------------------------------------------------
 
-    real(rk), allocatable :: zk                  ( : )          ! in-canopy heights (m)
-    real(rk), allocatable :: zhc                 ( : )          ! z/h
-    real(rk), allocatable :: fainc               ( : )          ! incremental foliage shape function
-    real(rk), allocatable :: fafracz             ( : )          ! incremental fractional foliage shape function
-    real(rk), allocatable :: fafraczInt          ( : )          ! integral of incremental fractional foliage shape function
-    real(rk), allocatable :: fsun                ( : )          ! Sunlit/Shaded fraction from photolysis correction factor
-    real(rk), allocatable :: tleaf_sun           ( : )          ! Leaf temp for sunlit leaves (K)
-    real(rk), allocatable :: tleaf_shade         ( : )          ! Leaf temp for shaded leaves (K)
-    real(rk), allocatable :: tleaf_ave           ( : )          ! Average Leaf temp for sunlit and shaded leaves (K)
-    real(rk), allocatable :: ppfd_sun            ( : )          ! PPFD for sunlit leaves (umol phot/m2 s)
-    real(rk), allocatable :: ppfd_shade          ( : )          ! PPFD for shaded leaves (umol phot/m2 s)
-    real(rk), allocatable :: ppfd_ave            ( : )          ! Average PPFD for sunlit and shaded leaves (umol phot/m2 s)
-    real(rk), allocatable :: tleaf_sun24_tmp     ( : , :, : )          ! Leaf temp for sunlit leaves (K)
-    real(rk), allocatable :: tleaf_shade24_tmp   ( : , :, : )          ! Leaf temp for shaded leaves (K)
-    real(rk), allocatable :: tleaf_ave24_tmp     ( : , :, : )          ! Average Leaf temp for sunlit and shaded leaves (K)
-    real(rk), allocatable :: ppfd_sun24_tmp      ( : , :, : )          ! PPFD for sunlit leaves (umol phot/m2 s)
-    real(rk), allocatable :: ppfd_shade24_tmp    ( : , :, : )          ! PPFD for shaded leaves (umol phot/m2 s)
-    real(rk), allocatable :: tleaf_sun240_tmp    ( : , :, : )          ! Leaf temp for sunlit leaves (K)
-    real(rk), allocatable :: tleaf_shade240_tmp  ( : , :, : )          ! Leaf temp for shaded leaves (K)
-    real(rk), allocatable :: tleaf_ave240_tmp    ( : , :, : )          ! Average Leaf temp for sunlit and shaded leaves (K)
-    real(rk), allocatable :: ppfd_sun240_tmp     ( : , :, : )          ! PPFD for sunlit leaves (umol phot/m2 s)
-    real(rk), allocatable :: ppfd_shade240_tmp   ( : , :, : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    !> \brief In-canopy heights
+    !> \details In-canopy heights
+    !! \param units meters (m)
+    real(rk), allocatable :: zk                  ( : )
+
+    !> \brief Normalized height (z/h)
+    !> \details Normalized height relative to canopy height (z/h)
+    !! \param units dimensionless
+    real(rk), allocatable :: zhc                 ( : )
+
+    !> \brief Incremental foliage shape function
+    !> \details Incremental foliage shape function
+    !! \param units dimensionless
+    real(rk), allocatable :: fainc               ( : )
+
+    !> \brief Incremental fractional foliage shape function
+    !> \details Incremental fractional foliage shape function
+    !! \param units dimensionless
+    real(rk), allocatable :: fafracz             ( : )
+
+    !> \brief Integral of incremental fractional foliage shape function
+    !> \details Integral of incremental fractional foliage shape function
+    !! \param units dimensionless
+    real(rk), allocatable :: fafraczInt          ( : )
+
+    !> \brief Sunlit/Shaded fraction from photolysis
+    !> \details Sunlit/Shaded fraction from photolysis correction factor
+    !! \param units dimensionless fraction
+    real(rk), allocatable :: fsun                ( : )
+
+    !> \brief Leaf temperature for sunlit leaves
+    !> \details Leaf temperature for sunlit leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_sun           ( : )
+
+    !> \brief Leaf temperature for shaded leaves
+    !> \details Leaf temperature for shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_shade         ( : )
+
+    !> \brief Average leaf temperature
+    !> \details Average leaf temperature for sunlit and shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_ave           ( : )
+
+    !> \brief PPFD for sunlit leaves
+    !> \details Photosynthetic Photon Flux Density for sunlit leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_sun            ( : )
+
+    !> \brief PPFD for shaded leaves
+    !> \details Photosynthetic Photon Flux Density for shaded leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_shade          ( : )
+
+    !> \brief Average PPFD
+    !> \details Average Photosynthetic Photon Flux Density for sunlit and shaded leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_ave            ( : )
+
+    !> \brief 24-hour temporary leaf temperature for sunlit leaves
+    !> \details Temporary storage for 24-hour leaf temperature for sunlit leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_sun24_tmp     ( : , :, : )
+
+    !> \brief 24-hour temporary leaf temperature for shaded leaves
+    !> \details Temporary storage for 24-hour leaf temperature for shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_shade24_tmp   ( : , :, : )
+
+    !> \brief 24-hour temporary average leaf temperature
+    !> \details Temporary storage for 24-hour average leaf temperature for sunlit and shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_ave24_tmp     ( : , :, : )
+
+    !> \brief 24-hour temporary PPFD for sunlit leaves
+    !> \details Temporary storage for 24-hour PPFD for sunlit leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_sun24_tmp      ( : , :, : )
+
+    !> \brief 24-hour temporary PPFD for shaded leaves
+    !> \details Temporary storage for 24-hour PPFD for shaded leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_shade24_tmp    ( : , :, : )
+
+    !> \brief 240-hour temporary leaf temperature for sunlit leaves
+    !> \details Temporary storage for 240-hour leaf temperature for sunlit leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_sun240_tmp    ( : , :, : )
+
+    !> \brief 240-hour temporary leaf temperature for shaded leaves
+    !> \details Temporary storage for 240-hour leaf temperature for shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_shade240_tmp  ( : , :, : )
+
+    !> \brief 240-hour temporary average leaf temperature
+    !> \details Temporary storage for 240-hour average leaf temperature for sunlit and shaded leaves
+    !! \param units K
+    real(rk), allocatable :: tleaf_ave240_tmp    ( : , :, : )
+
+    !> \brief 240-hour temporary PPFD for sunlit leaves
+    !> \details Temporary storage for 240-hour PPFD for sunlit leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_sun240_tmp     ( : , :, : )
+
+    !> \brief 240-hour temporary PPFD for shaded leaves
+    !> \details Temporary storage for 240-hour PPFD for shaded leaves
+    !! \param units μmol photons/m²/s
+    real(rk), allocatable :: ppfd_shade240_tmp   ( : , :, : )
+    real(rk), allocatable :: tmp2mref_tmp        ( : , : )          ! 2-meter (AGL) input reference air temperature (K)
+    real(rk), allocatable :: ubzref_tmp          ( : , : )          ! 10-meter (AGL) input reference wind speed (m/s)
     real(rk), allocatable :: tleaf_sun24         ( : , : )          ! Leaf temp for sunlit leaves (K)
     real(rk), allocatable :: tleaf_shade24       ( : , : )          ! Leaf temp for shaded leaves (K)
     real(rk), allocatable :: tleaf_ave24         ( : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
@@ -60,6 +190,9 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: tleaf_ave240        ( : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
     real(rk), allocatable :: ppfd_sun240         ( : , : )          ! PPFD for sunlit leaves (umol phot/m2 s)
     real(rk), allocatable :: ppfd_shade240       ( : , : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: daily_maxt2m        ( : )              ! Daily maximum 2-meter (AGL) input reference air temperature (K)
+    real(rk), allocatable :: daily_mint2m        ( : )              ! Daily minimum 2-meter (AGL) input reference air temperature (K)
+    real(rk), allocatable :: daily_maxws10m        ( : )            ! Daily maximum 10-meter (AGL) input wind speed (m/s)
     real(rk), allocatable :: tleaf_sun24_tmp_3d     ( : , : , : , : )          ! Leaf temp for sunlit leaves (K)
     real(rk), allocatable :: tleaf_shade24_tmp_3d   ( : , : , : , : )          ! Leaf temp for shaded leaves (K)
     real(rk), allocatable :: tleaf_ave24_tmp_3d     ( : , : , : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
@@ -70,6 +203,8 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: tleaf_ave240_tmp_3d    ( : , : , : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
     real(rk), allocatable :: ppfd_sun240_tmp_3d     ( : , : , : , : )          ! PPFD for sunlit leaves (umol phot/m2 s)
     real(rk), allocatable :: ppfd_shade240_tmp_3d   ( : , : , : , : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: tmp2mref_tmp_3d        ( : , : , : )              ! 2-meter (AGL) input reference air temperature (K)
+    real(rk), allocatable :: ubzref_tmp_3d          ( : , : , : )              ! 10-meter (AGL) input reference wind speed (m/s)
     real(rk), allocatable :: tleaf_sun24_3d         ( : , : , : )          ! Leaf temp for sunlit leaves (K)
     real(rk), allocatable :: tleaf_shade24_3d       ( : , : , : )          ! Leaf temp for shaded leaves (K)
     real(rk), allocatable :: tleaf_ave24_3d         ( : , : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
@@ -80,16 +215,33 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: tleaf_ave240_3d        ( : , : , : )          ! Average Leaf temp for sunlit and shaded leaves (K)
     real(rk), allocatable :: ppfd_sun240_3d         ( : , : , : )          ! PPFD for sunlit leaves (umol phot/m2 s)
     real(rk), allocatable :: ppfd_shade240_3d       ( : , : , : )          ! PPFD for shaded leaves (umol phot/m2 s)
+    real(rk), allocatable :: daily_maxt2m_2d        ( : , : )                  ! Daily maximum 2-meter (AGL) input reference air temperature (K)
+    real(rk), allocatable :: daily_mint2m_2d        ( : , : )                  ! Daily minimum 2-meter (AGL) input reference air temperature (K)
+    real(rk), allocatable :: daily_maxws10m_2d      ( : , : )                  ! Daily maximum 10-meter (AGL) input wind speed (m/s)
+
     real(rk), allocatable :: canBOT                 ( : )                  ! Canopy bottom wind reduction factors
     real(rk), allocatable :: canTOP                 ( : )                  ! Canopy top wind reduction factors
     real(rk), allocatable :: canWIND                ( : , : )              ! canopy wind speeds (m/s)
     real(rk), allocatable :: canWIND_3d             ( : , : , : )          ! canopy wind speeds -- 3D (m/s)
     real(rk), allocatable :: lad                    ( : , : )              ! Leaf Area Density calculated from foliage shape function (m2/m3)
     real(rk), allocatable :: lad_3d                 ( : , : , : )          ! Leaf Area Density calculated from foliage shape function (m2/m3)
+    real(rk), allocatable :: tka                    ( : , : )              ! Ambient temperature within/above canopy (K)
+    real(rk), allocatable :: tka_3d                 ( : , : , : )          ! Ambient temperature within/above canopy (K)
+    real(rk), allocatable :: pressa                 ( : , : )              ! Ambient pressure within/above canopy (mb)
+    real(rk), allocatable :: pressa_3d              ( : , : , : )          ! Ambient pressure within/above canopy (mb)
+    real(rk), allocatable :: relhuma                ( : , : )              ! Ambient relative humidity within/above canopy (%)
+    real(rk), allocatable :: relhuma_3d             ( : , : , : )          ! Ambient relative humidity within/above canopy (%)
+    real(rk), allocatable :: spechuma               ( : , : )              ! Ambient specific humidity within/above canopy (g/kg)
+    real(rk), allocatable :: spechuma_3d            ( : , : , : )          ! Ambient specific humidity within/above canopy (g/kg)
+
     real(rk), allocatable :: dx                  ( : )          ! Model grid cell distance/resolution (m)
     real(rk), allocatable :: dx_2d               ( : , : )      ! Model grid cell distance/resolution -- 2D (m)
     real(rk), allocatable :: waf                 ( : )          ! Calculated Wind Adjustment Factor
     real(rk), allocatable :: waf_2d              ( : , : )      ! Calculated Wind Adjustment Factor -- 2D
+    real(rk), allocatable :: d_h                 ( : )          ! Zero plane displacement heights (z/h)
+    real(rk), allocatable :: d_h_2d              ( : , : )      ! Zero plane displacement heights (z/h) -- 2D
+    real(rk), allocatable :: zo_h                ( : )          ! Surface (soil+veg) roughness lengths (z/h)
+    real(rk), allocatable :: zo_h_2d             ( : , : )      ! Surface (soil+veg) roughness lengths (z/h) -- 2D
     real(rk), allocatable :: Kz                  ( :, : )       ! Eddy Diffusivities (m2/s)
     real(rk), allocatable :: Kz_3d               ( : , : , : )  ! Eddy Diffusivities -- 3D (m2/s)
     real(rk), allocatable :: rjcf                ( :, : )       ! Photolysis Attenuation Correction Factors
@@ -135,62 +287,175 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: emi_ovoc            ( :, : )       ! Other VOC biogenic emissions (kg/m2 s)
     real(rk), allocatable :: emi_ovoc_3d         ( : , : , : )  ! Other VOC biogenic emissions (kg/m2 s) -- 3D
 
+
+    real(rk), allocatable :: ddep_no             ( :, : )       ! Dry Deposition velocity for NO (m/s)
+    real(rk), allocatable :: ddep_no_3d          ( : , : , : )  ! Dry Deposition velocity for NO (m/s) -- 3D
+    real(rk), allocatable :: ddep_no2            ( :, : )       ! Dry Deposition velocity for NO2 (m/s)
+    real(rk), allocatable :: ddep_no2_3d         ( : , : , : )  ! Dry Deposition velocity for NO2 (m/s) -- 3D
+    real(rk), allocatable :: ddep_o3             ( :, : )       ! Dry Deposition velocity for O3 (m/s)
+    real(rk), allocatable :: ddep_o3_3d          ( : , : , : )  ! Dry Deposition velocity for O3 (m/s) -- 3D
+    real(rk), allocatable :: ddep_hono           ( :, : )       ! Dry Deposition velocity for HONO (m/s)
+    real(rk), allocatable :: ddep_hono_3d        ( : , : , : )  ! Dry Deposition velocity for HONO (m/s) -- 3D
+    real(rk), allocatable :: ddep_hno4           ( :, : )       ! Dry Deposition velocity for HNO4 (m/s)
+    real(rk), allocatable :: ddep_hno4_3d        ( : , : , : )  ! Dry Deposition velocity for HNO4 (m/s) -- 3D
+    real(rk), allocatable :: ddep_hno3           ( :, : )       ! Dry Deposition velocity for HNO3 (m/s)
+    real(rk), allocatable :: ddep_hno3_3d        ( : , : , : )  ! Dry Deposition velocity for HNO3 (m/s) -- 3D
+    real(rk), allocatable :: ddep_n2o5           ( :, : )       ! Dry Deposition velocity for N2O5 (m/s)
+    real(rk), allocatable :: ddep_n2o5_3d        ( : , : , : )  ! Dry Deposition velocity for N2O5 (m/s) -- 3D
+    real(rk), allocatable :: ddep_co             ( :, : )       ! Dry Deposition velocity for CO (m/s)
+    real(rk), allocatable :: ddep_co_3d          ( : , : , : )  ! Dry Deposition velocity for CO (m/s) -- 3D
+    real(rk), allocatable :: ddep_h2o2           ( :, : )       ! Dry Deposition velocity for H2O2 (m/s)
+    real(rk), allocatable :: ddep_h2o2_3d        ( : , : , : )  ! Dry Deposition velocity for H2O2 (m/s) -- 3D
+    real(rk), allocatable :: ddep_ch4            ( :, : )       ! Dry Deposition velocity for CH4 (m/s)
+    real(rk), allocatable :: ddep_ch4_3d         ( : , : , : )  ! Dry Deposition velocity for CH4 (m/s) -- 3D
+    real(rk), allocatable :: ddep_mo2            ( :, : )       ! Dry Deposition velocity for MO2 (m/s)
+    real(rk), allocatable :: ddep_mo2_3d         ( : , : , : )  ! Dry Deposition velocity for MO2 (m/s) -- 3D
+    real(rk), allocatable :: ddep_op1            ( :, : )       ! Dry Deposition velocity for OP1 (m/s)
+    real(rk), allocatable :: ddep_op1_3d         ( : , : , : )  ! Dry Deposition velocity for OP1 (m/s) -- 3D
+    real(rk), allocatable :: ddep_moh            ( :, : )       ! Dry Deposition velocity for MOH (m/s)
+    real(rk), allocatable :: ddep_moh_3d         ( : , : , : )  ! Dry Deposition velocity for MOH (m/s) -- 3D
+    real(rk), allocatable :: ddep_no3            ( :, : )       ! Dry Deposition velocity for NO3 (m/s)
+    real(rk), allocatable :: ddep_no3_3d         ( : , : , : )  ! Dry Deposition velocity for NO3 (m/s) -- 3D
+    real(rk), allocatable :: ddep_o3p            ( :, : )       ! Dry Deposition velocity for O3P (m/s)
+    real(rk), allocatable :: ddep_o3p_3d         ( : , : , : )  ! Dry Deposition velocity for O3P (m/s) -- 3D
+    real(rk), allocatable :: ddep_o1d            ( :, : )       ! Dry Deposition velocity for O1D (m/s)
+    real(rk), allocatable :: ddep_o1d_3d         ( : , : , : )  ! Dry Deposition velocity for O1D (m/s) -- 3D
+    real(rk), allocatable :: ddep_ho             ( :, : )       ! Dry Deposition velocity for HO (m/s)
+    real(rk), allocatable :: ddep_ho_3d          ( : , : , : )  ! Dry Deposition velocity for HO (m/s) -- 3D
+    real(rk), allocatable :: ddep_ho2            ( :, : )       ! Dry Deposition velocity for HO2 (m/s)
+    real(rk), allocatable :: ddep_ho2_3d         ( : , : , : )  ! Dry Deposition velocity for HO2 (m/s) -- 3D
+    real(rk), allocatable :: ddep_ora1           ( :, : )       ! Dry Deposition velocity for ORA1 (m/s)
+    real(rk), allocatable :: ddep_ora1_3d        ( : , : , : )  ! Dry Deposition velocity for ORA1 (m/s) -- 3D
+    real(rk), allocatable :: ddep_hac            ( :, : )       ! Dry Deposition velocity for HAC (m/s)
+    real(rk), allocatable :: ddep_hac_3d         ( : , : , : )  ! Dry Deposition velocity for HAC (m/s) -- 3D
+    real(rk), allocatable :: ddep_paa            ( :, : )       ! Dry Deposition velocity for PAA (m/s)
+    real(rk), allocatable :: ddep_paa_3d         ( : , : , : )  ! Dry Deposition velocity for PAA (m/s) -- 3D
+    real(rk), allocatable :: ddep_dhmob          ( :, : )       ! Dry Deposition velocity for DHMOB (m/s)
+    real(rk), allocatable :: ddep_dhmob_3d       ( : , : , : )  ! Dry Deposition velocity for DHMOB (m/s) -- 3D
+    real(rk), allocatable :: ddep_hpald          ( :, : )       ! Dry Deposition velocity for HPALD (m/s)
+    real(rk), allocatable :: ddep_hpald_3d       ( : , : , : )  ! Dry Deposition velocity for HPALD (m/s) -- 3D
+    real(rk), allocatable :: ddep_ishp           ( :, : )       ! Dry Deposition velocity for ISHP (m/s)
+    real(rk), allocatable :: ddep_ishp_3d        ( : , : , : )  ! Dry Deposition velocity for ISHP (m/s) -- 3D
+    real(rk), allocatable :: ddep_iepox          ( :, : )       ! Dry Deposition velocity for IEPOX (m/s)
+    real(rk), allocatable :: ddep_iepox_3d       ( : , : , : )  ! Dry Deposition velocity for IEPOX (m/s) -- 3D
+    real(rk), allocatable :: ddep_propnn         ( :, : )       ! Dry Deposition velocity for PROPNN (m/s)
+    real(rk), allocatable :: ddep_propnn_3d      ( : , : , : )  ! Dry Deposition velocity for PROPNN (m/s) -- 3D
+    real(rk), allocatable :: ddep_isopnb         ( :, : )       ! Dry Deposition velocity for ISOPNB (m/s)
+    real(rk), allocatable :: ddep_isopnb_3d      ( : , : , : )  ! Dry Deposition velocity for ISOPNB (m/s) -- 3D
+    real(rk), allocatable :: ddep_isopnd         ( :, : )       ! Dry Deposition velocity for ISOPND (m/s)
+    real(rk), allocatable :: ddep_isopnd_3d      ( : , : , : )  ! Dry Deposition velocity for ISOPND (m/s) -- 3D
+    real(rk), allocatable :: ddep_macrn          ( :, : )       ! Dry Deposition velocity for MACRN (m/s)
+    real(rk), allocatable :: ddep_macrn_3d       ( : , : , : )  ! Dry Deposition velocity for MACRN (m/s) -- 3D
+    real(rk), allocatable :: ddep_mvkn           ( :, : )       ! Dry Deposition velocity for MVKN (m/s)
+    real(rk), allocatable :: ddep_mvkn_3d        ( : , : , : )  ! Dry Deposition velocity for MVKN (m/s) -- 3D
+    real(rk), allocatable :: ddep_isnp           ( :, : )       ! Dry Deposition velocity for ISNP (m/s)
+    real(rk), allocatable :: ddep_isnp_3d        ( : , : , : )  ! Dry Deposition velocity for ISNP (m/s) -- 3D
+
 !-------------------------------------------------------------------------------
 ! Canopy-App Program and version descriptors.
 !-------------------------------------------------------------------------------
 
     CHARACTER(LEN=16),  PARAMETER     :: progname   = 'Canopy-App'
     CHARACTER(LEN=10),  PARAMETER     :: vdate      = '02/13/2022'
+    !> \brief Model version
+    !> \details Version identifier for the canopy model
     CHARACTER(LEN=8),   PARAMETER     :: ver        = 'V1.0.0'
 
 !-------------------------------------------------------------------------------
 ! Define output NETCDF data structures.
 !-------------------------------------------------------------------------------
 
+    !> \brief 1D time-dependent data structure
+    !> \details Data structure for 1D time-dependent NETCDF output fields
     TYPE fld1dtdata
+        !> \brief Field data pointer
+        !> \details Pointer to 1D time field data
         REAL(rk),        POINTER   :: fld        ( : )
+        !> \brief Field name
         CHARACTER(LEN=16)          :: fldname
+        !> \brief Long descriptive name
         CHARACTER(LEN=80)          :: long_name
+        !> \brief Units string
         CHARACTER(LEN=80)          :: units
+        !> \brief Cartesian axis designation
         CHARACTER(LEN=80)          :: cartesian_axis = "T"
+        !> \brief Calendar type
         CHARACTER(LEN=80)          :: calendar_type = "JULIAN"
+        !> \brief Calendar designation
         CHARACTER(LEN=80)          :: calendar = "JULIAN"
+        !> \brief Fill value for missing data
         REAL                       :: fillvalue
+        !> \brief Dimension names array
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        !> \brief Start indices for each dimension
         INTEGER                    :: istart     ( 4 )
+        !> \brief End indices for each dimension
         INTEGER                    :: iend       ( 4 )
     END TYPE fld1dtdata
 
+    !> \brief 1D data structure
+    !> \details Data structure for 1D NETCDF output fields
     TYPE fld1ddata
+        !> \brief Field data pointer
+        !> \details Pointer to 1D field data
         REAL(rk),        POINTER   :: fld        ( : )
+        !> \brief Field name
         CHARACTER(LEN=16)          :: fldname
+        !> \brief Long descriptive name
         CHARACTER(LEN=80)          :: long_name
+        !> \brief Units string
         CHARACTER(LEN=80)          :: units
+        !> \brief Fill value for missing data
         REAL                       :: fillvalue
+        !> \brief Dimension names array
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        !> \brief Start indices for each dimension
         INTEGER                    :: istart     ( 4 )
+        !> \brief End indices for each dimension
         INTEGER                    :: iend       ( 4 )
     END TYPE fld1ddata
 
+    !> \brief 2D data structure
+    !> \details Data structure for 2D NETCDF output fields
     TYPE fld2ddata
+        !> \brief Field data pointer
+        !> \details Pointer to 2D field data
         REAL(rk),        POINTER   :: fld        ( : , : )
+        !> \brief Field name
         CHARACTER(LEN=16)          :: fldname
+        !> \brief Long descriptive name
         CHARACTER(LEN=80)          :: long_name
+        !> \brief Units string
         CHARACTER(LEN=16)          :: units
+        !> \brief Fill value for missing data
         REAL                       :: fillvalue
+        !> \brief Dimension names array
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        !> \brief Start indices for each dimension
         INTEGER                    :: istart     ( 4 )
+        !> \brief End indices for each dimension
         INTEGER                    :: iend       ( 4 )
     END TYPE fld2ddata
 
+    !> \brief 3D data structure
+    !> \details Data structure for 3D NETCDF output fields
     TYPE fld3ddata
+        !> \brief Field data pointer
+        !> \details Pointer to 3D field data
         REAL(rk),        POINTER   :: fld        ( : , : , : )
+        !> \brief Field name
         CHARACTER(LEN=16)          :: fldname
+        !> \brief Long descriptive name
         CHARACTER(LEN=80)          :: long_name
+        !> \brief Units string
         CHARACTER(LEN=16)          :: units
+        !> \brief Fill value for missing data
         REAL                       :: fillvalue
+        !> \brief Dimension names array
         CHARACTER(LEN=16)          :: dimnames   ( 4 )
+        !> \brief Start indices for each dimension
         INTEGER                    :: istart     ( 4 )
+        !> \brief End indices for each dimension
         INTEGER                    :: iend       ( 4 )
     END TYPE fld3ddata
 
@@ -198,10 +463,21 @@ MODULE canopy_canvars_mod
 ! Assign number of time independent and varying 2D/3D fields at cell centers.
 !-------------------------------------------------------------------------------
 
-    INTEGER           :: nfld1dt        ! time field
-    INTEGER           :: nfld1dz        ! time-independent 1d cell centers
-    INTEGER           :: nfld2dxy       ! time-independent 2d cell centers
-    INTEGER           :: nfld2dxyt      ! time-varying 2d cell centers
+    !> \brief Number of time fields
+    !> \details Number of time field variables
+    INTEGER           :: nfld1dt
+
+    !> \brief Number of time-independent 1D fields
+    !> \details Number of time-independent 1D cell center fields
+    INTEGER           :: nfld1dz
+
+    !> \brief Number of time-independent 2D fields
+    !> \details Number of time-independent 2D cell center fields
+    INTEGER           :: nfld2dxy
+
+    !> \brief Number of time-varying 2D fields
+    !> \details Number of time-varying 2D cell center fields
+    INTEGER           :: nfld2dxyt
     INTEGER           :: nfld3dxyzt     ! time-varying 3d cell centers
 
 
@@ -235,6 +511,8 @@ MODULE canopy_canvars_mod
     TYPE(fld2ddata), POINTER     :: c_waf
     TYPE(fld2ddata), POINTER     :: c_flameh
     TYPE(fld2ddata), POINTER     :: c_canheight
+    TYPE(fld2ddata), POINTER     :: c_dh
+    TYPE(fld2ddata), POINTER     :: c_zoh
 
 !-------------------------------------------------------------------------------
 ! Time-varying 3d fields at cell centers for output NETCDF
@@ -264,5 +542,38 @@ MODULE canopy_canvars_mod
     TYPE(fld3ddata), POINTER     :: c_emi_bvoc
     TYPE(fld3ddata), POINTER     :: c_emi_svoc
     TYPE(fld3ddata), POINTER     :: c_emi_ovoc
+    TYPE(fld3ddata), POINTER     :: c_ddep_no
+    TYPE(fld3ddata), POINTER     :: c_ddep_no2
+    TYPE(fld3ddata), POINTER     :: c_ddep_o3
+    TYPE(fld3ddata), POINTER     :: c_ddep_hono
+    TYPE(fld3ddata), POINTER     :: c_ddep_hno4
+    TYPE(fld3ddata), POINTER     :: c_ddep_hno3
+    TYPE(fld3ddata), POINTER     :: c_ddep_n2o5
+    TYPE(fld3ddata), POINTER     :: c_ddep_co
+    TYPE(fld3ddata), POINTER     :: c_ddep_h2o2
+    TYPE(fld3ddata), POINTER     :: c_ddep_ch4
+    TYPE(fld3ddata), POINTER     :: c_ddep_mo2
+    TYPE(fld3ddata), POINTER     :: c_ddep_op1
+    TYPE(fld3ddata), POINTER     :: c_ddep_moh
+    TYPE(fld3ddata), POINTER     :: c_ddep_no3
+    TYPE(fld3ddata), POINTER     :: c_ddep_o3p
+    TYPE(fld3ddata), POINTER     :: c_ddep_o1d
+    TYPE(fld3ddata), POINTER     :: c_ddep_ho
+    TYPE(fld3ddata), POINTER     :: c_ddep_ho2
+    TYPE(fld3ddata), POINTER     :: c_ddep_ora1
+    TYPE(fld3ddata), POINTER     :: c_ddep_hac
+    TYPE(fld3ddata), POINTER     :: c_ddep_paa
+    TYPE(fld3ddata), POINTER     :: c_ddep_dhmob
+    TYPE(fld3ddata), POINTER     :: c_ddep_hpald
+    TYPE(fld3ddata), POINTER     :: c_ddep_ishp
+    TYPE(fld3ddata), POINTER     :: c_ddep_iepox
+    TYPE(fld3ddata), POINTER     :: c_ddep_propnn
+    TYPE(fld3ddata), POINTER     :: c_ddep_isopnb
+    TYPE(fld3ddata), POINTER     :: c_ddep_isopnd
+    TYPE(fld3ddata), POINTER     :: c_ddep_macrn
+    TYPE(fld3ddata), POINTER     :: c_ddep_mvkn
+    TYPE(fld3ddata), POINTER     :: c_ddep_isnp
+
+    !> \}
 
 END MODULE canopy_canvars_mod

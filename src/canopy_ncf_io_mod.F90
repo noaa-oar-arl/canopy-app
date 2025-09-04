@@ -1,3 +1,19 @@
+!> \file canopy_ncf_io_mod.F90
+!> \brief NetCDF file input/output routines for canopy model
+!> \details This module contains comprehensive routines for reading and writing
+!!          NetCDF format files for the canopy model, including meteorological
+!!          input data and model output data.
+!> \author S.-B. Kim, T. Otte, T. Spero, P.C. Campbell
+!> \date Originally 2004, adapted for Canopy-App December 2022
+!> \version 3.0
+
+!> \defgroup ncfio_group NetCDF File I/O Operations
+!> \brief Routines for reading and writing NetCDF format data files
+!> \details This group contains subroutines for comprehensive NetCDF file
+!!          operations including reading meteorological input, writing model
+!!          output, and handling NetCDF attributes and dimensions.
+!> \{
+
 MODULE canopy_ncf_io_mod
 
     public canopy_outncf_alloc, canopy_outncf_init, canopy_outncfglobal, &
@@ -368,6 +384,30 @@ CONTAINS
         c_canheight%istart(2) = 1
         c_canheight%iend(1) = nlon
         c_canheight%iend(2) = nlat
+
+        c_dh%fld = fillreal
+        c_dh%fldname = 'd_h'
+        c_dh%long_name = 'ratio of zero-plane displacement height to canopy height (d/h)'
+        c_dh%units = '1'
+        c_dh%fillvalue = fillreal
+        c_dh%dimnames(1) = 'nlon'
+        c_dh%dimnames(2) = 'nlat'
+        c_dh%istart(1) = 1
+        c_dh%istart(2) = 1
+        c_dh%iend(1) = nlon
+        c_dh%iend(2) = nlat
+
+        c_zoh%fld = fillreal
+        c_zoh%fldname = 'z0_h'
+        c_zoh%long_name = 'ratio of surface roughness length to canopy height (z/h)'
+        c_zoh%units = '1'
+        c_zoh%fillvalue = fillreal
+        c_zoh%dimnames(1) = 'nlon'
+        c_zoh%dimnames(2) = 'nlat'
+        c_zoh%istart(1) = 1
+        c_zoh%istart(2) = 1
+        c_zoh%iend(1) = nlon
+        c_zoh%iend(2) = nlat
 
         if (ifcanwind .or. ifcanwaf) then
             c_waf%fld = fillreal
@@ -784,6 +824,540 @@ CONTAINS
                 c_emi_ovoc%iend(2) = nlat
                 c_emi_ovoc%iend(3) = modlays
             end if
+        end if
+        if (ifcanddepgas) then
+            if (chemmechgas_opt .eq. 0)  then   !RACM2 - 31 Species Transported
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 1) then
+                    c_ddep_no%fld = fillreal
+                    c_ddep_no%fldname = 'ddep_no'
+                    c_ddep_no%long_name = ' nitric oxide dry deposition velocity'
+                    c_ddep_no%units = 'cm s-1'
+                    c_ddep_no%fillvalue = fillreal
+                    c_ddep_no%dimnames(1) = 'nlon'
+                    c_ddep_no%dimnames(2) = 'nlat'
+                    c_ddep_no%dimnames(3) = 'nlays'
+                    c_ddep_no%istart(1) = 1
+                    c_ddep_no%istart(2) = 1
+                    c_ddep_no%istart(3) = 1
+                    c_ddep_no%iend(1) = nlon
+                    c_ddep_no%iend(2) = nlat
+                    c_ddep_no%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 2) then
+                    c_ddep_no2%fld = fillreal
+                    c_ddep_no2%fldname = 'ddep_no2'
+                    c_ddep_no2%long_name = 'nitrogen dioxide dry deposition velocity'
+                    c_ddep_no2%units = 'cm s-1'
+                    c_ddep_no2%fillvalue = fillreal
+                    c_ddep_no2%dimnames(1) = 'nlon'
+                    c_ddep_no2%dimnames(2) = 'nlat'
+                    c_ddep_no2%dimnames(3) = 'nlays'
+                    c_ddep_no2%istart(1) = 1
+                    c_ddep_no2%istart(2) = 1
+                    c_ddep_no2%istart(3) = 1
+                    c_ddep_no2%iend(1) = nlon
+                    c_ddep_no2%iend(2) = nlat
+                    c_ddep_no2%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 3) then
+                    c_ddep_o3%fld = fillreal
+                    c_ddep_o3%fldname = 'ddep_o3'
+                    c_ddep_o3%long_name = 'ozone dry deposition velocity'
+                    c_ddep_o3%units = 'cm s-1'
+                    c_ddep_o3%fillvalue = fillreal
+                    c_ddep_o3%dimnames(1) = 'nlon'
+                    c_ddep_o3%dimnames(2) = 'nlat'
+                    c_ddep_o3%dimnames(3) = 'nlays'
+                    c_ddep_o3%istart(1) = 1
+                    c_ddep_o3%istart(2) = 1
+                    c_ddep_o3%istart(3) = 1
+                    c_ddep_o3%iend(1) = nlon
+                    c_ddep_o3%iend(2) = nlat
+                    c_ddep_o3%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 4) then
+                    c_ddep_hono%fld = fillreal
+                    c_ddep_hono%fldname = 'ddep_hono'
+                    c_ddep_hono%long_name = 'nitrous acid dry deposition velocity'
+                    c_ddep_hono%units = 'cm s-1'
+                    c_ddep_hono%fillvalue = fillreal
+                    c_ddep_hono%dimnames(1) = 'nlon'
+                    c_ddep_hono%dimnames(2) = 'nlat'
+                    c_ddep_hono%dimnames(3) = 'nlays'
+                    c_ddep_hono%istart(1) = 1
+                    c_ddep_hono%istart(2) = 1
+                    c_ddep_hono%istart(3) = 1
+                    c_ddep_hono%iend(1) = nlon
+                    c_ddep_hono%iend(2) = nlat
+                    c_ddep_hono%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 5) then
+                    c_ddep_hno4%fld = fillreal
+                    c_ddep_hno4%fldname = 'ddep_hno4'
+                    c_ddep_hno4%long_name = 'peroxynitric acid dry deposition velocity'
+                    c_ddep_hno4%units = 'cm s-1'
+                    c_ddep_hno4%fillvalue = fillreal
+                    c_ddep_hno4%dimnames(1) = 'nlon'
+                    c_ddep_hno4%dimnames(2) = 'nlat'
+                    c_ddep_hno4%dimnames(3) = 'nlays'
+                    c_ddep_hno4%istart(1) = 1
+                    c_ddep_hno4%istart(2) = 1
+                    c_ddep_hno4%istart(3) = 1
+                    c_ddep_hno4%iend(1) = nlon
+                    c_ddep_hno4%iend(2) = nlat
+                    c_ddep_hno4%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 6) then
+                    c_ddep_hno3%fld = fillreal
+                    c_ddep_hno3%fldname = 'ddep_hno3'
+                    c_ddep_hno3%long_name = 'nitric acid dry deposition velocity'
+                    c_ddep_hno3%units = 'cm s-1'
+                    c_ddep_hno3%fillvalue = fillreal
+                    c_ddep_hno3%dimnames(1) = 'nlon'
+                    c_ddep_hno3%dimnames(2) = 'nlat'
+                    c_ddep_hno3%dimnames(3) = 'nlays'
+                    c_ddep_hno3%istart(1) = 1
+                    c_ddep_hno3%istart(2) = 1
+                    c_ddep_hno3%istart(3) = 1
+                    c_ddep_hno3%iend(1) = nlon
+                    c_ddep_hno3%iend(2) = nlat
+                    c_ddep_hno3%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 7) then
+                    c_ddep_n2o5%fld = fillreal
+                    c_ddep_n2o5%fldname = 'ddep_n2o5'
+                    c_ddep_n2o5%long_name = 'dinitrogen pentoxide dry deposition velocity'
+                    c_ddep_n2o5%units = 'cm s-1'
+                    c_ddep_n2o5%fillvalue = fillreal
+                    c_ddep_n2o5%dimnames(1) = 'nlon'
+                    c_ddep_n2o5%dimnames(2) = 'nlat'
+                    c_ddep_n2o5%dimnames(3) = 'nlays'
+                    c_ddep_n2o5%istart(1) = 1
+                    c_ddep_n2o5%istart(2) = 1
+                    c_ddep_n2o5%istart(3) = 1
+                    c_ddep_n2o5%iend(1) = nlon
+                    c_ddep_n2o5%iend(2) = nlat
+                    c_ddep_n2o5%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 8) then
+                    c_ddep_co%fld = fillreal
+                    c_ddep_co%fldname = 'ddep_co'
+                    c_ddep_co%long_name = 'carbon monoxide dry deposition velocity'
+                    c_ddep_co%units = 'cm s-1'
+                    c_ddep_co%fillvalue = fillreal
+                    c_ddep_co%dimnames(1) = 'nlon'
+                    c_ddep_co%dimnames(2) = 'nlat'
+                    c_ddep_co%dimnames(3) = 'nlays'
+                    c_ddep_co%istart(1) = 1
+                    c_ddep_co%istart(2) = 1
+                    c_ddep_co%istart(3) = 1
+                    c_ddep_co%iend(1) = nlon
+                    c_ddep_co%iend(2) = nlat
+                    c_ddep_co%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 9) then
+                    c_ddep_h2o2%fld = fillreal
+                    c_ddep_h2o2%fldname = 'ddep_h2o2'
+                    c_ddep_h2o2%long_name = 'hydrogen peroxide dry deposition velocity'
+                    c_ddep_h2o2%units = 'cm s-1'
+                    c_ddep_h2o2%fillvalue = fillreal
+                    c_ddep_h2o2%dimnames(1) = 'nlon'
+                    c_ddep_h2o2%dimnames(2) = 'nlat'
+                    c_ddep_h2o2%dimnames(3) = 'nlays'
+                    c_ddep_h2o2%istart(1) = 1
+                    c_ddep_h2o2%istart(2) = 1
+                    c_ddep_h2o2%istart(3) = 1
+                    c_ddep_h2o2%iend(1) = nlon
+                    c_ddep_h2o2%iend(2) = nlat
+                    c_ddep_h2o2%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 10) then
+                    c_ddep_ch4%fld = fillreal
+                    c_ddep_ch4%fldname = 'ddep_ch4'
+                    c_ddep_ch4%long_name = 'methane dry deposition velocity'
+                    c_ddep_ch4%units = 'cm s-1'
+                    c_ddep_ch4%fillvalue = fillreal
+                    c_ddep_ch4%dimnames(1) = 'nlon'
+                    c_ddep_ch4%dimnames(2) = 'nlat'
+                    c_ddep_ch4%dimnames(3) = 'nlays'
+                    c_ddep_ch4%istart(1) = 1
+                    c_ddep_ch4%istart(2) = 1
+                    c_ddep_ch4%istart(3) = 1
+                    c_ddep_ch4%iend(1) = nlon
+                    c_ddep_ch4%iend(2) = nlat
+                    c_ddep_ch4%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 11) then
+                    c_ddep_mo2%fld = fillreal
+                    c_ddep_mo2%fldname = 'ddep_mo2'
+                    c_ddep_mo2%long_name = 'methylperoxy radical dry deposition velocity'
+                    c_ddep_mo2%units = 'cm s-1'
+                    c_ddep_mo2%fillvalue = fillreal
+                    c_ddep_mo2%dimnames(1) = 'nlon'
+                    c_ddep_mo2%dimnames(2) = 'nlat'
+                    c_ddep_mo2%dimnames(3) = 'nlays'
+                    c_ddep_mo2%istart(1) = 1
+                    c_ddep_mo2%istart(2) = 1
+                    c_ddep_mo2%istart(3) = 1
+                    c_ddep_mo2%iend(1) = nlon
+                    c_ddep_mo2%iend(2) = nlat
+                    c_ddep_mo2%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 12) then
+                    c_ddep_op1%fld = fillreal
+                    c_ddep_op1%fldname = 'ddep_op1'
+                    c_ddep_op1%long_name = 'methyl hydrogen peroxide dry deposition velocity'
+                    c_ddep_op1%units = 'cm s-1'
+                    c_ddep_op1%fillvalue = fillreal
+                    c_ddep_op1%dimnames(1) = 'nlon'
+                    c_ddep_op1%dimnames(2) = 'nlat'
+                    c_ddep_op1%dimnames(3) = 'nlays'
+                    c_ddep_op1%istart(1) = 1
+                    c_ddep_op1%istart(2) = 1
+                    c_ddep_op1%istart(3) = 1
+                    c_ddep_op1%iend(1) = nlon
+                    c_ddep_op1%iend(2) = nlat
+                    c_ddep_op1%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 13) then
+                    c_ddep_moh%fld = fillreal
+                    c_ddep_moh%fldname = 'ddep_moh'
+                    c_ddep_moh%long_name = 'methanol dry deposition velocity'
+                    c_ddep_moh%units = 'cm s-1'
+                    c_ddep_moh%fillvalue = fillreal
+                    c_ddep_moh%dimnames(1) = 'nlon'
+                    c_ddep_moh%dimnames(2) = 'nlat'
+                    c_ddep_moh%dimnames(3) = 'nlays'
+                    c_ddep_moh%istart(1) = 1
+                    c_ddep_moh%istart(2) = 1
+                    c_ddep_moh%istart(3) = 1
+                    c_ddep_moh%iend(1) = nlon
+                    c_ddep_moh%iend(2) = nlat
+                    c_ddep_moh%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 14) then
+                    c_ddep_no3%fld = fillreal
+                    c_ddep_no3%fldname = 'ddep_no3'
+                    c_ddep_no3%long_name = 'nitrate radical dry deposition velocity'
+                    c_ddep_no3%units = 'cm s-1'
+                    c_ddep_no3%fillvalue = fillreal
+                    c_ddep_no3%dimnames(1) = 'nlon'
+                    c_ddep_no3%dimnames(2) = 'nlat'
+                    c_ddep_no3%dimnames(3) = 'nlays'
+                    c_ddep_no3%istart(1) = 1
+                    c_ddep_no3%istart(2) = 1
+                    c_ddep_no3%istart(3) = 1
+                    c_ddep_no3%iend(1) = nlon
+                    c_ddep_no3%iend(2) = nlat
+                    c_ddep_no3%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 15) then
+                    c_ddep_o3p%fld = fillreal
+                    c_ddep_o3p%fldname = 'ddep_o3p'
+                    c_ddep_o3p%long_name = 'ground state oxygen atoms dry deposition velocity'
+                    c_ddep_o3p%units = 'cm s-1'
+                    c_ddep_o3p%fillvalue = fillreal
+                    c_ddep_o3p%dimnames(1) = 'nlon'
+                    c_ddep_o3p%dimnames(2) = 'nlat'
+                    c_ddep_o3p%dimnames(3) = 'nlays'
+                    c_ddep_o3p%istart(1) = 1
+                    c_ddep_o3p%istart(2) = 1
+                    c_ddep_o3p%istart(3) = 1
+                    c_ddep_o3p%iend(1) = nlon
+                    c_ddep_o3p%iend(2) = nlat
+                    c_ddep_o3p%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 16) then
+                    c_ddep_o1d%fld = fillreal
+                    c_ddep_o1d%fldname = 'ddep_o1d'
+                    c_ddep_o1d%long_name = 'excited state oxygen atoms dry deposition velocity'
+                    c_ddep_o1d%units = 'cm s-1'
+                    c_ddep_o1d%fillvalue = fillreal
+                    c_ddep_o1d%dimnames(1) = 'nlon'
+                    c_ddep_o1d%dimnames(2) = 'nlat'
+                    c_ddep_o1d%dimnames(3) = 'nlays'
+                    c_ddep_o1d%istart(1) = 1
+                    c_ddep_o1d%istart(2) = 1
+                    c_ddep_o1d%istart(3) = 1
+                    c_ddep_o1d%iend(1) = nlon
+                    c_ddep_o1d%iend(2) = nlat
+                    c_ddep_o1d%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 17) then
+                    c_ddep_ho%fld = fillreal
+                    c_ddep_ho%fldname = 'ddep_ho'
+                    c_ddep_ho%long_name = 'hydroxyl radical dry deposition velocity'
+                    c_ddep_ho%units = 'cm s-1'
+                    c_ddep_ho%fillvalue = fillreal
+                    c_ddep_ho%dimnames(1) = 'nlon'
+                    c_ddep_ho%dimnames(2) = 'nlat'
+                    c_ddep_ho%dimnames(3) = 'nlays'
+                    c_ddep_ho%istart(1) = 1
+                    c_ddep_ho%istart(2) = 1
+                    c_ddep_ho%istart(3) = 1
+                    c_ddep_ho%iend(1) = nlon
+                    c_ddep_ho%iend(2) = nlat
+                    c_ddep_ho%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 18) then
+                    c_ddep_ho2%fld = fillreal
+                    c_ddep_ho2%fldname = 'ddep_ho2'
+                    c_ddep_ho2%long_name = 'hydroperoxyl radical dry deposition velocity'
+                    c_ddep_ho2%units = 'cm s-1'
+                    c_ddep_ho2%fillvalue = fillreal
+                    c_ddep_ho2%dimnames(1) = 'nlon'
+                    c_ddep_ho2%dimnames(2) = 'nlat'
+                    c_ddep_ho2%dimnames(3) = 'nlays'
+                    c_ddep_ho2%istart(1) = 1
+                    c_ddep_ho2%istart(2) = 1
+                    c_ddep_ho2%istart(3) = 1
+                    c_ddep_ho2%iend(1) = nlon
+                    c_ddep_ho2%iend(2) = nlat
+                    c_ddep_ho2%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 19) then
+                    c_ddep_ora1%fld = fillreal
+                    c_ddep_ora1%fldname = 'ddep_ora1'
+                    c_ddep_ora1%long_name = 'formic acid dry deposition velocity'
+                    c_ddep_ora1%units = 'cm s-1'
+                    c_ddep_ora1%fillvalue = fillreal
+                    c_ddep_ora1%dimnames(1) = 'nlon'
+                    c_ddep_ora1%dimnames(2) = 'nlat'
+                    c_ddep_ora1%dimnames(3) = 'nlays'
+                    c_ddep_ora1%istart(1) = 1
+                    c_ddep_ora1%istart(2) = 1
+                    c_ddep_ora1%istart(3) = 1
+                    c_ddep_ora1%iend(1) = nlon
+                    c_ddep_ora1%iend(2) = nlat
+                    c_ddep_ora1%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 20) then
+                    c_ddep_hac%fld = fillreal
+                    c_ddep_hac%fldname = 'ddep_hac'
+                    c_ddep_hac%long_name = 'acetic acid dry deposition velocity'
+                    c_ddep_hac%units = 'cm s-1'
+                    c_ddep_hac%fillvalue = fillreal
+                    c_ddep_hac%dimnames(1) = 'nlon'
+                    c_ddep_hac%dimnames(2) = 'nlat'
+                    c_ddep_hac%dimnames(3) = 'nlays'
+                    c_ddep_hac%istart(1) = 1
+                    c_ddep_hac%istart(2) = 1
+                    c_ddep_hac%istart(3) = 1
+                    c_ddep_hac%iend(1) = nlon
+                    c_ddep_hac%iend(2) = nlat
+                    c_ddep_hac%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 21) then
+                    c_ddep_paa%fld = fillreal
+                    c_ddep_paa%fldname = 'ddep_paa'
+                    c_ddep_paa%long_name = 'peroxyacetic acid dry deposition velocity'
+                    c_ddep_paa%units = 'cm s-1'
+                    c_ddep_paa%fillvalue = fillreal
+                    c_ddep_paa%dimnames(1) = 'nlon'
+                    c_ddep_paa%dimnames(2) = 'nlat'
+                    c_ddep_paa%dimnames(3) = 'nlays'
+                    c_ddep_paa%istart(1) = 1
+                    c_ddep_paa%istart(2) = 1
+                    c_ddep_paa%istart(3) = 1
+                    c_ddep_paa%iend(1) = nlon
+                    c_ddep_paa%iend(2) = nlat
+                    c_ddep_paa%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 22) then
+                    c_ddep_dhmob%fld = fillreal
+                    c_ddep_dhmob%fldname = 'ddep_dhmob'
+                    c_ddep_dhmob%long_name = 'dihydroxy carbonyl dry deposition velocity'
+                    c_ddep_dhmob%units = 'cm s-1'
+                    c_ddep_dhmob%fillvalue = fillreal
+                    c_ddep_dhmob%dimnames(1) = 'nlon'
+                    c_ddep_dhmob%dimnames(2) = 'nlat'
+                    c_ddep_dhmob%dimnames(3) = 'nlays'
+                    c_ddep_dhmob%istart(1) = 1
+                    c_ddep_dhmob%istart(2) = 1
+                    c_ddep_dhmob%istart(3) = 1
+                    c_ddep_dhmob%iend(1) = nlon
+                    c_ddep_dhmob%iend(2) = nlat
+                    c_ddep_dhmob%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 23) then
+                    c_ddep_hpald%fld = fillreal
+                    c_ddep_hpald%fldname = 'ddep_hpald'
+                    c_ddep_hpald%long_name = 'hydroperoxymethyl-butenals dry deposition velocity'
+                    c_ddep_hpald%units = 'cm s-1'
+                    c_ddep_hpald%fillvalue = fillreal
+                    c_ddep_hpald%dimnames(1) = 'nlon'
+                    c_ddep_hpald%dimnames(2) = 'nlat'
+                    c_ddep_hpald%dimnames(3) = 'nlays'
+                    c_ddep_hpald%istart(1) = 1
+                    c_ddep_hpald%istart(2) = 1
+                    c_ddep_hpald%istart(3) = 1
+                    c_ddep_hpald%iend(1) = nlon
+                    c_ddep_hpald%iend(2) = nlat
+                    c_ddep_hpald%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 24) then
+                    c_ddep_ishp%fld = fillreal
+                    c_ddep_ishp%fldname = 'ddep_ishp'
+                    c_ddep_ishp%long_name = 'beta-hydroxy hydroperoxides from isop+ho2 dry deposition velocity'
+                    c_ddep_ishp%units = 'cm s-1'
+                    c_ddep_ishp%fillvalue = fillreal
+                    c_ddep_ishp%dimnames(1) = 'nlon'
+                    c_ddep_ishp%dimnames(2) = 'nlat'
+                    c_ddep_ishp%dimnames(3) = 'nlays'
+                    c_ddep_ishp%istart(1) = 1
+                    c_ddep_ishp%istart(2) = 1
+                    c_ddep_ishp%istart(3) = 1
+                    c_ddep_ishp%iend(1) = nlon
+                    c_ddep_ishp%iend(2) = nlat
+                    c_ddep_ishp%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 25) then
+                    c_ddep_iepox%fld = fillreal
+                    c_ddep_iepox%fldname = 'ddep_iepox'
+                    c_ddep_iepox%long_name = 'isoprene epoxydiol dry deposition velocity'
+                    c_ddep_iepox%units = 'cm s-1'
+                    c_ddep_iepox%fillvalue = fillreal
+                    c_ddep_iepox%dimnames(1) = 'nlon'
+                    c_ddep_iepox%dimnames(2) = 'nlat'
+                    c_ddep_iepox%dimnames(3) = 'nlays'
+                    c_ddep_iepox%istart(1) = 1
+                    c_ddep_iepox%istart(2) = 1
+                    c_ddep_iepox%istart(3) = 1
+                    c_ddep_iepox%iend(1) = nlon
+                    c_ddep_iepox%iend(2) = nlat
+                    c_ddep_iepox%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 26) then
+                    c_ddep_propnn%fld = fillreal
+                    c_ddep_propnn%fldname = 'ddep_propnn'
+                    c_ddep_propnn%long_name = 'propanone nitrate dry deposition velocity'
+                    c_ddep_propnn%units = 'cm s-1'
+                    c_ddep_propnn%fillvalue = fillreal
+                    c_ddep_propnn%dimnames(1) = 'nlon'
+                    c_ddep_propnn%dimnames(2) = 'nlat'
+                    c_ddep_propnn%dimnames(3) = 'nlays'
+                    c_ddep_propnn%istart(1) = 1
+                    c_ddep_propnn%istart(2) = 1
+                    c_ddep_propnn%istart(3) = 1
+                    c_ddep_propnn%iend(1) = nlon
+                    c_ddep_propnn%iend(2) = nlat
+                    c_ddep_propnn%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 27) then
+                    c_ddep_isopnb%fld = fillreal
+                    c_ddep_isopnb%fldname = 'ddep_isopnb'
+                    c_ddep_isopnb%long_name = 'beta-hydroxy isoprene nitrates dry deposition velocity'
+                    c_ddep_isopnb%units = 'cm s-1'
+                    c_ddep_isopnb%fillvalue = fillreal
+                    c_ddep_isopnb%dimnames(1) = 'nlon'
+                    c_ddep_isopnb%dimnames(2) = 'nlat'
+                    c_ddep_isopnb%dimnames(3) = 'nlays'
+                    c_ddep_isopnb%istart(1) = 1
+                    c_ddep_isopnb%istart(2) = 1
+                    c_ddep_isopnb%istart(3) = 1
+                    c_ddep_isopnb%iend(1) = nlon
+                    c_ddep_isopnb%iend(2) = nlat
+                    c_ddep_isopnb%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 28) then
+                    c_ddep_isopnd%fld = fillreal
+                    c_ddep_isopnd%fldname = 'ddep_isopnd'
+                    c_ddep_isopnd%long_name = 'delta-hydroxy isoprene nitrates dry deposition velocity'
+                    c_ddep_isopnd%units = 'cm s-1'
+                    c_ddep_isopnd%fillvalue = fillreal
+                    c_ddep_isopnd%dimnames(1) = 'nlon'
+                    c_ddep_isopnd%dimnames(2) = 'nlat'
+                    c_ddep_isopnd%dimnames(3) = 'nlays'
+                    c_ddep_isopnd%istart(1) = 1
+                    c_ddep_isopnd%istart(2) = 1
+                    c_ddep_isopnd%istart(3) = 1
+                    c_ddep_isopnd%iend(1) = nlon
+                    c_ddep_isopnd%iend(2) = nlat
+                    c_ddep_isopnd%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 29) then
+                    c_ddep_macrn%fld = fillreal
+                    c_ddep_macrn%fldname = 'ddep_macrn'
+                    c_ddep_macrn%long_name = 'methacrolein nitrate dry deposition velocity'
+                    c_ddep_macrn%units = 'cm s-1'
+                    c_ddep_macrn%fillvalue = fillreal
+                    c_ddep_macrn%dimnames(1) = 'nlon'
+                    c_ddep_macrn%dimnames(2) = 'nlat'
+                    c_ddep_macrn%dimnames(3) = 'nlays'
+                    c_ddep_macrn%istart(1) = 1
+                    c_ddep_macrn%istart(2) = 1
+                    c_ddep_macrn%istart(3) = 1
+                    c_ddep_macrn%iend(1) = nlon
+                    c_ddep_macrn%iend(2) = nlat
+                    c_ddep_macrn%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 30) then
+                    c_ddep_mvkn%fld = fillreal
+                    c_ddep_mvkn%fldname = 'ddep_mvkn'
+                    c_ddep_mvkn%long_name = 'methylvinylketone nitrate dry deposition velocity'
+                    c_ddep_mvkn%units = 'cm s-1'
+                    c_ddep_mvkn%fillvalue = fillreal
+                    c_ddep_mvkn%dimnames(1) = 'nlon'
+                    c_ddep_mvkn%dimnames(2) = 'nlat'
+                    c_ddep_mvkn%dimnames(3) = 'nlays'
+                    c_ddep_mvkn%istart(1) = 1
+                    c_ddep_mvkn%istart(2) = 1
+                    c_ddep_mvkn%istart(3) = 1
+                    c_ddep_mvkn%iend(1) = nlon
+                    c_ddep_mvkn%iend(2) = nlat
+                    c_ddep_mvkn%iend(3) = modlays
+                end if
+
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 31) then
+                    c_ddep_isnp%fld = fillreal
+                    c_ddep_isnp%fldname = 'ddep_isnp'
+                    c_ddep_isnp%long_name = 'isnp dry deposition velocity'
+                    c_ddep_isnp%units = 'cm s-1'
+                    c_ddep_isnp%fillvalue = fillreal
+                    c_ddep_isnp%dimnames(1) = 'nlon'
+                    c_ddep_isnp%dimnames(2) = 'nlat'
+                    c_ddep_isnp%dimnames(3) = 'nlays'
+                    c_ddep_isnp%istart(1) = 1
+                    c_ddep_isnp%istart(2) = 1
+                    c_ddep_isnp%istart(3) = 1
+                    c_ddep_isnp%iend(1) = nlon
+                    c_ddep_isnp%iend(2) = nlat
+                    c_ddep_isnp%iend(3) = modlays
+                end if
+            else
+                write(*,*)  'Wrong chemical mechanism option of ', chemmechgas_opt, ' in namelist...exiting'
+                write(*,*)  'Set chemmechgas_opt = 0 (RACM2) for now'
+                call exit(2)
+            end if
 
         end if
 
@@ -861,7 +1435,9 @@ CONTAINS
 
         nfld2dxyt = 0
 
-        nfld2dxyt = nfld2dxyt +1  ! canopy height
+        nfld2dxyt = nfld2dxyt + 1  ! canopy height
+        nfld2dxyt = nfld2dxyt + 1  ! d_h
+        nfld2dxyt = nfld2dxyt + 1  ! zo_h
 
         if (ifcanwind .or. ifcanwaf) then
             nfld2dxyt = nfld2dxyt + 1  !WAF
@@ -876,6 +1452,10 @@ CONTAINS
 
         set_index = 1
         c_canheight => fld2dxyt( set_index )
+        set_index = set_index + 1
+        c_dh => fld2dxyt( set_index )
+        set_index = set_index + 1
+        c_zoh => fld2dxyt( set_index )
         if (ifcanwind .or. ifcanwaf) then
             set_index = set_index + 1
             c_waf       => fld2dxyt( set_index )
@@ -904,6 +1484,10 @@ CONTAINS
         end if
 
         if (ifcanbio) then
+            if (biospec_opt > 19) then !Only 19 species
+                write(*,*)  'Error, only 19 bio species available'
+                CALL exit (2)
+            end if
             if (biospec_opt == 0) then
                 nfld3dxyzt = nfld3dxyzt + 1 !EMI_ISOP
                 nfld3dxyzt = nfld3dxyzt + 1 !EMI_MYRC
@@ -926,6 +1510,53 @@ CONTAINS
                 nfld3dxyzt = nfld3dxyzt + 1 !EMI_OVOC
             else
                 nfld3dxyzt = nfld3dxyzt + 1 !EMI_SPEC
+            end if
+        end if
+        if (ifcanddepgas) then
+            if (chemmechgas_opt == 0) then !RACM2
+                if (ddepspecgas_opt > 31) then !Check for only 31 RACM2 transported species
+                    write(*,*)  'Error, only 31 chem gas species available for RACM2'
+                    CALL exit (2)
+                end if
+                if (ddepspecgas_opt == 0) then
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_NO
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_NO2
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_O3
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_HONO
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_HNO4
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_HNO3
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_N2O5
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_CO
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_H2O2
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_CH4
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_MO2
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_OP1
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_MOH
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_NO3
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_O3P
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_O1D
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_HO
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_HO2
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_ORA1
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_HAC
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_PAA
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_DHMOB
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_HPALD
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_ISHP
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_IEPOX
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_PROPNN
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_ISOPNB
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_ISOPND
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_MACRN
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_MVKN
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_ISNP
+                else
+                    nfld3dxyzt = nfld3dxyzt + 1 !DDEP_SPEC
+                end if
+            else
+                write(*,*)  'Wrong chemical mechanism option of ', chemmechgas_opt, ' in namelist...exiting'
+                write(*,*)  'Set chemmechgas_opt = 0 (RACM2) for now'
+                call exit(2)
             end if
         end if
 
@@ -1031,6 +1662,139 @@ CONTAINS
             if (biospec_opt == 0 .or. biospec_opt == 19) then
                 set_index = set_index + 1
                 c_emi_ovoc   => fld3dxyzt( set_index )
+            end if
+        end if
+
+        if (ifcanddepgas) then
+            if (chemmechgas_opt == 0) then !RACM2
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 1) then
+                    set_index = set_index + 1
+                    c_ddep_no   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 2) then
+                    set_index = set_index + 1
+                    c_ddep_no2   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 3) then
+                    set_index = set_index + 1
+                    c_ddep_o3   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 4) then
+                    set_index = set_index + 1
+                    c_ddep_hono   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 5) then
+                    set_index = set_index + 1
+                    c_ddep_hno4   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 6) then
+                    set_index = set_index + 1
+                    c_ddep_hno3   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 7) then
+                    set_index = set_index + 1
+                    c_ddep_n2o5   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 8) then
+                    set_index = set_index + 1
+                    c_ddep_co   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 9) then
+                    set_index = set_index + 1
+                    c_ddep_h2o2   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 10) then
+                    set_index = set_index + 1
+                    c_ddep_ch4   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 11) then
+                    set_index = set_index + 1
+                    c_ddep_mo2   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 12) then
+                    set_index = set_index + 1
+                    c_ddep_op1   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 13) then
+                    set_index = set_index + 1
+                    c_ddep_moh   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 14) then
+                    set_index = set_index + 1
+                    c_ddep_no3   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 15) then
+                    set_index = set_index + 1
+                    c_ddep_o3p   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 16) then
+                    set_index = set_index + 1
+                    c_ddep_o1d   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 17) then
+                    set_index = set_index + 1
+                    c_ddep_ho   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 18) then
+                    set_index = set_index + 1
+                    c_ddep_ho2   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 19) then
+                    set_index = set_index + 1
+                    c_ddep_ora1   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 20) then
+                    set_index = set_index + 1
+                    c_ddep_hac   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 21) then
+                    set_index = set_index + 1
+                    c_ddep_paa   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 22) then
+                    set_index = set_index + 1
+                    c_ddep_dhmob   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 23) then
+                    set_index = set_index + 1
+                    c_ddep_hpald   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 24) then
+                    set_index = set_index + 1
+                    c_ddep_ishp   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 25) then
+                    set_index = set_index + 1
+                    c_ddep_iepox   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 26) then
+                    set_index = set_index + 1
+                    c_ddep_propnn   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 27) then
+                    set_index = set_index + 1
+                    c_ddep_isopnb   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 28) then
+                    set_index = set_index + 1
+                    c_ddep_isopnd   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 29) then
+                    set_index = set_index + 1
+                    c_ddep_macrn   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 30) then
+                    set_index = set_index + 1
+                    c_ddep_mvkn   => fld3dxyzt( set_index )
+                end if
+                if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 31) then
+                    set_index = set_index + 1
+                    c_ddep_isnp   => fld3dxyzt( set_index )
+                end if
+            else
+                write(*,*)  'Wrong chemical mechanism option of ', chemmechgas_opt, ' in namelist...exiting'
+                write(*,*)  'Set chemmechgas_opt = 0 (RACM2) for now'
+                call exit(2)
             end if
         end if
 
@@ -2000,6 +2764,8 @@ CONTAINS
             ! Time-varying 2d fields at cell centers.
             !-------------------------------------------------------------------------------
             c_canheight%fld = variables_2d%ch
+            c_dh%fld = d_h_2d
+            c_zoh%fld = zo_h_2d
             if (ifcanwind .or. ifcanwaf) then
                 c_waf%fld = waf_2d
                 c_flameh%fld = flameh_2d
@@ -2076,6 +2842,109 @@ CONTAINS
                 if (biospec_opt == 0 .or. biospec_opt == 19) then
                     c_emi_ovoc%fld = emi_ovoc_3d
                 end if
+            end if
+            if (ifcanddepgas) then
+                if (chemmechgas_opt == 0) then !RACM2
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 1) then
+                        c_ddep_no%fld = ddep_no_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 2) then
+                        c_ddep_no2%fld = ddep_no2_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 3) then
+                        c_ddep_o3%fld = ddep_o3_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 4) then
+                        c_ddep_hono%fld = ddep_hono_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 5) then
+                        c_ddep_hno4%fld = ddep_hno4_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 6) then
+                        c_ddep_hno3%fld = ddep_hno3_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 7) then
+                        c_ddep_n2o5%fld = ddep_n2o5_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 8) then
+                        c_ddep_co%fld = ddep_co_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 9) then
+                        c_ddep_h2o2%fld = ddep_h2o2_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 10) then
+                        c_ddep_ch4%fld = ddep_ch4_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 11) then
+                        c_ddep_mo2%fld = ddep_mo2_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 12) then
+                        c_ddep_op1%fld = ddep_op1_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 13) then
+                        c_ddep_moh%fld = ddep_moh_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 14) then
+                        c_ddep_no3%fld = ddep_no3_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 15) then
+                        c_ddep_o3p%fld = ddep_o3p_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 16) then
+                        c_ddep_o1d%fld = ddep_o1d_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 17) then
+                        c_ddep_ho%fld = ddep_ho_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 18) then
+                        c_ddep_ho2%fld = ddep_ho2_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 19) then
+                        c_ddep_ora1%fld = ddep_ora1_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 20) then
+                        c_ddep_hac%fld = ddep_hac_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 21) then
+                        c_ddep_paa%fld = ddep_paa_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 22) then
+                        c_ddep_dhmob%fld = ddep_dhmob_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 23) then
+                        c_ddep_hpald%fld = ddep_hpald_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 24) then
+                        c_ddep_ishp%fld = ddep_ishp_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 25) then
+                        c_ddep_iepox%fld = ddep_iepox_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 26) then
+                        c_ddep_propnn%fld = ddep_propnn_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 27) then
+                        c_ddep_isopnb%fld = ddep_isopnb_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 28) then
+                        c_ddep_isopnd%fld = ddep_isopnd_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 29) then
+                        c_ddep_macrn%fld = ddep_macrn_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 30) then
+                        c_ddep_mvkn%fld = ddep_mvkn_3d
+                    end if
+                    if (ddepspecgas_opt == 0 .or. ddepspecgas_opt == 31) then
+                        c_ddep_isnp%fld = ddep_isnp_3d
+                    end if
+                else
+                    write(*,*)  'Wrong chemical mechanism option of ', chemmechgas_opt, ' in namelist...exiting'
+                    write(*,*)  'Set chemmechgas_opt = 0 (RACM2) for now'
+                    call exit(2)
+                end if
+
+
             end if
 
             !-------------------------------------------------------------------------------
@@ -2605,6 +3474,87 @@ CONTAINS
             variables_2d%wilt=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%wilt=reshape(variables_2d%wilt,[size(variables_2d%wilt)])
+            !Ozone W126
+            CALL get_var_2d_real_cdf (cdfid, 'ozone_w126', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'ozone_w126',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%ozone_w126=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%ozone_w126=reshape(variables_2d%ozone_w126,[size(variables_2d%ozone_w126)])
+            !Soil temperature level 1
+            CALL get_var_2d_real_cdf (cdfid, 'soilt1', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilt1',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilt1=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilt1=reshape(variables_2d%soilt1,[size(variables_2d%soilt1)])
+            !Soil temperature level 2
+            CALL get_var_2d_real_cdf (cdfid, 'soilt2', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilt2',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilt2=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilt2=reshape(variables_2d%soilt2,[size(variables_2d%soilt2)])
+            !Soil temperature level 3
+            CALL get_var_2d_real_cdf (cdfid, 'soilt3', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilt3',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilt3=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilt3=reshape(variables_2d%soilt3,[size(variables_2d%soilt3)])
+            !Soil temperature level 4
+            CALL get_var_2d_real_cdf (cdfid, 'soilt4', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'soilt4',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%soilt4=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%soilt4=reshape(variables_2d%soilt4,[size(variables_2d%soilt4)])
+            !1st model layer air temperature above ground
+            CALL get_var_2d_real_cdf (cdfid, 'tmp_hyblev1', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'tmp_hyblev1',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%tmp_hyblev1=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%tmp_hyblev1=reshape(variables_2d%tmp_hyblev1,[size(variables_2d%tmp_hyblev1)])
+            !Average percent snow cover at ground
+            CALL get_var_2d_real_cdf (cdfid, 'snowc_ave', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'snowc_ave',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%snowc_ave=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%snowc_ave=reshape(variables_2d%snowc_ave,[size(variables_2d%snowc_ave)])
+            !Average fraction ice cover at ground or water
+            CALL get_var_2d_real_cdf (cdfid, 'icec', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) TRIM(pname), 'icec',  &
+                    TRIM(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%icec=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%icec=reshape(variables_2d%icec,[size(variables_2d%icec)])
+
             !3D Input Level Profile
             if (var3d_opt .eq. 1) then
                 CALL get_var_1d_real_cdf (cdfid, 'lev', variables_1d_lev_real, it, rcode)
@@ -2864,5 +3814,7 @@ CONTAINS
         ENDIF
 
     END SUBROUTINE canopy_close_files
+
+!> \}
 
 END MODULE canopy_ncf_io_mod

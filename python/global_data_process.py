@@ -3,18 +3,23 @@ Created on Sun Jun 4  2023
 Updated on Mon Oct 16 2023: Use daily gfs.canopy files
 Updated on Tue Nov 7  2023: Enable multiple times as user argument
 Updated on Tue Apr 2  2024: Remove wget functions, all data must be from local files
+Updated on Fri May 31 2024: Replace scipy griddata with monet (pyresample)
+Updated on Mon Feb 24 2025: Enable GFSv16 downloading from AWS; Add "ozone_w126"
+Updated on Tue Jun 10 2025: Enable to specify sources of each variable
 
 Author: Wei-Ting Hung
 """
 
 import os
+import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
 
+import monet  # noqa: F401
 import numpy as np
+import xarray as xr
 from netCDF4 import Dataset
 from pysolar.solar import get_altitude
-from scipy.interpolate import griddata
 
 """User Arguments"""
 # Time: yyyymmddhhfff
@@ -22,15 +27,18 @@ timelist = sys.argv[1]
 timelist = np.array(timelist.split(",")).astype(str)
 
 """User Options"""
-path = "/groups/ESS/whung/canopy_wind/gfsv16_test_data"  # work directory
+path = "./input"  # work directory
 ref_lev = 10  # reference height (m, a.g.l.)
 frp_src = 0  # frp data source (0: local fire product; 1: 12 month climatology; 2: all ones when ifcanwaf=.FALSE.)
+can_src = 0  # canopy data source (0: pre-generated daily global file based on year 2022; 1: global canopy data file from AWS; 2: user specified)
 
 
 # ------------------------------ ATTENTION -------------------------------- #
-# UPDATE - April 2 2024                                                     #
-# All data must come from local files. GFS and climatological canopy data   #
-# may be provided per request (see README for details).                     #
+# UPDATE - June 10 2025                                                     #
+# If user specified canopy data is used (can_src=2), please specify file    #
+# locations in function "find_user_canopy". Data reading and processing     #
+# can be specifiedd in function "read_user_canopy". Please check function   #
+# "read_aws_canopy" as an example.                                          #
 #                                                                           #
 # ------------------------------------------------------------------------- #
 # If local FRP is used (frp_src=0,1), archived GBBEPx files since 2020 are  #
@@ -73,7 +81,18 @@ metlist = [
     "hpbl",
     "prate_ave",
 ]
-canlist = ["lai", "clu", "canfrac", "ch", "pavd", "mol", "csz", "frp", "href"]
+canlist = [
+    "lai",
+    "clu",
+    "canfrac",
+    "ch",
+    "pavd",
+    "ozone_w126",
+    "mol",
+    "csz",
+    "frp",
+    "href",
+]
 
 
 # constants
@@ -103,65 +122,120 @@ def write_varatt(var, attname, att):
             var.setncattr(attname[X], att[X])
 
 
-def mapping(xgrid, ygrid, data, xdata, ydata, map_method, fvalue):
-    output = griddata(
-        (xdata, ydata), data, (xgrid, ygrid), method=map_method, fill_value=fvalue
+def find_user_canopy(year):
+    # Please specify the location of local user canopy data here.
+    flist = {
+        "lai": "/groups/ESS/whung/Alldata/Global_canopy/grid1km/canopy_leaf_area_index."
+        + year
+        + ".0.01.nc",
+        "clu": "/groups/ESS/whung/Alldata/Global_canopy/grid1km/canopy_clumping_index.2001_2017.0.01.nc",
+        "canfrac": "/groups/ESS/whung/Alldata/Global_canopy/grid1km/canopy_green_vegetation_fraction."
+        + year
+        + ".0.01.nc",
+        "ch": "/groups/ESS/whung/Alldata/Global_canopy/grid1km/canopy_height.2020.0.01.nc",
+        "pavd": "/groups/ESS/whung/Alldata/Global_canopy/grid1km/canopy_plant_area_volume_density.2019_2023.0.01.nc",
+    }
+    return flist
+
+
+def read_gfs_climatology(filename, basefile, varname):
+    readin = xr.open_dataset(filename)
+    readin = readin.set_coords(["lat", "lon"]).rename(
+        {"grid_xt": "x", "grid_yt": "y", "lat": "latitude", "lon": "longitude"}
     )
-    return output
 
-
-def read_gfs_climatology(filename, lat, lon, varname):
-    readin = Dataset(filename)
+    nlev = len(readin.lev.data)
 
     if varname == "pavd":
-        # map to met grids
-        yt = readin["lat"][:]
-        xt = readin["lon"][:]
-        data = np.squeeze(readin[varname][:])
-
-        DATA = np.empty([data.shape[0], lat.shape[0], lat.shape[1]])
-
-        for ll in np.arange(data.shape[0]):
-            DATA[ll, :, :] = mapping(
-                lat,
-                lon,
-                data[ll, :, :].flatten(),
-                yt.flatten(),
-                xt.flatten(),
-                "linear",
-                np.nan,
+        DATA = np.empty([nlev, basefile.zc.data.shape[1], basefile.zc.data.shape[2]])
+        for ll in np.arange(nlev):
+            DATA[ll, :, :] = (
+                basefile["zc"].monet.remap_nearest(readin[varname][0, ll, :, :]).data
             )
-
     else:
-        # map to met grids
-        yt = readin["lat"][:]
-        xt = readin["lon"][:]
-        data = np.squeeze(readin[varname][0, :, :])
+        DATA = basefile["zc"].monet.remap_nearest(readin[varname][0, :, :]).data
 
-        DATA = mapping(
-            lat,
-            lon,
-            data.flatten(),
-            yt.flatten(),
-            xt.flatten(),
-            "linear",
-            np.nan,
-        )
-
+    readin.close()
     DATA[np.isnan(DATA)] = 0
     DATA[DATA < 0] = 0
     return DATA
 
 
-def read_frp_local(filename, lat, lon, fill_value):
-    readin = Dataset(filename)
+def read_aws_canopy(filename, basefile, varname, month):
+    readin = xr.open_dataset(filename)
+    readin = readin.rename({"jdim": "y", "idim": "x", "jdim_p1": "y_p1"})
 
-    # map to met grids
-    xt, yt = np.meshgrid(readin["Longitude"][:], readin["Latitude"][:])
-    xt[xt < 0] = xt[xt < 0] + 360
-    data = np.squeeze(readin["MeanFRP"][:])
+    grid_xt, grid_yt = np.meshgrid(readin["lon"].data, readin["lat"].data)
+    yt = xr.DataArray(grid_yt, dims=["y", "x"], name="latitude")
+    xt = xr.DataArray(grid_xt, dims=["y", "x"], name="longitude")
+    readin["latitude"] = yt
+    readin["longitude"] = xt
+    readin = readin.set_coords(["latitude", "longitude"])
 
-    DATA = mapping(lat, lon, data.flatten(), yt.flatten(), xt.flatten(), "linear", np.nan)
+    if varname == "lai":
+        DATA = (
+            basefile["zc"]
+            .monet.remap_nearest(readin["canopy_leaf_area_index"][int(month) - 1, :, :])
+            .data
+        )
+        DATA[DATA < 0] = 0
+    elif varname == "clu":
+        DATA = (
+            basefile["zc"]
+            .monet.remap_nearest(readin["canopy_clumping_index"][int(month) - 1, :, :])
+            .data
+        )
+        DATA[DATA < 0] = 0
+    elif varname == "canfrac":
+        DATA = (
+            basefile["zc"]
+            .monet.remap_nearest(
+                readin["canopy_green_vegetation_fraction"][int(month) - 1, :, :]
+            )
+            .data
+        )
+        DATA[DATA < 0] = 0
+        DATA[DATA > 1] = 1
+    elif varname == "ch":
+        DATA = basefile["zc"].monet.remap_nearest(readin["canopy_height"][0, :, :]).data
+        DATA[DATA < 0] = 0
+    elif varname == "pavd":
+        nlev = len(readin.layer_top.data)
+        DATA = np.empty([nlev, basefile.zc.data.shape[1], basefile.zc.data.shape[2]])
+        for ll in np.arange(nlev):
+            DATA[ll, :, :] = (
+                basefile["zc"]
+                .monet.remap_nearest(
+                    readin["canopy_plant_area_volume_density"][0, ll, :, :]
+                )
+                .data
+            )
+        DATA[DATA < 0] = 0
+    readin.close()
+    return DATA
+
+
+def read_user_canopy():
+    # Please specify the necessary processing of user canopy data here.
+    # Recommanded data processes include but not limit to: data read in, unit conversion and gridding.
+    DATA = np.empty(1)
+    return DATA
+
+
+def read_frp_local(filename, basefile):
+    readin = xr.open_dataset(filename)
+    readin = readin.rename({"Latitude": "y", "Longitude": "x"})
+    readin["x"] = readin["x"].where(readin["x"] > 0, readin["x"] + 360)
+
+    grid_xt, grid_yt = np.meshgrid(readin["x"].data, readin["y"].data)
+    yt = xr.DataArray(grid_yt, dims=["y", "x"], name="latitude")
+    xt = xr.DataArray(grid_xt, dims=["y", "x"], name="longitude")
+    readin["latitude"] = yt
+    readin["longitude"] = xt
+    readin = readin.set_coords(["latitude", "longitude"])
+
+    DATA = basefile["zc"].monet.remap_nearest(readin["MeanFRP"][0, :, :]).data
+    readin.close()
     return DATA
 
 
@@ -198,7 +272,16 @@ for inputtime in timelist:
         path + "/gfs.t" + HH + "z." + YY + MM + DD + ".sfcf" + FH + ".nc"
     )  # gfs met file
     f_can = (
-        path + "/gfs.canopy.t" + HH + "z." + "2022" + MM + DD + ".sfcf000.global.nc"
+        path
+        + "/gfs.canopy.t"
+        + HH
+        + "z."
+        + "2022"
+        + MM
+        + DD
+        + ".sfcf"
+        + FH
+        + ".global.nc"
     )  # canopy file
     f_output = (
         path + "/gfs.t" + HH + "z." + YY + MM + DD + ".sfcf" + FH + ".canopy.nc"
@@ -226,6 +309,17 @@ for inputtime in timelist:
             path + "/gfs.canopy.t" + HH + "z." + "2022" + MM + DD + ".sfcf000.global.nc"
         )
 
+    if can_src == 1:  # global canopy data file from AWS
+        f_can_list = {
+            "lai": path + "/canopy_leaf_area_index." + YY + ".0.01.nc",
+            "clu": path + "/canopy_clumping_index.2001_2017.0.01.nc",
+            "canfrac": path + "/canopy_green_vegetation_fraction." + YY + ".0.01.nc",
+            "ch": path + "/canopy_height.2020.0.01.nc",
+            "pavd": path + "/canopy_plant_area_volume_density.2019_2023.0.01.nc",
+        }
+    elif can_src == 2:  # user specified local canopy data
+        f_can_list = find_user_canopy(YY)
+
     """Data Check"""
     """Program terminates if required files do not exist."""
     print("---- Checking required files...")
@@ -235,15 +329,96 @@ for inputtime in timelist:
     if os.path.isfile(f_met) is True:
         print("---- Met file found!")
     else:
-        print("---- No available met data. Terminated!")
-        exit()
+        subprocess.run(
+            [
+                "wget",
+                "--no-check-certificate",
+                "--no-proxy",
+                "-O",
+                path + "/gfs.t12z." + YY + MM + DD + ".sfcf" + FH + ".nc",
+                "https://noaa-oar-arl-nacc-pds.s3.amazonaws.com/inputs/"
+                + YY
+                + MM
+                + DD
+                + "/gfs.t12z.sfcf"
+                + FH
+                + ".nc",
+            ]
+        )
+        if os.path.isfile(f_met) is True:
+            os.chmod(f_met, 0o0755)
+            print("---- Met file downloaded!")
+        else:
+            print("---- No available met data. Terminated!")
+            exit()
 
     # can file
     if os.path.isfile(f_can) is True:
         print("---- Canopy file found!")
     else:
-        print("---- No available canopy data. Terminated!")
-        exit()
+        subprocess.run(
+            [
+                "wget",
+                "--no-check-certificate",
+                "--no-proxy",
+                "-O",
+                path
+                + "/gfs.canopy.t12z."
+                + "2022"
+                + MM
+                + DD
+                + ".sfcf"
+                + FH
+                + ".global.nc",
+                "https://noaa-oar-arl-nacc-pds.s3.amazonaws.com/inputs/geo-files/"
+                + "gfs.canopy.t12z."
+                + "2022"
+                + MM
+                + DD
+                + ".sfcf000.global.nc",
+            ]
+        )
+        if os.path.isfile(f_can) is True:
+            os.chmod(f_can, 0o0755)
+            print("---- Canopy file downloaded!")
+        else:
+            print("---- No available canopy data. Terminated!")
+            exit()
+    if can_src == 1:  # global files from AWS
+        for key in f_can_list.keys():
+            f = f_can_list[key]
+            print(f)
+            subprocess.run(
+                [
+                    "wget",
+                    "--no-check-certificate",
+                    "--no-proxy",
+                    "-O",
+                    f,
+                    "https://noaa-oar-arl-nacc-pds.s3.amazonaws.com/inputs/geo-files/"
+                    + f[f.rindex("/") + 1 :],
+                ]
+            )
+            if os.path.isfile(f) is True:
+                os.chmod(f, 0o0755)
+                print("----", f[f.rindex("/") + 1 :], "downloaded!")
+            else:
+                print("----", f[f.rindex("/") + 1 :], "not available. Terminated!")
+                exit()
+    elif can_src == 2:  # user specified
+        checklist = [
+            os.path.isfile(f_can_list["lai"]),
+            os.path.isfile(f_can_list["clu"]),
+            os.path.isfile(f_can_list["canfrac"]),
+            os.path.isfile(f_can_list["ch"]),
+            os.path.isfile(f_can_list["pavd"]),
+        ]
+        if False in checklist:
+            print("---- Invalid user specified canopy data found:")
+            print("lai   clu   canfrac   ch   pavd")
+            print(checklist)
+            print("Terminated!")
+            exit()
 
     # frp file
     if frp_src == 0:  # local source
@@ -275,24 +450,22 @@ for inputtime in timelist:
     print("------------------------------------")
     print("---- Checking variable dimensions...")
     print("------------------------------------")
-    readin = Dataset(f_met)
-    grid_yt = readin["grid_yt"][:]
-    grid_xt = readin["grid_xt"][:]
-    lat = readin["lat"][:]
-    lon = readin["lon"][:]
-    time = readin["time"][:]
+    basefile = xr.open_dataset(f_met)
+    basefile = basefile.set_coords(["lat", "lon"]).rename(
+        {"grid_xt": "x", "grid_yt": "y", "lat": "latitude", "lon": "longitude"}
+    )
 
     # dimension sizes
-    ntime = len(time)
-    nlat = len(grid_yt)
-    nlon = len(grid_xt)
+    ntime = len(basefile["time"].data)
+    nlat = len(basefile["y"].data)
+    nlon = len(basefile["x"].data)
 
     # var check
-    print("time", time.shape)
-    print("grid_yt", grid_yt.shape)
-    print("grid_xt", grid_xt.shape)
-    print("lat", lat.shape)
-    print("lon", lon.shape)
+    print("time", basefile["time"].data.shape)
+    print("grid_yt", basefile["y"].data.shape)
+    print("grid_xt", basefile["x"].data.shape)
+    print("lat", basefile["latitude"].data.shape)
+    print("lon", basefile["longitude"].data.shape)
 
     """Adding canvar"""
     print("------------------------------------")
@@ -307,27 +480,57 @@ for inputtime in timelist:
         if varname == "lai":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Leaf area index", "m^2/m^2", fill_value]
-            DATA = read_gfs_climatology(f_can, lat, lon, "lai")
+            if can_src == 0:
+                DATA = read_gfs_climatology(f_can, basefile, "lai")
+            elif can_src == 1:
+                DATA = read_aws_canopy(f_can_list["lai"], basefile, "lai", MM)
+            elif can_src == 2:
+                DATA = read_user_canopy()
 
         elif varname == "clu":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Canopy clumping index", "none", fill_value]
-            DATA = read_gfs_climatology(f_can, lat, lon, "clu")
+            if can_src == 0:
+                DATA = read_gfs_climatology(f_can, basefile, "clu")
+            elif can_src == 1:
+                DATA = read_aws_canopy(f_can_list["clu"], basefile, "clu", MM)
+            elif can_src == 2:
+                DATA = read_user_canopy()
 
         elif varname == "canfrac":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Forest fraction of grid cell", "none", fill_value]
-            DATA = read_gfs_climatology(f_can, lat, lon, "canfrac")
+            if can_src == 0:
+                DATA = read_gfs_climatology(f_can, basefile, "canfrac")
+            elif can_src == 1:
+                DATA = read_aws_canopy(f_can_list["canfrac"], basefile, "canfrac", MM)
+            elif can_src == 2:
+                DATA = read_user_canopy()
 
         elif varname == "ch":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Canopy height above the surface", "m", fill_value]
-            DATA = read_gfs_climatology(f_can, lat, lon, "ch")
+            if can_src == 0:
+                DATA = read_gfs_climatology(f_can, basefile, "ch")
+            elif can_src == 1:
+                DATA = read_aws_canopy(f_can_list["ch"], basefile, "ch", MM)
+            elif can_src == 2:
+                DATA = read_user_canopy()
 
         elif varname == "pavd":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Plant area volume density profile", "m2/m3", fill_value]
-            DATA = read_gfs_climatology(f_can, lat, lon, "pavd")
+            if can_src == 0:
+                DATA = read_gfs_climatology(f_can, basefile, "pavd")
+            elif can_src == 1:
+                DATA = read_aws_canopy(f_can_list["pavd"], basefile, "pavd", MM)
+            elif can_src == 2:
+                DATA = read_user_canopy()
+
+        elif varname == "ozone_w126":
+            ATTNAME = ["long_name", "units", "missing_value"]
+            ATT = ["Ozone W126 index", "ppm-hours", fill_value]
+            DATA = read_gfs_climatology(f_can, basefile, "ozone_w126")
 
         elif varname == "mol":
             # Reference:
@@ -351,25 +554,28 @@ for inputtime in timelist:
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Cosine of solar zenith angle", "none", fill_value]
 
+            lat = basefile.latitude.data
+            lon = basefile.longitude.data
+
             time_conv = datetime(
                 int(YY), int(MM), int(DD), int(HH), 0, 0, 0, tzinfo=timezone.utc
             ) + timedelta(hours=int(FH))
             sza = 90 - get_altitude(lat, lon, time_conv)
             DATA = np.cos(sza * 0.0174532925)  # degree to radian
 
-            del [time_conv, sza]
+            del [lat, lon, time_conv, sza]
 
         elif varname == "frp":
             ATTNAME = ["long_name", "units", "missing_value"]
             ATT = ["Mean fire radiative power", "MW", fill_value]
 
             if frp_src == 1:  # 12 month climatology
-                DATA = read_gfs_climatology(f_can, lat, lon, "frp")
+                DATA = read_gfs_climatology(f_can, basefile, "frp")
             elif frp_src == 2:  # ifcanwaf=.FALSE.
                 DATA = np.empty(lat.shape)
                 DATA[:] = 1
             else:
-                DATA = read_frp_local(f_frp, lat, lon, fill_value)
+                DATA = read_frp_local(f_frp, basefile)
 
         elif varname == "href":
             ATTNAME = ["long_name", "units", "missing_value"]

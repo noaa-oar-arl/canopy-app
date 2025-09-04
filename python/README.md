@@ -55,39 +55,59 @@ ds = run_config_sens(cases)
 
 ### Generating global data
 
-You can also generate and run global gridded canopy-app inputs using Python.  Note:  The python script here assumes that the user already has the global canopy data files (available by request or as staged on NOAA Hera or GMU Hopper) and GFS meteorological files (available by request or on NOAA Hera/HPSS) locally available (under the 'path' working directory set in the python script).  The user may generate their own gridded, meteorological NetCDF files conforming to the format provided here in the GFS examples and README.
+You can also generate and run global gridded canopy-app inputs using Python. Users can use either pre-generated daily global canopy data files based on year 2022, global canopy data files on [AWS](https://noaa-oar-arl-nacc-pds.s3.amazonaws.com/index.html) for years beyond 2022 or user-specified local canopy data. Note: The daily global canopy data files based on year 2022, global canopy data files for variable-varying time period (primary 2020 - 2024), and operational NOAA/NWS GFS meteorological files (for the entire record March 23, 2021 - Current; uploaded daily at ~ 18 UTC) are available on [AWS](https://noaa-oar-arl-nacc-pds.s3.amazonaws.com/index.html). If pre-generated canopy file is used (`can_src=0`) and the required NetCDF files are not locally available in the user specified working directory, the python script will automatically download these 2022 canopy data from AWS and merge with the needed GFS meteorological variables for the specific date/times needed to run canopy-app. The user may generate their own gridded, meteorological NetCDF files conforming to the format provided here in the GFS examples and README.
 
 1. Edit python script (`global_data_process.py`)
 
-2. Change global settings
+2. Change global settings:
 
    ```python
    '''User Options'''
    path     = '/scratch/pcampbe8/canopy-app/input'  # work directory
    ref_lev  = 10     # reference height above the canopy (m)
    frp_src  = 0      # frp data source (0: local source; 1: 12 month climatology; 2: all ones when ifcanwaf=.FALSE.)
+   can_src = 0       # canopy data source (0: pre-generated daily global file based on year 2022; 1: user specified)
    ```
 
-2. Activate canopy-app Conda environment:
+3. Specify local canopy data files in function `find_canopy_data` (optional):
+
+   Climatological global canopy data files are used by default.
+
+   ```python
+   flist = {
+        "lai": "/groups/ESS/whung/Alldata/Global_canopy/grid1km/canopy_leaf_area_index."
+        + year
+        + ".0.01.nc",
+        "clu": "/groups/ESS/whung/Alldata/Global_canopy/grid1km/canopy_clumping_index.2001_2017.0.01.nc",
+        "canfrac": "/groups/ESS/whung/Alldata/Global_canopy/grid1km/canopy_green_vegetation_fraction."
+        + year
+        + ".0.01.nc",
+        "ch": "/groups/ESS/whung/Alldata/Global_canopy/grid1km/canopy_height.2020.0.01.nc",
+        "pavd": "/groups/ESS/whung/Alldata/Global_canopy/grid1km/canopy_plant_area_volume_density.2019_2023.0.01.nc",
+        "ozone_w126": "/groups/NA22OAR/pcampbe8/gfsv16_ozone_w126/gfsv16_ozone_w126_042021-042024_v3.nc",
+    }
+   ```
+
+5. Activate canopy-app Conda environment:
 
    ```
    conda activate canopy-app
    ```
 
-3. Run Python script with time arguments:
+6. Run Python script with time arguments:
 
    Time format: `YYYY(year)+MM(month)+DD(date)+HH(hour in UTC)+FFF(forecast hour)` Multiple time steps available. Use `,` to separate different times, no spaces.
 
    Example 1: 15-17 Jul 2020 12Z, forecast hour=0
 
    ```
-   python global_data_process.py 2020071512000,2020071612000,2020071712000
+   python python/global_data_process.py 2020071512000,2020071612000,2020071712000
    ```
 
    Example 2: 1 Jul 2020 12Z, forecast hour=0-4
 
    ```
-   python global_data_process.py 2020070112000,2020070112001,2020070112002,2020070112003,2020070112004
+   python python/global_data_process.py 2020070112000,2020070112001,2020070112002,2020070112003,2020070112004
    ```
 ### Running global data process and canopy-app with global data (following Example 1 above)
 

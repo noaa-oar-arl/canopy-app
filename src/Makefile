@@ -16,6 +16,9 @@ DEBUG ?= 0
 # Default to NetCDF build
 NC ?= 1
 
+# Default to first `nf-config` on PATH
+NF_CONFIG ?= nf-config
+
 # Compile flags
 $(info DEBUG setting: '$(DEBUG)')
 ifeq ($(DEBUG), 0)
@@ -23,7 +26,7 @@ ifeq ($(DEBUG), 0)
 else ifeq ($(DEBUG), 1)
   ifeq ($(findstring gfortran,$(notdir $(FC))),gfortran)
     FCFLAGS := -g -Og -Wall -Wextra -Wconversion -pedantic \
-      -fcheck=bounds -fall-intrinsics -fmax-errors=5 \
+      -frecursive -fcheck=bounds -fall-intrinsics -fmax-errors=5 \
       -std=f2003
   else ifeq ($(FC),ifort)
     FCFLAGS := -g -O0 -warn all -check bounds -implicitnone -error-limit 5
@@ -31,7 +34,7 @@ else ifeq ($(DEBUG), 1)
 else ifeq ($(DEBUG), 2)
   ifeq ($(findstring gfortran,$(notdir $(FC))),gfortran)
     FCFLAGS := -g -Og -Wall -Wextra -Wconversion -pedantic \
-      -fcheck=all -fall-intrinsics -fmax-errors=0 \
+      -frecursive -fcheck=all -fall-intrinsics -fmax-errors=0 \
       -fbacktrace -ffpe-trap=invalid,zero,overflow -finit-real=snan -finit-integer=-99999999 \
       -std=f2003
   else ifeq ($(FC),ifort)
@@ -47,9 +50,10 @@ $(info FCFLAGS: '$(FCFLAGS)')
 LIBS :=
 INC :=
 $(info NC setting: '$(NC)')
+$(info NF_CONFIG setting: '$(NF_CONFIG)')
 ifeq ($(NC), 1)
-  NETCDF_FLIBS := $(shell nf-config --flibs)
-  NETCDF_INC := -I$(shell nf-config --includedir)
+  NETCDF_FLIBS := $(shell $(NF_CONFIG) --flibs)
+  NETCDF_INC := -I$(shell $(NF_CONFIG) --includedir)
   #
   LIBS += $(NETCDF_FLIBS)
   INC += $(NETCDF_INC)
@@ -90,6 +94,7 @@ OBJS := \
   canopy_eddy_mod.o \
   canopy_bioparm_mod.o \
   canopy_bioemi_mod.o \
+  canopy_drydep_mod.o \
   canopy_calcs.o \
   canopy_write_txt.o \
   canopy_dealloc.o \

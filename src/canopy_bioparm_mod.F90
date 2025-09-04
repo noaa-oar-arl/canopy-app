@@ -1,77 +1,168 @@
+!> \file canopy_bioparm_mod.F90
+!! \brief Biogenic Parameters Module
+!! \details This module contains the CANOPY_BIOP subroutine which provides biogenic
+!! emission factors and parameters from MEGAN2.1 (Model of Emissions of Gases and
+!! Aerosols from Nature). The module contains extensive parameter tables for different
+!! biogenic volatile organic compounds (BVOCs) and vegetation types.
+!!
+!! \author Patrick C. Campbell
+!! \date February 2023
+!!
+!! \references
+!! Guenther, A. B., et al.: The Model of Emissions of Gases and Aerosols from
+!! Nature version 2.1 (MEGAN2.1): an extended and updated framework for
+!! modeling biogenic emissions, Geosci. Model Dev., 5, 1471–1492,
+!! https://doi.org/10.5194/gmd-5-1471-2012, 2012.
+
+!> \defgroup bioparm_mod Biogenic Parameters Module
+!! \brief Module for biogenic emission factors and parameters
+!! \{
+
 module canopy_bioparm_mod
 
     implicit none
 
 contains
 
-!:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+!> \brief Get biogenic emission factors and parameters from MEGAN2.1
+!! \details This subroutine retrieves biogenic emission factors and parameters
+!! based on the MEGAN2.1 framework. It provides plant-dependent emission capacities
+!! for various biogenic volatile organic compounds including:
+!! - Isoprene
+!! - Myrcene
+!! - Sabinene
+!! - Limonene
+!! - 3-Carene
+!! - T-β-Ocimene
+!! - β-Pinene
+!! - α-Pinene
+!! - 2-Methyl-3-buten-2-ol (MBO)
+!! - Methanol
+!! - Acetone
+!! - Other monoterpenes and sesquiterpenes
+!!
+!! The parameters are provided for different vegetation functional types
+!! and include emission factors, light-dependent fractions, temperature
+!! coefficients, leaf age factors, and stress response parameters.
+!!
+!! \param[in] EMI_IND Input biogenic emissions index
+!! \param[in] LU_OPT Land use type option (0=VIIRS, 1=MODIS)
+!! \param[in] VTYPE Grid cell dominant vegetation type
+!! \param[out] EF Mapped emission factor (μg/m²/hr)
+!! \param[out] LDF Light-dependent fraction
+!! \param[out] BETA Empirical coefficient for temperature dependence of light-independent fraction
+!! \param[out] CT1 Activation energy (kJ/mol)
+!! \param[out] CEO Empirical coefficient
+!! \param[out] ANEW Empirical factor for new foliage
+!! \param[out] AGRO Empirical factor for growing foliage
+!! \param[out] AMAT Empirical factor for mature foliage
+!! \param[out] AOLD Empirical factor for old/senescing foliage
+!! \param[out] ROOTA Coefficient A for PFT dependent cumulative root depth fraction (m⁻¹)
+!! \param[out] ROOTB Coefficient B for PFT dependent cumulative root depth fraction (m⁻¹)
+!! \param[out] CAQ Coefficient for poor air quality stress
+!! \param[out] TAQ Threshold for poor air quality stress (ppm-hours)
+!! \param[out] DTAQ Delta threshold for poor air quality stress (ppm-hours)
+!! \param[out] CHT Coefficient for high temperature stress
+!! \param[out] THT Threshold for high temperature stress (K)
+!! \param[out] DTHT Delta threshold for high temperature stress (K)
+!! \param[out] CLT Coefficient for low temperature stress
+!! \param[out] TLT Threshold for low temperature stress (K)
+!! \param[out] DTLT Delta threshold for low temperature stress (K)
+!! \param[out] CHW Coefficient for high wind stress
+!! \param[out] THW Threshold for high wind stress (m/s)
+!! \param[out] DTHW Delta threshold for high wind stress (m/s)
     SUBROUTINE CANOPY_BIOP( EMI_IND, LU_OPT, VTYPE, &
-        EF, CT1, CEO, ANEW, AGRO, AMAT, AOLD, ROOTA, ROOTB)
-
-!-----------------------------------------------------------------------
-
-! Description:
-!     gets biogenic emissions factors and parameters from MEGAN2.1
-
-! Preconditions:
-!     emissions index, lu option, and vegtype
-
-! Subroutines and Functions Called:
-
-! Revision History:
-!     Prototype 02/23 by PCC, based on Guenther et al. (2012)
-! Citation:
-!Guenther, A. B., et al.,: The Model of Emissions of Gases and Aerosols from
-!Nature version 2.1 (MEGAN2.1): an extended and updated framework for
-!modeling biogenic emissions, Geosci. Model Dev., 5, 1471–1492,
-!https://doi.org/10.5194/gmd-5-1471-2012, 2012.
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
-!     Feb 2023 P.C. Campbell: Initial version
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
+        EF, LDF, BETA, CT1, CEO, ANEW, AGRO, AMAT, AOLD, &
+        ROOTA, ROOTB, CAQ, TAQ, DTAQ, CHT, THT, DTHT, &
+        CLT, TLT, DTLT, CHW, THW, DTHW)
 
         use canopy_const_mod, ONLY: rk
 
-! Arguments:
-!     IN/OUT
-        INTEGER,     INTENT( IN )       :: EMI_IND         ! Input biogenic emissions index
-        INTEGER,     INTENT( IN )       :: LU_OPT          ! integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
-        INTEGER,     INTENT( IN )       :: VTYPE           ! Grid cell dominant vegetation type
-        REAL(RK),    INTENT( OUT )      :: EF              ! Out Mapped EF ((ug/m2 hr)
-        REAL(RK),    INTENT( OUT )      :: CT1             ! Out Activation energy (kJ/mol)
-        REAL(RK),    INTENT( OUT )      :: CEO             ! Out Empirical coefficient
-        REAL(RK),    INTENT( OUT )      :: ANEW, AGRO, AMAT, AOLD   !Empirical factors or coefficients for: growing, mature, and old/senescing foliage, as per Table 4 of Guenther et al., 2012
-        REAL(RK),    INTENT( OUT )      :: ROOTA, ROOTB    ! Coefficients A and B used for PFT dependent cumulative root depth fraction [m-1]
+!> \defgroup bioparm_inputs Input Variables
+!! \brief Input parameters for biogenic parameter retrieval
+!! \{
+        INTEGER,     INTENT( IN )       :: EMI_IND         !> Input biogenic emissions index
+        INTEGER,     INTENT( IN )       :: LU_OPT          !> integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
+        INTEGER,     INTENT( IN )       :: VTYPE           !> Grid cell dominant vegetation type
+!> \}
 
-!  LOCAL
-        REAL(RK) :: EF1,EF2,EF3,EF4,EF5,EF6,EF7    ! Plant Emission factors (EF) (ug/m2 hr)
-        REAL(RK) :: EF8,EF9,EF10,EF11,EF12,EF13    !
-        REAL(RK) :: EF14,EF15                      !
+!> \defgroup bioparm_outputs Output Variables
+!! \brief Output parameters for biogenic emission calculations
+!! \{
+        REAL(RK),    INTENT( OUT )      :: EF              !> Out Mapped EF ((ug/m2 hr)
+        REAL(RK),    INTENT( OUT )      :: LDF             !> Light-dependent fraction
+        REAL(RK),    INTENT( OUT )      :: BETA            !> Empirical coefficient for temperature dependence of light-independent fraction
+        REAL(RK),    INTENT( OUT )      :: CT1             !> Out Activation energy (kJ/mol)
+        REAL(RK),    INTENT( OUT )      :: CEO             !> Out Empirical coefficient
+        REAL(RK),    INTENT( OUT )      :: ANEW, AGRO, AMAT, AOLD   !> Empirical factors or coefficients for: growing, mature, and old/senescing foliage, as per Table 4 of Guenther et al., 2012
+        REAL(RK),    INTENT( OUT )      :: ROOTA, ROOTB    !> Coefficients A and B used for PFT dependent cumulative root depth fraction [m-1]
+        REAL(RK),    INTENT( OUT )      :: CAQ             !> coefficient for poor Air Quality stress
+        REAL(RK),    INTENT( OUT )      :: TAQ             !> threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),    INTENT( OUT )      :: DTAQ            !> delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),    INTENT( OUT )      :: CHT             !> coefficient for high temperature stress
+        REAL(RK),    INTENT( OUT )      :: THT             !> threshold for high temperature stress (K)
+        REAL(RK),    INTENT( OUT )      :: DTHT            !> delta threshold high temperature stress (K)
+        REAL(RK),    INTENT( OUT )      :: CLT             !> coefficient for low temperature stress
+        REAL(RK),    INTENT( OUT )      :: TLT             !> threshold for low temperature stress (K)
+        REAL(RK),    INTENT( OUT )      :: DTLT            !> delta threshold low temperature stress (K)
+        REAL(RK),    INTENT( OUT )      :: CHW             !> coefficient for high wind stress
+        REAL(RK),    INTENT( OUT )      :: THW             !> threshold for high wind stress (m/s)
+        REAL(RK),    INTENT( OUT )      :: DTHW            !> delta threshold high wind stress (m/s)
+!> \}
 
+!> \defgroup bioparm_local_vars Local Variables
+!! \brief Local variables for parameter assignment
+!! \{
+        REAL(RK) :: EF1,EF2,EF3,EF4,EF5,EF6,EF7    !> Plant Emission factors (EF) (ug/m2 hr)
+        REAL(RK) :: EF8,EF9,EF10,EF11,EF12,EF13    !> Plant Emission factors (EF) (ug/m2 hr)
+        REAL(RK) :: EF14,EF15                      !> Plant Emission factors (EF) (ug/m2 hr)
+!> \}
 
-! Plant-Dependent emissions capacity/factors (EFs) for Isoprene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
-        REAL(RK),          PARAMETER     :: EF1_ISOP    =  600.0_rk     ! Needleleaf Evergreen Temperate Tree
-        REAL(RK),          PARAMETER     :: EF2_ISOP    =  3000.0_rk    ! Needleleaf Evergreen Boreal Tree
-        REAL(RK),          PARAMETER     :: EF3_ISOP    =  1.0_rk       ! Needleleaf Deciduous Boreal Tree
-        REAL(RK),          PARAMETER     :: EF4_ISOP    =  7000.0_rk    ! Broadleaf Evergreen Tropical Tree
-        REAL(RK),          PARAMETER     :: EF5_ISOP    =  10000.0_rk   ! Broadleaf Evergreen Temperate Tree
-        REAL(RK),          PARAMETER     :: EF6_ISOP    =  7000.0_rk    ! Broadleaf Deciduous Tropical Tree
-        REAL(RK),          PARAMETER     :: EF7_ISOP    =  10000.0_rk   ! Broadleaf Deciduous Temperate Tree
-        REAL(RK),          PARAMETER     :: EF8_ISOP    =  11000.0_rk   ! Broadleaf Deciduous Boreal Tree
-        REAL(RK),          PARAMETER     :: EF9_ISOP    =  2000.0_rk    ! Broadleaf Evergreen Temperate Shrub
-        REAL(RK),          PARAMETER     :: EF10_ISOP   =  4000.0_rk    ! Broadleaf Deciduous Temperate Shrub
-        REAL(RK),          PARAMETER     :: EF11_ISOP   =  4000.0_rk    ! Broadleaf Deciduous Boreal Shrub
-        REAL(RK),          PARAMETER     :: EF12_ISOP   =  1600.0_rk    ! Arctic C3 Grass
-        REAL(RK),          PARAMETER     :: EF13_ISOP   =  800.0_rk     ! Cool C3 Grass
-        REAL(RK),          PARAMETER     :: EF14_ISOP   =  200.0_rk     ! Warm C4 Grass
-        REAL(RK),          PARAMETER     :: EF15_ISOP   =  1.0_rk       ! Crop1
+!> \defgroup bioparm_isop_params Isoprene Parameters
+!! \brief Plant-dependent emission capacity factors for Isoprene from Tables 2-3 of Guenther et al. (2012)
+!! \{
 
-!Empirical factors or coefficients for: growing, mature, and old/senescing foliage, for Isoprene as per Table 4 of Guenther et al., 2012
+        !> \brief Needleleaf Evergreen Temperate Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF1_ISOP    =  600.0_rk
+        !> \brief Needleleaf Evergreen Boreal Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF2_ISOP    =  3000.0_rk
+        !> \brief Needleleaf Deciduous Boreal Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF3_ISOP    =  1.0_rk
+        !> \brief Broadleaf Evergreen Tropical Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF4_ISOP    =  7000.0_rk
+        !> \brief Broadleaf Evergreen Temperate Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF5_ISOP    =  10000.0_rk
+        !> \brief Broadleaf Deciduous Tropical Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF6_ISOP    =  7000.0_rk
+        !> \brief Broadleaf Deciduous Temperate Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF7_ISOP    =  10000.0_rk
+        !> \brief Broadleaf Deciduous Boreal Tree isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF8_ISOP    =  11000.0_rk
+        !> \brief Broadleaf Evergreen Temperate Shrub isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF9_ISOP    =  2000.0_rk
+        !> \brief Broadleaf Deciduous Temperate Shrub isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF10_ISOP   =  4000.0_rk
+        !> \brief Broadleaf Deciduous Boreal Shrub isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF11_ISOP   =  4000.0_rk
+        !> \brief Arctic C3 Grass isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF12_ISOP   =  1600.0_rk
+        !> \brief Cool C3 Grass isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF13_ISOP   =  800.0_rk
+        !> \brief Warm C4 Grass isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF14_ISOP   =  200.0_rk
+        !> \brief Crop1 isoprene EF (μg/m²/hr)
+        REAL(RK),          PARAMETER     :: EF15_ISOP   =  1.0_rk
+
+        !> \brief Isoprene leaf age factor for new foliage (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: ANEW_ISOP  = 0.05_rk
+        !> \brief Isoprene leaf age factor for growing foliage (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: AGRO_ISOP  = 0.6_rk
+        !> \brief Isoprene leaf age factor for mature foliage (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: AMAT_ISOP  = 1.0_rk
+        !> \brief Isoprene leaf age factor for old/senescing foliage (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: AOLD_ISOP  = 0.9_rk
+
+!> \}
 
 ! Plant-Dependent emissions capacity/factors (EFs) for Myrcene (Tables 2-3 of Guenther et al., 2012) (ug/m2 hr)
         REAL(RK),          PARAMETER     :: EF1_MYRC    =  70.0_rk      ! Needleleaf Evergreen Temperate Tree
@@ -494,50 +585,333 @@ contains
         REAL(RK),          PARAMETER     :: AOLD_OVOC  = 1.0_rk
 
 ! Species-Dependent Parameterized Canopy Model Parameters (Table 4 of Guenther et al., 2012)
+        REAL(RK),          PARAMETER     :: LDF_ISOP         =  1.0_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_ISOP        =  0.13_rk    !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_ISOP         =  95.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_ISOP         =  2.0_rk     !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_ISOP         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_ISOP         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_ISOP        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_ISOP         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_ISOP         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_ISOP        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_ISOP         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_ISOP         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_ISOP        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_ISOP         =  1.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_ISOP         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_ISOP        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_MYRC         =  0.6_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_MYRC        =  0.1_rk     !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_MYRC         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_MYRC         =  1.83_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_MYRC         =  5.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_MYRC         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_MYRC        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_MYRC         =  5.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_MYRC         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_MYRC        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_MYRC         =  5.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_MYRC         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_MYRC        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_MYRC         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_MYRC         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_MYRC        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_SABI         =  0.6_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_SABI        =  0.1_rk     !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_SABI         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_SABI         =  1.83_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_SABI         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_SABI         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_SABI        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_SABI         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_SABI         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_SABI        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_SABI         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_SABI         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_SABI        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_SABI         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_SABI         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_SABI        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_LIMO         =  0.2_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_LIMO        =  0.1_rk     !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_LIMO         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_LIMO         =  1.83_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_LIMO         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_LIMO         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_LIMO        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_LIMO         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_LIMO         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_LIMO        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_LIMO         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_LIMO         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_LIMO        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_LIMO         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_LIMO         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_LIMO        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_CARE         =  0.2_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_CARE        =  0.1_rk     !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_CARE         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_CARE         =  1.83_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_CARE         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_CARE         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_CARE        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_CARE         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_CARE         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_CARE        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_CARE         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_CARE         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_CARE        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_CARE         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_CARE         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_CARE        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_OCIM         =  0.8_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_OCIM        =  0.1_rk     !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_OCIM         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_OCIM         =  1.83_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_OCIM         =  5.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_OCIM         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_OCIM        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_OCIM         =  5.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_OCIM         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_OCIM        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_OCIM         =  5.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_OCIM         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_OCIM        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_OCIM         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_OCIM         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_OCIM        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_BPIN         =  0.2_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_BPIN        =  0.1_rk     !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_BPIN         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_BPIN         =  1.83_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_BPIN         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_BPIN         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_BPIN        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_BPIN         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_BPIN         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_BPIN        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_BPIN         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_BPIN         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_BPIN        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_BPIN         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_BPIN         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_BPIN        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_APIN         =  0.6_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_APIN        =  0.1_rk     !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_APIN         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_APIN         =  1.83_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_APIN         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_APIN         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_APIN        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_APIN         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_APIN         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_APIN        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_APIN         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_APIN         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_APIN        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_APIN         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_APIN         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_APIN        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_MONO         =  0.4_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_MONO        =  0.1_rk     !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_MONO         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_MONO         =  1.83_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_MONO         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_MONO         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_MONO        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_MONO         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_MONO         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_MONO        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_MONO         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_MONO         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_MONO        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_MONO         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_MONO         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_MONO        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_FARN         =  0.5_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_FARN        =  0.17_rk    !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_FARN         =  130.0_rk   !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_FARN         =  2.37_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_FARN         =  5.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_FARN         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_FARN        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_FARN         =  5.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_FARN         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_FARN        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_FARN         =  5.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_FARN         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_FARN        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_FARN         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_FARN         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_FARN        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_CARY         =  0.5_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_CARY        =  0.17_rk    !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_CARY         =  130.0_rk   !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_CARY         =  2.37_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_CARY         =  5.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_CARY         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_CARY        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_CARY         =  5.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_CARY         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_CARY        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_CARY         =  5.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_CARY         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_CARY        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_CARY         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_CARY         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_CARY        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_SESQ         =  0.5_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_SESQ        =  0.17_rk    !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_SESQ         =  130.0_rk   !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_SESQ         =  2.37_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_SESQ         =  5.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_SESQ         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_SESQ        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_SESQ         =  5.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_SESQ         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_SESQ        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_SESQ         =  5.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_SESQ         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_SESQ        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_SESQ         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_SESQ         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_SESQ        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_MBOL         =  1.0_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_MBOL        =  0.13_rk    !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_MBOL         =  95.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_MBOL         =  2.0_rk     !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_MBOL         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_MBOL         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_MBOL        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_MBOL         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_MBOL         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_MBOL        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_MBOL         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_MBOL         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_MBOL        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_MBOL         =  1.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_MBOL         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_MBOL        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_METH         =  0.8_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_METH        =  0.08_rk    !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_METH         =  60.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_METH         =  1.6_rk     !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_METH         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_METH         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_METH        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_METH         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_METH         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_METH        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_METH         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_METH         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_METH        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_METH         =  1.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_METH         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_METH        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_ACET         =  0.2_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_ACET        =  0.1_rk     !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_ACET         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_ACET         =  1.83_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_ACET         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_ACET         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_ACET        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_ACET         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_ACET         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_ACET        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_ACET         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_ACET         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_ACET        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_ACET         =  1.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_ACET         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_ACET        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_CO           =  1.0_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_CO          =  0.08_rk    !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_CO           =  60.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_CO           =  1.6_rk     !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_CO           =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_CO           =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_CO          =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_CO           =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_CO           =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_CO          =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_CO           =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_CO           =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_CO          =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_CO           =  1.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_CO           =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_CO          =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_BVOC         =  0.8_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_BVOC        =  0.13_rk    !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_BVOC         =  95.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_BVOC         =  2.0_rk     !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_BVOC         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_BVOC         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_BVOC        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_BVOC         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_BVOC         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_BVOC        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_BVOC         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_BVOC         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_BVOC        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_BVOC         =  1.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_BVOC         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_BVOC        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_SVOC         =  0.8_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_SVOC        =  0.1_rk     !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_SVOC         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_SVOC         =  1.83_rk    !Empirical coefficient
+        REAL(RK),          PARAMETER     :: CAQ_SVOC         =  5.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_SVOC         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_SVOC        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_SVOC         =  5.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_SVOC         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_SVOC        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_SVOC         =  5.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_SVOC         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_SVOC        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_SVOC         =  5.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_SVOC         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_SVOC        =  8.0_rk     !delta threshold for high wind stress (m/s)
+
+        REAL(RK),          PARAMETER     :: LDF_OVOC         =  0.2_rk     !Light-dependent fraction
+        REAL(RK),          PARAMETER     :: BETA_OVOC        =  0.1_rk     !Empirical coefficient for temperature dependence of light-independent fraction
         REAL(RK),          PARAMETER     :: CT1_OVOC         =  80.0_rk    !Activation energy (kJ/mol)
         REAL(RK),          PARAMETER     :: CEO_OVOC         =  1.83_rk    !Empirical coefficient
-
-
-
+        REAL(RK),          PARAMETER     :: CAQ_OVOC         =  1.0_rk     !coefficient for poor Air Quality stress
+        REAL(RK),          PARAMETER     :: TAQ_OVOC         =  20.0_rk    !threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: DTAQ_OVOC        =  30.0_rk    !delta threshold for poor Air Quality stress (ppm-hours)
+        REAL(RK),          PARAMETER     :: CHT_OVOC         =  1.0_rk     !coefficient for high temperature stress
+        REAL(RK),          PARAMETER     :: THT_OVOC         =  313.15_rk  !threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTHT_OVOC        =  8.0_rk     !delta threshold for high temperature stress (K)
+        REAL(RK),          PARAMETER     :: CLT_OVOC         =  1.0_rk     !coefficient for low temperature stress
+        REAL(RK),          PARAMETER     :: TLT_OVOC         =  283.15_rk  !threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: DTLT_OVOC        =  8.0_rk     !delta threshold for low temperature stress (K)
+        REAL(RK),          PARAMETER     :: CHW_OVOC         =  1.0_rk     !coefficient for high wind stress
+        REAL(RK),          PARAMETER     :: THW_OVOC         =  12.0_rk    !threshold for high wind stress (m/s)
+        REAL(RK),          PARAMETER     :: DTHW_OVOC        =  8.0_rk     !delta threshold for high wind stress (m/s)
 
 ! Set tree and species dependent coefficients
         if (EMI_IND .eq. 1 ) then
+            LDF  = LDF_ISOP
+            BETA = BETA_ISOP
             CT1  = CT1_ISOP
             CEO  = CEO_ISOP
             EF1  = EF1_ISOP
@@ -559,7 +933,21 @@ contains
             AGRO  = AGRO_ISOP
             AMAT  = AMAT_ISOP
             AOLD  = AOLD_ISOP
+            CAQ   = CAQ_ISOP
+            TAQ   = TAQ_ISOP
+            DTAQ  = DTAQ_ISOP
+            CHT   = CHT_ISOP
+            THT   = THT_ISOP
+            DTHT  = DTHT_ISOP
+            CLT   = CLT_ISOP
+            TLT   = TLT_ISOP
+            DTLT  = DTLT_ISOP
+            CHW   = CHW_ISOP
+            THW   = THW_ISOP
+            DTHW  = DTHW_ISOP
         else if (EMI_IND .eq. 2 ) then
+            LDF  = LDF_MYRC
+            BETA = BETA_MYRC
             CT1 = CT1_MYRC
             CEO = CEO_MYRC
             EF1  = EF1_MYRC
@@ -581,7 +969,21 @@ contains
             AGRO  = AGRO_MYRC
             AMAT  = AMAT_MYRC
             AOLD  = AOLD_MYRC
+            CAQ   = CAQ_MYRC
+            TAQ   = TAQ_MYRC
+            DTAQ  = DTAQ_MYRC
+            CHT   = CHT_MYRC
+            THT   = THT_MYRC
+            DTHT  = DTHT_MYRC
+            CLT   = CLT_MYRC
+            TLT   = TLT_MYRC
+            DTLT  = DTLT_MYRC
+            CHW   = CHW_MYRC
+            THW   = THW_MYRC
+            DTHW  = DTHW_MYRC
         else if (EMI_IND .eq. 3 ) then
+            LDF  = LDF_SABI
+            BETA = BETA_SABI
             CT1 = CT1_SABI
             CEO = CEO_SABI
             EF1  = EF1_SABI
@@ -603,7 +1005,21 @@ contains
             AGRO  = AGRO_SABI
             AMAT  = AMAT_SABI
             AOLD  = AOLD_SABI
+            CAQ   = CAQ_SABI
+            TAQ   = TAQ_SABI
+            DTAQ  = DTAQ_SABI
+            CHT   = CHT_SABI
+            THT   = THT_SABI
+            DTHT  = DTHT_SABI
+            CLT   = CLT_SABI
+            TLT   = TLT_SABI
+            DTLT  = DTLT_SABI
+            CHW   = CHW_SABI
+            THW   = THW_SABI
+            DTHW  = DTHW_SABI
         else if (EMI_IND .eq. 4 ) then
+            LDF  = LDF_LIMO
+            BETA = BETA_LIMO
             CT1 = CT1_LIMO
             CEO = CEO_LIMO
             EF1  = EF1_LIMO
@@ -625,7 +1041,21 @@ contains
             AGRO  = AGRO_LIMO
             AMAT  = AMAT_LIMO
             AOLD  = AOLD_LIMO
+            CAQ   = CAQ_LIMO
+            TAQ   = TAQ_LIMO
+            DTAQ  = DTAQ_LIMO
+            CHT   = CHT_LIMO
+            THT   = THT_LIMO
+            DTHT  = DTHT_LIMO
+            CLT   = CLT_LIMO
+            TLT   = TLT_LIMO
+            DTLT  = DTLT_LIMO
+            CHW   = CHW_LIMO
+            THW   = THW_LIMO
+            DTHW  = DTHW_LIMO
         else if (EMI_IND .eq. 5 ) then
+            LDF  = LDF_CARE
+            BETA = BETA_CARE
             CT1 = CT1_CARE
             CEO = CEO_CARE
             EF1  = EF1_CARE
@@ -647,7 +1077,21 @@ contains
             AGRO  = AGRO_CARE
             AMAT  = AMAT_CARE
             AOLD  = AOLD_CARE
+            CAQ   = CAQ_CARE
+            TAQ   = TAQ_CARE
+            DTAQ  = DTAQ_CARE
+            CHT   = CHT_CARE
+            THT   = THT_CARE
+            DTHT  = DTHT_CARE
+            CLT   = CLT_CARE
+            TLT   = TLT_CARE
+            DTLT  = DTLT_CARE
+            CHW   = CHW_CARE
+            THW   = THW_CARE
+            DTHW  = DTHW_CARE
         else if (EMI_IND .eq. 6 ) then
+            LDF  = LDF_OCIM
+            BETA = BETA_OCIM
             CT1 = CT1_OCIM
             CEO = CEO_OCIM
             EF1  = EF1_OCIM
@@ -669,7 +1113,21 @@ contains
             AGRO  = AGRO_OCIM
             AMAT  = AMAT_OCIM
             AOLD  = AOLD_OCIM
+            CAQ   = CAQ_OCIM
+            TAQ   = TAQ_OCIM
+            DTAQ  = DTAQ_OCIM
+            CHT   = CHT_OCIM
+            THT   = THT_OCIM
+            DTHT  = DTHT_OCIM
+            CLT   = CLT_OCIM
+            TLT   = TLT_OCIM
+            DTLT  = DTLT_OCIM
+            CHW   = CHW_OCIM
+            THW   = THW_OCIM
+            DTHW  = DTHW_OCIM
         else if (EMI_IND .eq. 7 ) then
+            LDF  = LDF_BPIN
+            BETA = BETA_BPIN
             CT1 = CT1_BPIN
             CEO = CEO_BPIN
             EF1  = EF1_BPIN
@@ -691,7 +1149,21 @@ contains
             AGRO  = AGRO_BPIN
             AMAT  = AMAT_BPIN
             AOLD  = AOLD_BPIN
+            CAQ   = CAQ_BPIN
+            TAQ   = TAQ_BPIN
+            DTAQ  = DTAQ_BPIN
+            CHT   = CHT_BPIN
+            THT   = THT_BPIN
+            DTHT  = DTHT_BPIN
+            CLT   = CLT_BPIN
+            TLT   = TLT_BPIN
+            DTLT  = DTLT_BPIN
+            CHW   = CHW_BPIN
+            THW   = THW_BPIN
+            DTHW  = DTHW_BPIN
         else if (EMI_IND .eq. 8 ) then
+            LDF  = LDF_APIN
+            BETA = BETA_APIN
             CT1 = CT1_APIN
             CEO = CEO_APIN
             EF1  = EF1_APIN
@@ -713,7 +1185,21 @@ contains
             AGRO  = AGRO_APIN
             AMAT  = AMAT_APIN
             AOLD  = AOLD_APIN
+            CAQ   = CAQ_APIN
+            TAQ   = TAQ_APIN
+            DTAQ  = DTAQ_APIN
+            CHT   = CHT_APIN
+            THT   = THT_APIN
+            DTHT  = DTHT_APIN
+            CLT   = CLT_APIN
+            TLT   = TLT_APIN
+            DTLT  = DTLT_APIN
+            CHW   = CHW_APIN
+            THW   = THW_APIN
+            DTHW  = DTHW_APIN
         else if (EMI_IND .eq. 9 ) then
+            LDF  = LDF_MONO
+            BETA = BETA_MONO
             CT1 = CT1_MONO
             CEO = CEO_MONO
             EF1  = EF1_MONO
@@ -735,7 +1221,21 @@ contains
             AGRO  = AGRO_MONO
             AMAT  = AMAT_MONO
             AOLD  = AOLD_MONO
+            CAQ   = CAQ_MONO
+            TAQ   = TAQ_MONO
+            DTAQ  = DTAQ_MONO
+            CHT   = CHT_MONO
+            THT   = THT_MONO
+            DTHT  = DTHT_MONO
+            CLT   = CLT_MONO
+            TLT   = TLT_MONO
+            DTLT  = DTLT_MONO
+            CHW   = CHW_MONO
+            THW   = THW_MONO
+            DTHW  = DTHW_MONO
         else if (EMI_IND .eq. 10 ) then
+            LDF  = LDF_FARN
+            BETA = BETA_FARN
             CT1 = CT1_FARN
             CEO = CEO_FARN
             EF1  = EF1_FARN
@@ -757,7 +1257,21 @@ contains
             AGRO  = AGRO_FARN
             AMAT  = AMAT_FARN
             AOLD  = AOLD_FARN
+            CAQ   = CAQ_FARN
+            TAQ   = TAQ_FARN
+            DTAQ  = DTAQ_FARN
+            CHT   = CHT_FARN
+            THT   = THT_FARN
+            DTHT  = DTHT_FARN
+            CLT   = CLT_FARN
+            TLT   = TLT_FARN
+            DTLT  = DTLT_FARN
+            CHW   = CHW_FARN
+            THW   = THW_FARN
+            DTHW  = DTHW_FARN
         else if (EMI_IND .eq. 11 ) then
+            LDF  = LDF_CARY
+            BETA = BETA_CARY
             CT1 = CT1_CARY
             CEO = CEO_CARY
             EF1  = EF1_CARY
@@ -779,7 +1293,21 @@ contains
             AGRO  = AGRO_CARY
             AMAT  = AMAT_CARY
             AOLD  = AOLD_CARY
+            CAQ   = CAQ_CARY
+            TAQ   = TAQ_CARY
+            DTAQ  = DTAQ_CARY
+            CHT   = CHT_CARY
+            THT   = THT_CARY
+            DTHT  = DTHT_CARY
+            CLT   = CLT_CARY
+            TLT   = TLT_CARY
+            DTLT  = DTLT_CARY
+            CHW   = CHW_CARY
+            THW   = THW_CARY
+            DTHW  = DTHW_CARY
         else if (EMI_IND .eq. 12 ) then
+            LDF  = LDF_SESQ
+            BETA = BETA_SESQ
             CT1 = CT1_SESQ
             CEO = CEO_SESQ
             EF1  = EF1_SESQ
@@ -801,7 +1329,21 @@ contains
             AGRO  = AGRO_SESQ
             AMAT  = AMAT_SESQ
             AOLD  = AOLD_SESQ
+            CAQ   = CAQ_SESQ
+            TAQ   = TAQ_SESQ
+            DTAQ  = DTAQ_SESQ
+            CHT   = CHT_SESQ
+            THT   = THT_SESQ
+            DTHT  = DTHT_SESQ
+            CLT   = CLT_SESQ
+            TLT   = TLT_SESQ
+            DTLT  = DTLT_SESQ
+            CHW   = CHW_SESQ
+            THW   = THW_SESQ
+            DTHW  = DTHW_SESQ
         else if (EMI_IND .eq. 13 ) then
+            LDF  = LDF_MBOL
+            BETA = BETA_MBOL
             CT1 = CT1_MBOL
             CEO = CEO_MBOL
             EF1  = EF1_MBOL
@@ -823,7 +1365,21 @@ contains
             AGRO  = AGRO_MBOL
             AMAT  = AMAT_MBOL
             AOLD  = AOLD_MBOL
+            CAQ   = CAQ_MBOL
+            TAQ   = TAQ_MBOL
+            DTAQ  = DTAQ_MBOL
+            CHT   = CHT_MBOL
+            THT   = THT_MBOL
+            DTHT  = DTHT_MBOL
+            CLT   = CLT_MBOL
+            TLT   = TLT_MBOL
+            DTLT  = DTLT_MBOL
+            CHW   = CHW_MBOL
+            THW   = THW_MBOL
+            DTHW  = DTHW_MBOL
         else if (EMI_IND .eq. 14 ) then
+            LDF  = LDF_METH
+            BETA = BETA_METH
             CT1 = CT1_METH
             CEO = CEO_METH
             EF1  = EF1_METH
@@ -845,7 +1401,21 @@ contains
             AGRO  = AGRO_METH
             AMAT  = AMAT_METH
             AOLD  = AOLD_METH
+            CAQ   = CAQ_METH
+            TAQ   = TAQ_METH
+            DTAQ  = DTAQ_METH
+            CHT   = CHT_METH
+            THT   = THT_METH
+            DTHT  = DTHT_METH
+            CLT   = CLT_METH
+            TLT   = TLT_METH
+            DTLT  = DTLT_METH
+            CHW   = CHW_METH
+            THW   = THW_METH
+            DTHW  = DTHW_METH
         else if (EMI_IND .eq. 15 ) then
+            LDF  = LDF_ACET
+            BETA = BETA_ACET
             CT1 = CT1_ACET
             CEO = CEO_ACET
             EF1  = EF1_ACET
@@ -867,7 +1437,21 @@ contains
             AGRO  = AGRO_ACET
             AMAT  = AMAT_ACET
             AOLD  = AOLD_ACET
+            CAQ   = CAQ_ACET
+            TAQ   = TAQ_ACET
+            DTAQ  = DTAQ_ACET
+            CHT   = CHT_ACET
+            THT   = THT_ACET
+            DTHT  = DTHT_ACET
+            CLT   = CLT_ACET
+            TLT   = TLT_ACET
+            DTLT  = DTLT_ACET
+            CHW   = CHW_ACET
+            THW   = THW_ACET
+            DTHW  = DTHW_ACET
         else if (EMI_IND .eq. 16 ) then
+            LDF  = LDF_CO
+            BETA = BETA_CO
             CT1 = CT1_CO
             CEO = CEO_CO
             EF1  = EF1_CO
@@ -889,7 +1473,21 @@ contains
             AGRO  = AGRO_CO
             AMAT  = AMAT_CO
             AOLD  = AOLD_CO
+            CAQ   = CAQ_CO
+            TAQ   = TAQ_CO
+            DTAQ  = DTAQ_CO
+            CHT   = CHT_CO
+            THT   = THT_CO
+            DTHT  = DTHT_CO
+            CLT   = CLT_CO
+            TLT   = TLT_CO
+            DTLT  = DTLT_CO
+            CHW   = CHW_CO
+            THW   = THW_CO
+            DTHW  = DTHW_CO
         else if (EMI_IND .eq. 17 ) then
+            LDF  = LDF_BVOC
+            BETA = BETA_BVOC
             CT1 = CT1_BVOC
             CEO = CEO_BVOC
             EF1  = EF1_BVOC
@@ -911,7 +1509,21 @@ contains
             AGRO  = AGRO_BVOC
             AMAT  = AMAT_BVOC
             AOLD  = AOLD_BVOC
+            CAQ   = CAQ_BVOC
+            TAQ   = TAQ_BVOC
+            DTAQ  = DTAQ_BVOC
+            CHT   = CHT_BVOC
+            THT   = THT_BVOC
+            DTHT  = DTHT_BVOC
+            CLT   = CLT_BVOC
+            TLT   = TLT_BVOC
+            DTLT  = DTLT_BVOC
+            CHW   = CHW_BVOC
+            THW   = THW_BVOC
+            DTHW  = DTHW_BVOC
         else if (EMI_IND .eq. 18 ) then
+            LDF  = LDF_SVOC
+            BETA = BETA_SVOC
             CT1 = CT1_SVOC
             CEO = CEO_SVOC
             EF1  = EF1_SVOC
@@ -933,7 +1545,21 @@ contains
             AGRO  = AGRO_SVOC
             AMAT  = AMAT_SVOC
             AOLD  = AOLD_SVOC
+            CAQ   = CAQ_SVOC
+            TAQ   = TAQ_SVOC
+            DTAQ  = DTAQ_SVOC
+            CHT   = CHT_SVOC
+            THT   = THT_SVOC
+            DTHT  = DTHT_SVOC
+            CLT   = CLT_SVOC
+            TLT   = TLT_SVOC
+            DTLT  = DTLT_SVOC
+            CHW   = CHW_SVOC
+            THW   = THW_SVOC
+            DTHW  = DTHW_SVOC
         else   ! EMI_IND = 19
+            LDF  = LDF_OVOC
+            BETA = BETA_OVOC
             CT1 = CT1_OVOC
             CEO = CEO_OVOC
             EF1  = EF1_OVOC
@@ -955,6 +1581,18 @@ contains
             AGRO  = AGRO_OVOC
             AMAT  = AMAT_OVOC
             AOLD  = AOLD_OVOC
+            CAQ   = CAQ_OVOC
+            TAQ   = TAQ_OVOC
+            DTAQ  = DTAQ_OVOC
+            CHT   = CHT_OVOC
+            THT   = THT_OVOC
+            DTHT  = DTHT_OVOC
+            CLT   = CLT_OVOC
+            TLT   = TLT_OVOC
+            DTLT  = DTLT_OVOC
+            CHW   = CHW_OVOC
+            THW   = THW_OVOC
+            DTHW  = DTHW_OVOC
         end if
 
         if (LU_OPT .eq. 0 .or. LU_OPT .eq. 1) then !VIIRS or MODIS  LU types
@@ -1016,7 +1654,7 @@ contains
                 ROOTA = (6.326_rk + 7.718_rk)/2.0_rk
                 ROOTB = (1.567_rk + 1.262_rk)/2.0_rk
 
-            else if (VTYPE .ge. 8 .and. VTYPE .le. 10) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
+            else if (VTYPE .ge. 8 .and. VTYPE .le. 11) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
                 !--> Avearge Arctic C3 Grass, Cool C3 Grass, Warm C4 Grass)
 
                 EF = (EF12+EF13+EF14)/3.0_rk
@@ -1064,5 +1702,7 @@ contains
         end if
 
     END SUBROUTINE CANOPY_BIOP
+
+!> \}
 
 end module canopy_bioparm_mod

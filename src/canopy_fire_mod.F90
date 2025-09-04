@@ -1,3 +1,14 @@
+!> \file canopy_fire_mod.F90
+!> \brief Canopy fire-related calculations including flame height and wind adjustment factors
+!> \details This module contains routines for calculating flame heights from fire
+!>          radiative power and computing wind adjustment factors (WAF) for fire
+!>          spread in forest canopies based on Massman et al. (2017).
+!> \author P. C. Campbell
+!> \date Oct 2022
+
+!> \defgroup canopy_fire Canopy Fire Calculations
+!> \brief Fire-related calculations for flame height and wind adjustment factors
+
 module canopy_fire_mod
 
     implicit none
@@ -5,6 +16,25 @@ module canopy_fire_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    !> \brief Calculate flame height and midflame point
+    !> \details Computes flame height and midflamepoint layer needed for WAF calculation
+    !!          using various methods including FRP-based calculations and user-defined values
+    !> \ingroup canopy_fire
+    !> \param[in] FLAMEH_OPT Integer for flame height calculation option (0=calculate, 1=user set, etc.)
+    !> \param[in] FLAMEH_SET User set flame height value (m)
+    !> \param[in] DX Grid cell distance using haversine formula (m)
+    !> \param[in] MODRES Canopy model input vertical resolution (m)
+    !> \param[in] FRP_IN Model input Fire Radiative Power (MW/grid cell area)
+    !> \param[in] FRP_FAC FRP tuning factor for flame height calculation
+    !> \param[in] FCH Grid cell canopy height (m)
+    !> \param[in] LU_OPT Supported land use classifications
+    !> \param[in] VTYPE Dominant vegetation type
+    !> \param[in] FLAMEH_CAL Option of vegetation type dependent FRP to flame height relationships
+    !> \param[out] MIDFLAMEPOINT Index of the mid-flame point
+    !> \param[out] FLAMEH Calculated flame height (m)
+    !> \author P. C. Campbell
+    !> \date Oct 2022
+    !> \note Supports multiple flame height calculation methods and crown fire detection
     SUBROUTINE CANOPY_FLAMEH( FLAMEH_OPT, FLAMEH_SET, DX, MODRES, &
         FRP_IN, FRP_FAC, FCH, LU_OPT, VTYPE, FLAMEH_CAL, &
         MIDFLAMEPOINT, FLAMEH )
@@ -43,8 +73,14 @@ contains
 
 !     Local variables
 
-        integer  ::    flamelays                      ! number of flame layers
-        real(rk) ::    frp                            ! FRP after tuning factor applied (MW/grid cell area)
+        !> \brief Number of flame layers
+        !> \details Number of flame layers in vertical grid
+        integer  ::    flamelays
+
+        !> \brief Adjusted fire radiative power
+        !> \details FRP after tuning factor applied
+        !! \param units MW/grid cell area
+        real(rk) ::    frp
 
         frp = FRP_IN*FRP_FAC  !apply FRP tuning factor for flame height
 
@@ -114,6 +150,26 @@ contains
     END SUBROUTINE CANOPY_FLAMEH
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    !> \brief Calculate Wind Adjustment Factor for fire spread
+    !> \details Computes Wind Adjustment Factor for fire spread for either sub-canopy
+    !!          or above-canopy fires using Massman et al. (2017) formulations
+    !> \ingroup canopy_fire
+    !> \param[in] HCM Height of canopy top (m)
+    !> \param[in] LAMBDARS Value representing influence of roughness sublayer (dimensionless)
+    !> \param[in] HREF Reference height above the canopy (m)
+    !> \param[in] FLAMEH Flame height for above canopy fire (m)
+    !> \param[in] FIRETYPE Fire type: 1=Above Canopy Fire, 0=Below Canopy Fire
+    !> \param[in] CANBOTMID Mid-flame canopy bottom wind reduction factor (dimensionless)
+    !> \param[in] CANTOPMID Mid-flame canopy top wind reduction factor (dimensionless)
+    !> \param[in] D_H Zero-plane displacement height (d/h) (dimensionless)
+    !> \param[in] ZO_H Surface (soil+veg) roughness length (zo/h) (dimensionless)
+    !> \param[out] WAF Wind Adjustment Factor (dimensionless)
+    !> \author P. C. Campbell
+    !> \date Jun 2022
+    !> \note Based on Massman et al. (2017) algorithms for fire behavior prediction
+    !> \cite Massman, W.J., J.M. Forthofer, M.A. Finney (2017). An improved canopy wind model
+    !!       for predicting wind adjustment factors and wildland fire behavior.
+    !!       Canadian Journal of Forest Research, 47(5), 594-599. https://doi.org/10.1139/cjfr-2016-0354
     SUBROUTINE CANOPY_WAF( HCM, LAMBDARS, HREF, FLAMEH, FIRETYPE, &
         D_H, ZO_H, CANBOTMID, CANTOPMID, WAF )
 
@@ -147,11 +203,27 @@ contains
         REAL(RK),    INTENT( IN )  :: D_H             ! Zero-plane displacement height, d/h
         REAL(RK),    INTENT( IN )  :: ZO_H            ! Surface (soil+veg) roughness length, zo/h
         REAL(RK),    INTENT( OUT ) :: WAF             ! Wind Adjustment Factor (nondimensional)
+
 !     Local variables
-        real(rk)                   :: term1           ! Major Term1 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017)
-        real(rk)                   :: term2           ! Major Term2 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017)
-        real(rk)                   :: delta           ! Ratio parameter used in WAF for above-canopy (Eq. 18 Massman et al.)
-        real(rk)                   :: lambda_rs        ! local values for influence of roughness sublayer (nondimensional)
+        !> \brief Major Term1 in WAF calculation
+        !> \details Major Term1 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017)
+        !! \param units dimensionless
+        real(rk)                   :: term1
+
+        !> \brief Major Term2 in WAF calculation
+        !> \details Major Term2 in WAF calculation (Eqs. 17 and 18 Massman et al. 2017)
+        !! \param units dimensionless
+        real(rk)                   :: term2
+
+        !> \brief Ratio parameter for above-canopy WAF
+        !> \details Ratio parameter used in WAF for above-canopy (Eq. 18 Massman et al.)
+        !! \param units dimensionless
+        real(rk)                   :: delta
+
+        !> \brief Local roughness sublayer influence
+        !> \details Local values for influence of roughness sublayer
+        !! \param units dimensionless
+        real(rk)                   :: lambda_rs
 
 ! Citation:
 ! An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior

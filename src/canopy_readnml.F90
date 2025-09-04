@@ -1,3 +1,21 @@
+!> \file canopy_readnml.F90
+!> \brief Namelist reading subroutine for canopy model
+!> \details This subroutine reads the input namelist file to get user control
+!!          variables including file paths, model options, and parameter settings.
+!> \author P.C. Campbell
+!> \date July 2022
+!> \version 1.0
+
+!> \ingroup utils_group
+!> \brief Read canopy model namelist configuration
+!> \details Reads input namelist to get user control variables including:
+!!          - File names and paths
+!!          - Model configuration options
+!!          - Physical and chemical parameters
+!!          - Time and grid settings
+!!          - Output options
+!> \author P.C. Campbell
+!> \date July 2022
 SUBROUTINE canopy_readnml
 
 !-------------------------------------------------------------------------------
@@ -24,11 +42,15 @@ SUBROUTINE canopy_readnml
         nlat, nlon, modlays, modres, href_opt, href_set, z0ghc, lambdars, &
         var3d_opt, var3d_set, pavd_opt, pavd_set, &
         flameh_opt, flameh_cal, flameh_set, frp_fac, ifcanwind, &
-        ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, pai_opt, pai_set, lu_opt, z0_opt, &
-        dx_opt, dx_set, lai_thresh, cf_thresh, ch_thresh, rsl_opt, bio_cce, &
-        biospec_opt, biovert_opt, ssg_opt, ssg_set, crop_opt, crop_set, co2_opt, co2_set, &
-        leafage_opt, lai_tstep, soim_opt, soild1, soild2, soild3, soild4, hist_opt, &
-        loss_opt, loss_set, loss_ind, lifetime
+        ifcanwaf, ifcaneddy, ifcanphot, ifcanbio, ifcanddepgas, pai_opt, pai_set, lu_opt, &
+        z0_opt, dx_opt, dx_set, lai_thresh, cf_thresh, ch_thresh, rsl_opt, bio_cce, &
+        biospec_opt, biovert_opt, can_opt, can_chset, can_cfset, can_laiset, &
+        ssg_opt, ssg_chset, ssg_cfset, ssg_laiset, &
+        crop_opt, crop_chset, crop_cfset, crop_laiset, co2_opt, co2_set, &
+        leafage_opt, lai_tstep, soim_opt, soild1, soild2, soild3, soild4, aq_opt, w126_set, &
+        ht_opt, lt_opt, hw_opt, hist_opt, loss_opt, loss_set, loss_ind, lifetime, &
+        ddepspecgas_opt, chemmechgas_opt, chemmechgas_tot, soilcat_opt, hyblev1, snowc_set, &
+        icec_set, gamma_set, Ramin_set
 
 
 !-------------------------------------------------------------------------------
@@ -187,6 +209,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
+! Set default logical for canopy gas dry deposition (default = .FALSE.)
+    ifcanddepgas = .FALSE.
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
 ! Set default integer for PAI set values or calculation (default = 0)
     pai_opt = 0
 !-------------------------------------------------------------------------------
@@ -252,13 +279,43 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
+! Set default integer for canopy vegtype option from GEDI or user (default = 0)
+    can_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for canopy vegtype heights used in model (m) (Default = 10 m)
+    can_chset = 10.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for canopy vegfrac used in model (Default = 0.5)
+    can_cfset = 0.5_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for canopy LAI used in model (Default = 4.0)
+    can_laiset = 4.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
 ! Set default integer for shrubs/savanaa/grasslands vegtype option from GEDI or user (default = 0)
     ssg_opt = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
 ! Set default value for shrubs/savanaa/grasslands vegtype heights used in model (m) (Default = 1 m)
-    ssg_set = 1.0_rk
+    ssg_chset = 1.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for shrubs/savanaa/grasslands vegfrac used in model (Default = 0.5)
+    ssg_cfset = 0.5_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for shrubs/savanaa/grasslands LAI used in model (Default = 0.5)
+    ssg_laiset = 0.1_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -268,7 +325,17 @@ SUBROUTINE canopy_readnml
 
 !-------------------------------------------------------------------------------
 ! Set default value for crop vegtype heights used in model (m) (Default = 3 m)
-    crop_set = 3.0_rk
+    crop_chset = 3.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for crop vegfrac used in model (Default = 0.5)
+    crop_cfset = 0.5_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for crop LAI used in model (Default = 0.1)
+    crop_laiset = 0.1_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------
@@ -341,6 +408,75 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default value for depth of soil layer 4 (Default = 150.0 cm)
     soild4 = 150.0_rk
+!-------------------------------------------------------------------------------
+
+!------------------------------------------------------------------------------
+! Set default integer for using air quality stress gamma for biogenic emissions (default=2; Off)
+    aq_opt = 2
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for spatially constant w126 value (ppm-hours)
+    w126_set = 20.0_rk
+!-------------------------------------------------------------------------------
+
+!------------------------------------------------------------------------------
+! Set default integer for using high temperature stress gamma for biogenic emissions (default=1; Off)
+    ht_opt = 1
+!-------------------------------------------------------------------------------
+
+!------------------------------------------------------------------------------
+! Set default integer for using low temperature stress gamma for biogenic emissions (default=1; Off)
+    lt_opt = 1
+!-------------------------------------------------------------------------------
+
+!------------------------------------------------------------------------------
+! Set default integer for using high wind stress gamma for biogenic emissions (default=1; Off)
+    hw_opt = 1
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer value to select species for drydep gas output (0, all)
+    ddepspecgas_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer value to select chemical mechanism (0, RACM2)
+    chemmechgas_opt = 0
+!-------------------------------------------------------------------------------
+
+! Set default integer value to select chemical mechanism gas species list including transported (31, RACM2)
+    chemmechgas_tot = 31
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer value to select soil category option (0, STATSGO/FAO)
+    soilcat_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for input height of 1st hybrid model layer above ground  (meters)
+    hyblev1 = 20.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! !Set default snow cover percent at grid/point, above which ground surface is treated as dominant snow (%)
+    snowc_set = 50.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! !Set default ice cover percent at grid/point, above which ground or water surface is treated as dominant ice (%)
+    icec_set = 50.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! !Set default reaction probability for gas dry deposition to different building surfaces (default = 5.0D-5)
+    gamma_set = 5.0D-5
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! !Set default minimum aerodynamic resistance (default = 10 s/m)
+    Ramin_set = 10.0_rk
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

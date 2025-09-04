@@ -7,7 +7,7 @@
 #SBATCH --nodes=1                      # Request N nodes
 #SBATCH --exclude=hop006,hop010,hop011 # Exclude some nodes (optional)
 #SBATCH --ntasks=1                     # Request n tasks
-#SBATCH --mem-per-cpu=256GB            # Request nGB RAM per core
+#SBATCH --mem-per-cpu=1000GB            # Request nGB RAM per core
 
 conda activate canopy-app
 python python/global_data_process.py 2022063012023,2022070112000,2022070112001

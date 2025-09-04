@@ -1,5 +1,5 @@
 """
-Run canopy-app using the namelist and load nc data.
+Run canopy-app using the namelist and load the outputs.
 """
 from __future__ import annotations
 
@@ -233,7 +233,7 @@ def run(
                     f"Files present are: {[p.as_posix() for p in output_dir.glob('*')]}."
                 )
             if verbose:
-                print(f"detected output files for {ifcan}:")
+                print(f"detected output files for {ifcan}: ")
                 print("\n".join(f"- {p.as_posix()}" for p in cands))
             dfs_ifcan = []
             for cand in cands:
@@ -262,7 +262,8 @@ def run(
             for vn in ds_.data_vars:
                 assert isinstance(vn, str)
                 ds_[vn].attrs["units"] = units[vn]
-                ds_[vn].attrs["group"] = df.attrs["which"]
+                if vn != "lad":  # in multiple groups
+                    ds_[vn].attrs["group"] = df.attrs["which"]
             ds_.attrs.update(
                 {k: v for k, v in df.attrs.items() if k not in {"which", "units"}}
             )
@@ -272,6 +273,9 @@ def run(
         if {"lat", "lon"}.issubset(ds.dims):
             ds = ds.rename_dims(lat="y", lon="x")
         # NOTE: lat/lon are 1-D in our examples, though 2-D in the example nc output
+
+    if "lad" in ds.data_vars:
+        ds = ds.set_coords("lad")
 
     # Store namelist settings
     ds.attrs["nml"] = str(full_config)
@@ -395,7 +399,7 @@ def run_config_sens(
             print(f"Running case {i+1}/{len(cases)}")
         ds = run(
             config=case,
-            case_dir=base_dir / f"case_{i:0{len(str(len(cases) - 1))}}",
+            case_dir=base_dir / f"case_{i: 0{len(str(len(cases) - 1))}}",
             cleanup=False,
             verbose=verbose,
         )
@@ -501,6 +505,16 @@ def config_cases(*, product: bool = False, **kwargs) -> list[dict[str, Any]]:
 
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="print more info (including messages from the canopy-app run)",
+    )
+    args = parser.parse_args()
+
     cases = config_cases(
         file_vars="../input/point_file_20220701.sfcf000.txt",
         infmt_opt=1,
@@ -511,4 +525,4 @@ if __name__ == "__main__":
         lambdars=[1.0, 1.25],
         product=True,
     )
-    ds = run_config_sens(cases)
+    ds = run_config_sens(cases, verbose=args.verbose)

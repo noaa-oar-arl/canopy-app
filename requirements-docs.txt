@@ -1,0 +1,11 @@
+# MkDocs and plugins for documentation generation
+mkdocs>=1.5.0
+mkdocs-material>=9.0.0
+mkdoxy>=1.2.0
+
+# Additional plugins for enhanced documentation
+pymdown-extensions>=10.0.0
+mkdocs-mermaid2-plugin>=1.0.0
+
+# Development dependencies
+mike>=2.0.0  # For versioning

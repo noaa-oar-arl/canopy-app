@@ -1,0 +1,211 @@
+site_name: "Canopy-App Documentation"
+site_description: "Comprehensive documentation for the Canopy-App atmospheric modeling system"
+site_author: "P.C. Campbell and contributors"
+site_url: "https://noaa-oar-arl.github.io/canopy-app/"
+
+repo_name: "noaa-oar-arl/canopy-app"
+repo_url: "https://github.com/noaa-oar-arl/canopy-app"
+
+copyright: "Copyright &copy; 2024 NOAA Air Resources Laboratory - P.C. Campbell and contributors"
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.prune
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+  # No logo in header to prevent white logo in menu bar
+  icon:
+    repo: fontawesome/brands/github
+  favicon: canopy-app-logo_no-bg.png
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+plugins:
+  - search
+  - mkdoxy:
+      projects:
+        canopy: # Main canopy project
+          src-dirs: src # path to Fortran source code
+          full-doc: True # generate full documentation
+          doxy-cfg: # Doxygen configuration for Fortran
+            # Fortran-specific settings
+            OPTIMIZE_FOR_FORTRAN: YES
+            OPTIMIZE_OUTPUT_FOR_C: NO
+            EXTRACT_ALL: YES
+            EXTRACT_PRIVATE: YES
+            EXTRACT_STATIC: YES
+            EXTRACT_LOCAL_CLASSES: YES
+            EXTRACT_LOCAL_METHODS: YES
+            EXTRACT_ANON_NSPACES: YES
+            HIDE_UNDOC_MEMBERS: NO
+            HIDE_UNDOC_CLASSES: NO
+            HIDE_FRIEND_COMPOUNDS: NO
+            HIDE_IN_BODY_DOCS: NO
+            # File patterns for Fortran
+            FILE_PATTERNS: "*.F90 *.f90 *.F *.f"
+            RECURSIVE: YES
+            # Documentation extraction
+            JAVADOC_AUTOBRIEF: YES
+            QT_AUTOBRIEF: YES
+            MULTILINE_CPP_IS_BRIEF: NO
+            # Enable preprocessing for Fortran
+            ENABLE_PREPROCESSING: YES
+            MACRO_EXPANSION: NO
+            EXPAND_ONLY_PREDEF: NO
+            SEARCH_INCLUDES: YES
+            INCLUDE_PATH: src
+            # Output format
+            GENERATE_HTML: NO
+            GENERATE_XML: YES
+            GENERATE_LATEX: NO
+            GENERATE_RTF: NO
+            GENERATE_MAN: NO
+            GENERATE_DOCBOOK: NO
+            # Source browsing
+            SOURCE_BROWSER: YES
+            INLINE_SOURCES: NO
+            STRIP_CODE_COMMENTS: YES
+            REFERENCED_BY_RELATION: YES
+            REFERENCES_RELATION: YES
+            REFERENCES_LINK_SOURCE: YES
+            USE_HTAGS: NO
+            VERBATIM_HEADERS: YES
+            # Alphabetical index
+            ALPHABETICAL_INDEX: YES
+            COLS_IN_ALPHA_INDEX: 5
+            # Groups and modules
+            SORT_GROUP_NAMES: YES
+            SORT_MEMBER_DOCS: YES
+            SORT_BRIEF_DOCS: YES
+            SORT_MEMBERS_CTORS_1ST: NO
+            # Graph generation
+            HAVE_DOT: NO
+            DOT_NUM_THREADS: 0
+            DOT_FONTNAME: Helvetica
+            DOT_FONTSIZE: 10
+            # Project settings
+            PROJECT_NAME: "Canopy-App"
+            PROJECT_NUMBER: "v1.0"
+            PROJECT_BRIEF: "Atmospheric canopy modeling system for meteorology and air quality"
+            # Warnings
+            QUIET: NO
+            WARNINGS: YES
+            WARN_IF_UNDOCUMENTED: YES
+            WARN_IF_DOC_ERROR: YES
+            WARN_NO_PARAMDOC: YES
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - javascripts/noaa-enhancements.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/noaa-theme.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/noaa-oar-arl/canopy-app
+      name: GitHub Repository
+    - icon: fontawesome/solid/globe
+      link: https://www.noaa.gov/
+      name: NOAA Website
+    - icon: fontawesome/solid/envelope
+      link: mailto:patrick.c.campbell@noaa.gov
+      name: Contact
+  version:
+    provider: mike
+    default: latest
+  analytics:
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >-
+            Thanks for your feedback! Help us improve this page by
+            <a href="https://github.com/noaa-oar-arl/canopy-app/issues/new/?title=[Docs]+{title}+-+{url}" target="_blank" rel="noopener">telling us what you found lacking</a>.
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quickstart.md
+    - Configuration: getting-started/configuration.md
+  - User Guide:
+    - Model Overview: user-guide/overview.md
+    - Input Files: user-guide/input-files.md
+    - Running the Model: user-guide/running.md
+    - Output Files: user-guide/output-files.md
+    - Examples & Tutorials: user-guide/examples.md
+    - Namelist Reference: user-guide/namelist-reference.md
+    - Troubleshooting: user-guide/troubleshooting.md
+  - Science Documentation:
+    - Model Description: science/model-description.md
+    - Physical Processes: science/physical-processes.md
+    - Chemical Processes: science/chemical-processes.md
+    - Parameterizations: science/parameterizations.md
+  - API Reference:
+    - Overview: api/overview.md
+    - Modules: api/modules.md
+    - Functions: api/functions.md
+    - Variables: api/variables.md
+  - Development:
+    - Contributing: development/contributing.md
+    - Code Style: development/code-style.md
+    # - Testing: development/testing.md
+  - References: references.md
+  - Doxygen API:
+    - canopy/links.md

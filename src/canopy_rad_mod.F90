@@ -1,3 +1,14 @@
+!> \file canopy_rad_mod.F90
+!> \brief Canopy radiation and photosynthetic photon flux density calculations
+!> \details This module contains routines for calculating sunlit/shaded fractions
+!>          and photosynthetic photon flux density (PPFD) profiles within forest
+!>          canopies using exponential decay models based on Silva et al. (2020).
+!> \author P. C. Campbell
+!> \date Jun 2023
+
+!> \defgroup canopy_radiation Canopy Radiation Calculations
+!> \brief Radiation attenuation and PPFD calculations within canopy
+
 module canopy_rad_mod
 
     implicit none
@@ -5,6 +16,18 @@ module canopy_rad_mod
 contains
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    !> \brief Calculate sunlit fraction using clumping index
+    !> \details Computes sunlit/shaded fraction through canopy using photolysis
+    !!          correction factor and clumping index
+    !> \ingroup canopy_radiation
+    !> \param[in] FCLAI Fractional cumulative LAI profile (dimensionless)
+    !> \param[in] LAI Model input total Leaf Area Index (m²/m²)
+    !> \param[in] CLU Model input Clumping Index (dimensionless)
+    !> \param[in] COSZEN Model input Cosine Solar Zenith Angle (dimensionless)
+    !> \param[out] FSUN Sunlit/Shaded fraction from photolysis correction factor
+    !> \author P. C. Campbell
+    !> \date Jun 2023
+    !> \note Based on Bonan (2019) equation 14.18 for clumping correction
     SUBROUTINE CANOPY_FSUN_CLU( FCLAI, LAI, CLU, COSZEN, FSUN)
 
 !-----------------------------------------------------------------------
@@ -45,6 +68,25 @@ contains
     END SUBROUTINE CANOPY_FSUN_CLU
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    !> \brief Calculate PPFD profiles using exponential model
+    !> \details Computes photosynthetic photon flux density for sunlit and shaded leaves
+    !!          through canopy using exponential decay models from Silva et al. (2020)
+    !> \ingroup canopy_radiation
+    !> \param[in] ZK Input model heights (m)
+    !> \param[in] FCH Model input canopy height (m)
+    !> \param[in] SFCRAD Model input instantaneous surface downward shortwave flux (W/m²)
+    !> \param[in] LAI Model input total Leaf Area Index (m²/m²)
+    !> \param[in] FSUN Sunlit/Shaded fraction from photolysis correction factor
+    !> \param[out] PPFD_SUN PPFD for sunlit leaves (μmol photons/m²/s)
+    !> \param[out] PPFD_SHADE PPFD for shaded leaves (μmol photons/m²/s)
+    !> \param[out] PPFD_AVE Average PPFD for sunlit and shaded leaves (μmol photons/m²/s)
+    !> \author P. C. Campbell
+    !> \date Jun 2023
+    !> \note Based on Silva et al. (2020) 5-layer canopy exponential PPFD model
+    !> \cite Silva, S. J., Heald, C. L., and Guenther, A. B. (2020). Development of a
+    !!       reduced-complexity plant canopy physics surrogate model for use in chemical
+    !!       transport models: a case study with GEOS-Chem v12.3.0. Geoscientific Model
+    !!       Development, 13, 2569-2585. https://doi.org/10.5194/gmd-13-2569-2020
     SUBROUTINE CANOPY_PPFD_EXP( ZK, FCH, SFCRAD, LAI, FSUN, &
         PPFD_SUN, PPFD_SHADE, PPFD_AVE)
 
@@ -79,35 +121,128 @@ contains
         REAL(RK),    INTENT( OUT )      :: PPFD_AVE(SIZE(ZK))             ! Average PPFD for sunlit and shaded leaves (umol phot/m2 s)
 
 !      LOCAL
-        REAL(RK),          PARAMETER     :: CTEMP_1_SUN     =  1.083_rk   !Exponential 2-m PPFD --> PPFD parameters (Level 1 =
-        !top of canopy
-        REAL(RK),          PARAMETER     :: CTEMP_2_SUN     =  1.096_rk   !Based on Table 1 in Silva et al. (2022)
-        REAL(RK),          PARAMETER     :: CTEMP_3_SUN     =  1.104_rk   !
-        REAL(RK),          PARAMETER     :: CTEMP_4_SUN     =  1.098_rk   !
-        REAL(RK),          PARAMETER     :: CTEMP_5_SUN     =  1.090_rk   !...
-        REAL(RK),          PARAMETER     :: DTEMP_1_SUN     =  0.002_rk   !...
-        REAL(RK),          PARAMETER     :: DTEMP_2_SUN     =  -0.128_rk  !...
-        REAL(RK),          PARAMETER     :: DTEMP_3_SUN     =  -0.298_rk  !...
-        REAL(RK),          PARAMETER     :: DTEMP_4_SUN     =  -0.445_rk  !...
-        REAL(RK),          PARAMETER     :: DTEMP_5_SUN     =  -0.535_rk  !...
-        REAL(RK),          PARAMETER     :: CTEMP_1_SHADE   =  0.871_rk   !...
-        REAL(RK),          PARAMETER     :: CTEMP_2_SHADE   =  0.890_rk   !...
-        REAL(RK),          PARAMETER     :: CTEMP_3_SHADE   =  0.916_rk   !...
-        REAL(RK),          PARAMETER     :: CTEMP_4_SHADE   =  0.941_rk   !...
-        REAL(RK),          PARAMETER     :: CTEMP_5_SHADE   =  0.956_rk   !...
-        REAL(RK),          PARAMETER     :: DTEMP_1_SHADE   =  0.015_rk   !...
-        REAL(RK),          PARAMETER     :: DTEMP_2_SHADE   =  -0.141_rk  !...
-        REAL(RK),          PARAMETER     :: DTEMP_3_SHADE   =  -0.368_rk  !...
-        REAL(RK),          PARAMETER     :: DTEMP_4_SHADE   =  -0.592_rk  !...
-        REAL(RK),          PARAMETER     :: DTEMP_5_SHADE   =  -0.743_rk  !...
+        !> \brief Exponential PPFD regression coefficient C for sunlit leaves at level 1
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 1 (top of canopy)
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: CTEMP_1_SUN     =  1.083_rk
 
-        REAL(RK),          PARAMETER     :: FRAC_PAR        =  0.5_rk     !Fraction of incoming solar irradiance that is PAR
+        !> \brief Exponential PPFD regression coefficient C for sunlit leaves at level 2
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 2
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: CTEMP_2_SUN     =  1.096_rk
 
-        REAL(RK) :: CTEMP_SUN(SIZE(ZK))            ! Regression coefficient C for sun leaves
-        REAL(RK) :: DTEMP_SUN(SIZE(ZK))            ! Regression coefficient D for sun leaves
-        REAL(RK) :: CTEMP_SHADE(SIZE(ZK))          ! Regression coefficient C for shade leaves
-        REAL(RK) :: DTEMP_SHADE(SIZE(ZK))          ! Regression coefficient D for shade leaves
+        !> \brief Exponential PPFD regression coefficient C for sunlit leaves at level 3
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 3
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: CTEMP_3_SUN     =  1.104_rk
 
+        !> \brief Exponential PPFD regression coefficient C for sunlit leaves at level 4
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 4
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: CTEMP_4_SUN     =  1.098_rk
+
+        !> \brief Exponential PPFD regression coefficient C for sunlit leaves at level 5
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 5 (bottom)
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: CTEMP_5_SUN     =  1.090_rk
+
+        !> \brief Exponential PPFD regression coefficient D for sunlit leaves at level 1
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 1
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: DTEMP_1_SUN     =  0.002_rk
+
+        !> \brief Exponential PPFD regression coefficient D for sunlit leaves at level 2
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 2
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: DTEMP_2_SUN     =  -0.128_rk
+
+        !> \brief Exponential PPFD regression coefficient D for sunlit leaves at level 3
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 3
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: DTEMP_3_SUN     =  -0.298_rk
+
+        !> \brief Exponential PPFD regression coefficient D for sunlit leaves at level 4
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 4
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: DTEMP_4_SUN     =  -0.445_rk
+
+        !> \brief Exponential PPFD regression coefficient D for sunlit leaves at level 5
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 5
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: DTEMP_5_SUN     =  -0.535_rk
+
+        !> \brief Exponential PPFD regression coefficient C for shaded leaves at level 1
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 1
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: CTEMP_1_SHADE   =  0.871_rk
+
+        !> \brief Exponential PPFD regression coefficient C for shaded leaves at level 2
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 2
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: CTEMP_2_SHADE   =  0.890_rk
+
+        !> \brief Exponential PPFD regression coefficient C for shaded leaves at level 3
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 3
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: CTEMP_3_SHADE   =  0.916_rk
+
+        !> \brief Exponential PPFD regression coefficient C for shaded leaves at level 4
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 4
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: CTEMP_4_SHADE   =  0.941_rk
+
+        !> \brief Exponential PPFD regression coefficient C for shaded leaves at level 5
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 5
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: CTEMP_5_SHADE   =  0.956_rk
+
+        !> \brief Exponential PPFD regression coefficient D for shaded leaves at level 1
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 1
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: DTEMP_1_SHADE   =  0.015_rk
+
+        !> \brief Exponential PPFD regression coefficient D for shaded leaves at level 2
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 2
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: DTEMP_2_SHADE   =  -0.141_rk
+
+        !> \brief Exponential PPFD regression coefficient D for shaded leaves at level 3
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 3
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: DTEMP_3_SHADE   =  -0.368_rk
+        !> \brief Exponential PPFD regression coefficient D for shaded leaves at level 4
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 4
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: DTEMP_4_SHADE   =  -0.592_rk
+
+        !> \brief Exponential PPFD regression coefficient D for shaded leaves at level 5
+        !> \details Regression coefficient from Silva et al. (2020) Table 1, level 5
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: DTEMP_5_SHADE   =  -0.743_rk
+
+        !> \brief Fraction of PAR in solar irradiance
+        !> \details Fraction of incoming solar irradiance that is photosynthetically active radiation
+        !! \param units dimensionless
+        REAL(RK),          PARAMETER     :: FRAC_PAR        =  0.5_rk
+
+        !> \brief Regression coefficient C for sun leaves
+        !> \details Height-interpolated regression coefficient C for sun leaves
+        REAL(RK) :: CTEMP_SUN(SIZE(ZK))
+
+        !> \brief Regression coefficient D for sun leaves
+        !> \details Height-interpolated regression coefficient D for sun leaves
+        REAL(RK) :: DTEMP_SUN(SIZE(ZK))
+
+        !> \brief Regression coefficient C for shade leaves
+        !> \details Height-interpolated regression coefficient C for shade leaves
+        REAL(RK) :: CTEMP_SHADE(SIZE(ZK))
+
+        !> \brief Regression coefficient D for shade leaves
+        !> \details Height-interpolated regression coefficient D for shade leaves
+        REAL(RK) :: DTEMP_SHADE(SIZE(ZK))
+
+        !> \brief Loop index
+        !> \details Loop index for height levels
         integer i
 
 ! Use exponential PPFD model based on Silva et al. (2020) to get approx. sun/shade PPFD
