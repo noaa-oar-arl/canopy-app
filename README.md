@@ -127,6 +127,88 @@ which is read at runtime.
 
 You can also [generate global inputs and run with Python](./python/README.md).
 
+## CMake Build (Recommended)
+
+The new CMake-based build system supports cross-platform builds and advanced configuration. Use the provided `build.sh` script for a streamlined experience.
+
+### Method 1: Build with `build.sh` (Recommended)
+
+```bash
+# From the project root
+git clone https://github.com/noaa-oar-arl/canopy-app.git
+cd canopy-app
+
+# Build with default settings (gfortran, NetCDF enabled)
+./build.sh
+```
+
+#### Common `build.sh` Options
+
+- `--clean`         : Clean the build directory
+- `--install`       : Run `make install` after build (installs to `install/` by default)
+- `--no-modules`    : Skip environment module setup (for local/macOS/Linux builds)
+- `-c <CMake opt>`  : Pass additional CMake options (can be used multiple times)
+- `-t <target>`     : Specify build target (e.g., hera, macos, linux)
+
+**Examples:**
+```bash
+# Clean and rebuild
+./build.sh --clean && ./build.sh
+
+# Build with NetCDF disabled
+./build.sh -c "-DUSE_NETCDF=OFF"
+
+# Build with debug flags
+./build.sh -c "-DCANOPY_DEBUG_LEVEL=1"
+
+# Install after build
+./build.sh --install
+```
+
+### Method 2: Manual CMake Build
+
+```bash
+# From the project root
+mkdir build
+cd build
+cmake ..
+make -j4
+make install  # Optional: install to ../install by default
+```
+
+## CMake Build Options
+
+The CMake-based build system supports flexible configuration, including debug/release modes and NetCDF support.
+
+### Common Build Customizations
+
+- **Debug/Release Mode:**
+  - `-DCANOPY_DEBUG_LEVEL=0` (Release, optimized, default)
+  - `-DCANOPY_DEBUG_LEVEL=1` (Basic debug flags)
+  - `-DCANOPY_DEBUG_LEVEL=2` (Extensive debug flags, FPE traps, traceback)
+- **NetCDF Support:**
+  - `-DUSE_NETCDF=ON` (default, enables NetCDF I/O)
+  - `-DUSE_NETCDF=OFF` (disables NetCDF, text I/O only)
+
+You can pass these options to `build.sh` using `-c` or directly to CMake:
+
+**Examples:**
+
+```bash
+# Debug build with NetCDF enabled
+./build.sh -c "-DCANOPY_DEBUG_LEVEL=1"
+
+# Release build with NetCDF disabled
+./build.sh -c "-DCANOPY_DEBUG_LEVEL=0" -c "-DUSE_NETCDF=OFF"
+
+# Manual CMake build, debug, no NetCDF
+mkdir build && cd build
+cmake -DCANOPY_DEBUG_LEVEL=2 -DUSE_NETCDF=OFF ..
+make -j4
+```
+
+You can combine these options as needed for your development or production workflow.
+
 ## Components
 
 Current Canopy-App components:
