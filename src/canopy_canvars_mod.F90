@@ -74,6 +74,11 @@ MODULE canopy_canvars_mod
     !! \param units meters (m)
     real(rk), allocatable :: zk                  ( : )
 
+        !> \brief Aerosol dry deposition velocity profile
+        !> \details Output: sub-canopy aerosol dry deposition velocity (Katul et al. 2010)
+        !! \param units m/s
+        real(rk), allocatable :: vdep_aero_3d       ( :, :, : )
+
     !> \brief Normalized height (z/h)
     !> \details Normalized height relative to canopy height (z/h)
     !! \param units dimensionless

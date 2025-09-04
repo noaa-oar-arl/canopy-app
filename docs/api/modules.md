@@ -46,17 +46,24 @@ Reads and parses Fortran namelist configuration files.
 Utilities for file path handling, existence checking, and format detection.
 
 **Key Functions:**
-- File existence validation
-- Path resolution and cleanup
-- Format detection (NetCDF vs text)
-
 ---
-
-### canopy_ncf_io_mod.F90
-**NetCDF Input/Output**
 
 Complete NetCDF file handling for both input and output operations.
 
+### canopy_aero_ddep_mod.F90
+**Aerosol Dry Deposition**
+
+Sub-canopy aerosol dry deposition velocity calculations following Katul et al. (2010).
+
+**Key Variables:**
+- `vdep_aero_3d(nlon, nlat, modlays)` - Aerosol dry deposition velocity profile (m/s)
+
+**User Options:**
+- `ifcanaeroddep` - Enable aerosol dry deposition
+- `aeroddep_diam` - Aerosol particle diameter (m)
+- `aeroddep_rho` - Aerosol particle density (kg/m^3)
+
+---
 **Capabilities:**
 - Read meteorological input data
 - Write model output in CF-compliant format

@@ -328,6 +328,9 @@ For complete details on all biogenic emission options including leaf age, histor
 | Option | Type | Description | Default |
 |--------|------|-------------|---------|
 | `ifcanwind` | logical | Enable canopy wind calculations | `.FALSE.` |
+| `ifcanaeroddep` | logical | Enable sub-canopy aerosol dry deposition (Katul et al. 2010) | `.FALSE.` |
+| `aeroddep_diam` | real | Aerosol particle diameter (m) | `1.0e-6` |
+| `aeroddep_rho` | real | Aerosol particle density (kg/m^3) | `1800.0` |
 | `href_opt` | integer | Reference height: `0`=use `href_set`, `1`=from file | `0` |
 | `href_set` | real | Reference height above canopy (m) - recommend 10m | - |
 | `z0ghc` | real | Ground roughness to canopy height ratio | - |

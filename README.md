@@ -240,6 +240,10 @@ Current Canopy-App components:
 
     - `canopy_bioemi_mod.F90`
 
+  6.  Sub-Canopy Aerosol Dry Deposition (m/s). Based on Katul et al. (2010) [https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2009JD012853]. Calculates multilayer aerosol deposition velocities using leaf area density, wind, and particle properties. 
+
+    - `canopy_aero_ddep_mod.F90`
+
 
 5.  In-Canopy leaf-level gas dry deposition (cm s-1). Based on the revised parameterization for gaseous dry deposition from Zhang et al. (2003), and adapted from the Atmospheric Chemistry and Canopy Exchange Simulation System (ACCESS), Saylor (2013). Ground soil underneath and outside canopy (i.e., barren vtype) follows ACCESS soils.  Drydep to urban vtypes follows [Gao and Shen 2018](https://www.sciencedirect.com/science/article/pii/S0360132318301185) and uses building reaction probabilities (gamma) and Maxwell-Boltzmann average gas velocities (Cave=sqrt(8RT/pi*M)).  Drydep to water vtype surfaces follows [CMAQv5.5](https://github.com/USEPA/CMAQ) and depends on above water air temperature, humidity, friction velocity, and Henry's Law.  Drydep to snow/ice vtypes follow [CMAQv5.5](https://github.com/USEPA/CMAQ) methods for snow/ice resistances and reactivities relative to HNO3. Snow/ice cover is dynamic and depends on predicted snow/ice (`snowc_ave` and `icec`) cover conditions.
 
@@ -253,6 +257,15 @@ Namelist Option : `file_out`  Prefix string (e.g., `'test'`) used to name output
 
 Current 3D fields include canopy winds (`canwind`), canopy vertical/eddy diffusivity values `kz`), biogenic emissions (see Table 1 below),
 canopy photolysis attenuation correction factors (`rjcf`), and derived Leaf Area Density (`lad`) from the foliage shape function.
+
+**Aerosol Dry Deposition Output:**
+When `ifcanaeroddep=.TRUE.`, output will include 3D canopy-resolved aerosol dry deposition velocity profiles:
+
+| Variable Name      | Variable Description (Units: m/s)                |
+|-------------------|--------------------------------------------------|
+| `vdep_aero_3d`    | Sub-canopy aerosol dry deposition velocity profile|
+
+The output is provided for each grid cell and canopy layer, and is controlled by the user options `aeroddep_diam` and `aeroddep_rho` in the namelist.
 
 Current 2D fields includes the Wind Adjustment Factor (`waf`), flame heights (`flameh`), and canopy heights (`canheight`). Current 1D fields include the canopy model interface levels (`z`).
 

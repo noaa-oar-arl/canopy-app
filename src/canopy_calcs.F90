@@ -326,6 +326,7 @@ SUBROUTINE canopy_calcs(nn)
                                     lad_3d(i,j,k) = 0.0_rk
                                 end if
                             end do
+
 ! ... calculate zero-plane displacement height/hc and surface (soil+veg) roughness lengths/hc
                             call canopy_zpd(zhc(1:cansublays), fafraczInt(1:cansublays), &
                                 ubzref, z0ghc, lambdars, cdrag, pai, hcmref, hgtref, &
@@ -2560,6 +2561,13 @@ SUBROUTINE canopy_calcs(nn)
                                 call exit(2)
                             end if
                         end if
+                    ! --- Sub-canopy aerosol dry deposition (Katul et al. 2010) ---
+                                if (ifcanaeroddep) then
+                                    if (.not. allocated(vdep_aero_3d)) then
+                                        allocate(vdep_aero_3d(nlon,nlat,modlays))
+                                    end if
+                                    call canopy_aero_ddep_katul2010(modlays, zk, hcmref, lad_3d(i,j,:), u_can_3d(i,j,:), aeroddep_diam, aeroddep_rho, tka_3d(i,j,:), pressa_3d(i,j,:), vdep_aero_3d(i,j,:))
+                                end if
                     else
                         write(*,*)  'Warning VIIRS/MODIS VTYPE ', vtyperef, ' is not supported...continue'
                     end if   !Vegetation types
@@ -5087,6 +5095,13 @@ SUBROUTINE canopy_calcs(nn)
                             call exit(2)
                         end if
                     end if
+                ! --- Sub-canopy aerosol dry deposition (Katul et al. 2010) ---
+                                if (ifcanaeroddep) then
+                                    if (.not. allocated(vdep_aero_3d)) then
+                                        allocate(vdep_aero_3d(nlat*nlon,modlays))
+                                    end if
+                                    call canopy_aero_ddep_katul2010(modlays, zk, hcmref, lad(loc,:), u_can(loc,:), aeroddep_diam, aeroddep_rho, tka(loc,:), pressa(loc,:), vdep_aero(loc,:))
+                                end if
                 else
                     write(*,*)  'Warning VIIRS/MODIS VTYPE ', vtyperef, ' is not supported...continue'
                 end if   !Vegetation types
