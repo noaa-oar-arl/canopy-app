@@ -137,6 +137,13 @@ Modify settings in the Fortran namelist file [`input/namelist.canopy`](https://g
 7. **[Examples](examples/basic.md)** - Practical examples and tutorials
 
 ## Recent Updates
+### Canopy-App Flowchart
+
+You can view the full module flowchart for Canopy-App in the development documentation:
+
+- [Canopy-App Module Flowchart (Mermaid)](development/canopy_app_flowchart.mmd)
+
+To export or visualize, use the Mermaid Live Editor ([https://mermaid.live](https://mermaid.live)) or compatible Markdown viewers.
 
 !!! info "Latest Features"
     - Complete Doxygen documentation for all modules
