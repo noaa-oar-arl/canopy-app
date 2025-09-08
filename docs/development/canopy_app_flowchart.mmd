@@ -1,0 +1,56 @@
+graph TD
+    canopy_app[canopy_app.F90]
+    canopy_calcs[canopy_calcs.F90]
+    canopy_canopts[canopy_canopts_mod.F90]
+    canopy_canvars[canopy_canvars_mod.F90]
+    canopy_utils[canopy_utils_mod.F90]
+    canopy_dxcalc[canopy_dxcalc_mod.F90]
+    canopy_profile[canopy_profile_mod.F90]
+    canopy_var3din[canopy_var3din_mod.F90]
+    canopy_rad[canopy_rad_mod.F90]
+    canopy_tleaf[canopy_tleaf_mod.F90]
+    canopy_wind[canopy_wind_mod.F90]
+    canopy_fire[canopy_fire_mod.F90]
+    canopy_phot[canopy_phot_mod.F90]
+    canopy_eddy[canopy_eddy_mod.F90]
+    canopy_bioemi[canopy_bioemi_mod.F90]
+    canopy_drydep[canopy_drydep_mod.F90]
+    canopy_aero_ddep[canopy_aero_ddep_mod.F90]
+    canopy_canmet[canopy_canmet_mod.F90]
+    canopy_const[canopy_const_mod.F90]
+    canopy_coord[canopy_coord_mod.F90]
+    canopy_files[canopy_files_mod.F90]
+    canopy_ncf_io[canopy_ncf_io_mod.F90]
+    canopy_txt_io[canopy_txt_io_mod.F90]
+    canopy_readnml[canopy_readnml.F90]
+    canopy_read_txt[canopy_read_txt.F90]
+    canopy_write_txt[canopy_write_txt.F90]
+    canopy_dealloc[canopy_dealloc.F90]
+    canopy_alloc[canopy_alloc.F90]
+    canopy_canopts --> canopy_app
+    canopy_canvars --> canopy_app
+    canopy_utils --> canopy_calcs
+    canopy_dxcalc --> canopy_calcs
+    canopy_profile --> canopy_calcs
+    canopy_var3din --> canopy_calcs
+    canopy_rad --> canopy_calcs
+    canopy_tleaf --> canopy_calcs
+    canopy_wind --> canopy_calcs
+    canopy_fire --> canopy_calcs
+    canopy_phot --> canopy_calcs
+    canopy_eddy --> canopy_calcs
+    canopy_bioemi --> canopy_calcs
+    canopy_drydep --> canopy_calcs
+    canopy_aero_ddep --> canopy_calcs
+    canopy_canmet --> canopy_calcs
+    canopy_const --> canopy_calcs
+    canopy_coord --> canopy_calcs
+    canopy_files --> canopy_app
+    canopy_ncf_io --> canopy_app
+    canopy_txt_io --> canopy_app
+    canopy_readnml --> canopy_app
+    canopy_read_txt --> canopy_app
+    canopy_write_txt --> canopy_app
+    canopy_dealloc --> canopy_app
+    canopy_alloc --> canopy_app
+    canopy_app --> canopy_calcs
