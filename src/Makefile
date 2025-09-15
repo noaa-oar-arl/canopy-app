@@ -75,6 +75,7 @@ OBJS := \
   canopy_canmet_mod.o \
   canopy_canvars_mod.o \
   canopy_utils_mod.o \
+  canopy_aero_ddep_mod.o \
   canopy_files_mod.o \
   canopy_readnml.o \
   canopy_alloc.o \

@@ -53,17 +53,20 @@ Complete NetCDF file handling for both input and output operations.
 ### canopy_aero_ddep_mod.F90
 **Aerosol Dry Deposition**
 
-Sub-canopy aerosol dry deposition velocity calculations following Katul et al. (2010).
+Sub-canopy aerosol dry deposition velocity calculations following Katul et al. (2010) and urban/non-vegetated dry deposition using Pleim et al. (2022).
 
 **Key Variables:**
-- `vdep_aero_3d(nlon, nlat, modlays)` - Aerosol dry deposition velocity profile (m/s)
+- `vdep_aero_3d(nlon, nlat, modlays)` - Vegetated aerosol dry deposition velocity profile (m/s)
+- `vdep_aero_urban_3d(nlon, nlat, modlays)` - Urban/non-vegetated aerosol dry deposition velocity profile (m/s)
 
 **User Options:**
-- `ifcanaeroddep` - Enable aerosol dry deposition
+- `ifcanaeroddep` - Logical switch in the namelist to enable/disable aerosol dry deposition calculations. When `.TRUE.`, activates both vegetated and urban/non-vegetated routines.
 - `aeroddep_diam` - Aerosol particle diameter (m)
 - `aeroddep_rho` - Aerosol particle density (kg/m^3)
 
----
+**Subroutines:**
+- `canopy_aero_ddep_katul2010` - Vegetated (Katul et al. 2010)
+- `canopy_aero_ddep_pleim2022` - Urban/non-vegetated (Pleim et al. 2022)
 **Capabilities:**
 - Read meteorological input data
 - Write model output in CF-compliant format

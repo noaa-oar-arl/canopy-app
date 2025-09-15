@@ -1470,7 +1470,8 @@ CONTAINS
         nfld3dxyzt = 0
 
         nfld3dxyzt = nfld3dxyzt + 1 !LAD
-
+        nfld3dxyzt = nfld3dxyzt + 1 !VDEP_AERO
+        nfld3dxyzt = nfld3dxyzt + 1 !VDEP_AERO_URBAN
         if (ifcanwind .or. ifcanwaf) then
             nfld3dxyzt = nfld3dxyzt + 1 !CANWIND
         end if
@@ -1570,7 +1571,10 @@ CONTAINS
 
         set_index = set_index + 1
         c_lad    => fld3dxyzt( set_index )
-
+        set_index = set_index + 1
+        c_vdep_aero    => fld3dxyzt( set_index )
+        set_index = set_index + 1
+        c_vdep_aero_urban    => fld3dxyzt( set_index )
         if (ifcanwind .or. ifcanwaf) then
             set_index = set_index + 1
             c_canwind    => fld3dxyzt( set_index )

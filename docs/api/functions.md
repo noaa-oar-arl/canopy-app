@@ -82,6 +82,12 @@ For the complete alphabetical listing of all functions with full documentation:
 **Purpose:** Calculate monoterpene emission rates
 **Parameters:** Temperature, emission factors
 
+
+### `canopy_aero_ddep_pleim2022()`
+**Module:** `canopy_aero_ddep_mod.F90`
+**Purpose:** Calculate aerosol dry deposition velocity for urban/non-vegetated areas using Pleim et al. (2022). Controlled by the `ifcanaeroddep` namelist option.
+**Parameters:** Wind speed, particle properties, temperature, pressure, surface type, output velocity array
+
 ## C
 
 ### `calc_solar_zenith()`

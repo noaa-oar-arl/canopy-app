@@ -109,4 +109,6 @@
   icec_set        = 50.0
   gamma_set       = 5.0D-5
   Ramin_set       = 10.0
+!Canopy aerosol dry deposition-specific options
+  ifcanaeroddep = .TRUE.
 /

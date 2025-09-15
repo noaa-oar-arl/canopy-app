@@ -5,6 +5,9 @@
 !! all canopy model computations including radiation, wind, biogenic emissions,
 !! dry deposition, and other canopy processes.
 !!
+!! Includes urban/non-vegetated aerosol dry deposition velocity calculation using Pleim et al. (2022)
+!! Output variable: vdep_aero_urban_3d (2D) or vdep_aero_urban (1D)
+!!
 !! \author Patrick C. Campbell
 !! \date October 2022
 
@@ -60,6 +63,8 @@ SUBROUTINE canopy_calcs(nn)
 !! \brief Local variables for canopy calculations
 !! \{
     integer i,j,k,loc                       !> Loop counters and location index
+    !real(rk), allocatable :: vdep_aero_urban_3d(:,:,:)
+    !real(rk), allocatable :: vdep_aero_urban(:,:)
     INTEGER  :: int_nlaic                   !> Int number of LAI timesteps elapsed in the current model timestep
     INTEGER,  save :: int_nlaip             !> Int number of LAI timesteps elapsed in the past model timestep
     REAL(rk) :: nlaic, nlaip                !> Number of LAI timesteps elapsed in past and current model timesteps
@@ -2561,13 +2566,20 @@ SUBROUTINE canopy_calcs(nn)
                                 call exit(2)
                             end if
                         end if
-                    ! --- Sub-canopy aerosol dry deposition (Katul et al. 2010) ---
-                                if (ifcanaeroddep) then
-                                    if (.not. allocated(vdep_aero_3d)) then
-                                        allocate(vdep_aero_3d(nlon,nlat,modlays))
-                                    end if
-                                    call canopy_aero_ddep_katul2010(modlays, zk, hcmref, lad_3d(i,j,:), u_can_3d(i,j,:), aeroddep_diam, aeroddep_rho, tka_3d(i,j,:), pressa_3d(i,j,:), vdep_aero_3d(i,j,:))
+                        ! --- Sub-canopy aerosol dry deposition (Katul et al. 2010) ---
+                        if (ifcanaeroddep) then
+                            !if (.not. allocated(vdep_aero_3d)) then
+                            !    allocate(vdep_aero_3d(nlon,nlat,modlays))
+                            !end if
+                            call canopy_aero_ddep_katul2010(modlays, zk, hcmref, lad_3d(i,j,:), u_can_3d(i,j,:), aeroddep_diam, aeroddep_rho, tka_3d(i,j,:), pressa_3d(i,j,:), vdep_aero_3d(i,j,:))
+                            ! Urban/non-vegetated dry deposition (Pleim et al. 2022)
+                            if (vtyperef == 13 .or. vtyperef == 15 .or. vtyperef == 16 .or. vtyperef == 17) then ! Urban, bare soil, snow/ice, water
+                                if (.not. allocated(vdep_aero_urban_3d)) then
+                                    allocate(vdep_aero_urban_3d(nlon,nlat,modlays))
                                 end if
+                                call canopy_aero_ddep_pleim2022(modlays, u_can_3d(i,j,:), aeroddep_diam, aeroddep_rho, tka_3d(i,j,:), pressa_3d(i,j,:), 1, vdep_aero_urban_3d(i,j,:))
+                            end if
+                        end if
                     else
                         write(*,*)  'Warning VIIRS/MODIS VTYPE ', vtyperef, ' is not supported...continue'
                     end if   !Vegetation types
@@ -5095,13 +5107,20 @@ SUBROUTINE canopy_calcs(nn)
                             call exit(2)
                         end if
                     end if
-                ! --- Sub-canopy aerosol dry deposition (Katul et al. 2010) ---
-                                if (ifcanaeroddep) then
-                                    if (.not. allocated(vdep_aero_3d)) then
-                                        allocate(vdep_aero_3d(nlat*nlon,modlays))
-                                    end if
-                                    call canopy_aero_ddep_katul2010(modlays, zk, hcmref, lad(loc,:), u_can(loc,:), aeroddep_diam, aeroddep_rho, tka(loc,:), pressa(loc,:), vdep_aero(loc,:))
-                                end if
+                    ! --- Sub-canopy aerosol dry deposition (Katul et al. 2010) ---
+                    if (ifcanaeroddep) then
+                        !if (.not. allocated(vdep_aero_3d)) then
+                        !    allocate(vdep_aero_3d(nlat*nlon,modlays))
+                        !end if
+                        call canopy_aero_ddep_katul2010(modlays, zk, hcmref, lad(loc,:), u_can(loc,:), aeroddep_diam, aeroddep_rho, tka(loc,:), pressa(loc,:), vdep_aero(loc,:))
+                        ! Urban/non-vegetated dry deposition (Pleim et al. 2022)
+                        if (vtyperef == 13 .or. vtyperef == 15 .or. vtyperef == 16 .or. vtyperef == 17) then ! Urban, bare soil, snow/ice, water
+                            if (.not. allocated(vdep_aero_urban)) then
+                                allocate(vdep_aero_urban(nlat*nlon,modlays))
+                            end if
+                            call canopy_aero_ddep_pleim2022(modlays, u_can(loc,:), aeroddep_diam, aeroddep_rho, tka(loc,:), pressa(loc,:), 1, vdep_aero_urban(loc,:))
+                        end if
+                    end if
                 else
                     write(*,*)  'Warning VIIRS/MODIS VTYPE ', vtyperef, ' is not supported...continue'
                 end if   !Vegetation types
