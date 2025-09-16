@@ -75,25 +75,15 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: zk                  ( : )
 
     !> \brief Aerosol dry deposition velocity profile (vegetated)
-    !> \details Output: sub-canopy aerosol dry deposition velocity (Katul et al. 2010)
-    !! \param units m/s
+    !> \details Output: sub-canopy aerosol dry deposition velocity (Katul et al. 2010) or urban/non-vegetated aerosol dry deposition velocity (Pleim et al. 2022)
+    !! \param units cm/s
     real(rk), allocatable :: vdep_aero_3d       ( :, :, : )
 
 
     !> \brief Aerosol dry deposition velocity profile (vegetated) (1D text output)
-    !> \details Output: sub-canopy aerosol dry deposition velocity (Katul et al. 2010)
-    !! \param units m/s
+    !> \details Output: sub-canopy aerosol dry deposition velocity (Katul et al. 2010) or urban/non-vegetated aerosol dry deposition velocity (Pleim et al. 2022)
+    !! \param units cm/s
     real(rk), allocatable :: vdep_aero          ( :, : )
-
-    !> \brief Aerosol dry deposition velocity profile (urban/non-vegetated)
-    !> \details Output: urban/non-vegetated aerosol dry deposition velocity (Pleim et al. 2022)
-    !! \param units m/s
-    real(rk), allocatable :: vdep_aero_urban_3d ( :, :, : )
-
-    !> \brief Aerosol dry deposition velocity profile (1D text output)
-    !> \details Output: urban/non-vegetated aerosol dry deposition velocity (Pleim et al. 2022) for 1D text mode
-    !! \param units m/s
-    real(rk), allocatable :: vdep_aero_urban    ( :, : )
 
     !> \brief Normalized height (z/h)
     !> \details Normalized height relative to canopy height (z/h)
@@ -594,6 +584,7 @@ MODULE canopy_canvars_mod
     TYPE(fld3ddata), POINTER     :: c_ddep_macrn
     TYPE(fld3ddata), POINTER     :: c_ddep_mvkn
     TYPE(fld3ddata), POINTER     :: c_ddep_isnp
+    TYPE(fld3ddata), POINTER     :: c_ddep_aero
 
     !> \}
 

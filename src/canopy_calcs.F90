@@ -6,7 +6,7 @@
 !! dry deposition, and other canopy processes.
 !!
 !! Includes urban/non-vegetated aerosol dry deposition velocity calculation using Pleim et al. (2022)
-!! Output variable: vdep_aero_urban_3d (2D) or vdep_aero_urban (1D)
+!! Output variable: vdep_aero_3d (2D) or vdep_aero (1D)
 !!
 !! \author Patrick C. Campbell
 !! \date October 2022
@@ -53,7 +53,8 @@ SUBROUTINE canopy_calcs(nn)
     use canopy_phot_mod       !> photolysis attenuation calculations
     use canopy_eddy_mod       !> eddy diffusivity calculations
     use canopy_bioemi_mod     !> biogenic emission calculations
-    use canopy_drydep_mod     !> dry deposition calculations
+    use canopy_drydep_mod     !> gas dry deposition calculations
+    use canopy_aero_ddep_mod  !> aerosol dry deposition calculations
 
     IMPLICIT NONE
 
@@ -63,8 +64,6 @@ SUBROUTINE canopy_calcs(nn)
 !! \brief Local variables for canopy calculations
 !! \{
     integer i,j,k,loc                       !> Loop counters and location index
-    !real(rk), allocatable :: vdep_aero_urban_3d(:,:,:)
-    !real(rk), allocatable :: vdep_aero_urban(:,:)
     INTEGER  :: int_nlaic                   !> Int number of LAI timesteps elapsed in the current model timestep
     INTEGER,  save :: int_nlaip             !> Int number of LAI timesteps elapsed in the past model timestep
     REAL(rk) :: nlaic, nlaip                !> Number of LAI timesteps elapsed in past and current model timesteps
@@ -1529,6 +1528,22 @@ SUBROUTINE canopy_calcs(nn)
                                     call exit(2)
                                 end if
                             end if
+
+                            ! --- Sub-canopy aerosol dry deposition through vegetative canopies (Katul et al. 2010) ---
+                            if (ifcanaeroddep) then
+                                if (ifcanwind) then !ubar needed for rbl
+                                    call canopy_aero_ddep_katul2010(modlays, lad_3d(i,j,:), canWIND_3d(i,j,:), &
+                                        aeroddep_diam, aeroddep_rho, tka_3d(i,j,:), pressa_3d(i,j,:), vdep_aero_3d(i,j,:)) ! [cm/s]
+                                else
+                                    write(*,*)  'Wrong IfCanWind choice of ', ifcanwind, ' in namelist...exiting'
+                                    write(*,*)  'Set IfCanwind to True to use IfCanAeroDDep'
+                                    call exit(2)
+                                end if
+                                !  --- Sub-canopy aerosol dry deposition to soil (i.e., first model layer) beneath canopy (Pleim et al. 2022) ---
+                                call canopy_aero_ddep_pleim2022(canWIND_3d(i,j,2), &
+                                    aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 2, vdep_aero_3d(i,j,1))
+                            end if
+
                         else
                             if (biospec_opt == 0 .or. biospec_opt == 1) then
                                 emi_isop_3d(i,j,:) = 0.0_rk
@@ -1956,6 +1971,11 @@ SUBROUTINE canopy_calcs(nn)
                                 call exit(2)
                             end if
                         end if
+                        ! --- Sub-canopy aerosol dry deposition over barren/soil surfaces (Pleim et al. 2022) ---
+                        if (ifcanaeroddep) then
+                            call canopy_aero_ddep_pleim2022(ubzref, &
+                                aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 2, vdep_aero_3d(i,j,1))
+                        end if
                     else if (vtyperef .eq. 13) then !Urban and Built Up
 ! ... user option to calculate dry deposition velocity...for land use outside of vegetated canopies
                         if (ifcanddepgas ) then
@@ -2260,6 +2280,11 @@ SUBROUTINE canopy_calcs(nn)
                                 write(*,*)  'Set chemmechgas_opt = 0 (RACM2) for now'
                                 call exit(2)
                             end if
+                        end if
+                        ! --- Sub-canopy aerosol dry deposition over urban surfaces (Pleim et al. 2022) ---
+                        if (ifcanaeroddep) then
+                            call canopy_aero_ddep_pleim2022(ubzref, &
+                                aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 1, vdep_aero_3d(i,j,1))
                         end if
                     else if (vtyperef .eq. 0) then !Water from FV3 (usually vtype = 17 for water)
 ! ... user option to calculate dry deposition velocity...for land use outside of vegetated canopies
@@ -2566,19 +2591,10 @@ SUBROUTINE canopy_calcs(nn)
                                 call exit(2)
                             end if
                         end if
-                        ! --- Sub-canopy aerosol dry deposition (Katul et al. 2010) ---
+                        ! --- Sub-canopy aerosol dry deposition over default surfaces (Pleim et al. 2022) ---
                         if (ifcanaeroddep) then
-                            !if (.not. allocated(vdep_aero_3d)) then
-                            !    allocate(vdep_aero_3d(nlon,nlat,modlays))
-                            !end if
-                            call canopy_aero_ddep_katul2010(modlays, zk, hcmref, lad_3d(i,j,:), u_can_3d(i,j,:), aeroddep_diam, aeroddep_rho, tka_3d(i,j,:), pressa_3d(i,j,:), vdep_aero_3d(i,j,:))
-                            ! Urban/non-vegetated dry deposition (Pleim et al. 2022)
-                            if (vtyperef == 13 .or. vtyperef == 15 .or. vtyperef == 16 .or. vtyperef == 17) then ! Urban, bare soil, snow/ice, water
-                                if (.not. allocated(vdep_aero_urban_3d)) then
-                                    allocate(vdep_aero_urban_3d(nlon,nlat,modlays))
-                                end if
-                                call canopy_aero_ddep_pleim2022(modlays, u_can_3d(i,j,:), aeroddep_diam, aeroddep_rho, tka_3d(i,j,:), pressa_3d(i,j,:), 1, vdep_aero_urban_3d(i,j,:))
-                            end if
+                            call canopy_aero_ddep_pleim2022(ubzref, &
+                                aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 3, vdep_aero_3d(i,j,1))
                         end if
                     else
                         write(*,*)  'Warning VIIRS/MODIS VTYPE ', vtyperef, ' is not supported...continue'
@@ -4070,6 +4086,22 @@ SUBROUTINE canopy_calcs(nn)
                                 call exit(2)
                             end if
                         end if
+
+                        ! --- Sub-canopy aerosol dry deposition through vegetative canopies (Katul et al. 2010) ---
+                        if (ifcanaeroddep) then
+                            if (ifcanwind) then !ubar needed for rbl
+                                call canopy_aero_ddep_katul2010(modlays, lad(loc,:), canWIND(loc,:), &
+                                    aeroddep_diam, aeroddep_rho, tka(loc,:), pressa(loc,:), vdep_aero(loc,:)) ! [cm/s]
+                            else
+                                write(*,*)  'Wrong IfCanWind choice of ', ifcanwind, ' in namelist...exiting'
+                                write(*,*)  'Set IfCanwind to True to use IfCanAeroDDep'
+                                call exit(2)
+                            end if
+                            !  --- Sub-canopy aerosol dry deposition to soil (i.e., first model layer) beneath canopy (Pleim et al. 2022) ---
+                            call canopy_aero_ddep_pleim2022(canWIND(loc,2), &
+                                aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 2, vdep_aero(loc,1))
+                        end if
+
                     else
                         if (biospec_opt == 0 .or. biospec_opt == 1) then
                             emi_isop(loc,:) = 0.0_rk
@@ -4497,6 +4529,11 @@ SUBROUTINE canopy_calcs(nn)
                             call exit(2)
                         end if
                     end if
+                    ! --- Sub-canopy aerosol dry deposition over barren/soil surfaces (Pleim et al. 2022) ---
+                    if (ifcanaeroddep) then
+                        call canopy_aero_ddep_pleim2022(ubzref, &
+                            aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 2, vdep_aero(loc,1))
+                    end if
                 else if (vtyperef .eq. 13) then !Urban and Built Up
 ! ... user option to calculate dry deposition velocity...for land use outside of vegetated canopies
                     if (ifcanddepgas ) then
@@ -4801,6 +4838,11 @@ SUBROUTINE canopy_calcs(nn)
                             write(*,*)  'Set chemmechgas_opt = 0 (RACM2) for now'
                             call exit(2)
                         end if
+                    end if
+                    ! --- Sub-canopy aerosol dry deposition over urban surfaces (Pleim et al. 2022) ---
+                    if (ifcanaeroddep) then
+                        call canopy_aero_ddep_pleim2022(ubzref, &
+                            aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 1, vdep_aero(loc,1))
                     end if
                 else if (vtyperef .eq. 0) then !Water from FV3 (usually vtype = 17 for water)
 ! ... user option to calculate dry deposition velocity...for land use outside of vegetated canopies
@@ -5107,19 +5149,10 @@ SUBROUTINE canopy_calcs(nn)
                             call exit(2)
                         end if
                     end if
-                    ! --- Sub-canopy aerosol dry deposition (Katul et al. 2010) ---
+                    ! --- Sub-canopy aerosol dry deposition over default surfaces (Pleim et al. 2022) ---
                     if (ifcanaeroddep) then
-                        !if (.not. allocated(vdep_aero_3d)) then
-                        !    allocate(vdep_aero_3d(nlat*nlon,modlays))
-                        !end if
-                        call canopy_aero_ddep_katul2010(modlays, zk, hcmref, lad(loc,:), u_can(loc,:), aeroddep_diam, aeroddep_rho, tka(loc,:), pressa(loc,:), vdep_aero(loc,:))
-                        ! Urban/non-vegetated dry deposition (Pleim et al. 2022)
-                        if (vtyperef == 13 .or. vtyperef == 15 .or. vtyperef == 16 .or. vtyperef == 17) then ! Urban, bare soil, snow/ice, water
-                            if (.not. allocated(vdep_aero_urban)) then
-                                allocate(vdep_aero_urban(nlat*nlon,modlays))
-                            end if
-                            call canopy_aero_ddep_pleim2022(modlays, u_can(loc,:), aeroddep_diam, aeroddep_rho, tka(loc,:), pressa(loc,:), 1, vdep_aero_urban(loc,:))
-                        end if
+                        call canopy_aero_ddep_pleim2022(ubzref, &
+                            aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 3, vdep_aero(loc,1))
                     end if
                 else
                     write(*,*)  'Warning VIIRS/MODIS VTYPE ', vtyperef, ' is not supported...continue'

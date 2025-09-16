@@ -82,8 +82,9 @@ SUBROUTINE canopy_init
 
     ! Initialize aerosol dry deposition arrays
     if(allocated(vdep_aero_3d))       vdep_aero_3d(:,:,:)      = fillreal
-    if(allocated(vdep_aero_urban_3d)) vdep_aero_urban_3d(:,:,:) = fillreal
-    if(allocated(vdep_aero_urban))    vdep_aero_urban(:,:)     = fillreal
+    if(allocated(vdep_aero))          vdep_aero(:,:)           = fillreal
+
+    ! Initialize aerosol ppfd and other biogenic arrays
     if(allocated(ppfd_sun240))        ppfd_sun240(:,:)         = fillreal
     if(allocated(ppfd_shade240))      ppfd_shade240(:,:)       = fillreal
     if(allocated(daily_maxt2m))       daily_maxt2m(:)          = fillreal

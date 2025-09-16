@@ -81,8 +81,8 @@ SUBROUTINE canopy_alloc
 
     !> \brief Allocate aerosol dry deposition arrays
     if(.not.allocated(vdep_aero_3d))       allocate(vdep_aero_3d(nlon,nlat,modlays))
-    if(.not.allocated(vdep_aero_urban_3d)) allocate(vdep_aero_urban_3d(nlon,nlat,modlays))
-    if(.not.allocated(vdep_aero_urban))    allocate(vdep_aero_urban(nlat*nlon,modlays))
+    if(.not.allocated(vdep_aero))          allocate(vdep_aero(nlon*nlat,modlays))
+
 
     !> \brief Normalized height within canopy (z/hc)
     if(.not.allocated(zhc))                allocate(zhc(modlays))
