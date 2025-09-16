@@ -25,14 +25,14 @@ contains
 !> \param T Air temperature (K)
 !> \param P Air pressure (Pa)
 !> \param surface_type Integer code for surface type (1=urban, 2=bare soil, etc.)
-!> \param vdep_aero Output: aerosol deposition velocity for surface (m/s)
-    subroutine canopy_aero_ddep_pleim2022(u, d_p, rho_p, T, P, surface_type, vdep_aero)
+!> \param vdep Output: aerosol deposition velocity for surface (m/s)
+    subroutine canopy_aero_ddep_pleim2022(u, d_p, rho_p, T, P, surface_type, vdep)
 
         use canopy_const_mod                          !< Constants for canopy models
 
         integer, intent(in) :: surface_type
         real(rk), intent(in) :: u, d_p, rho_p, T, P
-        real(rk), intent(out) :: vdep_aero
+        real(rk), intent(out) :: vdep
 
         ! Physical constants
         real(rk), parameter :: kB = 1.380649e-23_rk   ! Boltzmann constant (J/K)
@@ -82,28 +82,30 @@ contains
         end select
 
         ! Total deposition velocity (m/s)
-        vdep_aero = 1.0_rk / r_aero + V_s
+        vdep = 1.0_rk / r_aero + V_s
         ! Convert to (cm/s)
-        vdep_aero = vdep_aero*100.0_rk
+        vdep = vdep*100.0_rk
 
     end subroutine canopy_aero_ddep_pleim2022
 
 !> \brief Sub-canopy aerosol dry deposition velocity following Katul et al. (2010)
 !> \param nlev Number of canopy layers
 !> \param lad Leaf area density profile (m^2/m^3)
+!> \param z canopy model level heights (m)
+!> \param hc canopy top level heights (m)
 !> \param u Array of wind speed profile (m/s)
 !> \param d_p Aerosol particle diameter (m)
 !> \param rho_p Particle density (kg/m^3)
 !> \param T Air temperature profile (K)
 !> \param P Air pressure profile (Pa)
-!> \param vdep_aero Output: aerosol deposition velocity profile (m/s)
-    subroutine canopy_aero_ddep_katul2010(nlev, lad, u, d_p, rho_p, T, P, vdep_aero)
+!> \param vdep Output: aerosol deposition velocity profile (m/s)
+    subroutine canopy_aero_ddep_katul2010(nlev, z, hc, lad, u, d_p, rho_p, T, P, vdep)
 
         use canopy_const_mod                !< Constants for canopy models
 
         integer, intent(in) :: nlev
-        real(rk), intent(in) :: lad(:), u(:), d_p, rho_p, T(:), P(:)
-        real(rk), intent(out) :: vdep_aero(nlev)
+        real(rk), intent(in) :: lad(:), z(:), u(:), hc, d_p, rho_p, T(:), P(:)
+        real(rk), intent(out) :: vdep(:)
 
         ! Physical constants
         real(rk), parameter :: kB = 1.380649e-23_rk   ! Boltzmann constant (J/K)
@@ -115,44 +117,49 @@ contains
         real(rk) :: D_air, rho_air, nu_air
 
         do i = 1, nlev
-            ! Calculate air density
-            rho_air = P(i) / (287.05_rk * T(i))
-            nu_air = mu_air / rho_air
+            if (z(i) .gt. 0.0 .and. z(i) .le. hc) then  !< Above ground level and at/below canopy top
+                ! Calculate air density
+                rho_air = P(i) / (287.05_rk * T(i))
+                nu_air = mu_air / rho_air
 
-            ! Cunningham slip correction factor
-            Cc = 1.0_rk + 2.52e-7_rk/d_p
+                ! Cunningham slip correction factor
+                Cc = 1.0_rk + 2.52e-7_rk/d_p
 
-            ! Brownian diffusion coefficient (m^2/s)
-            D_air = kB * T(i) * Cc / (3.0_rk * pi * mu_air * d_p)
+                ! Brownian diffusion coefficient (m^2/s)
+                D_air = kB * T(i) * Cc / (3.0_rk * pi * mu_air * d_p)
 
-            ! Particle settling velocity (m/s)
-            V_s = rho_p * g * d_p**2.0_rk * Cc / (18.0_rk * mu_air)
+                ! Particle settling velocity (m/s)
+                V_s = rho_p * g * d_p**2.0_rk * Cc / (18.0_rk * mu_air)
 
-            ! Particle Reynolds number
-            Re_p = u(i) * d_p / nu_air
+                ! Particle Reynolds number
+                Re_p = u(i) * d_p / nu_air
 
-            ! Schmidt number
-            Sc = nu_air / D_air
+                ! Schmidt number
+                Sc = nu_air / D_air
 
-            ! Stokes number
-            St = V_s / u(i)
+                ! Stokes number
+                St = V_s / u(i)
 
-            ! Laminar (Brownian) resistance
-            r_lam = 1.0_rk / (0.01_rk + 0.74_rk * D_air**0.67_rk * lad(i))
+                ! Laminar (Brownian) resistance
+                r_lam = 1.0_rk / (0.01_rk + 0.74_rk * D_air**0.67_rk * lad(i))
 
-            ! Impaction resistance
-            r_imp = 1.0_rk / (0.24_rk * St**0.6_rk * lad(i))
+                ! Impaction resistance
+                r_imp = 1.0_rk / (0.24_rk * St**0.6_rk * lad(i))
 
-            ! Interception resistance
-            r_int = 1.0_rk / (0.6_rk * d_p * lad(i))
+                ! Interception resistance
+                r_int = 1.0_rk / (0.6_rk * d_p * lad(i))
 
-            ! Total resistance (simplified sum)
-            r_total = r_lam + r_imp + r_int
+                ! Total resistance (simplified sum)
+                r_total = r_lam + r_imp + r_int
 
-            ! Deposition velocity (m/s)
-            vdep_aero(i) = 1.0_rk / r_total
-            ! Convert to (cm/s)
-            vdep_aero(i) = vdep_aero(i)*100.0_rk
+                ! Deposition velocity (m/s)
+                vdep(i) = 1.0_rk / r_total
+
+                ! Convert to (cm/s)
+                vdep(i) = vdep(i)*100.0_rk
+            else
+                vdep(i) = 0.0_rk
+            end if
         end do
 
     end subroutine canopy_aero_ddep_katul2010

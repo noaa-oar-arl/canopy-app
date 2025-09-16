@@ -266,4 +266,13 @@ SUBROUTINE canopy_init
         if(allocated(ddep_isnp_3d))        ddep_isnp_3d(:,:,:) = fillreal
     end if
 
+!-------------------------------------------------------------------------------
+! Initialize arrays for Aerosol Dry Deposition
+!-------------------------------------------------------------------------------
+
+    if (ifcanaeroddep) then
+        if(allocated(vdep_aero_3d))       vdep_aero_3d(:,:,:)      = fillreal
+        if(allocated(vdep_aero))          vdep_aero(:,:)           = fillreal
+    end if
+
 END SUBROUTINE canopy_init

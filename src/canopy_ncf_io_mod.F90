@@ -1486,8 +1486,6 @@ CONTAINS
         nfld3dxyzt = 0
 
         nfld3dxyzt = nfld3dxyzt + 1 !LAD
-        nfld3dxyzt = nfld3dxyzt + 1 !VDEP_AERO
-        nfld3dxyzt = nfld3dxyzt + 1 !VDEP_AERO_URBAN
         if (ifcanwind .or. ifcanwaf) then
             nfld3dxyzt = nfld3dxyzt + 1 !CANWIND
         end if
@@ -1578,7 +1576,7 @@ CONTAINS
         end if
 
         if (ifcanaeroddep) then !Aerosol Dry Deposition fields
-            nfld3dxyzt = nfld3dxyzt + 1 !DDEP_AERO
+            nfld3dxyzt = nfld3dxyzt + 1 !VDEP_AERO
         end if
 
         if(.not.allocated(fld3dxyzt)) ALLOCATE ( fld3dxyzt ( nfld3dxyzt ) )

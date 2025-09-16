@@ -1532,7 +1532,7 @@ SUBROUTINE canopy_calcs(nn)
                             ! --- Sub-canopy aerosol dry deposition through vegetative canopies (Katul et al. 2010) ---
                             if (ifcanaeroddep) then
                                 if (ifcanwind) then !ubar needed for rbl
-                                    call canopy_aero_ddep_katul2010(modlays, lad_3d(i,j,:), canWIND_3d(i,j,:), &
+                                    call canopy_aero_ddep_katul2010(modlays, zk, hcmref, lad_3d(i,j,:), canWIND_3d(i,j,:), &
                                         aeroddep_diam, aeroddep_rho, tka_3d(i,j,:), pressa_3d(i,j,:), vdep_aero_3d(i,j,:)) ! [cm/s]
                                 else
                                     write(*,*)  'Wrong IfCanWind choice of ', ifcanwind, ' in namelist...exiting'
@@ -4090,7 +4090,7 @@ SUBROUTINE canopy_calcs(nn)
                         ! --- Sub-canopy aerosol dry deposition through vegetative canopies (Katul et al. 2010) ---
                         if (ifcanaeroddep) then
                             if (ifcanwind) then !ubar needed for rbl
-                                call canopy_aero_ddep_katul2010(modlays, lad(loc,:), canWIND(loc,:), &
+                                call canopy_aero_ddep_katul2010(modlays, zk, hcmref, lad(loc,:), canWIND(loc,:), &
                                     aeroddep_diam, aeroddep_rho, tka(loc,:), pressa(loc,:), vdep_aero(loc,:)) ! [cm/s]
                             else
                                 write(*,*)  'Wrong IfCanWind choice of ', ifcanwind, ' in namelist...exiting'
