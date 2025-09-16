@@ -119,7 +119,7 @@ contains
         do i = 1, nlev
             if (z(i) .gt. 0.0 .and. z(i) .le. hc) then  !< Above ground level and at/below canopy top
                 ! Calculate air density
-                rho_air = P(i) / (287.05_rk * T(i))
+                rho_air = (P(i)*100.0_rk) / (287.05_rk * T(i))  !need to convert pressure profile from mb to Pa
                 nu_air = mu_air / rho_air
 
                 ! Cunningham slip correction factor
@@ -157,6 +157,7 @@ contains
 
                 ! Convert to (cm/s)
                 vdep(i) = vdep(i)*100.0_rk
+
             else
                 vdep(i) = 0.0_rk
             end if
