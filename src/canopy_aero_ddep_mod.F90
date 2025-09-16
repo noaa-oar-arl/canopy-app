@@ -102,7 +102,7 @@ contains
         use canopy_const_mod                !< Constants for canopy models
 
         integer, intent(in) :: nlev
-        real(rk), intent(in) :: lad(nlev), u(nlev), d_p, rho_p, T(nlev), P(nlev)
+        real(rk), intent(in) :: lad(:), u(:), d_p, rho_p, T(:), P(:)
         real(rk), intent(out) :: vdep_aero(nlev)
 
         ! Physical constants
