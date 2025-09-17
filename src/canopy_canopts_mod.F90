@@ -114,7 +114,7 @@ MODULE canopy_canopts_mod
     !> \brief Aerosol particle density (kg/m^3)
     !> \details User-settable density for aerosol dry deposition calculations
     !! \param units kg/m^3
-    !! \param default 1800.0 kg/m^3 (typical for dust)
+    !! \param default 1500.0 kg/m^3 (typical for dust)
     real(rk)            ::    aeroddep_rho
 
     !> \brief PAI calculation option
