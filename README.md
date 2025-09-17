@@ -240,17 +240,17 @@ Current Canopy-App components:
 
     - `canopy_bioemi_mod.F90`
 
-  6.  Sub-Canopy Aerosol Dry Deposition (m/s). Supports multiple resistance parameterizations selectable via the `aeroddep_opt` namelist option:
+5.  Sub-Canopy Aerosol Dry Deposition (cm s-1). Supports multiple sub-canopy resistance parameterizations selectable via the `aeroddep_opt` namelist options based on Katul et al. (2010), Petroff et al. (2008), or Zhang et al. (2010) empirical formulations for vegetative canopy regions (scaled to LAD for each sub-canopy level) and Pleim et al. (2022) for bare soil beneath canopy and for regions outside of vegetation (e.g., bare soil, urban, water, etc.):
+
+    Namelist Option : `ifcandaeroddep`  Output Variables:  `ddep_aero` (cm s-1)
+
       - `0`: Katul et al. (2010) [default] — multilayer resistance network using leaf area density, wind, and particle properties.
       - `1`: Zhang et al. (2001) — alternative empirical resistance formulas for laminar, impaction, and interception terms.
       - `2`: Petroff et al. (2008) — parameterized resistances with tunable coefficients and exponents.
     The option is set in the namelist as `aeroddep_opt`, and controls which resistance formulas are used in `canopy_aero_ddep_mod.F90`.
-    - `canopy_aero_ddep_mod.F90`
-
-    - `canopy_aero_ddep_mod.F90`
 
 
-5.  In-Canopy leaf-level gas dry deposition (cm s-1). Based on the revised parameterization for gaseous dry deposition from Zhang et al. (2003), and adapted from the Atmospheric Chemistry and Canopy Exchange Simulation System (ACCESS), Saylor (2013). Ground soil underneath and outside canopy (i.e., barren vtype) follows ACCESS soils.  Drydep to urban vtypes follows [Gao and Shen 2018](https://www.sciencedirect.com/science/article/pii/S0360132318301185) and uses building reaction probabilities (gamma) and Maxwell-Boltzmann average gas velocities (Cave=sqrt(8RT/pi*M)).  Drydep to water vtype surfaces follows [CMAQv5.5](https://github.com/USEPA/CMAQ) and depends on above water air temperature, humidity, friction velocity, and Henry's Law.  Drydep to snow/ice vtypes follow [CMAQv5.5](https://github.com/USEPA/CMAQ) methods for snow/ice resistances and reactivities relative to HNO3. Snow/ice cover is dynamic and depends on predicted snow/ice (`snowc_ave` and `icec`) cover conditions.
+6.  In-Canopy leaf-level gas dry deposition (cm s-1). Based on the revised parameterization for gaseous dry deposition from Zhang et al. (2003), and adapted from the Atmospheric Chemistry and Canopy Exchange Simulation System (ACCESS), Saylor (2013). Ground soil underneath and outside canopy (i.e., barren vtype) follows ACCESS soils.  Drydep to urban vtypes follows [Gao and Shen 2018](https://www.sciencedirect.com/science/article/pii/S0360132318301185) and uses building reaction probabilities (gamma) and Maxwell-Boltzmann average gas velocities (Cave=sqrt(8RT/pi*M)).  Drydep to water vtype surfaces follows [CMAQv5.5](https://github.com/USEPA/CMAQ) and depends on above water air temperature, humidity, friction velocity, and Henry's Law.  Drydep to snow/ice vtypes follow [CMAQv5.5](https://github.com/USEPA/CMAQ) methods for snow/ice resistances and reactivities relative to HNO3. Snow/ice cover is dynamic and depends on predicted snow/ice (`snowc_ave` and `icec`) cover conditions.
 
 Namelist Option : `ifcanddepgas`   Output Variables: see [Table 2](#table-2-canopy-app-gas-dry-deposition-output-variables-racm2) below for the Regional Atmospheric Chemistry Model, version 2 (RACM2) [Goliff et al., 2013](https://doi.org/10.1016/j.atmosenv.2012.11.038) gas phase chemical mechanism (currently only option) including transported species
 
@@ -266,9 +266,9 @@ canopy photolysis attenuation correction factors (`rjcf`), and derived Leaf Area
 **Aerosol Dry Deposition Output:**
 When `ifcanaeroddep=.TRUE.`, output will include 3D canopy-resolved aerosol dry deposition velocity profiles. The resistance parameterization is selected by `aeroddep_opt`:
 
-| Variable Name      | Variable Description (Units: m/s)                |
+| Variable Name      | Variable Description (Units: cm s-1)                |
 |-------------------|--------------------------------------------------|
-| `vdep_aero_3d`    | Sub-canopy aerosol dry deposition velocity profile (using selected resistance option) |
+| `ddep_aero`       | Sub-canopy aerosol dry deposition velocity profile (using selected resistance option) |
 
 The output is provided for each grid cell and canopy layer, and is controlled by the user options `aeroddep_diam` and `aeroddep_rho` in the namelist.
 

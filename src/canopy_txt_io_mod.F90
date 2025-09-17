@@ -276,7 +276,7 @@ CONTAINS
                 write(10, '(a15, a24)') 'time stamp: ', TIMENOW
                 write(10, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(10, '(a30, i6)') 'number of model layers: ', modlays
-                write(10, '(a8, a9, a12, a14, a17, a20, a20)') 'lat', 'lon', 'height (m)', 'LAD (m2 m-3)', 'vdep_aero (cm/s)'
+                write(10, '(a8, a9, a12, a14, a17, a20, a20)') 'lat', 'lon', 'height (m)', 'LAD (m2 m-3)', 'ddep_aero (cm/s)'
                 do loc=1, nlat*nlon
                     do k=1, modlays
                         write(10, '(f8.2, f9.2, f10.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
