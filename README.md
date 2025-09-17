@@ -240,7 +240,7 @@ Current Canopy-App components:
 
     - `canopy_bioemi_mod.F90`
 
-5.  Sub-Canopy Aerosol Dry Deposition (cm s-1). Supports multiple sub-canopy resistance parameterizations selectable via the `aeroddep_opt` namelist options based on Katul et al. (2010), Petroff et al. (2008), or Zhang et al. (2010) empirical formulations for vegetative canopy regions (scaled to LAD for each sub-canopy level) and Pleim et al. (2022) for bare soil beneath canopy and for regions outside of vegetation (e.g., bare soil, urban, water, etc.):
+5.  Sub-Canopy Aerosol Dry Deposition (cm s-1). Supports multiple sub-canopy resistance parameterizations selectable via the `aeroddep_opt` namelist options based on Katul et al. (2010), Petroff et al. (2008), or Zhang et al. (2001) empirical formulations for vegetative canopy regions (scaled to LAD for each sub-canopy level) and Pleim et al. (2022) for bare soil beneath canopy and for regions outside of vegetation (e.g., bare soil, urban, water, etc.):
 
     Namelist Option : `ifcandaeroddep`  Output Variables:  `ddep_aero` (cm s-1)
 
@@ -554,7 +554,6 @@ Otherwise, please contact Patrick.C.Campbell@noaa.gov for other GFSv16 data peri
 | `icec_set`      | Set default value for threshold percent ice cover, above which grid/point at ground or water is treated as dominant covered by ice  (Default = 50%).  Note: This applies at grids/points both beneath the vegetative canopies at ground as well as grids/points outside of contiguous canopies, e.g., barren lands, snow/ice, urban, and water) |
 | `gamma_set`      | Set default reaction probability for gas dry deposition for respective building surface (default = 5.0D-5; Based on average of range in gamma across different building surfaces, e.g., 10-8 for glass and metal to 10-4 for activated carbon and brick; Gao and Shen (2018); https://doi.org/10.1016/j.buildenv.2018.02.046). Note: This only applies across dominant urban grids/points. |
 | `Ramin_set`      | Set default minimum aerodynamic resistance for gas dry deposition (Default 10 s/m) |
-
 |                 | **Canopy aerosol dry deposition-specific options**                                   |
 | `ifcanaeroddep`  | logical option to enable/disable aerosol dry deposition (default: `.FALSE.`)         |
 | `aeroddep_opt`   | integer option to select resistance parameterization for sub-canopy aerosol dry deposition: `0`=Katul et al. (2010) [default], `1`=Zhang et al. (2001), `2`=Petroff et al. (2008) |
@@ -592,15 +591,24 @@ Otherwise, please contact Patrick.C.Campbell@noaa.gov for other GFSv16 data peri
 
 - Katul, G.G., Mahrt, L., Poggi, D., and Sanz, C. (2004). One- and two-equation models for canopy turbulence. Boundary-Layer Meteorol. 113: 81–109. https://doi.org/10.1023/B:BOUN.0000037333.48760.e5
 
+- Katul, G. G., T. Grönholm, S. Launiainen, and T. Vesala (2010), Predicting the dry deposition of aerosol‐sized particles using layer‐resolved canopy and pipe flow analogy models: Role of turbophoresis, J. Geophys. Res., 115, D12202, doi:10.1029/2009JD012853
+
 - Makar, P., Staebler, R., Akingunola, A. et al. The effects of forest canopy shading and turbulence on boundary layer ozone. Nat Commun 8, 15243 (2017). https://doi.org/10.1038/ncomms1524
 
 - Massman, W. J., J.M. Forthofer, and M.A. Finney. (2017). An improved canopy wind model for predicting wind adjustment factors and wildland fire behavior. Canadian Journal of Forest Research. 47(5): 594-603. https://doi.org/10.1139/cjfr-2016-0354
+
+- Petroff, A., A. Mailliat, M. Amielh, F. Anselmet. (2008).  Aerosol dry deposition on vegetative canopies. Part I: Review of present knowledge.  Atmospheric Environment, 42, 16, 3625-2653.  https://doi.org/10.1016/j.atmosenv.2007.09.043.
+
+- Pleim, J. E., Ran, L., Saylor, R. D., Willison, J., & Binkowski, F. S. (2022). A new aerosol dry deposition model for air quality and climate modeling. Journal of Advances in Modeling Earth Systems, 14, e2022MS003050. https://doi.org/10.1029/2022MS003050
 
 - Saylor, R. D.: The Atmospheric Chemistry and Canopy Exchange Simulation System (ACCESS): model description and application to a temperate deciduous forest canopy, Atmos. Chem. Phys., 13, 693–715, https://doi.org/10.5194/acp-13-693-2013, 2013.
 
 - Silva, S. J., Heald, C. L., and Guenther, A. B.: Development of a reduced-complexity plant canopy physics surrogate model for use in chemical transport models: a case study with GEOS-Chem v12.3.0, Geosci. Model Dev., 13, 2569–2585, https://doi.org/10.5194/gmd-13-2569-2020, 2020.
 
 - Zhang, L., Brook, J. R., and Vet, R.: A revised parameterization for gaseous dry deposition in air-quality models, Atmos. Chem. Phys., 3, 2067–2082, https://doi.org/10.5194/acp-3-2067-2003, 2003.
+
+- Zhang, L., S. Gong, J. Padro, and L. Barrie (2001), A size-segregated particle dry deposition scheme for an atmospheric aerosol module, Atmos.
+Environ., 35, 549–560.
 
 ## Development
 
