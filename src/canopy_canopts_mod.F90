@@ -93,22 +93,30 @@ MODULE canopy_canopts_mod
     !! \param default .FALSE.
     logical             ::    ifcanddepgas
 
-        !> \brief Sub-canopy aerosol dry deposition option
-        !> \details Logical option to enable sub-canopy aerosol dry deposition (Katul et al. 2010)
-        !! \param default .FALSE.
-        logical             ::    ifcanaeroddep
+    !> \brief Sub-canopy aerosol dry deposition option
+    !> \details Logical option to enable sub-canopy aerosol dry deposition (Katul et al. 2010)
+    !! \param default .FALSE.
+    logical             ::    ifcanaeroddep
 
-        !> \brief Aerosol particle diameter (m)
-        !> \details User-settable diameter for aerosol dry deposition calculations
-        !! \param units meters (m)
-        !! \param default 1.0e-6 m (1 micron)
-        real(rk)            ::    aeroddep_diam
+    !> \brief Sub-canopy aerosol dry deposition option for algorithm used
+    !> \details Logical option to enable sub-canopy aerosol dry deposition (Katul et al. 2010)
+    !! - 0 = Katul et al. (2010)
+    !! - 1 = Petroff et al. (2008)
+    !! - 2 = Zhang et al. (2001)
+    integer             ::    aeroddep_opt
 
-        !> \brief Aerosol particle density (kg/m^3)
-        !> \details User-settable density for aerosol dry deposition calculations
-        !! \param units kg/m^3
-        !! \param default 1800.0 kg/m^3 (typical for dust)
-        real(rk)            ::    aeroddep_rho
+    !> \brief Aerosol particle diameter (m)
+    !> \details User-settable diameter for aerosol dry deposition calculations
+    !! \param units meters (m)
+    !! \param default 1.0e-6 m (1 micron)
+    real(rk)            ::    aeroddep_diam
+
+    !> \brief Aerosol particle density (kg/m^3)
+    !> \details User-settable density for aerosol dry deposition calculations
+    !! \param units kg/m^3
+    !! \param default 1800.0 kg/m^3 (typical for dust)
+    real(rk)            ::    aeroddep_rho
+
     !> \brief PAI calculation option
     !> \details Integer for PAI (Plant Area Index) values used or calculated
     !! - 0 = calculated from model (default)

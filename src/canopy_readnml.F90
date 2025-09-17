@@ -51,7 +51,7 @@ SUBROUTINE canopy_readnml
         ht_opt, lt_opt, hw_opt, hist_opt, loss_opt, loss_set, loss_ind, lifetime, &
         ddepspecgas_opt, chemmechgas_opt, chemmechgas_tot, soilcat_opt, hyblev1, snowc_set, &
         icec_set, gamma_set, Ramin_set, &
-        ifcanaeroddep, aeroddep_diam, aeroddep_rho
+        ifcanaeroddep, aeroddep_opt, aeroddep_diam, aeroddep_rho
 
 
 !-------------------------------------------------------------------------------
@@ -483,6 +483,11 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! Set default logical for canopy aerosol dry deposition (default = .FALSE.)
     ifcanaeroddep = .FALSE.
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer value to select aerosol sub-canopy dry deposition option (0, Katul et al., 2010)
+    aeroddep_opt = 0
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

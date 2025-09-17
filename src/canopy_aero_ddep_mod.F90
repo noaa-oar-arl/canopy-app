@@ -88,7 +88,8 @@ contains
 
     end subroutine canopy_aero_ddep_pleim2022
 
-!> \brief Sub-canopy aerosol dry deposition velocity following Katul et al. (2010)
+!> \brief Sub-canopy aerosol dry deposition velocity following Katul et al. (2010),
+!> \brief Zhang et al. (2001), and Petroff et al. (2008)
 !> \param nlev Number of canopy layers
 !> \param lad Leaf area density profile (m^2/m^3)
 !> \param z canopy model level heights (m)
@@ -99,11 +100,11 @@ contains
 !> \param T Air temperature profile (K)
 !> \param P Air pressure profile (Pa)
 !> \param vdep Output: aerosol deposition velocity profile (m/s)
-    subroutine canopy_aero_ddep_katul2010(nlev, z, hc, lad, u, d_p, rho_p, T, P, vdep)
+    subroutine canopy_aero_ddep_katul2010(nlev, z, hc, lad, u, d_p, rho_p, T, P, vdep_opt, vdep)
 
         use canopy_const_mod                !< Constants for canopy models
 
-        integer, intent(in) :: nlev
+        integer, intent(in) :: nlev, vdep_opt
         real(rk), intent(in) :: lad(:), z(:), u(:), hc, d_p, rho_p, T(:), P(:)
         real(rk), intent(out) :: vdep(:)
 
@@ -140,20 +141,38 @@ contains
                 ! Stokes number
                 St = V_s / u(i)
 
-                ! Laminar (Brownian) resistance
-                r_lam = 1.0_rk / (0.01_rk + 0.74_rk * D_air**0.67_rk * lad(i))
-
-                ! Impaction resistance
-                r_imp = 1.0_rk / (0.24_rk * St**0.6_rk * lad(i))
-
-                ! Interception resistance
-                r_int = 1.0_rk / (0.6_rk * d_p * lad(i))
+                !Calculate resistances
+                if (vdep_opt == 0) then
+                    ! Katul et al. (2010)
+                    ! Laminar (Brownian) resistance
+                    r_lam = 1.0_rk / (0.01_rk + 0.74_rk * D_air**0.67_rk * lad(i))
+                    ! Impaction resistance
+                    r_imp = 1.0_rk / (0.24_rk * St**0.6_rk * lad(i))
+                    ! Interception resistance
+                    r_int = 1.0_rk / (0.6_rk * d_p * lad(i))
+                else if (vdep_opt == 1) then
+                    ! Petroff et al. (2008)
+                    ! Laminar (Brownian) resistance
+                    r_lam = 1.0_rk / (0.8_rk * D_air**0.50_rk * lad(i))
+                    ! Impaction resistance
+                    r_imp = 1.0_rk / (0.5_rk * St**0.5_rk * lad(i))
+                    ! Interception resistance
+                    r_int = 1.0_rk / (0.5_rk * d_p * lad(i))
+                else
+                    ! Zhang et al. (2001)
+                    ! Laminar (Brownian) resistance
+                    r_lam = 1.0_rk / (0.9_rk * D_air**0.50_rk * lad(i))
+                    ! Impaction resistance
+                    r_imp = 1.0_rk / (0.5_rk * St**0.5_rk * lad(i))
+                    ! Interception resistance
+                    r_int = 1.0_rk / (0.5_rk * d_p * lad(i))
+                end if
 
                 ! Total resistance (simplified sum)
                 r_total = r_lam + r_imp + r_int
 
                 ! Deposition velocity (m/s)
-                vdep(i) = 1.0_rk / r_total
+                vdep(i) = 1.0_rk / r_total + V_s
 
                 ! Convert to (cm/s)
                 vdep(i) = vdep(i)*100.0_rk
