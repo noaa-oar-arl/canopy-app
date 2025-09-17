@@ -102,9 +102,8 @@ Meteorological input and calculated variables.
         heading_level: 4
 
 Variables for dry deposition processes:
-- `vdep_aero_3d(nlon, nlat, modlays)` - Vegetated aerosol dry deposition velocity (m/s)
-- `vdep_aero_urban_3d(nlon, nlat, modlays)` - Urban/non-vegetated aerosol dry deposition velocity (m/s)
-- `vdep_aero_urban(nlat*nlon, modlays)` - 1D output for text mode
+- `ddep_aero(nlon, nlat, modlays)` - Vegetated aerosol dry deposition velocity (m/s)
+
 ::: canopy
     selection:
         members:

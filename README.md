@@ -556,7 +556,7 @@ Otherwise, please contact Patrick.C.Campbell@noaa.gov for other GFSv16 data peri
 | `Ramin_set`      | Set default minimum aerodynamic resistance for gas dry deposition (Default 10 s/m) |
 |                 | **Canopy aerosol dry deposition-specific options**                                   |
 | `ifcanaeroddep`  | logical option to enable/disable aerosol dry deposition (default: `.FALSE.`)         |
-| `aeroddep_opt`   | integer option to select resistance parameterization for sub-canopy aerosol dry deposition: `0`=Katul et al. (2010) [default], `1`=Zhang et al. (2001), `2`=Petroff et al. (2008) |
+| `aeroddep_opt`   | integer option to select resistance parameterization for sub-canopy aerosol dry deposition: `0`=Katul et al. (2010) [default], `1`=Petroff et al. (2008), `2`=Zhang et al. (2001) |
 | `aeroddep_diam`  | real value for aerosol particle diameter (meters, e.g., `1.0E-6` for 1 micron)       |
 | `aeroddep_rho`   | real value for aerosol particle density (kg/m³, e.g., `1.5E3` for 1500 kg/m³)        |
 

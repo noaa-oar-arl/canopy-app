@@ -56,11 +56,10 @@ Complete NetCDF file handling for both input and output operations.
 Sub-canopy aerosol dry deposition velocity calculations following Katul et al. (2010) and urban/non-vegetated dry deposition using Pleim et al. (2022).
 
 **Key Variables:**
-- `vdep_aero_3d(nlon, nlat, modlays)` - Vegetated aerosol dry deposition velocity profile (m/s)
-- `vdep_aero_urban_3d(nlon, nlat, modlays)` - Urban/non-vegetated aerosol dry deposition velocity profile (m/s)
+- `ddep_aero(nlon, nlat, modlays)` - Vegetated aerosol dry deposition velocity profile (m/s)
 
 **User Options:**
-- `ifcanaeroddep` - Logical switch in the namelist to enable/disable aerosol dry deposition calculations. When `.TRUE.`, activates both vegetated and urban/non-vegetated routines.
+- `ifcanaeroddep` - Logical switch in the namelist to enable/disable aerosol dry deposition calculations. When `.TRUE.`, activates both vegetated and urban/non-vegetated routines and outputs (see ddep_aero variables).
 - `aeroddep_opt` - Integer option to select resistance parameterization for sub-canopy aerosol dry deposition:
     - `0`: Katul et al. (2010) [default]
     - `1`: Zhang et al. (2001)
