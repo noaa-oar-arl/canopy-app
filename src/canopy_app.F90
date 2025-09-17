@@ -120,13 +120,6 @@ program canopy_app
         !! \param nn Current time step index
         call canopy_calcs(nn)
 
-        !> Sub-canopy aerosol dry deposition (Katul et al. 2010)
-        ! Placeholder: Example call to canopy_aero_ddep_katul2010 (to be integrated with model variables)
-        ! use canopy_aero_ddep_mod, only: canopy_aero_ddep_katul2010
-        ! integer :: nlev
-        ! real(kind=8) :: z(nlev), h_can, lad(nlev), u(nlev), d_p, rho_p, T(nlev), P(nlev), vdep_aero(nlev)
-        ! call canopy_aero_ddep_katul2010(nlev, z, h_can, lad, u, d_p, rho_p, T, P, vdep_aero)
-
         !> \brief Format current time for output file naming
         !! \details Converts time string format by replacing colons with dashes
         !! to create valid filenames for output files.
