@@ -168,8 +168,8 @@ contains
                     r_int = 1.0_rk / (0.5_rk * d_p * lad(i))
                 end if
 
-                ! Total resistance (simplified sum)
-                r_total = r_lam + r_imp + r_int
+                ! Total resistance (parallel combination)
+                r_total = 1.0_rk / (1.0_rk/r_lam + 1.0_rk/r_imp + 1.0_rk/r_int)
 
                 ! Deposition velocity (m/s)
                 vdep(i) = 1.0_rk / r_total + V_s
