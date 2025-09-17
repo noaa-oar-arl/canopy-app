@@ -61,6 +61,10 @@ Sub-canopy aerosol dry deposition velocity calculations following Katul et al. (
 
 **User Options:**
 - `ifcanaeroddep` - Logical switch in the namelist to enable/disable aerosol dry deposition calculations. When `.TRUE.`, activates both vegetated and urban/non-vegetated routines.
+- `aeroddep_opt` - Integer option to select resistance parameterization for sub-canopy aerosol dry deposition:
+    - `0`: Katul et al. (2010) [default]
+    - `1`: Zhang et al. (2001)
+    - `2`: Petroff et al. (2008)
 - `aeroddep_diam` - Aerosol particle diameter (m)
 - `aeroddep_rho` - Aerosol particle density (kg/m^3)
 

@@ -240,7 +240,12 @@ Current Canopy-App components:
 
     - `canopy_bioemi_mod.F90`
 
-  6.  Sub-Canopy Aerosol Dry Deposition (m/s). Based on Katul et al. (2010) [https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2009JD012853]. Calculates multilayer aerosol deposition velocities using leaf area density, wind, and particle properties. 
+  6.  Sub-Canopy Aerosol Dry Deposition (m/s). Supports multiple resistance parameterizations selectable via the `aeroddep_opt` namelist option:
+      - `0`: Katul et al. (2010) [default] — multilayer resistance network using leaf area density, wind, and particle properties.
+      - `1`: Zhang et al. (2001) — alternative empirical resistance formulas for laminar, impaction, and interception terms.
+      - `2`: Petroff et al. (2008) — parameterized resistances with tunable coefficients and exponents.
+    The option is set in the namelist as `aeroddep_opt`, and controls which resistance formulas are used in `canopy_aero_ddep_mod.F90`.
+    - `canopy_aero_ddep_mod.F90`
 
     - `canopy_aero_ddep_mod.F90`
 
@@ -259,15 +264,27 @@ Current 3D fields include canopy winds (`canwind`), canopy vertical/eddy diffusi
 canopy photolysis attenuation correction factors (`rjcf`), and derived Leaf Area Density (`lad`) from the foliage shape function.
 
 **Aerosol Dry Deposition Output:**
-When `ifcanaeroddep=.TRUE.`, output will include 3D canopy-resolved aerosol dry deposition velocity profiles:
+When `ifcanaeroddep=.TRUE.`, output will include 3D canopy-resolved aerosol dry deposition velocity profiles. The resistance parameterization is selected by `aeroddep_opt`:
 
 | Variable Name      | Variable Description (Units: m/s)                |
 |-------------------|--------------------------------------------------|
-| `vdep_aero_3d`    | Sub-canopy aerosol dry deposition velocity profile|
+| `vdep_aero_3d`    | Sub-canopy aerosol dry deposition velocity profile (using selected resistance option) |
 
 The output is provided for each grid cell and canopy layer, and is controlled by the user options `aeroddep_diam` and `aeroddep_rho` in the namelist.
 
 Current 2D fields includes the Wind Adjustment Factor (`waf`), flame heights (`flameh`), and canopy heights (`canheight`). Current 1D fields include the canopy model interface levels (`z`).
+
+**Aerosol Dry Deposition Resistance Options:**
+
+The `aeroddep_opt` namelist variable selects the resistance parameterization for sub-canopy aerosol dry deposition:
+
+| Option | Reference                | r_lam formula                                 | r_imp formula                                 | r_int formula                                 |
+|--------|--------------------------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
+| 0      | Katul et al. (2010)      | $1/(0.01 + 0.74 D_{air}^{0.67} LAD)$          | $1/(0.24 St^{0.6} LAD)$                       | $1/(0.6 d_p LAD)$                             |
+| 1      | Zhang et al. (2001)      | $1/(0.9 D_{air}^{0.5} LAD)$                   | $1/(0.5 St^{0.5} LAD)$                        | $1/(0.5 d_p LAD)$                             |
+| 2      | Petroff et al. (2008)    | $1/(\alpha_{lam} D_{air}^{\beta_{lam}} LAD)$ | $1/(\alpha_{imp} St^{\beta_{imp}} LAD)$      | $1/(\alpha_{int} d_p^{\beta_{int}} LAD)$     |
+
+See documentation and code for details and references.
 
 **Note for Biogenic emissions:** When `ifcanbio=.TRUE.`, output will include 3D canopy resolved biogenic emissions for the following species (based on Guenther et al., 2012), which have been mapped from Guenther et al. PFTs to input LU_OPT.
 
