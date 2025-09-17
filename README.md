@@ -555,6 +555,12 @@ Otherwise, please contact Patrick.C.Campbell@noaa.gov for other GFSv16 data peri
 | `gamma_set`      | Set default reaction probability for gas dry deposition for respective building surface (default = 5.0D-5; Based on average of range in gamma across different building surfaces, e.g., 10-8 for glass and metal to 10-4 for activated carbon and brick; Gao and Shen (2018); https://doi.org/10.1016/j.buildenv.2018.02.046). Note: This only applies across dominant urban grids/points. |
 | `Ramin_set`      | Set default minimum aerodynamic resistance for gas dry deposition (Default 10 s/m) |
 
+|                 | **Canopy aerosol dry deposition-specific options**                                   |
+| `ifcanaeroddep`  | logical option to enable/disable aerosol dry deposition (default: `.FALSE.`)         |
+| `aeroddep_opt`   | integer option to select resistance parameterization for sub-canopy aerosol dry deposition: `0`=Katul et al. (2010) [default], `1`=Zhang et al. (2001), `2`=Petroff et al. (2008) |
+| `aeroddep_diam`  | real value for aerosol particle diameter (meters, e.g., `1.0E-6` for 1 micron)       |
+| `aeroddep_rho`   | real value for aerosol particle density (kg/m³, e.g., `1.5E3` for 1500 kg/m³)        |
+
 
 **\*\*** If `modres` >> `flameh` then some error in WAF calculation will be incurred.  Suggestion is to use relative fine `modres` (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
 
