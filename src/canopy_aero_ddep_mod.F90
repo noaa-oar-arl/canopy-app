@@ -26,12 +26,12 @@ contains
 !> \param P Air pressure (Pa)
 !> \param surface_type Integer code for surface type (1=urban, 2=bare soil, etc.)
 !> \param vdep Output: aerosol deposition velocity for surface (m/s)
-    subroutine canopy_aero_ddep_pleim2022(u, d_p, rho_p, T, P, surface_type, vdep)
+    subroutine canopy_aero_ddep_pleim2022(ustar, Ra, u, d_p, rho_p, T, P, surface_type, vdep)
 
         use canopy_const_mod                          !< Constants for canopy models
 
         integer, intent(in) :: surface_type
-        real(rk), intent(in) :: u, d_p, rho_p, T, P
+        real(rk), intent(in) :: ustar, Ra, u, d_p, rho_p, T, P
         real(rk), intent(out) :: vdep
 
         ! Physical constants
@@ -41,7 +41,7 @@ contains
 
 
         real(rk) :: D_air, rho_air, nu_air, Cc, V_s, Re_p, Sc, St
-        real(rk) :: r_aero, v_min, v_max
+        real(rk) :: r_aero, Eb, Eim, aa, bb, fwc
 
         ! Calculate air density
         rho_air = P / (287.05_rk * T)
@@ -65,24 +65,38 @@ contains
         ! Stokes number
         St = V_s / u
 
-        ! Pleim et al. (2022) urban/bare soil resistance parameterization
+        ! Pleim et al. (2022) urban/bare soil resistance parameterizations for smooth surfaces
+        ! Big-leaf approach outside vegetative canopies
         select case (surface_type)
           case (1) ! Urban
-            v_min = 0.001_rk
-            v_max = 0.02_rk
-            r_aero = 1.0_rk / (v_min + (v_max-v_min)*exp(-St*10.0_rk))
+            ! Laminar (Brownian) resistance
+            Eb=(1.0_rk/3.0_rk) * Sc**(-2.0_rk/3.0_rk)
+            ! Impaction resistance
+            Eim = 10.**(-3.0_rk/St)
+            !Urban resistance
+            r_aero = 1.0_rk /(2.0_rk*ustar * (Eb + Eim)) !Assume BAI = 2 for developed areas
           case (2) ! Bare soil
-            v_min = 0.0005_rk
-            v_max = 0.015_rk
-            r_aero = 1.0_rk / (v_min + (v_max-v_min)*exp(-St*8.0_rk))
-          case default
-            v_min = 0.0001_rk
-            v_max = 0.01_rk
-            r_aero = 1.0_rk / (v_min + (v_max-v_min)*exp(-St*5.0_rk))
+            ! Laminar (Brownian) resistance
+            Eb=(1.0_rk/3.0_rk) * Sc**(-2.0_rk/3.0_rk)
+            ! Impaction resistance
+            Eim = 10.0_rk**(-3.0_rk/St)
+            !Bare ground/soil resistance
+            r_aero = 1.0_rk / (ustar * (Eb + Eim))
+          case default !Other Water Surfaces
+            !additional terms due to wave breaking
+            aa = 8.46e-5_rk + (1.63e-6_rk*(T-273.15)) + (-3.35e-8_rk*(T-273.15)**2.0)
+            bb = 3.354 + (-0.062*(T-273.15))
+            fwc = aa*(bb+u)**2.0
+            ! Laminar (Brownian) resistance
+            Eb=(1.0_rk - fwc)*(1.0_rk/3.0_rk) * Sc**(-2.0_rk/3.0_rk) + fwc*(ustar/u)
+            ! Impaction resistance
+            Eim = 10.0_rk**(-3.0_rk/St)
+            !Water resistance
+            r_aero = 1.0_rk / (ustar * (Eb + Eim))
         end select
 
         ! Total deposition velocity (m/s)
-        vdep = 1.0_rk / r_aero + V_s
+        vdep = V_s / (1.0_rk - exp(-1.0_rk*V_s*(r_aero + Ra)))
         ! Convert to (cm/s)
         vdep = vdep*100.0_rk
 

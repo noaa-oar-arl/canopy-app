@@ -1541,7 +1541,12 @@ SUBROUTINE canopy_calcs(nn)
                                     call exit(2)
                                 end if
                                 !  --- Sub-canopy aerosol dry deposition to soil (i.e., first model layer) beneath canopy (Pleim et al. 2022) ---
-                                call canopy_aero_ddep_pleim2022(canWIND_3d(i,j,2), &
+                                RiB=CalcRiB(tmp2mref, tmpsfcref, ubzref, &
+                                    d_h_2d(i,j)*hcmref, (hcmref+hgtref))
+                                Ra=rav(ubzref, (hcmref+hgtref), d_h_2d(i,j)*hcmref, &
+                                    hcmref, RiB)
+                                Ra = max(Ramin_set,Ra) !Bound Ra minimum,and assume constant Ra
+                                call canopy_aero_ddep_pleim2022(ustref, Ra, canWIND_3d(i,j,2), &
                                     aeroddep_diam, aeroddep_rho, tka_3d(i,j,1), pressa_3d(i,j,1), 2, vdep_aero_3d(i,j,1))
                             end if
 
@@ -1974,7 +1979,12 @@ SUBROUTINE canopy_calcs(nn)
                         end if
                         ! --- Sub-canopy aerosol dry deposition over barren/soil surfaces (Pleim et al. 2022) ---
                         if (ifcanaeroddep) then
-                            call canopy_aero_ddep_pleim2022(ubzref, &
+                            RiB=CalcRiB(tmp2mref, tmpsfcref, ubzref, &
+                                d_h_2d(i,j)*hcmref, (hcmref+hgtref))
+                            Ra=rav(ubzref, (hcmref+hgtref), d_h_2d(i,j)*hcmref, &
+                                hcmref, RiB)
+                            Ra = max(Ramin_set,Ra) !Bound Ra minimum,and assume constant Ra
+                            call canopy_aero_ddep_pleim2022(ustref, Ra, ubzref, &
                                 aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 2, vdep_aero_3d(i,j,1))
                         end if
                     else if (vtyperef .eq. 13) then !Urban and Built Up
@@ -2284,7 +2294,12 @@ SUBROUTINE canopy_calcs(nn)
                         end if
                         ! --- Sub-canopy aerosol dry deposition over urban surfaces (Pleim et al. 2022) ---
                         if (ifcanaeroddep) then
-                            call canopy_aero_ddep_pleim2022(ubzref, &
+                            RiB=CalcRiB(tmp2mref, tmpsfcref, ubzref, &
+                                d_h_2d(i,j)*hcmref, (hcmref+hgtref))
+                            Ra=rav(ubzref, (hcmref+hgtref), d_h_2d(i,j)*hcmref, &
+                                hcmref, RiB)
+                            Ra = max(Ramin_set,Ra) !Bound Ra minimum,and assume constant Ra
+                            call canopy_aero_ddep_pleim2022(ustref, Ra, ubzref, &
                                 aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 1, vdep_aero_3d(i,j,1))
                         end if
                     else if (vtyperef .eq. 0) then !Water from FV3 (usually vtype = 17 for water)
@@ -2592,9 +2607,14 @@ SUBROUTINE canopy_calcs(nn)
                                 call exit(2)
                             end if
                         end if
-                        ! --- Sub-canopy aerosol dry deposition over default surfaces (Pleim et al. 2022) ---
+                        ! --- Sub-canopy aerosol dry deposition over default surfaces including water (Pleim et al. 2022) ---
                         if (ifcanaeroddep) then
-                            call canopy_aero_ddep_pleim2022(ubzref, &
+                            RiB=CalcRiB(tmp2mref, tmpsfcref, ubzref, &
+                                d_h_2d(i,j)*hcmref, (hcmref+hgtref))
+                            Ra=rav(ubzref, (hcmref+hgtref), d_h_2d(i,j)*hcmref, &
+                                hcmref, RiB)
+                            Ra = max(Ramin_set,Ra) !Bound Ra minimum,and assume constant Ra
+                            call canopy_aero_ddep_pleim2022(ustref, Ra, ubzref, &
                                 aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 3, vdep_aero_3d(i,j,1))
                         end if
                     else
@@ -4100,7 +4120,12 @@ SUBROUTINE canopy_calcs(nn)
                                 call exit(2)
                             end if
                             !  --- Sub-canopy aerosol dry deposition to soil (i.e., first model layer) beneath canopy (Pleim et al. 2022) ---
-                            call canopy_aero_ddep_pleim2022(canWIND(loc,2), &
+                            RiB=CalcRiB(tmp2mref, tmpsfcref, ubzref, &
+                                d_h(loc)*hcmref, (hcmref+hgtref))
+                            Ra=rav(ubzref, (hcmref+hgtref), d_h(loc)*hcmref, &
+                                hcmref, RiB)
+                            Ra = max(Ramin_set,Ra) !Bound Ra minimum,and assume constant Ra
+                            call canopy_aero_ddep_pleim2022(ustref, Ra, canWIND(loc,2), &
                                 aeroddep_diam, aeroddep_rho, tka(loc,1), pressa(loc,1), 2, vdep_aero(loc,1))
                         end if
 
@@ -4533,7 +4558,12 @@ SUBROUTINE canopy_calcs(nn)
                     end if
                     ! --- Sub-canopy aerosol dry deposition over barren/soil surfaces (Pleim et al. 2022) ---
                     if (ifcanaeroddep) then
-                        call canopy_aero_ddep_pleim2022(ubzref, &
+                        RiB=CalcRiB(tmp2mref, tmpsfcref, ubzref, &
+                            d_h(loc)*hcmref, (hcmref+hgtref))
+                        Ra=rav(ubzref, (hcmref+hgtref), d_h(loc)*hcmref, &
+                            hcmref, RiB)
+                        Ra = max(Ramin_set,Ra) !Bound Ra minimum,and assume constant Ra
+                        call canopy_aero_ddep_pleim2022(ustref, Ra, ubzref, &
                             aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 2, vdep_aero(loc,1))
                     end if
                 else if (vtyperef .eq. 13) then !Urban and Built Up
@@ -4843,7 +4873,12 @@ SUBROUTINE canopy_calcs(nn)
                     end if
                     ! --- Sub-canopy aerosol dry deposition over urban surfaces (Pleim et al. 2022) ---
                     if (ifcanaeroddep) then
-                        call canopy_aero_ddep_pleim2022(ubzref, &
+                        RiB=CalcRiB(tmp2mref, tmpsfcref, ubzref, &
+                            d_h(loc)*hcmref, (hcmref+hgtref))
+                        Ra=rav(ubzref, (hcmref+hgtref), d_h(loc)*hcmref, &
+                            hcmref, RiB)
+                        Ra = max(Ramin_set,Ra) !Bound Ra minimum,and assume constant Ra
+                        call canopy_aero_ddep_pleim2022(ustref, Ra, ubzref, &
                             aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 1, vdep_aero(loc,1))
                     end if
                 else if (vtyperef .eq. 0) then !Water from FV3 (usually vtype = 17 for water)
@@ -5151,9 +5186,14 @@ SUBROUTINE canopy_calcs(nn)
                             call exit(2)
                         end if
                     end if
-                    ! --- Sub-canopy aerosol dry deposition over default surfaces (Pleim et al. 2022) ---
+                    ! --- Sub-canopy aerosol dry deposition over default surfaces including water (Pleim et al. 2022) ---
                     if (ifcanaeroddep) then
-                        call canopy_aero_ddep_pleim2022(ubzref, &
+                        RiB=CalcRiB(tmp2mref, tmpsfcref, ubzref, &
+                            d_h(loc)*hcmref, (hcmref+hgtref))
+                        Ra=rav(ubzref, (hcmref+hgtref), d_h(loc)*hcmref, &
+                            hcmref, RiB)
+                        Ra = max(Ramin_set,Ra) !Bound Ra minimum,and assume constant Ra
+                        call canopy_aero_ddep_pleim2022(ustref, Ra, ubzref, &
                             aeroddep_diam, aeroddep_rho, tmp2mref, pressfcref, 3, vdep_aero(loc,1))
                     end if
                 else
