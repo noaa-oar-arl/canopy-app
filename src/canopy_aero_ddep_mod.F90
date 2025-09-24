@@ -69,16 +69,16 @@ contains
         ! Big-leaf approach outside vegetative canopies
         select case (surface_type)
           case (1) ! Urban
-            ! Laminar (Brownian) resistance
+            ! Laminar (Brownian) term
             Eb=(1.0_rk/3.0_rk) * Sc**(-2.0_rk/3.0_rk)
-            ! Impaction resistance
+            ! Impaction term
             Eim = 10.**(-3.0_rk/St)
             !Urban resistance
             r_aero = 1.0_rk /(2.0_rk*ustar * (Eb + Eim)) !Assume BAI = 2 for developed areas
           case (2) ! Bare soil
-            ! Laminar (Brownian) resistance
+            ! Laminar (Brownian) term
             Eb=(1.0_rk/3.0_rk) * Sc**(-2.0_rk/3.0_rk)
-            ! Impaction resistance
+            ! Impaction term
             Eim = 10.0_rk**(-3.0_rk/St)
             !Bare ground/soil resistance
             r_aero = 1.0_rk / (ustar * (Eb + Eim))
@@ -87,9 +87,9 @@ contains
             aa = 8.46e-5_rk + (1.63e-6_rk*(T-273.15)) + (-3.35e-8_rk*(T-273.15)**2.0)
             bb = 3.354 + (-0.062*(T-273.15))
             fwc = aa*(bb+u)**2.0
-            ! Laminar (Brownian) resistance
+            ! Laminar (Brownian) term
             Eb=(1.0_rk - fwc)*(1.0_rk/3.0_rk) * Sc**(-2.0_rk/3.0_rk) + fwc*(ustar/u)
-            ! Impaction resistance
+            ! Impaction term
             Eim = 10.0_rk**(-3.0_rk/St)
             !Water resistance
             r_aero = 1.0_rk / (ustar * (Eb + Eim))
