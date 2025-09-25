@@ -11,7 +11,7 @@ module canopy_aero_ddep_mod
 
     implicit none
     private
-    public :: canopy_aero_ddep_katul2010
+    public :: canopy_aero_ddep_subveg
     public :: canopy_aero_ddep_pleim2022
 
 contains
@@ -96,14 +96,14 @@ contains
         end select
 
         ! Total deposition velocity (m/s)
-        vdep = V_s / (1.0_rk - exp(-1.0_rk*V_s*(r_aero + Ra)))
+        vdep = V_s / (1.0_rk - exp(-1.0_rk*V_s*(r_aero+Ra)))
         ! Convert to (cm/s)
         vdep = vdep*100.0_rk
 
     end subroutine canopy_aero_ddep_pleim2022
 
-!> \brief Sub-canopy aerosol dry deposition velocity following Katul et al. (2010),
-!> \brief Zhang et al. (2001), and Petroff et al. (2008)
+!> \brief Sub-canopy aerosol dry deposition velocity following Pleim et al. (2022),
+!> \brief Katul et al. (2010), Zhang et al. (2001), and Petroff et al. (2008)
 !> \param nlev Number of canopy layers
 !> \param lad Leaf area density profile (m^2/m^3)
 !> \param z canopy model level heights (m)
@@ -114,12 +114,13 @@ contains
 !> \param T Air temperature profile (K)
 !> \param P Air pressure profile (Pa)
 !> \param vdep Output: aerosol deposition velocity profile (m/s)
-    subroutine canopy_aero_ddep_katul2010(nlev, z, hc, lad, u, d_p, rho_p, T, P, vdep_opt, vdep)
+    subroutine canopy_aero_ddep_subveg(nlev, z, hc, lad, u, d_p, rho_p, T, P, vdep_opt, Ra, modres, ustar, &
+        vdep)
 
         use canopy_const_mod                !< Constants for canopy models
 
         integer, intent(in) :: nlev, vdep_opt
-        real(rk), intent(in) :: lad(:), z(:), u(:), hc, d_p, rho_p, T(:), P(:)
+        real(rk), intent(in) :: lad(:), z(:), u(:), hc, d_p, rho_p, T(:), P(:), Ra, modres, ustar
         real(rk), intent(out) :: vdep(:)
 
         ! Physical constants
@@ -128,8 +129,8 @@ contains
         real(rk), parameter :: g = 9.81_rk            ! Gravity (m/s^2)
 
         integer :: i
-        real(rk) :: Cc, V_s, Re_p, Sc, St, r_lam, r_imp, r_int, r_total
-        real(rk) :: D_air, rho_air, nu_air
+        real(rk) :: Cc, V_s, Re_p, Sc, St, Eb, Eim, r_int, r_aero, r_total
+        real(rk) :: D_air, rho_air, nu_air, laix
 
         do i = 1, nlev
             if (z(i) .gt. 0.0 .and. z(i) .le. hc) then  !< Above ground level and at/below canopy top
@@ -155,39 +156,35 @@ contains
                 ! Stokes number
                 St = V_s / u(i)
 
-                !Calculate resistances
+                !Calculate resistances based on Pleim et al. (2022)
+                !Note:  Microscale obstacle effects not included
+                !Note:  Particle rebound effects are also not included (R = 1)
+                ! Laminar (Brownian) term
+                Eb=(1.0_rk/3.0_rk) * Sc**(-2.0_rk/3.0_rk)
+                ! Impaction term
+                Eim = 10.**(-3.0_rk/St)
+                !Canopy layer fractional LAI
+                laix=lad(i)*modres
+                !Resistance
+                r_aero = 1.0_rk / (laix * ustar* (Eb + Eim))
+
+                !Add interception resistance based on Katul, Petroff, or Zhang
                 if (vdep_opt == 0) then
-                    ! Katul et al. (2010)
-                    ! Laminar (Brownian) resistance
-                    r_lam = 1.0_rk / (0.01_rk + 0.74_rk * D_air**0.67_rk * lad(i))
-                    ! Impaction resistance
-                    r_imp = 1.0_rk / (0.24_rk * St**0.6_rk * lad(i))
-                    ! Interception resistance
+                    ! Katul Interception resistance scaled to LAD
                     r_int = 1.0_rk / (0.6_rk * d_p * lad(i))
                 else if (vdep_opt == 1) then
-                    ! Petroff et al. (2008)
-                    ! Laminar (Brownian) resistance
-                    r_lam = 1.0_rk / (0.8_rk * D_air**0.50_rk * lad(i))
-                    ! Impaction resistance
-                    r_imp = 1.0_rk / (0.5_rk * St**0.5_rk * lad(i))
-                    ! Interception resistance
+                    ! Petroff Interception resistance scaled to LAD
                     r_int = 1.0_rk / (0.5_rk * d_p * lad(i))
                 else
-                    ! Zhang et al. (2001)
-                    ! Laminar (Brownian) resistance
-                    r_lam = 1.0_rk / (0.9_rk * D_air**0.50_rk * lad(i))
-                    ! Impaction resistance
-                    r_imp = 1.0_rk / (0.5_rk * St**0.5_rk * lad(i))
-                    ! Interception resistance
+                    ! Zhang Interception resistance scaled to LAD
                     r_int = 1.0_rk / (0.5_rk * d_p * lad(i))
                 end if
 
-                ! Total resistance (parallel combination)
-                r_total = 1.0_rk / (1.0_rk/r_lam + 1.0_rk/r_imp + 1.0_rk/r_int)
+                ! Total aerosol resistance (parallel combination)
+                r_total = 1.0_rk / (1.0_rk/r_aero + 1.0_rk/r_int)
 
-                ! Deposition velocity (m/s)
-                vdep(i) = 1.0_rk / r_total + V_s
-
+                ! Total deposition velocity (m/s)
+                vdep(i) = V_s / (1.0_rk - exp(-1.0_rk*V_s*(r_total+Ra)))
                 ! Convert to (cm/s)
                 vdep(i) = vdep(i)*100.0_rk
 
@@ -196,6 +193,6 @@ contains
             end if
         end do
 
-    end subroutine canopy_aero_ddep_katul2010
+    end subroutine canopy_aero_ddep_subveg
 
 end module canopy_aero_ddep_mod
