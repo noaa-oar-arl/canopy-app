@@ -115,11 +115,11 @@ contains
 !> \param P Air pressure profile (Pa)
 !> \param vdep Output: aerosol deposition velocity profile (m/s)
     subroutine canopy_aero_ddep_subveg(nlev, z, hc, lad, u, d_p, rho_p, T, P, vdep_opt, Ra, modres, ustar, &
-        vdep)
+        vtype, vdep)
 
         use canopy_const_mod                !< Constants for canopy models
 
-        integer, intent(in) :: nlev, vdep_opt
+        integer, intent(in) :: nlev, vdep_opt, vtype
         real(rk), intent(in) :: lad(:), z(:), u(:), hc, d_p, rho_p, T(:), P(:), Ra, modres, ustar
         real(rk), intent(out) :: vdep(:)
 
@@ -129,8 +129,8 @@ contains
         real(rk), parameter :: g = 9.81_rk            ! Gravity (m/s^2)
 
         integer :: i
-        real(rk) :: Cc, V_s, Re_p, Sc, St, Eb, Eim, r_int, r_aero, r_total
-        real(rk) :: D_air, rho_air, nu_air, laix
+        real(rk) :: Cc, V_s, Re_p, Sc, Stl, Sth, Eb, Eim, r_int, r_aero, r_total
+        real(rk) :: D_air, rho_air, nu_air, laix, Al, Ah, fmicro
 
         do i = 1, nlev
             if (z(i) .gt. 0.0 .and. z(i) .le. hc) then  !< Above ground level and at/below canopy top
@@ -154,15 +154,36 @@ contains
                 Sc = nu_air / D_air
 
                 ! Stokes number
-                St = V_s / u(i)
+                !St = V_s / u(i)
+
 
                 !Calculate resistances based on Pleim et al. (2022)
-                !Note:  Microscale obstacle effects not included
+                !Including microscale leaf effects
                 !Note:  Particle rebound effects are also not included (R = 1)
+                if (vtype .ge. 1 .and. vtype .le. 2) then !needleleaf
+                    Al = 2.0_rk/1000.0_rk  !2 mm    (converted to meters)
+                    Ah = 0.5_rk/1.0e6_rk   !0.5 um  (converted to meters)
+                    fmicro = 0.008_rk
+                elseif (vtype .ge. 3 .and. vtype .le. 5) then !broadleaf
+                    Al = 10.0_rk/1000.0_rk !10 mm   (converted to meters)
+                    Ah = 1.0_rk/1.0e6_rk   !0.5 um  (converted to meters)
+                    fmicro = 0.008_rk
+                else !other vegetated canopies, e.g., grasslands, shrublands, etc.
+                    Al = 0.5_rk/1000.0_rk  !0.5 mm  (converted to meters)
+                    Ah = 0.5_rk/1.0e6_rk   !0.5 um  (converted to meters)
+                    fmicro = 0.002_rk
+                end if
+
+                ! Stokes number for vegetated surfaces (Pleim et al., 2022)
+                Stl = V_s*ustar/g*Al  !macro/leaf scale
+                Sth = V_s*ustar/g*Ah  !micro/hair sclae
+
                 ! Laminar (Brownian) term
                 Eb=(1.0_rk/3.0_rk) * Sc**(-2.0_rk/3.0_rk)
                 ! Impaction term
-                Eim = 10.**(-3.0_rk/St)
+                !New Impaction term following Pleim et al. (2022)
+                Eim = (1.0_rk - fmicro)*(Stl**2.0_rk)/(1.0_rk + Stl**2.0_rk) + &
+                    fmicro*(Sth**2.0_rk)/(1.0_rk + Sth**2.0_rk)
                 !Canopy layer fractional LAI
                 laix=lad(i)*modres
                 !Resistance

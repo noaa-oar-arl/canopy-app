@@ -1539,7 +1539,7 @@ SUBROUTINE canopy_calcs(nn)
                                     Ra = max(Ramin_set,Ra) !Bound Ra minimum,and assume constant Ra
                                     call canopy_aero_ddep_subveg(modlays, zk, hcmref, lad_3d(i,j,:), canWIND_3d(i,j,:), &
                                         aeroddep_diam, aeroddep_rho, tka_3d(i,j,:), pressa_3d(i,j,:), aeroddep_opt, &
-                                        Ra, modres, ustref, vdep_aero_3d(i,j,:)) ! [cm/s]
+                                        Ra, modres, ustref, vtyperef, vdep_aero_3d(i,j,:)) ! [cm/s]
                                 else
                                     write(*,*)  'Wrong IfCanWind choice of ', ifcanwind, ' in namelist...exiting'
                                     write(*,*)  'Set IfCanwind to True to use IfCanAeroDDep'
@@ -4123,7 +4123,7 @@ SUBROUTINE canopy_calcs(nn)
                                 Ra = max(Ramin_set,Ra) !Bound Ra minimum,and assume constant Ra
                                 call canopy_aero_ddep_subveg(modlays, zk, hcmref, lad(loc,:), canWIND(loc,:), &
                                     aeroddep_diam, aeroddep_rho, tka(loc,:), pressa(loc,:), aeroddep_opt, &
-                                    Ra, modres, ustref, vdep_aero(loc,:)) ! [cm/s]
+                                    Ra, modres, ustref, vtyperef, vdep_aero(loc,:)) ! [cm/s]
                             else
                                 write(*,*)  'Wrong IfCanWind choice of ', ifcanwind, ' in namelist...exiting'
                                 write(*,*)  'Set IfCanwind to True to use IfCanAeroDDep'
