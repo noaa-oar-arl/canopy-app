@@ -53,7 +53,7 @@
 <para>Call main text writing routine</para>
         </inbodydescription>
         <location file="src/canopy_write_txt.F90" line="22" column="1" bodyfile="src/canopy_write_txt.F90" bodystart="23" bodyend="35"/>
-        <references refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</references>
+        <references refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="289">canopy_txt_io_mod::write_txt</references>
         <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>
       </memberdef>
       </sectiondef>

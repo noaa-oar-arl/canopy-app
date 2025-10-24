@@ -56,6 +56,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="144" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="144" bodyend="-1"/>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1acbb7b3bb260e4c710afda5a65fb2ba19" compoundref="canopy__aero__ddep__mod_8F90" startline="119" endline="216">canopy_aero_ddep_mod::canopy_aero_ddep_subveg</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1gabba0f4ddb6e0a06eea359cd19ea5ff33" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -358,6 +359,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="127" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="127" bodyend="-1"/>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1a9b0290668100ba11463ca81bc8bafd39" compoundref="canopy__aero__ddep__mod_8F90" startline="30" endline="102">canopy_aero_ddep_mod::canopy_aero_ddep_pleim2022</referencedby>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1acbb7b3bb260e4c710afda5a65fb2ba19" compoundref="canopy__aero__ddep__mod_8F90" startline="119" endline="216">canopy_aero_ddep_mod::canopy_aero_ddep_subveg</referencedby>
         <referencedby refid="group__read__txt_1ga6cb9213adc871abc0d07476bfe3b3aba" compoundref="canopy__read__txt_8F90" startline="23" endline="41">canopy_read_txt</referencedby>
       </memberdef>
       <memberdef kind="variable" id="canopy__bioemi__mod_8F90_1ac9329f6c00b666bde590c6c0fc3b5dfd" prot="public" static="no" mutable="no">
@@ -993,6 +996,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="130" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="130" bodyend="-1"/>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1a9b0290668100ba11463ca81bc8bafd39" compoundref="canopy__aero__ddep__mod_8F90" startline="30" endline="102">canopy_aero_ddep_mod::canopy_aero_ddep_pleim2022</referencedby>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1acbb7b3bb260e4c710afda5a65fb2ba19" compoundref="canopy__aero__ddep__mod_8F90" startline="119" endline="216">canopy_aero_ddep_mod::canopy_aero_ddep_subveg</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1ga1220973b2650f277abff419dfe39b889" prot="public" static="no" mutable="no">
         <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -1045,8 +1050,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="129" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="129" bodyend="129"/>
-        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
-        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="236">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="277">canopy_init</referencedby>
       </memberdef>
       <memberdef kind="variable" id="canopy__bioemi__mod_8F90_1a34890ca0a2d4399144b44a1ebd62ae55" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -1450,6 +1455,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="292" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="292" bodyend="292"/>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1acbb7b3bb260e4c710afda5a65fb2ba19" compoundref="canopy__aero__ddep__mod_8F90" startline="119" endline="216">canopy_aero_ddep_mod::canopy_aero_ddep_subveg</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1gadf0c96371725f0ce9141054a08e8dff7" prot="public" static="no" mutable="no">
         <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -1619,7 +1625,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="171" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="171" bodyend="-1"/>
-        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="557">canopy_readnml</referencedby>
         <referencedby refid="group__utils__group_1gaee120e34885cce395cd8fedb67a742f2" compoundref="canopy__utils__mod_8F90" startline="636" endline="753">canopy_utils_mod::get_gamma_leafage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1ga8f8f476b5795ab4b9b6078239ff81521" prot="public" static="no" mutable="no">
@@ -1660,7 +1666,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="178" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="178" bodyend="178"/>
-        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="557">canopy_readnml</referencedby>
         <referencedby refid="group__utils__group_1ga44ce09ebe8520cfbf3f329a8d80b8e5d" compoundref="canopy__utils__mod_8F90" startline="757" endline="799">canopy_utils_mod::get_canloss_bio</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1ga1ae2910dc3f5c2028cc32f3ba835bdac" prot="public" static="no" mutable="no">
@@ -1689,7 +1695,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="179" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="179" bodyend="-1"/>
-        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="557">canopy_readnml</referencedby>
         <referencedby refid="group__utils__group_1ga44ce09ebe8520cfbf3f329a8d80b8e5d" compoundref="canopy__utils__mod_8F90" startline="757" endline="799">canopy_utils_mod::get_canloss_bio</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1ga71af186ca024313d9ed4b7bb292f1844" prot="public" static="no" mutable="no">
@@ -1783,7 +1789,7 @@
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="144" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="144" bodyend="144"/>
         <referencedby refid="group__utils__group_1ga0fdff4c99c48afdcc355366c92658b0e" compoundref="canopy__utils__mod_8F90" startline="150" endline="506">canopy_utils_mod::calcflameh</referencedby>
-        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="557">canopy_readnml</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1ga08336ec62f1f77b7a51b6748f4ea1e42" prot="public" static="no" mutable="no">
         <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -1902,12 +1908,12 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="176" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="176" bodyend="176"/>
-        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1368" endline="1800">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
-        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1363">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
-        <referencedby refid="namespacecanopy__ncf__io__mod_1a46724c6b574ca9d594af71b538e8af92" compoundref="canopy__ncf__io__mod_8F90" startline="1804" endline="2323">canopy_ncf_io_mod::canopy_outncfglobal</referencedby>
-        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
-        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
-        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" compoundref="canopy__ncf__io__mod_8F90" startline="1384" endline="1824">canopy_ncf_io_mod::canopy_outncf_alloc</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1af54a0b23853a341b163ddb86beaa431d" compoundref="canopy__ncf__io__mod_8F90" startline="304" endline="1379">canopy_ncf_io_mod::canopy_outncf_init</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a46724c6b574ca9d594af71b538e8af92" compoundref="canopy__ncf__io__mod_8F90" startline="1828" endline="2347">canopy_ncf_io_mod::canopy_outncfglobal</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="557">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2352" endline="3093">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="289">canopy_txt_io_mod::write_txt</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1gaa4a0efab04932a8b8f7e35610eeacf18" prot="public" static="no" mutable="no">
         <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -1921,7 +1927,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="146" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="146" bodyend="146"/>
-        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1acbb7b3bb260e4c710afda5a65fb2ba19" compoundref="canopy__aero__ddep__mod_8F90" startline="119" endline="216">canopy_aero_ddep_mod::canopy_aero_ddep_subveg</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="557">canopy_readnml</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1ga751fc892d948dd5d54a38cd7f0496839" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -2184,8 +2191,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="133" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="133" bodyend="133"/>
-        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
-        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="236">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="277">canopy_init</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1gaece20e83eed7d489abc55b53f2c2e619" prot="public" static="no" mutable="no">
         <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -2199,8 +2206,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="132" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="132" bodyend="132"/>
-        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
-        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="236">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="277">canopy_init</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1ga6d44f9cf0a631917d8f18df6318108a7" prot="public" static="no" mutable="no">
         <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -2682,8 +2689,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="140" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="140" bodyend="140"/>
-        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
-        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="236">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="277">canopy_init</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1ga3861e221b40c9328d274eb71f284616b" prot="public" static="no" mutable="no">
         <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -2736,8 +2743,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="131" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="131" bodyend="131"/>
-        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
-        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="236">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="277">canopy_init</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1ga9b8a60ad5270b0d830e7e5b1fc4146b8" prot="public" static="no" mutable="no">
         <type>real(rk), dimension(:), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -2751,8 +2758,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="130" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="130" bodyend="130"/>
-        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
-        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="262">canopy_init</referencedby>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="236">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gafa2723e99bf0fc8b83a8c737e11751a7" compoundref="canopy__init_8F90" startline="23" endline="277">canopy_init</referencedby>
       </memberdef>
       <memberdef kind="variable" id="canopy__bioemi__mod_8F90_1ae8a49f5392473de05a0774cb9c42561e" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -2872,6 +2879,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="182" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="182" bodyend="182"/>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1a9b0290668100ba11463ca81bc8bafd39" compoundref="canopy__aero__ddep__mod_8F90" startline="30" endline="102">canopy_aero_ddep_mod::canopy_aero_ddep_pleim2022</referencedby>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1acbb7b3bb260e4c710afda5a65fb2ba19" compoundref="canopy__aero__ddep__mod_8F90" startline="119" endline="216">canopy_aero_ddep_mod::canopy_aero_ddep_subveg</referencedby>
         <referencedby refid="group__utils__group_1ga44ce09ebe8520cfbf3f329a8d80b8e5d" compoundref="canopy__utils__mod_8F90" startline="757" endline="799">canopy_utils_mod::get_canloss_bio</referencedby>
         <referencedby refid="group__utils__group_1gaa60ef969ac96b048c73dffa3f0a3cb5b" compoundref="canopy__utils__mod_8F90" startline="1586" endline="1594">canopy_utils_mod::waterrbw</referencedby>
       </memberdef>
@@ -3005,6 +3014,7 @@
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="145" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="145" bodyend="145"/>
         <referencedby refid="group__utils__group_1ga0fdff4c99c48afdcc355366c92658b0e" compoundref="canopy__utils__mod_8F90" startline="150" endline="506">canopy_utils_mod::calcflameh</referencedby>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1acbb7b3bb260e4c710afda5a65fb2ba19" compoundref="canopy__aero__ddep__mod_8F90" startline="119" endline="216">canopy_aero_ddep_mod::canopy_aero_ddep_subveg</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1gab52d8ef37a8d7a81547c07d906a0fd57" prot="public" static="no" mutable="no">
         <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -3045,7 +3055,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_bioemi_mod.F90" line="162" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="162" bodyend="162"/>
-        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="557">canopy_readnml</referencedby>
         <referencedby refid="group__utils__group_1ga32aa0c8a9aeabb2253ca3aad69e3c20c" compoundref="canopy__utils__mod_8F90" startline="921" endline="969">canopy_utils_mod::get_gamma_aq</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__inputs_1ga42443bcb33cf91803615dc40e013751a" prot="public" static="no" mutable="no">
@@ -3128,10 +3138,10 @@
         <location file="src/canopy_bioemi_mod.F90" line="123" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="123" bodyend="123"/>
         <referencedby refid="group__utils__group_1gad6424cae6753e427994d96ec2aa7e20e" compoundref="canopy__utils__mod_8F90" startline="1131" endline="1141">canopy_utils_mod::calcpressure</referencedby>
         <referencedby refid="group__utils__group_1ga70c251ed48260b952b2171996d961673" compoundref="canopy__utils__mod_8F90" startline="1112" endline="1123">canopy_utils_mod::calctemp</referencedby>
-        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="233">canopy_dealloc</referencedby>
-        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="536">canopy_readnml</referencedby>
-        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2328" endline="3066">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
-        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="272">canopy_txt_io_mod::write_txt</referencedby>
+        <referencedby refid="group__utils__group_1ga76ca90e3717cceb1322d65503415e491" compoundref="canopy__dealloc_8F90" startline="24" endline="236">canopy_dealloc</referencedby>
+        <referencedby refid="group__utils__group_1gab3ea55e33061c1980467674980682879" compoundref="canopy__readnml_8F90" startline="20" endline="557">canopy_readnml</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" compoundref="canopy__ncf__io__mod_8F90" startline="2352" endline="3093">canopy_ncf_io_mod::canopy_write_ncf</referencedby>
+        <referencedby refid="group__txtio__group_1ga5a9ab22119d8302f3cc31a3efe8b53d7" compoundref="canopy__txt__io__mod_8F90" startline="97" endline="289">canopy_txt_io_mod::write_txt</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>

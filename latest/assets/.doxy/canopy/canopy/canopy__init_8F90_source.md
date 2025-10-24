@@ -71,6 +71,12 @@ SUBROUTINE canopy_init
     if(allocated(tleaf_sun240))       tleaf_sun240(:,:)        = fillreal
     if(allocated(tleaf_shade240))     tleaf_shade240(:,:)      = fillreal
     if(allocated(tleaf_ave240))       tleaf_ave240(:,:)        = fillreal
+
+    ! Initialize aerosol dry deposition arrays
+    if(allocated(vdep_aero_3d))       vdep_aero_3d(:,:,:)      = fillreal
+    if(allocated(vdep_aero))          vdep_aero(:,:)           = fillreal
+
+    ! Initialize aerosol ppfd and other biogenic arrays
     if(allocated(ppfd_sun240))        ppfd_sun240(:,:)         = fillreal
     if(allocated(ppfd_shade240))      ppfd_shade240(:,:)       = fillreal
     if(allocated(daily_maxt2m))       daily_maxt2m(:)          = fillreal
@@ -250,6 +256,15 @@ SUBROUTINE canopy_init
         if(allocated(ddep_mvkn_3d))        ddep_mvkn_3d(:,:,:) = fillreal
         if(allocated(ddep_isnp))           ddep_isnp(:,:)      = fillreal
         if(allocated(ddep_isnp_3d))        ddep_isnp_3d(:,:,:) = fillreal
+    end if
+
+!-------------------------------------------------------------------------------
+! Initialize arrays for Aerosol Dry Deposition
+!-------------------------------------------------------------------------------
+
+    if (ifcanaeroddep) then
+        if(allocated(vdep_aero_3d))       vdep_aero_3d(:,:,:)      = fillreal
+        if(allocated(vdep_aero))          vdep_aero(:,:)           = fillreal
     end if
 
 END SUBROUTINE canopy_init

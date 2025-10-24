@@ -21,6 +21,7 @@
 
 | Type | Name |
 | ---: | :--- |
+| file | [**canopy\_aero\_ddep\_mod.F90**](canopy__aero__ddep__mod_8F90.md) <br>_Aerosol dry deposition calculations for canopy model (sub-canopy)_  |
 | file | [**canopy\_alloc.F90**](canopy__alloc_8F90.md) <br>_Memory allocation subroutine for canopy model arrays._  |
 | file | [**canopy\_app.F90**](canopy__app_8F90.md) <br>_Main Canopy Application Program._  |
 | file | [**canopy\_bioemi\_mod.F90**](canopy__bioemi__mod_8F90.md) <br>_Biogenic Emissions Module._  |

@@ -162,7 +162,7 @@ The subroutine handles both 1D point calculations and 2D gridded computations de
 
 
 * `nn` Input time step index 
-* `nn` dry deposition calculations 
+* `nn` aerosol dry deposition calculations 
 
 
 

@@ -385,6 +385,17 @@ SUBROUTINE canopy_alloc
         end if
     end if
 
+!-------------------------------------------------------------------------------
+! Allocate arrays for Canopy Gas Dry Deposition Outputs
+!-------------------------------------------------------------------------------
+
+    if (ifcanaeroddep) then
+        write(*,*)  'Canopy aerosol dry deposition option selected'
+        write(*,*)  '-------------------------------'
+        if(.not.allocated(vdep_aero_3d))       allocate(vdep_aero_3d(nlon,nlat,modlays))
+        if(.not.allocated(vdep_aero))          allocate(vdep_aero(nlon*nlat,modlays))
+    end if
+
 END SUBROUTINE canopy_alloc
 
 ```

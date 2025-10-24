@@ -37,6 +37,7 @@
 | ---: | :--- |
 |  [**type**](canopy__bioparm__mod_8F90.md#variable-type)([**fld2ddata**](namespacecanopy__canvars__mod.md#none-fld2ddata)), pointer | [**c\_canheight**](#variable-c_canheight)  <br> |
 |  [**type**](canopy__bioparm__mod_8F90.md#variable-type)([**fld3ddata**](namespacecanopy__canvars__mod.md#none-fld3ddata)), pointer | [**c\_canwind**](#variable-c_canwind)  <br> |
+|  [**type**](canopy__bioparm__mod_8F90.md#variable-type)([**fld3ddata**](namespacecanopy__canvars__mod.md#none-fld3ddata)), pointer | [**c\_ddep\_aero**](#variable-c_ddep_aero)  <br> |
 |  [**type**](canopy__bioparm__mod_8F90.md#variable-type)([**fld3ddata**](namespacecanopy__canvars__mod.md#none-fld3ddata)), pointer | [**c\_ddep\_ch4**](#variable-c_ddep_ch4)  <br> |
 |  [**type**](canopy__bioparm__mod_8F90.md#variable-type)([**fld3ddata**](namespacecanopy__canvars__mod.md#none-fld3ddata)), pointer | [**c\_ddep\_co**](#variable-c_ddep_co)  <br> |
 |  [**type**](canopy__bioparm__mod_8F90.md#variable-type)([**fld3ddata**](namespacecanopy__canvars__mod.md#none-fld3ddata)), pointer | [**c\_ddep\_dhmob**](#variable-c_ddep_dhmob)  <br> |
@@ -301,6 +302,8 @@
 |  real(rk), dimension(:, :), allocatable | [**ubzref\_tmp**](#variable-ubzref_tmp)  <br> |
 |  real(rk), dimension(:, :, :), allocatable | [**ubzref\_tmp\_3d**](#variable-ubzref_tmp_3d)  <br> |
 |  character(len=10), parameter | [**vdate**](#variable-vdate)   = `'02/13/2022'`<br> |
+|  real(rk), dimension(:, :), allocatable | [**vdep\_aero**](#variable-vdep_aero)  <br>_Aerosol dry deposition velocity profile (vegetated) (1D text output)_  |
+|  real(rk), dimension(:, :, :), allocatable | [**vdep\_aero\_3d**](#variable-vdep_aero_3d)  <br>_Aerosol dry deposition velocity profile (vegetated)_  |
 |  character(len=8), parameter | [**ver**](#variable-ver)   = `'V1.0.0'`<br>_Model version._  |
 |  real(rk), dimension(:), allocatable | [**waf**](#variable-waf)  <br> |
 |  real(rk), dimension(:, :), allocatable | [**waf\_2d**](#variable-waf_2d)  <br> |
@@ -375,6 +378,19 @@ type(fld2ddata), pointer canopy_canvars_mod::c_canheight;
 
 ```Fortran
 type(fld3ddata), pointer canopy_canvars_mod::c_canwind;
+```
+
+
+
+
+<hr>
+
+
+
+### variable c\_ddep\_aero 
+
+```Fortran
+type(fld3ddata), pointer canopy_canvars_mod::c_ddep_aero;
 ```
 
 
@@ -4134,6 +4150,56 @@ character(len=10), parameter canopy_canvars_mod::vdate;
 
 
 
+
+<hr>
+
+
+
+### variable vdep\_aero 
+
+_Aerosol dry deposition velocity profile (vegetated) (1D text output)_ 
+```Fortran
+real(rk), dimension          ( :, : ), allocatable canopy_canvars_mod::vdep_aero;
+```
+
+
+
+Output: sub-canopy aerosol dry deposition velocity (Katul et al. 2010) or urban/non-vegetated aerosol dry deposition velocity (Pleim et al. 2022) 
+
+**Parameters:**
+
+
+* `units` cm/s 
+
+
+
+
+        
+
+<hr>
+
+
+
+### variable vdep\_aero\_3d 
+
+_Aerosol dry deposition velocity profile (vegetated)_ 
+```Fortran
+real(rk), dimension       ( :, :, : ), allocatable canopy_canvars_mod::vdep_aero_3d;
+```
+
+
+
+Output: sub-canopy aerosol dry deposition velocity (Katul et al. 2010) or urban/non-vegetated aerosol dry deposition velocity (Pleim et al. 2022) 
+
+**Parameters:**
+
+
+* `units` cm/s 
+
+
+
+
+        
 
 <hr>
 

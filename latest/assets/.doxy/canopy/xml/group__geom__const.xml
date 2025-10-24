@@ -18,6 +18,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_const_mod.F90" line="43" column="1" bodyfile="src/canopy_const_mod.F90" bodystart="43" bodyend="43"/>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1a9b0290668100ba11463ca81bc8bafd39" compoundref="canopy__aero__ddep__mod_8F90" startline="30" endline="102">canopy_aero_ddep_mod::canopy_aero_ddep_pleim2022</referencedby>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1acbb7b3bb260e4c710afda5a65fb2ba19" compoundref="canopy__aero__ddep__mod_8F90" startline="119" endline="216">canopy_aero_ddep_mod::canopy_aero_ddep_subveg</referencedby>
         <referencedby refid="group__canopy__eddy_1ga11c37cfcc5385c9f158e4be92855f51f" compoundref="canopy__eddy__mod_8F90" startline="38" endline="155">canopy_eddy_mod::canopy_eddyx</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__geom__const_1gadc1d6d44f8973ed6815719fd899869fa" prot="public" static="no" mutable="no">

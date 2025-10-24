@@ -4,6 +4,7 @@
 
 Here are the classes, structs, unions and interfaces with brief descriptions:
 
+* **namespace** [**canopy\_aero\_ddep\_mod**](namespacecanopy__aero__ddep__mod.md)     
 * **namespace** [**canopy\_bioemi\_mod**](namespacecanopy__bioemi__mod.md) 
 * **namespace** [**canopy\_bioparm\_mod**](namespacecanopy__bioparm__mod.md) 
 * **namespace** [**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md)     

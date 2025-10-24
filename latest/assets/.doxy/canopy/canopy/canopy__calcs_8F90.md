@@ -140,6 +140,9 @@ _Main Canopy Calculations Subroutine._ [More...](#detailed-description)
 This file contains the main calculation subroutine that orchestrates all canopy model computations including radiation, wind, biogenic emissions, dry deposition, and other canopy processes.
 
 
+Includes urban/non-vegetated aerosol dry deposition velocity calculation using Pleim et al. (2022) Output variable: vdep\_aero\_3d (2D) or vdep\_aero (1D)
+
+
 
 
 **Author:**

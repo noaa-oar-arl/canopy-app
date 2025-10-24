@@ -35,6 +35,9 @@ _Configuration options and user-settable parameters for canopy model._
 
 | Type | Name |
 | ---: | :--- |
+|  real(rk) | [**canopy\_canopts\_mod::aeroddep\_diam**](#variable-aeroddep_diam)  <br>_Aerosol particle diameter (m)_  |
+|  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer) | [**canopy\_canopts\_mod::aeroddep\_opt**](#variable-aeroddep_opt)  <br>_Sub-canopy aerosol dry deposition option for algorithm used._  |
+|  real(rk) | [**canopy\_canopts\_mod::aeroddep\_rho**](#variable-aeroddep_rho)  <br>_Aerosol particle density (kg/m^3)_  |
 |  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer) | [**canopy\_canopts\_mod::aq\_opt**](#variable-aq_opt)  <br>_Air quality stress index option._  |
 |  real(rk) | [**canopy\_canopts\_mod::bio\_cce**](#variable-bio_cce)  <br>_MEGAN biogenic emission canopy environment coefficient._  |
 |  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer) | [**canopy\_canopts\_mod::biospec\_opt**](#variable-biospec_opt)  <br>_Biogenic species output option._  |
@@ -68,6 +71,7 @@ _Configuration options and user-settable parameters for canopy model._
 |  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer) | [**canopy\_canopts\_mod::hw\_opt**](#variable-hw_opt)  <br>_High wind stress index option._  |
 |  real(rk) | [**canopy\_canopts\_mod::hyblev1**](#variable-hyblev1)  <br>_First hybrid model layer height._  |
 |  real(rk) | [**canopy\_canopts\_mod::icec\_set**](#variable-icec_set)  <br>_Ice cover threshold._  |
+|  logical | [**canopy\_canopts\_mod::ifcanaeroddep**](#variable-ifcanaeroddep)  <br>_Sub-canopy aerosol dry deposition option._  |
 |  logical | [**canopy\_canopts\_mod::ifcanbio**](#variable-ifcanbio)  <br>_Canopy biogenic emissions option._  |
 |  logical | [**canopy\_canopts\_mod::ifcanddepgas**](#variable-ifcanddepgas)  <br>_Canopy gas dry deposition option._  |
 |  logical | [**canopy\_canopts\_mod::ifcaneddy**](#variable-ifcaneddy)  <br>_Canopy eddy Kz option._  |
@@ -153,6 +157,81 @@ _Configuration options and user-settable parameters for canopy model._
 
 ## Public Attributes Documentation
 
+
+
+
+### variable aeroddep\_diam 
+
+_Aerosol particle diameter (m)_ 
+```Fortran
+real(rk) canopy_canopts_mod::aeroddep_diam;
+```
+
+
+
+User-settable diameter for aerosol dry deposition calculations 
+
+**Parameters:**
+
+
+* `units` meters (m) 
+* `default` 1.0e-6 m (1 micron) 
+
+
+
+
+        
+
+<hr>
+
+
+
+### variable aeroddep\_opt 
+
+_Sub-canopy aerosol dry deposition option for algorithm used._ 
+```Fortran
+integer canopy_canopts_mod::aeroddep_opt;
+```
+
+
+
+Logical option to enable sub-canopy aerosol dry deposition (Katul et al. 2010)
+* 0 = Katul et al. (2010)
+* 1 = Petroff et al. (2008)
+* 2 = Zhang et al. (2001) 
+
+
+
+
+        
+
+<hr>
+
+
+
+### variable aeroddep\_rho 
+
+_Aerosol particle density (kg/m^3)_ 
+```Fortran
+real(rk) canopy_canopts_mod::aeroddep_rho;
+```
+
+
+
+User-settable density for aerosol dry deposition calculations 
+
+**Parameters:**
+
+
+* `units` kg/m^3 
+* `default` 1500.0 kg/m^3 (typical for dust) 
+
+
+
+
+        
+
+<hr>
 
 
 
@@ -924,6 +1003,31 @@ Set default ice cover percent at grid/point, above which ground or water surface
 
 * `units` percent (%) 
 * `default` 50% 
+
+
+
+
+        
+
+<hr>
+
+
+
+### variable ifcanaeroddep 
+
+_Sub-canopy aerosol dry deposition option._ 
+```Fortran
+logical canopy_canopts_mod::ifcanaeroddep;
+```
+
+
+
+Logical option to enable sub-canopy aerosol dry deposition (Katul et al. 2010) 
+
+**Parameters:**
+
+
+* `default` .FALSE. 
 
 
 

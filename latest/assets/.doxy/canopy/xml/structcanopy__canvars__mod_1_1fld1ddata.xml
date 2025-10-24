@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canvars_mod.F90" line="401" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="401" bodyend="401"/>
+        <location file="src/canopy_canvars_mod.F90" line="412" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="412" bodyend="412"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld1ddata_1aefd8a34b4802894d72a8127383b060b9" prot="public" static="no" mutable="no">
         <type>character(len=16)</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canvars_mod.F90" line="403" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="403" bodyend="403"/>
+        <location file="src/canopy_canvars_mod.F90" line="414" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="414" bodyend="414"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld1ddata_1a381d63bccf01fb527d608ce008ab216d" prot="public" static="no" mutable="no">
         <type>character(len=80)</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canvars_mod.F90" line="405" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="405" bodyend="405"/>
+        <location file="src/canopy_canvars_mod.F90" line="416" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="416" bodyend="416"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld1ddata_1a7c089efea19d1e370be1f08963ad8cd9" prot="public" static="no" mutable="no">
         <type>character(len=80)</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canvars_mod.F90" line="407" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="407" bodyend="407"/>
+        <location file="src/canopy_canvars_mod.F90" line="418" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="418" bodyend="418"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld1ddata_1af9271f9bbe2cc020cf5535467e6efcc7" prot="public" static="no" mutable="no">
         <type>real</type>
@@ -72,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canvars_mod.F90" line="409" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="409" bodyend="409"/>
+        <location file="src/canopy_canvars_mod.F90" line="420" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="420" bodyend="420"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld1ddata_1aeb2e79bb5f4c2f911d22984da64ef6d3" prot="public" static="no" mutable="no">
         <type>character(len=16), dimension(4)</type>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canvars_mod.F90" line="411" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="411" bodyend="411"/>
+        <location file="src/canopy_canvars_mod.F90" line="422" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="422" bodyend="422"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld1ddata_1acf666c97aba53d71f28adab2b5e22365" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, dimension(4)</type>
@@ -100,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canvars_mod.F90" line="413" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="413" bodyend="413"/>
+        <location file="src/canopy_canvars_mod.F90" line="424" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="424" bodyend="424"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canvars__mod_1_1fld1ddata_1a1161b98072cd6ca5373e5e3b6f9956dc" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, dimension(4)</type>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canvars_mod.F90" line="415" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="415" bodyend="415"/>
+        <location file="src/canopy_canvars_mod.F90" line="426" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="426" bodyend="426"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -123,7 +123,7 @@
     <detaileddescription>
 <para>Data structure for 1D NETCDF output fields </para>
     </detaileddescription>
-    <location file="src/canopy_canvars_mod.F90" line="398" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="398" bodyend="416"/>
+    <location file="src/canopy_canvars_mod.F90" line="409" column="1" bodyfile="src/canopy_canvars_mod.F90" bodystart="409" bodyend="427"/>
     <listofallmembers>
       <member refid="structcanopy__canvars__mod_1_1fld1ddata_1aeb2e79bb5f4c2f911d22984da64ef6d3" prot="public" virt="non-virtual"><scope>canopy_canvars_mod::fld1ddata</scope><name>dimnames</name></member>
       <member refid="structcanopy__canvars__mod_1_1fld1ddata_1af9271f9bbe2cc020cf5535467e6efcc7" prot="public" virt="non-virtual"><scope>canopy_canvars_mod::fld1ddata</scope><name>fillvalue</name></member>

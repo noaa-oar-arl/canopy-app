@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir">
     <compoundname>src</compoundname>
+    <innerfile refid="canopy__aero__ddep__mod_8F90">canopy_aero_ddep_mod.F90</innerfile>
     <innerfile refid="canopy__alloc_8F90">canopy_alloc.F90</innerfile>
     <innerfile refid="canopy__app_8F90">canopy_app.F90</innerfile>
     <innerfile refid="canopy__bioemi__mod_8F90">canopy_bioemi_mod.F90</innerfile>

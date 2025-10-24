@@ -445,6 +445,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_var3din_mod.F90" line="57" column="1" bodyfile="src/canopy_var3din_mod.F90" bodystart="57" bodyend="-1"/>
+        <referencedby refid="namespacecanopy__aero__ddep__mod_1acbb7b3bb260e4c710afda5a65fb2ba19" compoundref="canopy__aero__ddep__mod_8F90" startline="119" endline="216">canopy_aero_ddep_mod::canopy_aero_ddep_subveg</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__var3din__inputs_1ga5fe55c482855a4ffc748022666b1ee2c" prot="public" static="no" mutable="no">
         <type>real(rk), dimension(<ref refid="group__var3din__inputs_1gac4649400bcadf4900ec594f10f472787" kindref="member">z</ref>/<ref refid="group__var3din__inputs_1gaf5a992d4900d06e13f0eccfe48ffddee" kindref="member">h</ref>), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>

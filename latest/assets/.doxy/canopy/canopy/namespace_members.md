@@ -5,6 +5,9 @@
 
 ## a
 
+* **aeroddep\_diam** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
+* **aeroddep\_opt** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
+* **aeroddep\_rho** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
 * **aq\_opt** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
 * **avo** ([**canopy\_const\_mod**](namespacecanopy__const__mod.md))
 
@@ -19,6 +22,8 @@
 
 ## c
 
+* **canopy\_aero\_ddep\_pleim2022** ([**canopy\_aero\_ddep\_mod**](namespacecanopy__aero__ddep__mod.md))
+* **canopy\_aero\_ddep\_subveg** ([**canopy\_aero\_ddep\_mod**](namespacecanopy__aero__ddep__mod.md))
 * **canfracref** ([**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md))
 * **cluref** ([**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md))
 * **cszref** ([**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md))
@@ -38,6 +43,7 @@
 * **crop\_opt** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
 * **c\_canheight** ([**canopy\_canvars\_mod**](namespacecanopy__canvars__mod.md))
 * **c\_canwind** ([**canopy\_canvars\_mod**](namespacecanopy__canvars__mod.md))
+* **c\_ddep\_aero** ([**canopy\_canvars\_mod**](namespacecanopy__canvars__mod.md))
 * **c\_ddep\_ch4** ([**canopy\_canvars\_mod**](namespacecanopy__canvars__mod.md))
 * **c\_ddep\_co** ([**canopy\_canvars\_mod**](namespacecanopy__canvars__mod.md))
 * **c\_ddep\_dhmob** ([**canopy\_canvars\_mod**](namespacecanopy__canvars__mod.md))
@@ -329,6 +335,7 @@
 
 * **icec\_averef** ([**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md))
 * **icec\_set** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
+* **ifcanaeroddep** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
 * **ifcanbio** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
 * **ifcanddepgas** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
 * **ifcaneddy** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
@@ -577,6 +584,8 @@
 * **var3d\_opt** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
 * **var3d\_set** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))
 * **vdate** ([**canopy\_canvars\_mod**](namespacecanopy__canvars__mod.md))
+* **vdep\_aero** ([**canopy\_canvars\_mod**](namespacecanopy__canvars__mod.md))
+* **vdep\_aero\_3d** ([**canopy\_canvars\_mod**](namespacecanopy__canvars__mod.md))
 * **ver** ([**canopy\_canvars\_mod**](namespacecanopy__canvars__mod.md))
 * **vonk** ([**canopy\_const\_mod**](namespacecanopy__const__mod.md))
 * **vp0** ([**canopy\_const\_mod**](namespacecanopy__const__mod.md))

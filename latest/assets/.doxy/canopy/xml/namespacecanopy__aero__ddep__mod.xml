@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacecanopy__aero__ddep__mod" kind="namespace" language="Fortran">
+    <compoundname>canopy_aero_ddep_mod</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacecanopy__aero__ddep__mod_1a9b0290668100ba11463ca81bc8bafd39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_aero_ddep_mod::canopy_aero_ddep_pleim2022</definition>
+        <argsstring>(ustar, Ra, u, d_p, rho_p, T, P, surface_type, vdep)</argsstring>
+        <name>canopy_aero_ddep_pleim2022</name>
+        <param>
+          <type><ref refid="group__drydep__group_1ga8ece472fdbc07ee4926bcbb7909a08c9" kindref="member">ustar</ref></type>
+          <defname>ustar</defname>
+        </param>
+        <param>
+          <type>Ra</type>
+          <defname>Ra</defname>
+        </param>
+        <param>
+          <type>u</type>
+          <defname>u</defname>
+        </param>
+        <param>
+          <type>d_p</type>
+          <defname>d_p</defname>
+        </param>
+        <param>
+          <type>rho_p</type>
+          <defname>rho_p</defname>
+        </param>
+        <param>
+          <type>T</type>
+          <defname>T</defname>
+        </param>
+        <param>
+          <type>P</type>
+          <defname>P</defname>
+        </param>
+        <param>
+          <type>surface_type</type>
+          <defname>surface_type</defname>
+        </param>
+        <param>
+          <type>vdep</type>
+          <defname>vdep</defname>
+        </param>
+        <briefdescription>
+<para>Aerosol dry deposition velocity for non-vegetated/urban areas using Pleim et al. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>(2022)</para>
+<para>Implements Pleim et al. (2022) equations for urban and non-vegetated surfaces. <ulink url="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022MS003050">https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022MS003050</ulink> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>u</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array of wind speed (m/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>d_p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Aerosol particle diameter (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rho_p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Particle density (kg/m^3) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Air temperature (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>P</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Air pressure (Pa) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>surface_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer code for surface type (1=urban, 2=bare soil, etc.) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vdep</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output: aerosol deposition velocity for surface (m/s) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_aero_ddep_mod.F90" line="29" column="1" bodyfile="src/canopy_aero_ddep_mod.F90" bodystart="30" bodyend="102"/>
+        <references refid="group__bioemi__inputs_1gaad0c993bd5fd93c7decad9daf442d225" compoundref="canopy__bioemi__mod_8F90" startline="127">canopy</references>
+        <references refid="group__bioemi__inputs_1gaf446508c68e334894eee1a7ec50b62f3" compoundref="canopy__bioemi__mod_8F90" startline="130">for</references>
+        <references refid="group__geom__const_1ga6a99f47ba1f4f9cf9e4421be86a0672b" compoundref="canopy__const__mod_8F90" startline="43" endline="43">canopy_const_mod::pi</references>
+        <references refid="group__calcs__local__vars_1ga8f98af611901890ea94b6a918f0a912d" compoundref="canopy__calcs_8F90" startline="74">ra</references>
+        <references refid="group__bioemi__inputs_1ga8ece472fdbc07ee4926bcbb7909a08c9" compoundref="canopy__bioemi__mod_8F90" startline="182" endline="182">ustar</references>
+      </memberdef>
+      <memberdef kind="function" id="namespacecanopy__aero__ddep__mod_1acbb7b3bb260e4c710afda5a65fb2ba19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>subroutine, public</type>
+        <definition>subroutine, public canopy_aero_ddep_mod::canopy_aero_ddep_subveg</definition>
+        <argsstring>(nlev, z, hc, lad, u, d_p, rho_p, T, P, vdep_opt, Ra, modres, ustar, vtype, vdep)</argsstring>
+        <name>canopy_aero_ddep_subveg</name>
+        <param>
+          <type>nlev</type>
+          <defname>nlev</defname>
+        </param>
+        <param>
+          <type><ref refid="group__var3din__inputs_1gac4649400bcadf4900ec594f10f472787" kindref="member">z</ref></type>
+          <defname>z</defname>
+        </param>
+        <param>
+          <type>hc</type>
+          <defname>hc</defname>
+        </param>
+        <param>
+          <type>lad</type>
+          <defname>lad</defname>
+        </param>
+        <param>
+          <type>u</type>
+          <defname>u</defname>
+        </param>
+        <param>
+          <type>d_p</type>
+          <defname>d_p</defname>
+        </param>
+        <param>
+          <type>rho_p</type>
+          <defname>rho_p</defname>
+        </param>
+        <param>
+          <type>T</type>
+          <defname>T</defname>
+        </param>
+        <param>
+          <type>P</type>
+          <defname>P</defname>
+        </param>
+        <param>
+          <type>vdep_opt</type>
+          <defname>vdep_opt</defname>
+        </param>
+        <param>
+          <type>Ra</type>
+          <defname>Ra</defname>
+        </param>
+        <param>
+          <type><ref refid="group__bioemi__inputs_1gaa4a0efab04932a8b8f7e35610eeacf18" kindref="member">modres</ref></type>
+          <defname>modres</defname>
+        </param>
+        <param>
+          <type><ref refid="group__drydep__group_1ga8ece472fdbc07ee4926bcbb7909a08c9" kindref="member">ustar</ref></type>
+          <defname>ustar</defname>
+        </param>
+        <param>
+          <type><ref refid="group__profile__group_1gaa4b3d43d015fa3bca1ada7fb8ba71481" kindref="member">vtype</ref></type>
+          <defname>vtype</defname>
+        </param>
+        <param>
+          <type>vdep</type>
+          <defname>vdep</defname>
+        </param>
+        <briefdescription>
+<para>Sub-canopy aerosol dry deposition velocity following Pleim et al. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>(2022),</para>
+<para>Katul et al. (2010), Zhang et al. (2001), and Petroff et al. (2008) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nlev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of canopy layers </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lad</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Leaf area density profile (m^2/m^3) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>canopy model level heights (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>hc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>canopy top level heights (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>u</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array of wind speed profile (m/s) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>d_p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Aerosol particle diameter (m) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rho_p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Particle density (kg/m^3) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Air temperature profile (K) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>P</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Air pressure profile (Pa) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vdep</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output: aerosol deposition velocity profile (m/s) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_aero_ddep_mod.F90" line="117" column="1" bodyfile="src/canopy_aero_ddep_mod.F90" bodystart="119" bodyend="216"/>
+        <references refid="group__bioemi__inputs_1gaaddacb7cb12902ff9822e4e4dbf398f2" compoundref="canopy__bioemi__mod_8F90" startline="144">al</references>
+        <references refid="group__bioemi__inputs_1gaad0c993bd5fd93c7decad9daf442d225" compoundref="canopy__bioemi__mod_8F90" startline="127">canopy</references>
+        <references refid="group__bioemi__inputs_1gaf446508c68e334894eee1a7ec50b62f3" compoundref="canopy__bioemi__mod_8F90" startline="130">for</references>
+        <references refid="canopy__bioemi__mod_8F90_1aaea4baed8fd8b780f6938f0dc1fb0f72" compoundref="canopy__bioemi__mod_8F90" startline="292" endline="292">i</references>
+        <references refid="group__bioemi__inputs_1gaa4a0efab04932a8b8f7e35610eeacf18" compoundref="canopy__bioemi__mod_8F90" startline="146" endline="146">modres</references>
+        <references refid="group__geom__const_1ga6a99f47ba1f4f9cf9e4421be86a0672b" compoundref="canopy__const__mod_8F90" startline="43" endline="43">canopy_const_mod::pi</references>
+        <references refid="group__calcs__local__vars_1ga8f98af611901890ea94b6a918f0a912d" compoundref="canopy__calcs_8F90" startline="74">ra</references>
+        <references refid="group__bioemi__inputs_1ga8ece472fdbc07ee4926bcbb7909a08c9" compoundref="canopy__bioemi__mod_8F90" startline="182" endline="182">ustar</references>
+        <references refid="group__bioemi__inputs_1gaa4b3d43d015fa3bca1ada7fb8ba71481" compoundref="canopy__bioemi__mod_8F90" startline="145" endline="145">vtype</references>
+        <references refid="group__var3din__inputs_1gac4649400bcadf4900ec594f10f472787" compoundref="canopy__var3din__mod_8F90" startline="57">z</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/canopy_aero_ddep_mod.F90" line="10" column="1"/>
+  </compounddef>
+</doxygen>

@@ -5,6 +5,8 @@
 
 ## c
 
+* **canopy\_aero\_ddep\_pleim2022** ([**canopy\_aero\_ddep\_mod**](namespacecanopy__aero__ddep__mod.md))
+* **canopy\_aero\_ddep\_subveg** ([**canopy\_aero\_ddep\_mod**](namespacecanopy__aero__ddep__mod.md))
 * **canopy\_calcdx** ([**canopy\_dxcalc\_mod**](namespacecanopy__dxcalc__mod.md))
 * **canopy\_calcdx\_2d** ([**canopy\_dxcalc\_mod**](namespacecanopy__dxcalc__mod.md))
 * **canopy\_eddyx** ([**canopy\_eddy\_mod**](namespacecanopy__eddy__mod.md))

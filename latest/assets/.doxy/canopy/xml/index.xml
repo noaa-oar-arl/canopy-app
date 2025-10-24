@@ -120,6 +120,10 @@
     <member refid="structcanopy__canmet__mod_1_1variable__type__can_1a7587f6ae83d3ba3d89655d3fe126148a" kind="variable"><name>lev14</name></member>
     <member refid="structcanopy__canmet__mod_1_1variable__type__can_1a247f4c24187adc879142d39286e2188b" kind="variable"><name>pavd14</name></member>
   </compound>
+  <compound refid="namespacecanopy__aero__ddep__mod" kind="namespace"><name>canopy_aero_ddep_mod</name>
+    <member refid="namespacecanopy__aero__ddep__mod_1a9b0290668100ba11463ca81bc8bafd39" kind="function"><name>canopy_aero_ddep_pleim2022</name></member>
+    <member refid="namespacecanopy__aero__ddep__mod_1acbb7b3bb260e4c710afda5a65fb2ba19" kind="function"><name>canopy_aero_ddep_subveg</name></member>
+  </compound>
   <compound refid="namespacecanopy__bioemi__mod" kind="namespace"><name>canopy_bioemi_mod</name>
   </compound>
   <compound refid="namespacecanopy__bioparm__mod" kind="namespace"><name>canopy_bioparm_mod</name>
@@ -187,6 +191,10 @@
     <member refid="group__canopy__options_1gae29808e1b5d91e32e6a20066a6994f68" kind="variable"><name>ifcanphot</name></member>
     <member refid="group__canopy__options_1gacbd0683a95eff758864d68f9795829ac" kind="variable"><name>ifcanbio</name></member>
     <member refid="group__canopy__options_1gaa80c16e177daada28967f02ac812efb4" kind="variable"><name>ifcanddepgas</name></member>
+    <member refid="group__canopy__options_1ga6012cac06ed69999497aba88812f1de4" kind="variable"><name>ifcanaeroddep</name></member>
+    <member refid="group__canopy__options_1ga57fbb70964d343b0eb2fe802293783d7" kind="variable"><name>aeroddep_opt</name></member>
+    <member refid="group__canopy__options_1gae681cbfc0aac628d261f474f40d19292" kind="variable"><name>aeroddep_diam</name></member>
+    <member refid="group__canopy__options_1gab72096380a97611337fe217182383e0e" kind="variable"><name>aeroddep_rho</name></member>
     <member refid="group__canopy__options_1gab69d01fdbf3969946dfe77380a2155af" kind="variable"><name>pai_opt</name></member>
     <member refid="group__canopy__options_1gaa4dce9f5ee91043764f19a8b8556d527" kind="variable"><name>pai_set</name></member>
     <member refid="group__canopy__options_1ga3d491033526cf826c247558442541d29" kind="variable"><name>lu_opt</name></member>
@@ -257,6 +265,8 @@
     <member refid="group__canopy__variables_1ga7c01d270ca2b3f0549ff9a4eeb741a0a" kind="variable"><name>sigmau</name></member>
     <member refid="group__canopy__variables_1ga9d93ba1c87d4a3a0395fe610b39bf2c5" kind="variable"><name>sigma1</name></member>
     <member refid="group__canopy__variables_1gaf3bf45b659bfc133d65bbd6686344ebf" kind="variable"><name>zk</name></member>
+    <member refid="group__canopy__variables_1ga647c1e3f8078e4f9058f52e4beac6e6a" kind="variable"><name>vdep_aero_3d</name></member>
+    <member refid="group__canopy__variables_1ga68900c23e0bc80acef9ae41ef9ec1407" kind="variable"><name>vdep_aero</name></member>
     <member refid="group__canopy__variables_1ga131ce17d7d698a2910313deb365de819" kind="variable"><name>zhc</name></member>
     <member refid="group__canopy__variables_1gacc723800d832f4173408c01b2bcb79a1" kind="variable"><name>fainc</name></member>
     <member refid="group__canopy__variables_1gad3673ea88319317e268ab1a914b80d0b" kind="variable"><name>fafracz</name></member>
@@ -522,6 +532,7 @@
     <member refid="group__canopy__variables_1ga95d3438194fa1395726649bc1ce5d75f" kind="variable"><name>c_ddep_macrn</name></member>
     <member refid="group__canopy__variables_1ga75cba1537f20c0c7ba4d4f8752ae0387" kind="variable"><name>c_ddep_mvkn</name></member>
     <member refid="group__canopy__variables_1ga7cd9c7c142412cc7507aa547471a2ec0" kind="variable"><name>c_ddep_isnp</name></member>
+    <member refid="group__canopy__variables_1ga246a1bf123944b2a009414d60bae2fa8" kind="variable"><name>c_ddep_aero</name></member>
   </compound>
   <compound refid="namespacecanopy__const__mod" kind="namespace"><name>canopy_const_mod</name>
     <member refid="group__fundamental__const_1ga629413bd53f9899a994b2933459cae25" kind="variable"><name>avo</name></member>
@@ -674,6 +685,8 @@
     <member refid="group__canopy__wind_1gade10f32eedf03561ded2d522994845b6" kind="function"><name>canopy_wind_most</name></member>
   </compound>
   <compound refid="namespacenetcdf" kind="namespace"><name>netcdf</name>
+  </compound>
+  <compound refid="canopy__aero__ddep__mod_8F90" kind="file"><name>canopy_aero_ddep_mod.F90</name>
   </compound>
   <compound refid="canopy__alloc_8F90" kind="file"><name>canopy_alloc.F90</name>
   </compound>
@@ -1320,6 +1333,10 @@
     <member refid="group__canopy__options_1gae29808e1b5d91e32e6a20066a6994f68" kind="variable"><name>ifcanphot</name></member>
     <member refid="group__canopy__options_1gacbd0683a95eff758864d68f9795829ac" kind="variable"><name>ifcanbio</name></member>
     <member refid="group__canopy__options_1gaa80c16e177daada28967f02ac812efb4" kind="variable"><name>ifcanddepgas</name></member>
+    <member refid="group__canopy__options_1ga6012cac06ed69999497aba88812f1de4" kind="variable"><name>ifcanaeroddep</name></member>
+    <member refid="group__canopy__options_1ga57fbb70964d343b0eb2fe802293783d7" kind="variable"><name>aeroddep_opt</name></member>
+    <member refid="group__canopy__options_1gae681cbfc0aac628d261f474f40d19292" kind="variable"><name>aeroddep_diam</name></member>
+    <member refid="group__canopy__options_1gab72096380a97611337fe217182383e0e" kind="variable"><name>aeroddep_rho</name></member>
     <member refid="group__canopy__options_1gab69d01fdbf3969946dfe77380a2155af" kind="variable"><name>pai_opt</name></member>
     <member refid="group__canopy__options_1gaa4dce9f5ee91043764f19a8b8556d527" kind="variable"><name>pai_set</name></member>
     <member refid="group__canopy__options_1ga3d491033526cf826c247558442541d29" kind="variable"><name>lu_opt</name></member>
@@ -1390,6 +1407,8 @@
     <member refid="group__canopy__variables_1ga7c01d270ca2b3f0549ff9a4eeb741a0a" kind="variable"><name>sigmau</name></member>
     <member refid="group__canopy__variables_1ga9d93ba1c87d4a3a0395fe610b39bf2c5" kind="variable"><name>sigma1</name></member>
     <member refid="group__canopy__variables_1gaf3bf45b659bfc133d65bbd6686344ebf" kind="variable"><name>zk</name></member>
+    <member refid="group__canopy__variables_1ga647c1e3f8078e4f9058f52e4beac6e6a" kind="variable"><name>vdep_aero_3d</name></member>
+    <member refid="group__canopy__variables_1ga68900c23e0bc80acef9ae41ef9ec1407" kind="variable"><name>vdep_aero</name></member>
     <member refid="group__canopy__variables_1ga131ce17d7d698a2910313deb365de819" kind="variable"><name>zhc</name></member>
     <member refid="group__canopy__variables_1gacc723800d832f4173408c01b2bcb79a1" kind="variable"><name>fainc</name></member>
     <member refid="group__canopy__variables_1gad3673ea88319317e268ab1a914b80d0b" kind="variable"><name>fafracz</name></member>
@@ -1655,6 +1674,7 @@
     <member refid="group__canopy__variables_1ga95d3438194fa1395726649bc1ce5d75f" kind="variable"><name>c_ddep_macrn</name></member>
     <member refid="group__canopy__variables_1ga75cba1537f20c0c7ba4d4f8752ae0387" kind="variable"><name>c_ddep_mvkn</name></member>
     <member refid="group__canopy__variables_1ga7cd9c7c142412cc7507aa547471a2ec0" kind="variable"><name>c_ddep_isnp</name></member>
+    <member refid="group__canopy__variables_1ga246a1bf123944b2a009414d60bae2fa8" kind="variable"><name>c_ddep_aero</name></member>
   </compound>
   <compound refid="group__phot__mod" kind="group"><name>phot_mod</name>
     <member refid="group__phot__mod_1gaafbf3dd78d6dc2c9d02baade37959f67" kind="variable"><name>correction</name></member>

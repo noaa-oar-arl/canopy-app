@@ -49,6 +49,11 @@ MODULE canopy_canvars_mod
 
     real(rk), allocatable :: zk                  ( : )
 
+    real(rk), allocatable :: vdep_aero_3d       ( :, :, : )
+
+
+    real(rk), allocatable :: vdep_aero          ( :, : )
+
     real(rk), allocatable :: zhc                 ( : )
 
     real(rk), allocatable :: fainc               ( : )
@@ -428,6 +433,7 @@ MODULE canopy_canvars_mod
     TYPE(fld3ddata), POINTER     :: c_ddep_macrn
     TYPE(fld3ddata), POINTER     :: c_ddep_mvkn
     TYPE(fld3ddata), POINTER     :: c_ddep_isnp
+    TYPE(fld3ddata), POINTER     :: c_ddep_aero
 
 
 END MODULE canopy_canvars_mod

@@ -48,6 +48,15 @@ MODULE canopy_canopts_mod
     logical             ::    ifcanbio
 
     logical             ::    ifcanddepgas
+
+    logical             ::    ifcanaeroddep
+
+    integer             ::    aeroddep_opt
+
+    real(rk)            ::    aeroddep_diam
+
+    real(rk)            ::    aeroddep_rho
+
     integer             ::    pai_opt
 
     real(rk)            ::    pai_set

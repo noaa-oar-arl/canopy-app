@@ -23,7 +23,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_utils_mod.F90" line="1214" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1215" bodyend="1220"/>
-        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="71">d</references>
+        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="75">d</references>
       </memberdef>
       <memberdef kind="function" id="group__utils__group_1ga24b86b1c6a395bd9c05c9ae773743137" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
@@ -214,7 +214,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_utils_mod.F90" line="1916" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1917" bodyend="1926"/>
-        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="71">d</references>
+        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="75">d</references>
       </memberdef>
       <memberdef kind="function" id="group__utils__group_1ga239cf3416193408964190c47096231d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>real(rk) <ref refid="group__var3din__inputs_1gaa2d528f7b11373216012d90c197f829f" kindref="member">function</ref>, public</type>
@@ -946,8 +946,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_utils_mod.F90" line="1855" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1856" bodyend="1909"/>
-        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="71">d</references>
-        <references refid="group__calcs__local__vars_1gacc95ace9cd91076324304f9a2a46caa3" compoundref="canopy__calcs_8F90" startline="70" endline="70">rib</references>
+        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="75">d</references>
+        <references refid="group__calcs__local__vars_1gacc95ace9cd91076324304f9a2a46caa3" compoundref="canopy__calcs_8F90" startline="74" endline="74">rib</references>
         <references refid="group__drydep__group_1ga6e6096171957e9d01a8d50ccc4884060" compoundref="canopy__drydep__mod_8F90" startline="66" endline="66">ubar</references>
       </memberdef>
       <memberdef kind="function" id="group__utils__group_1ga6bcc084fd779f53ed44a15b117bf2cde" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -992,7 +992,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_utils_mod.F90" line="1395" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1396" bodyend="1403"/>
-        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="71">d</references>
+        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="75">d</references>
         <references refid="group__drydep__group_1ga488738eec06bc800ff5186f79d8ee029" compoundref="canopy__drydep__mod_8F90" startline="86" endline="86">f01</references>
         <references refid="group__drydep__group_1gaa0a8b38c4efaa75cf5587d59faa879c2" compoundref="canopy__drydep__mod_8F90" startline="85" endline="85">hstarl</references>
       </memberdef>
@@ -1143,7 +1143,7 @@
         <location file="src/canopy_utils_mod.F90" line="1618" column="1" bodyfile="src/canopy_utils_mod.F90" bodystart="1619" bodyend="1645"/>
         <references refid="group__drydep__group_1ga5ad117b462c0e4bc6ddb7e3caf31bd50" compoundref="canopy__drydep__mod_8F90" startline="56" endline="56">chemmechgas_opt</references>
         <references refid="group__drydep__group_1gafffa8e0ee990392e5d0ac5b339efcf67" compoundref="canopy__drydep__mod_8F90" startline="57" endline="57">chemmechgas_tot</references>
-        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="71">d</references>
+        <references refid="group__calcs__local__vars_1gadcb7ce4db39be5636d3ca9daa8927bc6" compoundref="canopy__calcs_8F90" startline="75">d</references>
         <referencedby refid="group__utils__group_1gab7aaf7725f96338bac795e5a4ff3c0c2" compoundref="canopy__utils__mod_8F90" startline="1602" endline="1610">effhenryslawcoeff</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__utils__group_1ga1ba1a7cb15857912aab31421a77c90ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
