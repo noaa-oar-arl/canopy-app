@@ -1358,7 +1358,23 @@ CONTAINS
                 write(*,*)  'Set chemmechgas_opt = 0 (RACM2) for now'
                 call exit(2)
             end if
+        end if
 
+        if (ifcanaeroddep) then
+            c_ddep_aero%fld = fillreal
+            c_ddep_aero%fldname = 'ddep_aero'
+            c_ddep_aero%long_name = ' aerosol dry deposition velocity'
+            c_ddep_aero%units = 'cm s-1'
+            c_ddep_aero%fillvalue = fillreal
+            c_ddep_aero%dimnames(1) = 'nlon'
+            c_ddep_aero%dimnames(2) = 'nlat'
+            c_ddep_aero%dimnames(3) = 'nlays'
+            c_ddep_aero%istart(1) = 1
+            c_ddep_aero%istart(2) = 1
+            c_ddep_aero%istart(3) = 1
+            c_ddep_aero%iend(1) = nlon
+            c_ddep_aero%iend(2) = nlat
+            c_ddep_aero%iend(3) = modlays
         end if
 
     END SUBROUTINE canopy_outncf_init
@@ -1470,7 +1486,6 @@ CONTAINS
         nfld3dxyzt = 0
 
         nfld3dxyzt = nfld3dxyzt + 1 !LAD
-
         if (ifcanwind .or. ifcanwaf) then
             nfld3dxyzt = nfld3dxyzt + 1 !CANWIND
         end if
@@ -1558,6 +1573,10 @@ CONTAINS
                 write(*,*)  'Set chemmechgas_opt = 0 (RACM2) for now'
                 call exit(2)
             end if
+        end if
+
+        if (ifcanaeroddep) then !Aerosol Dry Deposition fields
+            nfld3dxyzt = nfld3dxyzt + 1 !VDEP_AERO
         end if
 
         if(.not.allocated(fld3dxyzt)) ALLOCATE ( fld3dxyzt ( nfld3dxyzt ) )
@@ -1796,6 +1815,11 @@ CONTAINS
                 write(*,*)  'Set chemmechgas_opt = 0 (RACM2) for now'
                 call exit(2)
             end if
+        end if
+
+        if (ifcanaeroddep) then
+            set_index = set_index + 1
+            c_ddep_aero    => fld3dxyzt( set_index )
         end if
 
     END SUBROUTINE canopy_outncf_alloc
@@ -2775,6 +2799,7 @@ CONTAINS
             ! Time-varying 3d fields at cell centers.
             !-------------------------------------------------------------------------------
             c_lad%fld  = lad_3d
+
             if (ifcanwind .or. ifcanwaf) then
                 c_canwind%fld  = canWIND_3d
             end if
@@ -2943,8 +2968,10 @@ CONTAINS
                     write(*,*)  'Set chemmechgas_opt = 0 (RACM2) for now'
                     call exit(2)
                 end if
+            end if
 
-
+            if (ifcanaeroddep) then
+                c_ddep_aero%fld = vdep_aero_3d
             end if
 
             !-------------------------------------------------------------------------------

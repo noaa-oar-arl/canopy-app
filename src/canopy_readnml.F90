@@ -50,7 +50,8 @@ SUBROUTINE canopy_readnml
         leafage_opt, lai_tstep, soim_opt, soild1, soild2, soild3, soild4, aq_opt, w126_set, &
         ht_opt, lt_opt, hw_opt, hist_opt, loss_opt, loss_set, loss_ind, lifetime, &
         ddepspecgas_opt, chemmechgas_opt, chemmechgas_tot, soilcat_opt, hyblev1, snowc_set, &
-        icec_set, gamma_set, Ramin_set
+        icec_set, gamma_set, Ramin_set, &
+        ifcanaeroddep, aeroddep_opt, aeroddep_diam, aeroddep_rho
 
 
 !-------------------------------------------------------------------------------
@@ -477,6 +478,26 @@ SUBROUTINE canopy_readnml
 !-------------------------------------------------------------------------------
 ! !Set default minimum aerodynamic resistance (default = 10 s/m)
     Ramin_set = 10.0_rk
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default logical for canopy aerosol dry deposition (default = .FALSE.)
+    ifcanaeroddep = .FALSE.
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default integer value to select aerosol sub-canopy dry deposition option (0, Katul et al., 2010)
+    aeroddep_opt = 0
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for aerosol particle diameter (Default = 1.0E-6 m)
+    aeroddep_diam = 1.0E-6
+!-------------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------------
+! Set default value for aerosol particle density (Default = 1.5E3 kg/m^3)
+    aeroddep_rho  = 1.5E3
 !-------------------------------------------------------------------------------
 
 !-------------------------------------------------------------------------------

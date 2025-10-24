@@ -2,6 +2,19 @@
 
 Detailed description of the physical processes simulated in the Canopy-App model.
 
+## Aerosol Dry Deposition
+
+### Vegetated Areas
+- Sub-canopy aerosol dry deposition velocity is calculated using a selectable resistance parameterization (see `aeroddep_opt`):
+      - Katul et al. (2010) [default]
+      - Zhang et al. (2001)
+      - Petroff et al. (2008)
+   The resistance formulas for laminar, impaction, and interception terms are chosen based on `aeroddep_opt` (see README for details).
+
+### Urban/Non-Vegetated Areas
+- Urban and bare soil aerosol dry deposition velocity is calculated using Pleim et al. (2022) equations. See subroutine `canopy_aero_ddep_pleim2022` and output variable `ddep_aero_urban_3d`.
+- The calculation and output are enabled/disabled by the `ifcanaeroddep` option in the namelist file. Set to `.TRUE.` to activate urban/non-vegetated aerosol dry deposition routines and output.
+
 ## Canopy Meteorology
 
 ### Wind Flow Through Vegetation

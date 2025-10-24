@@ -67,6 +67,9 @@ SUBROUTINE canopy_dealloc
     if(allocated(ppfd_ave))              deallocate(ppfd_ave)
     if(allocated(lad))                   deallocate(lad)
     if(allocated(lad_3d))                deallocate(lad_3d)
+    if(allocated(vdep_aero_3d))          deallocate(vdep_aero_3d)
+    if(allocated(vdep_aero))             deallocate(vdep_aero)
+
     if(allocated(zo_h))                  deallocate(zo_h)
     if(allocated(zo_h_2d))               deallocate(zo_h_2d)
     if(allocated(d_h))                   deallocate(d_h)

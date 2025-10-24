@@ -52,6 +52,7 @@ set(COMMON_SRC_FILES
   canopy_readnml.F90
   canopy_alloc.F90
   canopy_init.F90
+  canopy_aero_ddep_mod.F90
   canopy_txt_io_mod.F90
   canopy_dxcalc_mod.F90
   canopy_profile_mod.F90

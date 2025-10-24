@@ -90,11 +90,13 @@ The Canopy-App includes the following physics components:
 - **Reference**: MEGANv2/v3 (Guenther et al., 2012), Clifton et al. (2021), Silva et al. (2020)
 
 ### 5. **Leaf-Level Gas Dry Deposition**
-- **Purpose**: Gas removal by vegetation surfaces (cm s⁻¹)
-- **Namelist Option**: `ifcanddepgas`
-- **Output Variables**: RACM2 chemical mechanism species
-- **Module**: `canopy_drydep_mod.F90`
-- **Reference**: Zhang et al. (2003), ACCESS (Saylor 2013)
+
+### 6. **Sub-Canopy Aerosol Dry Deposition**
+- **Purpose**: Multilayer aerosol removal by canopy surfaces (m/s)
+- **Namelist Option**: `ifcanaeroddep`, `aeroddep_diam`, `aeroddep_rho`
+- **Output Variables**: `vdep_aero_3d` (aerosol dry deposition velocity profile)
+- **Module**: `canopy_aero_ddep_mod.F90`
+- **Reference**: Katul et al. (2010)
 
 ## Getting Started
 

@@ -121,7 +121,7 @@ CONTAINS
                 write(10, '(a15, a24)') 'time stamp: ', TIMENOW
                 write(10, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
                 write(10, '(a30, i6)') 'number of model layers: ', modlays
-                write(10, '(a8, a9, a12, a14, a17)') 'lat', 'lon', 'height (m)', 'LAD (m2 m-3)', 'ws (m s-1)'
+                write(10, '(a8, a9, a12, a14, a17, a20, a20)') 'lat', 'lon', 'height (m)', 'LAD (m2 m-3)', 'ws (m s-1)'
                 do loc=1, nlat*nlon
                     do k=1, modlays
                         write(10, '(f8.2, f9.2, f10.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
@@ -268,6 +268,23 @@ CONTAINS
                     call exit(2)
                 end if
             end if
+            if (ifcanaeroddep) then
+                write(*,*)  'Writing aerosol dry deposition output'
+                write(*,*)  '-------------------------------'
+! ... save as text file
+                open(10, file=TRIM(TXTPREFX)//'_ddep_aer.txt')
+                write(10, '(a15, a24)') 'time stamp: ', TIMENOW
+                write(10, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
+                write(10, '(a30, i6)') 'number of model layers: ', modlays
+                write(10, '(a8, a9, a12, a14, a17, a20, a20)') 'lat', 'lon', 'height (m)', 'LAD (m2 m-3)', 'ddep_aero (cm/s)'
+                do loc=1, nlat*nlon
+                    do k=1, modlays
+                        write(10, '(f8.2, f9.2, f10.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
+                            zk(k), lad(loc,k),  vdep_aero(loc,k)
+                    end do
+                end do
+            end if
+
         end if
 
     END SUBROUTINE write_txt

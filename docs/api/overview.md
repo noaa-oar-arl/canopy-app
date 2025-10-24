@@ -14,6 +14,12 @@ The API documentation is automatically generated from the Fortran source code us
 
 ## Module Categories
 
+### New Feature (2025)
+- **Urban/non-vegetated aerosol dry deposition**: Added Pleim et al. (2022) equations for urban and bare soil areas. See `canopy_aero_ddep_pleim2022` and output variables `ddep_aero`.
+- **User Options:**
+    - `ifcanaeroddep` (logical): enables/disables aerosol dry deposition calculations via the namelist file. When `.TRUE.`, activates all sub-canopy aerosol dry deposition routines and outputs.
+    - `aeroddep_opt` selects the resistance parameterization for sub-canopy aerosol dry deposition (see README for options and references).
+
 ### Core System Modules
 - **`canopy_app`** - Main program entry point
 - **`canopy_init`** - Model initialization routines

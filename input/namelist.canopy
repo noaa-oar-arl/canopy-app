@@ -109,4 +109,9 @@
   icec_set        = 50.0
   gamma_set       = 5.0D-5
   Ramin_set       = 10.0
+!Canopy aerosol dry deposition-specific options
+  ifcanaeroddep = .TRUE.
+  aeroddep_opt  = 0
+  aeroddep_diam = 1.0E-6   ! Default aerosol diameter in meters (1 micron)
+  aeroddep_rho  = 1.5E3    ! Default aerosol density in kg/m^3 (1500)
 /

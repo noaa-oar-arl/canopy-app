@@ -45,6 +45,9 @@ Physical and mathematical constants used throughout the model.
 
 Model configuration options and main canopy variables.
 
+#### Aerosol Dry Deposition Option
+- `ifcanaeroddep` (logical): Enables aerosol dry deposition calculations. Set in the namelist file. When `.TRUE.`, activates urban/non-vegetated and vegetated dry deposition routines.
+
 ### Input/Output Variables
 ::: canopy
     selection:
@@ -89,6 +92,18 @@ Variables defining canopy structure and spatial domains.
 Meteorological input and calculated variables.
 
 ### Process-Specific Variables
+::: canopy
+    selection:
+        members:
+            - CanopyDryDeposition
+    rendering:
+        show_source: false
+        show_bases: false
+        heading_level: 4
+
+Variables for dry deposition processes:
+- `ddep_aero(nlon, nlat, modlays)` - Vegetated aerosol dry deposition velocity (m/s)
+
 ::: canopy
     selection:
         members:
