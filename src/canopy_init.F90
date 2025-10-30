@@ -1,4 +1,3 @@
-
 !> \file canopy_init.F90
 !> \brief Initialization subroutine for canopy model arrays
 !> \details This subroutine initializes all arrays for canopy model inputs
@@ -274,5 +273,12 @@ SUBROUTINE canopy_init
         if(allocated(vdep_aero_3d))       vdep_aero_3d(:,:,:)      = fillreal
         if(allocated(vdep_aero))          vdep_aero(:,:)           = fillreal
     end if
+
+    if(allocated(ninput_2d))      ninput_2d(:,:)   = 0.0_rk
+    if(allocated(crf_in_2d))      crf_in_2d(:,:)   = 0.0_rk
+    if(allocated(ninput_1d))      ninput_1d(:)     = 0.0_rk
+    if(allocated(crf_in_1d))      crf_in_1d(:)     = 0.0_rk
+    if(allocated(soilno_3d))      soilno_3d(:,:)   = fillreal
+    if(allocated(soilno))         soilno(:)        = fillreal
 
 END SUBROUTINE canopy_init

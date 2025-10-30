@@ -560,23 +560,41 @@ Otherwise, please contact Patrick.C.Campbell@noaa.gov for other GFSv16 data peri
 | `aeroddep_diam`  | real value for aerosol particle diameter (meters, e.g., `1.0E-6` for 1 micron)       |
 | `aeroddep_rho`   | real value for aerosol particle density (kg/m³, e.g., `1.5E3` for 1500 kg/m³)        |
 
+## Soil NO Emissions Module (BDSNP/CRF)
 
-**\*\*** If `modres` >> `flameh` then some error in WAF calculation will be incurred.  Suggestion is to use relative fine `modres` (at least <= 0.5 m) compared to average flame heights (e.g., ~ 1.0 m) if WAF is required.
+The Canopy-App includes a dedicated module for simulating soil nitric oxide (NO) emissions using the BDSNP model and a robust, flexible canopy reduction factor (CRF).
 
-**\*\*\*** If `href_set` becomes small and approaches z0 (or as `href_set` --> 0), only the sub-canopy wind profile is calculated, recommend `href_set` = 10 m.
+**Module:** `src/canopy_soilno_mod.F90`
 
-**Note:** Canopy is parameterized by foliage distribution shape functions and parameters for different vegetation types.
+### Key Features
+- Implements the BDSNP parameterization for soil NO emissions, as used in MEGAN v3.2 and HEMCO.
+- Supports multiple CRF calculation options:
+  - `crf_opt=0`: Default exponential LAI-based CRF
+  - `crf_opt=1`: Robust CRF (identical to default, can be extended)
+  - `crf_opt=2`: Vertically resolved CRF using the leaf area density (LAD) profile
+  - User override via `crf_set` namelist option
+- Fully controlled by new namelist options: `soilno_opt`, `crf_opt`, `crf_set`
+- Integrates with the main canopy calculation workflow for grid and point simulations
 
-- `canopy_profile_mod.F90`
+### Main Subroutine
+- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, LAD, ZK, FCH, MODLAYS)`
+  - Computes soil NO emissions flux (ng N m⁻² s⁻¹) based on soil temperature, moisture, nitrogen input, LAI, CRF, and optionally the vertical LAD profile.
+  - Supports biome-specific emission factors, temperature and moisture response, rain pulsing, and flexible CRF.
 
-## Global Canopy-App Example (July 01, 2022 at 1200 UTC)
+### Namelist Options
+Add these to your `input/namelist.canopy` under `&USERDEFS`:
+```fortran
+  soilno_opt = 1      ! 0=off, 1=use BDSNP model
+  crf_opt    = 2      ! 0=default, 1=robust, 2=LAD-resolved
+  crf_set    = 0.0    ! User override for CRF (0=auto)
+```
 
-<img
-  src="docs/Global_Canopy_App_Example.png"
-  alt="Alt text"
-  title="Global Canopy-App Example"
-  style="display: inline-block; margin: 0 auto">
+### Example Usage
+The module is called automatically from the main canopy calculation routine when `soilno_opt=1`.
 
+For more details, see the [API documentation](docs/api/modules.md#canopy_soilno_modf90) and [user guide](docs/user-guide/namelist-reference.md#soil-no-emissions-and-canopy-reduction-factor-crf).
+
+---
 ## References
 
 *Further references contained within the source code.*

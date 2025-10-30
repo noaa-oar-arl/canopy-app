@@ -558,4 +558,10 @@ MODULE canopy_canmet_mod
 
     !> \}
 
+    ! Soil NO emissions input variables
+    real(rk), allocatable :: ninput_2d(:,:)   ! Nitrogen input (kg N/ha), NetCDF
+    real(rk), allocatable :: crf_in_2d(:,:)   ! User override CRF, NetCDF
+    real(rk), allocatable :: ninput_1d(:)     ! Nitrogen input (kg N/ha), TXT
+    real(rk), allocatable :: crf_in_1d(:)     ! User override CRF, TXT
+
 END MODULE canopy_canmet_mod

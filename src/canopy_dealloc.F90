@@ -1,4 +1,3 @@
-
 !> \file canopy_dealloc.F90
 !> \brief Deallocation subroutine for canopy model arrays
 !> \details This subroutine deallocates all allocated arrays used in the

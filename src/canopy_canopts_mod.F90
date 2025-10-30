@@ -1,3 +1,14 @@
+ !> \brief Soil NO emission option
+ !> \details Integer to enable/disable BDSNP soil NO emissions (0=off, 1=on)
+integer :: soilno_opt
+
+ !> \brief Canopy reduction factor (CRF) option
+ !> \details Integer to select CRF method (0=default, 1=robust, 2=LAD-resolved)
+integer :: crf_opt
+
+ !> \brief User override for CRF
+ !> \details Real value to override computed CRF (0=auto, else fixed value)
+real(rk) :: crf_set
 !> \file canopy_canopts_mod.F90
 !> \brief Canopy model configuration options and user-settable parameters
 !> \details This module contains all user-configurable options and parameters

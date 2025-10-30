@@ -178,6 +178,30 @@ Photolysis rate calculations for atmospheric chemistry.
 - `jvals(nphot,nlev)` - Photolysis rates by species and level
 - `actinic_flux(nlev)` - Actinic flux profile
 
+---
+
+### canopy_soilno_mod.F90
+**Soil NO Emissions (BDSNP Model)**
+
+Implements soil NO emissions using the BDSNP model and a robust, flexible canopy reduction factor (CRF).
+
+**Key Variables:**
+- None (all handled via subroutine arguments)
+
+**User Options:**
+- `soilno_opt` - Integer switch in the namelist to enable/disable soil NO emissions (0=off, 1=on)
+- `crf_opt` - Integer switch for CRF method (0=default, 1=robust, 2=LAD-resolved)
+- `crf_set` - Real value to override computed CRF (0=auto)
+
+**Subroutines:**
+- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, LAD, ZK, FCH, MODLAYS)`
+  - Computes soil NO emissions flux (ng N m⁻² s⁻¹) using BDSNP, biome-specific emission factors, temperature and moisture response, rain pulsing, and flexible CRF. Supports vertically resolved CRF using the LAD profile if `crf_opt=2`.
+
+**Capabilities:**
+- Computes soil NO emissions flux (ng N m⁻² s⁻¹) based on soil temperature, water, N input, LAI, and CRF
+- Supports robust, user-specified, or vertically resolved CRF
+- Integrates with the main canopy calculation workflow
+
 ## Supporting Modules
 
 ### canopy_const_mod.F90

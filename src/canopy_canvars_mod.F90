@@ -299,6 +299,12 @@ MODULE canopy_canvars_mod
     real(rk), allocatable :: emi_ovoc_3d         ( : , : , : )  ! Other VOC biogenic emissions (kg/m2 s) -- 3D
 
 
+    !> \brief Soil NO emissions output variables
+    !> \details Soil NO emissions (ng N m-2 s-1), NetCDF and TXT
+    !! \param units ng N m-2 s-1
+    real(rk), allocatable :: soilno_3d(:,:)   ! Soil NO emissions (ng N m-2 s-1), NetCDF
+    real(rk), allocatable :: soilno(:)        ! Soil NO emissions (ng N m-2 s-1), TXT
+
     real(rk), allocatable :: ddep_no             ( :, : )       ! Dry Deposition velocity for NO (m/s)
     real(rk), allocatable :: ddep_no_3d          ( : , : , : )  ! Dry Deposition velocity for NO (m/s) -- 3D
     real(rk), allocatable :: ddep_no2            ( :, : )       ! Dry Deposition velocity for NO2 (m/s)

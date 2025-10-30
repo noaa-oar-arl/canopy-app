@@ -324,3 +324,30 @@ endif
 - 📊 [View variables](variables.md)
 - 🔗 [Complete API documentation](../canopy/links.md)
 - 💻 [See usage examples](../examples/basic.md)
+
+## Additional Functions
+
+### `compute_soil_no_emissions()`
+**Module:** `canopy_soilno_mod.F90`
+**Purpose:** Calculate soil NO emissions using the BDSNP model and a flexible canopy reduction factor (CRF)
+**Parameters:**
+- `Tsoil` (real, in): Soil temperature (K)
+- `Wsoil` (real, in): Soil water content (m³/m³)
+- `Ninput` (real, in): Nitrogen input (kg N/ha)
+- `LAI` (real, in): Leaf area index (m²/m²)
+- `CRF_in` (real, in): User override for CRF (0=auto)
+- `NO_flux` (real, out): Soil NO flux (ng N m⁻² s⁻¹)
+- `VTYPE` (int, in): Vegetation type
+- `LU_OPT` (int, in): Land use option
+- `PRATE` (real, in): Precipitation rate
+- `WILT` (real, in): Wilting point
+- `crf_opt` (int, in): CRF method (0=default, 1=robust, 2=LAD-resolved)
+- `LAD` (real array, in, optional): Leaf area density profile
+- `ZK` (real array, in, optional): Vertical height array
+- `FCH` (real, in, optional): Canopy height
+- `MODLAYS` (int, in, optional): Number of model layers
+
+**Description:**
+- Implements the BDSNP parameterization for soil NO emissions, including biome-specific emission factors, temperature and moisture response, rain pulsing, and flexible CRF.
+- If `crf_opt=2` and LAD profile is provided, computes CRF using the vertically resolved canopy structure.
+- Used in the main canopy calculation workflow when `soilno_opt=1`.

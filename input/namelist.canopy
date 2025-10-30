@@ -92,6 +92,12 @@
   soild3      =  70.0
   soild4      =  150.0
   aq_opt      =  2
+  &SOILNO
+  ! Soil NO emissions and canopy reduction factor options
+    soilno_opt   =  1      ! 0=off, 1=use BDSNP model
+    crf_opt      =  1      ! 0=default, 1=robust CRF
+    crf_set      =  0.0    ! User override for CRF (0=auto)
+  /
   w126_set    =  30.0
   hist_opt    =  1
   ht_opt      =  1

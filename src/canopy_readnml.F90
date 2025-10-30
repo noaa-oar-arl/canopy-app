@@ -38,6 +38,7 @@ SUBROUTINE canopy_readnml
 
     NAMELIST /filenames/ file_vars, file_canvars, file_out
 
+
     NAMELIST /userdefs/  infmt_opt, time_start, time_end, time_intvl, ntime, &
         nlat, nlon, modlays, modres, href_opt, href_set, z0ghc, lambdars, &
         var3d_opt, var3d_set, pavd_opt, pavd_set, &
@@ -51,7 +52,14 @@ SUBROUTINE canopy_readnml
         ht_opt, lt_opt, hw_opt, hist_opt, loss_opt, loss_set, loss_ind, lifetime, &
         ddepspecgas_opt, chemmechgas_opt, chemmechgas_tot, soilcat_opt, hyblev1, snowc_set, &
         icec_set, gamma_set, Ramin_set, &
-        ifcanaeroddep, aeroddep_opt, aeroddep_diam, aeroddep_rho
+        ifcanaeroddep, aeroddep_opt, aeroddep_diam, aeroddep_rho, &
+        soilno_opt, crf_opt, crf_set
+    !-------------------------------------------------------------------------------
+    ! Set default values for soil NO emission and CRF options
+    soilno_opt = 0
+    crf_opt = 0
+    crf_set = 0.0_rk
+    !-------------------------------------------------------------------------------
 
 
 !-------------------------------------------------------------------------------

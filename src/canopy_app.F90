@@ -97,6 +97,7 @@ program canopy_app
     time_now = time_start
     if(ntime.le.0) ntime=999999999 ! assign a large number
     timeloop: DO nn=1,ntime
+# Soil NO emissions variables (placeholder, replace with actual model variables)
 
         WRITE (*,f100) time_now
 #ifdef NETCDF
@@ -118,6 +119,8 @@ program canopy_app
         !! - Canopy profile computations
         !! - Biogenic emission estimates
         !! \param nn Current time step index
+
+
         call canopy_calcs(nn)
 
         !> \brief Format current time for output file naming

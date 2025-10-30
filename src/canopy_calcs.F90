@@ -55,6 +55,7 @@ SUBROUTINE canopy_calcs(nn)
     use canopy_bioemi_mod     !> biogenic emission calculations
     use canopy_drydep_mod     !> gas dry deposition calculations
     use canopy_aero_ddep_mod  !> aerosol dry deposition calculations
+    use canopy_soilno_mod     !> soil NO emissions calculations
 
     IMPLICIT NONE
 

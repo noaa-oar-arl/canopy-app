@@ -1,4 +1,3 @@
-
 !> \file canopy_alloc.F90
 !! \brief Memory allocation subroutine for canopy model arrays
 !! \author P.C. Campbell
@@ -226,7 +225,6 @@ SUBROUTINE canopy_alloc
     !! \ingroup MemoryManagement
     !! \{
     !!
-    !<
     !> \brief 24-hour average sunlit leaf temperature 3D (K)
     if(.not.allocated(tleaf_sun24_3d))        allocate(tleaf_sun24_3d(nlon,nlat,modlays))
     !> \brief 24-hour average shaded leaf temperature 3D (K)

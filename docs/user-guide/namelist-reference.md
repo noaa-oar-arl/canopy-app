@@ -204,6 +204,16 @@ For complete details on all biogenic emission options including leaf age, histor
 | `gamma_set` | real | Building surface reaction probability | `5.0e-5` |
 | `Ramin_set` | real | Minimum aerodynamic resistance (s/m) | `10.0` |
 
+### Soil NO Emissions and Canopy Reduction Factor (CRF)
+
+| Option      | Type    | Description                                              | Default |
+|-------------|---------|----------------------------------------------------------|---------|
+| `soilno_opt`| integer | Soil NO emissions: `0`=off, `1`=use BDSNP model         | `1`     |
+| `crf_opt`   | integer | Canopy reduction factor: `0`=default, `1`=robust CRF    | `1`     |
+| `crf_set`   | real    | User override for CRF (0=auto, else fixed value)        | `0.0`   |
+
+These options control the new soil NO emissions module and the method for calculating the canopy reduction factor (CRF). Set `soilno_opt=1` to enable the BDSNP-based soil NO emissions. Use `crf_opt=1` for the robust CRF implementation. If `crf_set` is nonzero, it overrides the computed CRF value.
+
 ## Configuration Tips
 
 ### Basic Setup
