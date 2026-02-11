@@ -471,6 +471,10 @@ SUBROUTINE canopy_alloc
         if(.not.allocated(soilno))           allocate(soilno(nlat*nlon))
         !> \brief Soil NO emission rate 2D (ng N m-2 s-1)
         if(.not.allocated(soilno_3d))        allocate(soilno_3d(nlon,nlat))
+        !> \brief Nitrogen input from fertilizer (kg N/ha), 2D NetCDF
+        if(.not.allocated(ninput_2d))        allocate(ninput_2d(nlon,nlat))
+        !> \brief Nitrogen input from fertilizer (kg N/ha), 1D TXT
+        if(.not.allocated(ninput_1d))        allocate(ninput_1d(nlat*nlon))
     end if
     !> \}
 

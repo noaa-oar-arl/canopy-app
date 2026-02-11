@@ -978,7 +978,7 @@ SUBROUTINE canopy_calcs(nn)
                                 call compute_soil_no_emissions( &
                                     Tsoil=real(tmpsfcref, kind=8),   &
                                     Wsoil=real(soilw1ref, kind=8),   &
-                                    Ninput=1.0d0,                    &
+                                    Ninput=real(ninput_2d(i,j), kind=8), &
                                     LAI=real(lairef, kind=8),        &
                                     CRF_in=real(crf_set, kind=8),    &
                                     NO_flux=soilno_3d(i,j),          &
@@ -3577,7 +3577,7 @@ SUBROUTINE canopy_calcs(nn)
                             call compute_soil_no_emissions( &
                                 Tsoil=real(tmpsfcref, kind=8),   &
                                 Wsoil=real(soilw1ref, kind=8),   &
-                                Ninput=1.0d0,                    &
+                                Ninput=real(ninput_1d(loc), kind=8), &
                                 LAI=real(lairef, kind=8),        &
                                 CRF_in=real(crf_set, kind=8),    &
                                 NO_flux=soilno(loc),             &

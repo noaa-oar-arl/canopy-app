@@ -92,6 +92,7 @@ canlist = [
     "csz",
     "frp",
     "href",
+    "ninput",
 ]
 
 
@@ -286,6 +287,7 @@ for inputtime in timelist:
     f_output = (
         path + "/gfs.t" + HH + "z." + YY + MM + DD + ".sfcf" + FH + ".canopy.nc"
     )  # output file
+    f_ninput = path + "/nitrogen_input.nc"  # preprocessed NPKGRIDS nitrogen input
 
     if frp_src == 0:  # local frp file
         if int(YY + MM + DD) <= 20230510:  # version 3
@@ -582,6 +584,19 @@ for inputtime in timelist:
             ATT = ["Reference height above the surface", "m", fill_value]
             DATA = np.empty([nlat, nlon])
             DATA[:] = ref_lev
+
+        elif varname == "ninput":
+            ATTNAME = ["long_name", "units", "missing_value"]
+            ATT = ["Nitrogen input from fertilizer", "kg-N ha-1", fill_value]
+            if os.path.isfile(f_ninput):
+                readin = Dataset(f_ninput, "r")
+                DATA = np.squeeze(readin["ninput"][:])
+                readin.close()
+                DATA[np.isnan(DATA)] = 0.0
+                DATA[DATA < 0] = 0.0
+            else:
+                print("---- WARNING: nitrogen_input.nc not found; using ninput=0")
+                DATA = np.zeros([nlat, nlon])
 
         # var check
         print("Dimension/Attributes:")

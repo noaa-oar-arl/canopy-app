@@ -3608,6 +3608,17 @@ CONTAINS
             !Also reshape to 1D array for 1D calculation and output
 !            variables%icec=reshape(variables_2d%icec,[size(variables_2d%icec)])
 
+            !Nitrogen input for soil NO emissions (optional)
+            if (soilno_opt .eq. 1) then
+                CALL get_var_2d_real_cdf (cdfid, 'ninput', variables_2d_real, it, rcode)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (*,*) 'WARNING: ninput not in input file; using default 1.0 kg-N/ha'
+                    ninput_2d(:,:) = 1.0_rk
+                ELSE
+                    ninput_2d = variables_2d_real
+                ENDIF
+            end if
+
             !3D Input Level Profile
             if (var3d_opt .eq. 1) then
                 CALL get_var_1d_real_cdf (cdfid, 'lev', variables_1d_lev_real, it, rcode)
@@ -3808,6 +3819,15 @@ CONTAINS
                     TRIM(nf90_strerror(rcode))
                 CALL exit(2)
             ENDIF
+
+            !Nitrogen input for soil NO emissions (optional)
+            if (soilno_opt .eq. 1) then
+                CALL get_var_1d_real_cdf (cdfid, 'ninput', ninput_1d, it, rcode)
+                IF ( rcode /= nf90_noerr ) THEN
+                    WRITE (*,*) 'WARNING: ninput not in input file; using default 1.0 kg-N/ha'
+                    ninput_1d(:) = 1.0_rk
+                ENDIF
+            end if
         else
             write(*,*)  'Wrong INFMT_OPT choice of ', infmt_opt, ' in namelist...exiting'
             call exit(2)

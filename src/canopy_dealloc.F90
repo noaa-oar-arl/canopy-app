@@ -71,6 +71,8 @@ SUBROUTINE canopy_dealloc
     if(allocated(vdep_aero))             deallocate(vdep_aero)
     if(allocated(soilno_3d))             deallocate(soilno_3d)
     if(allocated(soilno))                deallocate(soilno)
+    if(allocated(ninput_2d))             deallocate(ninput_2d)
+    if(allocated(ninput_1d))             deallocate(ninput_1d)
 
     if(allocated(zo_h))                  deallocate(zo_h)
     if(allocated(zo_h_2d))               deallocate(zo_h_2d)
