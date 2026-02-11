@@ -2,6 +2,26 @@
 !! \brief BDSNP Soil NO Emissions Module
 !! \details Module for computing soil NO emissions using the Berkeley-Dalhousie
 !!          Soil NO Parameterization (BDSNP) model with canopy reduction factor.
+!!
+!!          The fertilizer N contribution currently uses a steady-state
+!!          approximation: fert_flux = Ninput * fert_frac * unit_conversion.
+!!          This is the steady-state limit of the Hudman et al. (2012) Eq. 5
+!!          dynamic N mass-balance reservoir for constant annual input.
+!!
+!! \todo    **Seasonal N distribution & dynamic reservoir (future task)**:
+!!          The current NPKGRIDS input is a single annual total with no temporal
+!!          variation, so the steady-state formula is exact.  To capture transient
+!!          fertilizer dynamics (post-application decay, growing-season shutoff),
+!!          the following enhancements are needed:
+!!          1. Add seasonal distribution of the NPKGRIDS annual N total (e.g.,
+!!             using MODIS EVI phenology or a crop-calendar growing-season window)
+!!             so that the application rate F varies month-to-month.
+!!          2. Implement the full Hudman et al. (2012) Eq. 5 mass-balance:
+!!             N_avail(t) = N_avail(t-dt)*exp(-dt/tau) + F*tau*(1-exp(-dt/tau))
+!!             with a persistent N_reservoir array tracked across timesteps.
+!!          3. Add namelist parameters: fert_tau (decay lifetime, default 4 months)
+!!             and fert_runoff (runoff fraction, default 0.4).
+!!
 !! \author P. C. Campbell (Initial version, Oct 2025)
 !! \author Quazi Rasool (CIRES/NOAA CSL) (Syntax fix, wiring, output integration, Feb 2026)
 
@@ -78,9 +98,22 @@ contains
         end if
 
         ! Fertilizer N contribution (ng N m-2 s-1)
-        ! Ninput (kg-N/ha/yr) * fert_frac * unit conversion
+        ! Ninput (kg-N/ha) * fert_frac * unit conversion
         ! fert_frac: 0.01 = 1% (Steinkamp & Lawrence 2011)
         !            0.025 = 2.5% (Hudman et al. 2012)
+        !
+        ! NOTE: This is the steady-state solution of Hudman et al. (2012) Eq. 5:
+        !   N_avail(t) = N_avail(0)*exp(-t/tau) + F*tau*(1 - exp(-t/tau))
+        ! For constant annual input F, N_avail -> F*tau as t -> infinity.
+        ! Emission = (N_avail / tau) * fert_frac = F * fert_frac, which is
+        ! exactly what this line computes.  The full reservoir with exponential
+        ! decay (tau ~ 4 months) only adds value when F varies in time (e.g.,
+        ! seasonal fertilizer application with growing-season shutoff).
+        ! Current NPKGRIDS input is a single annual total with no temporal
+        ! variation, so the reservoir would remain at steady state and produce
+        ! identical results.
+        ! TODO: When seasonal N distribution is added, implement full Eq. 5
+        !       mass-balance with persistent N_reservoir array and decay lifetime.
         fert_flux = Ninput * fert_frac * KG_HA_YR_TO_NG_M2_S
 
         ! Base BDSNP soil NO emission (ng N m-2 s-1)
