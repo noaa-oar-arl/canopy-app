@@ -42,6 +42,9 @@ contains
 
         real(real64) :: base_flux, T_factor, WFPS, WFPS_factor, pulse_factor
         real(real64) :: biome_emission, crf_val
+        ! Variables for vertically resolved CRF (case 2)
+        integer :: k, nlay
+        real(real64) :: dz, sum_lad, attenuation
 
         ! Calculate water-filled pore space (WFPS)
         WFPS = min(1.0d0, Wsoil / POROSITY)
@@ -81,8 +84,6 @@ contains
             ! Vertically resolved CRF using LAD profile (if provided)
             if (present(LAD) .and. present(ZK) .and. present(FCH)) then
                 ! Integrate LAD over canopy height to get total attenuation
-                integer :: k, nlay
-                real(real64) :: dz, sum_lad, attenuation
                 sum_lad = 0.0d0
                 attenuation = 0.0d0
                 nlay = min(MODLAYS, size(LAD))
