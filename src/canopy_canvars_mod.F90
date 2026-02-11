@@ -5,6 +5,7 @@
 !>          variables, and output fields including wind profiles, temperature profiles,
 !>          biogenic emissions, and dry deposition variables.
 !> \author P. C. Campbell
+!> \author Quazi Rasool (CIRES/NOAA CSL) (Soil NO variable/pointer declarations, Feb 2026)
 !> \date 03 Oct 2022
 
 !> \defgroup canopy_variables Canopy Model Variables
@@ -530,6 +531,7 @@ MODULE canopy_canvars_mod
     TYPE(fld2ddata), POINTER     :: c_canheight
     TYPE(fld2ddata), POINTER     :: c_dh
     TYPE(fld2ddata), POINTER     :: c_zoh
+    TYPE(fld2ddata), POINTER     :: c_soilno
 
 !-------------------------------------------------------------------------------
 ! Time-varying 3d fields at cell centers for output NETCDF

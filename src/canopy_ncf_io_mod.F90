@@ -4,6 +4,7 @@
 !!          NetCDF format files for the canopy model, including meteorological
 !!          input data and model output data.
 !> \author S.-B. Kim, T. Otte, T. Spero, P.C. Campbell
+!> \author Quazi Rasool (CIRES/NOAA CSL) (Soil NO NetCDF output, Feb 2026)
 !> \date Originally 2004, adapted for Canopy-App December 2022
 !> \version 3.0
 
@@ -433,6 +434,20 @@ CONTAINS
             c_flameh%istart(2) = 1
             c_flameh%iend(1) = nlon
             c_flameh%iend(2) = nlat
+        end if
+
+        if (soilno_opt == 1) then
+            c_soilno%fld = fillreal
+            c_soilno%fldname = 'soilno'
+            c_soilno%long_name = 'BDSNP soil NO emissions'
+            c_soilno%units = 'ng N m-2 s-1'
+            c_soilno%fillvalue = fillreal
+            c_soilno%dimnames(1) = 'nlon'
+            c_soilno%dimnames(2) = 'nlat'
+            c_soilno%istart(1) = 1
+            c_soilno%istart(2) = 1
+            c_soilno%iend(1) = nlon
+            c_soilno%iend(2) = nlat
         end if
 
         !-------------------------------------------------------------------------------
@@ -1460,6 +1475,10 @@ CONTAINS
             nfld2dxyt = nfld2dxyt + 1  !FLAMEH
         end if
 
+        if (soilno_opt == 1) then
+            nfld2dxyt = nfld2dxyt + 1  !SOILNO
+        end if
+
         if(.not.allocated(fld2dxyt)) ALLOCATE ( fld2dxyt ( nfld2dxyt ) )
 
         DO nn = 1, nfld2dxyt
@@ -1477,6 +1496,10 @@ CONTAINS
             c_waf       => fld2dxyt( set_index )
             set_index = set_index + 1
             c_flameh    => fld2dxyt( set_index )
+        end if
+        if (soilno_opt == 1) then
+            set_index = set_index + 1
+            c_soilno    => fld2dxyt( set_index )
         end if
 
         !-------------------------------------------------------------------------------
@@ -2793,6 +2816,9 @@ CONTAINS
             if (ifcanwind .or. ifcanwaf) then
                 c_waf%fld = waf_2d
                 c_flameh%fld = flameh_2d
+            end if
+            if (soilno_opt == 1) then
+                c_soilno%fld = soilno_3d
             end if
 
             !-------------------------------------------------------------------------------

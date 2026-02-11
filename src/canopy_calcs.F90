@@ -9,6 +9,7 @@
 !! Output variable: vdep_aero_3d (2D) or vdep_aero (1D)
 !!
 !! \author Patrick C. Campbell
+!! \author Quazi Rasool (CIRES/NOAA CSL) (Soil NO call integration, Feb 2026)
 !! \date October 2022
 
 !> \defgroup canopy_calcs Main Canopy Calculations
@@ -970,6 +971,21 @@ SUBROUTINE canopy_calcs(nn)
                                         emi_ovoc_3d(i,j,:) = 0.0_rk
                                     end if
                                 end if
+                            end if
+
+! ... user option to calculate soil NO emissions (BDSNP)
+                            if (soilno_opt .eq. 1) then
+                                call compute_soil_no_emissions( &
+                                    Tsoil=real(tmpsfcref, kind=8),   &
+                                    Wsoil=real(soilw1ref, kind=8),   &
+                                    Ninput=1.0d0,                    &
+                                    LAI=real(lairef, kind=8),        &
+                                    CRF_in=real(crf_set, kind=8),    &
+                                    NO_flux=soilno_3d(i,j),          &
+                                    VTYPE=vtyperef, LU_OPT=lu_opt,  &
+                                    PRATE=real(prate_averef, kind=8),&
+                                    WILT=real(wiltref, kind=8),      &
+                                    crf_opt=crf_opt, MODLAYS=modlays)
                             end if
 
 ! ... user option to calculate in-canopy dry deposition velocity
@@ -3554,6 +3570,21 @@ SUBROUTINE canopy_calcs(nn)
                                     emi_ovoc(loc,:) = 0.0_rk
                                 end if
                             end if
+                        end if
+
+! ... user option to calculate soil NO emissions (BDSNP)
+                        if (soilno_opt .eq. 1) then
+                            call compute_soil_no_emissions( &
+                                Tsoil=real(tmpsfcref, kind=8),   &
+                                Wsoil=real(soilw1ref, kind=8),   &
+                                Ninput=1.0d0,                    &
+                                LAI=real(lairef, kind=8),        &
+                                CRF_in=real(crf_set, kind=8),    &
+                                NO_flux=soilno(loc),             &
+                                VTYPE=vtyperef, LU_OPT=lu_opt,  &
+                                PRATE=real(prate_averef, kind=8),&
+                                WILT=real(wiltref, kind=8),      &
+                                crf_opt=crf_opt, MODLAYS=modlays)
                         end if
 
 ! ... user option to calculate in-canopy dry deposition velocity

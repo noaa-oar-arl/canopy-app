@@ -3,6 +3,7 @@
 !> \details This module contains routines to read meteorological/surface model
 !!          text input and write canopy model text output files.
 !> \author P.C. Campbell
+!> \author Quazi Rasool (CIRES/NOAA CSL) (Soil NO text output, Feb 2026)
 !> \date October 2022
 !> \version 1.0
 
@@ -282,6 +283,20 @@ CONTAINS
                         write(10, '(f8.2, f9.2, f10.2, f12.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
                             zk(k), lad(loc,k),  vdep_aero(loc,k)
                     end do
+                end do
+            end if
+
+            if (soilno_opt == 1) then
+                write(*,*)  'Writing soil NO emissions output'
+                write(*,*)  '-------------------------------'
+! ... save as text file
+                open(10, file=TRIM(TXTPREFX)//'_soilno.txt')
+                write(10, '(a15, a24)') 'time stamp: ', TIMENOW
+                write(10, '(a30, f6.1, a2)') 'reference height, h: ', href_set, 'm'
+                write(10, '(a8, a9, a25)') 'lat', 'lon', 'soilno (ng N m-2 s-1)'
+                do loc=1, nlat*nlon
+                    write(10, '(f8.2, f9.2, es15.7)')  variables(loc)%lat, variables(loc)%lon, &
+                        soilno(loc)
                 end do
             end if
 

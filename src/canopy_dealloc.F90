@@ -3,6 +3,7 @@
 !> \details This subroutine deallocates all allocated arrays used in the
 !!          canopy model to free memory at the end of model execution.
 !> \author P.C. Campbell
+!> \author Quazi Rasool (CIRES/NOAA CSL) (Soil NO array deallocation, Feb 2026)
 !> \date October 2022
 !> \version 1.0
 
@@ -68,6 +69,8 @@ SUBROUTINE canopy_dealloc
     if(allocated(lad_3d))                deallocate(lad_3d)
     if(allocated(vdep_aero_3d))          deallocate(vdep_aero_3d)
     if(allocated(vdep_aero))             deallocate(vdep_aero)
+    if(allocated(soilno_3d))             deallocate(soilno_3d)
+    if(allocated(soilno))                deallocate(soilno)
 
     if(allocated(zo_h))                  deallocate(zo_h)
     if(allocated(zo_h_2d))               deallocate(zo_h_2d)

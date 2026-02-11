@@ -65,6 +65,7 @@ set(COMMON_SRC_FILES
   canopy_eddy_mod.F90
   canopy_bioparm_mod.F90
   canopy_bioemi_mod.F90
+  canopy_soilno_mod.F90
   canopy_drydep_mod.F90
   canopy_calcs.F90
   canopy_write_txt.F90
