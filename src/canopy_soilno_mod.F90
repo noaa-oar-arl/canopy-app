@@ -45,8 +45,8 @@ contains
         real(real64), parameter :: POROSITY = 0.5d0
         ! Unit conversion: kg-N/ha/yr -> ng-N/m2/s
         ! 1 kg = 1e12 ng, 1 ha = 1e4 m2, 1 yr = 3.1536e7 s
-        ! => 1 kg-N/ha/yr = 1e12 / (1e4 * 3.1536e7) = 3.1709d-3 ng-N/m2/s
-        real(real64), parameter :: KG_HA_YR_TO_NG_M2_S = 3.1709d-3
+        ! => 1 kg-N/ha/yr = 1e12 / (1e4 * 3.1536e7) = 3.1710 ng-N/m2/s
+        real(real64), parameter :: KG_HA_YR_TO_NG_M2_S = 3.1710d0
 
         real(real64) :: base_flux, fert_flux, T_factor, WFPS, WFPS_factor, pulse_factor
         real(real64) :: biome_emission, crf_val
