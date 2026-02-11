@@ -985,7 +985,9 @@ SUBROUTINE canopy_calcs(nn)
                                     VTYPE=vtyperef, LU_OPT=lu_opt,  &
                                     PRATE=real(prate_averef, kind=8),&
                                     WILT=real(wiltref, kind=8),      &
-                                    crf_opt=crf_opt, MODLAYS=modlays)
+                                    crf_opt=crf_opt,                 &
+                                    fert_frac=real(fert_frac, kind=8), &
+                                    MODLAYS=modlays)
                             end if
 
 ! ... user option to calculate in-canopy dry deposition velocity
@@ -3584,7 +3586,9 @@ SUBROUTINE canopy_calcs(nn)
                                 VTYPE=vtyperef, LU_OPT=lu_opt,  &
                                 PRATE=real(prate_averef, kind=8),&
                                 WILT=real(wiltref, kind=8),      &
-                                crf_opt=crf_opt, MODLAYS=modlays)
+                                crf_opt=crf_opt,                 &
+                                fert_frac=real(fert_frac, kind=8), &
+                                MODLAYS=modlays)
                         end if
 
 ! ... user option to calculate in-canopy dry deposition velocity

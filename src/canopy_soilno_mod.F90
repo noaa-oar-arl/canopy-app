@@ -14,20 +14,25 @@ module canopy_soilno_mod
 
 contains
 
-    subroutine compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, LAD, ZK, FCH, MODLAYS)
+    subroutine compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, &
+        VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, LAD, ZK, FCH, MODLAYS)
         ! Compute soil NO emissions using BDSNP model and robust CRF
         ! Arguments:
-        !   Tsoil   - soil temperature (K)
-        !   Wsoil   - soil water content (m3/m3)
-        !   Ninput  - nitrogen input (kg N/ha)
-        !   LAI     - leaf area index (m2/m2)
-        !   CRF_in  - user override for canopy reduction factor (0=auto)
-        !   NO_flux - output: soil NO flux (ng N m-2 s-1)
-        !   VTYPE   - vegetation type (integer)
-        !   LU_OPT  - land use option (integer)
-        !   PRATE   - precipitation rate (mm/hr)
-        !   WILT    - wilting point (m3/m3)
+        !   Tsoil      - soil temperature (K)
+        !   Wsoil      - soil water content (m3/m3)
+        !   Ninput     - nitrogen input (kg N/ha)
+        !   LAI        - leaf area index (m2/m2)
+        !   CRF_in     - user override for canopy reduction factor (0=auto)
+        !   NO_flux    - output: soil NO flux (ng N m-2 s-1)
+        !   VTYPE      - vegetation type (integer)
+        !   LU_OPT     - land use option (integer)
+        !   PRATE      - precipitation rate (mm/hr)
+        !   WILT       - wilting point (m3/m3)
+        !   fert_frac  - fraction of applied N emitted as NO
+        !                0.01 = 1% (Steinkamp & Lawrence 2011)
+        !                0.025 = 2.5% (Hudman et al. 2012)
         real(real64), intent(in)  :: Tsoil, Wsoil, Ninput, LAI, CRF_in, PRATE, WILT
+        real(real64), intent(in)  :: fert_frac
         integer, intent(in)       :: crf_opt, MODLAYS
         real(real64), intent(in), optional :: LAD(:), ZK(:), FCH
         integer, intent(in)       :: VTYPE, LU_OPT
@@ -38,12 +43,12 @@ contains
         real(real64), parameter :: T_REF = 303.15d0 ! 30C
         real(real64), parameter :: WFPS_OPT = 0.20d0
         real(real64), parameter :: POROSITY = 0.5d0
-        real(real64), parameter :: MW_NO = 30.01d0
-        real(real64), parameter :: MW_N = 14.01d0
-        real(real64), parameter :: NO_COMPEN_DEFAULT = 1.0d0
-        real(real64), parameter :: ALPHA_NO2_DEFAULT = 0.67d0
+        ! Unit conversion: kg-N/ha/yr -> ng-N/m2/s
+        ! 1 kg = 1e12 ng, 1 ha = 1e4 m2, 1 yr = 3.1536e7 s
+        ! => 1 kg-N/ha/yr = 1e12 / (1e4 * 3.1536e7) = 3.1709d-3 ng-N/m2/s
+        real(real64), parameter :: KG_HA_YR_TO_NG_M2_S = 3.1709d-3
 
-        real(real64) :: base_flux, T_factor, WFPS, WFPS_factor, pulse_factor
+        real(real64) :: base_flux, fert_flux, T_factor, WFPS, WFPS_factor, pulse_factor
         real(real64) :: biome_emission, crf_val
         ! Variables for vertically resolved CRF (case 2)
         integer :: k, nlay
@@ -72,8 +77,15 @@ contains
             pulse_factor = 10.7d0 * WFPS + 1.0d0
         end if
 
+        ! Fertilizer N contribution (ng N m-2 s-1)
+        ! Ninput (kg-N/ha/yr) * fert_frac * unit conversion
+        ! fert_frac: 0.01 = 1% (Steinkamp & Lawrence 2011)
+        !            0.025 = 2.5% (Hudman et al. 2012)
+        fert_flux = Ninput * fert_frac * KG_HA_YR_TO_NG_M2_S
+
         ! Base BDSNP soil NO emission (ng N m-2 s-1)
-        base_flux = biome_emission * T_factor * WFPS_factor * pulse_factor
+        ! = biome background (modulated by T, moisture, pulse) + fertilizer N
+        base_flux = biome_emission * T_factor * WFPS_factor * pulse_factor + fert_flux
 
 
         select case (crf_opt)

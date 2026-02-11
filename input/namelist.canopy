@@ -97,6 +97,7 @@
   soilno_opt  =  1      ! 0=off, 1=use BDSNP model
   crf_opt     =  1      ! 0=default, 1=robust CRF
   crf_set     =  0.0    ! User override for CRF (0=auto)
+  fert_frac   =  0.01   ! Fraction of applied N emitted as NO (0.01=1% Steinkamp&Lawrence; 0.025=2.5% Hudman)
   hist_opt    =  1
   ht_opt      =  1
   lt_opt      =  1
