@@ -7,13 +7,17 @@ cell, and regrids from native 0.05 deg to the GFS ~13 km grid using
 monet.remap_nearest().
 
 Usage:
-    python preprocess_npkgrids.py <gfs_reference_file> [npkgrids_dir]
+    python preprocess_npkgrids.py [gfs_reference_file] [npkgrids_dir]
 
 Arguments:
     gfs_reference_file : Path to any GFS meteorological NetCDF file (defines
-                         the target 1536x3072 grid).
+                         the target 1536x3072 grid).  If omitted, a sample
+                         GFS file is auto-downloaded from AWS S3.
     npkgrids_dir       : Directory containing extracted NPKGRIDSv1.08_*.nc
                          files.  Default: ./input/npkgrids
+                         If the directory is empty or missing, the NPKGRIDS
+                         v1.08 NetCDF zip (~293 MB) is auto-downloaded from
+                         Figshare and extracted.
 
 Output:
     ./input/nitrogen_input.nc   (total N application rate on GFS grid)
@@ -29,7 +33,9 @@ Author: Quazi Rasool (CIRES/NOAA CSL)
 
 import glob
 import os
+import subprocess
 import sys
+import zipfile
 from datetime import datetime
 
 import monet  # noqa: F401
@@ -37,16 +43,79 @@ import numpy as np
 import xarray as xr
 from netCDF4 import Dataset
 
-# ----------------------------- User arguments ------------------------------ #
-if len(sys.argv) < 2:
-    print("Usage: python preprocess_npkgrids.py <gfs_reference_file> [npkgrids_dir]")
-    print("  gfs_reference_file : any GFS .nc file (for target grid)")
-    print("  npkgrids_dir       : folder with NPKGRIDSv1.08_*.nc (default: ./input/npkgrids)")
-    sys.exit(1)
+# ----------------------------- Download URLs -------------------------------- #
+# Sample GFS surface file from AWS S3 (any date works; we only need the grid)
+GFS_AWS_URL = (
+    "https://noaa-oar-arl-nacc-pds.s3.amazonaws.com/inputs/"
+    "20220701/gfs.t12z.sfcf000.nc"
+)
+# NPKGRIDS v1.08 NetCDF zip from Figshare (~293 MB)
+NPKGRIDS_URL = "https://ndownloader.figshare.com/files/46194435"
+NPKGRIDS_ZIP = "NPKGRIDSv1.08_NC.zip"
 
-f_gfs = sys.argv[1]
+
+# ----------------------------- Helper functions ----------------------------- #
+def download_gfs_reference(output_path):
+    """Download a sample GFS surface file from AWS S3 for grid reference."""
+    print("---- Downloading GFS reference file from AWS S3 ...")
+    print(f"---- URL: {GFS_AWS_URL}")
+    subprocess.run(
+        [
+            "wget",
+            "--no-check-certificate",
+            "--no-proxy",
+            "-O",
+            output_path,
+            GFS_AWS_URL,
+        ],
+        check=True,
+    )
+    print(f"---- GFS reference file saved: {output_path}")
+
+
+def download_and_extract_npkgrids(npk_dir):
+    """Download NPKGRIDS v1.08 NC zip from Figshare and extract."""
+    os.makedirs(npk_dir, exist_ok=True)
+    zip_path = os.path.join(npk_dir, NPKGRIDS_ZIP)
+
+    print("---- Downloading NPKGRIDS v1.08 NC zip (~293 MB) from Figshare ...")
+    print(f"---- URL: {NPKGRIDS_URL}")
+    print("---- This may take several minutes ...")
+    subprocess.run(
+        [
+            "wget",
+            "--no-check-certificate",
+            "--no-proxy",
+            "-O",
+            zip_path,
+            NPKGRIDS_URL,
+        ],
+        check=True,
+    )
+
+    print(f"---- Extracting {NPKGRIDS_ZIP} ...")
+    with zipfile.ZipFile(zip_path, "r") as zf:
+        zf.extractall(npk_dir)
+        n_extracted = len(zf.namelist())
+    print(f"---- Extracted {n_extracted} files to {npk_dir}")
+
+    # Clean up zip file to save disk space
+    os.remove(zip_path)
+    print(f"---- Removed {NPKGRIDS_ZIP}")
+
+
+# ----------------------------- User arguments ------------------------------ #
+f_gfs = sys.argv[1] if len(sys.argv) > 1 else None
 npk_dir = sys.argv[2] if len(sys.argv) > 2 else os.path.join(".", "input", "npkgrids")
 f_output = os.path.join(".", "input", "nitrogen_input.nc")
+
+# Auto-download GFS reference file if not provided
+if f_gfs is None:
+    f_gfs = os.path.join(".", "input", "gfs_reference_grid.nc")
+    if not os.path.isfile(f_gfs):
+        download_gfs_reference(f_gfs)
+    else:
+        print(f"---- Using existing GFS reference: {f_gfs}")
 
 fill_value = 9.99e20
 
@@ -59,10 +128,13 @@ print("------------------------------------")
 # ----------------------------- Locate files -------------------------------- #
 nc_files = sorted(glob.glob(os.path.join(npk_dir, "NPKGRIDSv1.08_*.nc")))
 if not nc_files:
-    print(f"ERROR: No NPKGRIDSv1.08_*.nc files found in {npk_dir}")
-    print("Download from https://doi.org/10.6084/m9.figshare.24616050")
-    print("and extract NPKGRIDSv1.08_NC.zip into the directory above.")
-    sys.exit(1)
+    print(f"---- No NPKGRIDSv1.08_*.nc files found in {npk_dir}")
+    download_and_extract_npkgrids(npk_dir)
+    nc_files = sorted(glob.glob(os.path.join(npk_dir, "NPKGRIDSv1.08_*.nc")))
+    if not nc_files:
+        print("ERROR: Download succeeded but no crop .nc files found after extraction.")
+        print("Check the contents of", npk_dir)
+        sys.exit(1)
 
 print(f"---- Found {len(nc_files)} crop files in {npk_dir}")
 
