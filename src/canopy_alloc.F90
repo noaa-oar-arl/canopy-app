@@ -456,6 +456,24 @@ SUBROUTINE canopy_alloc
     !> \}
 
 !-------------------------------------------------------------------------------
+! Allocate arrays for Soil NO Emissions Outputs
+!-------------------------------------------------------------------------------
+
+    !> \defgroup SoilNOEmissions Soil NO Emissions Arrays
+    !! \brief Arrays for BDSNP soil NO emissions
+    !! \ingroup MemoryManagement
+    !! \{
+    if (soilno_opt == 1) then
+        write(*,*)  'Soil NO emissions (BDSNP) option selected'
+        write(*,*)  '-------------------------------'
+        !> \brief Soil NO emission rate (ng N m-2 s-1)
+        if(.not.allocated(soilno))           allocate(soilno(nlat*nlon))
+        !> \brief Soil NO emission rate 2D (ng N m-2 s-1)
+        if(.not.allocated(soilno_3d))        allocate(soilno_3d(nlon,nlat))
+    end if
+    !> \}
+
+!-------------------------------------------------------------------------------
 ! Allocate arrays for Canopy Gas Dry Deposition Outputs
 !-------------------------------------------------------------------------------
 
