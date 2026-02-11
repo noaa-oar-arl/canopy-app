@@ -15,6 +15,7 @@ real(rk) :: crf_set
 !>          for the canopy model, including vegetation types, emission options,
 !>          dry deposition settings, and model physics options.
 !> \author P. C. Campbell
+!> \author Quazi Rasool (CIRES/NOAA CSL) (Soil NO options: soilno_opt, crf_opt, crf_set, Feb 2026)
 !> \date 03 Oct 2022
 
 !> \defgroup canopy_options Canopy Model Options

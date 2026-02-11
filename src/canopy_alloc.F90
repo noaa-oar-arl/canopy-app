@@ -1,6 +1,7 @@
 !> \file canopy_alloc.F90
 !! \brief Memory allocation subroutine for canopy model arrays
 !! \author P.C. Campbell
+!! \author Quazi Rasool (CIRES/NOAA CSL) (Soil NO array allocation, Feb 2026)
 !! \date 03 Oct 2022
 !! \version 1.0
 

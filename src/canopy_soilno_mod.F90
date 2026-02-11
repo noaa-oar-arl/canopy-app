@@ -1,6 +1,9 @@
-! canopy_soilno_mod.F90
-! Module for soil NO emissions using BDSNP model and robust CRF
-! See issue #65 for requirements
+!> \file canopy_soilno_mod.F90
+!! \brief BDSNP Soil NO Emissions Module
+!! \details Module for computing soil NO emissions using the Berkeley-Dalhousie
+!!          Soil NO Parameterization (BDSNP) model with canopy reduction factor.
+!! \author P. C. Campbell (Initial version, Oct 2025)
+!! \author Quazi Rasool (CIRES/NOAA CSL) (Syntax fix, wiring, output integration, Feb 2026)
 
 
 module canopy_soilno_mod

@@ -3,6 +3,7 @@
 !> \details This subroutine reads the input namelist file to get user control
 !!          variables including file paths, model options, and parameter settings.
 !> \author P.C. Campbell
+!> \author Quazi Rasool (CIRES/NOAA CSL) (Soil NO namelist options, Feb 2026)
 !> \date July 2022
 !> \version 1.0
 

@@ -3,6 +3,7 @@
 !> \details This subroutine initializes all arrays for canopy model inputs
 !!          and outputs, setting them to appropriate fill values or zeros.
 !> \author P.C. Campbell
+!> \author Quazi Rasool (CIRES/NOAA CSL) (Soil NO array initialization, Feb 2026)
 !> \date October 2022
 !> \version 1.0
 
