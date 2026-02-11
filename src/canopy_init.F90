@@ -276,9 +276,10 @@ SUBROUTINE canopy_init
     end if
 
     if(allocated(ninput_2d))      ninput_2d(:,:)   = 0.0_rk
-    if(allocated(crf_in_2d))      crf_in_2d(:,:)   = 0.0_rk
     if(allocated(ninput_1d))      ninput_1d(:)     = 0.0_rk
-    if(allocated(crf_in_1d))      crf_in_1d(:)     = 0.0_rk
+    ! NOTE: crf_in_2d/crf_in_1d removed — never allocated; CRF override uses crf_set
+    ! if(allocated(crf_in_2d))      crf_in_2d(:,:)   = 0.0_rk
+    ! if(allocated(crf_in_1d))      crf_in_1d(:)     = 0.0_rk
     if(allocated(soilno_3d))      soilno_3d(:,:)   = fillreal
     if(allocated(soilno))         soilno(:)        = fillreal
 

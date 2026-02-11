@@ -192,10 +192,11 @@ Implements soil NO emissions using the BDSNP model and a robust, flexible canopy
 - `soilno_opt` - Integer switch in the namelist to enable/disable soil NO emissions (0=off, 1=on)
 - `crf_opt` - Integer switch for CRF method (0=default, 1=robust, 2=LAD-resolved)
 - `crf_set` - Real value to override computed CRF (0=auto)
+- `fert_frac` - Fraction of applied fertilizer N emitted as soil NO (0.01=1% Steinkamp & Lawrence 2011; 0.025=2.5% Hudman et al. 2012)
 
 **Subroutines:**
-- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, LAD, ZK, FCH, MODLAYS)`
-  - Computes soil NO emissions flux (ng N m⁻² s⁻¹) using BDSNP, biome-specific emission factors, temperature and moisture response, rain pulsing, and flexible CRF. Supports vertically resolved CRF using the LAD profile if `crf_opt=2`.
+- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, LAD, ZK, FCH, MODLAYS)`
+  - Computes soil NO emissions flux (ng N m⁻² s⁻¹) using BDSNP, biome-specific emission factors, temperature and moisture response, rain pulsing, fertilizer N contribution, and flexible CRF. The fertilizer N flux uses the steady-state limit of Hudman et al. (2012) Eq. 5. Supports vertically resolved CRF using the LAD profile if `crf_opt=2`.
 
 **Capabilities:**
 - Computes soil NO emissions flux (ng N m⁻² s⁻¹) based on soil temperature, water, N input, LAI, and CRF

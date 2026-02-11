@@ -342,12 +342,14 @@ endif
 - `PRATE` (real, in): Precipitation rate
 - `WILT` (real, in): Wilting point
 - `crf_opt` (int, in): CRF method (0=default, 1=robust, 2=LAD-resolved)
+- `fert_frac` (real, in): Fraction of applied fertilizer N emitted as soil NO (0.01=1% Steinkamp & Lawrence 2011; 0.025=2.5% Hudman et al. 2012)
 - `LAD` (real array, in, optional): Leaf area density profile
 - `ZK` (real array, in, optional): Vertical height array
 - `FCH` (real, in, optional): Canopy height
-- `MODLAYS` (int, in, optional): Number of model layers
+- `MODLAYS` (int, in): Number of model layers
 
 **Description:**
-- Implements the BDSNP parameterization for soil NO emissions, including biome-specific emission factors, temperature and moisture response, rain pulsing, and flexible CRF.
+- Implements the BDSNP parameterization for soil NO emissions, including biome-specific emission factors, temperature and moisture response, rain pulsing, fertilizer N contribution, and flexible CRF.
+- The fertilizer N flux is computed as `Ninput × fert_frac × unit_conversion` (steady-state limit of Hudman et al. 2012 Eq. 5 for constant annual input).
 - If `crf_opt=2` and LAD profile is provided, computes CRF using the vertically resolved canopy structure.
 - Used in the main canopy calculation workflow when `soilno_opt=1`.

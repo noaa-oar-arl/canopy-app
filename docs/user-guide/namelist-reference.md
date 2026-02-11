@@ -211,8 +211,9 @@ For complete details on all biogenic emission options including leaf age, histor
 | `soilno_opt`| integer | Soil NO emissions: `0`=off, `1`=use BDSNP model         | `1`     |
 | `crf_opt`   | integer | Canopy reduction factor: `0`=default, `1`=robust CRF    | `1`     |
 | `crf_set`   | real    | User override for CRF (0=auto, else fixed value)        | `0.0`   |
+| `fert_frac` | real    | Fraction of applied fertilizer N emitted as soil NO. `0.01`=1% (Steinkamp & Lawrence 2011), `0.025`=2.5% (Hudman et al. 2012) | `0.01` |
 
-These options control the new soil NO emissions module and the method for calculating the canopy reduction factor (CRF). Set `soilno_opt=1` to enable the BDSNP-based soil NO emissions. Use `crf_opt=1` for the robust CRF implementation. If `crf_set` is nonzero, it overrides the computed CRF value.
+These options control the new soil NO emissions module and the method for calculating the canopy reduction factor (CRF). Set `soilno_opt=1` to enable the BDSNP-based soil NO emissions. Use `crf_opt=1` for the robust CRF implementation. If `crf_set` is nonzero, it overrides the computed CRF value. The `fert_frac` parameter controls the fraction of applied fertilizer nitrogen (from NPKGRIDS) that is emitted as soil NO.
 
 ## Configuration Tips
 

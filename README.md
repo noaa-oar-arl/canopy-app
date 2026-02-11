@@ -577,9 +577,9 @@ The Canopy-App includes a dedicated module for simulating soil nitric oxide (NO)
 - Integrates with the main canopy calculation workflow for grid and point simulations
 
 ### Main Subroutine
-- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, LAD, ZK, FCH, MODLAYS)`
-  - Computes soil NO emissions flux (ng N m⁻² s⁻¹) based on soil temperature, moisture, nitrogen input, LAI, CRF, and optionally the vertical LAD profile.
-  - Supports biome-specific emission factors, temperature and moisture response, rain pulsing, and flexible CRF.
+- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, LAD, ZK, FCH, MODLAYS)`
+  - Computes soil NO emissions flux (ng N m⁻² s⁻¹) based on soil temperature, moisture, nitrogen input, LAI, CRF, fertilizer N fraction, and optionally the vertical LAD profile.
+  - Supports biome-specific emission factors, temperature and moisture response, rain pulsing, fertilizer N contribution, and flexible CRF.
 
 ### Namelist Options
 Add these to your `input/namelist.canopy` under `&USERDEFS`:
@@ -587,6 +587,7 @@ Add these to your `input/namelist.canopy` under `&USERDEFS`:
   soilno_opt = 1      ! 0=off, 1=use BDSNP model
   crf_opt    = 2      ! 0=default, 1=robust, 2=LAD-resolved
   crf_set    = 0.0    ! User override for CRF (0=auto)
+  fert_frac  = 0.01   ! Fraction of applied N emitted as NO (0.01=1% Steinkamp&Lawrence; 0.025=2.5% Hudman)
 ```
 
 ### Example Usage
