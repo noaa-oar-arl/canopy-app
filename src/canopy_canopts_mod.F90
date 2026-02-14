@@ -3,7 +3,7 @@
 integer :: soilno_opt
 
  !> \brief Canopy reduction factor (CRF) option
- !> \details Integer to select CRF method (0=default, 1=robust, 2=LAD-resolved)
+ !> \details Integer to select CRF method (0=default bulk, 1=LAD-resolved Beer's law, 2=BDSNP NO2 dep LAI, 3=BDSNP NO2 dep LAD)
 integer :: crf_opt
 
  !> \brief User override for CRF

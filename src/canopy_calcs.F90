@@ -975,19 +975,75 @@ SUBROUTINE canopy_calcs(nn)
 
 ! ... user option to calculate soil NO emissions (BDSNP)
                             if (soilno_opt .eq. 1) then
-                                call compute_soil_no_emissions( &
-                                    Tsoil=real(tmpsfcref, kind=8),   &
-                                    Wsoil=real(soilw1ref, kind=8),   &
-                                    Ninput=real(ninput_2d(i,j), kind=8), &
-                                    LAI=real(lairef, kind=8),        &
-                                    CRF_in=real(crf_set, kind=8),    &
-                                    NO_flux=soilno_3d(i,j),          &
-                                    VTYPE=vtyperef, LU_OPT=lu_opt,  &
-                                    PRATE=real(prate_averef, kind=8),&
-                                    WILT=real(wiltref, kind=8),      &
-                                    crf_opt=crf_opt,                 &
-                                    fert_frac=real(fert_frac, kind=8), &
-                                    MODLAYS=modlays)
+                                if (crf_opt .ge. 2 .and. ifcanwind) then
+                                    ! BDSNP deposition-based CRF (opt 2=LAI, 3=LAD): pass met profiles + LAD
+                                    call compute_soil_no_emissions( &
+                                        Tsoil=real(tmpsfcref, kind=8),   &
+                                        Wsoil=real(soilw1ref, kind=8),   &
+                                        Ninput=real(ninput_2d(i,j), kind=8), &
+                                        LAI=real(lairef, kind=8),        &
+                                        CRF_in=real(crf_set, kind=8),    &
+                                        NO_flux=soilno_3d(i,j),          &
+                                        VTYPE=vtyperef, LU_OPT=lu_opt,  &
+                                        PRATE=real(prate_averef, kind=8),&
+                                        WILT=real(wiltref, kind=8),      &
+                                        crf_opt=crf_opt,                 &
+                                        fert_frac=real(fert_frac, kind=8), &
+                                        LAD=real(lad_3d(i,j,:), kind=8), &
+                                        ZK=real(zk, kind=8),             &
+                                        FCH=real(hcmref, kind=8),        &
+                                        MODLAYS=modlays,                 &
+                                        TEMPA=real(tka_3d(i,j,:), kind=8),    &
+                                        PRESSA=real(pressa_3d(i,j,:), kind=8),&
+                                        RELHUMA=real(relhuma_3d(i,j,:), kind=8), &
+                                        UBAR=real(canWIND_3d(i,j,:), kind=8), &
+                                        FSUN=real(fsun, kind=8),         &
+                                        PPFD_SUN=real(ppfd_sun, kind=8), &
+                                        PPFD_SHADE=real(ppfd_shade, kind=8), &
+                                        SRAD=real(dswrfref, kind=8),     &
+                                        D_H=real(d_h_2d(i,j), kind=8),  &
+                                        HREF=real(hgtref, kind=8),       &
+                                        UBZREF=real(ubzref, kind=8),     &
+                                        TMPSURF=real(tmpsfcref, kind=8), &
+                                        TMP2M=real(tmp2mref, kind=8),    &
+                                        HCM=real(hcmref, kind=8),        &
+                                        CHEMMECHGAS_OPT=chemmechgas_opt, &
+                                        CHEMMECHGAS_TOT=chemmechgas_tot, &
+                                        RAMIN=real(Ramin_set, kind=8))
+                                else if (crf_opt .eq. 1) then
+                                    ! LAD-resolved Beer's law CRF: pass LAD profile
+                                    call compute_soil_no_emissions( &
+                                        Tsoil=real(tmpsfcref, kind=8),   &
+                                        Wsoil=real(soilw1ref, kind=8),   &
+                                        Ninput=real(ninput_2d(i,j), kind=8), &
+                                        LAI=real(lairef, kind=8),        &
+                                        CRF_in=real(crf_set, kind=8),    &
+                                        NO_flux=soilno_3d(i,j),          &
+                                        VTYPE=vtyperef, LU_OPT=lu_opt,  &
+                                        PRATE=real(prate_averef, kind=8),&
+                                        WILT=real(wiltref, kind=8),      &
+                                        crf_opt=crf_opt,                 &
+                                        fert_frac=real(fert_frac, kind=8), &
+                                        LAD=real(lad_3d(i,j,:), kind=8), &
+                                        ZK=real(zk, kind=8),             &
+                                        FCH=real(hcmref, kind=8),        &
+                                        MODLAYS=modlays)
+                                else
+                                    ! Default bulk CRF (opt 0)
+                                    call compute_soil_no_emissions( &
+                                        Tsoil=real(tmpsfcref, kind=8),   &
+                                        Wsoil=real(soilw1ref, kind=8),   &
+                                        Ninput=real(ninput_2d(i,j), kind=8), &
+                                        LAI=real(lairef, kind=8),        &
+                                        CRF_in=real(crf_set, kind=8),    &
+                                        NO_flux=soilno_3d(i,j),          &
+                                        VTYPE=vtyperef, LU_OPT=lu_opt,  &
+                                        PRATE=real(prate_averef, kind=8),&
+                                        WILT=real(wiltref, kind=8),      &
+                                        crf_opt=crf_opt,                 &
+                                        fert_frac=real(fert_frac, kind=8), &
+                                        MODLAYS=modlays)
+                                end if
                             end if
 
 ! ... user option to calculate in-canopy dry deposition velocity
@@ -3576,19 +3632,75 @@ SUBROUTINE canopy_calcs(nn)
 
 ! ... user option to calculate soil NO emissions (BDSNP)
                         if (soilno_opt .eq. 1) then
-                            call compute_soil_no_emissions( &
-                                Tsoil=real(tmpsfcref, kind=8),   &
-                                Wsoil=real(soilw1ref, kind=8),   &
-                                Ninput=real(ninput_1d(loc), kind=8), &
-                                LAI=real(lairef, kind=8),        &
-                                CRF_in=real(crf_set, kind=8),    &
-                                NO_flux=soilno(loc),             &
-                                VTYPE=vtyperef, LU_OPT=lu_opt,  &
-                                PRATE=real(prate_averef, kind=8),&
-                                WILT=real(wiltref, kind=8),      &
-                                crf_opt=crf_opt,                 &
-                                fert_frac=real(fert_frac, kind=8), &
-                                MODLAYS=modlays)
+                            if (crf_opt .ge. 2 .and. ifcanwind) then
+                                ! BDSNP deposition-based CRF (opt 2=LAI, 3=LAD): pass met profiles + LAD
+                                call compute_soil_no_emissions( &
+                                    Tsoil=real(tmpsfcref, kind=8),   &
+                                    Wsoil=real(soilw1ref, kind=8),   &
+                                    Ninput=real(ninput_1d(loc), kind=8), &
+                                    LAI=real(lairef, kind=8),        &
+                                    CRF_in=real(crf_set, kind=8),    &
+                                    NO_flux=soilno(loc),             &
+                                    VTYPE=vtyperef, LU_OPT=lu_opt,  &
+                                    PRATE=real(prate_averef, kind=8),&
+                                    WILT=real(wiltref, kind=8),      &
+                                    crf_opt=crf_opt,                 &
+                                    fert_frac=real(fert_frac, kind=8), &
+                                    LAD=real(lad(loc,:), kind=8),    &
+                                    ZK=real(zk, kind=8),             &
+                                    FCH=real(hcmref, kind=8),        &
+                                    MODLAYS=modlays,                 &
+                                    TEMPA=real(tka(loc,:), kind=8),    &
+                                    PRESSA=real(pressa(loc,:), kind=8),&
+                                    RELHUMA=real(relhuma(loc,:), kind=8), &
+                                    UBAR=real(canWIND(loc,:), kind=8), &
+                                    FSUN=real(fsun, kind=8),         &
+                                    PPFD_SUN=real(ppfd_sun, kind=8), &
+                                    PPFD_SHADE=real(ppfd_shade, kind=8), &
+                                    SRAD=real(dswrfref, kind=8),     &
+                                    D_H=real(d_h(loc), kind=8),      &
+                                    HREF=real(hgtref, kind=8),       &
+                                    UBZREF=real(ubzref, kind=8),     &
+                                    TMPSURF=real(tmpsfcref, kind=8), &
+                                    TMP2M=real(tmp2mref, kind=8),    &
+                                    HCM=real(hcmref, kind=8),        &
+                                    CHEMMECHGAS_OPT=chemmechgas_opt, &
+                                    CHEMMECHGAS_TOT=chemmechgas_tot, &
+                                    RAMIN=real(Ramin_set, kind=8))
+                            else if (crf_opt .eq. 1) then
+                                ! LAD-resolved Beer's law CRF: pass LAD profile
+                                call compute_soil_no_emissions( &
+                                    Tsoil=real(tmpsfcref, kind=8),   &
+                                    Wsoil=real(soilw1ref, kind=8),   &
+                                    Ninput=real(ninput_1d(loc), kind=8), &
+                                    LAI=real(lairef, kind=8),        &
+                                    CRF_in=real(crf_set, kind=8),    &
+                                    NO_flux=soilno(loc),             &
+                                    VTYPE=vtyperef, LU_OPT=lu_opt,  &
+                                    PRATE=real(prate_averef, kind=8),&
+                                    WILT=real(wiltref, kind=8),      &
+                                    crf_opt=crf_opt,                 &
+                                    fert_frac=real(fert_frac, kind=8), &
+                                    LAD=real(lad(loc,:), kind=8),    &
+                                    ZK=real(zk, kind=8),             &
+                                    FCH=real(hcmref, kind=8),        &
+                                    MODLAYS=modlays)
+                            else
+                                ! Default bulk CRF (opt 0)
+                                call compute_soil_no_emissions( &
+                                    Tsoil=real(tmpsfcref, kind=8),   &
+                                    Wsoil=real(soilw1ref, kind=8),   &
+                                    Ninput=real(ninput_1d(loc), kind=8), &
+                                    LAI=real(lairef, kind=8),        &
+                                    CRF_in=real(crf_set, kind=8),    &
+                                    NO_flux=soilno(loc),             &
+                                    VTYPE=vtyperef, LU_OPT=lu_opt,  &
+                                    PRATE=real(prate_averef, kind=8),&
+                                    WILT=real(wiltref, kind=8),      &
+                                    crf_opt=crf_opt,                 &
+                                    fert_frac=real(fert_frac, kind=8), &
+                                    MODLAYS=modlays)
+                            end if
                         end if
 
 ! ... user option to calculate in-canopy dry deposition velocity
