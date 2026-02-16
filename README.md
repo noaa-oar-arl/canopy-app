@@ -569,23 +569,24 @@ The Canopy-App includes a dedicated module for simulating soil nitric oxide (NO)
 ### Key Features
 - Implements the BDSNP parameterization for soil NO emissions, as used in MEGAN v3.2 and HEMCO.
 - Supports multiple CRF calculation options:
-  - `crf_opt=0`: Default exponential LAI-based CRF
-  - `crf_opt=1`: Robust CRF (identical to default, can be extended)
-  - `crf_opt=2`: Vertically resolved CRF using the leaf area density (LAD) profile
+  - `crf_opt=0`: Default bulk Beer's law CRF (`exp(−0.5×LAI)`)
+  - `crf_opt=1`: LAD-resolved Beer's law CRF using vertical leaf area density profile
+  - `crf_opt=2`: BDSNP physics-based CRF using NO₂ deposition velocity with bulk LAI (requires `ifcanwind=.TRUE.`)
+  - `crf_opt=3`: BDSNP physics-based CRF using NO₂ deposition velocity with per-layer LAD (requires `ifcanwind=.TRUE.`)
   - User override via `crf_set` namelist option
 - Fully controlled by new namelist options: `soilno_opt`, `crf_opt`, `crf_set`
 - Integrates with the main canopy calculation workflow for grid and point simulations
 
 ### Main Subroutine
-- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, LAD, ZK, FCH, MODLAYS)`
-  - Computes soil NO emissions flux (ng N m⁻² s⁻¹) based on soil temperature, moisture, nitrogen input, LAI, CRF, fertilizer N fraction, and optionally the vertical LAD profile.
-  - Supports biome-specific emission factors, temperature and moisture response, rain pulsing, fertilizer N contribution, and flexible CRF.
+- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, LAD, ZK, FCH, MODLAYS, TEMPA, PRESSA, RELHUMA, UBAR, FSUN, PPFD_SUN, PPFD_SHADE, SRAD, D_H, HREF, UBZREF, TMPSURF, TMP2M, HCM, CHEMMECHGAS_OPT, CHEMMECHGAS_TOT, RAMIN)`
+  - Computes soil NO emissions flux (ng N m⁻² s⁻¹) based on soil temperature, moisture, nitrogen input, LAI, CRF, fertilizer N fraction, and optionally the vertical LAD profile and in-canopy meteorological profiles.
+  - Supports biome-specific emission factors, temperature and moisture response, rain pulsing, fertilizer N contribution, and flexible CRF (options 0–3).
 
 ### Namelist Options
 Add these to your `input/namelist.canopy` under `&USERDEFS`:
 ```fortran
   soilno_opt = 1      ! 0=off, 1=use BDSNP model
-  crf_opt    = 2      ! 0=default, 1=robust, 2=LAD-resolved
+  crf_opt    = 1      ! 0=default(bulk), 1=LAD Beer's law, 2=BDSNP NO2 dep(LAI), 3=BDSNP NO2 dep(LAD)
   crf_set    = 0.0    ! User override for CRF (0=auto)
   fert_frac  = 0.01   ! Fraction of applied N emitted as NO (0.01=1% Steinkamp&Lawrence; 0.025=2.5% Hudman)
 ```

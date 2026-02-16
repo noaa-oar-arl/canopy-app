@@ -190,13 +190,13 @@ Implements soil NO emissions using the BDSNP model and a robust, flexible canopy
 
 **User Options:**
 - `soilno_opt` - Integer switch in the namelist to enable/disable soil NO emissions (0=off, 1=on)
-- `crf_opt` - Integer switch for CRF method (0=default, 1=robust, 2=LAD-resolved)
+- `crf_opt` - Integer switch for CRF method (0=default bulk Beer's law, 1=LAD-resolved Beer's law, 2=BDSNP NO₂ dep LAI, 3=BDSNP NO₂ dep LAD). Options 2,3 require `ifcanwind=.TRUE.`
 - `crf_set` - Real value to override computed CRF (0=auto)
 - `fert_frac` - Fraction of applied fertilizer N emitted as soil NO (0.01=1% Steinkamp & Lawrence 2011; 0.025=2.5% Hudman et al. 2012)
 
 **Subroutines:**
-- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, LAD, ZK, FCH, MODLAYS)`
-  - Computes soil NO emissions flux (ng N m⁻² s⁻¹) using BDSNP, biome-specific emission factors, temperature and moisture response, rain pulsing, fertilizer N contribution, and flexible CRF. The fertilizer N flux uses the steady-state limit of Hudman et al. (2012) Eq. 5. Supports vertically resolved CRF using the LAD profile if `crf_opt=2`.
+- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, LAD, ZK, FCH, MODLAYS, TEMPA, PRESSA, RELHUMA, UBAR, FSUN, PPFD_SUN, PPFD_SHADE, SRAD, D_H, HREF, UBZREF, TMPSURF, TMP2M, HCM, CHEMMECHGAS_OPT, CHEMMECHGAS_TOT, RAMIN)`
+  - Computes soil NO emissions flux (ng N m⁻² s⁻¹) using BDSNP, biome-specific emission factors, temperature and moisture response, rain pulsing, fertilizer N contribution, and flexible CRF. The fertilizer N flux uses the steady-state limit of Hudman et al. (2012) Eq. 5. CRF options: `crf_opt=0` bulk Beer's law; `crf_opt=1` LAD-resolved Beer's law; `crf_opt=2` BDSNP NO₂ deposition with bulk LAI; `crf_opt=3` BDSNP NO₂ deposition with per-layer LAD. Options 2,3 require in-canopy meteorological profiles (`ifcanwind=.TRUE.`).
 
 **Capabilities:**
 - Computes soil NO emissions flux (ng N m⁻² s⁻¹) based on soil temperature, water, N input, LAI, and CRF

@@ -341,15 +341,32 @@ endif
 - `LU_OPT` (int, in): Land use option
 - `PRATE` (real, in): Precipitation rate
 - `WILT` (real, in): Wilting point
-- `crf_opt` (int, in): CRF method (0=default, 1=robust, 2=LAD-resolved)
+- `crf_opt` (int, in): CRF method (0=default bulk Beer's law, 1=LAD-resolved Beer's law, 2=BDSNP NO₂ dep LAI, 3=BDSNP NO₂ dep LAD)
 - `fert_frac` (real, in): Fraction of applied fertilizer N emitted as soil NO (0.01=1% Steinkamp & Lawrence 2011; 0.025=2.5% Hudman et al. 2012)
-- `LAD` (real array, in, optional): Leaf area density profile
+- `LAD` (real array, in, optional): Leaf area density profile (used by crf_opt=1,3)
 - `ZK` (real array, in, optional): Vertical height array
 - `FCH` (real, in, optional): Canopy height
 - `MODLAYS` (int, in): Number of model layers
+- `TEMPA` (real array, in, optional): In-canopy temperature profile (K) — for crf_opt=2,3
+- `PRESSA` (real array, in, optional): In-canopy pressure profile (mb) — for crf_opt=2,3
+- `RELHUMA` (real array, in, optional): In-canopy relative humidity profile (%) — for crf_opt=2,3
+- `UBAR` (real array, in, optional): In-canopy wind speed profile (m/s) — for crf_opt=2,3
+- `FSUN` (real array, in, optional): Sunlit fraction profile — for crf_opt=2,3
+- `PPFD_SUN` (real array, in, optional): Sunlit PPFD profile (µmol/m²/s) — for crf_opt=2,3
+- `PPFD_SHADE` (real array, in, optional): Shaded PPFD profile (µmol/m²/s) — for crf_opt=2,3
+- `SRAD` (real, in, optional): Solar radiation (W/m²) — for crf_opt=2,3
+- `D_H` (real, in, optional): Displacement height / canopy height — for crf_opt=2,3
+- `HREF` (real, in, optional): Reference height above canopy (m) — for crf_opt=2,3
+- `UBZREF` (real, in, optional): Reference wind speed (m/s) — for crf_opt=2,3
+- `TMPSURF` (real, in, optional): Surface temperature (K) — for crf_opt=2,3
+- `TMP2M` (real, in, optional): 2-m temperature (K) — for crf_opt=2,3
+- `HCM` (real, in, optional): Canopy height (m) — for crf_opt=2,3
+- `CHEMMECHGAS_OPT` (int, in, optional): Gas chemistry mechanism option — for crf_opt=2,3
+- `CHEMMECHGAS_TOT` (int, in, optional): Total gas species count — for crf_opt=2,3
+- `RAMIN` (real, in, optional): Minimum aerodynamic resistance (s/m) — for crf_opt=2,3
 
 **Description:**
 - Implements the BDSNP parameterization for soil NO emissions, including biome-specific emission factors, temperature and moisture response, rain pulsing, fertilizer N contribution, and flexible CRF.
 - The fertilizer N flux is computed as `Ninput × fert_frac × unit_conversion` (steady-state limit of Hudman et al. 2012 Eq. 5 for constant annual input).
-- If `crf_opt=2` and LAD profile is provided, computes CRF using the vertically resolved canopy structure.
+- CRF options: `crf_opt=0` uses bulk `exp(−0.5×LAI)`; `crf_opt=1` uses LAD-resolved Beer's law; `crf_opt=2` uses BDSNP NO₂ deposition velocity with bulk LAI; `crf_opt=3` uses BDSNP NO₂ deposition velocity with per-layer LAD (most physically complete). Options 2,3 require `ifcanwind=.TRUE.` and in-canopy meteorological profiles.
 - Used in the main canopy calculation workflow when `soilno_opt=1`.
