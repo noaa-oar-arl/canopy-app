@@ -61,7 +61,7 @@ SUBROUTINE canopy_readnml
     crf_opt = 0
     crf_set = 0.0_rk
     fert_frac = 0.01_rk  ! Default: 1% (Steinkamp & Lawrence 2011)
-    soiltemp_opt = 0     ! Default: Q10 unbounded (no cap/cutoff)
+    soiltemp_opt = 0     ! Default: Q10 unbounded (0), YL95 (1), Wang2021 cubic (2)
     !-------------------------------------------------------------------------------
 
 

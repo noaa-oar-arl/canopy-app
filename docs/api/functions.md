@@ -343,7 +343,7 @@ endif
 - `WILT` (real, in): Wilting point
 - `crf_opt` (int, in): CRF method (0=default bulk Beer's law, 1=LAD-resolved Beer's law, 2=BDSNP NO₂ dep LAI, 3=BDSNP NO₂ dep LAD)
 - `fert_frac` (real, in): Fraction of applied fertilizer N emitted as soil NO (0.01=1% Steinkamp & Lawrence 2011; 0.025=2.5% Hudman et al. 2012)
-- `soiltemp_opt` (int, in): Soil temperature response: 0=Q10 unbounded (no cap or cold cutoff), 1=YL95/BDSNP (saturates at 30°C, zero below 0°C)
+- `soiltemp_opt` (int, in): Soil temperature response: 0=Q10 unbounded, 1=YL95/BDSNP (saturates at 30°C, zero below 0°C), 2=Wang et al. (2021) cubic for T>20°C
 - `LAD` (real array, in, optional): Leaf area density profile (used by crf_opt=1,3)
 - `ZK` (real array, in, optional): Vertical height array
 - `FCH` (real, in, optional): Canopy height
@@ -367,7 +367,7 @@ endif
 - `RAMIN` (real, in, optional): Minimum aerodynamic resistance (s/m) — for crf_opt=2,3
 
 **Description:**
-- Implements the BDSNP parameterization for soil NO emissions, including biome-specific emission factors, temperature and moisture response, rain pulsing, fertilizer N contribution, and flexible CRF. The temperature response is controlled by `soiltemp_opt`: option 0 uses an unbounded Q10 exponential; option 1 uses the YL95/BDSNP formulation where the response saturates at 30°C and drops to zero below 0°C.
+- Implements the BDSNP parameterization for soil NO emissions, including biome-specific emission factors, temperature and moisture response, rain pulsing, fertilizer N contribution, and flexible CRF. The temperature response is controlled by `soiltemp_opt`: option 0 uses an unbounded Q10 exponential; option 1 uses the YL95/BDSNP formulation where the response saturates at 30°C and drops to zero below 0°C; option 2 uses the Wang et al. (2021, Env. Res. Lett. 16, 084061) observation-based cubic function (−0.009T³+0.837T²−22.527T+196.149) above 20°C, which captures the continued increase in soil NOx emissions in warm soils (20–40°C).
 - The fertilizer N flux is computed as `Ninput × fert_frac × unit_conversion` (steady-state limit of Hudman et al. 2012 Eq. 5 for constant annual input).
 - CRF options: `crf_opt=0` uses bulk `exp(−0.5×LAI)`; `crf_opt=1` uses LAD-resolved Beer's law; `crf_opt=2` uses BDSNP NO₂ deposition velocity with bulk LAI; `crf_opt=3` uses BDSNP NO₂ deposition velocity with per-layer LAD (most physically complete). Options 2,3 require `ifcanwind=.TRUE.` and in-canopy meteorological profiles.
 - Used in the main canopy calculation workflow when `soilno_opt=1`.

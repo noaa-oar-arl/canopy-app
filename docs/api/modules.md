@@ -193,7 +193,7 @@ Implements soil NO emissions using the BDSNP model and a robust, flexible canopy
 - `crf_opt` - Integer switch for CRF method (0=default bulk Beer's law, 1=LAD-resolved Beer's law, 2=BDSNP NO₂ dep LAI, 3=BDSNP NO₂ dep LAD). Options 2,3 require `ifcanwind=.TRUE.`
 - `crf_set` - Real value to override computed CRF (0=auto)
 - `fert_frac` - Fraction of applied fertilizer N emitted as soil NO (0.01=1% Steinkamp & Lawrence 2011; 0.025=2.5% Hudman et al. 2012)
-- `soiltemp_opt` - Integer switch for soil temperature response (0=Q10 unbounded, 1=YL95/BDSNP: saturates at 30°C, zero below 0°C)
+- `soiltemp_opt` - Integer switch for soil temperature response (0=Q10 unbounded, 1=YL95/BDSNP: saturates at 30°C, zero below 0°C, 2=Wang et al. 2021 cubic for T>20°C)
 
 **Subroutines:**
 - `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, soiltemp_opt, LAD, ZK, FCH, MODLAYS, TEMPA, PRESSA, RELHUMA, UBAR, FSUN, PPFD_SUN, PPFD_SHADE, SRAD, D_H, HREF, UBZREF, TMPSURF, TMP2M, HCM, CHEMMECHGAS_OPT, CHEMMECHGAS_TOT, RAMIN)`

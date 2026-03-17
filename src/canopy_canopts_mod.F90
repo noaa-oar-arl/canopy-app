@@ -14,6 +14,7 @@ real(rk) :: crf_set
  !> \details Integer to select soil temperature response function
  !>          0 = Q10 unbounded (default, no cap or cold cutoff)
  !>          1 = YL95/BDSNP (Q10 with saturation at 30C, zero below 0C)
+ !>          2 = Wang et al. (2021) cubic for T>20C, exp for T<=20C
 integer :: soiltemp_opt
 
  !> \brief Fertilizer N emission fraction for BDSNP soil NO

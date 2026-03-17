@@ -102,6 +102,10 @@ contains
 
         real(real64) :: base_flux, fert_flux, T_factor, WFPS, WFPS_factor, pulse_factor
         real(real64) :: biome_emission, crf_val
+        ! Wang et al. (2021) cubic temperature response variables
+        real(real64) :: Tc, f_wang
+        ! Normalization: cubic evaluated at 30C = -0.009*27000 + 0.837*900 - 22.527*30 + 196.149
+        real(real64), parameter :: F_WANG_REF = 30.639d0
         ! Variables for vertically resolved CRF (case 1)
         integer :: k, nlay
         real(real64) :: dz, attenuation
@@ -128,6 +132,20 @@ contains
                 T_factor = 1.0d0
             else
                 T_factor = Q10 ** ((Tsoil - T_REF) / 10.0d0)
+            end if
+          case (2)
+            ! Wang et al. (2021, Env. Res. Lett. 16, 084061): cubic for T>20C
+            ! Below 20C: GEOS-Chem default exponential e^(0.103*Tc)
+            ! Above 20C: -0.009*Tc^3 + 0.837*Tc^2 - 22.527*Tc + 196.149
+            ! Normalized by cubic value at 30C (F_WANG_REF) so T_factor=1 at 30C
+            Tc = Tsoil - 273.15d0
+            if (Tc <= 0.0d0) then
+                T_factor = 0.0d0
+            else if (Tc <= 20.0d0) then
+                T_factor = exp(0.103d0 * Tc) / F_WANG_REF
+            else
+                f_wang = -0.009d0*Tc**3 + 0.837d0*Tc**2 - 22.527d0*Tc + 196.149d0
+                T_factor = max(0.0d0, f_wang / F_WANG_REF)
             end if
           case default
             ! Q10 unbounded (no cap or cold cutoff)
