@@ -10,6 +10,12 @@ integer :: crf_opt
  !> \details Real value to override computed CRF (0=auto, else fixed value)
 real(rk) :: crf_set
 
+ !> \brief Soil temperature response option for BDSNP soil NO
+ !> \details Integer to select soil temperature response function
+ !>          0 = Q10 unbounded (default, no cap or cold cutoff)
+ !>          1 = YL95/BDSNP (Q10 with saturation at 30C, zero below 0C)
+integer :: soiltemp_opt
+
  !> \brief Fertilizer N emission fraction for BDSNP soil NO
  !> \details Fraction of applied N (kg-N/ha) emitted as soil NO.
  !>          0.01 = 1% (Steinkamp & Lawrence 2011), 0.025 = 2.5% (Hudman et al. 2012)

@@ -54,13 +54,14 @@ SUBROUTINE canopy_readnml
         ddepspecgas_opt, chemmechgas_opt, chemmechgas_tot, soilcat_opt, hyblev1, snowc_set, &
         icec_set, gamma_set, Ramin_set, &
         ifcanaeroddep, aeroddep_opt, aeroddep_diam, aeroddep_rho, &
-        soilno_opt, crf_opt, crf_set, fert_frac
+        soilno_opt, crf_opt, crf_set, fert_frac, soiltemp_opt
     !-------------------------------------------------------------------------------
     ! Set default values for soil NO emission and CRF options
     soilno_opt = 0
     crf_opt = 0
     crf_set = 0.0_rk
     fert_frac = 0.01_rk  ! Default: 1% (Steinkamp & Lawrence 2011)
+    soiltemp_opt = 0     ! Default: Q10 unbounded (no cap/cutoff)
     !-------------------------------------------------------------------------------
 
 

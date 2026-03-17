@@ -989,6 +989,7 @@ SUBROUTINE canopy_calcs(nn)
                                         WILT=real(wiltref, kind=8),      &
                                         crf_opt=crf_opt,                 &
                                         fert_frac=real(fert_frac, kind=8), &
+                                        soiltemp_opt=soiltemp_opt,       &
                                         LAD=real(lad_3d(i,j,:), kind=8), &
                                         ZK=real(zk, kind=8),             &
                                         FCH=real(hcmref, kind=8),        &
@@ -1024,6 +1025,7 @@ SUBROUTINE canopy_calcs(nn)
                                         WILT=real(wiltref, kind=8),      &
                                         crf_opt=crf_opt,                 &
                                         fert_frac=real(fert_frac, kind=8), &
+                                        soiltemp_opt=soiltemp_opt,       &
                                         LAD=real(lad_3d(i,j,:), kind=8), &
                                         ZK=real(zk, kind=8),             &
                                         FCH=real(hcmref, kind=8),        &
@@ -1042,6 +1044,7 @@ SUBROUTINE canopy_calcs(nn)
                                         WILT=real(wiltref, kind=8),      &
                                         crf_opt=crf_opt,                 &
                                         fert_frac=real(fert_frac, kind=8), &
+                                        soiltemp_opt=soiltemp_opt,       &
                                         MODLAYS=modlays)
                                 end if
                             end if
@@ -3646,6 +3649,7 @@ SUBROUTINE canopy_calcs(nn)
                                     WILT=real(wiltref, kind=8),      &
                                     crf_opt=crf_opt,                 &
                                     fert_frac=real(fert_frac, kind=8), &
+                                    soiltemp_opt=soiltemp_opt,       &
                                     LAD=real(lad(loc,:), kind=8),    &
                                     ZK=real(zk, kind=8),             &
                                     FCH=real(hcmref, kind=8),        &
@@ -3681,6 +3685,7 @@ SUBROUTINE canopy_calcs(nn)
                                     WILT=real(wiltref, kind=8),      &
                                     crf_opt=crf_opt,                 &
                                     fert_frac=real(fert_frac, kind=8), &
+                                    soiltemp_opt=soiltemp_opt,       &
                                     LAD=real(lad(loc,:), kind=8),    &
                                     ZK=real(zk, kind=8),             &
                                     FCH=real(hcmref, kind=8),        &
@@ -3699,6 +3704,7 @@ SUBROUTINE canopy_calcs(nn)
                                     WILT=real(wiltref, kind=8),      &
                                     crf_opt=crf_opt,                 &
                                     fert_frac=real(fert_frac, kind=8), &
+                                    soiltemp_opt=soiltemp_opt,       &
                                     MODLAYS=modlays)
                             end if
                         end if

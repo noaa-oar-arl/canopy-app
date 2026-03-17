@@ -98,6 +98,7 @@
   crf_opt     =  1      ! 0=default(bulk), 1=LAD-resolved Beer's law, 2=BDSNP NO2 dep(LAI), 3=BDSNP NO2 dep(LAD) (2,3 require ifcanwind=.TRUE.)
   crf_set     =  0.0    ! User override for CRF (0=auto)
   fert_frac   =  0.01   ! Fraction of applied N emitted as NO (0.01=1% Steinkamp&Lawrence; 0.025=2.5% Hudman)
+  soiltemp_opt = 0      ! 0=Q10 unbounded (no cap/cutoff), 1=YL95/BDSNP (saturates at 30C, zero below 0C)
   hist_opt    =  1
   ht_opt      =  1
   lt_opt      =  1

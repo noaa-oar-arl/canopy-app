@@ -574,21 +574,22 @@ The Canopy-App includes a dedicated module for simulating soil nitric oxide (NO)
   - `crf_opt=2`: BDSNP physics-based CRF using NO₂ deposition velocity with bulk LAI (requires `ifcanwind=.TRUE.`)
   - `crf_opt=3`: BDSNP physics-based CRF using NO₂ deposition velocity with per-layer LAD (requires `ifcanwind=.TRUE.`)
   - User override via `crf_set` namelist option
-- Fully controlled by new namelist options: `soilno_opt`, `crf_opt`, `crf_set`
+- Fully controlled by new namelist options: `soilno_opt`, `crf_opt`, `crf_set`, `soiltemp_opt`
 - Integrates with the main canopy calculation workflow for grid and point simulations
 
 ### Main Subroutine
-- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, LAD, ZK, FCH, MODLAYS, TEMPA, PRESSA, RELHUMA, UBAR, FSUN, PPFD_SUN, PPFD_SHADE, SRAD, D_H, HREF, UBZREF, TMPSURF, TMP2M, HCM, CHEMMECHGAS_OPT, CHEMMECHGAS_TOT, RAMIN)`
+- `compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, soiltemp_opt, LAD, ZK, FCH, MODLAYS, TEMPA, PRESSA, RELHUMA, UBAR, FSUN, PPFD_SUN, PPFD_SHADE, SRAD, D_H, HREF, UBZREF, TMPSURF, TMP2M, HCM, CHEMMECHGAS_OPT, CHEMMECHGAS_TOT, RAMIN)`
   - Computes soil NO emissions flux (ng N m⁻² s⁻¹) based on soil temperature, moisture, nitrogen input, LAI, CRF, fertilizer N fraction, and optionally the vertical LAD profile and in-canopy meteorological profiles.
   - Supports biome-specific emission factors, temperature and moisture response, rain pulsing, fertilizer N contribution, and flexible CRF (options 0–3).
 
 ### Namelist Options
 Add these to your `input/namelist.canopy` under `&USERDEFS`:
 ```fortran
-  soilno_opt = 1      ! 0=off, 1=use BDSNP model
-  crf_opt    = 1      ! 0=default(bulk), 1=LAD Beer's law, 2=BDSNP NO2 dep(LAI), 3=BDSNP NO2 dep(LAD)
-  crf_set    = 0.0    ! User override for CRF (0=auto)
-  fert_frac  = 0.01   ! Fraction of applied N emitted as NO (0.01=1% Steinkamp&Lawrence; 0.025=2.5% Hudman)
+  soilno_opt   = 1      ! 0=off, 1=use BDSNP model
+  crf_opt      = 1      ! 0=default(bulk), 1=LAD Beer's law, 2=BDSNP NO2 dep(LAI), 3=BDSNP NO2 dep(LAD)
+  crf_set      = 0.0    ! User override for CRF (0=auto)
+  fert_frac    = 0.01   ! Fraction of applied N emitted as NO (0.01=1% Steinkamp&Lawrence; 0.025=2.5% Hudman)
+  soiltemp_opt = 0      ! 0=Q10 unbounded, 1=YL95/BDSNP (saturates at 30C, zero below 0C)
 ```
 
 ### Example Usage

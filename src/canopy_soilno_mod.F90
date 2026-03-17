@@ -35,7 +35,7 @@ module canopy_soilno_mod
 contains
 
     subroutine compute_soil_no_emissions(Tsoil, Wsoil, Ninput, LAI, CRF_in, NO_flux, &
-        VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, LAD, ZK, FCH, MODLAYS, &
+        VTYPE, LU_OPT, PRATE, WILT, crf_opt, fert_frac, soiltemp_opt, LAD, ZK, FCH, MODLAYS, &
         TEMPA, PRESSA, RELHUMA, UBAR, FSUN, PPFD_SUN, PPFD_SHADE, &
         SRAD, D_H, HREF, UBZREF, TMPSURF, TMP2M, HCM, &
         CHEMMECHGAS_OPT, CHEMMECHGAS_TOT, RAMIN)
@@ -77,7 +77,7 @@ contains
 
         real(real64), intent(in)  :: Tsoil, Wsoil, Ninput, LAI, CRF_in, PRATE, WILT
         real(real64), intent(in)  :: fert_frac
-        integer, intent(in)       :: crf_opt, MODLAYS
+        integer, intent(in)       :: crf_opt, MODLAYS, soiltemp_opt
         real(real64), intent(in), optional :: LAD(:), ZK(:), FCH
         ! Optional args for crf_opt=2,3 (BDSNP deposition-based CRF)
         real(real64), intent(in), optional :: TEMPA(:), PRESSA(:), RELHUMA(:)
@@ -119,7 +119,20 @@ contains
         biome_emission = get_biome_emission(VTYPE, LU_OPT)
 
         ! Temperature response
-        T_factor = Q10 ** ((Tsoil - T_REF) / 10.0d0)
+        select case (soiltemp_opt)
+          case (1)
+            ! YL95/BDSNP: saturates at 30C (T_REF), zero below 0C
+            if (Tsoil <= 273.15d0) then
+                T_factor = 0.0d0
+            else if (Tsoil >= T_REF) then
+                T_factor = 1.0d0
+            else
+                T_factor = Q10 ** ((Tsoil - T_REF) / 10.0d0)
+            end if
+          case default
+            ! Q10 unbounded (no cap or cold cutoff)
+            T_factor = Q10 ** ((Tsoil - T_REF) / 10.0d0)
+        end select
 
         ! Soil moisture response (Guenther et al. 2006, MEGANv3.2)
         if (WFPS <= WFPS_OPT) then
