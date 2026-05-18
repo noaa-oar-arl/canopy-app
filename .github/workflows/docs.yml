@@ -78,7 +78,7 @@ jobs:
           tar -czf documentation-site.tar.gz -C site .
 
       - name: Upload documentation artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: documentation-site
           path: documentation-site.tar.gz
@@ -216,7 +216,7 @@ jobs:
           tar -xzf documentation-site.tar.gz -C preview
 
       - name: Upload preview as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pr-preview-${{ github.event.number }}
           path: preview/
