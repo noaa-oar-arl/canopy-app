@@ -21,6 +21,7 @@ jobs:
     - name: Clone ufs-weather-model and copy modulefiles
       run: |
         git clone https://github.com/ufs-community/ufs-weather-model.git
+        mkdir -p modulefiles/
         cp -r ufs-weather-model/modulefiles/* modulefiles/
         rm -rf ufs-weather-model
 
