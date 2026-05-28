@@ -157,7 +157,7 @@ jobs:
           fi
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v6
 
       - name: Build final site for Pages
         run: |
@@ -173,13 +173,13 @@ jobs:
           git checkout stable
 
       - name: Upload to GitHub Pages
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   # Optional: Still support ReadTheDocs webhook if configured
   trigger-readthedocs:
@@ -223,7 +223,7 @@ jobs:
           retention-days: 7
 
       - name: Comment PR with download link
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         continue-on-error: true  # Don't fail the workflow if commenting fails
         with:
           script: |
