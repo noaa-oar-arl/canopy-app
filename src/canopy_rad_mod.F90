@@ -114,8 +114,8 @@ contains
 !     IN/OUT
         REAL(RK),    INTENT( IN )       :: ZK(:)                          ! Input model heights (m)
         REAL(RK),    INTENT( IN )       :: FCH                            ! Model input canopy height (m)
-        REAL(RK),    INTENT( IN )       :: VBDSF                          ! Model input Instantaneous surface downward visible flux (W/m2)
-        REAL(RK),    INTENT( IN )       :: VDDSF                          ! Model input Instantaneous surface downward visible flux (W/m2)
+        REAL(RK),    INTENT( IN )       :: VBDSF                          ! Model input average surface downward visible flux (W/m2)
+        REAL(RK),    INTENT( IN )       :: VDDSF                          ! Model input average surface downward visible flux (W/m2)
         REAL(RK),    INTENT( IN )       :: LAI                            ! Model input total Leaf Area Index
         REAL(RK),    INTENT( IN )       :: FSUN(:)                        ! Sunlit/Shaded fraction from photolysis correction factor
         REAL(RK),    INTENT( OUT )      :: PPFD_SUN(SIZE(ZK))             ! PPFD for sunlit leaves (umol phot/m2 s)
@@ -230,7 +230,7 @@ contains
         REAL(RK),          PARAMETER     :: FRAC_PAR_VDD        =  0.57_rk
 
         !> \brief Estimate PAR in visible solar irradiance
-        !> \details Incomping (TOC)photosynthetically active radiation
+        !> \details Incoming (TOC) photosynthetically active radiation
         !! \param units W/m2
         REAL(RK) :: PAR_EST
 

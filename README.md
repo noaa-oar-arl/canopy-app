@@ -380,6 +380,8 @@ The Canopy-App input data in [Table 2](#table-2-canopy-app-required-input-variab
 | `sotyp`                          | Soil type (dimensionless), STATSGO          | UFS NOAA/GFSv16                                    |
 | `pressfc`                        | Surface pressure (Pa)                       | UFS NOAA/GFSv16                                    |
 | `dswrf`                          | Instantaneous downward shortwave radiation at surface (W/m2) | UFS NOAA/GFSv16                   |
+| `vddsf_ave`                      | Average downward visible diffuse radiation at surface (W/m2) | UFS NOAA/GFSv16                   |
+| `vbdsf_ave`                      | Average downward visible beam radiation at surface (W/m2) | UFS NOAA/GFSv16                      |
 | `shtfl`                          | Instantaneous sensible heat flux at surface (W/m2) | UFS NOAA/GFSv16                             |
 | `tmpsfc`                         | Surface temperature (K)                     | UFS NOAA/GFSv16                                    |
 | `tmp2m`                          | 2-meter temperature (K)                     | UFS NOAA/GFSv16                                    |

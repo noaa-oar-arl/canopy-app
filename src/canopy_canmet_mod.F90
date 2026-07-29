@@ -116,12 +116,12 @@ MODULE canopy_canmet_mod
         real(rk)   :: dswrf
 
         !> \brief Downward shortwave radiation
-        !> \details Instantaneous downward visible beam radiation
+        !> \details Average downward visible beam radiation
         !! \param units W/m²
         real(rk)   :: vbdsf_ave
 
         !> \brief Downward shortwave radiation
-        !> \details Instantaneous downward visible diffuse radiation
+        !> \details Average downward visible diffuse radiation
         !! \param units W/m²
         real(rk)   :: vddsf_ave
 
@@ -456,12 +456,12 @@ MODULE canopy_canmet_mod
     real(rk)       ::    dswrfref
 
     !> \brief Downward shortwave radiation
-    !> \details Instantaneous downward visible beam radiation
+    !> \details Average downward visible beam radiation
     !! \param units W/m²
     real(rk)   :: vbdsf_averef
 
     !> \brief Downward shortwave radiation
-    !> \details Instantaneous downward visible diffuse radiation
+    !> \details Average downward visible diffuse radiation
     !! \param units W/m²
     real(rk)   :: vddsf_averef
 
