@@ -121,6 +121,8 @@ SUBROUTINE canopy_calcs(nn)
                 sotypref       = variables_2d(i,j)%sotyp
                 pressfcref     = variables_2d(i,j)%pressfc
                 dswrfref       = variables_2d(i,j)%dswrf
+                vbdsf_averef   = variables_2d(i,j)%vbdsf_ave
+                vddsf_averef   = variables_2d(i,j)%vddsf_ave
                 shtflref       = variables_2d(i,j)%shtfl
                 tmpsfcref      = variables_2d(i,j)%tmpsfc
                 tmp2mref       = variables_2d(i,j)%tmp2m
@@ -347,7 +349,7 @@ SUBROUTINE canopy_calcs(nn)
 
 ! ... calculate canopy Photosynthetic Photon Flux Density (PPFD) (sun/shade) profile
 
-                            call canopy_ppfd_exp(zk, hcmref, dswrfref, lairef, fsun, &
+                            call canopy_ppfd_exp(zk, hcmref, vbdsf_averef, vddsf_averef, lairef, fsun, &
                                 ppfd_sun, ppfd_shade, ppfd_ave)
 
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF
@@ -2669,6 +2671,8 @@ SUBROUTINE canopy_calcs(nn)
             sotypref       = variables(loc)%sotyp
             pressfcref     = variables(loc)%pressfc
             dswrfref       = variables(loc)%dswrf
+            vbdsf_averef   = variables(loc)%vbdsf_ave
+            vddsf_averef   = variables(loc)%vddsf_ave
             shtflref       = variables(loc)%shtfl
             tmpsfcref      = variables(loc)%tmpsfc
             tmp2mref       = variables(loc)%tmp2m
@@ -2932,7 +2936,7 @@ SUBROUTINE canopy_calcs(nn)
 
 ! ... calculate canopy Photosynthetic Photon Flux Density (PPFD) (sun/shade) profile
 
-                        call canopy_ppfd_exp(zk, hcmref, dswrfref, lairef, fsun, &
+                        call canopy_ppfd_exp(zk, hcmref, vbdsf_averef, vddsf_averef, lairef, fsun, &
                             ppfd_sun, ppfd_shade, ppfd_ave)
 
 ! ... user option to calculate in-canopy wind speeds at height z and midflame WAF

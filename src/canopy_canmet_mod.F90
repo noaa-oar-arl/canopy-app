@@ -115,6 +115,16 @@ MODULE canopy_canmet_mod
         !! \param units W/m²
         real(rk)   :: dswrf
 
+        !> \brief Downward shortwave radiation
+        !> \details Instantaneous downward visible beam radiation
+        !! \param units W/m²
+        real(rk)   :: vbdsf_ave
+
+        !> \brief Downward shortwave radiation
+        !> \details Instantaneous downward visible diffuse radiation
+        !! \param units W/m²
+        real(rk)   :: vddsf_ave
+
         !> \brief Surface sensible heat flux
         !> \details Instantaneous surface sensible heat net flux
         !! \param units W/m²
@@ -444,6 +454,16 @@ MODULE canopy_canmet_mod
     !> \details Instantaneous downward shortwave radiation
     !! \param units W/m²
     real(rk)       ::    dswrfref
+
+    !> \brief Downward shortwave radiation
+    !> \details Instantaneous downward visible beam radiation
+    !! \param units W/m²
+    real(rk)   :: vbdsf_averef
+
+    !> \brief Downward shortwave radiation
+    !> \details Instantaneous downward visible diffuse radiation
+    !! \param units W/m²
+    real(rk)   :: vddsf_averef
 
     !> \brief Reference surface sensible heat flux
     !> \details Instantaneous surface sensible heat net flux
