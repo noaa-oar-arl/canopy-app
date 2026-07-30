@@ -121,8 +121,6 @@ SUBROUTINE canopy_calcs(nn)
                 sotypref       = variables_2d(i,j)%sotyp
                 pressfcref     = variables_2d(i,j)%pressfc
                 dswrfref       = variables_2d(i,j)%dswrf
-                vbdsf_averef   = variables_2d(i,j)%vbdsf_ave
-                vddsf_averef   = variables_2d(i,j)%vddsf_ave
                 shtflref       = variables_2d(i,j)%shtfl
                 tmpsfcref      = variables_2d(i,j)%tmpsfc
                 tmp2mref       = variables_2d(i,j)%tmp2m
@@ -142,6 +140,8 @@ SUBROUTINE canopy_calcs(nn)
                 tmp_hyblev1ref = variables_2d(i,j)%tmp_hyblev1
                 snowc_averef   = variables_2d(i,j)%snowc_ave
                 icec_averef    = variables_2d(i,j)%icec
+                vbdsf_averef   = variables_2d(i,j)%vbdsf_ave
+                vddsf_averef   = variables_2d(i,j)%vddsf_ave
 
 ! ... calculate wind speed from u and v
                 ubzref   = sqrt((uref**2.0) + (vref**2.0))
@@ -2671,8 +2671,6 @@ SUBROUTINE canopy_calcs(nn)
             sotypref       = variables(loc)%sotyp
             pressfcref     = variables(loc)%pressfc
             dswrfref       = variables(loc)%dswrf
-            vbdsf_averef   = variables(loc)%vbdsf_ave
-            vddsf_averef   = variables(loc)%vddsf_ave
             shtflref       = variables(loc)%shtfl
             tmpsfcref      = variables(loc)%tmpsfc
             tmp2mref       = variables(loc)%tmp2m
@@ -2692,6 +2690,8 @@ SUBROUTINE canopy_calcs(nn)
             tmp_hyblev1ref = variables(loc)%tmp_hyblev1
             snowc_averef   = variables(loc)%snowc_ave
             icec_averef    = variables(loc)%icec
+            vbdsf_averef   = variables(loc)%vbdsf_ave
+            vddsf_averef   = variables(loc)%vddsf_ave
 
             if (var3d_opt .eq. 1) then !allocated so set
                 pavd_arr     = (/variables_can(loc)%pavd01, &
@@ -2935,7 +2935,7 @@ SUBROUTINE canopy_calcs(nn)
                             tleaf_sun, tleaf_shade, tleaf_ave)
 
 ! ... calculate canopy Photosynthetic Photon Flux Density (PPFD) (sun/shade) profile
-
+                         
                         call canopy_ppfd_exp(zk, hcmref, vbdsf_averef, vddsf_averef, lairef, fsun, &
                             ppfd_sun, ppfd_shade, ppfd_ave)
 
