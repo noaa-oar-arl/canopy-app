@@ -2935,7 +2935,7 @@ SUBROUTINE canopy_calcs(nn)
                             tleaf_sun, tleaf_shade, tleaf_ave)
 
 ! ... calculate canopy Photosynthetic Photon Flux Density (PPFD) (sun/shade) profile
-                         
+
                         call canopy_ppfd_exp(zk, hcmref, vbdsf_averef, vddsf_averef, lairef, fsun, &
                             ppfd_sun, ppfd_shade, ppfd_ave)
 
