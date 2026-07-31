@@ -871,7 +871,55 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="210" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="210" bodyend="210"/>
+        <location file="src/canopy_canmet_mod.F90" line="211" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="211" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1a42b320950ec4b85fe245c4f590abaaa3" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::vbdsf_ave</definition>
+        <argsstring></argsstring>
+        <name>vbdsf_ave</name>
+        <briefdescription>
+<para>Downward shortwave radiation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Average downward visible beam radiation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>W/m² </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="216" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="216" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type_1ae94c32e1fcc3850579664847b422dc5f" prot="public" static="no" mutable="no">
+        <type>real(rk)</type>
+        <definition>real(rk) canopy_canmet_mod::variable_type::vddsf_ave</definition>
+        <argsstring></argsstring>
+        <name>vddsf_ave</name>
+        <briefdescription>
+<para>Downward shortwave radiation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Average downward visible diffuse radiation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>W/m² </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_canmet_mod.F90" line="221" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="221" bodyend="221"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -880,7 +928,7 @@
     <detaileddescription>
 <para>Generic 2D met/sfc input variables that should be passed to canopy calculations </para>
     </detaileddescription>
-    <location file="src/canopy_canmet_mod.F90" line="29" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="29" bodyend="211"/>
+    <location file="src/canopy_canmet_mod.F90" line="29" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="29" bodyend="223"/>
     <listofallmembers>
       <member refid="structcanopy__canmet__mod_1_1variable__type_1a1919d92ed64bbbad38c63d1e31cbc698" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>canfrac</name></member>
       <member refid="structcanopy__canmet__mod_1_1variable__type_1a7cccce7d7b03596d7228ac55878096de" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>ch</name></member>
@@ -916,6 +964,8 @@
       <member refid="structcanopy__canmet__mod_1_1variable__type_1a8f5fa81f7ab3a364559c0fbcaa7e4358" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>tmp_hyblev1</name></member>
       <member refid="structcanopy__canmet__mod_1_1variable__type_1a48a24cae568f176dcafab595f53b2c64" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>tmpsfc</name></member>
       <member refid="structcanopy__canmet__mod_1_1variable__type_1aa8e248cc9466488cd34a722a7c66bc46" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>ugrd10m</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1a42b320950ec4b85fe245c4f590abaaa3" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>vbdsf_ave</name></member>
+      <member refid="structcanopy__canmet__mod_1_1variable__type_1ae94c32e1fcc3850579664847b422dc5f" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>vddsf_ave</name></member>
       <member refid="structcanopy__canmet__mod_1_1variable__type_1ab821dec94ffa9f82a5db1f3ab60c28a1" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>vgrd10m</name></member>
       <member refid="structcanopy__canmet__mod_1_1variable__type_1a53afbf53b4cd28263e31947e4be49b2b" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>vtype</name></member>
       <member refid="structcanopy__canmet__mod_1_1variable__type_1a6e66105df3f41523108b24b34fef575d" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type</scope><name>wilt</name></member>

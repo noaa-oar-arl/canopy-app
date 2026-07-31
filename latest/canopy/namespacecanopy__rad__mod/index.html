@@ -17,8 +17,11 @@
       
       
       
+        
+      
+      
       <link rel="icon" href="../../canopy-app-logo_no-bg.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -26,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -56,7 +59,6 @@
   
 
 
-    
     
     
   </head>
@@ -455,9 +457,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     Home
+  
+
     
   </span>
+  
   
 
       </a>
@@ -505,9 +512,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     Getting Started
+  
+
     
   </span>
+  
   
 
       
@@ -569,9 +581,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     User Guide
+  
+
     
   </span>
+  
   
 
       
@@ -627,9 +644,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     Science Documentation
+  
+
     
   </span>
+  
   
 
       
@@ -685,9 +707,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     API Reference
+  
+
     
   </span>
+  
   
 
       
@@ -739,9 +766,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     Development
+  
+
     
   </span>
+  
   
 
       
@@ -767,9 +799,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     References
+  
+
     
   </span>
+  
   
 
       </a>
@@ -813,9 +850,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     Doxygen API
+  
+
     
   </span>
+  
   
 
       
@@ -858,7 +900,9 @@
         <li class="md-nav__item">
   <a href="#public-functions" class="md-nav__link">
     <span class="md-ellipsis">
-      Public Functions
+      
+        Public Functions
+      
     </span>
   </a>
   
@@ -867,7 +911,9 @@
         <li class="md-nav__item">
   <a href="#public-functions-documentation" class="md-nav__link">
     <span class="md-ellipsis">
-      Public Functions Documentation
+      
+        Public Functions Documentation
+      
     </span>
   </a>
   
@@ -877,7 +923,9 @@
           <li class="md-nav__item">
   <a href="#function-canopy_fsun_clu" class="md-nav__link">
     <span class="md-ellipsis">
-      function canopy_fsun_clu
+      
+        function canopy_fsun_clu
+      
     </span>
   </a>
   
@@ -886,7 +934,9 @@
           <li class="md-nav__item">
   <a href="#function-canopy_ppfd_exp" class="md-nav__link">
     <span class="md-ellipsis">
-      function canopy_ppfd_exp
+      
+        function canopy_ppfd_exp
+      
     </span>
   </a>
   
@@ -907,6 +957,7 @@
           
           
             <div class="md-content" data-md-component="content">
+              
               <article class="md-content__inner md-typeset">
                 
                   
@@ -933,7 +984,7 @@
 </tr>
 <tr>
 <td style="text-align: right;">subroutine</td>
-<td style="text-align: left;"><a href="#function-canopy_ppfd_exp"><strong>canopy_ppfd_exp</strong></a> (ZK ZK, FCH FCH, SFCRAD SFCRAD, LAI LAI, FSUN FSUN, PPFD_SUN PPFD_SUN, PPFD_SHADE PPFD_SHADE, PPFD_AVE PPFD_AVE) <br><em>Calculate PPFD profiles using exponential model.</em></td>
+<td style="text-align: left;"><a href="#function-canopy_ppfd_exp"><strong>canopy_ppfd_exp</strong></a> (ZK ZK, FCH FCH, VBDSF VBDSF, VDDSF VDDSF, LAI LAI, FSUN FSUN, PPFD_SUN PPFD_SUN, PPFD_SHADE PPFD_SHADE, PPFD_AVE PPFD_AVE) <br><em>Calculate PPFD profiles using exponential model.</em></td>
 </tr>
 </tbody>
 </table>
@@ -970,20 +1021,22 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">subroutine </span><span class="n">canopy_rad_mod</span><span class="kd">::</span><span class="n">canopy_ppfd_exp</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">ZK</span><span class="w"> </span><span class="n">ZK</span><span class="p">,</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">FCH</span><span class="w"> </span><span class="n">FCH</span><span class="p">,</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">SFCRAD</span><span class="w"> </span><span class="n">SFCRAD</span><span class="p">,</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">LAI</span><span class="w"> </span><span class="n">LAI</span><span class="p">,</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">FSUN</span><span class="w"> </span><span class="n">FSUN</span><span class="p">,</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">PPFD_SUN</span><span class="w"> </span><span class="n">PPFD_SUN</span><span class="p">,</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">PPFD_SHADE</span><span class="w"> </span><span class="n">PPFD_SHADE</span><span class="p">,</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">PPFD_AVE</span><span class="w"> </span><span class="n">PPFD_AVE</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">VBDSF</span><span class="w"> </span><span class="n">VBDSF</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">VDDSF</span><span class="w"> </span><span class="n">VDDSF</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">LAI</span><span class="w"> </span><span class="n">LAI</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">FSUN</span><span class="w"> </span><span class="n">FSUN</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">PPFD_SUN</span><span class="w"> </span><span class="n">PPFD_SUN</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">PPFD_SHADE</span><span class="w"> </span><span class="n">PPFD_SHADE</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="n">PPFD_AVE</span><span class="w"> </span><span class="n">PPFD_AVE</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">)</span><span class="w"> </span>
 </code></pre></div></p>
 <p>Computes photosynthetic photon flux density for sunlit and shaded leaves through canopy using exponential decay models from Silva et al. (2020)</p>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>ZK</code> Input model heights (m) </li>
 <li><code>FCH</code> Model input canopy height (m) </li>
-<li><code>SFCRAD</code> Model input instantaneous surface downward shortwave flux (W/m²) </li>
+<li><code>VBDSF</code> Model input instantaneous surface downward shortwave flux beam (W/m²) </li>
+<li><code>VDDSF</code> Model input instantaneous surface downward shortwave flux diffuse (W/m²) </li>
 <li><code>LAI</code> Model input total Leaf Area Index (m²/m²) </li>
 <li><code>FSUN</code> Sunlit/Shaded fraction from photolysis correction factor </li>
 <li><code>PPFD_SUN</code> PPFD for sunlit leaves (μmol photons/m²/s) </li>
@@ -1141,10 +1194,11 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.prune", "navigation.indexes", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.tooltips"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.prune", "navigation.indexes", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.tooltips"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascripts/mathjax.js"></script>
       

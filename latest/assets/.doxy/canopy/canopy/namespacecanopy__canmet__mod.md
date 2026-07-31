@@ -78,6 +78,8 @@
 |  [**type**](canopy__bioparm__mod_8F90.md#variable-type)([**variable\_type**](namespacecanopy__canmet__mod.md#none-variable_type)), dimension(:, :), allocatable | [**variables\_2d**](#variable-variables_2d)  <br> |
 |  [**type**](canopy__bioparm__mod_8F90.md#variable-type)([**variable\_type\_3d**](namespacecanopy__canmet__mod.md#none-variable_type_3d)), dimension(:, :, :), allocatable | [**variables\_3d**](#variable-variables_3d)  <br>_Allocated array for 3D PAVD variables._  |
 |  [**type**](canopy__bioparm__mod_8F90.md#variable-type)([**variable\_type\_can**](namespacecanopy__canmet__mod.md#none-variable_type_can)), dimension(:), allocatable | [**variables\_can**](#variable-variables_can)  <br>_Allocated array for canopy profile variables._  |
+|  real(rk) | [**vbdsf\_averef**](#variable-vbdsf_averef)  <br>_Downward shortwave radiation._  |
+|  real(rk) | [**vddsf\_averef**](#variable-vddsf_averef)  <br>_Downward shortwave radiation._  |
 |  real(rk) | [**vref**](#variable-vref)  <br>_Reference V wind speed._  |
 |  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer) | [**vtyperef**](#variable-vtyperef)  <br>_Reference vegetation type._  |
 |  real(rk) | [**wiltref**](#variable-wiltref)  <br>_Reference wilting point._  |
@@ -1133,6 +1135,56 @@ type(variable_type_can), dimension( : ), allocatable canopy_canmet_mod::variable
 
 
 Array for storing canopy profile variables 
+
+
+        
+
+<hr>
+
+
+
+### variable vbdsf\_averef 
+
+_Downward shortwave radiation._ 
+```Fortran
+real(rk) canopy_canmet_mod::vbdsf_averef;
+```
+
+
+
+Average downward visible beam radiation 
+
+**Parameters:**
+
+
+* `units` W/m² 
+
+
+
+
+        
+
+<hr>
+
+
+
+### variable vddsf\_averef 
+
+_Downward shortwave radiation._ 
+```Fortran
+real(rk) canopy_canmet_mod::vddsf_averef;
+```
+
+
+
+Average downward visible diffuse radiation 
+
+**Parameters:**
+
+
+* `units` W/m² 
+
+
 
 
         

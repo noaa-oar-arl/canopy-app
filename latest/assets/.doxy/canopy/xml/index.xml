@@ -81,6 +81,8 @@
     <member refid="structcanopy__canmet__mod_1_1variable__type_1a8f5fa81f7ab3a364559c0fbcaa7e4358" kind="variable"><name>tmp_hyblev1</name></member>
     <member refid="structcanopy__canmet__mod_1_1variable__type_1ad249aaf03abdfe70f8af878314d39d84" kind="variable"><name>snowc_ave</name></member>
     <member refid="structcanopy__canmet__mod_1_1variable__type_1a128ac58ae050aea2d545fe54794766cd" kind="variable"><name>icec</name></member>
+    <member refid="structcanopy__canmet__mod_1_1variable__type_1a42b320950ec4b85fe245c4f590abaaa3" kind="variable"><name>vbdsf_ave</name></member>
+    <member refid="structcanopy__canmet__mod_1_1variable__type_1ae94c32e1fcc3850579664847b422dc5f" kind="variable"><name>vddsf_ave</name></member>
   </compound>
   <compound refid="structcanopy__canmet__mod_1_1variable__type__1d" kind="type"><name>canopy_canmet_mod::variable_type_1d</name>
     <member refid="structcanopy__canmet__mod_1_1variable__type__1d_1abe47044b7c1277358b256a6dad435e06" kind="variable"><name>lev</name></member>
@@ -172,6 +174,8 @@
     <member refid="namespacecanopy__canmet__mod_1a12e7216097a8e234f88c26f03eaae503" kind="variable"><name>tmp_hyblev1ref</name></member>
     <member refid="namespacecanopy__canmet__mod_1a57657bbe8f20090b21c2d3fa92c642de" kind="variable"><name>snowc_averef</name></member>
     <member refid="namespacecanopy__canmet__mod_1ab7ef569d4e91df939d1d60d50fd0435c" kind="variable"><name>icec_averef</name></member>
+    <member refid="namespacecanopy__canmet__mod_1a5a093542b1e781f6ebcf4771ef2735df" kind="variable"><name>vbdsf_averef</name></member>
+    <member refid="namespacecanopy__canmet__mod_1a5bb64b875f65a7ab2528c3815d7ea9c9" kind="variable"><name>vddsf_averef</name></member>
     <member refid="namespacecanopy__canmet__mod_1a67e422419c930703365eb2f04c67d415" kind="variable"><name>pavdref</name></member>
     <member refid="namespacecanopy__canmet__mod_1a756c0d03308afdded9d18948397b96e9" kind="variable"><name>pavd_arr</name></member>
     <member refid="namespacecanopy__canmet__mod_1a0bb63da84f3f6d3b2aabffa9a7feb75a" kind="variable"><name>levref</name></member>
@@ -628,7 +632,7 @@
   </compound>
   <compound refid="namespacecanopy__rad__mod" kind="namespace"><name>canopy_rad_mod</name>
     <member refid="group__canopy__radiation_1ga817075c885c28dffde38361f4159e3a7" kind="function"><name>canopy_fsun_clu</name></member>
-    <member refid="group__canopy__radiation_1ga44abae1b598c05e773207789755164f2" kind="function"><name>canopy_ppfd_exp</name></member>
+    <member refid="group__canopy__radiation_1ga913e499dabf3240dfa2423cab2e60ca6" kind="function"><name>canopy_ppfd_exp</name></member>
   </compound>
   <compound refid="namespacecanopy__tleaf__mod" kind="namespace"><name>canopy_tleaf_mod</name>
   </compound>
@@ -1700,7 +1704,7 @@
   </compound>
   <compound refid="group__canopy__radiation" kind="group"><name>canopy_radiation</name>
     <member refid="group__canopy__radiation_1ga817075c885c28dffde38361f4159e3a7" kind="function"><name>canopy_fsun_clu</name></member>
-    <member refid="group__canopy__radiation_1ga44abae1b598c05e773207789755164f2" kind="function"><name>canopy_ppfd_exp</name></member>
+    <member refid="group__canopy__radiation_1ga913e499dabf3240dfa2423cab2e60ca6" kind="function"><name>canopy_ppfd_exp</name></member>
   </compound>
   <compound refid="group__canopy__wind" kind="group"><name>canopy_wind</name>
     <member refid="group__canopy__wind_1gade10f32eedf03561ded2d522994845b6" kind="function"><name>canopy_wind_most</name></member>

@@ -58,7 +58,7 @@ contains
     END SUBROUTINE canopy_fsun_clu
 
 !:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    SUBROUTINE canopy_ppfd_exp( ZK, FCH, SFCRAD, LAI, FSUN, &
+    SUBROUTINE canopy_ppfd_exp( ZK, FCH, VBDSF, VDDSF, LAI, FSUN, &
         PPFD_SUN, PPFD_SHADE, PPFD_AVE)
 
 !-----------------------------------------------------------------------
@@ -84,7 +84,8 @@ contains
 !     IN/OUT
         REAL(RK),    INTENT( IN )       :: ZK(:)                          ! Input model heights (m)
         REAL(RK),    INTENT( IN )       :: FCH                            ! Model input canopy height (m)
-        REAL(RK),    INTENT( IN )       :: SFCRAD                         ! Model input Instantaneous surface downward shortwave flux (W/m2)
+        REAL(RK),    INTENT( IN )       :: VBDSF                          ! Model input average surface downward visible flux (W/m2)
+        REAL(RK),    INTENT( IN )       :: VDDSF                          ! Model input average surface downward visible flux (W/m2)
         REAL(RK),    INTENT( IN )       :: LAI                            ! Model input total Leaf Area Index
         REAL(RK),    INTENT( IN )       :: FSUN(:)                        ! Sunlit/Shaded fraction from photolysis correction factor
         REAL(RK),    INTENT( OUT )      :: PPFD_SUN(SIZE(ZK))             ! PPFD for sunlit leaves (umol phot/m2 s)
@@ -131,7 +132,10 @@ contains
 
         REAL(RK),          PARAMETER     :: DTEMP_5_SHADE   =  -0.743_rk
 
-        REAL(RK),          PARAMETER     :: FRAC_PAR        =  0.5_rk
+        REAL(RK),          PARAMETER     :: FRAC_PAR_VBD        =  0.47_rk
+        REAL(RK),          PARAMETER     :: FRAC_PAR_VDD        =  0.57_rk
+
+        REAL(RK) :: PAR_EST
 
         REAL(RK) :: CTEMP_SUN(SIZE(ZK))
 
@@ -194,8 +198,9 @@ contains
             end if
         end do
 
-        ppfd_sun     = frac_par * sfcrad * exp(ctemp_sun + dtemp_sun * lai)  !Silva et al. W/m2 --> umol m-2 s-1
-        ppfd_shade   = frac_par * sfcrad * exp(ctemp_shade + dtemp_shade * lai)
+        par_est      = (frac_par_vbd * vbdsf) + (frac_par_vdd * vddsf)  !Combining direct and diffuse visible beams --> PAR
+        ppfd_sun     = par_est * exp(ctemp_sun + dtemp_sun * lai)  !Silva et al. W/m2 --> umol m-2 s-1
+        ppfd_shade   = par_est * exp(ctemp_shade + dtemp_shade * lai)
         ppfd_ave = (ppfd_sun*fsun) + (ppfd_shade*(1.0-fsun)) ! average = sum sun and shade weighted by sunlit fraction
 
     END SUBROUTINE canopy_ppfd_exp

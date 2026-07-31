@@ -104,10 +104,10 @@
         <references refid="group__canopy__variables_1ga55334ee90cec2b57c628ea4c5fd78be9" compoundref="canopy__canvars__mod_8F90" startline="257" endline="257">canopy_canvars_mod::kz_3d</references>
         <references refid="group__canopy__variables_1ga89886e4d1947949bcda30cf66966457c" compoundref="canopy__canvars__mod_8F90" startline="237" endline="237">canopy_canvars_mod::lad</references>
         <references refid="group__canopy__variables_1ga3ef57c6878664b074cbb24b67f353c99" compoundref="canopy__canvars__mod_8F90" startline="238" endline="238">canopy_canvars_mod::lad_3d</references>
-        <references refid="namespacecanopy__canmet__mod_1a097abc16aef9f099a53607cc30bf7147" compoundref="canopy__canmet__mod_8F90" startline="557">canopy_canmet_mod::lev_arr</references>
-        <references refid="namespacecanopy__canmet__mod_1a0bb63da84f3f6d3b2aabffa9a7feb75a" compoundref="canopy__canmet__mod_8F90" startline="557" endline="557">canopy_canmet_mod::levref</references>
-        <references refid="namespacecanopy__canmet__mod_1a756c0d03308afdded9d18948397b96e9" compoundref="canopy__canmet__mod_8F90" startline="552">canopy_canmet_mod::pavd_arr</references>
-        <references refid="namespacecanopy__canmet__mod_1a67e422419c930703365eb2f04c67d415" compoundref="canopy__canmet__mod_8F90" startline="552" endline="552">canopy_canmet_mod::pavdref</references>
+        <references refid="namespacecanopy__canmet__mod_1a097abc16aef9f099a53607cc30bf7147" compoundref="canopy__canmet__mod_8F90" startline="579">canopy_canmet_mod::lev_arr</references>
+        <references refid="namespacecanopy__canmet__mod_1a0bb63da84f3f6d3b2aabffa9a7feb75a" compoundref="canopy__canmet__mod_8F90" startline="579" endline="579">canopy_canmet_mod::levref</references>
+        <references refid="namespacecanopy__canmet__mod_1a756c0d03308afdded9d18948397b96e9" compoundref="canopy__canmet__mod_8F90" startline="574">canopy_canmet_mod::pavd_arr</references>
+        <references refid="namespacecanopy__canmet__mod_1a67e422419c930703365eb2f04c67d415" compoundref="canopy__canmet__mod_8F90" startline="574" endline="574">canopy_canmet_mod::pavdref</references>
         <references refid="group__canopy__variables_1ga5224fc1cff752eb4c66731a0a55e94f3" compoundref="canopy__canvars__mod_8F90" startline="141" endline="141">canopy_canvars_mod::ppfd_ave</references>
         <references refid="group__bioemi__inputs_1ga8b5fe0004a36271a2d7edc02f07c4b7b" compoundref="canopy__bioemi__mod_8F90" startline="133" endline="133">ppfd_shade</references>
         <references refid="group__canopy__variables_1ga5e9d01d3b593d325f72e9987cdecc53c" compoundref="canopy__canvars__mod_8F90" startline="198" endline="198">canopy_canvars_mod::ppfd_shade24</references>
@@ -169,10 +169,10 @@
         <references refid="group__canopy__variables_1gad461ea3b282977b4b408be6f34f80111" compoundref="canopy__canvars__mod_8F90" startline="193" endline="193">canopy_canvars_mod::ubzref_tmp</references>
         <references refid="group__canopy__variables_1gab9cbfe5d15b35613bdd5afb869aa5597" compoundref="canopy__canvars__mod_8F90" startline="218" endline="218">canopy_canvars_mod::ubzref_tmp_3d</references>
         <references refid="group__calcs__local__vars_1gac885d6f077e71492930c3e248364f341" compoundref="canopy__calcs_8F90" startline="73">variables</references>
-        <references refid="namespacecanopy__canmet__mod_1a728ccea7aa2d26baa3be5753bf3ea351" compoundref="canopy__canmet__mod_8F90" startline="228" endline="228">canopy_canmet_mod::variables_1d</references>
-        <references refid="namespacecanopy__canmet__mod_1a7f7d9225bbd480af13c2e842a922c2c8" compoundref="canopy__canmet__mod_8F90" startline="215">canopy_canmet_mod::variables_2d</references>
-        <references refid="namespacecanopy__canmet__mod_1ac4103f9610c12400fbe91ec7eec13fb6" compoundref="canopy__canmet__mod_8F90" startline="241" endline="241">canopy_canmet_mod::variables_3d</references>
-        <references refid="namespacecanopy__canmet__mod_1ada197fd89724f015f76c417d3e3a7d25" compoundref="canopy__canmet__mod_8F90" startline="348" endline="348">canopy_canmet_mod::variables_can</references>
+        <references refid="namespacecanopy__canmet__mod_1a728ccea7aa2d26baa3be5753bf3ea351" compoundref="canopy__canmet__mod_8F90" startline="240" endline="240">canopy_canmet_mod::variables_1d</references>
+        <references refid="namespacecanopy__canmet__mod_1a7f7d9225bbd480af13c2e842a922c2c8" compoundref="canopy__canmet__mod_8F90" startline="227">canopy_canmet_mod::variables_2d</references>
+        <references refid="namespacecanopy__canmet__mod_1ac4103f9610c12400fbe91ec7eec13fb6" compoundref="canopy__canmet__mod_8F90" startline="253" endline="253">canopy_canmet_mod::variables_3d</references>
+        <references refid="namespacecanopy__canmet__mod_1ada197fd89724f015f76c417d3e3a7d25" compoundref="canopy__canmet__mod_8F90" startline="360" endline="360">canopy_canmet_mod::variables_can</references>
         <references refid="group__canopy__variables_1ga68900c23e0bc80acef9ae41ef9ec1407" compoundref="canopy__canvars__mod_8F90" startline="86" endline="86">canopy_canvars_mod::vdep_aero</references>
         <references refid="group__canopy__variables_1ga647c1e3f8078e4f9058f52e4beac6e6a" compoundref="canopy__canvars__mod_8F90" startline="80" endline="80">canopy_canvars_mod::vdep_aero_3d</references>
         <references refid="group__canopy__variables_1ga45e5161e0b16839d60ff92af9ec3c7ca" compoundref="canopy__canvars__mod_8F90" startline="250" endline="250">canopy_canvars_mod::waf</references>

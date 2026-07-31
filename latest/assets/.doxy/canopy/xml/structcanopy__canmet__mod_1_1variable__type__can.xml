@@ -25,7 +25,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="249" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="249" bodyend="249"/>
+        <location file="src/canopy_canmet_mod.F90" line="261" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="261" bodyend="261"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a931db6dcb825d4104f806a0c8eb24c8f" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -49,7 +49,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="254" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="254" bodyend="254"/>
+        <location file="src/canopy_canmet_mod.F90" line="266" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="266" bodyend="266"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1aa53f3e90616adc3fee48ac7a8a9656ab" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="259" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="259" bodyend="259"/>
+        <location file="src/canopy_canmet_mod.F90" line="271" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="271" bodyend="271"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a683735c575b592b850a9572d4adc9f3a" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -97,7 +97,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="264" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="264" bodyend="264"/>
+        <location file="src/canopy_canmet_mod.F90" line="276" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="276" bodyend="276"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a37449ca6ecd65de18d1e7d1cd6cba911" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -121,7 +121,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="268" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="268" bodyend="268"/>
+        <location file="src/canopy_canmet_mod.F90" line="280" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="280" bodyend="280"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a8fe0112612cdbe5b5569e22f5ac3829f" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="271" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="271" bodyend="271"/>
+        <location file="src/canopy_canmet_mod.F90" line="283" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="283" bodyend="283"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a78a03846d16822454d3f5fbf3f6e42cc" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -169,7 +169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="274" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="274" bodyend="274"/>
+        <location file="src/canopy_canmet_mod.F90" line="286" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="286" bodyend="286"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1aefb94904c3f7e059cdaff7c0e26e1939" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -193,7 +193,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="277" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="277" bodyend="277"/>
+        <location file="src/canopy_canmet_mod.F90" line="289" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="289" bodyend="289"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a1236d3ce678ee970387e3dd62c0890f0" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -217,7 +217,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="280" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="280" bodyend="280"/>
+        <location file="src/canopy_canmet_mod.F90" line="292" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="292" bodyend="292"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1adf575f82de45ea3e1740f04dffd8b0a5" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -241,7 +241,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="283" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="283" bodyend="283"/>
+        <location file="src/canopy_canmet_mod.F90" line="295" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="295" bodyend="295"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a241d7713968043d95cdb8c6ccfb7e066" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -265,7 +265,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="286" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="286" bodyend="286"/>
+        <location file="src/canopy_canmet_mod.F90" line="298" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="298" bodyend="298"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a2ea21ca658509dc4af47e28108c3e9bb" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -289,7 +289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="289" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="289" bodyend="289"/>
+        <location file="src/canopy_canmet_mod.F90" line="301" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="301" bodyend="301"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1aa44e9909641e5a01c5e7be228e6dd29b" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -313,7 +313,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="292" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="292" bodyend="292"/>
+        <location file="src/canopy_canmet_mod.F90" line="304" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="304" bodyend="304"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1af9fa44b0241488b08f65e200df18771d" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -337,7 +337,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="295" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="295" bodyend="295"/>
+        <location file="src/canopy_canmet_mod.F90" line="307" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="307" bodyend="307"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a6bc862852e9b7fca89a8c83b8d22bf42" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -361,7 +361,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="298" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="298" bodyend="298"/>
+        <location file="src/canopy_canmet_mod.F90" line="310" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="310" bodyend="310"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1aed805f3603b981cb4ed42d7857028e26" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -385,7 +385,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="301" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="301" bodyend="301"/>
+        <location file="src/canopy_canmet_mod.F90" line="313" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="313" bodyend="313"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1ad54ad8b6bc4165b269eef90138851100" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -409,7 +409,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="304" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="304" bodyend="304"/>
+        <location file="src/canopy_canmet_mod.F90" line="316" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="316" bodyend="316"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1ad7aff2b3b54f2abd9ee7b69ff797e015" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -433,7 +433,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="307" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="307" bodyend="307"/>
+        <location file="src/canopy_canmet_mod.F90" line="319" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="319" bodyend="319"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1aac54866315f55a22cde19af730643280" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -457,7 +457,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="310" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="310" bodyend="310"/>
+        <location file="src/canopy_canmet_mod.F90" line="322" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="322" bodyend="322"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a3c45edd05bf0294ae477a98913a25f84" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -481,7 +481,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="313" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="313" bodyend="313"/>
+        <location file="src/canopy_canmet_mod.F90" line="325" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="325" bodyend="325"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a3010bf59b320dc2c87b579ee88ca006e" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -505,7 +505,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="316" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="316" bodyend="316"/>
+        <location file="src/canopy_canmet_mod.F90" line="328" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="328" bodyend="328"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a2631ff93177b4bf7470d88e96ee71fae" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -529,7 +529,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="319" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="319" bodyend="319"/>
+        <location file="src/canopy_canmet_mod.F90" line="331" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="331" bodyend="331"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a97ccbde5304cc788f9013e24b21fc796" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -553,7 +553,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="322" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="322" bodyend="322"/>
+        <location file="src/canopy_canmet_mod.F90" line="334" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="334" bodyend="334"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1ac7473292e3fe27ddf60eee2af1b71a11" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -577,7 +577,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="325" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="325" bodyend="325"/>
+        <location file="src/canopy_canmet_mod.F90" line="337" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="337" bodyend="337"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1afe1bb6f5db743696a017156fb7d309c9" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -601,7 +601,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="328" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="328" bodyend="328"/>
+        <location file="src/canopy_canmet_mod.F90" line="340" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="340" bodyend="340"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a3149722f7ddd185ece45b4e6ddf73397" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -625,7 +625,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="331" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="331" bodyend="331"/>
+        <location file="src/canopy_canmet_mod.F90" line="343" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="343" bodyend="343"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a2b7f4bfd3601b56d031d9a933b546d70" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -649,7 +649,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="334" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="334" bodyend="334"/>
+        <location file="src/canopy_canmet_mod.F90" line="346" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="346" bodyend="346"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a58924bb971158b6a3e2ed173096a78c8" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -673,7 +673,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="337" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="337" bodyend="337"/>
+        <location file="src/canopy_canmet_mod.F90" line="349" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="349" bodyend="349"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a7587f6ae83d3ba3d89655d3fe126148a" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -697,7 +697,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="340" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="340" bodyend="340"/>
+        <location file="src/canopy_canmet_mod.F90" line="352" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="352" bodyend="352"/>
       </memberdef>
       <memberdef kind="variable" id="structcanopy__canmet__mod_1_1variable__type__can_1a247f4c24187adc879142d39286e2188b" prot="public" static="no" mutable="no">
         <type>real(rk)</type>
@@ -721,7 +721,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="343" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="343" bodyend="343"/>
+        <location file="src/canopy_canmet_mod.F90" line="355" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="355" bodyend="355"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -730,7 +730,7 @@
     <detaileddescription>
 <para>Generic set of observed canopy profile input variable levels (14) from point text file </para>
     </detaileddescription>
-    <location file="src/canopy_canmet_mod.F90" line="245" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="245" bodyend="344"/>
+    <location file="src/canopy_canmet_mod.F90" line="257" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="257" bodyend="356"/>
     <listofallmembers>
       <member refid="structcanopy__canmet__mod_1_1variable__type__can_1a448605a67827eb00b2159072d3f41fc0" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type_can</scope><name>lat</name></member>
       <member refid="structcanopy__canmet__mod_1_1variable__type__can_1aa53f3e90616adc3fee48ac7a8a9656ab" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type_can</scope><name>lev01</name></member>

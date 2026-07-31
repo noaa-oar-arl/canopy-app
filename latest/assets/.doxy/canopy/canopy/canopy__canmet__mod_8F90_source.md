@@ -96,7 +96,13 @@ MODULE canopy_canmet_mod
         real(rk)   :: tmp_hyblev1
 
         real(rk)   :: snowc_ave
+
         real(rk)   :: icec
+
+        real(rk)   :: vbdsf_ave
+
+        real(rk)   :: vddsf_ave
+
     end TYPE variable_type
 
     type(variable_type), allocatable :: variables( : ), variables_2d( : , :)
@@ -229,6 +235,10 @@ MODULE canopy_canmet_mod
     real(rk)       ::    snowc_averef
 
     real(rk)       ::    icec_averef
+
+    real(rk)       ::    vbdsf_averef
+
+    real(rk)       ::    vddsf_averef
 
 !    real(rk)       ::    lev01ref, lev02ref, lev03ref, lev04ref, lev05ref, & !Input canopy profile levels
 !                         lev06ref, lev07ref, lev08ref, lev09ref, lev10ref, &

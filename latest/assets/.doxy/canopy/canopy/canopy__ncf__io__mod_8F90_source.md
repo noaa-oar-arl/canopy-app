@@ -3388,6 +3388,26 @@ CONTAINS
             variables_2d%dswrf=variables_2d_real
             !Also reshape to 1D array for 1D calculation and output
 !            variables%dswrf=reshape(variables_2d%dswrf,[size(variables_2d%dswrf)])
+            !instantaneous surface downward visible beam flux
+            CALL get_var_2d_real_cdf (cdfid, 'vbdsf_ave', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) trim(pname), 'vbdsf_ave',  &
+                    trim(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%vbdsf_ave=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%vbdsf_ave=reshape(variables_2d%vbdsf_ave,[size(variables_2d%vbdsf_ave)])
+            !instantaneous surface downward visible diffuse flux
+            CALL get_var_2d_real_cdf (cdfid, 'vddsf_ave', variables_2d_real, it, rcode)
+            IF ( rcode /= nf90_noerr ) THEN
+                WRITE (*,f9410) trim(pname), 'vddsf_ave',  &
+                    trim(nf90_strerror(rcode))
+                CALL exit(2)
+            ENDIF
+            variables_2d%vddsf_ave=variables_2d_real
+            !Also reshape to 1D array for 1D calculation and output
+!            variables%vddsf_ave=reshape(variables_2d%vddsf_ave,[size(variables_2d%vddsf_ave)])
             !instantaneous surface sensible heat net flux
             CALL get_var_2d_real_cdf (cdfid, 'shtfl', variables_2d_real, it, rcode)
             IF ( rcode /= nf90_noerr ) THEN

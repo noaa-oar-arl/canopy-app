@@ -25,7 +25,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_canmet_mod.F90" line="223" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="223" bodyend="223"/>
+        <location file="src/canopy_canmet_mod.F90" line="235" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="235" bodyend="235"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -34,7 +34,7 @@
     <detaileddescription>
 <para>Generic 3D input variables for vertical levels </para>
     </detaileddescription>
-    <location file="src/canopy_canmet_mod.F90" line="219" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="219" bodyend="224"/>
+    <location file="src/canopy_canmet_mod.F90" line="231" column="1" bodyfile="src/canopy_canmet_mod.F90" bodystart="231" bodyend="236"/>
     <listofallmembers>
       <member refid="structcanopy__canmet__mod_1_1variable__type__1d_1abe47044b7c1277358b256a6dad435e06" prot="public" virt="non-virtual"><scope>canopy_canmet_mod::variable_type_1d</scope><name>lev</name></member>
     </listofallmembers>

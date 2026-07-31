@@ -505,6 +505,8 @@
 * **variables\_2d** ([**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md))
 * **variables\_3d** ([**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md))
 * **variables\_can** ([**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md))
+* **vbdsf\_averef** ([**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md))
+* **vddsf\_averef** ([**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md))
 * **vref** ([**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md))
 * **vtyperef** ([**canopy\_canmet\_mod**](namespacecanopy__canmet__mod.md))
 * **var3d\_opt** ([**canopy\_canopts\_mod**](namespacecanopy__canopts__mod.md))

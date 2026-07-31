@@ -52,7 +52,7 @@ _Radiation attenuation and PPFD calculations within canopy._
 | Type | Name |
 | ---: | :--- |
 |  subroutine | [**canopy\_rad\_mod::canopy\_fsun\_clu**](#function-canopy_fsun_clu) (FCLAI FCLAI, LAI LAI, CLU CLU, COSZEN COSZEN, FSUN FSUN) <br>_Calculate sunlit fraction using clumping index._  |
-|  subroutine | [**canopy\_rad\_mod::canopy\_ppfd\_exp**](#function-canopy_ppfd_exp) (ZK ZK, FCH FCH, SFCRAD SFCRAD, LAI LAI, FSUN FSUN, PPFD\_SUN PPFD\_SUN, PPFD\_SHADE PPFD\_SHADE, PPFD\_AVE PPFD\_AVE) <br>_Calculate PPFD profiles using exponential model._  |
+|  subroutine | [**canopy\_rad\_mod::canopy\_ppfd\_exp**](#function-canopy_ppfd_exp) (ZK ZK, FCH FCH, VBDSF VBDSF, VDDSF VDDSF, LAI LAI, FSUN FSUN, PPFD\_SUN PPFD\_SUN, PPFD\_SHADE PPFD\_SHADE, PPFD\_AVE PPFD\_AVE) <br>_Calculate PPFD profiles using exponential model._  |
 
 
 
@@ -152,7 +152,8 @@ _Calculate PPFD profiles using exponential model._
 subroutine canopy_rad_mod::canopy_ppfd_exp (
     ZK ZK,
     FCH FCH,
-    SFCRAD SFCRAD,
+    VBDSF VBDSF,
+    VDDSF VDDSF,
     LAI LAI,
     FSUN FSUN,
     PPFD_SUN PPFD_SUN,
@@ -173,7 +174,8 @@ Computes photosynthetic photon flux density for sunlit and shaded leaves through
 
 * `ZK` Input model heights (m) 
 * `FCH` Model input canopy height (m) 
-* `SFCRAD` Model input instantaneous surface downward shortwave flux (W/m²) 
+* `VBDSF` Model input instantaneous surface downward shortwave flux beam (W/m²) 
+* `VDDSF` Model input instantaneous surface downward shortwave flux diffuse (W/m²) 
 * `LAI` Model input total Leaf Area Index (m²/m²) 
 * `FSUN` Sunlit/Shaded fraction from photolysis correction factor 
 * `PPFD_SUN` PPFD for sunlit leaves (μmol photons/m²/s) 

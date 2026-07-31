@@ -18,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_ncf_io_mod.F90" line="3792" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="3793" bodyend="3842"/>
+        <location file="src/canopy_ncf_io_mod.F90" line="3812" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="3813" bodyend="3862"/>
         <references refid="group__file__units_1ga4476fdd7d9120e021c7480f53f6c7b5e" compoundref="canopy__files__mod_8F90" startline="27" endline="27">canopy_files_mod::cdfid_m</references>
       </memberdef>
       <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1a47c9c866dc89338678fcfd8be478a669" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -259,7 +259,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_ncf_io_mod.F90" line="3097" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="3098" bodyend="3789"/>
+        <location file="src/canopy_ncf_io_mod.F90" line="3097" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="3098" bodyend="3809"/>
         <references refid="namespacecanopy__ncf__io__mod_1abcdeea31e415de87479c147a63f94448" compoundref="canopy__ncf__io__mod_8F90" startline="226" endline="246">get_var_1d_int_cdf</references>
         <references refid="namespacecanopy__ncf__io__mod_1ab417cdb308c6b9426403f5090d209b4f" compoundref="canopy__ncf__io__mod_8F90" startline="198" endline="219">get_var_1d_real_cdf</references>
         <references refid="namespacecanopy__ncf__io__mod_1afe40f918a2243d41347b8e5ce7b53e8c" compoundref="canopy__ncf__io__mod_8F90" startline="169" endline="191">get_var_2d_int_cdf</references>
@@ -271,9 +271,9 @@
         <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
         <references refid="group__canopy__options_1gab0b5819b28313ed0be7118a333b361da" compoundref="canopy__canopts__mod_8F90" startline="36" endline="36">canopy_canopts_mod::var3d_opt</references>
         <references refid="group__calcs__local__vars_1gac885d6f077e71492930c3e248364f341" compoundref="canopy__calcs_8F90" startline="73">variables</references>
-        <references refid="namespacecanopy__canmet__mod_1a728ccea7aa2d26baa3be5753bf3ea351" compoundref="canopy__canmet__mod_8F90" startline="228" endline="228">canopy_canmet_mod::variables_1d</references>
-        <references refid="namespacecanopy__canmet__mod_1a7f7d9225bbd480af13c2e842a922c2c8" compoundref="canopy__canmet__mod_8F90" startline="215">canopy_canmet_mod::variables_2d</references>
-        <references refid="namespacecanopy__canmet__mod_1ac4103f9610c12400fbe91ec7eec13fb6" compoundref="canopy__canmet__mod_8F90" startline="241" endline="241">canopy_canmet_mod::variables_3d</references>
+        <references refid="namespacecanopy__canmet__mod_1a728ccea7aa2d26baa3be5753bf3ea351" compoundref="canopy__canmet__mod_8F90" startline="240" endline="240">canopy_canmet_mod::variables_1d</references>
+        <references refid="namespacecanopy__canmet__mod_1a7f7d9225bbd480af13c2e842a922c2c8" compoundref="canopy__canmet__mod_8F90" startline="227">canopy_canmet_mod::variables_2d</references>
+        <references refid="namespacecanopy__canmet__mod_1ac4103f9610c12400fbe91ec7eec13fb6" compoundref="canopy__canmet__mod_8F90" startline="253" endline="253">canopy_canmet_mod::variables_3d</references>
       </memberdef>
       <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1a8a4671002b16914cb388ff0046717aaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>subroutine, public</type>
@@ -438,7 +438,7 @@
         <references refid="group__spatial__domain_1gade13d14d702dbd983bed9336e17d6728" compoundref="canopy__coord__mod_8F90" startline="40" endline="40">canopy_coord_mod::nlon</references>
         <references refid="group__canopy__variables_1gabc6d6be9189579062b349f095d28a3df" compoundref="canopy__canvars__mod_8F90" startline="259" endline="259">canopy_canvars_mod::rjcf_3d</references>
         <references refid="group__time__domain_1ga8f726078dc2174d9044bb3fb1efbf4f2" compoundref="canopy__coord__mod_8F90" startline="27" endline="27">canopy_coord_mod::time_intvl</references>
-        <references refid="namespacecanopy__canmet__mod_1a7f7d9225bbd480af13c2e842a922c2c8" compoundref="canopy__canmet__mod_8F90" startline="215">canopy_canmet_mod::variables_2d</references>
+        <references refid="namespacecanopy__canmet__mod_1a7f7d9225bbd480af13c2e842a922c2c8" compoundref="canopy__canmet__mod_8F90" startline="227">canopy_canmet_mod::variables_2d</references>
         <references refid="group__canopy__variables_1ga647c1e3f8078e4f9058f52e4beac6e6a" compoundref="canopy__canvars__mod_8F90" startline="80" endline="80">canopy_canvars_mod::vdep_aero_3d</references>
         <references refid="group__canopy__variables_1ga15d40c4ca75d4f26fc0eb07bb395f4ca" compoundref="canopy__canvars__mod_8F90" startline="251" endline="251">canopy_canvars_mod::waf_2d</references>
         <references refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" compoundref="canopy__bioemi__mod_8F90" startline="123" endline="123">zk</references>
@@ -477,7 +477,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_ncf_io_mod.F90" line="225" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="226" bodyend="246"/>
-        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3098" endline="3789">canopy_read_ncf</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3098" endline="3809">canopy_read_ncf</referencedby>
       </memberdef>
       <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1ab417cdb308c6b9426403f5090d209b4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>subroutine</type>
@@ -512,7 +512,7 @@
         </inbodydescription>
         <location file="src/canopy_ncf_io_mod.F90" line="197" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="198" bodyend="219"/>
         <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
-        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3098" endline="3789">canopy_read_ncf</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3098" endline="3809">canopy_read_ncf</referencedby>
       </memberdef>
       <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1afe40f918a2243d41347b8e5ce7b53e8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>subroutine</type>
@@ -546,7 +546,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/canopy_ncf_io_mod.F90" line="168" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="169" bodyend="191"/>
-        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3098" endline="3789">canopy_read_ncf</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3098" endline="3809">canopy_read_ncf</referencedby>
       </memberdef>
       <memberdef kind="function" id="namespacecanopy__ncf__io__mod_1a6e6b7091237f16ddde457b12497579c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>subroutine</type>
@@ -581,7 +581,7 @@
         </inbodydescription>
         <location file="src/canopy_ncf_io_mod.F90" line="134" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="135" bodyend="162"/>
         <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
-        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3098" endline="3789">canopy_read_ncf</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3098" endline="3809">canopy_read_ncf</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__ncfio__group_1ga448fb73be44b1171263f78c6bf851f8e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>subroutine</type>
@@ -616,7 +616,7 @@
         </inbodydescription>
         <location file="src/canopy_ncf_io_mod.F90" line="66" column="1" bodyfile="src/canopy_ncf_io_mod.F90" bodystart="67" bodyend="97"/>
         <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
-        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3098" endline="3789">canopy_read_ncf</referencedby>
+        <referencedby refid="namespacecanopy__ncf__io__mod_1a34fa94967d1a644cdde27c4484983673" compoundref="canopy__ncf__io__mod_8F90" startline="3098" endline="3809">canopy_read_ncf</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>

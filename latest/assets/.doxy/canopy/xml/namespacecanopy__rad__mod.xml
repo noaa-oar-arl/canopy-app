@@ -87,10 +87,10 @@
         <location file="src/canopy_rad_mod.F90" line="31" column="1" bodyfile="src/canopy_rad_mod.F90" bodystart="32" bodyend="67"/>
         <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
       </memberdef>
-      <memberdef kind="function" id="group__canopy__radiation_1ga44abae1b598c05e773207789755164f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__canopy__radiation_1ga913e499dabf3240dfa2423cab2e60ca6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>subroutine</type>
         <definition>subroutine canopy_rad_mod::canopy_ppfd_exp</definition>
-        <argsstring>(ZK, FCH, SFCRAD, LAI, FSUN, PPFD_SUN, PPFD_SHADE, PPFD_AVE)</argsstring>
+        <argsstring>(ZK, FCH, VBDSF, VDDSF, LAI, FSUN, PPFD_SUN, PPFD_SHADE, PPFD_AVE)</argsstring>
         <name>canopy_ppfd_exp</name>
         <param>
           <type>ZK</type>
@@ -101,8 +101,12 @@
           <defname>FCH</defname>
         </param>
         <param>
-          <type>SFCRAD</type>
-          <defname>SFCRAD</defname>
+          <type>VBDSF</type>
+          <defname>VBDSF</defname>
+        </param>
+        <param>
+          <type>VDDSF</type>
+          <defname>VDDSF</defname>
         </param>
         <param>
           <type>LAI</type>
@@ -147,10 +151,18 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername direction="in">SFCRAD</parametername>
+<parametername direction="in">VBDSF</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Model input instantaneous surface downward shortwave flux (W/m²) </para>
+<para>Model input instantaneous surface downward shortwave flux <ndash/>beam (W/m²) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">VDDSF</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Model input instantaneous surface downward shortwave flux <ndash/>diffuse (W/m²) </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -404,12 +416,22 @@ Exponential PPFD regression coefficient D for shaded leaves at level 5</para>
 </parameteritem>
 </parameterlist>
 Fraction of PAR in solar irradiance</para>
-<para>Fraction of incoming solar irradiance that is photosynthetically active radiation <parameterlist kind="param"><parameteritem>
+<para>Fraction of incoming visible solar irradiance that is photosynthetically active radiation Used for both direct beam (VBD) and diffuse (VDD) <parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>units</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>dimensionless</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Estimate PAR in visible solar irradiance</para>
+<para>Incoming (TOC) photosynthetically active radiation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>W/m2</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -424,7 +446,7 @@ Regression coefficient C for sun leaves</para>
 <para>Loop index</para>
 <para>Loop index for height levels</para>
         </inbodydescription>
-        <location file="src/canopy_rad_mod.F90" line="90" column="1" bodyfile="src/canopy_rad_mod.F90" bodystart="92" bodyend="302"/>
+        <location file="src/canopy_rad_mod.F90" line="91" column="1" bodyfile="src/canopy_rad_mod.F90" bodystart="93" bodyend="312"/>
         <references refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" compoundref="canopy__utils__mod_8F90" startline="67" endline="86">canopy_utils_mod::interp_linear1_internal</references>
         <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
       </memberdef>
