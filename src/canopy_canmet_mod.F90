@@ -204,10 +204,22 @@ MODULE canopy_canmet_mod
         !> \details Average percent ground snow cover
         !! \param units percent (%)
         real(rk)   :: snowc_ave
+
         !> \brief Average ground or water ice cover
         !> \details Average fraction ground or water ice cover
         !! \param units dimensionless fraction
         real(rk)   :: icec
+
+        !> \brief Downward shortwave radiation
+        !> \details Average downward visible beam radiation
+        !! \param units W/m²
+        real(rk)   :: vbdsf_ave
+
+        !> \brief Downward shortwave radiation
+        !> \details Average downward visible diffuse radiation
+        !! \param units W/m²
+        real(rk)   :: vddsf_ave
+
     end TYPE variable_type
 
     !> \brief Allocated array for 1D meteorological variables
@@ -539,6 +551,16 @@ MODULE canopy_canmet_mod
     !> \details Average fraction ground or water ice cover
     !! \param units dimensionless fraction
     real(rk)       ::    icec_averef
+
+    !> \brief Downward shortwave radiation
+    !> \details Average downward visible beam radiation
+    !! \param units W/m²
+    real(rk)       ::    vbdsf_averef
+
+    !> \brief Downward shortwave radiation
+    !> \details Average downward visible diffuse radiation
+    !! \param units W/m²
+    real(rk)       ::    vddsf_averef
 
 !    real(rk)       ::    lev01ref, lev02ref, lev03ref, lev04ref, lev05ref, & !Input canopy profile levels
 !                         lev06ref, lev07ref, lev08ref, lev09ref, lev10ref, &

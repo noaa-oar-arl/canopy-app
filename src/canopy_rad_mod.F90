@@ -74,7 +74,8 @@ contains
     !> \ingroup canopy_radiation
     !> \param[in] ZK Input model heights (m)
     !> \param[in] FCH Model input canopy height (m)
-    !> \param[in] SFCRAD Model input instantaneous surface downward shortwave flux (W/m²)
+    !> \param[in] VBDSF Model input instantaneous surface downward shortwave flux --beam (W/m²)
+    !> \param[in] VDDSF Model input instantaneous surface downward shortwave flux --diffuse (W/m²)
     !> \param[in] LAI Model input total Leaf Area Index (m²/m²)
     !> \param[in] FSUN Sunlit/Shaded fraction from photolysis correction factor
     !> \param[out] PPFD_SUN PPFD for sunlit leaves (μmol photons/m²/s)
@@ -87,7 +88,7 @@ contains
     !!       reduced-complexity plant canopy physics surrogate model for use in chemical
     !!       transport models: a case study with GEOS-Chem v12.3.0. Geoscientific Model
     !!       Development, 13, 2569-2585. https://doi.org/10.5194/gmd-13-2569-2020
-    SUBROUTINE CANOPY_PPFD_EXP( ZK, FCH, SFCRAD, LAI, FSUN, &
+    SUBROUTINE CANOPY_PPFD_EXP( ZK, FCH, VBDSF, VDDSF, LAI, FSUN, &
         PPFD_SUN, PPFD_SHADE, PPFD_AVE)
 
 !-----------------------------------------------------------------------
@@ -113,7 +114,8 @@ contains
 !     IN/OUT
         REAL(RK),    INTENT( IN )       :: ZK(:)                          ! Input model heights (m)
         REAL(RK),    INTENT( IN )       :: FCH                            ! Model input canopy height (m)
-        REAL(RK),    INTENT( IN )       :: SFCRAD                         ! Model input Instantaneous surface downward shortwave flux (W/m2)
+        REAL(RK),    INTENT( IN )       :: VBDSF                          ! Model input average surface downward visible flux (W/m2)
+        REAL(RK),    INTENT( IN )       :: VDDSF                          ! Model input average surface downward visible flux (W/m2)
         REAL(RK),    INTENT( IN )       :: LAI                            ! Model input total Leaf Area Index
         REAL(RK),    INTENT( IN )       :: FSUN(:)                        ! Sunlit/Shaded fraction from photolysis correction factor
         REAL(RK),    INTENT( OUT )      :: PPFD_SUN(SIZE(ZK))             ! PPFD for sunlit leaves (umol phot/m2 s)
@@ -221,9 +223,16 @@ contains
         REAL(RK),          PARAMETER     :: DTEMP_5_SHADE   =  -0.743_rk
 
         !> \brief Fraction of PAR in solar irradiance
-        !> \details Fraction of incoming solar irradiance that is photosynthetically active radiation
+        !> \details Fraction of incoming visible solar irradiance that is photosynthetically active radiation
+        !!          Used for both direct beam (VBD) and diffuse (VDD)
         !! \param units dimensionless
-        REAL(RK),          PARAMETER     :: FRAC_PAR        =  0.5_rk
+        REAL(RK),          PARAMETER     :: FRAC_PAR_VBD        =  0.47_rk
+        REAL(RK),          PARAMETER     :: FRAC_PAR_VDD        =  0.57_rk
+
+        !> \brief Estimate PAR in visible solar irradiance
+        !> \details Incoming (TOC) photosynthetically active radiation
+        !! \param units W/m2
+        REAL(RK) :: PAR_EST
 
         !> \brief Regression coefficient C for sun leaves
         !> \details Height-interpolated regression coefficient C for sun leaves
@@ -296,8 +305,9 @@ contains
             end if
         end do
 
-        PPFD_SUN     = FRAC_PAR * SFCRAD * EXP(CTEMP_SUN + DTEMP_SUN * LAI)  !Silva et al. W/m2 --> umol m-2 s-1
-        PPFD_SHADE   = FRAC_PAR * SFCRAD * EXP(CTEMP_SHADE + DTEMP_SHADE * LAI)
+        PAR_EST      = (FRAC_PAR_VBD * VBDSF) + (FRAC_PAR_VDD * VDDSF)  !Combining direct and diffuse visible beams --> PAR
+        PPFD_SUN     = PAR_EST * EXP(CTEMP_SUN + DTEMP_SUN * LAI)  !Silva et al. W/m2 --> umol m-2 s-1
+        PPFD_SHADE   = PAR_EST * EXP(CTEMP_SHADE + DTEMP_SHADE * LAI)
         PPFD_AVE = (PPFD_SUN*FSUN) + (PPFD_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
 
     END SUBROUTINE CANOPY_PPFD_EXP
