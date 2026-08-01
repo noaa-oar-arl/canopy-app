@@ -48,7 +48,7 @@ jobs:
           fetch-depth: 0  # Fetch full history for versioning
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -112,7 +112,7 @@ jobs:
           token: ${{ secrets.GH_PAGES_TOKEN }}
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '3.11'
           cache: 'pip'
