@@ -278,14 +278,14 @@ evaluated independently for each selected species. `biospec_opt=0` evaluates all
 species; values 1--19 select an individual species.
 
 !!! note "Vertical option and units"
-	`biovert_opt=0` retains the layer-resolved source and converts
-	$\text{microgram m}^{-3}\text{ h}^{-1}$ to $\text{kg m}^{-3}\text{ s}^{-1}$.
-	Options 1--3 vertically integrate the source, apply the eligible canopy loss
-	factor, convert $\text{microgram m}^{-2}\text{ h}^{-1}$ to
-	$\text{kg m}^{-2}\text{ s}^{-1}$, and place the result in the top model layer.
-	Current text and NetCDF variable metadata label biogenic fields as volumetric
-	emissions, so users should interpret integrated-option output according to
-	`biovert_opt`.
+    `biovert_opt=0` retains the layer-resolved source and converts
+    $\text{microgram m}^{-3}\text{ h}^{-1}$ to $\text{kg m}^{-3}\text{ s}^{-1}$.
+    Options 1--3 vertically integrate the source, apply the eligible canopy loss
+    factor, convert $\text{microgram m}^{-2}\text{ h}^{-1}$ to
+    $\text{kg m}^{-2}\text{ s}^{-1}$, and place the result in the top model layer.
+    Current text and NetCDF variable metadata label biogenic fields as volumetric
+    emissions, so users should interpret integrated-option output according to
+    `biovert_opt`.
 
 Editable Mermaid sources are available for the
 [simplified journal figure](../development/biogenic_emissions_flowchart_simplified.mmd)
@@ -316,7 +316,7 @@ where:
 ### Temperature and Light Dependence
 
 $$
-\gamma_{CE} = C_T \cdot C_L
+\gamma_{T,P} = C_T \cdot C_L
 $$
 
 $$
