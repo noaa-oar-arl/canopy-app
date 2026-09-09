@@ -87,6 +87,20 @@ Parameters:
 
 ## Biogenic Emissions
 
+### Simplified Parameterization
+
+This compact workflow summarizes the scientific parameterization and principal output
+choices for use as a one-page or journal-article figure.
+
+```mermaid
+--8<-- "docs/development/biogenic_emissions_flowchart_simplified.mmd"
+```
+
+**Figure 1.** Simplified Canopy-App biogenic emissions parameterization. Environmental
+activity and species-specific response factors modify the mapped emission factor before
+the source is retained as a layer-resolved profile or vertically integrated to a
+top-canopy flux.
+
 ### Parameterization Workflow
 
 The workflow below follows the implemented path from namelist initialization through
@@ -99,23 +113,24 @@ treatment, unit conversion, and output.
 --8<-- "docs/development/biogenic_emissions_flowchart.mmd"
 ```
 
-**Figure 1.** Canopy-App biogenic emissions parameterization. The parameterization is
+**Figure 2.** Detailed Canopy-App biogenic emissions implementation workflow. The parameterization is
 evaluated independently for each selected species. `biospec_opt=0` evaluates all 19
 species; values 1--19 select an individual species.
 
 !!! note "Vertical option and units"
 	`biovert_opt=0` retains the layer-resolved source and converts
-	$	ext{microgram m}^{-3}	ext{ h}^{-1}$ to $	ext{kg m}^{-3}	ext{ s}^{-1}$.
+	$\text{microgram m}^{-3}\text{ h}^{-1}$ to $\text{kg m}^{-3}\text{ s}^{-1}$.
 	Options 1--3 vertically integrate the source, apply the eligible canopy loss
-	factor, convert $	ext{microgram m}^{-2}	ext{ h}^{-1}$ to
-	$	ext{kg m}^{-2}	ext{ s}^{-1}$, and place the result in the top model layer.
+	factor, convert $\text{microgram m}^{-2}\text{ h}^{-1}$ to
+	$\text{kg m}^{-2}\text{ s}^{-1}$, and place the result in the top model layer.
 	Current text and NetCDF variable metadata label biogenic fields as volumetric
 	emissions, so users should interpret integrated-option output according to
 	`biovert_opt`.
 
-The editable Mermaid source is available as the
-[biogenic emissions flowchart](../development/biogenic_emissions_flowchart.mmd) for
-vector export to SVG or PDF.
+Editable Mermaid sources are available for the
+[simplified journal figure](../development/biogenic_emissions_flowchart_simplified.mmd)
+and the [detailed implementation flowchart](../development/biogenic_emissions_flowchart.mmd)
+for vector export to SVG or PDF.
 
 ### Emission Calculation
 

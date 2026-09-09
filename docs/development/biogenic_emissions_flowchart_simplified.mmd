@@ -1,0 +1,48 @@
+flowchart LR
+    classDef input fill:#FFF3CD,stroke:#B77900,color:#3D2900,stroke-width:2px
+    classDef model fill:#E3F2E8,stroke:#287A45,color:#123A22,stroke-width:2px
+    classDef factor fill:#F8E5EF,stroke:#A93669,color:#4D1831,stroke-width:2px
+    classDef decision fill:#EEE7F8,stroke:#68429A,color:#2F1948,stroke-width:2px
+    classDef output fill:#DFF3F5,stroke:#087987,color:#073B41,stroke-width:2px
+
+    subgraph A["Inputs and initialization"]
+        direction TB
+        CFG["Biogenic options<br/>species, vertical mode,<br/>gamma and loss switches"]:::input
+        STATE["Canopy and environment<br/>LAI profile, vegetation, PPFD,<br/>Tleaf, soil, CO2, O3, wind"]:::input
+        HIST["Instantaneous or<br/>24 h / 240 h history"]:::input
+    end
+
+    subgraph B["Species activity"]
+        direction TB
+        PARM["Species x vegetation parameters<br/>emission factor, light fraction,<br/>temperature and stress coefficients"]:::model
+        ENV["Canopy environment<br/>gamma(T, PPFD)<br/>sunlit + shaded leaves"]:::factor
+        MOD["Response factors<br/>gamma(CO2) x gamma(leaf age)<br/>x gamma(soil moisture)<br/>x gamma(AQ, heat, cold, wind)"]:::factor
+        EMIS["Potential emission<br/>EF x gamma(T, PPFD) x response factors<br/>x canopy environment coefficient"]:::model
+    end
+
+    subgraph C["Vertical treatment"]
+        direction TB
+        VERT{"biovert_opt"}:::decision
+        PROFILE["0 | Layer-resolved source<br/>weighted by leaf area density"]:::model
+        INTEGRATE["1-3 | Canopy-integrated flux<br/>plant, Gaussian, or equal weighting<br/>x eligible canopy loss factor"]:::model
+    end
+
+    subgraph D["Model output"]
+        direction TB
+        VOL["3D volumetric emissions<br/>kg m-3 s-1"]:::output
+        AREA["2D areal flux in top layer<br/>kg m-2 s-1"]:::output
+        WRITE["1D point text or<br/>2D gridded NetCDF"]:::output
+    end
+
+    CFG --> PARM
+    STATE --> ENV
+    HIST --> ENV
+    PARM --> ENV
+    PARM --> MOD
+    ENV --> EMIS
+    MOD --> EMIS
+    EMIS --> VERT
+    VERT -->|0| PROFILE --> VOL --> WRITE
+    VERT -->|1-3| INTEGRATE --> AREA --> WRITE
+
+    linkStyle default stroke:#4F6470,stroke-width:1.8px
