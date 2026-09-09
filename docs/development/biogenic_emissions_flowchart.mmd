@@ -1,0 +1,114 @@
+flowchart TB
+    classDef config fill:#E8F1FA,stroke:#1B5E8C,color:#123047,stroke-width:2px
+    classDef input fill:#FFF4D6,stroke:#C47A00,color:#4A3000,stroke-width:2px
+    classDef process fill:#E7F6EC,stroke:#287A45,color:#123A22,stroke-width:2px
+    classDef gamma fill:#FCE8F1,stroke:#B23A6F,color:#541A35,stroke-width:2px
+    classDef decision fill:#F3E8FF,stroke:#7048A8,color:#321C50,stroke-width:2px
+    classDef units fill:#FFF0E5,stroke:#C45118,color:#54230C,stroke-width:2px
+    classDef output fill:#E5F6F8,stroke:#087D8D,color:#073C43,stroke-width:2px
+    classDef stop fill:#FDE8E7,stroke:#B8322A,color:#551814,stroke-width:2px
+
+    subgraph INIT["1 | Configuration and initialization"]
+        direction LR
+        NML["canopy_readnml<br/>ifcanbio, biospec_opt<br/>biovert_opt, bio_cce<br/>gamma switches, loss_opt"]:::config
+        ALLOC["canopy_alloc<br/>allocate selected species arrays"]:::config
+        INITARR["canopy_init<br/>initialize instantaneous, 24 h,<br/>240 h, stress, and emission arrays"]:::config
+        NML --> ALLOC --> INITARR
+    end
+
+    subgraph CALCS["2 | Driver preparation in canopy_calcs.F90"]
+        direction LR
+        MET["Canopy state and meteorology<br/>LAI, FCLAI, canopy height, Tair,<br/>soil moisture, CO2, u*, O3, wind"]:::input
+        RAD["Sunlit / shaded leaf environment<br/>FSUN, PPFD, Tleaf"]:::input
+        HIST{"hist_opt"}:::decision
+        INST["0: use instantaneous<br/>PPFD, Tleaf, T2, wind"]:::process
+        AVG["1: update 24 h / 240 h means<br/>and daily stress extrema"]:::process
+        LEAF["leafage_opt=0<br/>update past/current LAI<br/>at lai_tstep"]:::process
+        SELECT{"ifcanbio and<br/>vegetated canopy?"}:::decision
+        SPEC["biospec_opt<br/>0 = all 19 species<br/>1...19 = selected species"]:::config
+
+        MET --> HIST
+        RAD --> HIST
+        HIST -->|0| INST
+        HIST -->|1| AVG
+        INST --> SELECT
+        AVG --> SELECT
+        LEAF --> SELECT
+        SPEC --> SELECT
+    end
+
+    INITARR --> MET
+    SELECT -->|No| ZERO["Set selected emission<br/>profiles to zero"]:::stop
+    SELECT -->|Yes| BIO["CANOPY_BIO for each selected species<br/>EMI_IND = 1...19"]:::process
+
+    subgraph PARAM["3 | Species parameterization in canopy_bioemi_mod.F90"]
+        direction TB
+        BIOP["CANOPY_BIOP<br/>Map EMI_IND + land use + vegetation to<br/>EF, LDF, BETA, CT1, CEO and response coefficients"]:::process
+        TL["Temperature activity<br/>Eopt and Topt from 24 h / 240 h Tleaf<br/>sunlit + shaded LDF and LIF terms"]:::gamma
+        LIGHT["Light activity<br/>alpha and Cp from 24 h / 240 h PPFD<br/>sunlit + shaded PPFD response"]:::gamma
+        ENV["Canopy environment activity<br/>gamma_T,PPFD = LDF gamma_LDF<br/>+ (1-LDF) gamma_LIF"]:::gamma
+        GCO2["gamma_CO2<br/>isoprene only; otherwise 1"]:::gamma
+        GLEAF["gamma_leafage<br/>new + growing + mature + old foliage"]:::gamma
+        GSOIL["gamma_soil moisture<br/>root-weighted soil layers"]:::gamma
+        GSTRESS["Stress gammas<br/>gamma_AQ x gamma_HT x gamma_LT x gamma_HW"]:::gamma
+        PRODUCT["Layer activity product<br/>EF x gamma_T,PPFD x gamma_CO2 x CCE<br/>x gamma_leafage x gamma_soil<br/>x gamma_AQ x gamma_HT x gamma_LT x gamma_HW"]:::process
+
+        BIO --> BIOP
+        BIOP --> TL
+        BIOP --> LIGHT
+        TL --> ENV
+        LIGHT --> ENV
+        BIOP --> GCO2
+        BIOP --> GLEAF
+        BIOP --> GSOIL
+        BIOP --> GSTRESS
+        ENV --> PRODUCT
+        GCO2 --> PRODUCT
+        GLEAF --> PRODUCT
+        GSOIL --> PRODUCT
+        GSTRESS --> PRODUCT
+    end
+
+    subgraph VERTICAL["4 | Vertical treatment, canopy loss, and conversion"]
+        direction TB
+        VERT{"biovert_opt"}:::decision
+        V0["0 | Full 3D profile<br/>FLAI = delta FCLAI x LAI / dz<br/>E(z) = FLAI(z) x activity product"]:::process
+        V1["1 | Plant-distribution weighting<br/>VPGWT = FLAI / sum(FLAI)"]:::process
+        V2["2 | MEGAN-like five-level<br/>Gaussian weighting"]:::process
+        V3["3 | Equal weighting<br/>VPGWT = 1 / canopy layers"]:::process
+        LOSSSEL{"Integrated path and<br/>LOSSIND = 0 or EMI_IND?"}:::decision
+        LOSS0["loss_opt=0<br/>CANLOSS = 1"]:::process
+        LOSS1["loss_opt=1<br/>lifetime / u* / canopy-height loss"]:::process
+        LOSS2["loss_opt=2<br/>CANLOSS = loss_set"]:::process
+        INT["Top-canopy areal flux<br/>LAI x EF x weighted gamma product<br/>x CANLOSS"]:::process
+        U3["Multiply by 2.7777778e-13<br/>microgram m-3 h-1 to kg m-3 s-1"]:::units
+        U2["Multiply by 2.7777778e-13<br/>microgram m-2 h-1 to kg m-2 s-1<br/>store in top model layer"]:::units
+
+        PRODUCT --> VERT
+        VERT -->|0| V0 --> U3
+        VERT -->|1| V1 --> LOSSSEL
+        VERT -->|2| V2 --> LOSSSEL
+        VERT -->|3| V3 --> LOSSSEL
+        LOSSSEL -->|No| LOSS0
+        LOSSSEL -->|Yes, option 0| LOSS0
+        LOSSSEL -->|Yes, option 1| LOSS1
+        LOSSSEL -->|Yes, option 2| LOSS2
+        LOSS0 --> INT
+        LOSS1 --> INT
+        LOSS2 --> INT
+        INT --> U2
+    end
+
+    subgraph OUTPUT["5 | Output pathway"]
+        direction LR
+        OUTTYPE{"Build / input mode"}:::decision
+        TXT["1D point-list pathway<br/>canopy_write_txt<br/>*_bio.txt; all species required<br/>lat, lon, z, LAD, emission profiles"]:::output
+        NCF["2D gridded pathway<br/>canopy_write_ncf<br/>NetCDF fields on lon x lat x layer x time"]:::output
+        OUTTYPE -->|Text build| TXT
+        OUTTYPE -->|NETCDF build| NCF
+    end
+
+    U3 --> OUTTYPE
+    U2 --> OUTTYPE
+
+    linkStyle default stroke:#536878,stroke-width:1.6px

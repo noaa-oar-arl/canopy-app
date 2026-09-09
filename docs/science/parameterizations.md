@@ -87,20 +87,56 @@ Parameters:
 
 ## Biogenic Emissions
 
-### Isoprene Emissions
+### Parameterization Workflow
+
+The workflow below follows the implemented path from namelist initialization through
+[`canopy_calcs.F90`](../../src/canopy_calcs.F90),
+[`canopy_bioemi_mod.F90`](../../src/canopy_bioemi_mod.F90), and the text or NetCDF
+writers. Colors group configuration, environmental inputs, activity factors, vertical
+treatment, unit conversion, and output.
+
+```mermaid
+--8<-- "docs/development/biogenic_emissions_flowchart.mmd"
+```
+
+**Figure 1.** Canopy-App biogenic emissions parameterization. The parameterization is
+evaluated independently for each selected species. `biospec_opt=0` evaluates all 19
+species; values 1--19 select an individual species.
+
+!!! note "Vertical option and units"
+	`biovert_opt=0` retains the layer-resolved source and converts
+	$	ext{microgram m}^{-3}	ext{ h}^{-1}$ to $	ext{kg m}^{-3}	ext{ s}^{-1}$.
+	Options 1--3 vertically integrate the source, apply the eligible canopy loss
+	factor, convert $	ext{microgram m}^{-2}	ext{ h}^{-1}$ to
+	$	ext{kg m}^{-2}	ext{ s}^{-1}$, and place the result in the top model layer.
+	Current text and NetCDF variable metadata label biogenic fields as volumetric
+	emissions, so users should interpret integrated-option output according to
+	`biovert_opt`.
+
+The editable Mermaid source is available as the
+[biogenic emissions flowchart](../development/biogenic_emissions_flowchart.mmd) for
+vector export to SVG or PDF.
+
+### Emission Calculation
 
 Following Guenther et al. (2012):
 
 $$
-E_{iso} = \epsilon_{iso} \cdot \gamma_{CE} \cdot \gamma_{age} \cdot \gamma_{SM} \cdot D \cdot LAI
+E_i = \epsilon_i \cdot \gamma_{T,P} \cdot \gamma_{CO_2} \cdot C_{CE}
+\cdot \gamma_{age} \cdot \gamma_{SM} \cdot \gamma_{AQ}
+\cdot \gamma_{HT} \cdot \gamma_{LT} \cdot \gamma_{HW}
 $$
 
 where:
-- $\epsilon_{iso}$: emission factor
-- $\gamma_{CE}$: canopy environment activity factor
+- $\epsilon_i$: species- and vegetation-dependent emission factor
+- $\gamma_{T,P}$: combined temperature and PPFD activity factor
+- $\gamma_{CO_2}$: carbon dioxide inhibition factor for isoprene (unity otherwise)
+- $C_{CE}$: canopy environment coefficient (`bio_cce`)
 - $\gamma_{age}$: leaf age activity factor
 - $\gamma_{SM}$: soil moisture activity factor
-- $D$: light distribution factor
+- $\gamma_{AQ}$: air-quality stress factor
+- $\gamma_{HT}$ and $\gamma_{LT}$: high- and low-temperature stress factors
+- $\gamma_{HW}$: high-wind stress factor
 
 ### Temperature and Light Dependence
 
