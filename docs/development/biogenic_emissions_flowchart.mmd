@@ -101,8 +101,8 @@ flowchart TB
 
     subgraph OUTPUT["5 | Output pathway"]
         direction LR
-TXT["1D point-list pathway<br/>1D input, ifcanbio, biospec_opt=0<br/>canopy_write_txt; *_bio.txt<br/>lat, lon, z, LAD, emission profiles"]:::output
-        NCF["2D gridded pathway (NETCDF builds)<br/>canopy_write_ncf<br/>NetCDF fields on lon x lat x layer x time"]:::output
+TXT["1D point-list pathway<br/>1D input (infmt_opt=1), ifcanbio, biospec_opt=0<br/>canopy_write_txt; *_bio.txt<br/>lat, lon, z, LAD, emission profiles"]:::output
+    NCF["2D gridded pathway (NETCDF builds)<br/>2D input (infmt_opt=0)<br/>canopy_write_ncf<br/>NetCDF fields on lon x lat x layer x time"]:::output
     end
 
     U3 --> TXT

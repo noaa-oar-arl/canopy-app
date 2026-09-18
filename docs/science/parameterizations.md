@@ -266,8 +266,8 @@ flowchart TB
 
 	subgraph OUTPUT["5 | Output pathway"]
 		direction LR
-		TXT["1D point-list pathway (infmt_opt=1)<br/>canopy_write_txt<br/>*_bio.txt when biospec_opt=0; all species required<br/>lat, lon, z, LAD, emission profiles"]:::output
-		NCF["2D gridded pathway (NETCDF builds)<br/>canopy_write_ncf<br/>NetCDF fields on lon x lat x layer x time"]:::output
+		TXT["1D point-list pathway<br/>1D input (infmt_opt=1), ifcanbio, biospec_opt=0<br/>canopy_write_txt; *_bio.txt<br/>lat, lon, z, LAD, emission profiles"]:::output
+		NCF["2D gridded pathway (NETCDF builds)<br/>2D input (infmt_opt=0)<br/>canopy_write_ncf<br/>NetCDF fields on lon x lat x layer x time"]:::output
 	end
 
 	U3 --> TXT
@@ -346,7 +346,7 @@ C_L = \frac{\alpha C_{L1}\,\mathrm{PPFD}}{\sqrt{1 + \alpha^2\,\mathrm{PPFD}^2}}
 $$
 
 Parameters:
-- $C_{T1} = 95,000$ J/mol
+- $C_{T1} = 95,000$ J/mol (isoprene example; species-dependent)
 - $C_{T2} = 230,000$ J/mol
 - $T_s = 303$ K (standard temperature)
 - $T_M = 314$ K (maximum temperature)
