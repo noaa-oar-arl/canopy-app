@@ -102,7 +102,7 @@ flowchart LR
 
 	subgraph A["Inputs and initialization"]
 		direction TB
-		CFG["Biogenic options<br/>species, vertical mode,<br/>gamma and loss switches"]:::input
+		CFG["Biogenic options<br/>ifcanbio, cluref > 0,<br/>species, vertical mode, gamma and loss switches"]:::input
 		STATE["Canopy and environment<br/>LAI profile, vegetation, PPFD,<br/>Tleaf, soil, CO2, O3, wind"]:::input
 		HIST["Instantaneous or<br/>24 h / 240 h history"]:::input
 	end
@@ -110,9 +110,9 @@ flowchart LR
 	subgraph B["Species activity"]
 		direction TB
 		PARM["Species x vegetation parameters<br/>emission factor, light fraction,<br/>temperature and stress coefficients"]:::model
-		ENV["Canopy environment<br/>gamma(T, PPFD)<br/>sunlit + shaded leaves"]:::factor
+		ENV["Canopy environment<br/>combined temperature/light activity<br/>sunlit + shaded leaves"]:::factor
 		MOD["Response factors<br/>gamma(CO2) x gamma(leaf age)<br/>x gamma(soil moisture)<br/>x gamma(AQ, heat, cold, wind)"]:::factor
-		EMIS["Potential emission<br/>EF x gamma(T, PPFD) x response factors<br/>x canopy environment coefficient"]:::model
+		EMIS["Potential emission<br/>EF x combined temperature/light activity<br/>x response factors x canopy environment coefficient"]:::model
 	end
 
 	subgraph C["Vertical treatment"]
@@ -126,7 +126,9 @@ flowchart LR
 		direction TB
 		VOL["3D volumetric emissions<br/>kg m-3 s-1"]:::output
 		AREA["2D areal flux in top layer<br/>kg m-2 s-1"]:::output
-		WRITE["1D point text or<br/>2D gridded NetCDF"]:::output
+		OUT["Computed model outputs"]:::model
+		WRITE["Point text (infmt_opt=1)<br/>ifcanbio and biospec_opt=0<br/>canopy_write_txt; *_bio.txt"]:::output
+		NCF["Optional gridded NetCDF<br/>NETCDF builds: canopy_write_ncf"]:::output
 	end
 
 	CFG --> PARM
@@ -137,8 +139,12 @@ flowchart LR
 	ENV --> EMIS
 	MOD --> EMIS
 	EMIS --> VERT
-	VERT -->|0| PROFILE --> VOL --> WRITE
-	VERT -->|1-3| INTEGRATE --> AREA --> WRITE
+	VERT -->|0| PROFILE --> VOL
+	VERT -->|1-3| INTEGRATE --> AREA
+	VOL --> OUT
+	AREA --> OUT
+	OUT --> WRITE
+	OUT --> NCF
 
 	linkStyle default stroke:#4F6470,stroke-width:1.8px
 ```
