@@ -128,7 +128,7 @@ flowchart LR
 		AREA["2D areal flux in top layer<br/>kg m-2 s-1"]:::output
 		OUT["Computed model outputs"]:::model
 		WRITE["Point text (infmt_opt=1)<br/>ifcanbio and biospec_opt=0<br/>canopy_write_txt; *_bio.txt"]:::output
-		NCF["Optional gridded NetCDF<br/>NETCDF builds: canopy_write_ncf"]:::output
+		NCF["Optional gridded NetCDF (infmt_opt=0)<br/>NETCDF builds: canopy_write_ncf"]:::output
 	end
 
 	CFG --> PARM
