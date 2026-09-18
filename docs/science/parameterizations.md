@@ -157,8 +157,8 @@ top-canopy flux.
 ### Parameterization Workflow
 
 The workflow below follows the implemented path from namelist initialization through
-[`canopy_calcs.F90`](../../src/canopy_calcs.F90),
-[`canopy_bioemi_mod.F90`](../../src/canopy_bioemi_mod.F90), and the text or NetCDF
+[`canopy_calcs.F90`](https://github.com/noaa-oar-arl/canopy-app/blob/develop/src/canopy_calcs.F90),
+[`canopy_bioemi_mod.F90`](https://github.com/noaa-oar-arl/canopy-app/blob/develop/src/canopy_bioemi_mod.F90), and the text or NetCDF
 writers. Colors group configuration, environmental inputs, activity factors, vertical
 treatment, unit conversion, and output.
 
@@ -293,8 +293,8 @@ species; values 1--19 select an individual species.
     `biovert_opt`.
 
 Editable Mermaid sources are available for the
-[simplified journal figure](../development/biogenic_emissions_flowchart_simplified.mmd)
-and the [detailed implementation flowchart](../development/biogenic_emissions_flowchart.mmd)
+[simplified journal figure](https://github.com/noaa-oar-arl/canopy-app/blob/develop/docs/development/biogenic_emissions_flowchart_simplified.mmd)
+and the [detailed implementation flowchart](https://github.com/noaa-oar-arl/canopy-app/blob/develop/docs/development/biogenic_emissions_flowchart.mmd)
 for vector export to SVG or PDF.
 
 ### Conceptual Emission Calculation
