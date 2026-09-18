@@ -205,12 +205,12 @@ flowchart TB
 		BIOP["CANOPY_BIOP<br/>Map EMI_IND + land use + vegetation to<br/>EF, LDF, BETA, CT1, CEO and response coefficients"]:::process
 		TL["Temperature activity<br/>Eopt and Topt from 24 h / 240 h Tleaf<br/>sunlit + shaded LDF and LIF terms"]:::gamma
 		LIGHT["Light activity<br/>alpha and Cp from 24 h / 240 h PPFD<br/>sunlit + shaded PPFD response"]:::gamma
-		ENV["Canopy environment activity<br/>gamma_T,PPFD = LDF gamma_LDF<br/>+ (1-LDF) gamma_LIF"]:::gamma
+		ENV["Canopy environment activity<br/>gamma_T,P = LDF gamma_LDF<br/>+ (1-LDF) gamma_LIF"]:::gamma
 		GCO2["gamma_CO2<br/>isoprene only; otherwise 1"]:::gamma
 		GLEAF["gamma_leafage<br/>new + growing + mature + old foliage"]:::gamma
 		GSOIL["gamma_soil moisture<br/>root-weighted soil layers"]:::gamma
 		GSTRESS["Stress gammas<br/>gamma_AQ x gamma_HT x gamma_LT x gamma_HW"]:::gamma
-		PRODUCT["Layer activity product<br/>EF x gamma_T,PPFD x gamma_CO2 x CCE<br/>x gamma_leafage x gamma_soil<br/>x gamma_AQ x gamma_HT x gamma_LT x gamma_HW"]:::process
+		PRODUCT["Layer activity product<br/>EF x gamma_T,P x gamma_CO2 x CCE<br/>x gamma_leafage x gamma_soil<br/>x gamma_AQ x gamma_HT x gamma_LT x gamma_HW"]:::process
 
 		BIO --> BIOP
 		BIOP --> TL
@@ -297,10 +297,15 @@ for vector export to SVG or PDF.
 Following Guenther et al. (2012):
 
 $$
-E_i = \epsilon_i \cdot \gamma_{T,P} \cdot \gamma_{CO_2} \cdot C_{CE}
-\cdot \gamma_{age} \cdot \gamma_{SM} \cdot \gamma_{AQ}
-\cdot \gamma_{HT} \cdot \gamma_{LT} \cdot \gamma_{HW}
+\begin{aligned}
+E_i ={}& \epsilon_i \cdot \gamma_{T,P} \cdot \gamma_{CO_2} \cdot C_{CE}
+\cdot \gamma_{age} \cdot \gamma_{SM} \cdot \gamma_{AQ} \\
+&\cdot \gamma_{HT} \cdot \gamma_{LT} \cdot \gamma_{HW}
+\end{aligned}
 $$
+
+This expression is the species activity product; LAI weighting and vertical
+integration are applied later according to `biovert_opt`.
 
 where:
 - $\epsilon_i$: species- and vegetation-dependent emission factor
@@ -324,7 +329,7 @@ C_T = \frac{\exp\left(\frac{C_{T1}(T-T_s)}{RT_sT}\right)}{1 + \exp\left(\frac{C_
 $$
 
 $$
-C_L = \frac{\alpha C_L1 PPFD}{\sqrt{1 + \alpha^2 PPFD^2}}
+C_L = \frac{\alpha C_{L1}\,\mathrm{PPFD}}{\sqrt{1 + \alpha^2\,\mathrm{PPFD}^2}}
 $$
 
 Parameters:
