@@ -183,7 +183,7 @@ flowchart TB
 		INST["0: use instantaneous<br/>PPFD, Tleaf, T2, wind"]:::process
 		AVG["1: update 24 h / 240 h means<br/>and daily stress extrema"]:::process
 		LEAF["leafage_opt=0<br/>update past/current LAI<br/>at lai_tstep"]:::process
-		SELECT{"ifcanbio and<br/>vegetated canopy?"}:::decision
+		SELECT{"ifcanbio and<br/>cluref > 0 (clumping index)?"}:::decision
 		SPEC["biospec_opt<br/>0 = all 19 species<br/>1...19 = selected species"]:::config
 
 		MET --> HIST
@@ -200,9 +200,9 @@ flowchart TB
 	SELECT -->|No| ZERO["Set selected emission<br/>profiles to zero"]:::stop
 	SELECT -->|Yes| BIO["CANOPY_BIO for each selected species<br/>EMI_IND = 1...19"]:::process
 
-	subgraph PARAM["3 | Species parameterization in canopy_bioemi_mod.F90"]
+	subgraph PARAM["3 | Species parameterization in canopy_bioemi_mod.F90<br/>and canopy_bioparm_mod.F90"]
 		direction TB
-		BIOP["CANOPY_BIOP<br/>Map EMI_IND + land use + vegetation to<br/>EF, LDF, BETA, CT1, CEO and response coefficients"]:::process
+		BIOP["CANOPY_BIOP (canopy_bioparm_mod.F90)<br/>Map EMI_IND + land use + vegetation to<br/>EF, LDF, BETA, CT1, CEO and response coefficients"]:::process
 		TL["Temperature activity<br/>Eopt and Topt from 24 h / 240 h Tleaf<br/>sunlit + shaded LDF and LIF terms"]:::gamma
 		LIGHT["Light activity<br/>alpha and Cp from 24 h / 240 h PPFD<br/>sunlit + shaded PPFD response"]:::gamma
 		ENV["Canopy environment activity<br/>gamma_T,P = LDF gamma_LDF<br/>+ (1-LDF) gamma_LIF"]:::gamma
@@ -260,15 +260,14 @@ flowchart TB
 
 	subgraph OUTPUT["5 | Output pathway"]
 		direction LR
-		OUTTYPE{"Build / input mode"}:::decision
-		TXT["1D point-list pathway<br/>canopy_write_txt<br/>*_bio.txt; all species required<br/>lat, lon, z, LAD, emission profiles"]:::output
-		NCF["2D gridded pathway<br/>canopy_write_ncf<br/>NetCDF fields on lon x lat x layer x time"]:::output
-		OUTTYPE -->|Text build| TXT
-		OUTTYPE -->|NETCDF build| NCF
+		TXT["1D point-list pathway (always written)<br/>canopy_write_txt<br/>*_bio.txt; all species required<br/>lat, lon, z, LAD, emission profiles"]:::output
+		NCF["2D gridded pathway (NETCDF builds)<br/>canopy_write_ncf<br/>NetCDF fields on lon x lat x layer x time"]:::output
 	end
 
-	U3 --> OUTTYPE
-	U2 --> OUTTYPE
+	U3 --> TXT
+	U2 --> TXT
+	U3 --> NCF
+	U2 --> NCF
 
 	linkStyle default stroke:#536878,stroke-width:1.6px
 ```
@@ -292,9 +291,10 @@ Editable Mermaid sources are available for the
 and the [detailed implementation flowchart](../development/biogenic_emissions_flowchart.mmd)
 for vector export to SVG or PDF.
 
-### Emission Calculation
+### Conceptual Emission Calculation
 
-Following Guenther et al. (2012):
+The following factorization is a simplified conceptual approximation based on
+Guenther et al. (2012), not the complete implementation formula:
 
 $$
 \begin{aligned}
@@ -306,6 +306,12 @@ $$
 
 This expression is the species activity product; LAI weighting and vertical
 integration are applied later according to `biovert_opt`.
+
+In the implementation, `CANOPY_BIO` uses the species-dependent `CT1` returned
+by `CANOPY_BIOP`, a history-dependent optimum leaf temperature `TLEAF_OPT`,
+and history-derived light terms `CP_SUN`, `CP_SHADE`, `ALPHA_P_SUN`, and
+`ALPHA_P_SHADE`. The fixed values below illustrate the response shape and are
+not a complete list of the runtime parameters.
 
 where:
 - $\epsilon_i$: species- and vegetation-dependent emission factor
@@ -338,7 +344,7 @@ Parameters:
 - $T_s = 303$ K (standard temperature)
 - $T_M = 314$ K (maximum temperature)
 - $\alpha = 0.0027$ (empirical coefficient)
-- $C_{L1} = 1.066$ (empirical coefficient)
+- $C_{L1} = 1.066$ (illustrative empirical coefficient)
 
 ## Dry Deposition
 
