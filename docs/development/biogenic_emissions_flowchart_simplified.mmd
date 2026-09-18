@@ -31,7 +31,7 @@ flowchart LR
         direction TB
         VOL["3D volumetric emissions<br/>kg m-3 s-1"]:::output
         AREA["2D areal flux in top layer<br/>kg m-2 s-1"]:::output
-        WRITE["1D point text (always written)<br/>canopy_write_txt"]:::output
+        WRITE["1D point text (infmt_opt=1)<br/>canopy_write_txt<br/>*_bio.txt when biospec_opt=0"]:::output
         NCF["Optional 2D gridded NetCDF<br/>NETCDF builds: canopy_write_ncf"]:::output
     end
 

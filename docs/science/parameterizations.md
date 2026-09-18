@@ -260,7 +260,7 @@ flowchart TB
 
 	subgraph OUTPUT["5 | Output pathway"]
 		direction LR
-		TXT["1D point-list pathway (always written)<br/>canopy_write_txt<br/>*_bio.txt; all species required<br/>lat, lon, z, LAD, emission profiles"]:::output
+		TXT["1D point-list pathway (infmt_opt=1)<br/>canopy_write_txt<br/>*_bio.txt when biospec_opt=0; all species required<br/>lat, lon, z, LAD, emission profiles"]:::output
 		NCF["2D gridded pathway (NETCDF builds)<br/>canopy_write_ncf<br/>NetCDF fields on lon x lat x layer x time"]:::output
 	end
 
@@ -310,8 +310,9 @@ integration are applied later according to `biovert_opt`.
 In the implementation, `CANOPY_BIO` uses the species-dependent `CT1` returned
 by `CANOPY_BIOP`, a history-dependent optimum leaf temperature `TLEAF_OPT`,
 and history-derived light terms `CP_SUN`, `CP_SHADE`, `ALPHA_P_SUN`, and
-`ALPHA_P_SHADE`. The fixed values below illustrate the response shape and are
-not a complete list of the runtime parameters.
+`ALPHA_P_SHADE`. The illustrative values below show the response shape for a
+given species; `CT1` is species-dependent, and the list is not a complete set
+of runtime parameters.
 
 where:
 - $\epsilon_i$: species- and vegetation-dependent emission factor
