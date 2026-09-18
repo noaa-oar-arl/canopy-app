@@ -77,10 +77,10 @@ flowchart TB
         V2["2 | MEGAN-like five-level<br/>Gaussian weighting"]:::process
         V3["3 | Equal weighting<br/>VPGWT = 1 / canopy layers"]:::process
         LOSSSEL{"Integrated path and<br/>LOSSIND = 0 or EMI_IND?"}:::decision
-        LOSS0["loss_opt=0<br/>CANLOSS = 1"]:::process
+        LOSS0["loss_opt=0 or ineligible LOSSIND target<br/>CANLOSS = 1"]:::process
         LOSS1["loss_opt=1<br/>lifetime / u* / canopy-height loss"]:::process
         LOSS2["loss_opt=2<br/>CANLOSS = loss_set"]:::process
-        INT["Top-canopy areal flux<br/>LAI x EF x weighted gamma product<br/>x CANLOSS"]:::process
+        INT["Top-canopy areal flux<br/>LAI x weighted activity product<br/>x CANLOSS"]:::process
         U3["Multiply by 2.7777778e-13<br/>microgram m-3 h-1 to kg m-3 s-1"]:::units
         U2["Multiply by 2.7777778e-13<br/>microgram m-2 h-1 to kg m-2 s-1<br/>store in top model layer"]:::units
 
