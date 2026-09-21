@@ -189,22 +189,25 @@ flowchart TB
 		INST["0: use instantaneous<br/>PPFD, Tleaf, T2, wind"]:::process
 		AVG["1: update 24 h / 240 h means<br/>and daily stress extrema"]:::process
 		LEAF["leafage_opt=0<br/>update past/current LAI<br/>at lai_tstep"]:::process
-		SELECT{"ifcanbio and<br/>cluref > 0 (clumping index)?"}:::decision
+		IFCANBIO{"ifcanbio?"}:::decision
+		CLUSEL{"cluref > 0<br/>(clumping index)?"}:::decision
 		SPEC["biospec_opt<br/>0 = all 19 species<br/>1...19 = selected species"]:::config
 
 		MET --> HIST
 		RAD --> HIST
 		HIST -->|0| INST
 		HIST -->|1| AVG
-		INST --> SELECT
-		AVG --> SELECT
-		LEAF --> SELECT
-		SPEC --> SELECT
+		INST --> IFCANBIO
+		AVG --> IFCANBIO
+		LEAF --> IFCANBIO
+		SPEC --> IFCANBIO
 	end
 
 	INITARR --> MET
-	SELECT -->|No| ZERO["Set selected emission<br/>profiles to zero"]:::stop
-	SELECT -->|Yes| BIO["CANOPY_BIO for each selected species<br/>EMI_IND = 1...19"]:::process
+	IFCANBIO -->|No| SKIP["Biogenic module skipped<br/>no bio output written"]:::stop
+	IFCANBIO -->|Yes| CLUSEL
+	CLUSEL -->|No| ZERO["Set selected emission<br/>profiles to zero"]:::stop
+	CLUSEL -->|Yes| BIO["CANOPY_BIO for each selected species<br/>EMI_IND = 1...19"]:::process
 
 	subgraph PARAM["3 | Species parameterization in canopy_bioemi_mod.F90<br/>and canopy_bioparm_mod.F90"]
 		direction TB
@@ -274,6 +277,8 @@ flowchart TB
 	U2 --> TXT
 	U3 --> NCF
 	U2 --> NCF
+	ZERO --> TXT
+	ZERO --> NCF
 
 	linkStyle default stroke:#536878,stroke-width:1.6px
 ```
