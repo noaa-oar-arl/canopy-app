@@ -197,10 +197,11 @@ flowchart TB
 		RAD --> HIST
 		HIST -->|0| INST
 		HIST -->|1| AVG
-		INST --> IFCANBIO
-		AVG --> IFCANBIO
-		LEAF --> IFCANBIO
-		SPEC --> IFCANBIO
+        NML --> IFCANBIO
+ 		INST --> BIO
+ 		AVG --> BIO
+ 		LEAF --> BIO
+ 		SPEC --> BIO
 	end
 
 	INITARR --> MET
