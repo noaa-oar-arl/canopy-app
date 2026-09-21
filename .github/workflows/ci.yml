@@ -94,4 +94,4 @@ jobs:
         env:
           DEBUG: 0
           FC: ${{ matrix.compiler }}
-          NETCDF: 0
+          NC: 0

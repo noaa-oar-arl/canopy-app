@@ -51,6 +51,7 @@ theme:
 
 plugins:
   - search
+  - mermaid2
   - mkdoxy:
       projects:
         canopy: # Main canopy project
