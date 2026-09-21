@@ -918,10 +918,32 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#isoprene-emissions" class="md-nav__link">
+  <a href="#simplified-parameterization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Isoprene Emissions
+        Simplified Parameterization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameterization-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameterization Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptual-emission-calculation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptual Emission Calculation
       
     </span>
   </a>
@@ -1383,10 +1405,32 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#isoprene-emissions" class="md-nav__link">
+  <a href="#simplified-parameterization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Isoprene Emissions
+        Simplified Parameterization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameterization-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameterization Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptual-emission-calculation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptual Emission Calculation
       
     </span>
   </a>
@@ -1596,34 +1640,256 @@ LAI(z) = LAI_{total} \exp\left(-\alpha \left(\frac{h-z}{h}\right)^{\beta}\right)
 - <span class="arithmatex">\(\alpha\)</span>: extinction coefficient (typically 0.5-2.0)
 - <span class="arithmatex">\(\beta\)</span>: shape parameter (typically 0.5-2.0)</p>
 <h2 id="biogenic-emissions">Biogenic Emissions</h2>
-<h3 id="isoprene-emissions">Isoprene Emissions</h3>
-<p>Following Guenther et al. (2012):</p>
+<h3 id="simplified-parameterization">Simplified Parameterization</h3>
+<p>This compact workflow summarizes the scientific parameterization and principal output
+choices for use as a one-page or journal-article figure.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>flowchart LR
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    classDef input fill:#FFF3CD,stroke:#B77900,color:#3D2900,stroke-width:2px
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    classDef model fill:#E3F2E8,stroke:#287A45,color:#123A22,stroke-width:2px
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    classDef factor fill:#F8E5EF,stroke:#A93669,color:#4D1831,stroke-width:2px
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    classDef decision fill:#EEE7F8,stroke:#68429A,color:#2F1948,stroke-width:2px
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    classDef output fill:#DFF3F5,stroke:#087987,color:#073B41,stroke-width:2px
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    subgraph A["Inputs and initialization"]
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        direction TB
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        CFG["Biogenic options&lt;br/&gt;ifcanbio, cluref &gt; 0,&lt;br/&gt;species, vertical mode, gamma and loss switches"]:::input
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        STATE["Canopy and environment&lt;br/&gt;LAI profile, vegetation, PPFD,&lt;br/&gt;Tleaf, soil, CO2, O3, wind"]:::input
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        HIST["Instantaneous or&lt;br/&gt;24 h / 240 h history"]:::input
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    end
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    subgraph B["Species activity"]
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        direction TB
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        PARM["Species x vegetation parameters&lt;br/&gt;emission factor, light fraction,&lt;br/&gt;temperature and stress coefficients"]:::model
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        ENV["Canopy environment&lt;br/&gt;combined temperature/light activity&lt;br/&gt;sunlit + shaded leaves"]:::factor
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        MOD["Response factors&lt;br/&gt;gamma(CO2) x gamma(leaf age)&lt;br/&gt;x gamma(soil moisture)&lt;br/&gt;x gamma(AQ, heat, cold, wind)"]:::factor
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        EMIS["Potential emission&lt;br/&gt;EF x combined temperature/light activity&lt;br/&gt;x response factors x canopy environment coefficient"]:::model
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    end
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    subgraph C["Vertical treatment"]
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        direction TB
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>        VERT{"biovert_opt"}:::decision
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        PROFILE["0 | Layer-resolved source&lt;br/&gt;weighted by leaf area density"]:::model
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>        INTEGRATE["1-3 | Canopy-integrated flux&lt;br/&gt;plant, Gaussian, or equal weighting&lt;br/&gt;x eligible canopy loss factor"]:::model
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>    end
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    subgraph D["Model output"]
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>        direction TB
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>        VOL["3D volumetric emissions&lt;br/&gt;kg m-3 s-1"]:::output
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>        AREA["2D areal flux in top layer&lt;br/&gt;kg m-2 s-1"]:::output
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>        OUT["Computed model outputs"]:::model
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>        WRITE["Point text (infmt_opt=1)&lt;br/&gt;ifcanbio and biospec_opt=0&lt;br/&gt;canopy_write_txt; *_bio.txt"]:::output
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>        NCF["Optional gridded NetCDF (infmt_opt=0)&lt;br/&gt;NETCDF builds: canopy_write_ncf"]:::output
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>    end
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>    CFG --&gt; PARM
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>    STATE --&gt; ENV
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>    HIST --&gt; ENV
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>    PARM --&gt; ENV
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>    PARM --&gt; MOD
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>    ENV --&gt; EMIS
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>    MOD --&gt; EMIS
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>    EMIS --&gt; VERT
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>    VERT --&gt;|0| PROFILE --&gt; VOL
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>    VERT --&gt;|1-3| INTEGRATE --&gt; AREA
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>    VOL --&gt; OUT
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>    AREA --&gt; OUT
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>    OUT --&gt; WRITE
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>    OUT --&gt; NCF
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>    linkStyle default stroke:#4F6470,stroke-width:1.8px
+</code></pre></div>
+<p><strong>Figure 1.</strong> Simplified Canopy-App biogenic emissions parameterization. Environmental
+activity and species-specific response factors modify the mapped emission factor before
+the source is retained as a layer-resolved profile or vertically integrated to a
+top-canopy flux.</p>
+<h3 id="parameterization-workflow">Parameterization Workflow</h3>
+<p>The workflow below follows the implemented path from namelist initialization through
+<a href="https://github.com/noaa-oar-arl/canopy-app/blob/develop/src/canopy_calcs.F90"><code>canopy_calcs.F90</code></a>,
+<a href="https://github.com/noaa-oar-arl/canopy-app/blob/develop/src/canopy_bioemi_mod.F90"><code>canopy_bioemi_mod.F90</code></a>, and the text or NetCDF
+writers. Colors group configuration, environmental inputs, activity factors, vertical
+treatment, unit conversion, and output.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>flowchart TB
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    classDef config fill:#E8F1FA,stroke:#1B5E8C,color:#123047,stroke-width:2px
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    classDef input fill:#FFF4D6,stroke:#C47A00,color:#4A3000,stroke-width:2px
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    classDef process fill:#E7F6EC,stroke:#287A45,color:#123A22,stroke-width:2px
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    classDef gamma fill:#FCE8F1,stroke:#B23A6F,color:#541A35,stroke-width:2px
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    classDef decision fill:#F3E8FF,stroke:#7048A8,color:#321C50,stroke-width:2px
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    classDef units fill:#FFF0E5,stroke:#C45118,color:#54230C,stroke-width:2px
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    classDef output fill:#E5F6F8,stroke:#087D8D,color:#073C43,stroke-width:2px
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    classDef stop fill:#FDE8E7,stroke:#B8322A,color:#551814,stroke-width:2px
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    subgraph INIT["1 | Configuration and initialization"]
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        direction LR
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        NML["canopy_readnml&lt;br/&gt;ifcanbio, biospec_opt&lt;br/&gt;biovert_opt, bio_cce&lt;br/&gt;gamma switches, loss_opt"]:::config
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        ALLOC["canopy_alloc&lt;br/&gt;allocate selected species arrays"]:::config
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        INITARR["canopy_init&lt;br/&gt;initialize instantaneous, 24 h,&lt;br/&gt;240 h, stress, and emission arrays"]:::config
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        NML --&gt; ALLOC --&gt; INITARR
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    end
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    subgraph CALCS["2 | Driver preparation in canopy_calcs.F90"]
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        direction LR
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        MET["Canopy state and meteorology&lt;br/&gt;LAI, FCLAI, canopy height, Tair,&lt;br/&gt;soil moisture, CO2, u*, O3, wind"]:::input
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>        RAD["Sunlit / shaded leaf environment&lt;br/&gt;FSUN, PPFD, Tleaf"]:::input
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>        HIST{"hist_opt"}:::decision
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>        INST["0: use instantaneous&lt;br/&gt;PPFD, Tleaf, T2, wind"]:::process
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>        AVG["1: update 24 h / 240 h means&lt;br/&gt;and daily stress extrema"]:::process
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>        LEAF["leafage_opt=0&lt;br/&gt;update past/current LAI&lt;br/&gt;at lai_tstep"]:::process
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>        IFCANBIO{"ifcanbio?"}:::decision
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>        CLUSEL{"cluref &gt; 0&lt;br/&gt;(clumping index)?"}:::decision
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        SPEC["biospec_opt&lt;br/&gt;0 = all 19 species&lt;br/&gt;1...19 = selected species"]:::config
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>        MET --&gt; HIST
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>        RAD --&gt; HIST
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>        HIST --&gt;|0| INST
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        HIST --&gt;|1| AVG
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        INST --&gt; IFCANBIO
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        AVG --&gt; IFCANBIO
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>        LEAF --&gt; IFCANBIO
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>        SPEC --&gt; IFCANBIO
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>    end
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>    INITARR --&gt; MET
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>    IFCANBIO --&gt;|No| SKIP["Biogenic module skipped&lt;br/&gt;no bio output written"]:::stop
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>    IFCANBIO --&gt;|Yes| CLUSEL
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>    CLUSEL --&gt;|No| ZERO["Set selected emission&lt;br/&gt;profiles to zero"]:::stop
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>    CLUSEL --&gt;|Yes| BIO["CANOPY_BIO for each selected species&lt;br/&gt;EMI_IND = 1...19"]:::process
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>    subgraph PARAM["3 | Species parameterization in canopy_bioemi_mod.F90&lt;br/&gt;and canopy_bioparm_mod.F90"]
+<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>        direction TB
+<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a>        BIOP["CANOPY_BIOP (canopy_bioparm_mod.F90)&lt;br/&gt;Map EMI_IND + land use + vegetation to&lt;br/&gt;EF, LDF, BETA, CT1, CEO and response coefficients"]:::process
+<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a>        TL["Temperature activity&lt;br/&gt;Topt from 240 h Tleaf; Eopt from&lt;br/&gt;24 h and 240 h Tleaf&lt;br/&gt;sunlit + shaded LDF and LIF terms"]:::gamma
+<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a>        LIGHT["Light activity&lt;br/&gt;alpha from 240 h PPFD; Cp from&lt;br/&gt;24 h and 240 h PPFD&lt;br/&gt;sunlit + shaded PPFD response"]:::gamma
+<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a>        ENV["Canopy environment activity&lt;br/&gt;gamma_T,P = LDF gamma_LDF&lt;br/&gt;+ (1-LDF) gamma_LIF"]:::gamma
+<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a>        GCO2["gamma_CO2&lt;br/&gt;isoprene only; otherwise 1"]:::gamma
+<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a>        GLEAF["gamma_leafage&lt;br/&gt;new + growing + mature + old foliage"]:::gamma
+<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a>        GSOIL["gamma_soil moisture&lt;br/&gt;root-weighted soil layers"]:::gamma
+<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a>        GSTRESS["Stress gammas&lt;br/&gt;gamma_AQ x gamma_HT x gamma_LT x gamma_HW"]:::gamma
+<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a>        PRODUCT["Layer activity product&lt;br/&gt;EF x gamma_T,P x gamma_CO2 x CCE&lt;br/&gt;x gamma_leafage x gamma_soil&lt;br/&gt;x gamma_AQ x gamma_HT x gamma_LT x gamma_HW"]:::process
+<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a>
+<a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a>        BIO --&gt; BIOP
+<a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a>        BIOP --&gt; TL
+<a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a>        BIOP --&gt; LIGHT
+<a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a>        TL --&gt; ENV
+<a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a>        LIGHT --&gt; ENV
+<a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a>        BIOP --&gt; GCO2
+<a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a>        BIOP --&gt; GLEAF
+<a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a>        BIOP --&gt; GSOIL
+<a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a>        BIOP --&gt; GSTRESS
+<a id="__codelineno-1-68" name="__codelineno-1-68" href="#__codelineno-1-68"></a>        ENV --&gt; PRODUCT
+<a id="__codelineno-1-69" name="__codelineno-1-69" href="#__codelineno-1-69"></a>        GCO2 --&gt; PRODUCT
+<a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a>        GLEAF --&gt; PRODUCT
+<a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a>        GSOIL --&gt; PRODUCT
+<a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a>        GSTRESS --&gt; PRODUCT
+<a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a>    end
+<a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a>
+<a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a>    subgraph VERTICAL["4 | Vertical treatment, canopy loss, and conversion"]
+<a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a>        direction TB
+<a id="__codelineno-1-77" name="__codelineno-1-77" href="#__codelineno-1-77"></a>        VERT{"biovert_opt"}:::decision
+<a id="__codelineno-1-78" name="__codelineno-1-78" href="#__codelineno-1-78"></a>        V0["0 | Full 3D profile&lt;br/&gt;FLAI = delta FCLAI x LAI / dz&lt;br/&gt;E(z) = FLAI(z) x activity product"]:::process
+<a id="__codelineno-1-79" name="__codelineno-1-79" href="#__codelineno-1-79"></a>        V1["1 | Plant-distribution weighting&lt;br/&gt;VPGWT = FLAI / sum(FLAI)"]:::process
+<a id="__codelineno-1-80" name="__codelineno-1-80" href="#__codelineno-1-80"></a>        V2["2 | MEGAN-like five-level&lt;br/&gt;Gaussian weighting"]:::process
+<a id="__codelineno-1-81" name="__codelineno-1-81" href="#__codelineno-1-81"></a>        V3["3 | Equal weighting&lt;br/&gt;VPGWT = 1 / canopy layers"]:::process
+<a id="__codelineno-1-82" name="__codelineno-1-82" href="#__codelineno-1-82"></a>        LOSSSEL{"Integrated path and&lt;br/&gt;LOSSIND = 0 or EMI_IND?"}:::decision
+<a id="__codelineno-1-83" name="__codelineno-1-83" href="#__codelineno-1-83"></a>        LOSS0["loss_opt=0 or ineligible LOSSIND target&lt;br/&gt;CANLOSS = 1"]:::process
+<a id="__codelineno-1-84" name="__codelineno-1-84" href="#__codelineno-1-84"></a>        LOSS1["loss_opt=1&lt;br/&gt;lifetime / u* / canopy-height loss"]:::process
+<a id="__codelineno-1-85" name="__codelineno-1-85" href="#__codelineno-1-85"></a>        LOSS2["loss_opt=2&lt;br/&gt;CANLOSS = loss_set"]:::process
+<a id="__codelineno-1-86" name="__codelineno-1-86" href="#__codelineno-1-86"></a>        INT["Top-canopy areal flux&lt;br/&gt;LAI x weighted activity product&lt;br/&gt;x CANLOSS"]:::process
+<a id="__codelineno-1-87" name="__codelineno-1-87" href="#__codelineno-1-87"></a>        U3["Multiply by 2.7777778e-13&lt;br/&gt;microgram m-3 h-1 to kg m-3 s-1"]:::units
+<a id="__codelineno-1-88" name="__codelineno-1-88" href="#__codelineno-1-88"></a>        U2["Multiply by 2.7777778e-13&lt;br/&gt;microgram m-2 h-1 to kg m-2 s-1&lt;br/&gt;store in top model layer"]:::units
+<a id="__codelineno-1-89" name="__codelineno-1-89" href="#__codelineno-1-89"></a>
+<a id="__codelineno-1-90" name="__codelineno-1-90" href="#__codelineno-1-90"></a>        PRODUCT --&gt; VERT
+<a id="__codelineno-1-91" name="__codelineno-1-91" href="#__codelineno-1-91"></a>        VERT --&gt;|0| V0 --&gt; U3
+<a id="__codelineno-1-92" name="__codelineno-1-92" href="#__codelineno-1-92"></a>        VERT --&gt;|1| V1 --&gt; LOSSSEL
+<a id="__codelineno-1-93" name="__codelineno-1-93" href="#__codelineno-1-93"></a>        VERT --&gt;|2| V2 --&gt; LOSSSEL
+<a id="__codelineno-1-94" name="__codelineno-1-94" href="#__codelineno-1-94"></a>        VERT --&gt;|3| V3 --&gt; LOSSSEL
+<a id="__codelineno-1-95" name="__codelineno-1-95" href="#__codelineno-1-95"></a>        LOSSSEL --&gt;|No| LOSS0
+<a id="__codelineno-1-96" name="__codelineno-1-96" href="#__codelineno-1-96"></a>        LOSSSEL --&gt;|Yes, option 0| LOSS0
+<a id="__codelineno-1-97" name="__codelineno-1-97" href="#__codelineno-1-97"></a>        LOSSSEL --&gt;|Yes, option 1| LOSS1
+<a id="__codelineno-1-98" name="__codelineno-1-98" href="#__codelineno-1-98"></a>        LOSSSEL --&gt;|Yes, option 2| LOSS2
+<a id="__codelineno-1-99" name="__codelineno-1-99" href="#__codelineno-1-99"></a>        LOSS0 --&gt; INT
+<a id="__codelineno-1-100" name="__codelineno-1-100" href="#__codelineno-1-100"></a>        LOSS1 --&gt; INT
+<a id="__codelineno-1-101" name="__codelineno-1-101" href="#__codelineno-1-101"></a>        LOSS2 --&gt; INT
+<a id="__codelineno-1-102" name="__codelineno-1-102" href="#__codelineno-1-102"></a>        INT --&gt; U2
+<a id="__codelineno-1-103" name="__codelineno-1-103" href="#__codelineno-1-103"></a>    end
+<a id="__codelineno-1-104" name="__codelineno-1-104" href="#__codelineno-1-104"></a>
+<a id="__codelineno-1-105" name="__codelineno-1-105" href="#__codelineno-1-105"></a>    subgraph OUTPUT["5 | Output pathway"]
+<a id="__codelineno-1-106" name="__codelineno-1-106" href="#__codelineno-1-106"></a>        direction LR
+<a id="__codelineno-1-107" name="__codelineno-1-107" href="#__codelineno-1-107"></a>        TXT["1D point-list pathway&lt;br/&gt;1D input (infmt_opt=1), ifcanbio, biospec_opt=0&lt;br/&gt;canopy_write_txt; *_bio.txt&lt;br/&gt;lat, lon, z, LAD, emission profiles"]:::output
+<a id="__codelineno-1-108" name="__codelineno-1-108" href="#__codelineno-1-108"></a>        NCF["2D gridded pathway (NETCDF builds)&lt;br/&gt;2D input (infmt_opt=0)&lt;br/&gt;canopy_write_ncf&lt;br/&gt;NetCDF fields on lon x lat x layer x time"]:::output
+<a id="__codelineno-1-109" name="__codelineno-1-109" href="#__codelineno-1-109"></a>    end
+<a id="__codelineno-1-110" name="__codelineno-1-110" href="#__codelineno-1-110"></a>
+<a id="__codelineno-1-111" name="__codelineno-1-111" href="#__codelineno-1-111"></a>    U3 --&gt; TXT
+<a id="__codelineno-1-112" name="__codelineno-1-112" href="#__codelineno-1-112"></a>    U2 --&gt; TXT
+<a id="__codelineno-1-113" name="__codelineno-1-113" href="#__codelineno-1-113"></a>    U3 --&gt; NCF
+<a id="__codelineno-1-114" name="__codelineno-1-114" href="#__codelineno-1-114"></a>    U2 --&gt; NCF
+<a id="__codelineno-1-115" name="__codelineno-1-115" href="#__codelineno-1-115"></a>    ZERO --&gt; TXT
+<a id="__codelineno-1-116" name="__codelineno-1-116" href="#__codelineno-1-116"></a>    ZERO --&gt; NCF
+<a id="__codelineno-1-117" name="__codelineno-1-117" href="#__codelineno-1-117"></a>
+<a id="__codelineno-1-118" name="__codelineno-1-118" href="#__codelineno-1-118"></a>    linkStyle default stroke:#536878,stroke-width:1.6px
+</code></pre></div>
+<p><strong>Figure 2.</strong> Detailed Canopy-App biogenic emissions implementation workflow. The parameterization is
+evaluated independently for each selected species. <code>biospec_opt=0</code> evaluates all 19
+species; values 1--19 select an individual species.</p>
+<div class="admonition note">
+<p class="admonition-title">Vertical option and units</p>
+<p><code>biovert_opt=0</code> retains the layer-resolved source and converts
+<span class="arithmatex">\(\text{microgram m}^{-3}\text{ h}^{-1}\)</span> to <span class="arithmatex">\(\text{kg m}^{-3}\text{ s}^{-1}\)</span>.
+Options 1--3 vertically integrate the source, apply the eligible canopy loss
+factor, convert <span class="arithmatex">\(\text{microgram m}^{-2}\text{ h}^{-1}\)</span> to
+<span class="arithmatex">\(\text{kg m}^{-2}\text{ s}^{-1}\)</span>, and place the result in the top model layer.
+Current text and NetCDF variable metadata label biogenic fields as volumetric
+emissions, so users should interpret integrated-option output according to
+<code>biovert_opt</code>.</p>
+</div>
+<p>Editable Mermaid sources are available for the
+<a href="https://github.com/noaa-oar-arl/canopy-app/blob/develop/docs/development/biogenic_emissions_flowchart_simplified.mmd">simplified journal figure</a>
+and the <a href="https://github.com/noaa-oar-arl/canopy-app/blob/develop/docs/development/biogenic_emissions_flowchart.mmd">detailed implementation flowchart</a>
+for vector export to SVG or PDF.</p>
+<h3 id="conceptual-emission-calculation">Conceptual Emission Calculation</h3>
+<p>The following factorization is a simplified conceptual approximation based on
+Guenther et al. (2012), not the complete implementation formula:</p>
 <div class="arithmatex">\[
-E_{iso} = \epsilon_{iso} \cdot \gamma_{CE} \cdot \gamma_{age} \cdot \gamma_{SM} \cdot D \cdot LAI
+\begin{aligned}
+E_i ={}&amp; \epsilon_i \cdot \gamma_{T,P} \cdot \gamma_{CO_2} \cdot C_{CE}
+\cdot \gamma_{age} \cdot \gamma_{SM} \cdot \gamma_{AQ} \\
+&amp;\cdot \gamma_{HT} \cdot \gamma_{LT} \cdot \gamma_{HW}
+\end{aligned}
 \]</div>
+<p>This expression is the species activity product; LAI weighting and vertical
+integration are applied later according to <code>biovert_opt</code>.</p>
+<p>In the implementation, <code>CANOPY_BIO</code> uses the species-dependent <code>CT1</code> returned
+by <code>CANOPY_BIOP</code>, a history-dependent optimum leaf temperature <code>TLEAF_OPT</code>,
+and history-derived light terms <code>CP_SUN</code>, <code>CP_SHADE</code>, <code>ALPHA_P_SUN</code>, and
+<code>ALPHA_P_SHADE</code>. The illustrative values below show the response shape for a
+given species; <code>CT1</code> is species-dependent, and the list is not a complete set
+of runtime parameters.</p>
 <p>where:
-- <span class="arithmatex">\(\epsilon_{iso}\)</span>: emission factor
-- <span class="arithmatex">\(\gamma_{CE}\)</span>: canopy environment activity factor
+- <span class="arithmatex">\(\epsilon_i\)</span>: species- and vegetation-dependent emission factor
+- <span class="arithmatex">\(\gamma_{T,P}\)</span>: combined temperature and PPFD activity factor
+- <span class="arithmatex">\(\gamma_{CO_2}\)</span>: carbon dioxide inhibition factor for isoprene (unity otherwise)
+- <span class="arithmatex">\(C_{CE}\)</span>: canopy environment coefficient (<code>bio_cce</code>)
 - <span class="arithmatex">\(\gamma_{age}\)</span>: leaf age activity factor
 - <span class="arithmatex">\(\gamma_{SM}\)</span>: soil moisture activity factor
-- <span class="arithmatex">\(D\)</span>: light distribution factor</p>
+- <span class="arithmatex">\(\gamma_{AQ}\)</span>: air-quality stress factor
+- <span class="arithmatex">\(\gamma_{HT}\)</span> and <span class="arithmatex">\(\gamma_{LT}\)</span>: high- and low-temperature stress factors
+- <span class="arithmatex">\(\gamma_{HW}\)</span>: high-wind stress factor</p>
 <h3 id="temperature-and-light-dependence">Temperature and Light Dependence</h3>
 <div class="arithmatex">\[
-\gamma_{CE} = C_T \cdot C_L
+\gamma_{T,P} = C_T \cdot C_L
 \]</div>
 <div class="arithmatex">\[
 C_T = \frac{\exp\left(\frac{C_{T1}(T-T_s)}{RT_sT}\right)}{1 + \exp\left(\frac{C_{T2}(T-T_{M})}{RT_sT}\right)}
 \]</div>
 <div class="arithmatex">\[
-C_L = \frac{\alpha C_L1 PPFD}{\sqrt{1 + \alpha^2 PPFD^2}}
+C_L = \frac{\alpha C_{L1}\,\mathrm{PPFD}}{\sqrt{1 + \alpha^2\,\mathrm{PPFD}^2}}
 \]</div>
 <p>Parameters:
-- <span class="arithmatex">\(C_{T1} = 95,000\)</span> J/mol
+- <span class="arithmatex">\(C_{T1} = 95,000\)</span> J/mol (isoprene example; species-dependent)
 - <span class="arithmatex">\(C_{T2} = 230,000\)</span> J/mol
 - <span class="arithmatex">\(T_s = 303\)</span> K (standard temperature)
 - <span class="arithmatex">\(T_M = 314\)</span> K (maximum temperature)
 - <span class="arithmatex">\(\alpha = 0.0027\)</span> (empirical coefficient)
-- <span class="arithmatex">\(C_{L1} = 1.066\)</span> (empirical coefficient)</p>
+- <span class="arithmatex">\(C_{L1} = 1.066\)</span> (illustrative empirical coefficient)</p>
 <h2 id="dry-deposition">Dry Deposition</h2>
 <h3 id="resistance-model">Resistance Model</h3>
 <p>Total deposition velocity:</p>

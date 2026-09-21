@@ -2055,7 +2055,7 @@ module load netcdf-c/4.7.4-vh netcdf-fortran/4.5.3-ff
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>ifort<span class="w"> </span>--version
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># Verify compiler can build simple Fortran programs</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;program test; print *, &quot;Hello&quot;; end program&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>test.f90
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">'program test; print *, "Hello"; end program'</span><span class="w"> </span>&gt;<span class="w"> </span>test.f90
 <a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>gfortran<span class="w"> </span>test.f90<span class="w"> </span>-o<span class="w"> </span><span class="nb">test</span>
 <a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>./test
 <a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>rm<span class="w"> </span><span class="nb">test</span><span class="w"> </span>test.f90
@@ -2080,7 +2080,7 @@ module load netcdf-c/4.7.4-vh netcdf-fortran/4.5.3-ff
 <h3 id="advanced-build-options">Advanced Build Options</h3>
 <h4 id="custom-makefile-variables">Custom Makefile Variables</h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Override specific compiler flags</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nv">FCFLAGS</span><span class="o">=</span><span class="s2">&quot;-O3 -march=native&quot;</span><span class="w"> </span>make<span class="w"> </span>-C<span class="w"> </span>src
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nv">FCFLAGS</span><span class="o">=</span><span class="s2">"-O3 -march=native"</span><span class="w"> </span>make<span class="w"> </span>-C<span class="w"> </span>src
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Use custom NetCDF paths</span>
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nv">NETCDF_INCDIR</span><span class="o">=</span>/opt/netcdf/include<span class="w"> </span><span class="se">\</span>
@@ -2114,10 +2114,10 @@ module load netcdf-c/4.7.4-vh netcdf-fortran/4.5.3-ff
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>./build.sh<span class="w"> </span>--clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./build.sh
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
 <a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Build with NetCDF disabled</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>./build.sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;-DUSE_NETCDF=OFF&quot;</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>./build.sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">"-DUSE_NETCDF=OFF"</span>
 <a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
 <a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># Build with debug flags</span>
-<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>./build.sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;-DCANOPY_DEBUG_LEVEL=1&quot;</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>./build.sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">"-DCANOPY_DEBUG_LEVEL=1"</span>
 <a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
 <a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="c1"># Install after build</span>
 <a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>./build.sh<span class="w"> </span>--install
@@ -2145,10 +2145,10 @@ module load netcdf-c/4.7.4-vh netcdf-fortran/4.5.3-ff
 <p>You can pass these options to <code>build.sh</code> using <code>-c</code> or directly to CMake:</p>
 <p><strong>Examples:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Debug build with NetCDF enabled</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>./build.sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;-DCANOPY_DEBUG_LEVEL=1&quot;</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>./build.sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">"-DCANOPY_DEBUG_LEVEL=1"</span>
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
 <a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Release build with NetCDF disabled</span>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>./build.sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;-DCANOPY_DEBUG_LEVEL=0&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;-DUSE_NETCDF=OFF&quot;</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>./build.sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">"-DCANOPY_DEBUG_LEVEL=0"</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">"-DUSE_NETCDF=OFF"</span>
 <a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
 <a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="c1"># Manual CMake build, debug, no NetCDF</span>
 <a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build

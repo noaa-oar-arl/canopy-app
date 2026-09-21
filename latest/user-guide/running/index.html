@@ -1760,14 +1760,14 @@
 <h3 id="netcdf-input">NetCDF Input</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&amp;</span><span class="n">CANOPY_OPTIONS</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w"> </span><span class="n">infmt_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w"> </span><span class="n">file_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;namelist.canopy&#39;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w"> </span><span class="n">file_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'namelist.canopy'</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w"> </span><span class="c">! NetCDF files will be read automatically</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="o">/</span>
 </code></pre></div>
 <h3 id="text-input">Text Input</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&amp;</span><span class="n">CANOPY_OPTIONS</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w"> </span><span class="n">infmt_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w"> </span><span class="n">file_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;namelist.canopy&#39;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w"> </span><span class="n">file_vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'namelist.canopy'</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w"> </span><span class="c">! Text files will be read automatically</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="o">/</span>
 </code></pre></div>
@@ -1815,19 +1815,19 @@
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">model</span> <span class="o">=</span> <span class="n">canopy_app</span><span class="o">.</span><span class="n">CanopyModel</span><span class="p">()</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># Load configuration</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">model</span><span class="o">.</span><span class="n">load_namelist</span><span class="p">(</span><span class="s1">&#39;namelist.canopy&#39;</span><span class="p">)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">model</span><span class="o">.</span><span class="n">load_namelist</span><span class="p">(</span><span class="s1">'namelist.canopy'</span><span class="p">)</span>
 <a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
 <a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># Run simulation</span>
 <a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
 <a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="c1"># Process results</span>
-<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Simulation completed with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> time steps&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Simulation completed with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> time steps"</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="performance-optimization">Performance Optimization</h2>
 <h3 id="compiler-optimization">Compiler Optimization</h3>
 <p>Compile with optimization flags for better performance:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>make<span class="w"> </span>clean
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>make<span class="w"> </span><span class="nv">FFLAGS</span><span class="o">=</span><span class="s2">&quot;-O3 -march=native -fopenmp&quot;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>make<span class="w"> </span><span class="nv">FFLAGS</span><span class="o">=</span><span class="s2">"-O3 -march=native -fopenmp"</span>
 </code></pre></div>
 <h3 id="grid-size-optimization">Grid Size Optimization</h3>
 <p>Choose grid sizes that are multiples of common factors for better cache performance:</p>
@@ -1849,7 +1849,7 @@
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>tail<span class="w"> </span>-f<span class="w"> </span>canopy_output.log
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Monitor memory usage</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;ps aux | grep canopy_app&#39;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">'ps aux | grep canopy_app'</span>
 </code></pre></div>
 <h3 id="progress-indicators">Progress Indicators</h3>
 <p>The model provides progress information:</p>
@@ -1870,7 +1870,7 @@
 - Increase system memory or swap
 - Use <code>ulimit -v</code> to check memory limits</p>
 <h3 id="input-file-issues">Input File Issues</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Error: Cannot open input file &#39;input.nc&#39;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Error: Cannot open input file 'input.nc'
 </code></pre></div>
 <p>Solutions:
 - Check file path and permissions
@@ -1888,7 +1888,7 @@
 <p>Process multiple cases:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="ch">#!/bin/bash</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">for</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>case1<span class="w"> </span>case2<span class="w"> </span>case3<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Running </span><span class="nv">$case</span><span class="s2">&quot;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Running </span><span class="nv">$case</span><span class="s2">"</span>
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$case</span>
 <a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span>./canopy_app.exe<span class="w"> </span>&gt;<span class="w"> </span>output_<span class="nv">$case</span>.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 <a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>..
@@ -1906,14 +1906,14 @@
 <a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="k">for</span> <span class="n">dx</span> <span class="ow">in</span> <span class="n">dx_values</span><span class="p">:</span>
 <a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    <span class="k">for</span> <span class="n">lai</span> <span class="ow">in</span> <span class="n">lai_values</span><span class="p">:</span>
 <a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>        <span class="c1"># Create run directory</span>
-<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>        <span class="n">run_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;run_dx</span><span class="si">{</span><span class="n">dx</span><span class="si">}</span><span class="s2">_lai</span><span class="si">{</span><span class="n">lai</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>        <span class="n">run_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"run_dx</span><span class="si">{</span><span class="n">dx</span><span class="si">}</span><span class="s2">_lai</span><span class="si">{</span><span class="n">lai</span><span class="si">}</span><span class="s2">"</span>
 <a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
 <a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>        <span class="c1"># Modify namelist</span>
 <a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>        <span class="c1"># ... (modify parameters)</span>
 <a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>
 <a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>        <span class="c1"># Run simulation</span>
-<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">&quot;./canopy_app.exe&quot;</span><span class="p">],</span> <span class="n">cwd</span><span class="o">=</span><span class="n">run_dir</span><span class="p">)</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">"./canopy_app.exe"</span><span class="p">],</span> <span class="n">cwd</span><span class="o">=</span><span class="n">run_dir</span><span class="p">)</span>
 </code></pre></div>
 <p>For more information on troubleshooting runtime issues, see the <a href="../troubleshooting/">Troubleshooting Guide</a>.</p>
 

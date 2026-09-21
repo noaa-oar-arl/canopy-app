@@ -1843,7 +1843,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c">! Example function call</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">call </span><span class="n">canopy_function</span><span class="p">(</span><span class="n">input_param</span><span class="p">,</span><span class="w"> </span><span class="n">output_result</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">)</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">    write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;Error in canopy_function&#39;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">    write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="s1">'Error in canopy_function'</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">endif</span>
 </code></pre></div></p>
 <h2 id="api-conventions">API Conventions</h2>
@@ -1870,7 +1870,7 @@
 <h3 id="model-initialization">Model Initialization</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c">! Standard initialization sequence</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">call </span><span class="n">canopy_alloc_arrays</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">call </span><span class="n">canopy_read_namelist</span><span class="p">(</span><span class="s1">&#39;namelist.canopy&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">call </span><span class="n">canopy_read_namelist</span><span class="p">(</span><span class="s1">'namelist.canopy'</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">)</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">call </span><span class="n">canopy_init_physics</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">call </span><span class="n">canopy_check_inputs</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
 </code></pre></div>
