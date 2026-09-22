@@ -6,6 +6,12 @@ repos:
         args: ['--markdown-linebreak-ext=md,markdown']
       - id: end-of-file-fixer
       - id: check-yaml
+        name: check-yaml (safe)
+        exclude: '^mkdocs\.yml$'
+      - id: check-yaml
+        name: check-yaml (mkdocs.yml with python tags)
+        files: '^mkdocs\.yml$'
+        args: ['--unsafe']
 
   - repo: https://github.com/zmoon/findent-pre-commit
     rev: "65627b82c4103aa12dd0fb6b3267bfb1abd858c7"
