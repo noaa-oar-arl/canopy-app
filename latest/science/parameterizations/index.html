@@ -948,6 +948,8 @@ flowchart LR
 activity and species-specific response factors modify the mapped emission factor before
 the source is retained as a layer-resolved profile or vertically integrated to a
 top-canopy flux.</p>
+<p>Download Figure 1 as a <a href="../figures/parameterization-simplified.pdf">one-page PDF</a> or
+<a href="../figures/parameterization-simplified.svg">scalable SVG</a>.</p>
 <h3 id="parameterization-workflow">Parameterization Workflow</h3>
 <p>The workflow below follows the implemented path from namelist initialization through
 <a href="https://github.com/noaa-oar-arl/canopy-app/blob/develop/src/canopy_calcs.F90"><code>canopy_calcs.F90</code></a>,
@@ -1077,6 +1079,8 @@ flowchart TB
 <p><strong>Figure 2.</strong> Detailed Canopy-App biogenic emissions implementation workflow. The parameterization is
 evaluated independently for each selected species. <code>biospec_opt=0</code> evaluates all 19
 species; values 1--19 select an individual species.</p>
+<p>Download Figure 2 as a <a href="../figures/parameterization-workflow.pdf">one-page PDF</a> or
+<a href="../figures/parameterization-workflow.svg">scalable SVG</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Vertical option and units</p>
 <p><code>biovert_opt=0</code> retains the layer-resolved source and converts
@@ -1090,8 +1094,7 @@ emissions, so users should interpret integrated-option output according to
 </div>
 <p>Editable Mermaid sources are available for the
 <a href="https://github.com/noaa-oar-arl/canopy-app/blob/develop/docs/development/biogenic_emissions_flowchart_simplified.mmd">simplified journal figure</a>
-and the <a href="https://github.com/noaa-oar-arl/canopy-app/blob/develop/docs/development/biogenic_emissions_flowchart.mmd">detailed implementation flowchart</a>
-for vector export to SVG or PDF.</p>
+and the <a href="https://github.com/noaa-oar-arl/canopy-app/blob/develop/docs/development/biogenic_emissions_flowchart.mmd">detailed implementation flowchart</a>.</p>
 <h3 id="conceptual-emission-calculation">Conceptual Emission Calculation</h3>
 <p>The following factorization is a simplified conceptual approximation based on
 Guenther et al. (2012), not the complete implementation formula:</p>
