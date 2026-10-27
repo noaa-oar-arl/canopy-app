@@ -1,3 +1,4 @@
+%%{init: {"themeVariables": {"fontSize": "18px"}}}%%
 flowchart LR
     classDef input fill:#FFF3CD,stroke:#B77900,color:#3D2900,stroke-width:2px
     classDef model fill:#E3F2E8,stroke:#287A45,color:#123A22,stroke-width:2px
@@ -7,33 +8,33 @@ flowchart LR
 
     subgraph A["Inputs and initialization"]
         direction TB
-        CFG["Biogenic options<br/>ifcanbio, cluref > 0,<br/>species, vertical mode, gamma and loss switches"]:::input
-        STATE["Canopy and environment<br/>LAI profile, vegetation, PPFD,<br/>Tleaf, soil, CO2, O3, wind"]:::input
-        HIST["Instantaneous or<br/>24 h / 240 h history"]:::input
+        CFG["Biogenic options<br/>species, vertical mode,<br/>response and loss switches"]:::input
+        STATE["Canopy and environment<br/>LAI, vegetation, light,<br/>temperature, soil, gases, wind"]:::input
+        HIST["Current conditions or<br/>24 h / 240 h history"]:::input
     end
 
     subgraph B["Species activity"]
         direction TB
-        PARM["Species x vegetation parameters<br/>emission factor, light fraction,<br/>temperature and stress coefficients"]:::model
-        ENV["Canopy environment<br/>combined temperature/light activity<br/>sunlit + shaded leaves"]:::factor
-        MOD["Response factors<br/>gamma(CO2) x gamma(leaf age)<br/>x gamma(soil moisture)<br/>x gamma(AQ, heat, cold, wind)"]:::factor
-        EMIS["Potential emission<br/>EF x combined temperature/light activity<br/>x response factors x canopy environment coefficient"]:::model
+        PARM["Species and vegetation parameters<br/>emission factor +<br/>response coefficients"]:::model
+        ENV["Temperature + light activity<br/>sunlit and shaded leaves"]:::factor
+        MOD["Environmental responses<br/>CO2, leaf age, soil moisture,<br/>air quality and weather stress"]:::factor
+        EMIS["Potential emission<br/>emission factor x activity"]:::model
     end
 
     subgraph C["Vertical treatment"]
         direction TB
         VERT{"biovert_opt"}:::decision
-        PROFILE["0 | Layer-resolved source<br/>weighted by leaf area density"]:::model
-        INTEGRATE["1-3 | Canopy-integrated flux<br/>plant, Gaussian, or equal weighting<br/>x eligible canopy loss factor"]:::model
+        PROFILE["0 | Layer-resolved profile<br/>weighted by leaf area"]:::model
+        INTEGRATE["1-3 | Canopy-integrated flux<br/>plant, Gaussian, or equal weights<br/>with eligible canopy loss"]:::model
     end
 
     subgraph D["Model output"]
         direction TB
-        VOL["3D volumetric emissions<br/>kg m-3 s-1"]:::output
-        AREA["2D areal flux in top layer<br/>kg m-2 s-1"]:::output
-        OUT["Computed model outputs"]:::model
-        WRITE["Point text (infmt_opt=1)<br/>ifcanbio and biospec_opt=0<br/>canopy_write_txt; *_bio.txt"]:::output
-        NCF["Optional gridded NetCDF (infmt_opt=0)<br/>NETCDF builds: canopy_write_ncf"]:::output
+        VOL["Layer-resolved emissions<br/>kg m-3 s-1"]:::output
+        AREA["Integrated flux in top layer<br/>kg m-2 s-1"]:::output
+        OUT["Model emissions"]:::model
+        WRITE["Point-list text output<br/>1D input; all species selected<br/>canopy_write_txt"]:::output
+        NCF["Gridded NetCDF output<br/>2D input; NETCDF build"]:::output
     end
 
     CFG --> PARM
