@@ -425,7 +425,17 @@ Fraction of PAR in solar irradiance</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-Estimate PAR in visible solar irradiance</para>
+Estimate PAR in visible solar irradiance (Sunlit + Shaded leaves)</para>
+<para>Incoming (TOC) photosynthetically active radiation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>units</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>W/m2</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Estimate PAR in visible solar irradiance (Shaded leaves only)</para>
 <para>Incoming (TOC) photosynthetically active radiation <parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>units</parametername>
@@ -446,7 +456,7 @@ Regression coefficient C for sun leaves</para>
 <para>Loop index</para>
 <para>Loop index for height levels</para>
         </inbodydescription>
-        <location file="src/canopy_rad_mod.F90" line="91" column="1" bodyfile="src/canopy_rad_mod.F90" bodystart="93" bodyend="312"/>
+        <location file="src/canopy_rad_mod.F90" line="91" column="1" bodyfile="src/canopy_rad_mod.F90" bodystart="93" bodyend="318"/>
         <references refid="group__utils__group_1ga6043a0f883f4e5fdb5a016635bfc18ec" compoundref="canopy__utils__mod_8F90" startline="67" endline="86">canopy_utils_mod::interp_linear1_internal</references>
         <references refid="group__precision__const_1ga799288a0cbf0ff77fae0bdb11f572da8" compoundref="canopy__const__mod_8F90" startline="32" endline="32">canopy_const_mod::rk</references>
       </memberdef>

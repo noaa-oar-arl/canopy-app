@@ -137,6 +137,8 @@ contains
 
         REAL(RK) :: PAR_EST
 
+        REAL(RK) :: PAR_EST_SHADE
+
         REAL(RK) :: CTEMP_SUN(SIZE(ZK))
 
         REAL(RK) :: DTEMP_SUN(SIZE(ZK))
@@ -198,10 +200,11 @@ contains
             end if
         end do
 
-        par_est      = (frac_par_vbd * vbdsf) + (frac_par_vdd * vddsf)  !Combining direct and diffuse visible beams --> PAR
-        ppfd_sun     = par_est * exp(ctemp_sun + dtemp_sun * lai)  !Silva et al. W/m2 --> umol m-2 s-1
-        ppfd_shade   = par_est * exp(ctemp_shade + dtemp_shade * lai)
-        ppfd_ave = (ppfd_sun*fsun) + (ppfd_shade*(1.0-fsun)) ! average = sum sun and shade weighted by sunlit fraction
+        par_est_shade = (frac_par_vdd * vddsf)  !Only diffuse visible beams --> PAR
+        par_est       = (frac_par_vbd * vbdsf) + (frac_par_vdd * vddsf)  !Combining direct and diffuse visible beams --> PAR
+        ppfd_sun      = par_est * exp(ctemp_sun + dtemp_sun * lai)  !Silva et al. W/m2 --> umol m-2 s-1
+        ppfd_shade    = par_est_shade * exp(ctemp_shade + dtemp_shade * lai)
+        ppfd_ave      = (ppfd_sun*fsun) + (ppfd_shade*(1.0-fsun)) ! average = sum sun and shade weighted by sunlit fraction
 
     END SUBROUTINE canopy_ppfd_exp
 
