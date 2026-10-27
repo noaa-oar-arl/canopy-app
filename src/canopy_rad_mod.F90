@@ -229,10 +229,15 @@ contains
         REAL(RK),          PARAMETER     :: FRAC_PAR_VBD        =  0.47_rk
         REAL(RK),          PARAMETER     :: FRAC_PAR_VDD        =  0.57_rk
 
-        !> \brief Estimate PAR in visible solar irradiance
+        !> \brief Estimate PAR in visible solar irradiance (Sunlit + Shaded leaves)
         !> \details Incoming (TOC) photosynthetically active radiation
         !! \param units W/m2
         REAL(RK) :: PAR_EST
+
+        !> \brief Estimate PAR in visible solar irradiance (Shaded leaves only)
+        !> \details Incoming (TOC) photosynthetically active radiation
+        !! \param units W/m2
+        REAL(RK) :: PAR_EST_SHADE
 
         !> \brief Regression coefficient C for sun leaves
         !> \details Height-interpolated regression coefficient C for sun leaves
@@ -305,10 +310,11 @@ contains
             end if
         end do
 
-        PAR_EST      = (FRAC_PAR_VBD * VBDSF) + (FRAC_PAR_VDD * VDDSF)  !Combining direct and diffuse visible beams --> PAR
-        PPFD_SUN     = PAR_EST * EXP(CTEMP_SUN + DTEMP_SUN * LAI)  !Silva et al. W/m2 --> umol m-2 s-1
-        PPFD_SHADE   = PAR_EST * EXP(CTEMP_SHADE + DTEMP_SHADE * LAI)
-        PPFD_AVE = (PPFD_SUN*FSUN) + (PPFD_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
+        PAR_EST_SHADE = (FRAC_PAR_VDD * VDDSF)  !Only diffuse visible beams --> PAR
+        PAR_EST       = (FRAC_PAR_VBD * VBDSF) + (FRAC_PAR_VDD * VDDSF)  !Combining direct and diffuse visible beams --> PAR
+        PPFD_SUN      = PAR_EST * EXP(CTEMP_SUN + DTEMP_SUN * LAI)  !Silva et al. W/m2 --> umol m-2 s-1
+        PPFD_SHADE    = PAR_EST_SHADE * EXP(CTEMP_SHADE + DTEMP_SHADE * LAI)
+        PPFD_AVE      = (PPFD_SUN*FSUN) + (PPFD_SHADE*(1.0-FSUN)) ! average = sum sun and shade weighted by sunlit fraction
 
     END SUBROUTINE CANOPY_PPFD_EXP
 
