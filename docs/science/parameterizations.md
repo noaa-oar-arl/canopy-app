@@ -155,6 +155,9 @@ activity and species-specific response factors modify the mapped emission factor
 the source is retained as a layer-resolved profile or vertically integrated to a
 top-canopy flux.
 
+Download Figure 1 as a [one-page PDF](figures/parameterization-simplified.pdf) or
+[scalable SVG](figures/parameterization-simplified.svg).
+
 ### Parameterization Workflow
 
 The workflow below follows the implemented path from namelist initialization through
@@ -289,6 +292,9 @@ flowchart TB
 evaluated independently for each selected species. `biospec_opt=0` evaluates all 19
 species; values 1--19 select an individual species.
 
+Download Figure 2 as a [one-page PDF](figures/parameterization-workflow.pdf) or
+[scalable SVG](figures/parameterization-workflow.svg).
+
 !!! note "Vertical option and units"
     `biovert_opt=0` retains the layer-resolved source and converts
     $\text{microgram m}^{-3}\text{ h}^{-1}$ to $\text{kg m}^{-3}\text{ s}^{-1}$.
@@ -301,8 +307,7 @@ species; values 1--19 select an individual species.
 
 Editable Mermaid sources are available for the
 [simplified journal figure](https://github.com/noaa-oar-arl/canopy-app/blob/develop/docs/development/biogenic_emissions_flowchart_simplified.mmd)
-and the [detailed implementation flowchart](https://github.com/noaa-oar-arl/canopy-app/blob/develop/docs/development/biogenic_emissions_flowchart.mmd)
-for vector export to SVG or PDF.
+and the [detailed implementation flowchart](https://github.com/noaa-oar-arl/canopy-app/blob/develop/docs/development/biogenic_emissions_flowchart.mmd).
 
 ### Conceptual Emission Calculation
 
