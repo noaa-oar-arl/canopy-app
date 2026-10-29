@@ -9,15 +9,40 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SPECIES = (
-    "ISOP", "MYRC", "SABI", "LIMO", "CARE", "OCIM", "BPIN", "APIN", "MONO",
-    "FARN", "CARY", "SESQ", "MBOL", "METH", "ACET", "CO", "BVOC", "SVOC", "OVOC",
+    "ISOP",
+    "MYRC",
+    "SABI",
+    "LIMO",
+    "CARE",
+    "OCIM",
+    "BPIN",
+    "APIN",
+    "MONO",
+    "FARN",
+    "CARY",
+    "SESQ",
+    "MBOL",
+    "METH",
+    "ACET",
+    "CO",
+    "BVOC",
+    "SVOC",
+    "OVOC",
 )
 LATITUDES = (0.0,) + tuple(
     sign * latitude
     for sign in (-1, 1)
     for latitude in (
-        10.0, 23.499999, 23.5, 23.500001, 45.0,
-        66.499999, 66.5, 66.500001, 80.0, 90.0,
+        10.0,
+        23.499999,
+        23.5,
+        23.500001,
+        45.0,
+        66.499999,
+        66.5,
+        66.500001,
+        80.0,
+        90.0,
     )
 )
 VEGETATION = tuple(range(21)) + (99,)
@@ -78,26 +103,42 @@ class RegionalFactorsTest(unittest.TestCase):
         driver.write_text(DRIVER, encoding="ascii")
         cls.executable = directory / "regional_factors"
         sources = (
-            "canopy_const_mod.F90", "canopy_utils_mod.F90",
-            "canopy_tleaf_mod.F90", "canopy_bioparm_mod.F90", "canopy_bioemi_mod.F90",
+            "canopy_const_mod.F90",
+            "canopy_utils_mod.F90",
+            "canopy_tleaf_mod.F90",
+            "canopy_bioparm_mod.F90",
+            "canopy_bioemi_mod.F90",
         )
         subprocess.run(
-            ["gfortran", "-ffree-line-length-none", "-fcheck=all",
-             "-ffpe-trap=invalid,zero,overflow",
-             *(str(ROOT / "src" / source) for source in sources),
-             str(driver), "-o", str(cls.executable)],
-            cwd=directory, check=True, capture_output=True, text=True,
+            [
+                "gfortran",
+                "-ffree-line-length-none",
+                "-fcheck=all",
+                "-ffpe-trap=invalid,zero,overflow",
+                *(str(ROOT / "src" / source) for source in sources),
+                str(driver),
+                "-o",
+                str(cls.executable),
+            ],
+            cwd=directory,
+            check=True,
+            capture_output=True,
+            text=True,
         )
         cls.cases = tuple(itertools.product(range(1, 20), (0, 1), VEGETATION, LATITUDES))
         result = subprocess.run(
             [str(cls.executable)],
             input="".join(f"{s} {lu} {v} {lat}\n" for s, lu, v, lat in cls.cases),
-            check=True, capture_output=True, text=True,
+            check=True,
+            capture_output=True,
+            text=True,
         )
         rows = result.stdout.splitlines()
         if len(rows) != len(cls.cases):
             raise AssertionError(f"Expected {len(cls.cases)} results, got {len(rows)}")
-        cls.results = dict(zip(cls.cases, (tuple(map(float, row.split())) for row in rows)))
+        cls.results = dict(
+            zip(cls.cases, (tuple(map(float, row.split())) for row in rows))
+        )
         # Read the scientific constants, not the implementation's mapping expressions.
         source = (ROOT / "src" / "canopy_bioparm_mod.F90").read_text()
         cls.factors = {
@@ -128,21 +169,29 @@ class RegionalFactorsTest(unittest.TestCase):
             with self.subTest(species=species, lu=lu, vtype=vtype, lat=lat):
                 indices = self.factor_indices(vtype, lat)
                 expected = (
-                    sum(self.factors[SPECIES[species - 1], i] for i in indices) / len(indices)
-                    if indices else 0.0
+                    sum(self.factors[SPECIES[species - 1], i] for i in indices)
+                    / len(indices)
+                    if indices
+                    else 0.0
                 )
                 self.assertAlmostEqual(values[0], expected, places=10)
                 self.assertEqual(len(values), 25 if indices else 1)
 
     def test_other_parameters_remain_latitude_independent(self):
-        for species, lu, vtype in itertools.product(range(1, 20), (0, 1), VALID_VEGETATION):
+        for species, lu, vtype in itertools.product(
+            range(1, 20), (0, 1), VALID_VEGETATION
+        ):
             reference = self.results[species, 0, vtype, 0.0][1:23]
             for lat in LATITUDES:
                 with self.subTest(species=species, lu=lu, vtype=vtype, lat=lat):
-                    self.assertEqual(self.results[species, lu, vtype, lat][1:23], reference)
+                    self.assertEqual(
+                        self.results[species, lu, vtype, lat][1:23], reference
+                    )
 
     def test_canopy_emissions_follow_regional_factors(self):
-        for species, lu, vtype in itertools.product(range(1, 20), (0, 1), VALID_VEGETATION):
+        for species, lu, vtype in itertools.product(
+            range(1, 20), (0, 1), VALID_VEGETATION
+        ):
             reference = self.results[species, lu, vtype, 0.0]
             for lat in LATITUDES:
                 values = self.results[species, lu, vtype, lat]
@@ -150,19 +199,26 @@ class RegionalFactorsTest(unittest.TestCase):
                     for layer in (23, 24):
                         self.assertGreater(reference[layer], 0.0)
                         self.assertAlmostEqual(
-                            values[layer] / reference[layer], values[0] / reference[0],
+                            values[layer] / reference[layer],
+                            values[0] / reference[0],
                             places=10,
                         )
 
     def test_invalid_latitudes_report_error(self):
-        for lu, lat in itertools.product((0, 1), ("-90.01", "90.01", "NaN", "Inf", "-Inf")):
+        for lu, lat in itertools.product(
+            (0, 1), ("-90.01", "90.01", "NaN", "Inf", "-Inf")
+        ):
             with self.subTest(lu=lu, lat=lat):
                 result = subprocess.run(
-                    [str(self.executable)], input=f"1 {lu} 1 {lat}\n",
-                    capture_output=True, text=True,
+                    [str(self.executable)],
+                    input=f"1 {lu} 1 {lat}\n",
+                    capture_output=True,
+                    text=True,
                 )
                 self.assertEqual(result.returncode, 2)
-                self.assertIn("Invalid latitude for biogenic emission factors", result.stdout)
+                self.assertIn(
+                    "Invalid latitude for biogenic emission factors", result.stdout
+                )
 
 
 if __name__ == "__main__":
