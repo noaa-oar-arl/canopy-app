@@ -1,12 +1,11 @@
 """Compile and exercise regional MEGAN factors using only Python and gfortran."""
 
 import itertools
-from pathlib import Path
 import re
 import subprocess
 import tempfile
 import unittest
-
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SPECIES = (
