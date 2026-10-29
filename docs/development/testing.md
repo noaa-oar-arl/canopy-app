@@ -46,6 +46,24 @@ test/
 
 ## Unit Testing
 
+### Regional Biogenic Emission Factors
+
+The executable regression test in `test/unit/test_bioparm_latitude.py` requires
+Python 3 and `gfortran`, with no additional Python packages or NetCDF dependency.
+Run it from the repository root:
+
+```bash
+python3 -m unittest discover -s test/unit -p 'test_*.py' -v
+```
+
+The test compiles the biogenic parameter and emission modules in a temporary
+directory with runtime checks enabled. It verifies all 19 emissions classes,
+both VIIRS and MODIS mappings, supported and unsupported vegetation types,
+both hemispheres, the equator and poles, and values at and immediately around
+the 23.5 and 66.5 degree boundaries. It also checks that non-emission-factor
+parameters remain latitude-independent, that layer emissions scale with the
+selected factor, and that invalid latitudes produce an explicit error.
+
 ### Test Framework
 
 #### Test Module Template

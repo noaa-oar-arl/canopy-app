@@ -48,6 +48,7 @@ contains
 !! \param[in] EMI_IND Input biogenic emissions index
 !! \param[in] LU_OPT Land use type option (0=VIIRS, 1=MODIS)
 !! \param[in] VTYPE Grid cell dominant vegetation type
+!! \param[in] LAT Grid cell or point latitude (degrees north, -90 to 90)
 !! \param[out] EF Mapped emission factor (μg/m²/hr)
 !! \param[out] LDF Light-dependent fraction
 !! \param[out] BETA Empirical coefficient for temperature dependence of light-independent fraction
@@ -71,12 +72,13 @@ contains
 !! \param[out] CHW Coefficient for high wind stress
 !! \param[out] THW Threshold for high wind stress (m/s)
 !! \param[out] DTHW Delta threshold for high wind stress (m/s)
-    SUBROUTINE CANOPY_BIOP( EMI_IND, LU_OPT, VTYPE, &
+    SUBROUTINE CANOPY_BIOP( EMI_IND, LU_OPT, VTYPE, LAT, &
         EF, LDF, BETA, CT1, CEO, ANEW, AGRO, AMAT, AOLD, &
         ROOTA, ROOTB, CAQ, TAQ, DTAQ, CHT, THT, DTHT, &
         CLT, TLT, DTLT, CHW, THW, DTHW)
 
         use canopy_const_mod, ONLY: rk
+        use, intrinsic :: ieee_arithmetic, ONLY: ieee_is_finite
 
 !> \defgroup bioparm_inputs Input Variables
 !! \brief Input parameters for biogenic parameter retrieval
@@ -84,6 +86,7 @@ contains
         INTEGER,     INTENT( IN )       :: EMI_IND         !> Input biogenic emissions index
         INTEGER,     INTENT( IN )       :: LU_OPT          !> integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )       :: VTYPE           !> Grid cell dominant vegetation type
+        REAL(RK),    INTENT( IN )       :: LAT             !> Latitude (degrees north)
 !> \}
 
 !> \defgroup bioparm_outputs Output Variables
@@ -116,6 +119,8 @@ contains
         REAL(RK) :: EF1,EF2,EF3,EF4,EF5,EF6,EF7    !> Plant Emission factors (EF) (ug/m2 hr)
         REAL(RK) :: EF8,EF9,EF10,EF11,EF12,EF13    !> Plant Emission factors (EF) (ug/m2 hr)
         REAL(RK) :: EF14,EF15                      !> Plant Emission factors (EF) (ug/m2 hr)
+        REAL(RK) :: EF_SHRUB
+        LOGICAL :: IS_TROPICAL, IS_BOREAL, VALID_LAT
 !> \}
 
 !> \defgroup bioparm_isop_params Isoprene Parameters
@@ -1597,27 +1602,51 @@ contains
 
         if (LU_OPT .eq. 0 .or. LU_OPT .eq. 1) then !VIIRS or MODIS  LU types
 
+            VALID_LAT = ieee_is_finite(LAT)
+            if (VALID_LAT) VALID_LAT = abs(LAT) .le. 90.0_rk
+            if (.not. VALID_LAT) then
+                write(*,*) 'Invalid latitude for biogenic emission factors: ', LAT, '...exiting'
+                call exit(2)
+            end if
+            IS_TROPICAL = abs(LAT) .le. 23.5_rk
+            IS_BOREAL = abs(LAT) .ge. 66.5_rk
+
+            if (IS_BOREAL) then
+                EF_SHRUB = EF11
+            else
+                ! No tropical shrub PFT is available; use the two temperate shrub PFTs.
+                EF_SHRUB = (EF9+EF10)/2.0_rk
+            end if
+
 ! Simple MEGAN (Table 3 in Guenther et al., 2012) PFT to VIIRS/MODIS VTYPE mapping
             if (VTYPE .eq. 1) then !VIIRS Cat 1 Evergreen Needleleaf
-                !--> Average Needleleaf Evergreen Temperate Tree and Needleleaf Evergreen Boreal Tree
+                ! No tropical needleleaf PFT is available; use the temperate PFT.
 
-                EF = (EF1+EF2)/2.0_rk
+                if (IS_BOREAL) then
+                    EF = EF2
+                else
+                    EF = EF1
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 ROOTA = 6.706_rk
                 ROOTB = 2.175_rk
 
             else if (VTYPE .eq. 2) then !VIIRS/MODIS Cat 2 Evergreen Broadleaf
-                !--> Average Broadleaf Evergreen Tropical Tree and Broadleaf Evergreen Temperate Tree
+                ! No boreal evergreen broadleaf PFT is available; use the temperate PFT.
 
-                EF = (EF4+EF5)/2.0_rk
+                if (IS_TROPICAL) then
+                    EF = EF4
+                else
+                    EF = EF5
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 ROOTA = 7.344_rk
                 ROOTB = 1.303_rk
 
             else if (VTYPE .eq. 3) then !VIIRS/MODIS Cat 3 Deciduous Needleaf
-                !--> Average Needleleaf Deciduous Boreal Tree
+                ! Only the boreal needleleaf deciduous PFT is available.
 
                 EF = EF3
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
@@ -1626,29 +1655,35 @@ contains
                 ROOTB = 1.953_rk
 
             else if (VTYPE .eq. 4) then !VIIRS/MODIS Cat 4 Deciduous Broadleaf
-                !--> Average Broadleaf Deciduous Tropical Tree, Broadleaf Deciduous Temperate Tree,
-                ! and Broadleaf Deciduous Boreal Tree
-
-                EF = (EF6+EF7+EF8)/3.0_rk
+                if (IS_TROPICAL) then
+                    EF = EF6
+                else if (IS_BOREAL) then
+                    EF = EF8
+                else
+                    EF = EF7
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 ROOTA = 5.990_rk
                 ROOTB = 1.955_rk
 
             else if (VTYPE .eq. 5) then !VIIRS/MODIS Cat 5 Mixed forests
-                !--> Avearge of all above EF1-EF8 PFTs.
+                ! Average only the tree PFTs belonging to this latitude region.
 
-                EF = (EF1+EF2+EF3+EF4+EF5+EF6+EF7+EF8)/8.0_rk
+                if (IS_TROPICAL) then
+                    EF = (EF4+EF6)/2.0_rk
+                else if (IS_BOREAL) then
+                    EF = (EF2+EF3+EF8)/3.0_rk
+                else
+                    EF = (EF1+EF5+EF7)/3.0_rk
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 ROOTA = 4.453_rk
                 ROOTB = 1.631_rk
 
             else if (VTYPE .ge. 6 .and. VTYPE .le. 7) then !VIIRS/MODIS Cat 6-7 Closed/Open Shrublands
-                !--> Avearge Broadleaf Evergreen Temperate Shrub, Broadleaf Deciduous Temperate Shrub,
-                ! and Broadleaf Deciduous Boreal Shrub
-
-                EF = (EF9+EF10+EF11)/3.0_rk
+                EF = EF_SHRUB
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 ROOTA = (6.326_rk + 7.718_rk)/2.0_rk
@@ -1682,9 +1717,8 @@ contains
                 ROOTB = 2.614_rk
 
             else if (VTYPE .ge. 18 .and. VTYPE .le. 19) then !VIIRS/MODIS Cat 18-19 Wooded/Mixed Tundra
-                !--> Crop1
 
-                EF = (EF9+EF10+EF11)/3.0_rk  !Assume EF for wooded/mixed tundra = shrublands above
+                EF = EF_SHRUB  !Assume EF for wooded/mixed tundra = shrublands above
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 ROOTA = (6.326_rk + 7.718_rk)/2.0_rk
