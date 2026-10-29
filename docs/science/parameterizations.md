@@ -343,6 +343,43 @@ where:
 - $\gamma_{HT}$ and $\gamma_{LT}$: high- and low-temperature stress factors
 - $\gamma_{HW}$: high-wind stress factor
 
+### Latitude-Dependent Emission Factors
+
+For VIIRS (`lu_opt=0`) and MODIS (`lu_opt=1`), `canopy_calcs` passes each grid
+cell's or point's input latitude through `CANOPY_BIO` to `CANOPY_BIOP`. The
+same mapping is applied independently to all 19 emissions classes using their
+MEGAN2.1 emission factors (`EF1`--`EF15`).
+
+Regions use absolute latitude, identically in both hemispheres:
+
+- **Tropical:** $|\mathrm{latitude}| \leq 23.5^\circ$.
+- **Temperate:** $23.5^\circ < |\mathrm{latitude}| < 66.5^\circ$.
+- **Boreal:** $66.5^\circ \leq |\mathrm{latitude}| \leq 90^\circ$.
+
+| VIIRS/MODIS vegetation type | Tropical | Temperate | Boreal |
+|---|---|---|---|
+| 1: Evergreen needleleaf | EF1 | EF1 | EF2 |
+| 2: Evergreen broadleaf | EF4 | EF5 | EF5 |
+| 3: Deciduous needleleaf | EF3 | EF3 | EF3 |
+| 4: Deciduous broadleaf | EF6 | EF7 | EF8 |
+| 5: Mixed forest | (EF4 + EF6) / 2 | (EF1 + EF5 + EF7) / 3 | (EF2 + EF3 + EF8) / 3 |
+| 6--7: Closed/open shrubland | (EF9 + EF10) / 2 | (EF9 + EF10) / 2 | EF11 |
+| 18--19: Wooded/mixed tundra | (EF9 + EF10) / 2 | (EF9 + EF10) / 2 | EF11 |
+
+Where a vegetation type lacks a regional PFT, the nearest available regional
+factor is used: temperate evergreen needleleaf in the tropics, temperate
+evergreen broadleaf in boreal regions, and temperate shrubs in the tropics.
+Deciduous needleleaf has only a boreal PFT, so EF3 is retained everywhere.
+Mixed forests average only the tree PFTs belonging to the selected region.
+EF9 and EF10 both represent temperate shrubs (evergreen and deciduous), so
+their average is retained outside boreal regions rather than assigning either
+one to a tropical PFT.
+
+The existing grass/savanna/wetland mapping for types 8--11, crop mappings for
+types 12 and 14, zero emissions for unsupported vegetation types, root-depth
+coefficients, and other response parameters are unchanged. Non-finite
+latitudes and latitudes outside [-90, 90] cause an explicit error and exit.
+
 ### Temperature and Light Dependence
 
 $$
