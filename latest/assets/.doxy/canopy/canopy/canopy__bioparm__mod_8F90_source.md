@@ -17,16 +17,18 @@ module canopy_bioparm_mod
 
 contains
 
-    SUBROUTINE canopy_biop( EMI_IND, LU_OPT, VTYPE, &
+    SUBROUTINE canopy_biop( EMI_IND, LU_OPT, VTYPE, LAT, &
         EF, LDF, BETA, CT1, CEO, ANEW, AGRO, AMAT, AOLD, &
         ROOTA, ROOTB, CAQ, TAQ, DTAQ, CHT, THT, DTHT, &
         CLT, TLT, DTLT, CHW, THW, DTHW)
 
         use canopy_const_mod, ONLY: rk
+        use, intrinsic :: ieee_arithmetic, only: ieee_is_finite
 
         INTEGER,     INTENT( IN )       :: emi_ind
         INTEGER,     INTENT( IN )       :: lu_opt
         INTEGER,     INTENT( IN )       :: vtype
+        REAL(rk),    INTENT( IN )       :: lat
 
         REAL(rk),    INTENT( OUT )      :: ef
         REAL(rk),    INTENT( OUT )      :: ldf
@@ -51,6 +53,8 @@ contains
         REAL(rk) :: ef1,ef2,ef3,ef4,ef5,ef6,ef7
         REAL(rk) :: ef8,ef9,ef10,ef11,ef12,ef13
         REAL(rk) :: ef14,ef15
+        REAL(rk) :: ef_shrub
+        LOGICAL :: is_tropical, is_boreal, valid_lat
 
 
         REAL(rk),          PARAMETER     :: ef1_isop    =  600.0_rk
@@ -68,6 +72,9 @@ contains
         REAL(rk),          PARAMETER     :: ef13_isop   =  800.0_rk
         REAL(rk),          PARAMETER     :: ef14_isop   =  200.0_rk
         REAL(rk),          PARAMETER     :: ef15_isop   =  1.0_rk
+
+        ! Provisional sparse-cover tuning, not a MEGAN PFT fraction; 1.0 restores the untuned EF.
+        REAL(rk),          PARAMETER     :: open_shrub_isop_scale = 0.5_rk
 
         REAL(rk),          PARAMETER     :: anew_isop  = 0.05_rk
         REAL(rk),          PARAMETER     :: agro_isop  = 0.6_rk
@@ -1508,27 +1515,51 @@ contains
 
         if (lu_opt .eq. 0 .or. lu_opt .eq. 1) then !VIIRS or MODIS  LU types
 
+            valid_lat = ieee_is_finite(lat)
+            if (valid_lat) valid_lat = abs(lat) .le. 90.0_rk
+            if (.not. valid_lat) then
+                write(*,*) 'Invalid latitude for biogenic emission factors: ', lat, '...exiting'
+                call exit(2)
+            end if
+            is_tropical = abs(lat) .le. 23.5_rk
+            is_boreal = abs(lat) .ge. 66.5_rk
+
+            if (is_boreal) then
+                ef_shrub = ef11
+            else
+                ! No tropical shrub PFT is available; use the two temperate shrub PFTs.
+                ef_shrub = (ef9+ef10)/2.0_rk
+            end if
+
 ! Simple MEGAN (Table 3 in Guenther et al., 2012) PFT to VIIRS/MODIS VTYPE mapping
             if (vtype .eq. 1) then !VIIRS Cat 1 Evergreen Needleleaf
-                !--> Average Needleleaf Evergreen Temperate Tree and Needleleaf Evergreen Boreal Tree
+                ! No tropical needleleaf PFT is available; use the temperate PFT.
 
-                ef = (ef1+ef2)/2.0_rk
+                if (is_boreal) then
+                    ef = ef2
+                else
+                    ef = ef1
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 roota = 6.706_rk
                 rootb = 2.175_rk
 
             else if (vtype .eq. 2) then !VIIRS/MODIS Cat 2 Evergreen Broadleaf
-                !--> Average Broadleaf Evergreen Tropical Tree and Broadleaf Evergreen Temperate Tree
+                ! No boreal evergreen broadleaf PFT is available; use the temperate PFT.
 
-                ef = (ef4+ef5)/2.0_rk
+                if (is_tropical) then
+                    ef = ef4
+                else
+                    ef = ef5
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 roota = 7.344_rk
                 rootb = 1.303_rk
 
             else if (vtype .eq. 3) then !VIIRS/MODIS Cat 3 Deciduous Needleaf
-                !--> Average Needleleaf Deciduous Boreal Tree
+                ! Only the boreal needleleaf deciduous PFT is available.
 
                 ef = ef3
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
@@ -1537,38 +1568,52 @@ contains
                 rootb = 1.953_rk
 
             else if (vtype .eq. 4) then !VIIRS/MODIS Cat 4 Deciduous Broadleaf
-                !--> Average Broadleaf Deciduous Tropical Tree, Broadleaf Deciduous Temperate Tree,
-                ! and Broadleaf Deciduous Boreal Tree
-
-                ef = (ef6+ef7+ef8)/3.0_rk
+                if (is_tropical) then
+                    ef = ef6
+                else if (is_boreal) then
+                    ef = ef8
+                else
+                    ef = ef7
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 roota = 5.990_rk
                 rootb = 1.955_rk
 
             else if (vtype .eq. 5) then !VIIRS/MODIS Cat 5 Mixed forests
-                !--> Avearge of all above EF1-EF8 PFTs.
+                ! Average only the tree PFTs belonging to this latitude region.
 
-                ef = (ef1+ef2+ef3+ef4+ef5+ef6+ef7+ef8)/8.0_rk
+                if (is_tropical) then
+                    ef = (ef4+ef6)/2.0_rk
+                else if (is_boreal) then
+                    ef = (ef2+ef3+ef8)/3.0_rk
+                else
+                    ef = (ef1+ef5+ef7)/3.0_rk
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 roota = 4.453_rk
                 rootb = 1.631_rk
 
             else if (vtype .ge. 6 .and. vtype .le. 7) then !VIIRS/MODIS Cat 6-7 Closed/Open Shrublands
-                !--> Avearge Broadleaf Evergreen Temperate Shrub, Broadleaf Deciduous Temperate Shrub,
-                ! and Broadleaf Deciduous Boreal Shrub
-
-                ef = (ef9+ef10+ef11)/3.0_rk
+                ef = ef_shrub
+                if (vtype .eq. 7 .and. emi_ind .eq. 1) then
+                    ef = ef * open_shrub_isop_scale
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 roota = (6.326_rk + 7.718_rk)/2.0_rk
                 rootb = (1.567_rk + 1.262_rk)/2.0_rk
 
             else if (vtype .ge. 8 .and. vtype .le. 11) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
-                !--> Avearge Arctic C3 Grass, Cool C3 Grass, Warm C4 Grass)
-
-                ef = (ef12+ef13+ef14)/3.0_rk
+                ! Select the grass PFT representative of the latitude region.
+                if (is_tropical) then
+                    ef = ef14
+                else if (is_boreal) then
+                    ef = ef12
+                else
+                    ef = ef13
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 roota = (7.604_rk + 8.235_rk + 10.74_rk)/3.0_rk
@@ -1593,9 +1638,8 @@ contains
                 rootb = 2.614_rk
 
             else if (vtype .ge. 18 .and. vtype .le. 19) then !VIIRS/MODIS Cat 18-19 Wooded/Mixed Tundra
-                !--> Crop1
 
-                ef = (ef9+ef10+ef11)/3.0_rk  !Assume EF for wooded/mixed tundra = shrublands above
+                ef = ef_shrub  !Assume EF for wooded/mixed tundra = shrublands above
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 roota = (6.326_rk + 7.718_rk)/2.0_rk

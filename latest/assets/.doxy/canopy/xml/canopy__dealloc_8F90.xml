@@ -93,7 +93,7 @@
         <references refid="group__canopy__variables_1ga749e2d0aa03dd928020a7cb17b37777e" compoundref="canopy__canvars__mod_8F90" startline="513" endline="513">canopy_canvars_mod::fld2dxy</references>
         <references refid="group__canopy__variables_1gaa94a088dd8f4525e3f0ed60cb83f8ef0" compoundref="canopy__canvars__mod_8F90" startline="521" endline="521">canopy_canvars_mod::fld2dxyt</references>
         <references refid="group__canopy__variables_1ga8992ef36fe600d84c965a0c46755b641" compoundref="canopy__canvars__mod_8F90" startline="532" endline="532">canopy_canvars_mod::fld3dxyzt</references>
-        <references refid="group__bioemi__inputs_1gae2b157e5a18cbd634cb3b2a844ec3ed0" compoundref="canopy__bioemi__mod_8F90" startline="129" endline="129">fsun</references>
+        <references refid="group__bioemi__inputs_1gae2b157e5a18cbd634cb3b2a844ec3ed0" compoundref="canopy__bioemi__mod_8F90" startline="130" endline="130">fsun</references>
         <references refid="group__canopy__options_1gacbd0683a95eff758864d68f9795829ac" compoundref="canopy__canopts__mod_8F90" startline="89" endline="89">canopy_canopts_mod::ifcanbio</references>
         <references refid="group__canopy__options_1gaa80c16e177daada28967f02ac812efb4" compoundref="canopy__canopts__mod_8F90" startline="94" endline="94">canopy_canopts_mod::ifcanddepgas</references>
         <references refid="group__canopy__options_1gaa5df00af2b5c3c3f7b6f94d50ca6a3fd" compoundref="canopy__canopts__mod_8F90" startline="79" endline="79">canopy_canopts_mod::ifcaneddy</references>
@@ -109,7 +109,7 @@
         <references refid="namespacecanopy__canmet__mod_1a756c0d03308afdded9d18948397b96e9" compoundref="canopy__canmet__mod_8F90" startline="574">canopy_canmet_mod::pavd_arr</references>
         <references refid="namespacecanopy__canmet__mod_1a67e422419c930703365eb2f04c67d415" compoundref="canopy__canmet__mod_8F90" startline="574" endline="574">canopy_canmet_mod::pavdref</references>
         <references refid="group__canopy__variables_1ga5224fc1cff752eb4c66731a0a55e94f3" compoundref="canopy__canvars__mod_8F90" startline="141" endline="141">canopy_canvars_mod::ppfd_ave</references>
-        <references refid="group__bioemi__inputs_1ga8b5fe0004a36271a2d7edc02f07c4b7b" compoundref="canopy__bioemi__mod_8F90" startline="133" endline="133">ppfd_shade</references>
+        <references refid="group__bioemi__inputs_1ga8b5fe0004a36271a2d7edc02f07c4b7b" compoundref="canopy__bioemi__mod_8F90" startline="134" endline="134">ppfd_shade</references>
         <references refid="group__canopy__variables_1ga5e9d01d3b593d325f72e9987cdecc53c" compoundref="canopy__canvars__mod_8F90" startline="198" endline="198">canopy_canvars_mod::ppfd_shade24</references>
         <references refid="group__canopy__variables_1gadf66b1a07106d37b343ee89f26c9f714" compoundref="canopy__canvars__mod_8F90" startline="203" endline="203">canopy_canvars_mod::ppfd_shade240</references>
         <references refid="group__canopy__variables_1ga10a323d73bd88ac0e77e6c04c34d7b0e" compoundref="canopy__canvars__mod_8F90" startline="228" endline="228">canopy_canvars_mod::ppfd_shade240_3d</references>
@@ -118,7 +118,7 @@
         <references refid="group__canopy__variables_1gaaa1754a5b6529ea79b9be0ca018c3a8f" compoundref="canopy__canvars__mod_8F90" startline="223" endline="223">canopy_canvars_mod::ppfd_shade24_3d</references>
         <references refid="group__canopy__variables_1gad1ef1fa67a62a6c68622622205088035" compoundref="canopy__canvars__mod_8F90" startline="166" endline="166">canopy_canvars_mod::ppfd_shade24_tmp</references>
         <references refid="group__canopy__variables_1gad8ec6e258e79182d2524103536211b76" compoundref="canopy__canvars__mod_8F90" startline="211" endline="211">canopy_canvars_mod::ppfd_shade24_tmp_3d</references>
-        <references refid="group__bioemi__inputs_1gaece20e83eed7d489abc55b53f2c2e619" compoundref="canopy__bioemi__mod_8F90" startline="132" endline="132">ppfd_sun</references>
+        <references refid="group__bioemi__inputs_1gaece20e83eed7d489abc55b53f2c2e619" compoundref="canopy__bioemi__mod_8F90" startline="133" endline="133">ppfd_sun</references>
         <references refid="group__canopy__variables_1ga90041165f716b457e661b2560be30e90" compoundref="canopy__canvars__mod_8F90" startline="197" endline="197">canopy_canvars_mod::ppfd_sun24</references>
         <references refid="group__canopy__variables_1ga66d06789abb305e63e94648de3b470ee" compoundref="canopy__canvars__mod_8F90" startline="202" endline="202">canopy_canvars_mod::ppfd_sun240</references>
         <references refid="group__canopy__variables_1ga1cdb19ebc6d24689f09383c2f1eeba83" compoundref="canopy__canvars__mod_8F90" startline="227" endline="227">canopy_canvars_mod::ppfd_sun240_3d</references>
@@ -135,7 +135,7 @@
         <references refid="group__canopy__variables_1gabc6d6be9189579062b349f095d28a3df" compoundref="canopy__canvars__mod_8F90" startline="259" endline="259">canopy_canvars_mod::rjcf_3d</references>
         <references refid="group__canopy__variables_1ga9ad44d4520442cdcbaaf806bff11873b" compoundref="canopy__canvars__mod_8F90" startline="245" endline="245">canopy_canvars_mod::spechuma</references>
         <references refid="group__canopy__variables_1ga35252383a74dcd52ac8885aa573df85b" compoundref="canopy__canvars__mod_8F90" startline="246" endline="246">canopy_canvars_mod::spechuma_3d</references>
-        <references refid="group__bioemi__inputs_1ga158f95ccb2f7c97813a536feae1f10fb" compoundref="canopy__bioemi__mod_8F90" startline="140" endline="140">tka</references>
+        <references refid="group__bioemi__inputs_1ga158f95ccb2f7c97813a536feae1f10fb" compoundref="canopy__bioemi__mod_8F90" startline="141" endline="141">tka</references>
         <references refid="group__canopy__variables_1ga5f771ffc92a54eb199e464346c544907" compoundref="canopy__canvars__mod_8F90" startline="240" endline="240">canopy_canvars_mod::tka_3d</references>
         <references refid="group__canopy__variables_1ga33419526df286bbde039704c20f234e6" compoundref="canopy__canvars__mod_8F90" startline="126" endline="126">canopy_canvars_mod::tleaf_ave</references>
         <references refid="group__canopy__variables_1ga8eda1a16839adff527f1dc190e382cea" compoundref="canopy__canvars__mod_8F90" startline="196" endline="196">canopy_canvars_mod::tleaf_ave24</references>
@@ -146,7 +146,7 @@
         <references refid="group__canopy__variables_1ga55c2bef22ceb77f9ae4b5572dee6efae" compoundref="canopy__canvars__mod_8F90" startline="221" endline="221">canopy_canvars_mod::tleaf_ave24_3d</references>
         <references refid="group__canopy__variables_1ga5a1ed5e747244a1832ae783c7e92760f" compoundref="canopy__canvars__mod_8F90" startline="156" endline="156">canopy_canvars_mod::tleaf_ave24_tmp</references>
         <references refid="group__canopy__variables_1gaf146f37c5abf8d9f4bbbb6a6a198b385" compoundref="canopy__canvars__mod_8F90" startline="209" endline="209">canopy_canvars_mod::tleaf_ave24_tmp_3d</references>
-        <references refid="group__bioemi__inputs_1gae3271890f004cdd6071901a333504c16" compoundref="canopy__bioemi__mod_8F90" startline="131" endline="131">tleaf_shade</references>
+        <references refid="group__bioemi__inputs_1gae3271890f004cdd6071901a333504c16" compoundref="canopy__bioemi__mod_8F90" startline="132" endline="132">tleaf_shade</references>
         <references refid="group__canopy__variables_1ga2aa52bca73f9af207fe71d1b02713402" compoundref="canopy__canvars__mod_8F90" startline="195" endline="195">canopy_canvars_mod::tleaf_shade24</references>
         <references refid="group__canopy__variables_1ga0244fa394d124cdff8b40961e125b7bd" compoundref="canopy__canvars__mod_8F90" startline="200" endline="200">canopy_canvars_mod::tleaf_shade240</references>
         <references refid="group__canopy__variables_1gae3a30105e8ec3a0082d4d8e41c461881" compoundref="canopy__canvars__mod_8F90" startline="225" endline="225">canopy_canvars_mod::tleaf_shade240_3d</references>
@@ -155,7 +155,7 @@
         <references refid="group__canopy__variables_1gaa0f594a426aa31f09234cfca3c03477d" compoundref="canopy__canvars__mod_8F90" startline="220" endline="220">canopy_canvars_mod::tleaf_shade24_3d</references>
         <references refid="group__canopy__variables_1ga01fdccf8360aba419ae7f614ef2cc68a" compoundref="canopy__canvars__mod_8F90" startline="151" endline="151">canopy_canvars_mod::tleaf_shade24_tmp</references>
         <references refid="group__canopy__variables_1ga136229c9bb72c284674971cda2febcd6" compoundref="canopy__canvars__mod_8F90" startline="208" endline="208">canopy_canvars_mod::tleaf_shade24_tmp_3d</references>
-        <references refid="group__bioemi__inputs_1ga9b8a60ad5270b0d830e7e5b1fc4146b8" compoundref="canopy__bioemi__mod_8F90" startline="130" endline="130">tleaf_sun</references>
+        <references refid="group__bioemi__inputs_1ga9b8a60ad5270b0d830e7e5b1fc4146b8" compoundref="canopy__bioemi__mod_8F90" startline="131" endline="131">tleaf_sun</references>
         <references refid="group__canopy__variables_1gacedee994e5967ba302f4c65b68c116ec" compoundref="canopy__canvars__mod_8F90" startline="194" endline="194">canopy_canvars_mod::tleaf_sun24</references>
         <references refid="group__canopy__variables_1ga55f06921e18ac5718376f7c5a3ae942b" compoundref="canopy__canvars__mod_8F90" startline="199" endline="199">canopy_canvars_mod::tleaf_sun240</references>
         <references refid="group__canopy__variables_1ga6982c1e2759b64b99e44f720e331f6da" compoundref="canopy__canvars__mod_8F90" startline="224" endline="224">canopy_canvars_mod::tleaf_sun240_3d</references>
@@ -178,7 +178,7 @@
         <references refid="group__canopy__variables_1ga45e5161e0b16839d60ff92af9ec3c7ca" compoundref="canopy__canvars__mod_8F90" startline="250" endline="250">canopy_canvars_mod::waf</references>
         <references refid="group__canopy__variables_1ga15d40c4ca75d4f26fc0eb07bb395f4ca" compoundref="canopy__canvars__mod_8F90" startline="251" endline="251">canopy_canvars_mod::waf_2d</references>
         <references refid="group__canopy__variables_1ga131ce17d7d698a2910313deb365de819" compoundref="canopy__canvars__mod_8F90" startline="91" endline="91">canopy_canvars_mod::zhc</references>
-        <references refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" compoundref="canopy__bioemi__mod_8F90" startline="123" endline="123">zk</references>
+        <references refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" compoundref="canopy__bioemi__mod_8F90" startline="124" endline="124">zk</references>
         <references refid="group__canopy__variables_1ga5498bcc812b1eae32a26d31cad596db3" compoundref="canopy__canvars__mod_8F90" startline="254" endline="254">canopy_canvars_mod::zo_h</references>
         <references refid="group__canopy__variables_1ga042baa799f2d2dc34c9f331a9b61102f" compoundref="canopy__canvars__mod_8F90" startline="255" endline="255">canopy_canvars_mod::zo_h_2d</references>
         <referencedby refid="group__canopy__app_1ga3f8704a7dc15572ab8a4b83020aebc7d" compoundref="canopy__app_8F90" startline="29">canopy_app</referencedby>

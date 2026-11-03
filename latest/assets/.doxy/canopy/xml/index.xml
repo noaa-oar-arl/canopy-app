@@ -816,6 +816,8 @@
     <member refid="group__bioemi__inputs_1ga85f9d90ebd5aa9e8b1a392323edff0fe" kind="variable"><name>integration</name></member>
     <member refid="group__bioemi__inputs_1ga38bc68548927d88c2264445ba9045743" kind="variable"><name>interpolated</name></member>
     <member refid="group__bioemi__inputs_1gab74c833d8d67ad14f496a8e84c8facce" kind="variable"><name>lai</name></member>
+    <member refid="group__bioemi__inputs_1ga5a02a2ee9bc40ecd44667275def3484e" kind="variable"><name>lat</name></member>
+    <member refid="group__bioemi__inputs_1ga726cb5b0a200a44ab9f87eee5d71fb6c" kind="variable"><name>latitude</name></member>
     <member refid="group__bioemi__inputs_1ga123e94cde8c4241c6de88e944c1432ef" kind="variable"><name>layer</name></member>
     <member refid="group__bioemi__inputs_1gad42a63974f75318b36ecefde9cf490a0" kind="variable"><name>layers</name></member>
     <member refid="canopy__bioemi__mod_8F90_1ae61bbb7b2a150fe9c85cc68ac957f9a6" kind="variable"><name>ldf</name></member>
@@ -939,7 +941,7 @@
     <member refid="group__bioparm__inputs_1gafc13aed788d858b9bf358cdd2be45780" kind="variable"><name>biogenic</name></member>
     <member refid="group__bioparm__inputs_1gad110a1509d07af257cd51455743bc1aa" kind="variable"><name>cell</name></member>
     <member refid="group__bioparm__inputs_1ga1efa0211799eff1381d5f6de279712af" kind="variable"><name>dominant</name></member>
-    <member refid="group__bioparm__mod_1ga77db3a3cadc944b4d3281d594a1a7e14" kind="variable"><name>ef</name></member>
+    <member refid="group__bioparm__mod_1ga806953992f53918ecfc7cbcae045f986" kind="variable"><name>ef</name></member>
     <member refid="group__bioparm__inputs_1ga1342016f0561cc46f8847e28a68f85a3" kind="variable"><name>emi_ind</name></member>
     <member refid="group__bioparm__inputs_1ga34d958443bb758c009907096dd51c3d9" kind="variable"><name>emissions</name></member>
     <member refid="group__bioparm__inputs_1ga74e550465e192400c58554b99978f986" kind="variable"><name>et</name></member>
@@ -949,6 +951,8 @@
     <member refid="group__bioparm__inputs_1gadf0c96371725f0ce9141054a08e8dff7" kind="variable"><name>index</name></member>
     <member refid="group__bioparm__inputs_1gacd390ea767ea8b3b515834ad9ddd6e18" kind="variable"><name>input</name></member>
     <member refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kind="variable"><name>integer</name></member>
+    <member refid="group__bioparm__inputs_1ga5a02a2ee9bc40ecd44667275def3484e" kind="variable"><name>lat</name></member>
+    <member refid="group__bioparm__inputs_1ga726cb5b0a200a44ab9f87eee5d71fb6c" kind="variable"><name>latitude</name></member>
     <member refid="group__bioparm__inputs_1ga34dcaaa416d6215720a0bb2112d9594b" kind="variable"><name>lu</name></member>
     <member refid="group__bioparm__inputs_1ga1adde842497949967a630320b18ef99a" kind="variable"><name>lu_opt</name></member>
     <member refid="group__bioparm__inputs_1ga1d757f56db7b634f3aa88f4ea25258d0" kind="variable"><name>mapped</name></member>
@@ -1306,7 +1310,7 @@
     <member refid="group__bioemi__mod_1ga85f95f0068fb483e57fb490e47f5a27d" kind="variable"><name>volume</name></member>
   </compound>
   <compound refid="group__bioparm__mod" kind="group"><name>bioparm_mod</name>
-    <member refid="group__bioparm__mod_1ga77db3a3cadc944b4d3281d594a1a7e14" kind="variable"><name>ef</name></member>
+    <member refid="group__bioparm__mod_1ga806953992f53918ecfc7cbcae045f986" kind="variable"><name>ef</name></member>
     <member refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kind="variable"><name>out</name></member>
   </compound>
   <compound refid="group__canopy__app" kind="group"><name>canopy_app</name>
@@ -1940,6 +1944,8 @@
     <member refid="group__bioemi__inputs_1ga85f9d90ebd5aa9e8b1a392323edff0fe" kind="variable"><name>integration</name></member>
     <member refid="group__bioemi__inputs_1ga38bc68548927d88c2264445ba9045743" kind="variable"><name>interpolated</name></member>
     <member refid="group__bioemi__inputs_1gab74c833d8d67ad14f496a8e84c8facce" kind="variable"><name>lai</name></member>
+    <member refid="group__bioemi__inputs_1ga5a02a2ee9bc40ecd44667275def3484e" kind="variable"><name>lat</name></member>
+    <member refid="group__bioemi__inputs_1ga726cb5b0a200a44ab9f87eee5d71fb6c" kind="variable"><name>latitude</name></member>
     <member refid="group__bioemi__inputs_1ga123e94cde8c4241c6de88e944c1432ef" kind="variable"><name>layer</name></member>
     <member refid="group__bioemi__inputs_1gad42a63974f75318b36ecefde9cf490a0" kind="variable"><name>layers</name></member>
     <member refid="group__bioemi__inputs_1gaa272975ad6e14bc5e2335931223b7745" kind="variable"><name>leaf</name></member>
@@ -2058,6 +2064,8 @@
     <member refid="group__bioparm__inputs_1gadf0c96371725f0ce9141054a08e8dff7" kind="variable"><name>index</name></member>
     <member refid="group__bioparm__inputs_1gacd390ea767ea8b3b515834ad9ddd6e18" kind="variable"><name>input</name></member>
     <member refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kind="variable"><name>integer</name></member>
+    <member refid="group__bioparm__inputs_1ga5a02a2ee9bc40ecd44667275def3484e" kind="variable"><name>lat</name></member>
+    <member refid="group__bioparm__inputs_1ga726cb5b0a200a44ab9f87eee5d71fb6c" kind="variable"><name>latitude</name></member>
     <member refid="group__bioparm__inputs_1ga34dcaaa416d6215720a0bb2112d9594b" kind="variable"><name>lu</name></member>
     <member refid="group__bioparm__inputs_1ga1adde842497949967a630320b18ef99a" kind="variable"><name>lu_opt</name></member>
     <member refid="group__bioparm__inputs_1ga1d757f56db7b634f3aa88f4ea25258d0" kind="variable"><name>mapped</name></member>

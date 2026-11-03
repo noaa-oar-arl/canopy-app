@@ -48,6 +48,8 @@ _Get biogenic emission factors and parameters from MEGAN2.1._ [More...](#detaile
 |  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**index**](#variable-index)  <br> |
 |  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**input**](#variable-input)  <br> |
 |  integer, intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**integer**](#variable-integer)  <br> |
+|  real(rk), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**lat**](#variable-lat)  <br> |
+|  real(rk), dimension(degrees north), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**latitude**](#variable-latitude)  <br> |
 |  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**lu**](#variable-lu)  <br> |
 |  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**lu\_opt**](#variable-lu_opt)  <br> |
 |  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer), intent([**out**](canopy__bioparm__mod_8F90.md#variable-out)) | [**mapped**](#variable-mapped)  <br> |
@@ -132,6 +134,7 @@ The parameters are provided for different vegetation functional types and includ
 * `EMI_IND` Input biogenic emissions index 
 * `LU_OPT` Land use type option (0=VIIRS, 1=MODIS) 
 * `VTYPE` Grid cell dominant vegetation type 
+* `LAT` Grid cell or point latitude (degrees north, -90 to 90) 
 * `EF` Mapped emission factor (μg/m²/hr) 
 * `LDF` Light-dependent fraction 
 * `BETA` Empirical coefficient for temperature dependence of light-independent fraction 
@@ -325,6 +328,32 @@ integer, intent(in) input;
 
 ```Fortran
 integer, intent(in) integer;
+```
+
+
+
+
+<hr>
+
+
+
+### variable lat 
+
+```Fortran
+real(rk), intent(in) lat;
+```
+
+
+
+
+<hr>
+
+
+
+### variable latitude 
+
+```Fortran
+real(rk), dimension (degrees north), intent(in) latitude;
 ```
 
 

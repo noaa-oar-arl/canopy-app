@@ -587,7 +587,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -603,7 +603,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -619,7 +619,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -635,7 +635,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -651,7 +651,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -667,7 +667,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -683,7 +683,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -699,7 +699,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -715,7 +715,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -731,7 +731,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -747,7 +747,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -763,7 +763,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -779,7 +779,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -795,7 +795,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -811,7 +811,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -827,7 +827,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -843,7 +843,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -859,7 +859,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -875,7 +875,7 @@ SUBROUTINE canopy_calcs(nn)
                                             ppfd_sun24_3d(i,j,:), ppfd_shade24_3d(i,j,:), &
                                             tleaf_ave24_3d(i,j,:), ppfd_sun240_3d(i,j,:), ppfd_shade240_3d(i,j,:), &
                                             tleaf_ave240_3d(i,j,:), tka_3d(i,j,:), dswrfref, tmp2mref, &
-                                            lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                            lu_opt, vtyperef, lat2d(i,j), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                             leafage_opt, pastlai, currentlai, tsteplai,  &
                                             loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                             soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3173,7 +3173,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3189,7 +3189,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3205,7 +3205,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3221,7 +3221,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3237,7 +3237,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3253,7 +3253,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3269,7 +3269,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3285,7 +3285,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3301,7 +3301,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3317,7 +3317,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3333,7 +3333,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3349,7 +3349,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3365,7 +3365,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3381,7 +3381,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3397,7 +3397,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3413,7 +3413,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3429,7 +3429,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3445,7 +3445,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &
@@ -3461,7 +3461,7 @@ SUBROUTINE canopy_calcs(nn)
                                         ppfd_sun24(loc,:), ppfd_shade24(loc,:), &
                                         tleaf_ave24(loc,:), ppfd_sun240(loc,:), ppfd_shade240(loc,:), &
                                         tleaf_ave240(loc,:), tka(loc,:), dswrfref, tmp2mref, &
-                                        lu_opt, vtyperef, modres, bio_cce, biovert_opt, co2_opt, co2_set, &
+                                        lu_opt, vtyperef, lat1d(loc), modres, bio_cce, biovert_opt, co2_opt, co2_set, &
                                         leafage_opt, pastlai, currentlai, tsteplai,  &
                                         loss_opt, loss_set, loss_ind, lifetime, ustref, &
                                         soim_opt, soilw1ref, soilw2ref, soilw3ref, soilw4ref, &

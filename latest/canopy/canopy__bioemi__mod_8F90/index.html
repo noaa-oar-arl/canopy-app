@@ -2241,6 +2241,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#variable-lat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable lat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-latitude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        variable latitude
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#variable-layer" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4053,6 +4075,14 @@
 <td style="text-align: left;"><a href="#variable-lai"><strong>lai</strong></a>  <br></td>
 </tr>
 <tr>
+<td style="text-align: right;">real(rk), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-lat"><strong>lat</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">real(rk), dimension(degrees north), intent(<a href="../canopy__calcs_8F90/#variable-in"><strong>in</strong></a>)</td>
+<td style="text-align: left;"><a href="#variable-latitude"><strong>latitude</strong></a>  <br></td>
+</tr>
+<tr>
 <td style="text-align: right;">real(rk), intent(<a href="../canopy__bioparm__mod_8F90/#variable-out"><strong>out</strong></a>)</td>
 <td style="text-align: left;"><a href="#variable-layer"><strong>layer</strong></a>  <br></td>
 </tr>
@@ -5127,588 +5157,598 @@
 </code></pre></div>
 <hr>
 
+<h3 id="variable-lat">variable lat</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-118-1" name="__codelineno-118-1" href="#__codelineno-118-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lat</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h3 id="variable-latitude">variable latitude</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-119-1" name="__codelineno-119-1" href="#__codelineno-119-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">degrees</span><span class="w"> </span><span class="n">north</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">latitude</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
 <h3 id="variable-layer">variable layer</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-118-1" name="__codelineno-118-1" href="#__codelineno-118-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="n">layer</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-120-1" name="__codelineno-120-1" href="#__codelineno-120-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="n">layer</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-layers">variable layers</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-119-1" name="__codelineno-119-1" href="#__codelineno-119-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">layers</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-121-1" name="__codelineno-121-1" href="#__codelineno-121-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">layers</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ldf">variable ldf</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-120-1" name="__codelineno-120-1" href="#__codelineno-120-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">ldf</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-122-1" name="__codelineno-122-1" href="#__codelineno-122-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">ldf</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-leaf">variable leaf</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-121-1" name="__codelineno-121-1" href="#__codelineno-121-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">leaf</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-123-1" name="__codelineno-123-1" href="#__codelineno-123-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">leaf</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-leafage_opt">variable leafage_opt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-122-1" name="__codelineno-122-1" href="#__codelineno-122-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="o">=</span><span class="w"> </span><span class="n">on</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="w"> </span><span class="n">off</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">e</span><span class="p">.</span><span class="w"> </span><span class="n">gammaleafage</span><span class="w"> </span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">canopy_readnml</span><span class="p">.</span><span class="n">f90</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">leafage_opt</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-124-1" name="__codelineno-124-1" href="#__codelineno-124-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="o">=</span><span class="w"> </span><span class="n">on</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="w"> </span><span class="n">off</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">e</span><span class="p">.</span><span class="w"> </span><span class="n">gammaleafage</span><span class="w"> </span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">canopy_readnml</span><span class="p">.</span><span class="n">f90</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">leafage_opt</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-leafageopt">variable leafageopt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-123-1" name="__codelineno-123-1" href="#__codelineno-123-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">leafageopt</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-125-1" name="__codelineno-125-1" href="#__codelineno-125-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">leafageopt</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-leaves">variable leaves</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-124-1" name="__codelineno-124-1" href="#__codelineno-124-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">umol</span><span class="w"> </span><span class="n">phot</span><span class="o">/</span><span class="n">m2</span><span class="w"> </span><span class="n">s</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">leaves</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-126-1" name="__codelineno-126-1" href="#__codelineno-126-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">umol</span><span class="w"> </span><span class="n">phot</span><span class="o">/</span><span class="n">m2</span><span class="w"> </span><span class="n">s</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">leaves</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-lifetime">variable lifetime</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-125-1" name="__codelineno-125-1" href="#__codelineno-125-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lifetime</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-127-1" name="__codelineno-127-1" href="#__codelineno-127-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lifetime</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-loss">variable loss</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-126-1" name="__codelineno-126-1" href="#__codelineno-126-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">loss</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-128-1" name="__codelineno-128-1" href="#__codelineno-128-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">loss</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-loss_opt">variable loss_opt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-127-1" name="__codelineno-127-1" href="#__codelineno-127-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">loss_opt</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-129-1" name="__codelineno-129-1" href="#__codelineno-129-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">loss_opt</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-lossind">variable lossind</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-128-1" name="__codelineno-128-1" href="#__codelineno-128-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lossind</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-130-1" name="__codelineno-130-1" href="#__codelineno-130-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lossind</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-lossopt">variable lossopt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-129-1" name="__codelineno-129-1" href="#__codelineno-129-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lossopt</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-131-1" name="__codelineno-131-1" href="#__codelineno-131-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lossopt</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-lossset">variable lossset</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-130-1" name="__codelineno-130-1" href="#__codelineno-130-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lossset</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-132-1" name="__codelineno-132-1" href="#__codelineno-132-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lossset</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-low">variable low</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-131-1" name="__codelineno-131-1" href="#__codelineno-131-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">low</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-133-1" name="__codelineno-133-1" href="#__codelineno-133-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">low</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ltopt">variable ltopt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-132-1" name="__codelineno-132-1" href="#__codelineno-132-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ltopt</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-134-1" name="__codelineno-134-1" href="#__codelineno-134-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ltopt</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-lu">variable lu</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-133-1" name="__codelineno-133-1" href="#__codelineno-133-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lu</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-135-1" name="__codelineno-135-1" href="#__codelineno-135-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lu</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-lu_opt">variable lu_opt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-134-1" name="__codelineno-134-1" href="#__codelineno-134-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lu_opt</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-136-1" name="__codelineno-136-1" href="#__codelineno-136-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">lu_opt</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m">variable m</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-135-1" name="__codelineno-135-1" href="#__codelineno-135-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-137-1" name="__codelineno-137-1" href="#__codelineno-137-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-m3">variable m3</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-136-1" name="__codelineno-136-1" href="#__codelineno-136-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">m3</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-138-1" name="__codelineno-138-1" href="#__codelineno-138-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">m3</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-mapped">variable mapped</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-137-1" name="__codelineno-137-1" href="#__codelineno-137-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">mapped</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-139-1" name="__codelineno-139-1" href="#__codelineno-139-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">mapped</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-massman">variable massman</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-138-1" name="__codelineno-138-1" href="#__codelineno-138-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">massman</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-140-1" name="__codelineno-140-1" href="#__codelineno-140-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">massman</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-maximum">variable maximum</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-139-1" name="__codelineno-139-1" href="#__codelineno-139-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">maximum</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-141-1" name="__codelineno-141-1" href="#__codelineno-141-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">maximum</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-megan">variable megan</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-140-1" name="__codelineno-140-1" href="#__codelineno-140-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">megan</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-142-1" name="__codelineno-142-1" href="#__codelineno-142-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">megan</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-minimum">variable minimum</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-141-1" name="__codelineno-141-1" href="#__codelineno-141-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">minimum</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-143-1" name="__codelineno-143-1" href="#__codelineno-143-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">minimum</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-model">variable model</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-142-1" name="__codelineno-142-1" href="#__codelineno-142-1"></a><span class="kt">integer </span><span class="k">save </span><span class="n">model</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-144-1" name="__codelineno-144-1" href="#__codelineno-144-1"></a><span class="kt">integer </span><span class="k">save </span><span class="n">model</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-modlays">variable modlays</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-143-1" name="__codelineno-143-1" href="#__codelineno-143-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">modlays</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-145-1" name="__codelineno-145-1" href="#__codelineno-145-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">modlays</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-modres">variable modres</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-144-1" name="__codelineno-144-1" href="#__codelineno-144-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">modres</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-146-1" name="__codelineno-146-1" href="#__codelineno-146-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">modres</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-moisture">variable moisture</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-145-1" name="__codelineno-145-1" href="#__codelineno-145-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">moisture</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-147-1" name="__codelineno-147-1" href="#__codelineno-147-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">moisture</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-number">variable number</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-146-1" name="__codelineno-146-1" href="#__codelineno-146-1"></a><span class="kt">integer </span><span class="k">save </span><span class="n">number</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-148-1" name="__codelineno-148-1" href="#__codelineno-148-1"></a><span class="kt">integer </span><span class="k">save </span><span class="n">number</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-of">variable of</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-147-1" name="__codelineno-147-1" href="#__codelineno-147-1"></a><span class="kt">integer </span><span class="k">save </span><span class="n">of</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-149-1" name="__codelineno-149-1" href="#__codelineno-149-1"></a><span class="kt">integer </span><span class="k">save </span><span class="n">of</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-only">variable only</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-148-1" name="__codelineno-148-1" href="#__codelineno-148-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="k">only</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-150-1" name="__codelineno-150-1" href="#__codelineno-150-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="k">only</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-option">variable option</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-149-1" name="__codelineno-149-1" href="#__codelineno-149-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">/</span><span class="n">no</span><span class="w"> </span><span class="n">integration</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">option</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-151-1" name="__codelineno-151-1" href="#__codelineno-151-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">/</span><span class="n">no</span><span class="w"> </span><span class="n">integration</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">option</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-or">variable or</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-150-1" name="__codelineno-150-1" href="#__codelineno-150-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="nb">or</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-152-1" name="__codelineno-152-1" href="#__codelineno-152-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="nb">or</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-output">variable output</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-151-1" name="__codelineno-151-1" href="#__codelineno-151-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="n">output</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-153-1" name="__codelineno-153-1" href="#__codelineno-153-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="n">output</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ozone">variable ozone</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-152-1" name="__codelineno-152-1" href="#__codelineno-152-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ozone</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-154-1" name="__codelineno-154-1" href="#__codelineno-154-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ozone</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-past">variable past</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-153-1" name="__codelineno-153-1" href="#__codelineno-153-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">past</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-155-1" name="__codelineno-155-1" href="#__codelineno-155-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">past</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-pastlai">variable pastlai</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-154-1" name="__codelineno-154-1" href="#__codelineno-154-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">pastlai</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-156-1" name="__codelineno-156-1" href="#__codelineno-156-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">pastlai</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-photolysis">variable photolysis</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-155-1" name="__codelineno-155-1" href="#__codelineno-155-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">photolysis</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-157-1" name="__codelineno-157-1" href="#__codelineno-157-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">photolysis</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-point">variable point</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-156-1" name="__codelineno-156-1" href="#__codelineno-156-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">point</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-158-1" name="__codelineno-158-1" href="#__codelineno-158-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">point</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ppfd">variable ppfd</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-157-1" name="__codelineno-157-1" href="#__codelineno-157-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-159-1" name="__codelineno-159-1" href="#__codelineno-159-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ppfd0_shade">variable ppfd0_shade</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-158-1" name="__codelineno-158-1" href="#__codelineno-158-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">parameter </span><span class="n">ppfd0_shade</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-160-1" name="__codelineno-160-1" href="#__codelineno-160-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">parameter </span><span class="n">ppfd0_shade</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ppfd0_sun">variable ppfd0_sun</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-159-1" name="__codelineno-159-1" href="#__codelineno-159-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">parameter </span><span class="n">ppfd0_sun</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-161-1" name="__codelineno-161-1" href="#__codelineno-161-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">parameter </span><span class="n">ppfd0_sun</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ppfd240_shade">variable ppfd240_shade</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-160-1" name="__codelineno-160-1" href="#__codelineno-160-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd240_shade</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-162-1" name="__codelineno-162-1" href="#__codelineno-162-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd240_shade</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ppfd240_sun">variable ppfd240_sun</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-161-1" name="__codelineno-161-1" href="#__codelineno-161-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd240_sun</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-163-1" name="__codelineno-163-1" href="#__codelineno-163-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd240_sun</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ppfd24_shade">variable ppfd24_shade</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-162-1" name="__codelineno-162-1" href="#__codelineno-162-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd24_shade</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-164-1" name="__codelineno-164-1" href="#__codelineno-164-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd24_shade</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ppfd24_sun">variable ppfd24_sun</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-163-1" name="__codelineno-163-1" href="#__codelineno-163-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd24_sun</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-165-1" name="__codelineno-165-1" href="#__codelineno-165-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd24_sun</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ppfd_shade">variable ppfd_shade</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-164-1" name="__codelineno-164-1" href="#__codelineno-164-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd_shade</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-166-1" name="__codelineno-166-1" href="#__codelineno-166-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd_shade</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ppfd_sun">variable ppfd_sun</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-165-1" name="__codelineno-165-1" href="#__codelineno-165-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd_sun</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-167-1" name="__codelineno-167-1" href="#__codelineno-167-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppfd_sun</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ppm">variable ppm</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-166-1" name="__codelineno-166-1" href="#__codelineno-166-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppm</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-168-1" name="__codelineno-168-1" href="#__codelineno-168-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppm</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ppmv">variable ppmv</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-167-1" name="__codelineno-167-1" href="#__codelineno-167-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppmv</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-169-1" name="__codelineno-169-1" href="#__codelineno-169-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ppmv</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-proportion">variable proportion</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-168-1" name="__codelineno-168-1" href="#__codelineno-168-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">proportion</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-170-1" name="__codelineno-170-1" href="#__codelineno-170-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">proportion</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-radiation">variable radiation</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-169-1" name="__codelineno-169-1" href="#__codelineno-169-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="n">m2</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">radiation</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-171-1" name="__codelineno-171-1" href="#__codelineno-171-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="n">m2</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">radiation</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-resolution">variable resolution</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-170-1" name="__codelineno-170-1" href="#__codelineno-170-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">resolution</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-172-1" name="__codelineno-172-1" href="#__codelineno-172-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">resolution</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-roota">variable roota</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-171-1" name="__codelineno-171-1" href="#__codelineno-171-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">roota</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-173-1" name="__codelineno-173-1" href="#__codelineno-173-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">roota</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-rootb">variable rootb</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-172-1" name="__codelineno-172-1" href="#__codelineno-172-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">rootb</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-174-1" name="__codelineno-174-1" href="#__codelineno-174-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">rootb</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-set">variable set</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-173-1" name="__codelineno-173-1" href="#__codelineno-173-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">set</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-175-1" name="__codelineno-175-1" href="#__codelineno-175-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">set</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-shaded">variable shaded</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-174-1" name="__codelineno-174-1" href="#__codelineno-174-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">shaded</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-176-1" name="__codelineno-176-1" href="#__codelineno-176-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">shaded</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-shortwave">variable shortwave</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-175-1" name="__codelineno-175-1" href="#__codelineno-175-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">shortwave</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-177-1" name="__codelineno-177-1" href="#__codelineno-177-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">shortwave</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-soid1">variable soid1</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-176-1" name="__codelineno-176-1" href="#__codelineno-176-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soid1</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-178-1" name="__codelineno-178-1" href="#__codelineno-178-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soid1</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-soid2">variable soid2</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-177-1" name="__codelineno-177-1" href="#__codelineno-177-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soid2</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-179-1" name="__codelineno-179-1" href="#__codelineno-179-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soid2</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-soid3">variable soid3</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-178-1" name="__codelineno-178-1" href="#__codelineno-178-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soid3</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-180-1" name="__codelineno-180-1" href="#__codelineno-180-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soid3</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-soid4">variable soid4</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-179-1" name="__codelineno-179-1" href="#__codelineno-179-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soid4</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-181-1" name="__codelineno-181-1" href="#__codelineno-181-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soid4</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-soil">variable soil</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-180-1" name="__codelineno-180-1" href="#__codelineno-180-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soil</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-182-1" name="__codelineno-182-1" href="#__codelineno-182-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soil</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-soim1">variable soim1</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-181-1" name="__codelineno-181-1" href="#__codelineno-181-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soim1</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-183-1" name="__codelineno-183-1" href="#__codelineno-183-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soim1</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-soim2">variable soim2</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-182-1" name="__codelineno-182-1" href="#__codelineno-182-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soim2</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-184-1" name="__codelineno-184-1" href="#__codelineno-184-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soim2</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-soim3">variable soim3</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-183-1" name="__codelineno-183-1" href="#__codelineno-183-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soim3</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-185-1" name="__codelineno-185-1" href="#__codelineno-185-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soim3</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-soim4">variable soim4</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-184-1" name="__codelineno-184-1" href="#__codelineno-184-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soim4</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-186-1" name="__codelineno-186-1" href="#__codelineno-186-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soim4</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-soimopt">variable soimopt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-185-1" name="__codelineno-185-1" href="#__codelineno-185-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soimopt</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-187-1" name="__codelineno-187-1" href="#__codelineno-187-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">soimopt</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-specie">variable specie</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-186-1" name="__codelineno-186-1" href="#__codelineno-186-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">specie</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-188-1" name="__codelineno-188-1" href="#__codelineno-188-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">specie</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-species">variable species</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-187-1" name="__codelineno-187-1" href="#__codelineno-187-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">species</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-189-1" name="__codelineno-189-1" href="#__codelineno-189-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">species</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-specific">variable specific</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-188-1" name="__codelineno-188-1" href="#__codelineno-188-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">specific</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-190-1" name="__codelineno-190-1" href="#__codelineno-190-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">specific</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-speed">variable speed</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-189-1" name="__codelineno-189-1" href="#__codelineno-189-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">speed</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-191-1" name="__codelineno-191-1" href="#__codelineno-191-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">speed</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-stress">variable stress</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-190-1" name="__codelineno-190-1" href="#__codelineno-190-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">stress</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-192-1" name="__codelineno-192-1" href="#__codelineno-192-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">stress</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-summing">variable summing</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-191-1" name="__codelineno-191-1" href="#__codelineno-191-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">summing</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-193-1" name="__codelineno-193-1" href="#__codelineno-193-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">summing</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-sunlit">variable sunlit</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-192-1" name="__codelineno-192-1" href="#__codelineno-192-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">sunlit</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-194-1" name="__codelineno-194-1" href="#__codelineno-194-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">sunlit</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-tabovecanopy">variable tabovecanopy</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-193-1" name="__codelineno-193-1" href="#__codelineno-193-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">tabovecanopy</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-195-1" name="__codelineno-195-1" href="#__codelineno-195-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">tabovecanopy</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-taq">variable taq</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-194-1" name="__codelineno-194-1" href="#__codelineno-194-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">taq</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-196-1" name="__codelineno-196-1" href="#__codelineno-196-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">taq</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-temp">variable temp</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-195-1" name="__codelineno-195-1" href="#__codelineno-195-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">k</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-197-1" name="__codelineno-197-1" href="#__codelineno-197-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">k</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-temp2">variable temp2</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-196-1" name="__codelineno-196-1" href="#__codelineno-196-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">temp2</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-198-1" name="__codelineno-198-1" href="#__codelineno-198-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">temp2</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-temperature">variable temperature</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-197-1" name="__codelineno-197-1" href="#__codelineno-197-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="o">/</span><span class="n">s</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">temperature</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-199-1" name="__codelineno-199-1" href="#__codelineno-199-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="o">/</span><span class="n">s</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">temperature</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-the">variable the</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-198-1" name="__codelineno-198-1" href="#__codelineno-198-1"></a><span class="kt">integer </span><span class="k">save </span><span class="n">the</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-200-1" name="__codelineno-200-1" href="#__codelineno-200-1"></a><span class="kt">integer </span><span class="k">save </span><span class="n">the</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-tht">variable tht</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-199-1" name="__codelineno-199-1" href="#__codelineno-199-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">tht</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-201-1" name="__codelineno-201-1" href="#__codelineno-201-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">tht</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-thw">variable thw</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-200-1" name="__codelineno-200-1" href="#__codelineno-200-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">thw</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-202-1" name="__codelineno-202-1" href="#__codelineno-202-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">thw</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-tka">variable tka</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-201-1" name="__codelineno-201-1" href="#__codelineno-201-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tka</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-203-1" name="__codelineno-203-1" href="#__codelineno-203-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tka</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-tleaf240_ave">variable tleaf240_ave</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-202-1" name="__codelineno-202-1" href="#__codelineno-202-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tleaf240_ave</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-204-1" name="__codelineno-204-1" href="#__codelineno-204-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tleaf240_ave</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-tleaf24_ave">variable tleaf24_ave</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-203-1" name="__codelineno-203-1" href="#__codelineno-203-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tleaf24_ave</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-205-1" name="__codelineno-205-1" href="#__codelineno-205-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tleaf24_ave</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-tleaf_opt">variable tleaf_opt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-204-1" name="__codelineno-204-1" href="#__codelineno-204-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">zk</span><span class="p">))</span><span class="w"> </span><span class="n">tleaf_opt</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-206-1" name="__codelineno-206-1" href="#__codelineno-206-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">zk</span><span class="p">))</span><span class="w"> </span><span class="n">tleaf_opt</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-tleaf_shade">variable tleaf_shade</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-205-1" name="__codelineno-205-1" href="#__codelineno-205-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tleaf_shade</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-207-1" name="__codelineno-207-1" href="#__codelineno-207-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tleaf_shade</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-tleaf_sun">variable tleaf_sun</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-206-1" name="__codelineno-206-1" href="#__codelineno-206-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tleaf_sun</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-208-1" name="__codelineno-208-1" href="#__codelineno-208-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tleaf_sun</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-tlt">variable tlt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-207-1" name="__codelineno-207-1" href="#__codelineno-207-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">tlt</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-209-1" name="__codelineno-209-1" href="#__codelineno-209-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">)</span><span class="w"> </span><span class="n">tlt</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-to">variable to</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-208-1" name="__codelineno-208-1" href="#__codelineno-208-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">to</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-210-1" name="__codelineno-210-1" href="#__codelineno-210-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">to</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-top">variable top</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-209-1" name="__codelineno-209-1" href="#__codelineno-209-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">top</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-211-1" name="__codelineno-211-1" href="#__codelineno-211-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">top</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-total">variable total</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-210-1" name="__codelineno-210-1" href="#__codelineno-210-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-212-1" name="__codelineno-212-1" href="#__codelineno-212-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-tsteplai">variable tsteplai</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-211-1" name="__codelineno-211-1" href="#__codelineno-211-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tsteplai</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-213-1" name="__codelineno-213-1" href="#__codelineno-213-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tsteplai</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-type">variable type</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-212-1" name="__codelineno-212-1" href="#__codelineno-212-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="k">type</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-214-1" name="__codelineno-214-1" href="#__codelineno-214-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="k">type</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-used">variable used</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-213-1" name="__codelineno-213-1" href="#__codelineno-213-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">used</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-215-1" name="__codelineno-215-1" href="#__codelineno-215-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">used</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-user">variable user</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-214-1" name="__codelineno-214-1" href="#__codelineno-214-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">user</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-216-1" name="__codelineno-216-1" href="#__codelineno-216-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">user</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-ustar">variable ustar</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-215-1" name="__codelineno-215-1" href="#__codelineno-215-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ustar</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-217-1" name="__codelineno-217-1" href="#__codelineno-217-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">ustar</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-value">variable value</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-216-1" name="__codelineno-216-1" href="#__codelineno-216-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-218-1" name="__codelineno-218-1" href="#__codelineno-218-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-vegetation">variable vegetation</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-217-1" name="__codelineno-217-1" href="#__codelineno-217-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">vegetation</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-219-1" name="__codelineno-219-1" href="#__codelineno-219-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">vegetation</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-velocity">variable velocity</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-218-1" name="__codelineno-218-1" href="#__codelineno-218-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="o">/</span><span class="n">s</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">velocity</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-220-1" name="__codelineno-220-1" href="#__codelineno-220-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="o">/</span><span class="n">s</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">velocity</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-vert">variable vert</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-219-1" name="__codelineno-219-1" href="#__codelineno-219-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">vert</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-221-1" name="__codelineno-221-1" href="#__codelineno-221-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">vert</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-vertical">variable vertical</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-220-1" name="__codelineno-220-1" href="#__codelineno-220-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">vertical</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-222-1" name="__codelineno-222-1" href="#__codelineno-222-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">vertical</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-voc">variable voc</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-221-1" name="__codelineno-221-1" href="#__codelineno-221-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">voc</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-223-1" name="__codelineno-223-1" href="#__codelineno-223-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">voc</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-volume">variable volume</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-222-1" name="__codelineno-222-1" href="#__codelineno-222-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="n">volume</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-224-1" name="__codelineno-224-1" href="#__codelineno-224-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="n">volume</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-volumetric">variable volumetric</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-223-1" name="__codelineno-223-1" href="#__codelineno-223-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">volumetric</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-225-1" name="__codelineno-225-1" href="#__codelineno-225-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">volumetric</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-vpgwt">variable vpgwt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-224-1" name="__codelineno-224-1" href="#__codelineno-224-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">zk</span><span class="p">))</span><span class="w"> </span><span class="n">vpgwt</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-226-1" name="__codelineno-226-1" href="#__codelineno-226-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">zk</span><span class="p">))</span><span class="w"> </span><span class="n">vpgwt</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-vtype">variable vtype</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-225-1" name="__codelineno-225-1" href="#__codelineno-225-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">vtype</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-227-1" name="__codelineno-227-1" href="#__codelineno-227-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">vtype</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-w126">variable w126</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-226-1" name="__codelineno-226-1" href="#__codelineno-226-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">w126</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-228-1" name="__codelineno-228-1" href="#__codelineno-228-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">w126</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-w126_ref">variable w126_ref</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-227-1" name="__codelineno-227-1" href="#__codelineno-227-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">w126_ref</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-229-1" name="__codelineno-229-1" href="#__codelineno-229-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">w126_ref</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-w126_set">variable w126_set</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-228-1" name="__codelineno-228-1" href="#__codelineno-228-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">w126_set</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-230-1" name="__codelineno-230-1" href="#__codelineno-230-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">w126_set</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-when">variable when</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-229-1" name="__codelineno-229-1" href="#__codelineno-229-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">when</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-231-1" name="__codelineno-231-1" href="#__codelineno-231-1"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">when</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-wilt">variable wilt</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-230-1" name="__codelineno-230-1" href="#__codelineno-230-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">wilt</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-232-1" name="__codelineno-232-1" href="#__codelineno-232-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">wilt</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-wilting">variable wilting</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-231-1" name="__codelineno-231-1" href="#__codelineno-231-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">wilting</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-233-1" name="__codelineno-233-1" href="#__codelineno-233-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">wilting</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-wind">variable wind</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-232-1" name="__codelineno-232-1" href="#__codelineno-232-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">wind</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-234-1" name="__codelineno-234-1" href="#__codelineno-234-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">wind</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-with">variable with</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-233-1" name="__codelineno-233-1" href="#__codelineno-233-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">with</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-235-1" name="__codelineno-235-1" href="#__codelineno-235-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">with</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 
 <h3 id="variable-zk">variable zk</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-234-1" name="__codelineno-234-1" href="#__codelineno-234-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">zk</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-236-1" name="__codelineno-236-1" href="#__codelineno-236-1"></a><span class="kt">real</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">zk</span><span class="p">;</span>
 </code></pre></div>
 <hr>
 

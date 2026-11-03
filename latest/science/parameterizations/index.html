@@ -459,6 +459,15 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#latitude-dependent-emission-factors">
+<span class="md-ellipsis">
+      
+        Latitude-Dependent Emission Factors
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#temperature-and-light-dependence">
 <span class="md-ellipsis">
       
@@ -716,6 +725,15 @@
 <span class="md-ellipsis">
       
         Conceptual Emission Calculation
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#latitude-dependent-emission-factors">
+<span class="md-ellipsis">
+      
+        Latitude-Dependent Emission Factors
       
     </span>
 </a>
@@ -1123,6 +1141,100 @@ of runtime parameters.</p>
 - <span class="arithmatex">\(\gamma_{AQ}\)</span>: air-quality stress factor
 - <span class="arithmatex">\(\gamma_{HT}\)</span> and <span class="arithmatex">\(\gamma_{LT}\)</span>: high- and low-temperature stress factors
 - <span class="arithmatex">\(\gamma_{HW}\)</span>: high-wind stress factor</p>
+<h3 id="latitude-dependent-emission-factors">Latitude-Dependent Emission Factors</h3>
+<p>For VIIRS (<code>lu_opt=0</code>) and MODIS (<code>lu_opt=1</code>), <code>canopy_calcs</code> passes each grid
+cell's or point's input latitude through <code>CANOPY_BIO</code> to <code>CANOPY_BIOP</code>. The
+same mapping is applied independently to all 19 emissions classes using their
+MEGAN2.1 emission factors (<code>EF1</code>--<code>EF15</code>).</p>
+<p>Regions use absolute latitude, identically in both hemispheres:</p>
+<ul>
+<li><strong>Tropical:</strong> <span class="arithmatex">\(|\mathrm{latitude}| \leq 23.5^\circ\)</span>.</li>
+<li><strong>Temperate:</strong> <span class="arithmatex">\(23.5^\circ &lt; |\mathrm{latitude}| &lt; 66.5^\circ\)</span>.</li>
+<li><strong>Boreal:</strong> <span class="arithmatex">\(66.5^\circ \leq |\mathrm{latitude}| \leq 90^\circ\)</span>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>VIIRS/MODIS vegetation type</th>
+<th>Tropical</th>
+<th>Temperate</th>
+<th>Boreal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1: Evergreen needleleaf</td>
+<td>EF1</td>
+<td>EF1</td>
+<td>EF2</td>
+</tr>
+<tr>
+<td>2: Evergreen broadleaf</td>
+<td>EF4</td>
+<td>EF5</td>
+<td>EF5</td>
+</tr>
+<tr>
+<td>3: Deciduous needleleaf</td>
+<td>EF3</td>
+<td>EF3</td>
+<td>EF3</td>
+</tr>
+<tr>
+<td>4: Deciduous broadleaf</td>
+<td>EF6</td>
+<td>EF7</td>
+<td>EF8</td>
+</tr>
+<tr>
+<td>5: Mixed forest</td>
+<td>(EF4 + EF6) / 2</td>
+<td>(EF1 + EF5 + EF7) / 3</td>
+<td>(EF2 + EF3 + EF8) / 3</td>
+</tr>
+<tr>
+<td>6: Closed shrubland</td>
+<td>(EF9 + EF10) / 2</td>
+<td>(EF9 + EF10) / 2</td>
+<td>EF11</td>
+</tr>
+<tr>
+<td>7: Open shrubland</td>
+<td>(EF9 + EF10) / 2, then tuning below</td>
+<td>(EF9 + EF10) / 2, then tuning below</td>
+<td>EF11, then tuning below</td>
+</tr>
+<tr>
+<td>18--19: Wooded/mixed tundra</td>
+<td>(EF9 + EF10) / 2</td>
+<td>(EF9 + EF10) / 2</td>
+<td>EF11</td>
+</tr>
+</tbody>
+</table>
+<p>Where a vegetation type lacks a regional PFT, the nearest available regional
+factor is used: temperate evergreen needleleaf in the tropics, temperate
+evergreen broadleaf in boreal regions, and temperate shrubs in the tropics.
+Deciduous needleleaf has only a boreal PFT, so EF3 is retained everywhere.
+Mixed forests average only the tree PFTs belonging to the selected region.
+EF9 and EF10 both represent temperate shrubs (evergreen and deciduous), so
+their average is retained outside boreal regions rather than assigning either
+one to a tropical PFT.</p>
+<p>For open shrubland only (<code>VTYPE=7</code>), isoprene (<code>EMI_IND=1</code>) receives a
+provisional multiplier of <strong>0.5</strong> after regional EF selection. This reduces
+the isoprene EF from 3,000 to 1,500 micrograms per square meter per hour in
+tropical/temperate regions and from 4,000 to 2,000 in boreal regions.
+<code>OPEN_SHRUB_ISOP_SCALE</code> in <code>src/canopy_bioparm_mod.F90</code> controls this
+compile-time tuning; setting it to 1.0 restores the untuned EF.
+It applies globally and year-round, not just to Australia in January.
+It is a sensitivity-tuning approximation, not a measured shrub-cover fraction
+or a validated MEGAN correction, and does not use <code>canfrac</code> or alter LAI.
+Closed shrublands, tundra, other vegetation types, other species, and all
+non-EF parameters are unaffected.</p>
+<p>The existing grass/savanna/wetland mapping for types 8--11, crop mappings for
+types 12 and 14, zero emissions for unsupported vegetation types, root-depth
+coefficients, and other response parameters are unchanged. Non-finite
+latitudes and latitudes outside [-90, 90] cause an explicit error and exit.</p>
 <h3 id="temperature-and-light-dependence">Temperature and Light Dependence</h3>
 <div class="arithmatex">\[
 \gamma_{T,P} = C_T \cdot C_L

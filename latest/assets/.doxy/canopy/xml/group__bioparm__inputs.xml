@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1gafc13aed788d858b9bf358cdd2be45780" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="84" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="84" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="86" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1gad110a1509d07af257cd51455743bc1aa" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="86" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="86" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="88" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga1efa0211799eff1381d5f6de279712af" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="86" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="86" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="88" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga1342016f0561cc46f8847e28a68f85a3" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="84" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="84" bodyend="84"/>
+        <location file="src/canopy_bioparm_mod.F90" line="86" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="86" bodyend="86"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga34d958443bb758c009907096dd51c3d9" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="84" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="84" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="86" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga74e550465e192400c58554b99978f986" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1gaf446508c68e334894eee1a7ec50b62f3" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga32bbf1b788a888b78f4d52619d37c2ca" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga25c9480f7c514d836cff3378b70067db" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -132,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="86" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="86" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="88" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1gadf0c96371725f0ce9141054a08e8dff7" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="84" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="84" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="86" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1gacd390ea767ea8b3b515834ad9ddd6e18" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -158,7 +158,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="84" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="84" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="86" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" prot="public" static="no" mutable="no">
         <type>integer, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -171,7 +171,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioparm__inputs_1ga5a02a2ee9bc40ecd44667275def3484e" prot="public" static="no" mutable="no">
+        <type>real(rk), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), intent(in) lat</definition>
+        <argsstring></argsstring>
+        <name>lat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioparm_mod.F90" line="89" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="89" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__bioparm__inputs_1ga726cb5b0a200a44ab9f87eee5d71fb6c" prot="public" static="no" mutable="no">
+        <type>real(rk), dimension(degrees north), intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
+        <definition>real(rk), dimension (degrees north), intent(in) latitude</definition>
+        <argsstring></argsstring>
+        <name>latitude</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/canopy_bioparm_mod.F90" line="89" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga34dcaaa416d6215720a0bb2112d9594b" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -184,7 +210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga1adde842497949967a630320b18ef99a" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -197,7 +223,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="85"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="87"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga1d757f56db7b634f3aa88f4ea25258d0" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
@@ -210,7 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga59fb800b1b023f23c7ade2236eb0caa4" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -223,7 +249,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga54522ce9b216e4903ab080ea159401f0" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -236,7 +262,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga08c0b8620f03f74f743c134f326226cc" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -249,7 +275,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga8a12842f575a3d9029d6eb80ccd7f1fe" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -262,7 +288,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="85" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="85" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="87" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1ga10400d01350728079cf5765bdf59fc63" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -275,7 +301,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="86" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="86" bodyend="-1"/>
+        <location file="src/canopy_bioparm_mod.F90" line="88" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioparm__inputs_1gaa4b3d43d015fa3bca1ada7fb8ba71481" prot="public" static="no" mutable="no">
         <type><ref refid="group__bioparm__inputs_1ga865b9610b557a1dc75ed12a054e9ba17" kindref="member">integer</ref>, intent(<ref refid="group__calcs__local__vars_1gacdd9d1a065dd0149b22fdbf8260061ca" kindref="member">in</ref>)</type>
@@ -288,7 +314,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioparm_mod.F90" line="86" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="86" bodyend="86"/>
+        <location file="src/canopy_bioparm_mod.F90" line="88" column="1" bodyfile="src/canopy_bioparm_mod.F90" bodystart="88" bodyend="88"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -333,6 +359,14 @@
 </parameternamelist>
 <parameterdescription>
 <para>Grid cell dominant vegetation type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LAT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Grid cell or point latitude (degrees north, -90 to 90) </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>

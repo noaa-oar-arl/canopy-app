@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioemi_mod.F90" line="189" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="189" bodyend="189"/>
+        <location file="src/canopy_bioemi_mod.F90" line="191" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="191" bodyend="191"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__mod_1ga65430e486ef52dadf8ccefa11cfd147c" prot="public" static="no" mutable="no">
         <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioemi_mod.F90" line="189" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="189" bodyend="-1"/>
+        <location file="src/canopy_bioemi_mod.F90" line="191" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="191" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__bioemi__mod_1ga85f95f0068fb483e57fb490e47f5a27d" prot="public" static="no" mutable="no">
         <type>real(rk), intent(<ref refid="group__bioparm__mod_1ga6641d8898ffd8f1abeb47fefcca405dc" kindref="member">out</ref>)</type>
@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/canopy_bioemi_mod.F90" line="189" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="189" bodyend="-1"/>
+        <location file="src/canopy_bioemi_mod.F90" line="191" column="1" bodyfile="src/canopy_bioemi_mod.F90" bodystart="191" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

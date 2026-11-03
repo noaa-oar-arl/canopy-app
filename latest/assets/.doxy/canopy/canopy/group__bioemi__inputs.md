@@ -106,6 +106,8 @@ _Calculate parameterized canopy biogenic emissions._ [More...](#detailed-descrip
 |  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**integration**](#variable-integration)  <br> |
 |  real(rk), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**interpolated**](#variable-interpolated)  <br> |
 |  real(rk), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**lai**](#variable-lai)  <br> |
+|  real(rk), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**lat**](#variable-lat)  <br> |
+|  real(rk), dimension(degrees north), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**latitude**](#variable-latitude)  <br> |
 |  real(rk), intent([**out**](canopy__bioparm__mod_8F90.md#variable-out)) | [**layer**](#variable-layer)  <br> |
 |  [**integer**](canopy__bioparm__mod_8F90.md#variable-integer), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**layers**](#variable-layers)  <br> |
 |  real(rk), intent([**in**](canopy__calcs_8F90.md#variable-in)) | [**leaf**](#variable-leaf)  <br> |
@@ -291,6 +293,7 @@ This subroutine computes biogenic volatile organic compound (BVOC) emissions fro
 * `TEMP2` Model input 2-m temperature (K) 
 * `LU_OPT` Land use type option from model mapped to Massman et al. 
 * `VTYPE` Grid cell dominant vegetation type 
+* `LAT` Grid cell or point latitude (degrees north, -90 to 90) 
 * `MODRES` Canopy model input vertical resolution (m) 
 * `CCE` MEGAN Canopy environment coefficient 
 * `VERT` MEGAN vertical integration option 
@@ -1251,6 +1254,32 @@ real(rk), intent(in) interpolated;
 
 ```Fortran
 integer save lai;
+```
+
+
+
+
+<hr>
+
+
+
+### variable lat 
+
+```Fortran
+real(rk), intent(in) lat;
+```
+
+
+
+
+<hr>
+
+
+
+### variable latitude 
+
+```Fortran
+real(rk), dimension (degrees north), intent(in) latitude;
 ```
 
 

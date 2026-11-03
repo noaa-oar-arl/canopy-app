@@ -52,7 +52,7 @@
 | Type | Name |
 | ---: | :--- |
 |  real(rk) [**function**](canopy__var3din__mod_8F90.md#variable-function), public | [**calccair**](#function-calccair) (pmbi pmbi, tki tki) <br> |
-|  real(rk) [**function**](canopy__var3din__mod_8F90.md#variable-function), public | [**calcdx**](#function-calcdx) (lat lat, dlon dlon) <br> |
+|  real(rk) [**function**](canopy__var3din__mod_8F90.md#variable-function), public | [**calcdx**](#function-calcdx) ([**lat**](canopy__bioparm__mod_8F90.md#variable-lat) lat, dlon dlon) <br> |
 |  real(rk) [**function**](canopy__var3din__mod_8F90.md#variable-function), public | [**calcflameh**](#function-calcflameh) (frp frp, dx dx, [**lu\_opt**](canopy__profile__mod_8F90.md#variable-lu_opt) lu\_opt, [**vtype**](canopy__profile__mod_8F90.md#variable-vtype) vtype, flameh\_cal flameh\_cal) <br> |
 |  real(rk) [**function**](canopy__var3din__mod_8F90.md#variable-function), public | [**calcpai**](#function-calcpai) (ch ch, canfrac canfrac) <br> |
 |  real(rk) [**function**](canopy__var3din__mod_8F90.md#variable-function), public | [**calcpressure**](#function-calcpressure) ([**zk**](canopy__var3din__mod_8F90.md#variable-zk) zk, zref zref, pmbzref pmbzref, tref tref, t0 t0) <br> |

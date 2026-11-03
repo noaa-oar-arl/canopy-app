@@ -258,6 +258,8 @@
 ## l
 
 * **lai** ([**canopy\_bioemi\_mod.F90**](canopy__bioemi__mod_8F90.md), [**canopy\_calcs.F90**](canopy__calcs_8F90.md), [**canopy\_phot\_mod.F90**](canopy__phot__mod_8F90.md), [**canopy\_profile\_mod.F90**](canopy__profile__mod_8F90.md))
+* **lat** ([**canopy\_bioemi\_mod.F90**](canopy__bioemi__mod_8F90.md), [**canopy\_bioparm\_mod.F90**](canopy__bioparm__mod_8F90.md))
+* **latitude** ([**canopy\_bioemi\_mod.F90**](canopy__bioemi__mod_8F90.md), [**canopy\_bioparm\_mod.F90**](canopy__bioparm__mod_8F90.md), [**canopy\_calcs.F90**](canopy__calcs_8F90.md))
 * **layer** ([**canopy\_bioemi\_mod.F90**](canopy__bioemi__mod_8F90.md))
 * **layers** ([**canopy\_bioemi\_mod.F90**](canopy__bioemi__mod_8F90.md))
 * **ldf** ([**canopy\_bioemi\_mod.F90**](canopy__bioemi__mod_8F90.md))
@@ -277,7 +279,6 @@
 * **lu\_opt** ([**canopy\_bioemi\_mod.F90**](canopy__bioemi__mod_8F90.md), [**canopy\_bioparm\_mod.F90**](canopy__bioparm__mod_8F90.md), [**canopy\_profile\_mod.F90**](canopy__profile__mod_8F90.md))
 * **lat1d** ([**canopy\_calcs.F90**](canopy__calcs_8F90.md))
 * **lat2d** ([**canopy\_calcs.F90**](canopy__calcs_8F90.md))
-* **latitude** ([**canopy\_calcs.F90**](canopy__calcs_8F90.md))
 * **loc** ([**canopy\_calcs.F90**](canopy__calcs_8F90.md), [**canopy\_txt\_io\_mod.F90**](canopy__txt__io__mod_8F90.md))
 * **location** ([**canopy\_calcs.F90**](canopy__calcs_8F90.md))
 * **lon1d** ([**canopy\_calcs.F90**](canopy__calcs_8F90.md))

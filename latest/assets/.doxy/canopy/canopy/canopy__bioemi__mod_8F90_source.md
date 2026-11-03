@@ -22,7 +22,7 @@ contains
         PPFD24_SHADE, TLEAF24_AVE,  &
         PPFD240_SUN, PPFD240_SHADE, &
         TLEAF240_AVE, TKA, DSWRF, TEMP2, LU_OPT, &
-        VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
+        VTYPE, LAT, MODRES, CCE, VERT, CO2OPT, CO2SET, &
         LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, &
         LOSSOPT, LOSSSET, LOSSIND, LIFETIME, USTAR, &
         SOIMOPT, SOIM1, SOIM2, SOIM3, SOIM4, SOID1, SOID2, SOID3, &
@@ -59,6 +59,7 @@ contains
         REAL(rk),    INTENT( IN )       :: temp2
         INTEGER,     INTENT( IN )       :: lu_opt
         INTEGER,     INTENT( IN )       :: vtype
+        REAL(rk),    INTENT( IN )       :: lat
         REAL(rk),    INTENT( IN )       :: modres
         REAL(rk),    INTENT( IN )       :: cce
         INTEGER,     INTENT( IN )       :: vert
@@ -167,7 +168,7 @@ contains
         tleaf_opt = 313.0_rk + (0.6_rk * (tleaf240_ave-297.0_rk)) !Guenther et al. (2012)
 
 ! Calculate emission species/plant-dependent mapped emission factors and other important coefficients for gamma terms
-        call canopy_biop(emi_ind, lu_opt, vtype, ef, ldf, beta, ct1, ceo, anew, agro, amat, aold, roota, rootb, &
+        call canopy_biop(emi_ind, lu_opt, vtype, lat, ef, ldf, beta, ct1, ceo, anew, agro, amat, aold, roota, rootb, &
             caq, taq, dtaq, cht, tht, dtht, clt, tlt, dtlt, chw, thw, dthw)
 
 !        print*,'CHT=',CHT,'THT=',THT,'DTHT=',DTHT

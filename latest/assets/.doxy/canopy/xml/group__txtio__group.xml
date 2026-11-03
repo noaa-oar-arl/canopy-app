@@ -170,14 +170,14 @@
         <references refid="group__canopy__options_1ga7967d0484fdd67b8bffa531dad3cbe3b" compoundref="canopy__canopts__mod_8F90" startline="30" endline="30">canopy_canopts_mod::infmt_opt</references>
         <references refid="group__canopy__variables_1gada47f9a8c459af63ae1dfdb22fae0c81" compoundref="canopy__canvars__mod_8F90" startline="256" endline="256">canopy_canvars_mod::kz</references>
         <references refid="group__canopy__variables_1ga89886e4d1947949bcda30cf66966457c" compoundref="canopy__canvars__mod_8F90" startline="237" endline="237">canopy_canvars_mod::lad</references>
-        <references refid="group__bioemi__inputs_1ga23a42344a064fa8bf4d52691a0034078" compoundref="canopy__bioemi__mod_8F90" startline="176" endline="176">modlays</references>
+        <references refid="group__bioemi__inputs_1ga23a42344a064fa8bf4d52691a0034078" compoundref="canopy__bioemi__mod_8F90" startline="178" endline="178">modlays</references>
         <references refid="group__spatial__domain_1ga9512cd840f763815a1fcf27eae91a5c4" compoundref="canopy__coord__mod_8F90" startline="38" endline="38">canopy_coord_mod::nlat</references>
         <references refid="group__spatial__domain_1gade13d14d702dbd983bed9336e17d6728" compoundref="canopy__coord__mod_8F90" startline="40" endline="40">canopy_coord_mod::nlon</references>
         <references refid="group__canopy__variables_1gab7e4020d2366408a135f65db29dbdfbd" compoundref="canopy__canvars__mod_8F90" startline="258" endline="258">canopy_canvars_mod::rjcf</references>
         <references refid="group__calcs__local__vars_1gac885d6f077e71492930c3e248364f341" compoundref="canopy__calcs_8F90" startline="73">variables</references>
         <references refid="group__canopy__variables_1ga68900c23e0bc80acef9ae41ef9ec1407" compoundref="canopy__canvars__mod_8F90" startline="86" endline="86">canopy_canvars_mod::vdep_aero</references>
         <references refid="group__canopy__variables_1ga45e5161e0b16839d60ff92af9ec3c7ca" compoundref="canopy__canvars__mod_8F90" startline="250" endline="250">canopy_canvars_mod::waf</references>
-        <references refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" compoundref="canopy__bioemi__mod_8F90" startline="123" endline="123">zk</references>
+        <references refid="group__bioemi__inputs_1ga0de1e3c4cf52e6e7dfe8a094a67c2bd1" compoundref="canopy__bioemi__mod_8F90" startline="124" endline="124">zk</references>
         <references refid="group__canopy__variables_1ga5498bcc812b1eae32a26d31cad596db3" compoundref="canopy__canvars__mod_8F90" startline="254" endline="254">canopy_canvars_mod::zo_h</references>
         <referencedby refid="group__write__txt_1gaaa758bd839ed984e162eef9dbdc7038c" compoundref="canopy__write__txt_8F90" startline="23" endline="35">canopy_write_txt</referencedby>
       </memberdef>
