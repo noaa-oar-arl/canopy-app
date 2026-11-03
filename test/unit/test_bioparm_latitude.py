@@ -151,6 +151,8 @@ class RegionalFactorsTest(unittest.TestCase):
     @staticmethod
     def factor_indices(vtype, lat):
         tropical, boreal = abs(lat) <= 23.5, abs(lat) >= 66.5
+        if vtype in (8, 9, 10, 11):
+            return (14,) if tropical else (12,) if boreal else (13,)
         return {
             1: (2,) if boreal else (1,),
             2: (4,) if tropical else (5,),
@@ -158,7 +160,6 @@ class RegionalFactorsTest(unittest.TestCase):
             4: (6,) if tropical else (8,) if boreal else (7,),
             5: (4, 6) if tropical else (2, 3, 8) if boreal else (1, 5, 7),
             **dict.fromkeys((6, 7, 18, 19), (11,) if boreal else (9, 10)),
-            **dict.fromkeys((8, 9, 10, 11), (12, 13, 14)),
             12: (15,),
             14: (15,),
         }.get(vtype, ())

@@ -1690,9 +1690,14 @@ contains
                 ROOTB = (1.567_rk + 1.262_rk)/2.0_rk
 
             else if (VTYPE .ge. 8 .and. VTYPE .le. 11) then !VIIRS/MODIS Cat 8-10 Savannas and Grasslands
-                !--> Avearge Arctic C3 Grass, Cool C3 Grass, Warm C4 Grass)
-
-                EF = (EF12+EF13+EF14)/3.0_rk
+                ! Select the grass PFT representative of the latitude region.
+                if (IS_TROPICAL) then
+                    EF = EF14
+                else if (IS_BOREAL) then
+                    EF = EF12
+                else
+                    EF = EF13
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 ROOTA = (7.604_rk + 8.235_rk + 10.74_rk)/3.0_rk
