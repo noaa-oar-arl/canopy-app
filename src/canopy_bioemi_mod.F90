@@ -60,6 +60,7 @@ contains
 !! \param[in] TEMP2 Model input 2-m temperature (K)
 !! \param[in] LU_OPT Land use type option from model mapped to Massman et al.
 !! \param[in] VTYPE Grid cell dominant vegetation type
+!! \param[in] LAT Grid cell or point latitude (degrees north, -90 to 90)
 !! \param[in] MODRES Canopy model input vertical resolution (m)
 !! \param[in] CCE MEGAN Canopy environment coefficient
 !! \param[in] VERT MEGAN vertical integration option
@@ -101,7 +102,7 @@ contains
         PPFD24_SHADE, TLEAF24_AVE,  &
         PPFD240_SUN, PPFD240_SHADE, &
         TLEAF240_AVE, TKA, DSWRF, TEMP2, LU_OPT, &
-        VTYPE, MODRES, CCE, VERT, CO2OPT, CO2SET, &
+        VTYPE, LAT, MODRES, CCE, VERT, CO2OPT, CO2SET, &
         LEAFAGEOPT, PASTLAI, CURRENTLAI, TSTEPLAI, &
         LOSSOPT, LOSSSET, LOSSIND, LIFETIME, USTAR, &
         SOIMOPT, SOIM1, SOIM2, SOIM3, SOIM4, SOID1, SOID2, SOID3, &
@@ -143,6 +144,7 @@ contains
         REAL(RK),    INTENT( IN )       :: TEMP2           !> Model input 2-m Temperature (K)
         INTEGER,     INTENT( IN )       :: LU_OPT          !> integer for LU type from model mapped to Massman et al. (default = 0/VIIRS)
         INTEGER,     INTENT( IN )       :: VTYPE           !> Grid cell dominant vegetation type
+        REAL(RK),    INTENT( IN )       :: LAT             !> Latitude (degrees north)
         REAL(RK),    INTENT( IN )       :: MODRES          !> Canopy model input vertical resolution (m)
         REAL(RK),    INTENT( IN )       :: CCE             !> MEGAN Canopy environment coefficient.
         INTEGER,     INTENT( IN )       :: VERT            !> MEGAN vertical integration option (default = 0/no integration)
@@ -310,7 +312,7 @@ contains
         TLEAF_OPT = 313.0_rk + (0.6_rk * (TLEAF240_AVE-297.0_rk)) !Guenther et al. (2012)
 
 ! Calculate emission species/plant-dependent mapped emission factors and other important coefficients for gamma terms
-        call canopy_biop(EMI_IND, LU_OPT, VTYPE, EF, LDF, BETA, CT1, CEO, ANEW, AGRO, AMAT, AOLD, ROOTA, ROOTB, &
+        call canopy_biop(EMI_IND, LU_OPT, VTYPE, LAT, EF, LDF, BETA, CT1, CEO, ANEW, AGRO, AMAT, AOLD, ROOTA, ROOTB, &
             CAQ, TAQ, DTAQ, CHT, THT, DTHT, CLT, TLT, DTLT, CHW, THW, DTHW)
 
 !        print*,'CHT=',CHT,'THT=',THT,'DTHT=',DTHT

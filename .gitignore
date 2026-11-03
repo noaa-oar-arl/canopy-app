@@ -4,6 +4,7 @@ test_*.txt
 test*.nc
 .vscode/
 test*/
+!/test/
 
 # Prerequisites
 *.d
