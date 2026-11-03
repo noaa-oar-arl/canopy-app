@@ -63,6 +63,9 @@ both hemispheres, the equator and poles, and values at and immediately around
 the 23.5 and 66.5 degree boundaries. It also checks that non-emission-factor
 parameters remain latitude-independent, that layer emissions scale with the
 selected factor, and that invalid latitudes produce an explicit error.
+It also verifies that the provisional open-shrubland isoprene tuning halves
+the EF and layer emissions relative to closed shrubland, while preserving
+other species and non-EF parameters.
 
 ### Test Framework
 

@@ -363,7 +363,8 @@ Regions use absolute latitude, identically in both hemispheres:
 | 3: Deciduous needleleaf | EF3 | EF3 | EF3 |
 | 4: Deciduous broadleaf | EF6 | EF7 | EF8 |
 | 5: Mixed forest | (EF4 + EF6) / 2 | (EF1 + EF5 + EF7) / 3 | (EF2 + EF3 + EF8) / 3 |
-| 6--7: Closed/open shrubland | (EF9 + EF10) / 2 | (EF9 + EF10) / 2 | EF11 |
+| 6: Closed shrubland | (EF9 + EF10) / 2 | (EF9 + EF10) / 2 | EF11 |
+| 7: Open shrubland | (EF9 + EF10) / 2, then tuning below | (EF9 + EF10) / 2, then tuning below | EF11, then tuning below |
 | 18--19: Wooded/mixed tundra | (EF9 + EF10) / 2 | (EF9 + EF10) / 2 | EF11 |
 
 Where a vegetation type lacks a regional PFT, the nearest available regional
@@ -374,6 +375,18 @@ Mixed forests average only the tree PFTs belonging to the selected region.
 EF9 and EF10 both represent temperate shrubs (evergreen and deciduous), so
 their average is retained outside boreal regions rather than assigning either
 one to a tropical PFT.
+
+For open shrubland only (`VTYPE=7`), isoprene (`EMI_IND=1`) receives a
+provisional multiplier of **0.5** after regional EF selection. This reduces
+the isoprene EF from 3,000 to 1,500 micrograms per square meter per hour in
+tropical/temperate regions and from 4,000 to 2,000 in boreal regions.
+`OPEN_SHRUB_ISOP_SCALE` in `src/canopy_bioparm_mod.F90` controls this
+compile-time tuning; setting it to 1.0 restores the untuned EF.
+It applies globally and year-round, not just to Australia in January.
+It is a sensitivity-tuning approximation, not a measured shrub-cover fraction
+or a validated MEGAN correction, and does not use `canfrac` or alter LAI.
+Closed shrublands, tundra, other vegetation types, other species, and all
+non-EF parameters are unaffected.
 
 The existing grass/savanna/wetland mapping for types 8--11, crop mappings for
 types 12 and 14, zero emissions for unsupported vegetation types, root-depth

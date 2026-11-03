@@ -175,8 +175,24 @@ class RegionalFactorsTest(unittest.TestCase):
                     if indices
                     else 0.0
                 )
+                if species == 1 and vtype == 7:
+                    expected *= 0.5
                 self.assertAlmostEqual(values[0], expected, places=10)
                 self.assertEqual(len(values), 25 if indices else 1)
+
+    def test_open_shrubland_isoprene_tuning(self):
+        for species, lu, lat in itertools.product(range(1, 20), (0, 1), LATITUDES):
+            with self.subTest(species=species, lu=lu, lat=lat):
+                closed = self.results[species, lu, 6, lat]
+                opened = self.results[species, lu, 7, lat]
+                scale = 0.5 if species == 1 else 1.0
+                self.assertEqual(opened[0], closed[0] * scale)
+                self.assertEqual(opened[1:23], closed[1:23])
+                for layer in (23, 24):
+                    self.assertGreater(closed[layer], 0.0)
+                    self.assertAlmostEqual(
+                        opened[layer] / closed[layer], scale, places=10
+                    )
 
     def test_other_parameters_remain_latitude_independent(self):
         for species, lu, vtype in itertools.product(

@@ -158,6 +158,9 @@ contains
         !> \brief Crop1 isoprene EF (μg/m²/hr)
         REAL(RK),          PARAMETER     :: EF15_ISOP   =  1.0_rk
 
+        ! Provisional sparse-cover tuning, not a MEGAN PFT fraction; 1.0 restores the untuned EF.
+        REAL(RK),          PARAMETER     :: OPEN_SHRUB_ISOP_SCALE = 0.5_rk
+
         !> \brief Isoprene leaf age factor for new foliage (Table 4 of Guenther et al., 2012)
         REAL(RK),          PARAMETER     :: ANEW_ISOP  = 0.05_rk
         !> \brief Isoprene leaf age factor for growing foliage (Table 4 of Guenther et al., 2012)
@@ -1684,6 +1687,9 @@ contains
 
             else if (VTYPE .ge. 6 .and. VTYPE .le. 7) then !VIIRS/MODIS Cat 6-7 Closed/Open Shrublands
                 EF = EF_SHRUB
+                if (VTYPE .eq. 7 .and. EMI_IND .eq. 1) then
+                    EF = EF * OPEN_SHRUB_ISOP_SCALE
+                end if
                 !Set PFT dependent A and B coefficients for cumulative root depth fraction (Zeng 2001)
                 !See Table 2 for IGPB Classification at:  https://journals.ametsoc.org/view/journals/hydr/2/5/1525-7541_2001_002_0525_gvrdfl_2_0_co_2.xml
                 ROOTA = (6.326_rk + 7.718_rk)/2.0_rk
